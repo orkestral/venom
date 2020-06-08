@@ -108,7 +108,7 @@ export async function create(
     spinnies.add('venom-version-spinner', {
       text: '🕷🕷🕷Checking for updates🕷🕷🕷',
     });
-    checkSullaVersion(spinnies);
+    checkVenomVersion(spinnies);
     updatesChecked = true;
   }
 
@@ -199,7 +199,7 @@ function grabQRUntilInside(
 /**
  * Checs for a new versoin of venom and logs
  */
-function checkSullaVersion(spinnies) {
+function checkVenomVersion(spinnies) {
   latestVersion('venom-bot').then((latest) => {
     if (!upToDate(version, latest)) {
       logUpdateAvailable(version, latest);
