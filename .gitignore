@@ -1,0 +1,11 @@
+node_modules
+dist
+session
+session-*
+app.js
+app.ts
+app2.js
+gohan.jpg
+006.png
+src/app.ts
+assets
