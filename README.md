@@ -66,7 +66,7 @@ venom.create('support').then((supportClient) => {...});
 Venom `create()` method third parameter can have the following optional parameters:
 
 ```javascript
-create('sessionName', qrCallback, {
+create('sessionName', qrCallback, statusFind, {
   headless: true, // Headless chrome
   devtools: false, // Open devtools by default
   useChrome: true, // If false will use Chromium instance
