@@ -82,7 +82,7 @@ create('sessionName', qrCallback, statusFind, {
 Gets the return if the session is `isLogged` or if it is `notLogged`
 
 ```javascript
-create('sessionName', (statusFind) => {
+create('sessionName', qrCallback, (statusFind) => {
   console.log(statusFind);
 })
   .then((client) => {
