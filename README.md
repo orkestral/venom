@@ -74,6 +74,7 @@ create('sessionName', qrCallback, statusFind, {
   logQR: true, // Logs QR automatically in terminal
   browserArgs: [''], // Parameters to be added into the chrome browser instance
   refreshQR: 15000, // Will refresh QR every 15 seconds, 0 will load QR once. Default is 30 seconds
+  disableSpins: true, // Will disable Spinnies animation, useful for containers (docker) for a better log
 });
 ```
 
