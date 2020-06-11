@@ -84,7 +84,7 @@ export async function create(
   statusFind?: (statusGet: string) => void,
   options?: CreateConfig
 ) {
-  const spinnies = new Spinnies();
+  const spinnies = new Spinnies({ disableSpins: options.disableSpins });
 
   console.log(`\n
 ▗▄ ▄ ▄  ▄▄▄ ▄   ▄▄▄  ▗▄▄▖▗▄▖ ▗▄▖▄▄▄▖                           
@@ -216,8 +216,8 @@ function checkVenomVersion(spinnies) {
  */
 function logUpdateAvailable(current: string, latest: string) {
   // prettier-ignore
-  const newVersionLog = 
-  `There is a new version of ${chalk.bold(`Venom`)} ${chalk.gray(current)} ➜  ${chalk.bold.green(latest)}\n` + 
+  const newVersionLog =
+  `There is a new version of ${chalk.bold(`Venom`)} ${chalk.gray(current)} ➜  ${chalk.bold.green(latest)}\n` +
   `Update your package by running:\n\n` +
   `${chalk.bold('\>')} ${chalk.blueBright('npm update @s2click/venom')}`;
 
