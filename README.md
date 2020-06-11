@@ -1,4 +1,4 @@
-# 🕷Venom Bot🕸
+# 🕷🕷Venom Bot🕸🕸
 
 ![enter image description here](https://s2.click/venom.jpg)
 
