@@ -444,7 +444,7 @@ Building venom is really simple altough it contians 3 main projects inside
 2. Middleeware
 
 ```bash
-> npm run build:build:middleware
+> npm run build:middleware
 > npm run build:jsQR
 ```
 
