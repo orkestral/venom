@@ -84,14 +84,14 @@ export class Whatsapp extends ControlsLayer {
   public async useHere() {
     await this.page.waitForFunction(
       () => {
-        const useHereClass = '._1WZqU.PNlAR';
+        const useHereClass = '.S7_rT.FV2Qy';
         return document.querySelector(useHereClass);
       },
       { timeout: 0 }
     );
 
     await this.page.evaluate(() => {
-      const useHereClass = '._1WZqU.PNlAR';
+      const useHereClass = '.S7_rT.FV2Qy';
       (<any>document.querySelector(useHereClass)).click();
     });
   }
