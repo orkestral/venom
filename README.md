@@ -66,7 +66,7 @@ venom.create('support').then((supportClient) => {...});
 Venom `create()` method third parameter can have the following optional parameters:
 
 ```javascript
-create('sessionName', qrCallback, {
+create('sessionName', qrCallback, statusFind, {
   headless: true, // Headless chrome
   devtools: false, // Open devtools by default
   useChrome: true, // If false will use Chromium instance
@@ -74,7 +74,9 @@ create('sessionName', qrCallback, {
   logQR: true // Logs QR automatically in terminal
   browserArgs: [''] // Parameters to be added into the chrome browser instance
   refreshQR: 15000, // Will refresh QR every 15 seconds, 0 will load QR once. Default is 30 seconds
+  disableSpins: true, // Will disable Spinnies animation, useful for containers (docker) for a better log
 });
+
 ```
 
 ## Callback Status Session
@@ -82,7 +84,7 @@ create('sessionName', qrCallback, {
 Gets the return if the session is `isLogged` or if it is `notLogged`
 
 ```javascript
-create('sessionName', (statusFind) => {
+create('sessionName', qrCallback, (statusFind) => {
   console.log(statusFind);
 })
   .then((client) => {
@@ -100,7 +102,7 @@ somewhere else heres how:
 const fs = require('fs');
 
 // Second create() parameter is the QR callback
-venom.create('session-marketing', (base64Qr, asciiQR) => {
+venom.create('sessionMarketing', (base64Qr, asciiQR) => {
   // To log the QR in the terminal
   console.log(asciiQR);
 
@@ -399,7 +401,7 @@ await client.sendMessageToId('5212234234@c.us', 'Hello from venom! 👋');
 #### Multiple sessions
 
 If you need to run multiple sessions at once just pass a session name to
-`create()` method.
+`create()` method, not use hyphen for name of sessions.
 
 ```javascript
 async () => {
@@ -443,7 +445,7 @@ Building venom is really simple altough it contians 3 main projects inside
 2. Middleeware
 
 ```bash
-> npm run build:build:middleware
+> npm run build:middleware
 > npm run build:jsQR
 ```
 
