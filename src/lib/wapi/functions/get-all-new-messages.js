@@ -56,11 +56,11 @@ all copyright reservation for S2 Click, Inc
 import { getAllChatsWithNewMessages } from './get-chats-with-new-messages';
 
 export const getAllNewMessages = function () {
-  const _newMessages = JSON.stringify(
+  const _newMessages =
     getAllChatsWithNewMessages()
-      .map((c) => WAPI.getChat(c.id._serialized))
-      .map((c) => c.msgs._models.filter((x) => x.isNewMsg)) || []
-  );
+      .map((c) => WAPI.getChat(c.id))
+      .flatMap((c) => c.msgs._models.filter((x) => x.isNewMsg))
+      .map(WAPI._serializeMessageObj) || [];
 
   return JSON.parse(_newMessages);
 };

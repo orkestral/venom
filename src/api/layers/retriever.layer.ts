@@ -263,7 +263,7 @@ export class RetrieverLayer extends SenderLayer {
    * @deprecated Use getAllUnreadMessages
    */
   public async getAllNewMessages() {
-    return this.page.evaluate(() => WAPI.getAllNewMessages());
+    return await this.page.evaluate(() => WAPI.getAllNewMessages());
   }
 
   /**

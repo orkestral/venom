@@ -59,6 +59,7 @@ import { HostLayer } from './host.layer';
 declare module WAPI {
   const setMyStatus: (to: string) => void;
   const setMyName: (name: string) => void;
+  const setProfilePic: (data: string) => Promise<boolean>;
 }
 
 export class ProfileLayer extends HostLayer {
@@ -79,6 +80,15 @@ export class ProfileLayer extends HostLayer {
     );
   }
 
+  /**
+   * Sets the user's current profile photo
+   * @param name
+   */
+  public async setProfilePic(data: string) {
+    return await this.page.evaluate(({ data }) => WAPI.setProfilePic(data), {
+      data,
+    });
+  }
   /**
    * Sets current user profile name
    * @param name

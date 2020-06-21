@@ -71,12 +71,11 @@ create('sessionName', qrCallback, statusFind, {
   devtools: false, // Open devtools by default
   useChrome: true, // If false will use Chromium instance
   debug: false, // Opens a debug session
-  logQR: true // Logs QR automatically in terminal
-  browserArgs: [''] // Parameters to be added into the chrome browser instance
+  logQR: true, // Logs QR automatically in terminal
+  browserArgs: [''], // Parameters to be added into the chrome browser instance
   refreshQR: 15000, // Will refresh QR every 15 seconds, 0 will load QR once. Default is 30 seconds
   disableSpins: true, // Will disable Spinnies animation, useful for containers (docker) for a better log
 });
-
 ```
 
 ## Callback Status Session
@@ -291,6 +290,9 @@ await client.setProfileStatus('On vacations! ✈️');
 
 // Set client profile name
 await client.setProfileName('Venom bot');
+
+// Set client profile photo
+await client.setProfilePic('path/to/image.jpg');
 ```
 
 ## Device Functions
