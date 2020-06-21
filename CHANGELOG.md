@@ -2,6 +2,20 @@
 
 _All notable changes to this project will be documented in this file. Dates are displayed in UTC._
 
+**1.0.7**
+
+20 June 2020
+
+add setProfilePic
+
+Fix bug getAllNewMessages
+
+**1.0.6**
+
+19 June 2020
+
+Fix bug not exist folder dist
+
 **1.0.5**
 
 19 June 2020
