@@ -172,7 +172,7 @@ await client.sendMentioned(chatId, 'Hello @5218113130740 and @5218243160777!', [
 // Reply to a message
 await client.reply(chatId, 'This is a reply!', message.id.toString());
 
-// Send file (sulla will take care of mime types, just need the path)
+// Send file (venom will take care of mime types, just need the path)
 await client.sendFile(chatId, 'path/to/file.pdf', 'cv.pdf', 'Curriculum');
 
 // Send gif
@@ -369,7 +369,7 @@ const profile = await client.getNumberProfile('0000000@c.us');
 
 ## Misc
 
-There are some tricks for a better usage of sulla.
+There are some tricks for a better usage of venom.
 
 #### Keep session alive:
 
