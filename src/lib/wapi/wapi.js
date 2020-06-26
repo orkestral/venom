@@ -136,6 +136,7 @@ import {
   openChat,
   openChatAt,
   getGroupInfoFromInviteLink,
+  joinGroup,
 } from './functions';
 import {
   base64ToFile,
@@ -201,6 +202,7 @@ window.WAPI.removeParticipant = removeParticipant;
 window.WAPI.addParticipant = addParticipant;
 window.WAPI.promoteParticipant = promoteParticipant;
 window.WAPI.demoteParticipant = demoteParticipant;
+window.WAPI.joinGroup = joinGroup;
 
 // Chatting functions
 window.WAPI.sendChatstate = sendChatstate;
