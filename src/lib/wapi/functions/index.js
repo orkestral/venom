@@ -78,6 +78,7 @@ export { getCommonGroups } from './get-common-groups';
 export { getContact } from './get-contact';
 export { getGroupAdmins } from './get-group-admins';
 export { getGroupInviteLink } from './get-group-invite-link';
+export { getGroupInfoFromInviteLink } from './get-group-info-from-invite-link';
 export { getGroupMetadata } from './get-group-metadata';
 export { getGroupParticipantIDs } from './get-group-participant-ids';
 export { _getGroupParticipants } from './get-group-participants';
