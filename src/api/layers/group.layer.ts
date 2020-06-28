@@ -73,6 +73,7 @@ declare module WAPI {
   const promoteParticipant: (groupId: string, contactId: string) => void;
   const demoteParticipant: (groupId: string, contactId: string) => void;
   const getGroupAdmins: (groupId: string) => Contact[];
+  const joinGroup: (groupId: string) => Promise<string | boolean>;
 }
 
 export class GroupLayer extends RetrieverLayer {
@@ -210,6 +211,20 @@ export class GroupLayer extends RetrieverLayer {
     return await this.page.evaluate(
       (chatId) => WAPI.getGroupAdmins(chatId),
       chatId
+    );
+  }
+  /**
+   * Join a group with invite code
+   * @param inviteCode
+   */
+  public async joinGroup(inviteCode: string) {
+    inviteCode = inviteCode.replace('chat.whatsapp.com/', '');
+    inviteCode = inviteCode.replace('invite/', '');
+    inviteCode = inviteCode.replace('https://', '');
+    inviteCode = inviteCode.replace('http://', '');
+    return await this.page.evaluate(
+      (inviteCode) => WAPI.joinGroup(inviteCode),
+      inviteCode
     );
   }
 }
