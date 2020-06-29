@@ -61,6 +61,7 @@ export interface CreateConfig {
   browserArgs?: string[];
   logQR?: boolean;
   refreshQR?: number;
+  autoClose?: number;
   disableSpins?: boolean;
 }
 
@@ -72,5 +73,6 @@ export const defaultOptions: CreateConfig = {
   logQR: true,
   browserArgs: [''],
   refreshQR: 30000,
+  autoClose: 60000,
   disableSpins: false,
 };
