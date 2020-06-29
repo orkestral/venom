@@ -2,6 +2,12 @@
 
 _All notable changes to this project will be documented in this file. Dates are displayed in UTC._
 
+**1.0.8**
+
+29 June 2020
+
+fix reply (with mention)
+
 **1.0.7**
 
 20 June 2020

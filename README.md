@@ -173,6 +173,14 @@ await client.sendMentioned(chatId, 'Hello @5218113130740 and @5218243160777!', [
 // Reply to a message
 await client.reply(chatId, 'This is a reply!', message.id.toString());
 
+// Reply to a message with mention
+await client.reply(
+  chatId,
+  'Hello @5218113130740 and @5218243160777! This is a reply with mention!',
+  message.id.toString(),
+  ['5218113130740', '5218243160777']
+);
+
 // Send file (venom will take care of mime types, just need the path)
 await client.sendFile(chatId, 'path/to/file.pdf', 'cv.pdf', 'Curriculum');
 
