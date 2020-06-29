@@ -280,6 +280,12 @@ await client.demoteParticipant(groupId, '123123@c.us');
 
 // Get group admins
 await client.getGroupAdmins(groupId);
+
+// Return the group status, jid, description from it's invite link
+await client.getGroupInfoFromInviteLink(InviteCode);
+
+// Join a group using the group invite code
+await client.joinGroup(InviteCode);
 ```
 
 ## Profile Functions
