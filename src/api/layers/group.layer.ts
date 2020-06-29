@@ -61,6 +61,9 @@ declare module WAPI {
   const leaveGroup: (groupId: string) => any;
   const getGroupParticipantIDs: (groupId: string) => Id[];
   const getGroupInviteLink: (chatId: string) => Promise<string>;
+  const getGroupInfoFromInviteLink: (
+    inviteCode: string
+  ) => Promise<string | boolean>;
   const createGroup: (
     groupName: string,
     contactId: string | string[]
@@ -70,6 +73,7 @@ declare module WAPI {
   const promoteParticipant: (groupId: string, contactId: string) => void;
   const demoteParticipant: (groupId: string, contactId: string) => void;
   const getGroupAdmins: (groupId: string) => Contact[];
+  const joinGroup: (groupId: string) => Promise<string | boolean>;
 }
 
 export class GroupLayer extends RetrieverLayer {
@@ -117,6 +121,21 @@ export class GroupLayer extends RetrieverLayer {
     return await this.page.evaluate(
       (chatId) => WAPI.getGroupInviteLink(chatId),
       chatId
+    );
+  }
+  /**
+   * Generates group-invite link
+   * @param inviteCode
+   * @returns Invite code from group link. Example: CMJYfPFqRyE2GxrnkldYED
+   */
+  public async getGroupInfoFromInviteLink(inviteCode: string) {
+    inviteCode = inviteCode.replace('chat.whatsapp.com/', '');
+    inviteCode = inviteCode.replace('invite/', '');
+    inviteCode = inviteCode.replace('https://', '');
+    inviteCode = inviteCode.replace('http://', '');
+    return await this.page.evaluate(
+      (inviteCode) => WAPI.getGroupInfoFromInviteLink(inviteCode),
+      inviteCode
     );
   }
 
@@ -192,6 +211,20 @@ export class GroupLayer extends RetrieverLayer {
     return await this.page.evaluate(
       (chatId) => WAPI.getGroupAdmins(chatId),
       chatId
+    );
+  }
+  /**
+   * Join a group with invite code
+   * @param inviteCode
+   */
+  public async joinGroup(inviteCode: string) {
+    inviteCode = inviteCode.replace('chat.whatsapp.com/', '');
+    inviteCode = inviteCode.replace('invite/', '');
+    inviteCode = inviteCode.replace('https://', '');
+    inviteCode = inviteCode.replace('http://', '');
+    return await this.page.evaluate(
+      (inviteCode) => WAPI.joinGroup(inviteCode),
+      inviteCode
     );
   }
 }

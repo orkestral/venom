@@ -135,6 +135,8 @@ import {
   unblockContact,
   openChat,
   openChatAt,
+  getGroupInfoFromInviteLink,
+  joinGroup,
 } from './functions';
 import {
   base64ToFile,
@@ -194,11 +196,13 @@ window.WAPI.createGroup = createGroup;
 window.WAPI.leaveGroup = leaveGroup;
 window.WAPI.revokeGroupInviteLink = revokeGroupInviteLink;
 window.WAPI.getGroupInviteLink = getGroupInviteLink;
+window.WAPI.getGroupInfoFromInviteLink = getGroupInfoFromInviteLink;
 window.WAPI.getGroupAdmins = getGroupAdmins;
 window.WAPI.removeParticipant = removeParticipant;
 window.WAPI.addParticipant = addParticipant;
 window.WAPI.promoteParticipant = promoteParticipant;
 window.WAPI.demoteParticipant = demoteParticipant;
+window.WAPI.joinGroup = joinGroup;
 
 // Chatting functions
 window.WAPI.sendChatstate = sendChatstate;

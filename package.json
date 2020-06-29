@@ -6,11 +6,12 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "start": "npm run build:venom & tsc app.ts && node app.js",
-    "build": "npm run build:wapi && npm run build:middleware && npm run build:jsQR && tsc",
+    "build": "npm run build:wapi && npm run build:middleware && npm run build:jsQR && npm run build:counter && tsc",
     "build:venom": "tsc",
     "build:wapi": "cd src/lib/wapi/ && webpack",
     "build:middleware": "cd src/lib/middleware/ && webpack",
     "build:jsQR": "cd src/lib/jsQR/ && gulp",
+    "build:counter": "cd src/lib/counter/ && gulp",
     "build:docs": "typedoc && git add docs/*",
     "watch": "concurrently \"tsc -w\" \"nodemon dist/index.js\"",
     "clean": "rm -rf session && rm -rf dist",
