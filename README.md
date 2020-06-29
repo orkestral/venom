@@ -74,6 +74,7 @@ create('sessionName', qrCallback, statusFind, {
   logQR: true, // Logs QR automatically in terminal
   browserArgs: [''], // Parameters to be added into the chrome browser instance
   refreshQR: 15000, // Will refresh QR every 15 seconds, 0 will load QR once. Default is 30 seconds
+  autoClose: 60000, // Will auto close automatically if not synced, 'false' won't auto close. Default is 60 seconds (#Important!!! Will automatically set 'refreshQR' to 1000#)
   disableSpins: true, // Will disable Spinnies animation, useful for containers (docker) for a better log
 });
 ```
@@ -431,6 +432,15 @@ try {
    client.close();
 }
 ```
+
+### Auto closing unsynced sessions
+
+The auto close is enabled by default and the timeout is setted to 60 sec.
+Receives the time in milliseconds to countdown until paired.
+
+##### Important with `autoClose` enabled the "refreshQR" parameter is changed to 1000 (1 sec.)!
+
+Use "autoClose: false" to disable auto closing.
 
 ### Debugging
 

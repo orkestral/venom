@@ -71,11 +71,12 @@ import {
   tokenSession,
   defaultTokenSession,
 } from '../config/tokenSession.config';
+import Counter = require('../lib/counter/Counter.js');
 const { version } = require('../../package.json');
 
 // Global
 let updatesChecked = false;
-
+const counter = new Counter();
 /**
  * consult status of whatsapp client
  */
@@ -147,7 +148,7 @@ export async function create(
       text: `Authenticate to continue`,
     });
 
-    if (mergedOptions.refreshQR <= 0) {
+    if (mergedOptions.refreshQR <= 0 || mergedOptions.autoClose <= 0) {
       const { data, asciiQR } = await retrieveQR(waPage);
       if (catchQR) {
         catchQR(data, asciiQR);
@@ -158,7 +159,17 @@ export async function create(
         console.log(asciiQR);
       }
     } else {
-      grabQRUntilInside(waPage, mergedOptions, session, catchQR);
+      process.on('uncaughtException', function (err) {
+        if (
+          err.message ==
+          'Protocol error (Runtime.callFunctionOn): Target closed.'
+        )
+          spinnies.succeed(session + '-auth', { text: 'Auto closed!' });
+      });
+
+      mergedOptions.autoClose
+        ? grabQRUntilTimeOut(waPage, mergedOptions, session, catchQR)
+        : grabQRUntilInside(waPage, mergedOptions, session, catchQR);
     }
 
     // Wait til inside chat
@@ -224,6 +235,56 @@ export async function create(
   return new Whatsapp(waPage);
 }
 
+/**
+ * Check the time remaining to autoClose from Counter class
+ */
+const countDown = (msTimeOut: number) => counter.getElapsedTime() < msTimeOut;
+
+/**
+ * Grab QRcode until timeout
+ */
+function grabQRUntilTimeOut(
+  waPage: Page,
+  options: CreateConfig,
+  session: string,
+  catchQR: (qrCode: string, asciiQR: string) => void
+) {
+  const isInside = isInsideChat(waPage);
+  let timeInterval = 1000; //options.refreshQR > 0 && options.refreshQR <= options.autoClose ? options.refreshQR : 1000
+
+  timer(0, timeInterval)
+    .pipe(
+      takeUntil(isInside),
+      switchMap(() => retrieveQR(waPage))
+    )
+    .subscribe(async ({ data, asciiQR }) => {
+      counter.counterInit();
+      console.log(waPage.browser().process);
+      countDown(options.autoClose) ? null : await waPage.close(); //Close Imediatly
+
+      let timeOut = Math.round(
+        (options.autoClose - counter.getElapsedTime()) / 1000
+      );
+
+      if (catchQR) {
+        catchQR(data, asciiQR);
+      }
+      if (options.logQR) {
+        console.clear();
+        console.log(
+          'Scan QR for: ' +
+            session +
+            '                ' +
+            `(Time remaining for auto close ${timeOut} sec.)`
+        );
+        console.log(asciiQR);
+      }
+    });
+}
+
+/**
+ * Grab QRcode until synced (inside chat)
+ */
 function grabQRUntilInside(
   waPage: Page,
   options: CreateConfig,
