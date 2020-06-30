@@ -2,6 +2,11 @@
 
 _All notable changes to this project will be documented in this file. Dates are displayed in UTC._
 
+**1.0.9**
+30 June 2020
+
+remove fix file mime type discovery
+
 **1.0.8**
 
 29 June 2020

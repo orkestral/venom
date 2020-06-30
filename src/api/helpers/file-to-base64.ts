@@ -53,7 +53,7 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 all copyright reservation for S2 Click, Inc
 */
-import * as mimer from 'mime';
+import * as FileType from 'file-type';
 import * as fs from 'fs';
 
 /**
@@ -64,7 +64,7 @@ import * as fs from 'fs';
 export async function fileToBase64(path: string, mime?: string) {
   const base64 = fs.readFileSync(path, { encoding: 'base64' });
   if (mime === undefined) {
-    const fileType = await mimer.getType(path);
+    const fileType = await FileType.fromFile(path);
     mime = fileType.mime;
   }
   const data = `data:${mime};base64,${base64}`;
