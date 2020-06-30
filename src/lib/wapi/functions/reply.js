@@ -53,34 +53,26 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 all copyright reservation for S2 Click, Inc
 */
-import { getNewMessageId } from './get-new-message-id';
 
-export async function reply(chatId, body, quotedMsg) {
+export async function reply(chatId, message, quotedMsg, mentioned) {
   if (typeof quotedMsg !== 'object') {
     quotedMsg = Store.Msg.get(quotedMsg);
   }
+  if (!Array.isArray(mentioned)) {
+    mentioned = [mentioned];
+  }
 
-  const chat = Store.Chat.get(chatId);
-  const extras = {
-    quotedParticipant: quotedMsg.author || quotedMsg.from,
-    quotedStanzaID: quotedMsg.id.id,
-  };
+  const chat = WAPI.getChat(chatId);
+  const users = await Store.Contact.serialize().filter((x) =>
+    mentioned.includes(x.id.user)
+  );
 
-  let tempMsg = Object.create(chat.msgs.filter((msg) => msg.__x_isSentByMe)[0]);
-  const newId = getNewMessageId(chatId);
-  const extend = {
-    ack: 0,
-    id: newId,
-    local: !0,
-    self: 'out',
-    t: parseInt(new Date().getTime() / 1000),
-    to: chatId,
-    isNewMsg: !0,
-    type: 'chat',
-    quotedMsg,
-    body,
-    ...extras,
-  };
-  Object.assign(tempMsg, extend);
-  await Store.addAndSendMsgToChat(chat, tempMsg);
+  return chat
+    .sendMessage(message, {
+      linkPreview: null,
+      mentionedJidList: users.map((u) => u.id),
+      quotedMsg: quotedMsg,
+      quotedMsgAdminGroupJid: null,
+    })
+    .then((_) => chat.lastReceivedKey._serialized);
 }

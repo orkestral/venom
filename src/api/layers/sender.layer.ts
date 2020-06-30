@@ -82,7 +82,8 @@ declare module WAPI {
   const reply: (
     to: string,
     content: string,
-    quotedMsg: string | Message
+    quotedMsg: string | Message,
+    mentioned: string[]
   ) => void;
   const sendPtt: (
     base64: string,
@@ -241,13 +242,19 @@ export class SenderLayer extends ListenerLayer {
    * @param to Chat id
    * @param content Message body
    * @param quotedMsg Message id to reply to.
+   * @param mentioned User id to mentioned (just phone number).
    */
-  public async reply(to: string, content: string, quotedMsg: string) {
+  public async reply(
+    to: string,
+    content: string,
+    quotedMsg: string,
+    mentioned: string[]
+  ) {
     return await this.page.evaluate(
-      ({ to, content, quotedMsg }) => {
-        WAPI.reply(to, content, quotedMsg);
+      ({ to, content, quotedMsg, mentioned }) => {
+        return WAPI.reply(to, content, quotedMsg, mentioned);
       },
-      { to, content, quotedMsg }
+      { to, content, quotedMsg, mentioned }
     );
   }
 
