@@ -8,6 +8,14 @@ _All notable changes to this project will be documented in this file. Dates are 
 
 fix reply (with mention)
 
+add function autoClose
+
+add function joingroup
+
+add function getgroupinfofrominvitelink
+
+fix file mime type discovery
+
 **1.0.7**
 
 20 June 2020
