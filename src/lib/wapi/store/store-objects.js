@@ -314,4 +314,7 @@ export const storeObjects = [
     conditions: (module) =>
       module.default && module.default.openChatFromUnread ? module : null,
   },
+  { id: "ReadSeen",
+  conditions: (module) => (module.sendSeen) ? module : null 
+  },
 ];

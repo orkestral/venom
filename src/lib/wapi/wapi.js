@@ -137,6 +137,7 @@ import {
   openChatAt,
   getGroupInfoFromInviteLink,
   joinGroup,
+  markUnseenMessage,
 } from './functions';
 import {
   base64ToFile,
@@ -237,6 +238,7 @@ window.WAPI.blockContact = blockContact;
 window.WAPI.unblockContact = unblockContact;
 window.WAPI.openChat = openChat;
 window.WAPI.openChatAt = openChatAt;
+window.WAPI.markUnseenMessage = markUnseenMessage;
 
 // Retrieving functions
 window.WAPI.getAllContacts = getAllContacts;
