@@ -60,18 +60,25 @@ import { UILayer } from './ui.layer';
 declare module WAPI {
   const deleteConversation: (chatId: string) => boolean;
   const clearChat: (chatId: string) => void;
-  const deleteMessages: (
-    contactId: string,
-    messageId: string[] | string,
-    onlyLocal: boolean
-  ) => any;
+  const deleteMessages: ( contactId: string, messageId: string[] | string, onlyLocal: boolean) => any;
+  const markUnseenMessage: (messageId: string) => boolean;
 }
 
 export class ControlsLayer extends UILayer {
   constructor(page: Page) {
     super(page);
   }
-
+  
+  /**
+     * puts the chat as unread
+     * @param contactId
+     * @returns boolean
+     */
+    public async markUnseenMessage(contactId: string){
+      return this.page.evaluate(
+        (contactId) => WAPI.markUnseenMessage(contactId), contactId);
+    }
+    
   /**
    * Deletes the given chat
    * @param chatId
