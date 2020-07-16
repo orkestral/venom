@@ -10,16 +10,16 @@
 
 |                                                |     |
 | ---------------------------------------------- | --- |
-| Automatic QR Refresh                           | ✔   |
-| Send **text, image, video, audio and docs**    | ✔   |
-| Get **contacts, chats, groups, group members** | ✔   |
-| Send contacts                                  | ✔   |
-| Send stickers                                  | ✔   |
-| Multiple Sessions                              | ✔   |
-| Forward Messages                               | ✔   |
-| Receive message                                | ✔   |
-| 📍 Send location!!                             | ✔   |
-| 🕸🕸 **and much more**                           | ✔   |
+| Automatic QR Refresh                                       | ✔   |
+| Send **text, image, video, audio and docs**                | ✔   |
+| Get **contacts, chats, groups, group members,Block Linst** | ✔   |
+| Send contacts                                              | ✔   |
+| Send stickers                                              | ✔   |
+| Multiple Sessions                                          | ✔   |
+| Forward Messages                                           | ✔   |
+| Receive message                                            | ✔   |
+| 📍 Send location!!                                          | ✔   |
+| 🕸🕸 **and much more**                                     | ✔   |
 
 ## Installation
 
@@ -227,6 +227,10 @@ await client.setChatState(chatId, 0 | 1 | 2);
 ## Retrieving Data
 
 ```javascript
+
+// Calls your list of blocked contacts (returns an array)
+const getBlockLis = await client.getBlockLis();
+
 // Retrieve contacts
 const contacts = await client.getAllContacts();
 
@@ -378,8 +382,14 @@ await client.clearChat(chatId);
 // Delete message (last parameter: delete only locally)
 await client.deleteMessage(chatId, message.id.toString(), false);
 
-// mark chat as not seen (returns true if it works)
+// Mark chat as not seen (returns true if it works)
 await client.markUnseenMessage('0000000@c.us');
+
+//blocks a user (returns true if it works)
+await client.blockContact('0000000@c.us');
+
+//unlocks contacts (returns true if it works)
+await client.unblockContact('0000000@c.us');
 
 // Retrieve a number profile / check if contact is a valid whatsapp number
 const profile = await client.getNumberProfile('0000000@c.us');

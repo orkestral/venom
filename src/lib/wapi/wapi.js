@@ -59,6 +59,8 @@ import {
   areAllMessagesLoaded,
   asyncLoadAllEarlierMessages,
   blockContact,
+  unblockContact,
+  getBlockList,
   clearChat,
   createGroup,
   deleteConversation,
@@ -132,7 +134,6 @@ import {
   setMyStatus,
   startTyping,
   stopTyping,
-  unblockContact,
   openChat,
   openChatAt,
   getGroupInfoFromInviteLink,
@@ -234,11 +235,15 @@ window.WAPI.sendImageAsSticker = sendImageAsSticker;
 window.WAPI.startTyping = startTyping;
 window.WAPI.stopTyping = stopTyping;
 window.WAPI.sendLocation = sendLocation;
-window.WAPI.blockContact = blockContact;
-window.WAPI.unblockContact = unblockContact;
 window.WAPI.openChat = openChat;
 window.WAPI.openChatAt = openChatAt;
 window.WAPI.markUnseenMessage = markUnseenMessage;
+
+//////block functions
+window.WAPI.blockContact = blockContact;
+window.WAPI.unblockContact = unblockContact;
+window.WAPI.getBlockList = getBlockList;
+
 
 // Retrieving functions
 window.WAPI.getAllContacts = getAllContacts;

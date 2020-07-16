@@ -65,6 +65,7 @@ import {
 import { SenderLayer } from './sender.layer';
 
 declare module WAPI {
+  const getBlockList: () => Contact[];
   const getAllChatsWithNewMsg: () => Chat[];
   const getAllNewMessages: () => any;
   const getAllChats: () => Chat[];
@@ -100,6 +101,13 @@ export class RetrieverLayer extends SenderLayer {
     super(page);
   }
 
+  /**
+   * Receive all blocked contacts
+   * @returns array of [0,1,2,3....]
+   */
+  public async getBlockList(){
+    return await this.page.evaluate(() => WAPI.getBlockList());
+  }
   /**
    * Retrieves all chats
    * @returns array of [Chat]
