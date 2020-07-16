@@ -12,7 +12,7 @@
 | ---------------------------------------------- | --- |
 | Automatic QR Refresh                                       | ✔   |
 | Send **text, image, video, audio and docs**                | ✔   |
-| Get **contacts, chats, groups, group members,Block Linst** | ✔   |
+| Get **contacts, chats, groups, group members,Block List**  | ✔   |
 | Send contacts                                              | ✔   |
 | Send stickers                                              | ✔   |
 | Multiple Sessions                                          | ✔   |
@@ -229,7 +229,7 @@ await client.setChatState(chatId, 0 | 1 | 2);
 ```javascript
 
 // Calls your list of blocked contacts (returns an array)
-const getBlockLis = await client.getBlockLis();
+const getBlockList = await client.getBlockList();
 
 // Retrieve contacts
 const contacts = await client.getAllContacts();
