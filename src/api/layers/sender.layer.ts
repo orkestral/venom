@@ -59,6 +59,7 @@ import { base64MimeType, fileToBase64 } from '../helpers';
 import { Chat, Message } from '../model';
 import { ChatState } from '../model/enum';
 import { ListenerLayer } from './listener.layer';
+import axios, { AxiosRequestConfig } from 'axios';
 
 declare module WAPI {
   const sendSeen: (to: string) => void;
@@ -178,7 +179,52 @@ export class SenderLayer extends ListenerLayer {
     filename: string,
     caption?: string
   ) {
-    const data = await fileToBase64(path);
+    /**
+     * RegEx to determine if is a remote or absolute URI
+     */
+
+    let pattern = new RegExp(
+      '^(https?:\\/\\/)?' + //Protocol
+      '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + //Domain
+      '((\\d{1,3}\\.){3}\\d{1,3}))' + //IP(v4)
+      '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + //Port
+      '(\\?[;&a-z\\d%_.~+=-]*)?' + //Query
+        '(\\#[-a-z\\d_]*)?$',
+      'i'
+    );
+
+    let data;
+
+    if (pattern.test(path)) {
+      const response = await axios(<AxiosRequestConfig>{
+        url: path,
+        method: 'GET',
+        responseType: 'arraybuffer',
+      });
+
+      let base64String = new Buffer(response.data, 'binary').toString('base64');
+      let mime;
+
+      switch (base64String.charAt(0)) {
+        case 'i':
+          mime = 'image/png';
+          break;
+        case '/':
+          mime = 'image/jpg';
+          break;
+        case 'R':
+          mime = 'image/gif';
+          break;
+        case 'U':
+          mime = 'image/webp';
+          break;
+      }
+
+      data = `data:${mime};base64,${base64String}`;
+    } else {
+      data = await fileToBase64(path);
+    }
+
     return this.page.evaluate(
       ({ to, data, filename, caption }) => {
         WAPI.sendImage(data, to, filename, caption);
@@ -393,8 +439,56 @@ export class SenderLayer extends ListenerLayer {
    * @param to chatId '000000000000@c.us'
    */
   public async sendImageAsSticker(to: string, path: string) {
-    const b64 = await fileToBase64(path);
-    const buff = Buffer.from(b64.replace(/^data:image\/(png|gif|jpeg);base64,/, ''),'base64');
+    /**
+     * RegEx to determine if is a remote or absolute URI
+     */
+
+    let pattern = new RegExp(
+      '^(https?:\\/\\/)?' + //Protocol
+      '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + //Domain
+      '((\\d{1,3}\\.){3}\\d{1,3}))' + //IP(v4)
+      '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + //Port
+      '(\\?[;&a-z\\d%_.~+=-]*)?' + //Query
+        '(\\#[-a-z\\d_]*)?$',
+      'i'
+    );
+
+    let b64;
+
+    if (pattern.test(path)) {
+      const response = await axios(<AxiosRequestConfig>{
+        url: path,
+        method: 'GET',
+        responseType: 'arraybuffer',
+      });
+
+      let base64String = new Buffer(response.data, 'binary').toString('base64');
+      let mime;
+
+      switch (base64String.charAt(0)) {
+        case 'i':
+          mime = 'image/png';
+          break;
+        case '/':
+          mime = 'image/jpg';
+          break;
+        case 'R':
+          mime = 'image/gif';
+          break;
+        case 'U':
+          mime = 'image/webp';
+          break;
+      }
+
+      b64 = `data:${mime};base64,${base64String}`;
+    } else {
+      b64 = await fileToBase64(path);
+    }
+
+    const buff = Buffer.from(
+      b64.replace(/^data:image\/(png|gif|jpeg);base64,/, ''),
+      'base64'
+    );
     const mimeInfo = base64MimeType(b64);
 
     if (!mimeInfo || mimeInfo.includes('image')) {
