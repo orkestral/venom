@@ -76,6 +76,7 @@
     "webpack-cli": "^3.3.11"
   },
   "dependencies": {
+    "axios": "^0.19.2",
     "boxen": "^4.2.0",
     "chalk": "^4.0.0",
     "chrome-launcher": "^0.13.1",
