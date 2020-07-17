@@ -304,6 +304,10 @@ await client.joinGroup(InviteCode);
 ## Profile Functions
 
 ```javascript
+
+// set your present online or offline, online = true | offline = false 
+await client.setPresence("true | false");
+
 // Set client status
 await client.setProfileStatus('On vacations! ✈️');
 

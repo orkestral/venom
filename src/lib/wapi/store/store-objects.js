@@ -326,5 +326,13 @@ export const storeObjects = [
     },
   { id: "BlockList",
    conditions: (module) => 
-   (module.BlocklistCollection) ? module : null },
+   (module.BlocklistCollection) ? module : null 
+  },
+  { id: "Presence", 
+  conditions: (module) => 
+  (
+    module.setPresenceAvailable && 
+    module.setPresenceUnavailable
+  ) ? module : null 
+  },
 ];

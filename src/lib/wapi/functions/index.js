@@ -135,3 +135,4 @@ export { openChat, openChatAt } from './open-chat';
 export { joinGroup } from './join-group';
 export { markUnseenMessage } from './mark-unseen-message.js';
 export { getBlockList } from './block-list';
+export { setPresence } from './set-presence';

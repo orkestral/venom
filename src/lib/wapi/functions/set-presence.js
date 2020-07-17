@@ -53,62 +53,13 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 all copyright reservation for S2 Click, Inc
 */
-import { Page } from 'puppeteer';
-import { HostLayer } from './host.layer';
-
-declare module WAPI {
-  const setMyStatus: (to: string) => void;
-  const setMyName: (name: string) => void;
-  const setProfilePic: (data: string) => Promise<boolean>;
-  const setPresence: (to: boolean) => boolean;
-}
-
-export class ProfileLayer extends HostLayer {
-  constructor(public page: Page) {
-    super(page);
-  }
-
-
-  /**
-   * set your present online or offline
-   * @param boolean online = true | offline = false 
-   */
-  public setPresence(to: boolean) {
-    return this.page.evaluate( (to) => WAPI.setPresence(to), to);
-  }
-
-  /**
-   * Sets current user profile status
-   * @param status
-   */
-  public async setProfileStatus(status: string) {
-    return await this.page.evaluate(
-      ({ status }) => {
-        WAPI.setMyStatus(status);
-      },
-      { status }
-    );
-  }
-
-  /**
-   * Sets the user's current profile photo
-   * @param name
-   */
-  public async setProfilePic(data: string) {
-    return await this.page.evaluate(({ data }) => WAPI.setProfilePic(data), {
-      data,
-    });
-  }
-  /**
-   * Sets current user profile name
-   * @param name
-   */
-  public async setProfileName(name: string) {
-    return this.page.evaluate(
-      ({ name }) => {
-        WAPI.setMyName(name);
-      },
-      { name }
-    );
-  }
+export function setPresence(available){
+    if(available == true){
+         Store.Presence.setPresenceAvailable();
+        return true;
+    }
+    if(available == false){
+         Store.Presence.setPresenceUnavailable();
+       return true
+	}
 }
