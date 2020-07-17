@@ -388,17 +388,15 @@ export class SenderLayer extends ListenerLayer {
   }
 
   /**
-   * Generates sticker from given image and sends it
-   * @param path image path
-   * @param to
+   * Generates sticker from given image and sends it (Send Image As Sticker)
+   * @param path image path imageBase64 A valid webp image is required.
+   * @param to chatId '000000000000@c.us'
    */
   public async sendImageAsSticker(to: string, path: string) {
     const b64 = await fileToBase64(path);
-    const buff = Buffer.from(
-      b64.replace(/^data:image\/(png|gif|jpeg);base64,/, ''),
-      'base64'
-    );
+    const buff = Buffer.from(b64.replace(/^data:image\/(png|gif|jpeg);base64,/, ''),'base64');
     const mimeInfo = base64MimeType(b64);
+
     if (!mimeInfo || mimeInfo.includes('image')) {
       // Convert to webp, resize + autoscale to width 512 px
       const scaledImageBuffer = await sharp(buff, { failOnError: false })

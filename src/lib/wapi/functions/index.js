@@ -58,7 +58,7 @@ export { clearChat } from './clear-chat';
 export { createGroup } from './create-group';
 export { deleteConversation } from './delete-conversation';
 export { deleteMessages } from './delete-messages';
-export { downloadFileWithCredentials } from './download-file-with-credentials';
+export { downloadFile } from './download-file-with-credentials';
 export { encryptAndUploadFile } from './encrypt-and-upload-file';
 export { getAllChats } from './get-all-chats';
 export { getAllChatIds } from './get-all-chats-ids';

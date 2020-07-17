@@ -66,7 +66,7 @@ import {
   deleteConversation,
   deleteMessages,
   demoteParticipant,
-  downloadFileWithCredentials,
+  downloadFile,
   encryptAndUploadFile,
   forwardMessages,
   getAllChatIds,
@@ -277,7 +277,7 @@ window.WAPI.loadAndGetAllMessagesInChat = loadAndGetAllMessagesInChat;
 window.WAPI.getUnreadMessages = getUnreadMessages;
 window.WAPI.getCommonGroups = getCommonGroups;
 window.WAPI.getProfilePicFromServer = getProfilePicFromServer;
-window.WAPI.downloadFileWithCredentials = downloadFileWithCredentials;
+window.WAPI.downloadFile = downloadFile;
 window.WAPI.getNumberProfile = getNumberProfile;
 window.WAPI.getMessageById = getMessageById;
 window.WAPI.getNewMessageId = getNewMessageId;
@@ -341,34 +341,40 @@ window.WAPI.sendMessageMentioned = async function (chatId, message, mentioned) {
   });
 };
 
-window.WAPI.getProfilePicSmallFromId = function (id, done) {
-  window.Store.ProfilePicThumb.find(id).then(
-    function (d) {
+window.WAPI.getProfilePicSmallFromId = async function (id) {
+  return await window.Store.ProfilePicThumb.find(id).then( 
+    async function (d) {
       if (d.img !== undefined) {
-        window.WAPI.downloadFileWithCredentials(d.img, done);
+        return await window.WAPI.downloadFileWithCredentials(d.img);
       } else {
-        done(false);
+        return false;
       }
     },
     function (e) {
-      done(false);
+        return false;
     }
   );
 };
 
-window.WAPI.getProfilePicFromId = function (id, done) {
-  window.Store.ProfilePicThumb.find(id).then(
-    function (d) {
+window.WAPI.getProfilePicFromId = async function (id) {
+  return await window.Store.ProfilePicThumb.find(id).then( 
+    async function (d) {
       if (d.imgFull !== undefined) {
-        window.WAPI.downloadFileWithCredentials(d.imgFull, done);
+        return await window.WAPI.downloadFileWithCredentials(d.imgFull);
       } else {
-        done(false);
+        return false;
       }
     },
     function (e) {
-      done(false);
+      return false;
     }
   );
+};
+
+window.WAPI.downloadFileWithCredentials = async function (url) {
+  if(!axios || !url) return false;
+  const ab = (await axios.get(url,{responseType: 'arraybuffer'})).data
+  return btoa(new Uint8Array(ab).reduce((data, byte) => data + String.fromCharCode(byte), ''));
 };
 
 window.WAPI.getWAVersion = function () {

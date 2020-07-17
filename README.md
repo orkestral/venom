@@ -129,13 +129,13 @@ fast as possible (outruns native methods). Supports big files!
 import fs = require('fs');
 import mime = require('mime-types');
 
-client.onMessage(async (message) => {
-  if (message.isMedia) {
-    const buffer = await client.downloadFile(message);
+client.onMessage( async (message) => {
+  if (message.isMedia == true) {
+    const buffer = await client.decryptFile(message); 
     // At this point you can do whatever you want with the buffer
     // Most likely you want to write it into a file
     const fileName = `some-file-name.${mime.extension(message.mimetype)}`;
-    fs.writeFile(fileName, buffer, function (err) {
+    await fs.writeFile(fileName, buffer, (err) => {
       ...
     });
   }
@@ -199,8 +199,8 @@ await client.sendContact(chatId, contactId);
 // Forwards messages
 await client.forwardMessages(chatId, [message.id.toString()], true);
 
-// Send sticker
-await client.sendImageAsSticker(chatId, 'path/to/image.jpg');
+// send an image
+await client.sendImageAsSticker("000000000000@c.us", './image.jpg');
 
 // Send location
 await client.sendLocation(
