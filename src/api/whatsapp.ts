@@ -60,13 +60,25 @@ import { Message } from './model';
 
 declare module WAPI {
     const arrayBufferToBase64: (buffer: ArrayBuffer) => string;
+    const downloadFile: (data: string) => Promise<string | boolean>;
 }
 
 export class Whatsapp extends ControlsLayer {
     constructor(public page: Page) {
         super(page);
     }
+ /**
+     * Decrypts message file
+     * @param data Message object
+     * @returns Decrypted file buffer (null otherwise)
+     */
 
+    public async downloadFile(data: string) {
+        return await this.page.evaluate(
+            (data) => WAPI.downloadFile(data),
+            data
+          );
+      }
     /**
      * Get the puppeteer page instance
      * @returns The Whatsapp page
@@ -108,13 +120,13 @@ export class Whatsapp extends ControlsLayer {
             await this.page.browser().close();
         }
     }
-
+    
     /**
      * Decrypts message file
      * @param message Message object
      * @returns Decrypted file buffer (null otherwise)
      */
-    public async downloadFile(message: Message) {
+    public async decryptFile(message: Message) {
         if (message.isMedia || message.isMMS) {
             const url = message.clientUrl;
             const encBase64 = await this.page.evaluate((url: string) => {

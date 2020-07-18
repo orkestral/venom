@@ -10,16 +10,16 @@
 
 |                                                |     |
 | ---------------------------------------------- | --- |
-| Automatic QR Refresh                           | ✔   |
-| Send **text, image, video, audio and docs**    | ✔   |
-| Get **contacts, chats, groups, group members** | ✔   |
-| Send contacts                                  | ✔   |
-| Send stickers                                  | ✔   |
-| Multiple Sessions                              | ✔   |
-| Forward Messages                               | ✔   |
-| Receive message                                | ✔   |
-| 📍 Send location!!                             | ✔   |
-| 🕸🕸 **and much more**                           | ✔   |
+| Automatic QR Refresh                                       | ✔   |
+| Send **text, image, video, audio and docs**                | ✔   |
+| Get **contacts, chats, groups, group members,Block List**  | ✔   |
+| Send contacts                                              | ✔   |
+| Send stickers                                              | ✔   |
+| Multiple Sessions                                          | ✔   |
+| Forward Messages                                           | ✔   |
+| Receive message                                            | ✔   |
+| 📍 Send location!!                                          | ✔   |
+| 🕸🕸 **and much more**                                     | ✔   |
 
 ## Installation
 
@@ -129,13 +129,13 @@ fast as possible (outruns native methods). Supports big files!
 import fs = require('fs');
 import mime = require('mime-types');
 
-client.onMessage(async (message) => {
-  if (message.isMedia) {
-    const buffer = await client.downloadFile(message);
+client.onMessage( async (message) => {
+  if (message.isMedia == true) {
+    const buffer = await client.decryptFile(message); 
     // At this point you can do whatever you want with the buffer
     // Most likely you want to write it into a file
     const fileName = `some-file-name.${mime.extension(message.mimetype)}`;
-    fs.writeFile(fileName, buffer, function (err) {
+    await fs.writeFile(fileName, buffer, (err) => {
       ...
     });
   }
@@ -199,8 +199,8 @@ await client.sendContact(chatId, contactId);
 // Forwards messages
 await client.forwardMessages(chatId, [message.id.toString()], true);
 
-// Send sticker
-await client.sendImageAsSticker(chatId, 'path/to/image.jpg');
+// send an image
+await client.sendImageAsSticker("000000000000@c.us", './image.jpg');
 
 // Send location
 await client.sendLocation(
@@ -227,6 +227,10 @@ await client.setChatState(chatId, 0 | 1 | 2);
 ## Retrieving Data
 
 ```javascript
+
+// Calls your list of blocked contacts (returns an array)
+const getBlockList = await client.getBlockList();
+
 // Retrieve contacts
 const contacts = await client.getAllContacts();
 
@@ -300,6 +304,10 @@ await client.joinGroup(InviteCode);
 ## Profile Functions
 
 ```javascript
+
+// set your present online or offline, online = true | offline = false 
+await client.setPresence("true | false");
+
 // Set client status
 await client.setProfileStatus('On vacations! ✈️');
 
@@ -378,8 +386,14 @@ await client.clearChat(chatId);
 // Delete message (last parameter: delete only locally)
 await client.deleteMessage(chatId, message.id.toString(), false);
 
-// mark chat as not seen (returns true if it works)
+// Mark chat as not seen (returns true if it works)
 await client.markUnseenMessage('0000000@c.us');
+
+//blocks a user (returns true if it works)
+await client.blockContact('0000000@c.us');
+
+//unlocks contacts (returns true if it works)
+await client.unblockContact('0000000@c.us');
 
 // Retrieve a number profile / check if contact is a valid whatsapp number
 const profile = await client.getNumberProfile('0000000@c.us');
