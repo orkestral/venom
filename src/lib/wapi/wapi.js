@@ -233,6 +233,7 @@ window.WAPI.reply = reply;
 window.WAPI._sendSticker = sendSticker;
 window.WAPI.encryptAndUploadFile = encryptAndUploadFile;
 window.WAPI.sendImageAsSticker = sendImageAsSticker;
+window.WAPI.sendImageAsStickerGif = sendImageAsSticker;
 window.WAPI.startTyping = startTyping;
 window.WAPI.stopTyping = stopTyping;
 window.WAPI.sendLocation = sendLocation;

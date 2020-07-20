@@ -53,11 +53,26 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 all copyright reservation for S2 Click, Inc
 */
-export async function processFiles(chat, blobs) {
-  if (!Array.isArray(blobs)) {
-    blobs = [blobs];
-  }
-  const mediaCollection = new Store.MediaCollection(chat);
-  await mediaCollection .processFiles((Debug.VERSION === '0.4.613')? blobs : blobs.map(blob=>{return{file:blob}}), chat, 1);
-  return mediaCollection;
+import * as sharp from 'sharp';
+export async function stickerSelect(_B: Buffer, _t: number){
+  
+    let _w,_met, _webb64, _ins, obj = {}; 
+    switch(_t){
+      case 0:
+         _ins = await sharp(_B, { failOnError: false }).resize({ width: 512, height: 512 }).toBuffer();
+         _w = sharp(_ins, { failOnError: false }).webp();
+         _met = (await _w.metadata()) as any;
+      break;
+      case 1:
+        _w = sharp(_B,{pages: -1}).webp();
+        _met = ((await _w.metadata()).pages) as any;
+      break;
+      default:
+        console.error("Enter a valid number 0 or 1")
+      return false;
+    }
+    _webb64 = (await _w.toBuffer()).toString('base64');
+    obj["webpBase64"] = _webb64;
+    obj["metadata"] = _met;
+    return obj;
 }

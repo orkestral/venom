@@ -53,13 +53,9 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 all copyright reservation for S2 Click, Inc
 */
-export async function addParticipant(groupId, participantId, done) {
+export async function addParticipant(groupId, participantId) {
   const chat = Store.Chat.get(groupId);
   const participant = Store.Contact.get(participantId);
-  return window.Store.Participants.addParticipants(chat, [participant]).then(
-    () => {
-      done(true);
-      return true;
-    }
-  );
+  await window.Store.Participants.addParticipants(chat, [participant]);
+  return true;
 }
