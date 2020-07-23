@@ -53,13 +53,13 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 all copyright reservation for S2 Click, Inc
 */
-export function blockContact(id, done) {
-  const contact = window.Store.Contact.get(id);
-  if (contact !== undefined) {
-    contact.setBlock(!0);
-    done(true);
-    return true;
-  }
-  done(false);
+export async function blockContact(_id) {
+  if(!_id){ return false; }
+  const __contact = window.Store.Contact.get(_id);
+  if(__contact !== undefined){
+      await Store.Block.blockContact(__contact);
+      return true;
+    }else{
   return false;
+  }
 }

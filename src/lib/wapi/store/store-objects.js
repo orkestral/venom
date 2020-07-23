@@ -314,4 +314,25 @@ export const storeObjects = [
     conditions: (module) =>
       module.default && module.default.openChatFromUnread ? module : null,
   },
+  { id: "ReadSeen",
+  conditions: (module) => (module.sendSeen) ? module : null 
+  },
+  { id: "Block", 
+  conditions: (module) => 
+     (
+     module.blockContact && 
+     module.unblockContact
+     ) ? module : null
+    },
+  { id: "BlockList",
+   conditions: (module) => 
+   (module.BlocklistCollection) ? module : null 
+  },
+  { id: "Presence", 
+  conditions: (module) => 
+  (
+    module.setPresenceAvailable && 
+    module.setPresenceUnavailable
+  ) ? module : null 
+  },
 ];

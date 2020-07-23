@@ -59,12 +59,14 @@ import {
   areAllMessagesLoaded,
   asyncLoadAllEarlierMessages,
   blockContact,
+  unblockContact,
+  getBlockList,
   clearChat,
   createGroup,
   deleteConversation,
   deleteMessages,
   demoteParticipant,
-  downloadFileWithCredentials,
+  downloadFile,
   encryptAndUploadFile,
   forwardMessages,
   getAllChatIds,
@@ -132,11 +134,12 @@ import {
   setMyStatus,
   startTyping,
   stopTyping,
-  unblockContact,
   openChat,
   openChatAt,
   getGroupInfoFromInviteLink,
   joinGroup,
+  markUnseenMessage,
+  setPresence,
 } from './functions';
 import {
   base64ToFile,
@@ -230,13 +233,19 @@ window.WAPI.reply = reply;
 window.WAPI._sendSticker = sendSticker;
 window.WAPI.encryptAndUploadFile = encryptAndUploadFile;
 window.WAPI.sendImageAsSticker = sendImageAsSticker;
+window.WAPI.sendImageAsStickerGif = sendImageAsSticker;
 window.WAPI.startTyping = startTyping;
 window.WAPI.stopTyping = stopTyping;
 window.WAPI.sendLocation = sendLocation;
-window.WAPI.blockContact = blockContact;
-window.WAPI.unblockContact = unblockContact;
 window.WAPI.openChat = openChat;
 window.WAPI.openChatAt = openChatAt;
+window.WAPI.markUnseenMessage = markUnseenMessage;
+window.WAPI.setPresence = setPresence;
+//////block functions
+window.WAPI.blockContact = blockContact;
+window.WAPI.unblockContact = unblockContact;
+window.WAPI.getBlockList = getBlockList;
+
 
 // Retrieving functions
 window.WAPI.getAllContacts = getAllContacts;
@@ -270,7 +279,7 @@ window.WAPI.loadAndGetAllMessagesInChat = loadAndGetAllMessagesInChat;
 window.WAPI.getUnreadMessages = getUnreadMessages;
 window.WAPI.getCommonGroups = getCommonGroups;
 window.WAPI.getProfilePicFromServer = getProfilePicFromServer;
-window.WAPI.downloadFileWithCredentials = downloadFileWithCredentials;
+window.WAPI.downloadFile = downloadFile;
 window.WAPI.getNumberProfile = getNumberProfile;
 window.WAPI.getMessageById = getMessageById;
 window.WAPI.getNewMessageId = getNewMessageId;
@@ -334,34 +343,40 @@ window.WAPI.sendMessageMentioned = async function (chatId, message, mentioned) {
   });
 };
 
-window.WAPI.getProfilePicSmallFromId = function (id, done) {
-  window.Store.ProfilePicThumb.find(id).then(
-    function (d) {
+window.WAPI.getProfilePicSmallFromId = async function (id) {
+  return await window.Store.ProfilePicThumb.find(id).then(
+    async function (d) {
       if (d.img !== undefined) {
-        window.WAPI.downloadFileWithCredentials(d.img, done);
+        return await window.WAPI.downloadFileWithCredentials(d.img);
       } else {
-        done(false);
+        return false;
       }
     },
     function (e) {
-      done(false);
+        return false;
     }
   );
 };
 
-window.WAPI.getProfilePicFromId = function (id, done) {
-  window.Store.ProfilePicThumb.find(id).then(
-    function (d) {
+window.WAPI.getProfilePicFromId = async function (id) {
+  return await window.Store.ProfilePicThumb.find(id).then(
+    async function (d) {
       if (d.imgFull !== undefined) {
-        window.WAPI.downloadFileWithCredentials(d.imgFull, done);
+        return await window.WAPI.downloadFileWithCredentials(d.imgFull);
       } else {
-        done(false);
+        return false;
       }
     },
     function (e) {
-      done(false);
+      return false;
     }
   );
+};
+
+window.WAPI.downloadFileWithCredentials = async function (url) {
+  if(!axios || !url) return false;
+  const ab = (await axios.get(url,{responseType: 'arraybuffer'})).data
+  return btoa(new Uint8Array(ab).reduce((data, byte) => data + String.fromCharCode(byte), ''));
 };
 
 window.WAPI._serializeNumberStatusObj = (obj) => {

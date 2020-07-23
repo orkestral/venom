@@ -55,10 +55,12 @@ all copyright reservation for S2 Click, Inc
 */
 import { Page } from 'puppeteer';
 import * as sharp from 'sharp';
-import { base64MimeType, fileToBase64 } from '../helpers';
+import { base64MimeType, fileToBase64, dowloadFileImgHttp, stickerSelect} from '../helpers';
 import { Chat, Message } from '../model';
 import { ChatState } from '../model/enum';
 import { ListenerLayer } from './listener.layer';
+import axios, { AxiosRequestConfig } from 'axios';
+
 
 declare module WAPI {
   const sendSeen: (to: string) => void;
@@ -109,11 +111,15 @@ declare module WAPI {
     messages: string | string[],
     skipMyMessages: boolean
   ) => any;
-  const sendImageAsSticker: (
-    webpBase64: string,
-    to: string,
-    metadata?: any
-  ) => void;
+  const sendImageAsSticker: ( 
+    webpBase64: string, 
+    to: string, metadata?: any 
+    ) => boolean;
+  const sendImageAsStickerGif: ( 
+    webpBase64: string, 
+    to: string, 
+    metadata?: any 
+    ) => boolean;
   const sendLocation: (
     to: string,
     latitude: string,
@@ -123,6 +129,7 @@ declare module WAPI {
   const sendMessageMentioned: (...args: any) => any;
   const sendMessageToID: (id: string, message: string) => any;
   const setChatState: (chatState: string, chatId: string) => void;
+
 }
 
 export class SenderLayer extends ListenerLayer {
@@ -178,7 +185,13 @@ export class SenderLayer extends ListenerLayer {
     filename: string,
     caption?: string
   ) {
-    const data = await fileToBase64(path);
+
+
+    let data = await dowloadFileImgHttp(path, ['image/png','image/jpg', 'image/webp', 'image/gif']);
+    if(!data){
+      data = await fileToBase64(path);
+    }
+
     return this.page.evaluate(
       ({ to, data, filename, caption }) => {
         WAPI.sendImage(data, to, filename, caption);
@@ -386,34 +399,69 @@ export class SenderLayer extends ListenerLayer {
       { to, messages, skipMyMessages }
     );
   }
+  
+/**
+  * Generates sticker from the provided animated gif image and sends it (Send image as animated sticker)
+  *  @param path image path imageBase64 A valid gif image is required. You can also send via http/https (http://www.website.com/img.gif)
+  *  @param to chatId '000000000000@c.us'
+  */
+  public async sendImageAsStickerGif(to: string, path: string) {
+    let b64 = await dowloadFileImgHttp(path, ['image/gif']);
+    if(!b64){
+      b64 = await fileToBase64(path);
+    }
+  const buff = Buffer.from(
+    b64.replace(/^data:image\/(gif);base64,/,''),
+    'base64'
+  );
+  const mimeInfo = base64MimeType(b64);
+  if(!mimeInfo || mimeInfo.includes('image')){
+    let obj = await stickerSelect(buff, 1);
+    if(typeof obj == 'object'){
+      let _webb64 = obj["webpBase64"];
+         let _met = obj["metadata"]; 
+      return await this.page.evaluate(
+        ({ _webb64, to, _met }) =>
+          WAPI.sendImageAsSticker(_webb64, to, _met),
+        { _webb64, to, _met }
+      );
+    }
+      }else{
+      console.log('Not an image, allowed format gif');
+      return false;
+   }
+  }
 
   /**
-   * Generates sticker from given image and sends it
-   * @param path image path
-   * @param to
+   * Generates sticker from given image and sends it (Send Image As Sticker)
+   * @param path image path imageBase64 A valid png, jpg and webp image is required. You can also send via http/https (http://www.website.com/img.gif)
+   * @param to chatId '000000000000@c.us'
    */
   public async sendImageAsSticker(to: string, path: string) {
-    const b64 = await fileToBase64(path);
+
+    let b64 = await dowloadFileImgHttp(path, ['image/png','image/jpg', 'image/webp']);
+      if(!b64){
+        b64 = await fileToBase64(path);
+      }
     const buff = Buffer.from(
-      b64.replace(/^data:image\/(png|gif|jpeg);base64,/, ''),
+      b64.replace(/^data:image\/(png|jpeg|webp);base64,/,''),
       'base64'
     );
     const mimeInfo = base64MimeType(b64);
+
     if (!mimeInfo || mimeInfo.includes('image')) {
-      // Convert to webp, resize + autoscale to width 512 px
-      const scaledImageBuffer = await sharp(buff, { failOnError: false })
-        .resize({ width: 512, height: 512 })
-        .toBuffer();
-      const webp = sharp(scaledImageBuffer, { failOnError: false }).webp();
-      const metadata = (await webp.metadata()) as any;
-      const webpBase64 = (await webp.toBuffer()).toString('base64');
-      return await this.page.evaluate(
-        ({ webpBase64, to, metadata }) =>
-          WAPI.sendImageAsSticker(webpBase64, to, metadata),
-        { webpBase64, to, metadata }
-      );
+      let obj = await stickerSelect(buff, 0);
+      if(typeof obj == 'object'){
+        let _webb64 = obj["webpBase64"];
+           let _met = obj["metadata"]; 
+        return await this.page.evaluate(
+          ({ _webb64, to, _met }) =>
+            WAPI.sendImageAsSticker(_webb64, to, _met),
+          { _webb64, to, _met }
+        );
+      }
     } else {
-      console.log('Not an image');
+      console.log('Not an image, allowed formats png, jpeg and webp');
       return false;
     }
   }

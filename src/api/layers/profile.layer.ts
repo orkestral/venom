@@ -60,11 +60,21 @@ declare module WAPI {
   const setMyStatus: (to: string) => void;
   const setMyName: (name: string) => void;
   const setProfilePic: (data: string) => Promise<boolean>;
+  const setPresence: (to: boolean) => boolean;
 }
 
 export class ProfileLayer extends HostLayer {
   constructor(public page: Page) {
     super(page);
+  }
+
+
+  /**
+   * set your present online or offline
+   * @param boolean online = true | offline = false 
+   */
+  public setPresence(to: boolean) {
+    return this.page.evaluate( (to) => WAPI.setPresence(to), to);
   }
 
   /**

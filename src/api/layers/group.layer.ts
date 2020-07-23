@@ -69,7 +69,7 @@ declare module WAPI {
     contactId: string | string[]
   ) => GroupCreation;
   const removeParticipant: (groupId: string, contactId: string) => void;
-  const addParticipant: (groupId: string, contactId: string) => void;
+  const addParticipant: (groupId: string, contactId: string) => boolean;
   const promoteParticipant: (groupId: string, contactId: string) => void;
   const demoteParticipant: (groupId: string, contactId: string) => void;
   const getGroupAdmins: (groupId: string) => Contact[];
