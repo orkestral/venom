@@ -364,6 +364,35 @@ window.WAPI.getProfilePicFromId = function (id, done) {
   );
 };
 
+window.WAPI._serializeNumberStatusObj = (obj) => {
+  if (obj == undefined) {
+      return null;
+  }
+
+  return Object.assign({}, {
+      id: obj.jid,
+      status: obj.status,
+      isBusiness: (obj.biz === true),
+      canReceiveMessage: (obj.status === 200)
+  });
+};
+
+window.WAPI.checkNumberStatus = async function (id) {
+  try {
+      const result = await window.Store.WapQuery.queryExist(id);
+      if (result.jid === undefined) throw 404;
+      const data = window.WAPI._serializeNumberStatusObj(result);
+      if (data.status == 200) data.numberExists = true
+      return data;
+  } catch (e) {
+          return window.WAPI._serializeNumberStatusObj({
+              status: e,
+              jid: id
+          });
+  }
+};
+
+
 window.WAPI.getWAVersion = function () {
   return window.Debug.VERSION;
 };

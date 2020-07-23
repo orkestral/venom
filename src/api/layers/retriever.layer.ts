@@ -74,6 +74,7 @@ declare module WAPI {
   const getChatById: (contactId: string) => Chat;
   const getChat: (contactId: string) => Chat;
   const getProfilePicFromServer: (chatId: string) => string;
+  const checkNumberStatus: (contactId: string) => any;
   const loadEarlierMessages: (contactId: string) => Message[];
   const getStatus: (contactId: string) => ContactStatus;
   const getNumberProfile: (contactId: string) => WhatsappProfile;
@@ -111,6 +112,20 @@ export class RetrieverLayer extends SenderLayer {
       return this.page.evaluate(() => WAPI.getAllChats());
     }
   }
+
+
+  /**
+   * Checks if a number is a valid WA number
+   * @param contactId, you need to include the @c.us at the end.
+   * @returns contact detial as promise
+   */
+  public async checkNumberStatus(contactId: string) {
+    return await this.page.evaluate(
+      contactId => WAPI.checkNumberStatus(contactId),
+      contactId
+    );
+  }
+
 
   /**
    * Retrieves all chats with messages
