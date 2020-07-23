@@ -120,12 +120,7 @@ declare module WAPI {
     to: string, 
     metadata?: any 
     ) => boolean;
-  const sendLocation: (
-    to: string,
-    latitude: string,
-    longitude: string,
-    caption: string
-  ) => void;
+  const sendLocation: ( to: string, latitude: any, longitude: any, caption: string ) => Promise<string>;
   const sendMessageMentioned: (...args: any) => any;
   const sendMessageToID: (id: string, message: string) => any;
   const setChatState: (chatState: string, chatId: string) => void;
@@ -474,25 +469,13 @@ export class SenderLayer extends ListenerLayer {
    * @param longitude Longitude
    * @param caption Text caption
    */
-  public async sendLocation(
-    to: string,
-    latitude: number,
-    longitude: number,
-    title?: string,
-    subtitle?: string
-  ) {
+  public async sendLocation( to: string, latitude: any, longitude: any, title?: string, subtitle?: string ) {
     // Create caption
     let caption = title || '';
     if (subtitle) {
       caption = `${title}\n${subtitle}`;
     }
-
-    return await this.page.evaluate(
-      ({ to, latitude, longitude, caption }) => {
-        WAPI.sendLocation(to, latitude, longitude, caption);
-      },
-      { to, latitude, longitude, caption }
-    );
+    return await this.page.evaluate(({ to, latitude, longitude, caption }) => { WAPI.sendLocation(to, latitude, longitude, caption); },  {to, latitude, longitude, caption} );
   }
 
   /**

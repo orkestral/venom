@@ -18,7 +18,7 @@
 | Multiple Sessions                                          | ✔   |
 | Forward Messages                                           | ✔   |
 | Receive message                                            | ✔   |
-| 📍 Send location!!                                          | ✔   |
+| 📍 Send location!! (beta)                                   | ✔   |
 | 🕸🕸 **and much more**                                     | ✔   |
 
 ## Installation
@@ -326,6 +326,13 @@ await client.setProfilePic('path/to/image.jpg');
 ## Device Functions
 
 ```javascript
+
+//Delete the Service Worker
+await client.killServiceWorker();
+
+//Load the service again
+await client.restartService();
+
 // Get device info
 await client.getHostDevice();
 
@@ -382,6 +389,15 @@ client.onAddedToGroup(chatEvent => {
 ## Other
 
 ```javascript
+
+//Change the theme
+//string types "dark" or "light"
+await client.getTheme(types);
+
+//Receive the current theme
+//returns string light or dark
+await client.getTheme();
+
 // Delete chat
 await client.deleteChat(chatId);
 

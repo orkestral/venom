@@ -1,3 +1,5 @@
+import { format } from 'path';
+
 /*
 NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
@@ -136,3 +138,6 @@ export { joinGroup } from './join-group';
 export { markUnseenMessage } from './mark-unseen-message.js';
 export { getBlockList } from './block-list';
 export { setPresence } from './set-presence';
+export { setTheme, getTheme} from './theme';
+export { restartService } from './restart-service';
+export { killServiceWorker } from './kill-service-worker';

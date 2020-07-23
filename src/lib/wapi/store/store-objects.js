@@ -335,4 +335,11 @@ export const storeObjects = [
     module.setPresenceUnavailable
   ) ? module : null 
   },
+  { id: "Theme", 
+  conditions: (module) => 
+  (
+    module.getTheme && 
+    module.setTheme
+  ) ? module : null 
+  },
 ];
