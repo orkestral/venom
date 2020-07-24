@@ -396,7 +396,7 @@ client.onAddedToGroup(chatEvent => {
 
 //Change the theme
 //string types "dark" or "light"
-await client.getTheme(types);
+await client.setTheme(types);
 
 //Receive the current theme
 //returns string light or dark
