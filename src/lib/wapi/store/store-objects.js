@@ -109,12 +109,7 @@ export const storeObjects = [
   },
   {
     id: 'WapQuery',
-    conditions: (module) =>
-      module.queryExist
-        ? module
-        : module.default && module.default.queryExist
-        ? module.default
-        : null,
+    conditions: (module) => (module.queryExist) ? module : ((module.default && module.default.queryExist) ? module.default : null),
   },
   {
     id: 'CryptoLib',
@@ -170,7 +165,7 @@ export const storeObjects = [
     id: 'bp',
     conditions: (module) =>
       module.default &&
-      module.default.toString().includes('binaryProtocol deprecated version')
+      module.default.toString().includes('bp_unknown_version')
         ? module.default
         : null,
   },
@@ -178,7 +173,7 @@ export const storeObjects = [
     id: 'MsgKey',
     conditions: (module) =>
       module.default &&
-      module.default.toString().includes('MsgKey error: id is already a MsgKey')
+      module.default.toString().includes('MsgKey error: obj is null/undefined')
         ? module.default
         : null,
   },

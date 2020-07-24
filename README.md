@@ -153,6 +153,10 @@ available can be found in [here](/src/api/layers) and
 ##### Here, `chatId` could be `<phoneNumber>@c.us` or `<phoneNumber>-<groupId>@c.us`
 
 ```javascript
+
+//Automatically sends a link with the auto generated link preview. You can also add a custom message to be added.
+await client.sendLinkPreview("000000000000@c.us", "https://www.youtube.com/watch?v=V1bFr2SWP1I", "Link title");
+
 // Send basic text
 await client.sendText(chatId, '👋 Hello from venom!');
 

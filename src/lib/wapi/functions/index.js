@@ -141,3 +141,4 @@ export { setPresence } from './set-presence';
 export { setTheme, getTheme} from './theme';
 export { restartService } from './restart-service';
 export { killServiceWorker } from './kill-service-worker';
+export { sendLinkPreview } from './send-link-preview';

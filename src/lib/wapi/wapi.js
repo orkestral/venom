@@ -144,6 +144,7 @@ import {
   setTheme,
   restartService,
   killServiceWorker,
+  sendLinkPreview,
 } from './functions';
 import {
   base64ToFile,
@@ -249,6 +250,8 @@ window.WAPI.openChat = openChat;
 window.WAPI.openChatAt = openChatAt;
 window.WAPI.markUnseenMessage = markUnseenMessage;
 window.WAPI.setPresence = setPresence;
+window.WAPI.sendLinkPreview = sendLinkPreview;
+
 //////block functions
 window.WAPI.blockContact = blockContact;
 window.WAPI.unblockContact = unblockContact;

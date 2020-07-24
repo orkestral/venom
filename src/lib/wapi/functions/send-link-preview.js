@@ -53,41 +53,12 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 all copyright reservation for S2 Click, Inc
 */
-export async function sendMessage(id, message, done) {
-  let chat = WAPI.getChat(id);
-  function sleep(ms) {
-    return new Promise((resolve) => setTimeout(resolve, ms));
-  }
-  if (chat !== undefined && !id.includes('g') || chat.msgs.models.length == 0) {
-    if (done !== undefined) {
-      chat.sendMessage(message).then(function () {
-        let trials = 0;
-        function check() {
-          for (let i = chat.msgs.models.length - 1; i >= 0; i--) {
-            let msg = chat.msgs.models[i];
-
-            if (!msg.senderObj.isMe || msg.body != message) {
-              continue;
-            }
-            done(WAPI._serializeMessageObj(msg));
-            return True;
-          }
-          trials += 1;
-          console.log(trials);
-          if (trials > 30) {
-            done(true);
-            return;
-          }
-          sleep(500).then(check);
-        }
-        check();
-      });
-      return true;
-    } else {
-      return await chat.sendMessage(message).then(_=> chat.lastReceivedKey._serialized);
+export async function sendLinkPreview(chatId, url, text) {
+    text = text || '';
+    var chatSend = WAPI.getChat(chatId);
+    if (chatSend === undefined) {
+        return false;
     }
-  } else {
-    if (done !== undefined) done(false);
-    return false;
-  }
+    const linkPreview = await Store.WapQuery.queryLinkPreview(url);
+    return (await chatSend.sendMessage(text.includes(url) ? text : `${url}\n${text}`, {linkPreview}))=='success'
 }
