@@ -53,69 +53,15 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 all copyright reservation for S2 Click, Inc
 */
-import { Page } from 'puppeteer';
-import { HostLayer } from './host.layer';
-
-declare module WAPI {
-  const setMyStatus: (to: string) => void;
-  const setMyName: (name: string) => void;
-  const setProfilePic: (data: string) => Promise<boolean>;
-  const setPresence: (to: boolean) => boolean;
-  const setTheme:(theme?: string) => boolean;
-}
-
-export class ProfileLayer extends HostLayer {
-  constructor(public page: Page) {
-    super(page);
-  }
- /**
-   * Change the theme
-   * @param string types "dark" or "light"
-   */
-  public setTheme(type: string) {
-    return this.page.evaluate( (type) => WAPI.setTheme(type), type);
+export async function setTheme(type) {
+    if(type == "dark" || type == "light"){
+        await Store.Theme.setTheme(type);
+        return true;
+    }else{
+        return console.error("Use type dark or light");
+    }
   }
 
-  /**
-   * set your present online or offline
-   * @param boolean online = true | offline = false 
-   */
-  public setPresence(to: boolean) {
-    return this.page.evaluate( (to) => WAPI.setPresence(to), to);
+  export async function getTheme() {
+    return await Store.Theme.getTheme();
   }
-
-  /**
-   * Sets current user profile status
-   * @param status
-   */
-  public async setProfileStatus(status: string) {
-    return await this.page.evaluate(
-      ({ status }) => {
-        WAPI.setMyStatus(status);
-      },
-      { status }
-    );
-  }
-
-  /**
-   * Sets the user's current profile photo
-   * @param name
-   */
-  public async setProfilePic(data: string) {
-    return await this.page.evaluate(({ data }) => WAPI.setProfilePic(data), {
-      data,
-    });
-  }
-  /**
-   * Sets current user profile name
-   * @param name
-   */
-  public async setProfileName(name: string) {
-    return this.page.evaluate(
-      ({ name }) => {
-        WAPI.setMyName(name);
-      },
-      { name }
-    );
-  }
-}

@@ -56,10 +56,11 @@ all copyright reservation for S2 Click, Inc
 import { Page } from 'puppeteer';
 import * as sharp from 'sharp';
 import { base64MimeType, fileToBase64, dowloadFileImgHttp, stickerSelect} from '../helpers';
-import { Chat, Message } from '../model';
+import { Chat, Message, Contact } from '../model';
 import { ChatState } from '../model/enum';
 import { ListenerLayer } from './listener.layer';
 import axios, { AxiosRequestConfig } from 'axios';
+import { Url } from 'url';
 
 
 declare module WAPI {
@@ -120,21 +121,29 @@ declare module WAPI {
     to: string, 
     metadata?: any 
     ) => boolean;
-  const sendLocation: (
-    to: string,
-    latitude: string,
-    longitude: string,
-    caption: string
-  ) => void;
+  const sendLocation: ( to: string, latitude: any, longitude: any, caption: string ) => Promise<string>;
   const sendMessageMentioned: (...args: any) => any;
   const sendMessageToID: (id: string, message: string) => any;
   const setChatState: (chatState: string, chatId: string) => void;
-
+  const sendLinkPreview: (chatId: string, url: string, title:string) => Promise<string>;
 }
 
 export class SenderLayer extends ListenerLayer {
   constructor(public page: Page) {
     super(page);
+  }
+
+
+/**
+ * Automatically sends a link with the auto generated link preview. You can also add a custom message to be added.
+ * @param chatId 
+ * @param url string A link, for example for youtube. e.g https://www.youtube.com/watch?v=Zi_XLOBDo_Y&list=RDEMe12_MlgO8mGFdeeftZ2nOQ&start_radio=1
+ * @param title custom text as the message body, this includes the link or will be attached after the link
+ */
+  public async sendLinkPreview(chatId: string, url: string, title: string){
+    return await this.page.evaluate(
+      ({ chatId, url, title}) => {  return WAPI.sendLinkPreview(chatId, url, title); }, {chatId, url, title}
+    );
   }
 
   /**
@@ -474,25 +483,13 @@ export class SenderLayer extends ListenerLayer {
    * @param longitude Longitude
    * @param caption Text caption
    */
-  public async sendLocation(
-    to: string,
-    latitude: number,
-    longitude: number,
-    title?: string,
-    subtitle?: string
-  ) {
+  public async sendLocation( to: string, latitude: any, longitude: any, title?: string, subtitle?: string ) {
     // Create caption
     let caption = title || '';
     if (subtitle) {
       caption = `${title}\n${subtitle}`;
     }
-
-    return await this.page.evaluate(
-      ({ to, latitude, longitude, caption }) => {
-        WAPI.sendLocation(to, latitude, longitude, caption);
-      },
-      { to, latitude, longitude, caption }
-    );
+    return await this.page.evaluate(({ to, latitude, longitude, caption }) => { WAPI.sendLocation(to, latitude, longitude, caption); },  {to, latitude, longitude, caption} );
   }
 
   /**

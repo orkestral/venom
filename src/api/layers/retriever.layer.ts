@@ -65,6 +65,7 @@ import {
 import { SenderLayer } from './sender.layer';
 
 declare module WAPI {
+  const getTheme:() => string;
   const getBlockList: () => Contact[];
   const getAllChatsWithNewMsg: () => Chat[];
   const getAllNewMessages: () => any;
@@ -102,12 +103,21 @@ export class RetrieverLayer extends SenderLayer {
   }
 
   /**
+   * Receive the current theme
+   * @returns string light or dark
+   */
+   public async getTheme(){
+    return await this.page.evaluate(() => WAPI.getTheme());
+  }
+  
+  /**
    * Receive all blocked contacts
    * @returns array of [0,1,2,3....]
    */
   public async getBlockList(){
     return await this.page.evaluate(() => WAPI.getBlockList());
   }
+
   /**
    * Retrieves all chats
    * @returns array of [Chat]

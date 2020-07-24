@@ -62,12 +62,29 @@ declare module WAPI {
   const getWAVersion: () => string;
   const isConnected: () => boolean;
   const getBatteryLevel: () => number;
+  const restartService:() => boolean;
+  const killServiceWorker:() => boolean;
 }
 
 export class HostLayer {
   constructor(public page: Page) {
     this.page = page;
   }
+
+    /**
+   * Delete the Service Workers
+   */
+  public async killServiceWorker() {
+    return await this.page.evaluate(() => WAPI.killServiceWorker());
+  }
+
+   /**
+   * Load the service again
+   */
+  public async restartService() {
+    return await this.page.evaluate(() => WAPI.restartService());
+  }
+
   /**
    * @returns Current host device details
    */
