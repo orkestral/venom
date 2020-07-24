@@ -2,7 +2,12 @@
 
 _All notable changes to this project will be documented in this file. Dates are displayed in UTC._
 
-**1.1.0**
+**1.1.2**
+24 July 2020
+
+fix bug autoclose
+
+**1.1.1**
 24 July 2020
 
 New functions
