@@ -4,8 +4,6 @@
 
 > Venom is a high-performance system developed with JavaScript to create a bot for WhatsApp, support for creating any interaction, such as customer service, media sending, sentence recognition based on artificial intelligence and all types of design architecture for WhatsApp.
 
-![enter image description here](https://s2.click/flyervenom.png)
-
 ## 🕷🕷 Functions Venom🕷🕷
 
 |                                                |     |
@@ -18,7 +16,7 @@
 | Multiple Sessions                                          | ✔   |
 | Forward Messages                                           | ✔   |
 | Receive message                                            | ✔   |
-| 📍 Send location!!                                          | ✔   |
+| 📍 Send location!! (beta)                                   | ✔   |
 | 🕸🕸 **and much more**                                     | ✔   |
 
 ## Installation
@@ -153,6 +151,10 @@ available can be found in [here](/src/api/layers) and
 ##### Here, `chatId` could be `<phoneNumber>@c.us` or `<phoneNumber>-<groupId>@c.us`
 
 ```javascript
+
+//Automatically sends a link with the auto generated link preview. You can also add a custom message to be added.
+await client.sendLinkPreview("000000000000@c.us", "https://www.youtube.com/watch?v=V1bFr2SWP1I", "Link title");
+
 // Send basic text
 await client.sendText(chatId, '👋 Hello from venom!');
 
@@ -326,6 +328,13 @@ await client.setProfilePic('path/to/image.jpg');
 ## Device Functions
 
 ```javascript
+
+//Delete the Service Worker
+await client.killServiceWorker();
+
+//Load the service again
+await client.restartService();
+
 // Get device info
 await client.getHostDevice();
 
@@ -382,6 +391,15 @@ client.onAddedToGroup(chatEvent => {
 ## Other
 
 ```javascript
+
+//Change the theme
+//string types "dark" or "light"
+await client.setTheme(types);
+
+//Receive the current theme
+//returns string light or dark
+await client.getTheme();
+
 // Delete chat
 await client.deleteChat(chatId);
 

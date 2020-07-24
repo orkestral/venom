@@ -53,12 +53,12 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 all copyright reservation for S2 Click, Inc
 */
-export function sendMessage(id, message, done) {
+export async function sendMessage(id, message, done) {
   let chat = WAPI.getChat(id);
   function sleep(ms) {
     return new Promise((resolve) => setTimeout(resolve, ms));
   }
-  if (chat !== undefined) {
+  if (chat !== undefined && !id.includes('g') || chat.msgs.models.length == 0) {
     if (done !== undefined) {
       chat.sendMessage(message).then(function () {
         let trials = 0;
@@ -84,9 +84,7 @@ export function sendMessage(id, message, done) {
       });
       return true;
     } else {
-      return chat
-        .sendMessage(message)
-        .then((_) => chat.lastReceivedKey._serialized);
+      return await chat.sendMessage(message).then(_=> chat.lastReceivedKey._serialized);
     }
   } else {
     if (done !== undefined) done(false);

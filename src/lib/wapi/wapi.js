@@ -140,6 +140,11 @@ import {
   joinGroup,
   markUnseenMessage,
   setPresence,
+  getTheme,
+  setTheme,
+  restartService,
+  killServiceWorker,
+  sendLinkPreview,
 } from './functions';
 import {
   base64ToFile,
@@ -166,6 +171,7 @@ import {
   _serializeRawObj,
 } from './serializers';
 import { getStore } from './store/get-store';
+import { get } from 'http';
 
 if (!window.Store || !window.Store.Msg) {
   (function () {
@@ -185,6 +191,9 @@ if (!window.Store || !window.Store.Msg) {
 window.WAPI = {
   lastRead: {},
 };
+// Layout Functions
+window.WAPI.setTheme = setTheme;
+window.WAPI.getTheme = getTheme;
 
 // Serializers assignations
 window.WAPI._serializeRawObj = _serializeRawObj;
@@ -241,6 +250,8 @@ window.WAPI.openChat = openChat;
 window.WAPI.openChatAt = openChatAt;
 window.WAPI.markUnseenMessage = markUnseenMessage;
 window.WAPI.setPresence = setPresence;
+window.WAPI.sendLinkPreview = sendLinkPreview;
+
 //////block functions
 window.WAPI.blockContact = blockContact;
 window.WAPI.unblockContact = unblockContact;
@@ -295,6 +306,8 @@ window.WAPI.isConnected = isConnected;
 window.WAPI.getBatteryLevel = getBatteryLevel;
 window.WAPI.base64ImageToFile = base64ToFile;
 window.WAPI.base64ToFile = base64ToFile;
+window.WAPI.restartService = restartService;
+window.WAPI.killServiceWorker = killServiceWorker;
 
 // Listeners initialization
 window.WAPI._newMessagesQueue = [];
