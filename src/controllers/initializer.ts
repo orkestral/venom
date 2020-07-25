@@ -152,7 +152,7 @@ export async function create(
       }
 
       if (mergedOptions.logQR) {
-        console.log(`Scan QR for: ${session}                `);
+        console.log(`Scan QR for: ${session}`);
         console.log(asciiQR);
       }
     } else {
@@ -248,7 +248,7 @@ function grabQRUntilTimeOut(
 ) {
   const isInside = isInsideChat(waPage);
   let timeInterval = 1000; //options.refreshQR > 0 && options.refreshQR <= options.autoClose ? options.refreshQR : 1000
-
+  counter.isFirstCall = true;
   timer(0, timeInterval)
     .pipe(
       takeUntil(isInside),
@@ -256,7 +256,7 @@ function grabQRUntilTimeOut(
     )
     .subscribe(async ({ data, asciiQR }) => {
       counter.counterInit();
-      console.log(waPage.browser().process);
+      // console.log(waPage.browser().process);
       countDown(options.autoClose) ? null : await waPage.close(); //Close Imediatly
 
       let timeOut = Math.round(
