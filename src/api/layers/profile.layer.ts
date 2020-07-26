@@ -76,13 +76,14 @@ export class ProfileLayer extends HostLayer {
     return this.page.evaluate( (type) => WAPI.setTheme(type), type);
   }
 
-  /**
-   * set your present online or offline
-   * @param boolean online = true | offline = false 
-   */
+  /*
+    set your present online or offline
+    @param boolean online = true | offline = false 
+  
   public setPresence(to: boolean) {
     return this.page.evaluate( (to) => WAPI.setPresence(to), to);
-  }
+  } 
+  */
 
   /**
    * Sets current user profile status
