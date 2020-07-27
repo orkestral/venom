@@ -323,13 +323,6 @@ export const storeObjects = [
    conditions: (module) => 
    (module.BlocklistCollection) ? module : null 
   },
-  { id: "Presence", 
-  conditions: (module) => 
-  (
-    module.setPresenceAvailable && 
-    module.setPresenceUnavailable
-  ) ? module : null 
-  },
   { id: "Theme", 
   conditions: (module) => 
   (
@@ -337,4 +330,7 @@ export const storeObjects = [
     module.setTheme
   ) ? module : null 
   },
+  //{ 
+ //   id: "Presence", conditions: (module) => ( module.setPresenceAvailable &&  module.setPresenceUnavailable) ? module : null 
+  //},
 ];

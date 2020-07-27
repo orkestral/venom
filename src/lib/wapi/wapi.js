@@ -139,12 +139,12 @@ import {
   getGroupInfoFromInviteLink,
   joinGroup,
   markUnseenMessage,
-  setPresence,
   getTheme,
   setTheme,
   restartService,
   killServiceWorker,
   sendLinkPreview,
+ // setPresence,
 } from './functions';
 import {
   base64ToFile,
@@ -249,8 +249,8 @@ window.WAPI.sendLocation = sendLocation;
 window.WAPI.openChat = openChat;
 window.WAPI.openChatAt = openChatAt;
 window.WAPI.markUnseenMessage = markUnseenMessage;
-window.WAPI.setPresence = setPresence;
 window.WAPI.sendLinkPreview = sendLinkPreview;
+//window.WAPI.setPresence = setPresence;
 
 //////block functions
 window.WAPI.blockContact = blockContact;

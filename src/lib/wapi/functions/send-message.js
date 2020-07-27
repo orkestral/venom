@@ -58,7 +58,7 @@ export async function sendMessage(id, message, done) {
   function sleep(ms) {
     return new Promise((resolve) => setTimeout(resolve, ms));
   }
-  if (chat !== undefined && !id.includes('g') || chat.msgs.models.length == 0) {
+  if (chat !== undefined) {
     if (done !== undefined) {
       chat.sendMessage(message).then(function () {
         let trials = 0;

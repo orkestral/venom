@@ -1,6 +1,10 @@
 ﻿## Changelog
 
 _All notable changes to this project will be documented in this file. Dates are displayed in UTC._
+**1.1.4**
+26 July 2020
+
+fix bug
 
 **1.1.2**
 24 July 2020
