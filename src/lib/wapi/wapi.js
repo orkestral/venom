@@ -357,7 +357,7 @@ window.WAPI.sendMessageMentioned = async function (chatId, message, mentioned) {
 };
 
 window.WAPI.getProfilePicSmallFromId = async function (id) {
-  return await window.Store.ProfilePicThumb.find(id).then( 
+  return await window.Store.ProfilePicThumb.find(id).then(
     async function (d) {
       if (d.img !== undefined) {
         return await window.WAPI.downloadFileWithCredentials(d.img);
@@ -372,7 +372,7 @@ window.WAPI.getProfilePicSmallFromId = async function (id) {
 };
 
 window.WAPI.getProfilePicFromId = async function (id) {
-  return await window.Store.ProfilePicThumb.find(id).then( 
+  return await window.Store.ProfilePicThumb.find(id).then(
     async function (d) {
       if (d.imgFull !== undefined) {
         return await window.WAPI.downloadFileWithCredentials(d.imgFull);
@@ -391,6 +391,35 @@ window.WAPI.downloadFileWithCredentials = async function (url) {
   const ab = (await axios.get(url,{responseType: 'arraybuffer'})).data
   return btoa(new Uint8Array(ab).reduce((data, byte) => data + String.fromCharCode(byte), ''));
 };
+
+window.WAPI._serializeNumberStatusObj = (obj) => {
+  if (obj == undefined) {
+      return null;
+  }
+
+  return Object.assign({}, {
+      id: obj.jid,
+      status: obj.status,
+      isBusiness: (obj.biz === true),
+      canReceiveMessage: (obj.status === 200)
+  });
+};
+
+window.WAPI.checkNumberStatus = async function (id) {
+  try {
+      const result = await window.Store.WapQuery.queryExist(id);
+      if (result.jid === undefined) throw 404;
+      const data = window.WAPI._serializeNumberStatusObj(result);
+      if (data.status == 200) data.numberExists = true
+      return data;
+  } catch (e) {
+          return window.WAPI._serializeNumberStatusObj({
+              status: e,
+              jid: id
+          });
+  }
+};
+
 
 window.WAPI.getWAVersion = function () {
   return window.Debug.VERSION;
