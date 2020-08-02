@@ -61,7 +61,9 @@ export async function demoteParticipant(groupId, participantId, done) {
     const participant = chat.groupMetadata.participants.get(participantId);
     window.Store.Participants.demoteParticipants(chat, [participant]).then(
       () => {
-        done(true);
+        if(done !== undefined) {
+          done(true);
+        }
         return true;
       }
     );

@@ -53,13 +53,15 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 all copyright reservation for S2 Click, Inc
 */
-export async function promoteParticipant(groupId, particiapntId, done) {
+export async function promoteParticipant(groupId, participantId, done) {
   const chat = Store.Chat.get(groupId);
-  const participant = chat.groupMetadata.participants.get(particiapntId);
+  const participant = chat.groupMetadata.participants.get(participantId);
   return window.Store.Participants.promoteParticipants(chat, [
     participant,
   ]).then(() => {
-    done(true);
+    if(done !== undefined) {
+      done(true);
+    }
     return true;
   });
 }
