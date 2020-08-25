@@ -64,7 +64,7 @@ import StealthPlugin = require('puppeteer-extra-plugin-stealth');
 import { auth_InjectToken } from './auth';
 
 export async function initWhatsapp(session: string, options: CreateConfig) {
-  const browser = await initBrowser(session, options);
+  const browser = await initBrowser(options);
   const waPage = await getWhatsappPage(browser);
 
   // Auth with token
@@ -78,6 +78,10 @@ export async function initWhatsapp(session: string, options: CreateConfig) {
   return waPage;
 }
 
+/**
+ * Initializes browser, will try to use chrome as default
+ * @param session
+ */
 export async function injectApi(page: Page) {
   await page.waitForFunction(() => {
     // @ts-ignore
@@ -106,11 +110,7 @@ export async function injectApi(page: Page) {
  * Initializes browser, will try to use chrome as default
  * @param session
  */
-async function initBrowser(
-  session: string,
-  options: CreateConfig,
-  extras = {}
-) {
+async function initBrowser(options: CreateConfig, extras = {}) {
   if (options.useChrome) {
     const chromePath = getChrome();
     if (chromePath) {
@@ -137,6 +137,10 @@ async function initBrowser(
   return browser;
 }
 
+/**
+ * Get whatsapp page
+ * @param browser
+ */
 async function getWhatsappPage(browser: Browser) {
   const pages = await browser.pages();
   console.assert(pages.length > 0);
