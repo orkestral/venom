@@ -60,7 +60,11 @@ import { UILayer } from './ui.layer';
 declare module WAPI {
   const deleteConversation: (chatId: string) => boolean;
   const clearChat: (chatId: string) => void;
-  const deleteMessages: ( contactId: string, messageId: string[] | string, onlyLocal: boolean) => any;
+  const deleteMessages: (
+    contactId: string,
+    messageId: string[] | string,
+    onlyLocal: boolean
+  ) => any;
   const markUnseenMessage: (messageId: string) => boolean;
   const blockContact: (messageId: string) => boolean;
   const unblockContact: (messageId: string) => boolean;
@@ -71,36 +75,42 @@ export class ControlsLayer extends UILayer {
     super(page);
   }
 
-     /**
-     * Unblock contact 
-     * @param contactId {string} id '000000000000@c.us'
-     * @returns boolean
-     */
-    public async unblockContact(contactId: string){
-      return this.page.evaluate(
-        (contactId) => WAPI.unblockContact(contactId), contactId);
-    }
-
-    /**
-     * Block contact 
-     * @param contactId {string} id '000000000000@c.us'
-     * @returns boolean
-     */
-    public async blockContact(contactId: string){
-      return this.page.evaluate(
-        (contactId) => WAPI.blockContact(contactId), contactId);
-    }
-  
   /**
-     * puts the chat as unread
-     * @param contactId {string} id '000000000000@c.us'
-     * @returns boolean
-     */
-    public async markUnseenMessage(contactId: string){
-      return this.page.evaluate(
-        (contactId) => WAPI.markUnseenMessage(contactId), contactId);
-    }
-    
+   * Unblock contact
+   * @param contactId {string} id '000000000000@c.us'
+   * @returns boolean
+   */
+  public async unblockContact(contactId: string) {
+    return this.page.evaluate(
+      (contactId) => WAPI.unblockContact(contactId),
+      contactId
+    );
+  }
+
+  /**
+   * Block contact
+   * @param contactId {string} id '000000000000@c.us'
+   * @returns boolean
+   */
+  public async blockContact(contactId: string) {
+    return this.page.evaluate(
+      (contactId) => WAPI.blockContact(contactId),
+      contactId
+    );
+  }
+
+  /**
+   * puts the chat as unread
+   * @param contactId {string} id '000000000000@c.us'
+   * @returns boolean
+   */
+  public async markUnseenMessage(contactId: string) {
+    return this.page.evaluate(
+      (contactId) => WAPI.markUnseenMessage(contactId),
+      contactId
+    );
+  }
+
   /**
    * Deletes the given chat
    * @param chatId {string} id '000000000000@c.us'

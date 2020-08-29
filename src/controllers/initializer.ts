@@ -53,30 +53,26 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 all copyright reservation for S2 Click, Inc
 */
-import { readFileSync, existsSync, writeFileSync, mkdir } from 'fs';
+import { readFileSync, writeFileSync, mkdir } from 'fs';
 import latestVersion from 'latest-version';
 import { Page } from 'puppeteer';
-import { from, interval, timer } from 'rxjs';
-import { map, takeUntil, tap, delay, switchMap } from 'rxjs/operators';
+import { timer } from 'rxjs';
+import { takeUntil, switchMap } from 'rxjs/operators';
 import { Whatsapp } from '../api/whatsapp';
 import { CreateConfig, defaultOptions } from '../config/create-config';
 import { upToDate } from '../utils/semver';
-import { isAuthenticated, isInsideChat, needsToScan, retrieveQR } from './auth';
+import { isAuthenticated, isInsideChat, retrieveQR } from './auth';
 import { initWhatsapp, injectApi } from './browser';
 import chalk = require('chalk');
 import boxen = require('boxen');
 import Spinnies = require('spinnies');
 import path = require('path');
-import {tokenSession, defaultTokenSession } from '../config/tokenSession.config';
 import Counter = require('../lib/counter/Counter.js');
 const { version } = require('../../package.json');
 
 // Global
 let updatesChecked = false;
 const counter = new Counter();
-/**
- * consult status of whatsapp client
- */
 
 /**
  * Should be called to initialize whatsapp client
@@ -110,7 +106,7 @@ export async function create(
 
   // Check for updates if needed
   if (!updatesChecked) {
-     spinnies.add('venom-version-spinner', {
+    spinnies.add('venom-version-spinner', {
       text: 'Checking for updates',
     });
     checkVenomVersion(spinnies);
@@ -268,7 +264,11 @@ function grabQRUntilTimeOut(
       }
       if (options.logQR) {
         console.clear();
-        console.log('Scan QR for: ' + session +'                ' +`(Time remaining for auto close ${timeOut} sec.)`
+        console.log(
+          'Scan QR for: ' +
+            session +
+            '                ' +
+            `(Time remaining for auto close ${timeOut} sec.)`
         );
         console.log(asciiQR);
       }
@@ -323,9 +323,9 @@ function checkVenomVersion(spinnies) {
 function logUpdateAvailable(current: string, latest: string) {
   // prettier-ignore
   const newVersionLog =
-  `There is a new version of ${chalk.bold(`Venom`)} ${chalk.gray(current)} ➜  ${chalk.bold.green(latest)}\n` +
-  `Update your package by running:\n\n` +
-  `${chalk.bold('\>')} ${chalk.blueBright('npm update venom-bot')}`;
+    `There is a new version of ${chalk.bold(`Venom`)} ${chalk.gray(current)} ➜  ${chalk.bold.green(latest)}\n` +
+    `Update your package by running:\n\n` +
+    `${chalk.bold('\>')} ${chalk.blueBright('npm update venom-bot')}`;
 
   console.log(boxen(newVersionLog, { padding: 1 }));
   console.log(

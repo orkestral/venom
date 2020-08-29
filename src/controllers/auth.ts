@@ -109,9 +109,13 @@ export async function retrieveQR(page: puppeteer.Page) {
 
 async function asciiQr(code: string): Promise<string> {
   return new Promise((resolve, reject) => {
-    qrcode.generate(code, { small: true }, (qrcode) => {
-      resolve(qrcode);
-    });
+    qrcode.generate(
+      code,
+      { small: true },
+      (qrcode: string | PromiseLike<string>) => {
+        resolve(qrcode);
+      }
+    );
   });
 }
 
@@ -139,7 +143,6 @@ async function decodeQR(
 }
 
 export async function auth_InjectToken(page: puppeteer.Page, session: string) {
-  //Auth with token ->start<-
   const pathToken: string = path.join(
     path.resolve(process.cwd(), 'tokens'),
     `${session}.data.json`
@@ -151,8 +154,6 @@ export async function auth_InjectToken(page: puppeteer.Page, session: string) {
     jsonToken = JSON.parse(readFileSync(pathToken).toString());
 
     if (!jsonToken) return;
-
-    //if (jsonToken)
     return await page.evaluateOnNewDocument((session) => {
       localStorage.clear();
       Object.keys(session).forEach((key) =>
@@ -160,21 +161,4 @@ export async function auth_InjectToken(page: puppeteer.Page, session: string) {
       );
     }, jsonToken);
   }
-  //End Auth with token
-
-  //return await page.evaluateOnNewDocument(() => {
-  // localStorage.setItem('WABrowserId', '"5AXJMPZneACe3iMkbH40+w=="');
-  // localStorage.setItem(
-  //   'WASecretBundle',
-  //   '{"key":"iBZb0m3w6dMfpU9UwF9Tr6/ckNV1NxDqnuZA7De/KMM=","encKey":"KjvvH/np261TSPjoFCsaRitodt96TT7qecBK797Cc7c=","macKey":"iBZb0m3w6dMfpU9UwF9Tr6/ckNV1NxDqnuZA7De/KMM="}'
-  // );
-  // localStorage.setItem(
-  //   'WAToken1',
-  //   '"8qUJJ+jGYn5tgVnMk/wnOeTX2gZUzYED/R2nQHuz8Ek="'
-  // );
-  // localStorage.setItem(
-  //   'WAToken2',
-  //   '"1@9YlRlvFq4fFgrLe7DtvgHPC8TqTmFdDsUW3m/+uyyCSaUkzQbvJeIQ5RD0niIxWHGcN3/aiQ0J5PIg=="'
-  // );
-  //  });
 }

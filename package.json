@@ -89,6 +89,7 @@
     "qrcode-terminal": "^0.12.0",
     "rxjs": "^6.5.5",
     "sharp": "^0.25.2",
-    "spinnies": "^0.5.1"
+    "spinnies": "^0.5.1",
+    "tree-kill": "^1.2.2"
   }
 }
