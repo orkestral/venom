@@ -268,7 +268,7 @@ const url = await client.getProfilePicFromServer(chatId);
 const chat = await client.getChat(chatId);
 
 // Get chat is online
-const chatOnline = await client.getChatIsOnline();
+const chatOnline = await client.getChatIsOnline(chatId);
 ```
 
 ## Group Functions
