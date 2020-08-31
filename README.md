@@ -6,18 +6,18 @@
 
 ## 🕷🕷 Functions Venom🕷🕷
 
-|                                                |     |
-| ---------------------------------------------- | --- |
-| Automatic QR Refresh                                       | ✔   |
-| Send **text, image, video, audio and docs**                | ✔   |
-| Get **contacts, chats, groups, group members,Block List**  | ✔   |
-| Send contacts                                              | ✔   |
-| Send stickers                                              | ✔   |
-| Multiple Sessions                                          | ✔   |
-| Forward Messages                                           | ✔   |
-| Receive message                                            | ✔   |
-| 📍 Send location!! (beta)                                   | ✔   |
-| 🕸🕸 **and much more**                                     | ✔   |
+|                                                           |     |
+| --------------------------------------------------------- | --- |
+| Automatic QR Refresh                                      | ✔   |
+| Send **text, image, video, audio and docs**               | ✔   |
+| Get **contacts, chats, groups, group members,Block List** | ✔   |
+| Send contacts                                             | ✔   |
+| Send stickers                                             | ✔   |
+| Multiple Sessions                                         | ✔   |
+| Forward Messages                                          | ✔   |
+| Receive message                                           | ✔   |
+| 📍 Send location!! (beta)                                 | ✔   |
+| 🕸🕸 **and much more**                                      | ✔   |
 
 ## Installation
 
@@ -129,7 +129,7 @@ import mime = require('mime-types');
 
 client.onMessage( async (message) => {
   if (message.isMedia == true) {
-    const buffer = await client.decryptFile(message); 
+    const buffer = await client.decryptFile(message);
     // At this point you can do whatever you want with the buffer
     // Most likely you want to write it into a file
     const fileName = `some-file-name.${mime.extension(message.mimetype)}`;
@@ -151,9 +151,12 @@ available can be found in [here](/src/api/layers) and
 ##### Here, `chatId` could be `<phoneNumber>@c.us` or `<phoneNumber>-<groupId>@c.us`
 
 ```javascript
-
 //Automatically sends a link with the auto generated link preview. You can also add a custom message to be added.
-await client.sendLinkPreview("000000000000@c.us", "https://www.youtube.com/watch?v=V1bFr2SWP1I", "Link title");
+await client.sendLinkPreview(
+  '000000000000@c.us',
+  'https://www.youtube.com/watch?v=V1bFr2SWP1I',
+  'Link title'
+);
 
 // Send basic text
 await client.sendText(chatId, '👋 Hello from venom!');
@@ -203,11 +206,11 @@ await client.forwardMessages(chatId, [message.id.toString()], true);
 
 //Generates sticker from the provided animated gif image and sends it (Send image as animated sticker)
 //image path imageBase64 A valid gif image is required. You can also send via http/https (http://www.website.com/img.gif)
-await client.sendImageAsStickerGif("000000000000@c.us", './image.gif');
+await client.sendImageAsStickerGif('000000000000@c.us', './image.gif');
 
 //Generates sticker from given image and sends it (Send Image As Sticker)
 // image path imageBase64 A valid png, jpg and webp image is required. You can also send via http/https (http://www.website.com/img.jpg)
-await client.sendImageAsSticker("000000000000@c.us", './image.jpg');
+await client.sendImageAsSticker('000000000000@c.us', './image.jpg');
 
 // Send location
 await client.sendLocation(
@@ -234,7 +237,6 @@ await client.setChatState(chatId, 0 | 1 | 2);
 ## Retrieving Data
 
 ```javascript
-
 // Calls your list of blocked contacts (returns an array)
 const getBlockList = await client.getBlockList();
 
@@ -264,6 +266,9 @@ const url = await client.getProfilePicFromServer(chatId);
 
 // Retrieve chat/conversation
 const chat = await client.getChat(chatId);
+
+// Get chat is online
+const chatOnline = await client.getChatIsOnline();
 ```
 
 ## Group Functions
@@ -311,7 +316,6 @@ await client.joinGroup(InviteCode);
 ## Profile Functions
 
 ```javascript
-
 // Set client status
 await client.setProfileStatus('On vacations! ✈️');
 
@@ -325,7 +329,6 @@ await client.setProfilePic('path/to/image.jpg');
 ## Device Functions
 
 ```javascript
-
 //Delete the Service Worker
 await client.killServiceWorker();
 
@@ -345,7 +348,7 @@ await client.getBatteryLevel();
 await client.isConnected();
 
 // Get whatsapp web version
-await client.getWAVersion();
+await client.getWAVersion(chatId);
 ```
 
 ## Events
@@ -388,7 +391,6 @@ client.onAddedToGroup(chatEvent => {
 ## Other
 
 ```javascript
-
 //Change the theme
 //string types "dark" or "light"
 await client.setTheme(types);
@@ -417,7 +419,6 @@ await client.unblockContact('0000000@c.us');
 
 // Retrieve a number profile / check if contact is a valid whatsapp number
 const profile = await client.getNumberProfile('0000000@c.us');
-
 ```
 
 ## Misc

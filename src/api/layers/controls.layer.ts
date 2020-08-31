@@ -54,7 +54,6 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 all copyright reservation for S2 Click, Inc
 */
 import { Page } from 'puppeteer';
-import { GroupLayer } from './group.layer';
 import { UILayer } from './ui.layer';
 
 declare module WAPI {

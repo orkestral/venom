@@ -61,9 +61,10 @@ declare module WAPI {
   const getHost: () => HostDevice;
   const getWAVersion: () => string;
   const isConnected: () => boolean;
+  const isLoggedIn: () => boolean;
   const getBatteryLevel: () => number;
-  const restartService:() => boolean;
-  const killServiceWorker:() => boolean;
+  const restartService: () => boolean;
+  const killServiceWorker: () => boolean;
 }
 
 export class HostLayer {
@@ -71,14 +72,14 @@ export class HostLayer {
     this.page = page;
   }
 
-    /**
+  /**
    * Delete the Service Workers
    */
   public async killServiceWorker() {
     return await this.page.evaluate(() => WAPI.killServiceWorker());
   }
 
-   /**
+  /**
    * Load the service again
    */
   public async restartService() {
@@ -114,6 +115,13 @@ export class HostLayer {
    */
   public async isConnected() {
     return await this.page.evaluate(() => WAPI.isConnected());
+  }
+
+  /**
+   * Retrieves if the phone is online. Please note that this may not be real time.
+   */
+  public async isLoggedIn() {
+    return await this.page.evaluate(() => WAPI.isLoggedIn());
   }
 
   /**
