@@ -65,7 +65,7 @@ import {
 import { SenderLayer } from './sender.layer';
 
 declare module WAPI {
-  const getTheme:() => string;
+  const getTheme: () => string;
   const getBlockList: () => Contact[];
   const getAllChatsWithNewMsg: () => Chat[];
   const getAllNewMessages: () => any;
@@ -96,6 +96,7 @@ declare module WAPI {
     includeMe: boolean,
     includeNotifications: boolean
   ) => Message[];
+  const getChatIsOnline: (chatId: string) => any;
 }
 
 export class RetrieverLayer extends SenderLayer {
@@ -107,15 +108,15 @@ export class RetrieverLayer extends SenderLayer {
    * Receive the current theme
    * @returns string light or dark
    */
-   public async getTheme(){
+  public async getTheme() {
     return await this.page.evaluate(() => WAPI.getTheme());
   }
-  
+
   /**
    * Receive all blocked contacts
    * @returns array of [0,1,2,3....]
    */
-  public async getBlockList(){
+  public async getBlockList() {
     return await this.page.evaluate(() => WAPI.getBlockList());
   }
 
@@ -131,7 +132,6 @@ export class RetrieverLayer extends SenderLayer {
     }
   }
 
-
   /**
    * Checks if a number is a valid WA number
    * @param contactId, you need to include the @c.us at the end.
@@ -139,11 +139,10 @@ export class RetrieverLayer extends SenderLayer {
    */
   public async checkNumberStatus(contactId: string) {
     return await this.page.evaluate(
-      contactId => WAPI.checkNumberStatus(contactId),
+      (contactId) => WAPI.checkNumberStatus(contactId),
       contactId
     );
   }
-
 
   /**
    * Retrieves all chats with messages
@@ -340,5 +339,16 @@ export class RetrieverLayer extends SenderLayer {
         ),
       { chatId, includeMe, includeNotifications }
     );
+  }
+
+  /**
+   * Checks if a CHAT contact is online.
+   * @param chatId chat id: xxxxx@c.us
+   */
+  public async getChatIsOnline(chatId: string) {
+    return (await this.page.evaluate(
+      (chatId: any) => WAPI.getChatIsOnline(chatId),
+      chatId
+    )) as Promise<boolean>;
   }
 }

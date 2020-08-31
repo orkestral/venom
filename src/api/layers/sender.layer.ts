@@ -54,14 +54,15 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 all copyright reservation for S2 Click, Inc
 */
 import { Page } from 'puppeteer';
-import * as sharp from 'sharp';
-import { base64MimeType, fileToBase64, dowloadFileImgHttp, stickerSelect} from '../helpers';
-import { Chat, Message, Contact } from '../model';
+import {
+  base64MimeType,
+  fileToBase64,
+  dowloadFileImgHttp,
+  stickerSelect,
+} from '../helpers';
+import { Chat, Message } from '../model';
 import { ChatState } from '../model/enum';
 import { ListenerLayer } from './listener.layer';
-import axios, { AxiosRequestConfig } from 'axios';
-import { Url } from 'url';
-
 
 declare module WAPI {
   const sendSeen: (to: string) => void;
@@ -112,20 +113,30 @@ declare module WAPI {
     messages: string | string[],
     skipMyMessages: boolean
   ) => any;
-  const sendImageAsSticker: ( 
-    webpBase64: string, 
-    to: string, metadata?: any 
-    ) => boolean;
-  const sendImageAsStickerGif: ( 
-    webpBase64: string, 
-    to: string, 
-    metadata?: any 
-    ) => boolean;
-  const sendLocation: ( to: string, latitude: any, longitude: any, caption: string ) => Promise<string>;
+  const sendImageAsSticker: (
+    webpBase64: string,
+    to: string,
+    metadata?: any
+  ) => boolean;
+  const sendImageAsStickerGif: (
+    webpBase64: string,
+    to: string,
+    metadata?: any
+  ) => boolean;
+  const sendLocation: (
+    to: string,
+    latitude: any,
+    longitude: any,
+    caption: string
+  ) => Promise<string>;
   const sendMessageMentioned: (...args: any) => any;
   const sendMessageToID: (id: string, message: string) => any;
   const setChatState: (chatState: string, chatId: string) => void;
-  const sendLinkPreview: (chatId: string, url: string, title:string) => Promise<string>;
+  const sendLinkPreview: (
+    chatId: string,
+    url: string,
+    title: string
+  ) => Promise<string>;
 }
 
 export class SenderLayer extends ListenerLayer {
@@ -133,16 +144,18 @@ export class SenderLayer extends ListenerLayer {
     super(page);
   }
 
-
-/**
- * Automatically sends a link with the auto generated link preview. You can also add a custom message to be added.
- * @param chatId 
- * @param url string A link, for example for youtube. e.g https://www.youtube.com/watch?v=Zi_XLOBDo_Y&list=RDEMe12_MlgO8mGFdeeftZ2nOQ&start_radio=1
- * @param title custom text as the message body, this includes the link or will be attached after the link
- */
-  public async sendLinkPreview(chatId: string, url: string, title: string){
+  /**
+   * Automatically sends a link with the auto generated link preview. You can also add a custom message to be added.
+   * @param chatId
+   * @param url string A link, for example for youtube. e.g https://www.youtube.com/watch?v=Zi_XLOBDo_Y&list=RDEMe12_MlgO8mGFdeeftZ2nOQ&start_radio=1
+   * @param title custom text as the message body, this includes the link or will be attached after the link
+   */
+  public async sendLinkPreview(chatId: string, url: string, title: string) {
     return await this.page.evaluate(
-      ({ chatId, url, title}) => {  return WAPI.sendLinkPreview(chatId, url, title); }, {chatId, url, title}
+      ({ chatId, url, title }) => {
+        return WAPI.sendLinkPreview(chatId, url, title);
+      },
+      { chatId, url, title }
     );
   }
 
@@ -194,10 +207,13 @@ export class SenderLayer extends ListenerLayer {
     filename: string,
     caption?: string
   ) {
-
-
-    let data = await dowloadFileImgHttp(path, ['image/png','image/jpg', 'image/webp', 'image/gif']);
-    if(!data){
+    let data = await dowloadFileImgHttp(path, [
+      'image/png',
+      'image/jpg',
+      'image/webp',
+      'image/gif',
+    ]);
+    if (!data) {
       data = await fileToBase64(path);
     }
 
@@ -408,37 +424,36 @@ export class SenderLayer extends ListenerLayer {
       { to, messages, skipMyMessages }
     );
   }
-  
-/**
-  * Generates sticker from the provided animated gif image and sends it (Send image as animated sticker)
-  *  @param path image path imageBase64 A valid gif image is required. You can also send via http/https (http://www.website.com/img.gif)
-  *  @param to chatId '000000000000@c.us'
-  */
+
+  /**
+   * Generates sticker from the provided animated gif image and sends it (Send image as animated sticker)
+   *  @param path image path imageBase64 A valid gif image is required. You can also send via http/https (http://www.website.com/img.gif)
+   *  @param to chatId '000000000000@c.us'
+   */
   public async sendImageAsStickerGif(to: string, path: string) {
     let b64 = await dowloadFileImgHttp(path, ['image/gif']);
-    if(!b64){
+    if (!b64) {
       b64 = await fileToBase64(path);
     }
-  const buff = Buffer.from(
-    b64.replace(/^data:image\/(gif);base64,/,''),
-    'base64'
-  );
-  const mimeInfo = base64MimeType(b64);
-  if(!mimeInfo || mimeInfo.includes('image')){
-    let obj = await stickerSelect(buff, 1);
-    if(typeof obj == 'object'){
-      let _webb64 = obj["webpBase64"];
-         let _met = obj["metadata"]; 
-      return await this.page.evaluate(
-        ({ _webb64, to, _met }) =>
-          WAPI.sendImageAsSticker(_webb64, to, _met),
-        { _webb64, to, _met }
-      );
-    }
-      }else{
+    const buff = Buffer.from(
+      b64.replace(/^data:image\/(gif);base64,/, ''),
+      'base64'
+    );
+    const mimeInfo = base64MimeType(b64);
+    if (!mimeInfo || mimeInfo.includes('image')) {
+      let obj = await stickerSelect(buff, 1);
+      if (typeof obj == 'object') {
+        let _webb64 = obj['webpBase64'];
+        let _met = obj['metadata'];
+        return await this.page.evaluate(
+          ({ _webb64, to, _met }) => WAPI.sendImageAsSticker(_webb64, to, _met),
+          { _webb64, to, _met }
+        );
+      }
+    } else {
       console.log('Not an image, allowed format gif');
       return false;
-   }
+    }
   }
 
   /**
@@ -447,25 +462,27 @@ export class SenderLayer extends ListenerLayer {
    * @param to chatId '000000000000@c.us'
    */
   public async sendImageAsSticker(to: string, path: string) {
-
-    let b64 = await dowloadFileImgHttp(path, ['image/png','image/jpg', 'image/webp']);
-      if(!b64){
-        b64 = await fileToBase64(path);
-      }
+    let b64 = await dowloadFileImgHttp(path, [
+      'image/png',
+      'image/jpg',
+      'image/webp',
+    ]);
+    if (!b64) {
+      b64 = await fileToBase64(path);
+    }
     const buff = Buffer.from(
-      b64.replace(/^data:image\/(png|jpeg|webp);base64,/,''),
+      b64.replace(/^data:image\/(png|jpeg|webp);base64,/, ''),
       'base64'
     );
     const mimeInfo = base64MimeType(b64);
 
     if (!mimeInfo || mimeInfo.includes('image')) {
       let obj = await stickerSelect(buff, 0);
-      if(typeof obj == 'object'){
-        let _webb64 = obj["webpBase64"];
-           let _met = obj["metadata"]; 
+      if (typeof obj == 'object') {
+        let _webb64 = obj['webpBase64'];
+        let _met = obj['metadata'];
         return await this.page.evaluate(
-          ({ _webb64, to, _met }) =>
-            WAPI.sendImageAsSticker(_webb64, to, _met),
+          ({ _webb64, to, _met }) => WAPI.sendImageAsSticker(_webb64, to, _met),
           { _webb64, to, _met }
         );
       }
@@ -483,13 +500,24 @@ export class SenderLayer extends ListenerLayer {
    * @param longitude Longitude
    * @param caption Text caption
    */
-  public async sendLocation( to: string, latitude: any, longitude: any, title?: string, subtitle?: string ) {
+  public async sendLocation(
+    to: string,
+    latitude: any,
+    longitude: any,
+    title?: string,
+    subtitle?: string
+  ) {
     // Create caption
     let caption = title || '';
     if (subtitle) {
       caption = `${title}\n${subtitle}`;
     }
-    return await this.page.evaluate(({ to, latitude, longitude, caption }) => { WAPI.sendLocation(to, latitude, longitude, caption); },  {to, latitude, longitude, caption} );
+    return await this.page.evaluate(
+      ({ to, latitude, longitude, caption }) => {
+        WAPI.sendLocation(to, latitude, longitude, caption);
+      },
+      { to, latitude, longitude, caption }
+    );
   }
 
   /**

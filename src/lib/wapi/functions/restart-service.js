@@ -54,6 +54,6 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 all copyright reservation for S2 Click, Inc
 */
 export async function restartService() {
-       await Store.ServiceWorker.default.restart();
-       return true;
+  await Store.ServiceWorker.default.restart();
+  return true;
 }
