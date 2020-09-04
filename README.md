@@ -243,6 +243,12 @@ const getBlockList = await client.getBlockList();
 // Retrieve contacts
 const contacts = await client.getAllContacts();
 
+// Retrieve messages in chat
+const Messages = await client.getAllMessagesInChat(chatId);
+
+// Retrieve more chat message
+const moreMessages = await client.loadEarlierMessages(chatId);
+
 // Retrieve all messages in chat
 const allMessages = await client.loadAndGetAllMessagesInChat(chatId);
 
