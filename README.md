@@ -411,6 +411,12 @@ await client.deleteChat(chatId);
 // Clear chat messages
 await client.clearChat(chatId);
 
+// Archive and unarchive chat messages with true or false
+await client.archiveChat(chatId, true);
+
+// Freeze and unfreeze chat messages with true or false
+await client.pinChat(chatId, true);
+
 // Delete message (last parameter: delete only locally)
 await client.deleteMessage(chatId, message.id.toString(), false);
 
