@@ -438,3 +438,27 @@ window.WAPI.getChatIsOnline = async function (id) {
 window.WAPI.getWAVersion = function () {
   return window.Debug.VERSION;
 };
+
+// teste implementation newfunctions
+/**
+ * @param id The id of the conversation
+ * @param archive boolean true => archive, false => unarchive
+ * @return boolean true: worked, false: didnt work (probably already in desired state)
+ */
+window.WAPI.archiveChat = async function (id, archive) {
+  return await Store.Archive.setArchive(Store.Chat.get(id), archive)
+    .then((_) => true)
+    .catch((_) => false);
+};
+
+/**
+ * @param id The id of the conversation
+ * @param pin boolean true => pin, false => unpin
+ * @return boolean true: worked, false: didnt work (probably already in desired state)
+ */
+window.WAPI.pinChat = async function (id, pin) {
+  return await Store.pinChat
+    .setPin(Store.Chat.get(id), pin)
+    .then((_) => true)
+    .catch((_) => false);
+};

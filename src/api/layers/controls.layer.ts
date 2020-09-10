@@ -58,6 +58,8 @@ import { UILayer } from './ui.layer';
 
 declare module WAPI {
   const deleteConversation: (chatId: string) => boolean;
+  const archiveChat: (chatId: string, option: boolean) => boolean;
+  const pinChat: (chatId: string, option: boolean) => boolean;
   const clearChat: (chatId: string) => void;
   const deleteMessages: (
     contactId: string,
@@ -119,6 +121,32 @@ export class ControlsLayer extends UILayer {
     return this.page.evaluate(
       (chatId) => WAPI.deleteConversation(chatId),
       chatId
+    );
+  }
+
+  /**
+   * Deletes the given chat
+   * @param chatId {string} id '000000000000@c.us'
+   * @param option {boolean} true or false
+   * @returns boolean
+   */
+  public async archiveChat(chatId: string, option: boolean) {
+    return this.page.evaluate(
+      ({ chatId, option }) => WAPI.archiveChat(chatId, option),
+      { chatId, option }
+    );
+  }
+
+  /**
+   * Deletes the given chat
+   * @param chatId {string} id '000000000000@c.us'
+   * @param option {boolean} true or false
+   * @returns boolean
+   */
+  public async pinChat(chatId: string, option: boolean) {
+    return this.page.evaluate(
+      ({ chatId, option }) => WAPI.pinChat(chatId, option),
+      { chatId, option }
     );
   }
 
