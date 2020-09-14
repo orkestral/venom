@@ -54,9 +54,10 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 all copyright reservation for S2 Click, Inc
 */
 import { Page } from 'puppeteer';
-import { decrypt } from './helpers/decrypt';
+import { magix, timeout, makeOptions } from './helpers/decrypt';
 import { ControlsLayer } from './layers/controls.layer';
 import { Message } from './model';
+import axios from 'axios';
 import treekill = require('tree-kill');
 
 declare module WAPI {
@@ -127,7 +128,7 @@ export class Whatsapp extends ControlsLayer {
     };
     try {
       await closing(this.page);
-    } catch (error) {}
+    } catch (error) { }
   }
 
   /**
@@ -135,18 +136,24 @@ export class Whatsapp extends ControlsLayer {
    * @param message Message object
    * @returns Decrypted file buffer (null otherwise)
    */
-  public async decryptFile(message: Message) {
-    if (message.isMedia || message.isMMS) {
-      const url = message.clientUrl;
-      const encBase64 = await this.page.evaluate((url: string) => {
-        return fetch(url)
-          .then((response) => response.arrayBuffer())
-          .then((bytes) => WAPI.arrayBufferToBase64(bytes));
-      }, url);
-
-      return decrypt(encBase64, message);
-    } else {
-      return null;
+  public async decryptFile(message: Message, useragentOverride?: string) {
+    const options = makeOptions(useragentOverride);
+    if (!message.clientUrl) throw new Error('message is missing critical data needed to download the file.')
+    let haventGottenImageYet = true;
+    let res: any;
+    try {
+      while (haventGottenImageYet) {
+        res = await axios.get(message.clientUrl.trim(), options);
+        if (res.status == 200) {
+          haventGottenImageYet = false;
+        } else {
+          await timeout(2000);
+        }
+      }
+    } catch (error) {
+      throw error
     }
+    const buff = Buffer.from(res.data, 'binary');
+    return magix(buff, message.mediaKey, message.type, message.size);
   }
 }
