@@ -51,7 +51,7 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-all copyright reservation for S2 Click, Inc
+
 */
 import * as path from 'path';
 import * as puppeteer from 'puppeteer';
@@ -98,24 +98,20 @@ export const isInsideChat = (waPage: puppeteer.Page) => {
         }
       )
       .then(() => true)
+      .catch(() => false)
   );
 };
-
 export async function retrieveQR(page: puppeteer.Page) {
   const { code, data } = await decodeQR(page);
   const asciiQR = await asciiQr(code);
   return { code, data, asciiQR };
 }
 
-async function asciiQr(code: string): Promise<string> {
-  return new Promise((resolve, reject) => {
-    qrcode.generate(
-      code,
-      { small: true },
-      (qrcode: string | PromiseLike<string>) => {
-        resolve(qrcode);
-      }
-    );
+export async function asciiQr(code: string): Promise<string> {
+  return new Promise((resolve) => {
+    qrcode.generate(code, { small: true }, (qrcode) => {
+      resolve(qrcode);
+    });
   });
 }
 
@@ -143,6 +139,7 @@ async function decodeQR(
 }
 
 export async function auth_InjectToken(page: puppeteer.Page, session: string) {
+  //Auth with token ->start<-
   const pathToken: string = path.join(
     path.resolve(process.cwd(), 'tokens'),
     `${session}.data.json`
@@ -153,12 +150,32 @@ export async function auth_InjectToken(page: puppeteer.Page, session: string) {
   if (existsSync(pathToken)) {
     jsonToken = JSON.parse(readFileSync(pathToken).toString());
 
-    if (!jsonToken) return;
-    return await page.evaluateOnNewDocument((session) => {
-      localStorage.clear();
-      Object.keys(session).forEach((key) =>
-        localStorage.setItem(key, session[key])
-      );
-    }, jsonToken);
+    if (!jsonToken) {
+      return false;
+    } else {
+      return await page.evaluateOnNewDocument((session) => {
+        localStorage.clear();
+        Object.keys(session).forEach((key) => {
+          localStorage.setItem(key, session[key]);
+        });
+      }, jsonToken);
+    }
   }
+  //End Auth with token
+
+  //return await page.evaluateOnNewDocument(() => {
+  // localStorage.setItem('WABrowserId', '"5AXJMPZneACe3iMkbH40+w=="');
+  // localStorage.setItem(
+  //   'WASecretBundle',
+  //   '{"key":"iBZb0m3w6dMfpU9UwF9Tr6/ckNV1NxDqnuZA7De/KMM=","encKey":"KjvvH/np261TSPjoFCsaRitodt96TT7qecBK797Cc7c=","macKey":"iBZb0m3w6dMfpU9UwF9Tr6/ckNV1NxDqnuZA7De/KMM="}'
+  // );
+  // localStorage.setItem(
+  //   'WAToken1',
+  //   '"8qUJJ+jGYn5tgVnMk/wnOeTX2gZUzYED/R2nQHuz8Ek="'
+  // );
+  // localStorage.setItem(
+  //   'WAToken2',
+  //   '"1@9YlRlvFq4fFgrLe7DtvgHPC8TqTmFdDsUW3m/+uyyCSaUkzQbvJeIQ5RD0niIxWHGcN3/aiQ0J5PIg=="'
+  // );
+  //  });
 }

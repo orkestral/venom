@@ -51,14 +51,14 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-all copyright reservation for S2 Click, Inc
+
 */
 import { Page } from 'puppeteer';
-import { magix, timeout, makeOptions } from './helpers/decrypt';
 import { ControlsLayer } from './layers/controls.layer';
 import { Message } from './model';
-import axios from 'axios';
 import treekill = require('tree-kill');
+import { magix, timeout, makeOptions } from './helpers/decrypt';
+import axios from 'axios';
 
 declare module WAPI {
   const arrayBufferToBase64: (buffer: ArrayBuffer) => string;
@@ -128,17 +128,21 @@ export class Whatsapp extends ControlsLayer {
     };
     try {
       await closing(this.page);
-    } catch (error) { }
+    } catch (error) {}
   }
 
   /**
    * Decrypts message file
    * @param message Message object
+   * @param useragentOverride String to change user agent
    * @returns Decrypted file buffer (null otherwise)
    */
   public async decryptFile(message: Message, useragentOverride?: string) {
     const options = makeOptions(useragentOverride);
-    if (!message.clientUrl) throw new Error('message is missing critical data needed to download the file.')
+    if (!message.clientUrl)
+      throw new Error(
+        'message is missing critical data needed to download the file.'
+      );
     let haventGottenImageYet = true;
     let res: any;
     try {
@@ -151,7 +155,7 @@ export class Whatsapp extends ControlsLayer {
         }
       }
     } catch (error) {
-      throw error
+      throw error;
     }
     const buff = Buffer.from(res.data, 'binary');
     return magix(buff, message.mediaKey, message.type, message.size);

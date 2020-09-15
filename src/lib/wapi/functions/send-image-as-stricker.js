@@ -51,7 +51,7 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-all copyright reservation for S2 Click, Inc
+
 */
 import { base64ToFile } from '../helper/base64-to-file';
 import { sendSticker } from './send-sticker';
@@ -67,7 +67,7 @@ export async function sendImageAsSticker(imageBase64, chatId, metadata) {
     'data:image/webp;base64,' + imageBase64,
     'file.webp'
   );
-  let encrypted = await window.WAPI.encryptAndUploadFile("sticker", mediaBlob);
+  let encrypted = await window.WAPI.encryptAndUploadFile('sticker', mediaBlob);
 
   return await sendSticker(encrypted, chatId, metadata);
 }

@@ -51,7 +51,6 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-all copyright reservation for S2 Click, Inc
 */
 import * as ChromeLauncher from 'chrome-launcher';
 import * as path from 'path';
@@ -59,29 +58,35 @@ import { Browser, Page } from 'puppeteer';
 import puppeteer from 'puppeteer-extra';
 import { CreateConfig } from '../config/create-config';
 import { puppeteerConfig } from '../config/puppeteer.config';
-import chalk = require('chalk');
 import StealthPlugin = require('puppeteer-extra-plugin-stealth');
 import { auth_InjectToken } from './auth';
 
-export async function initWhatsapp(session: string, options: CreateConfig) {
-  const browser = await initBrowser(options);
+export async function initWhatsapp(
+  session: string,
+  options: CreateConfig,
+  browser: any
+) {
   const waPage = await getWhatsappPage(browser);
+  if (waPage != null) {
+    // Auth with token
+    await auth_InjectToken(waPage, session);
 
-  // Auth with token
-  await auth_InjectToken(waPage, session);
+    await waPage.setUserAgent(
+      'WhatsApp/2.2019.8 Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36'
+    );
 
-  await waPage.setUserAgent(
-    'WhatsApp/2.2019.8 Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36'
-  );
+    const timeout = 2 * 1000;
+    await Promise.race([
+      waPage.goto(puppeteerConfig.whatsappUrl, { timeout }).catch(() => {}),
+      waPage.waitFor('body', { timeout }).catch(() => {}),
+    ]);
 
-  await waPage.goto(puppeteerConfig.whatsappUrl);
-  return waPage;
+    return waPage;
+  } else {
+    return false;
+  }
 }
 
-/**
- * Initializes browser, will try to use chrome as default
- * @param session
- */
 export async function injectApi(page: Page) {
   await page.waitForFunction(() => {
     // @ts-ignore
@@ -91,6 +96,7 @@ export async function injectApi(page: Page) {
   await page.addScriptTag({
     path: require.resolve(path.join(__dirname, '../lib/wapi', 'wapi.js')),
   });
+
   await page.addScriptTag({
     path: require.resolve(
       path.join(__dirname, '../lib/middleware', 'middleware.js')
@@ -110,7 +116,11 @@ export async function injectApi(page: Page) {
  * Initializes browser, will try to use chrome as default
  * @param session
  */
-async function initBrowser(options: CreateConfig, extras = {}) {
+export async function initBrowser(
+  session: string,
+  options: CreateConfig,
+  extras = {}
+) {
   if (options.useChrome) {
     const chromePath = getChrome();
     if (chromePath) {
@@ -124,27 +134,36 @@ async function initBrowser(options: CreateConfig, extras = {}) {
   // Use stealth plugin to avoid being detected as a bot
   puppeteer.use(StealthPlugin());
 
-  const browser = await puppeteer.launch({
-    // headless: true,
-    headless: options.headless,
-    devtools: options.devtools,
-    //userDataDir: path.join(process.cwd(), session),
-    args: options.browserArgs
-      ? options.browserArgs
-      : [...puppeteerConfig.chroniumArgs],
-    ...extras,
-  });
+  let browser = null;
+  await puppeteer
+    .launch({
+      // headless: true,
+      headless: options.headless,
+      devtools: options.devtools,
+      //userDataDir: path.join(process.cwd(), session),
+      args: options.browserArgs
+        ? options.browserArgs
+        : [...puppeteerConfig.chroniumArgs],
+      ...extras,
+    })
+    .then((e) => {
+      browser = e;
+    })
+    .catch(() => {});
+
   return browser;
 }
 
-/**
- * Get whatsapp page
- * @param browser
- */
 async function getWhatsappPage(browser: Browser) {
-  const pages = await browser.pages();
-  console.assert(pages.length > 0);
-  return pages[0];
+  let pages = null;
+  await browser
+    .pages()
+    .then((e) => {
+      console.assert(e.length > 0);
+      pages = e[0];
+    })
+    .catch(() => {});
+  return pages;
 }
 
 /**

@@ -51,43 +51,27 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-all copyright reservation for S2 Click, Inc
-*/
-export async function sendMessage(id, message, done) {
-  let chat = WAPI.getChat(id);
-  function sleep(ms) {
-    return new Promise((resolve) => setTimeout(resolve, ms));
-  }
-  if (chat !== undefined) {
-    if (done !== undefined) {
-      chat.sendMessage(message).then(function () {
-        let trials = 0;
-        function check() {
-          for (let i = chat.msgs.models.length - 1; i >= 0; i--) {
-            let msg = chat.msgs.models[i];
 
-            if (!msg.senderObj.isMe || msg.body != message) {
-              continue;
-            }
-            done(WAPI._serializeMessageObj(msg));
-            return True;
-          }
-          trials += 1;
-          console.log(trials);
-          if (trials > 30) {
-            done(true);
-            return;
-          }
-          sleep(500).then(check);
-        }
-        check();
-      });
-      return true;
+*/
+export async function sendMessage(chatId, message) {
+  var chat = await WAPI.sendExist(chatId);
+  if (chat.erro === false || chat.__x_id) {
+    var ListChat = await Store.Chat.get(chatId);
+    var result = await Promise.all(
+      ListChat ? await chat.sendMessage(message) : ''
+    );
+    result = result.join('');
+    var m = { type: 'sendtext', text: message };
+    if (result === 'success' || result === 'OK') {
+      var obj = WAPI.scope(chatId, false, result, null);
+      Object.assign(obj, m);
+      return obj;
     } else {
-      return await chat.sendMessage(message).then(_=> chat.lastReceivedKey._serialized);
+      var obj = WAPI.scope(chatId, true, result, null);
+      Object.assign(obj, m);
+      return obj;
     }
   } else {
-    if (done !== undefined) done(false);
-    return false;
+    return chat;
   }
 }

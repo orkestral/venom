@@ -51,20 +51,36 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-all copyright reservation for S2 Click, Inc
 */
-export function sendContact(to, contact) {
-  if (!Array.isArray(contact)) {
-    contact = [contact];
+export async function pinChat(chatId, type = true) {
+  if (typeof type != 'boolean') {
+    var text = 'incorrect parameter, insert a boolean true or false';
+    return WAPI.scope(chatId, true, null, text);
   }
-
-  contact = contact.map((c) => {
-    return WAPI.getChat(c).__x_contact;
-  });
-
-  if (contact.length > 1) {
-    window.WAPI.getChat(to).sendContactList(contact);
-  } else if (contact.length === 1) {
-    window.WAPI.getChat(to).sendContact(contact[0]);
+  let typeFix = type ? 'pin' : 'unpin',
+    retult = void 0;
+  var chat = await WAPI.sendExist(chatId);
+  if (chat.erro === false || chat.__x_id) {
+    var ListChat = await Store.Chat.get(chatId);
+    var m = { type: 'pinChat', typefix: typeFix };
+    Promise.all(
+      ListChat
+        ? await Store.pinChat
+            .setPin(chat, type)
+            .then((_) => {
+              var obj = WAPI.scope(chatId, false, 'OK', null);
+              Object.assign(obj, m);
+              retult = obj;
+            })
+            .catch((error) => {
+              var obj = WAPI.scope(chatId, true, error, 'Pin Chat first');
+              Object.assign(obj, m);
+              retult = obj;
+            })
+        : ''
+    );
+    return retult;
+  } else {
+    return chat;
   }
 }

@@ -51,9 +51,8 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-all copyright reservation for S2 Click, Inc
-*/
 
+*/
 export const storeObjects = [
   {
     id: 'Store',
@@ -342,6 +341,15 @@ export const storeObjects = [
     id: 'Theme',
     conditions: (module) =>
       module.getTheme && module.setTheme ? module : null,
+  },
+  {
+    id: 'Vcard',
+    conditions: (module) => (module.vcardFromContactModel ? module : null),
+  },
+  {
+    id: 'Profile',
+    conditions: (module) =>
+      module.sendSetPicture && module.requestDeletePicture ? module : null,
   },
   //{
   //   id: "Presence", conditions: (module) => ( module.setPresenceAvailable &&  module.setPresenceUnavailable) ? module : null

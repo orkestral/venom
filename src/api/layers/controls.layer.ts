@@ -51,7 +51,6 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-all copyright reservation for S2 Click, Inc
 */
 import { Page } from 'puppeteer';
 import { UILayer } from './ui.layer';
@@ -59,7 +58,7 @@ import { UILayer } from './ui.layer';
 declare module WAPI {
   const deleteConversation: (chatId: string) => boolean;
   const archiveChat: (chatId: string, option: boolean) => boolean;
-  const pinChat: (chatId: string, option: boolean) => boolean;
+  const pinChat: (chatId: string, option: boolean) => Promise<object>;
   const clearChat: (chatId: string) => void;
   const deleteMessages: (
     contactId: string,
@@ -125,7 +124,7 @@ export class ControlsLayer extends UILayer {
   }
 
   /**
-   * Deletes the given chat
+   * Archive and unarchive chat messages with true or false
    * @param chatId {string} id '000000000000@c.us'
    * @param option {boolean} true or false
    * @returns boolean
@@ -138,16 +137,25 @@ export class ControlsLayer extends UILayer {
   }
 
   /**
-   * Deletes the given chat
+   * Pin and Unpin chat messages with true or false
    * @param chatId {string} id '000000000000@c.us'
    * @param option {boolean} true or false
-   * @returns boolean
+   * @returns object
    */
   public async pinChat(chatId: string, option: boolean) {
-    return this.page.evaluate(
-      ({ chatId, option }) => WAPI.pinChat(chatId, option),
-      { chatId, option }
-    );
+    return new Promise(async (resolve, reject) => {
+      var result = await this.page.evaluate(
+        ({ chatId, option }) => {
+          return WAPI.pinChat(chatId, option);
+        },
+        { chatId, option }
+      );
+      if (result['erro'] == true) {
+        reject(result);
+      } else {
+        resolve(result);
+      }
+    });
   }
 
   /**

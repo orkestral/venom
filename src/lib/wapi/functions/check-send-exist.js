@@ -51,56 +51,56 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-all copyright reservation for S2 Click, Inc
-*/
-export function sendMessageToID(id, message, done) {
-  try {
-    window.getContact = (id) => {
-      return Store.WapQuery.queryExist(id);
-    };
-    window.getContact(id).then((contact) => {
-      if (contact.status === 404) {
-        done(true);
-      } else {
-        Store.Chat.find(contact.jid)
-          .then((chat) => {
-            chat.sendMessage(message);
-            return true;
-          })
-          .catch((reject) => {
-            if (WAPI.sendMessage(id, message)) {
-              done(true);
-              return true;
-            } else {
-              done(false);
-              return false;
-            }
-          });
-      }
-    });
-  } catch (e) {
-    if (window.Store.Chat.length === 0) return false;
 
-    firstChat = Store.Chat.models[0];
-    var originalID = firstChat.id;
-    firstChat.id =
-      typeof originalID === 'string'
-        ? id
-        : new window.Store.UserConstructor(id, {
-            intentionallyUsePrivateConstructor: true,
-          });
-    if (done !== undefined) {
-      firstChat.sendMessage(message).then(function () {
-        firstChat.id = originalID;
-        done(true);
-      });
-      return true;
-    } else {
-      firstChat.sendMessage(message);
-      firstChat.id = originalID;
-      return true;
+*/
+export function scope(id, erro, status, text = null) {
+  let e = {
+    me: Store.Me.attributes,
+    to: id,
+    erro: erro,
+    text: text,
+    status: status,
+  };
+  return e;
+}
+export async function sendExist(id, chat = true) {
+  var ck = '',
+    textErro = 'The number does not exist';
+  if (typeof id === 'object') {
+    for (var key in id) {
+      ck = await Store.WapQuery.queryExist(id[key]);
+      if (ck.status != 200) {
+        return scope(id[key], true, ck.status, textErro);
+      }
+    }
+  } else {
+    ck = await Store.WapQuery.queryExist(id);
+
+    if (ck.status != 200) {
+      return scope(id, true, ck.status, textErro);
     }
   }
-  if (done !== undefined) done(false);
-  return false;
+  if (chat === true) {
+    ck =
+      typeof id === 'object'
+        ? await Store.WapQuery.queryExist(id[0])
+        : await Store.WapQuery.queryExist(id);
+    chat = await Store.Chat.find(ck.jid);
+    if (chat) {
+      chat.sendAddMessage = chat.sendAddMessage
+        ? chat.sendAddMessage
+        : function () {
+            return window.Store.sendAddMessage.apply(this, arguments);
+          };
+      chat.sendMessage = chat.sendMessage
+        ? chat.sendMessage
+        : function () {
+            return window.Store.sendMessage.apply(this, arguments);
+          };
+      Store.SendSeen(chat, false);
+      return chat;
+    }
+  } else {
+    return scope(ck.jid._serialized, false, ck.status);
+  }
 }

@@ -51,19 +51,46 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-all copyright reservation for S2 Click, Inc
+
 */
 import { processFiles } from './process-files';
 import { base64ToFile } from '../helper';
 
-export function sendFile(imgBase64, chatid, filename, caption, done) {
-  const idUser = new Store.WidFactory.createWid(chatid);
-  return Store.Chat.find(idUser).then((chat) => {
-    var mediaBlob = base64ToFile(imgBase64, filename);
-    processFiles(chat, mediaBlob).then((mediaCollection) => {
-      var media = mediaCollection.models[0];
-      media.sendToChat(chat, { caption: caption });
-      if (done !== undefined) done(true);
-    });
-  });
+export async function sendFile(imgBase64, chatid, filename, caption, type) {
+  type = type ? type : 'sendFile';
+
+  if (
+    (typeof filename != 'string' && filename != null) ||
+    (typeof caption != 'string' && caption != null)
+  ) {
+    var text = 'incorrect parameter, insert an string.';
+    return WAPI.scope(chatid, true, null, text);
+  }
+  var mime = imgBase64.match(/data:([a-zA-Z0-9]+\/[a-zA-Z0-9-.+]+).*,.*/);
+  if (mime && mime.length) {
+    mime = mime[1];
+  }
+  var chat = await WAPI.sendExist(chatid);
+  if (chat.erro === false || chat.__x_id) {
+    var ListChat = await Store.Chat.get(chatid);
+    var mediaBlob = base64ToFile(imgBase64, filename),
+      mediaCollection = await processFiles(chat, mediaBlob),
+      media = mediaCollection.models[0],
+      result = await Promise.all(
+        ListChat ? await media.sendToChat(chat, { caption: caption }) : ''
+      );
+    result = result.join('');
+    var m = { type: type, filename: filename, text: caption, mimeType: mime };
+    if (result === 'success' || result === 'OK') {
+      var obj = WAPI.scope(chatid, false, result, null);
+      Object.assign(obj, m);
+      return obj;
+    } else {
+      var obj = WAPI.scope(chatid, true, result, null);
+      Object.assign(obj, m);
+      return obj;
+    }
+  } else {
+    return chat;
+  }
 }

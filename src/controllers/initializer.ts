@@ -51,28 +51,31 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-all copyright reservation for S2 Click, Inc
 */
+
 import { readFileSync, writeFileSync, mkdir } from 'fs';
 import latestVersion from 'latest-version';
-import { Page } from 'puppeteer';
-import { timer } from 'rxjs';
-import { takeUntil, switchMap } from 'rxjs/operators';
 import { Whatsapp } from '../api/whatsapp';
 import { CreateConfig, defaultOptions } from '../config/create-config';
 import { upToDate } from '../utils/semver';
-import { isAuthenticated, isInsideChat, retrieveQR } from './auth';
-import { initWhatsapp, injectApi } from './browser';
+import { isAuthenticated, isInsideChat, asciiQr, retrieveQR } from './auth';
+import { initWhatsapp, injectApi, initBrowser } from './browser';
 import chalk = require('chalk');
 import boxen = require('boxen');
 import Spinnies = require('spinnies');
 import path = require('path');
 import Counter = require('../lib/counter/Counter.js');
 const { version } = require('../../package.json');
+import { scrapeImgReload, scrapeImg } from '../api/helpers';
 
 // Global
 let updatesChecked = false;
+let browserFail = false;
+var browser_fail: any, browser_check: any, closeBrowser: any;
 const counter = new Counter();
+/**
+ * consult status of whatsapp client
+ */
 
 /**
  * Should be called to initialize whatsapp client
@@ -86,6 +89,8 @@ export async function create(
   const spinnies = new Spinnies({
     disableSpins: options ? options.disableSpins : '',
   });
+
+  const mergedOptions = { ...defaultOptions, ...options };
 
   console.log(`\n
 ▗▄ ▄ ▄  ▄▄▄ ▄   ▄▄▄  ▗▄▄▖▗▄▖ ▗▄▖▄▄▄▖                           
@@ -105,7 +110,7 @@ export async function create(
                                    \n`);
 
   // Check for updates if needed
-  if (!updatesChecked) {
+  if (!updatesChecked && mergedOptions.updatesLog) {
     spinnies.add('venom-version-spinner', {
       text: 'Checking for updates',
     });
@@ -118,188 +123,239 @@ export async function create(
     text: 'Waiting...',
   });
 
-  const mergedOptions = { ...defaultOptions, ...options };
-  let waPage = await initWhatsapp(session, mergedOptions);
+  const browser = await initBrowser(session, mergedOptions);
 
-  spinnies.update(`${session}-auth`, { text: 'Authenticating...' });
-  const authenticated = await isAuthenticated(waPage);
-
-  // If not authenticated, show QR and wait for scan
-  if (authenticated) {
-    // Wait til inside chat
-    if (statusFind) {
-      statusFind('isLogged');
-    }
-
-    await isInsideChat(waPage).toPromise();
-    spinnies.succeed(`${session}-auth`, { text: 'Authenticated' });
-  } else {
-    if (statusFind) {
-      statusFind('notLogged');
-    }
-    spinnies.update(`${session}-auth`, {
-      text: `Authenticate to continue`,
+  if (browser != null) {
+    spinnies.add(`browser`, {
+      text: 'check headless',
     });
 
-    if (mergedOptions.refreshQR <= 0 || mergedOptions.autoClose <= 0) {
-      const { data, asciiQR } = await retrieveQR(waPage);
-      if (catchQR) {
-        catchQR(data, asciiQR);
-      }
-
-      if (mergedOptions.logQR) {
-        console.log(`Scan QR for: ${session}`);
-        console.log(asciiQR);
-      }
-    } else {
-      process.on('uncaughtException', function (err) {
-        if (
-          err.message ==
-          'Protocol error (Runtime.callFunctionOn): Target closed.'
-        )
-          spinnies.succeed(session + '-auth', { text: 'Auto closed!' });
+    if (mergedOptions.headless) {
+      spinnies.succeed(`browser`, {
+        text: 'headless option is active, browser hidden',
       });
-
-      mergedOptions.autoClose
-        ? grabQRUntilTimeOut(waPage, mergedOptions, session, catchQR)
-        : grabQRUntilInside(waPage, mergedOptions, session, catchQR);
+    } else {
+      spinnies.succeed(`browser`, {
+        text: 'headless option is disabled, browser visible',
+      });
     }
 
-    // Wait til inside chat
-    await isInsideChat(waPage).toPromise();
-    spinnies.succeed(`${session}-auth`, { text: 'Compilation Mutation' });
-  }
-  spinnies.add(`${session}-inject`, { text: 'Injecting Sibionte...' });
-  waPage = await injectApi(waPage);
-  spinnies.succeed(`${session}-inject`, { text: 'Starting With Success!' });
+    browser['_process'].once('close', () => {
+      browser['isClose'] = true;
+    });
 
-  // Saving Token
-  spinnies.add(`${session}-inject`, { text: 'Saving Token...' });
-  if (true) {
-    const localStorage = JSON.parse(
-      await waPage.evaluate(() => {
-        return JSON.stringify(window.localStorage);
-      })
-    );
+    browser_fail = setInterval(() => {
+      if (browser['isClose'] != undefined) {
+        spinnies.fail(`${session}-auth`, {
+          text: 'The browser is closed',
+        });
+        browserFail = true;
+        if (statusFind) {
+          statusFind('browserClose');
+        }
+        clearInterval(browser_fail);
+      }
+    }, 1000);
 
-    let { WABrowserId, WASecretBundle, WAToken1, WAToken2 } = localStorage;
+    var waPage = await initWhatsapp(session, mergedOptions, browser);
 
-    try {
-      setTimeout(() => {
-        mkdir(
-          path.join(path.resolve(process.cwd(), 'tokens')),
-          { recursive: true },
-          (err) => {
-            if (err) {
+    if (waPage) {
+      spinnies.update(`${session}-auth`, { text: 'Authenticating...' });
+
+      let authenticated = null;
+
+      await isAuthenticated(waPage)
+        .then((e) => {
+          authenticated = e;
+        })
+        .catch(() => {});
+
+      if (authenticated != null) {
+        // If not authenticated, show QR and wait for scan
+        if (authenticated) {
+          // Wait til inside chat
+          if (statusFind) {
+            statusFind('isLogged');
+          }
+
+          await isInsideChat(waPage).toPromise();
+          spinnies.succeed(`${session}-auth`, { text: 'Authenticated' });
+        } else {
+          if (statusFind) {
+            statusFind('notLogged');
+          }
+          spinnies.add(`autoclose`, { text: 'check autoClose' });
+          if (mergedOptions.autoClose > 0) {
+            spinnies.succeed(`autoclose`, {
+              text: 'the autoClose function is on',
+            });
+
+            closeBrowser = setTimeout(() => {
+              browserFail = true;
+              browser.close();
+              clearInterval(browser_check);
+            }, mergedOptions.autoClose);
+          } else {
+            spinnies.succeed(`autoclose`, {
+              text: 'the autoClose function is off ',
+            });
+          }
+
+          let tipo_qr = 0,
+            result = undefined,
+            url = null;
+
+          browser_check = setInterval(async () => {
+            if (browser['isClose'] != undefined) {
+              if (statusFind) {
+                statusFind('qrReadFail');
+              }
+              browserFail = true;
+              clearInterval(browser_check);
+            } else {
+              switch (tipo_qr) {
+                case 0:
+                  result = await scrapeImg(waPage).catch(() => {});
+                  if (result != undefined) {
+                    var { data, asciiQR } = await retrieveQR(waPage);
+                    if (catchQR) {
+                      catchQR(data, asciiQR);
+                    }
+                    await asciiQr(result['url'])
+                      .then((qr) => {
+                        if (mergedOptions.logQR) {
+                          spinnies.update(`${session}-auth`, {
+                            text: 'Scan QR for Session: ' + session,
+                          });
+                          console.log(qr);
+                        }
+                        tipo_qr++;
+                      })
+                      .catch(() => {});
+                  }
+                  break;
+                case 1:
+                  result = await scrapeImgReload(waPage, url).catch(() => {});
+                  if (typeof result === 'object') {
+                    url = result.url;
+                  }
+                  if (typeof result === 'object' && result.status === true) {
+                    let re = await scrapeImg(waPage).catch(() => {});
+                    if (re != undefined) {
+                      var { data, asciiQR } = await retrieveQR(waPage);
+                      if (catchQR) {
+                        catchQR(data, asciiQR);
+                      }
+                      await asciiQr(re['url'])
+                        .then((qr) => {
+                          if (mergedOptions.logQR) {
+                            spinnies.update(`${session}-auth`, {
+                              text: 'Scan QR for Session: ' + session,
+                            });
+                            console.log(qr);
+                          }
+                        })
+                        .catch(() => {});
+                    }
+                  }
+                  break;
+              }
+            }
+          }, 1000);
+
+          if (!browserFail) {
+            // Wait til inside chat
+            var IsLog = await isInsideChat(waPage).toPromise();
+            if (IsLog == false) {
+              return false;
+            }
+            if (statusFind) {
+              statusFind('qrReadSuccess');
+            }
+            spinnies.succeed(`${session}-auth`, {
+              text: 'Compilation Mutation',
+            });
+          }
+        }
+        if (!browserFail) {
+          spinnies.add(`${session}-inject`, { text: 'Injecting Sibionte...' });
+          waPage = await injectApi(waPage);
+          clearInterval(browser_fail);
+          clearInterval(browser_check);
+          clearTimeout(closeBrowser);
+
+          spinnies.succeed(`${session}-inject`, {
+            text: 'Starting With Success!',
+          });
+
+          // Saving Token
+          spinnies.add(`${session}-inject`, { text: 'Saving Token...' });
+
+          if (true) {
+            const localStorage = JSON.parse(
+              await waPage.evaluate(() => {
+                return JSON.stringify(window.localStorage);
+              })
+            );
+
+            let {
+              WABrowserId,
+              WASecretBundle,
+              WAToken1,
+              WAToken2,
+            } = localStorage;
+
+            try {
+              setTimeout(() => {
+                mkdir(
+                  path.join(path.resolve(process.cwd(), 'tokens')),
+                  { recursive: true },
+                  (err) => {
+                    if (err) {
+                      spinnies.fail(`${session}-inject`, {
+                        text: 'Failed to create folder tokens...',
+                      });
+                    }
+                  }
+                );
+              }, 200);
+
+              setTimeout(() => {
+                writeFileSync(
+                  path.join(
+                    path.resolve(process.cwd(), 'tokens'),
+                    `${session}.data.json`
+                  ),
+                  JSON.stringify({
+                    WABrowserId,
+                    WASecretBundle,
+                    WAToken1,
+                    WAToken2,
+                  })
+                );
+                spinnies.succeed(`${session}-inject`, {
+                  text: 'Token saved successfully...',
+                });
+              }, 500);
+            } catch (error) {
               spinnies.fail(`${session}-inject`, {
-                text: 'Failed to create folder tokens...',
+                text: 'Failed to save token...',
               });
             }
           }
-        );
-      }, 200);
 
-      setTimeout(() => {
-        writeFileSync(
-          path.join(
-            path.resolve(process.cwd(), 'tokens'),
-            `${session}.data.json`
-          ),
-          JSON.stringify({ WABrowserId, WASecretBundle, WAToken1, WAToken2 })
-        );
-        spinnies.succeed(`${session}-inject`, {
-          text: 'Token saved successfully...',
-        });
-      }, 500);
-    } catch (error) {
-      spinnies.fail(`${session}-inject`, {
-        text: 'Failed to save token...',
-      });
+          if (mergedOptions.debug) {
+            const debugURL = `http://localhost:${readFileSync(
+              `./${session}/DevToolsActivePort`
+            ).slice(0, -54)}`;
+            console.log(`\nDebug: \x1b[34m${debugURL}\x1b[0m`);
+          }
+
+          return new Whatsapp(waPage);
+        }
+      }
     }
   }
-
-  if (mergedOptions.debug) {
-    const debugURL = `http://localhost:${readFileSync(
-      `./${session}/DevToolsActivePort`
-    ).slice(0, -54)}`;
-    console.log(`\nDebug: \x1b[34m${debugURL}\x1b[0m`);
-  }
-
-  return new Whatsapp(waPage);
-}
-
-/**
- * Check the time remaining to autoClose from Counter class
- */
-const countDown = (msTimeOut: number) => counter.getElapsedTime() < msTimeOut;
-
-/**
- * Grab QRcode until timeout
- */
-function grabQRUntilTimeOut(
-  waPage: Page,
-  options: CreateConfig,
-  session: string,
-  catchQR: (qrCode: string, asciiQR: string) => void
-) {
-  const isInside = isInsideChat(waPage);
-  let timeInterval = 1000; //options.refreshQR > 0 && options.refreshQR <= options.autoClose ? options.refreshQR : 1000
-  counter.isFirstCall = true;
-  timer(0, timeInterval)
-    .pipe(
-      takeUntil(isInside),
-      switchMap(() => retrieveQR(waPage))
-    )
-    .subscribe(async ({ data, asciiQR }) => {
-      counter.counterInit();
-      // console.log(waPage.browser().process);
-      countDown(options.autoClose) ? null : await waPage.close(); //Close Imediatly
-
-      let timeOut = Math.round(
-        (options.autoClose - counter.getElapsedTime()) / 1000
-      );
-
-      if (catchQR) {
-        catchQR(data, asciiQR);
-      }
-      if (options.logQR) {
-        console.clear();
-        console.log(
-          'Scan QR for: ' +
-            session +
-            '                ' +
-            `(Time remaining for auto close ${timeOut} sec.)`
-        );
-        console.log(asciiQR);
-      }
-    });
-}
-
-/**
- * Grab QRcode until synced (inside chat)
- */
-function grabQRUntilInside(
-  waPage: Page,
-  options: CreateConfig,
-  session: string,
-  catchQR: (qrCode: string, asciiQR: string) => void
-) {
-  const isInside = isInsideChat(waPage);
-  timer(0, options.refreshQR)
-    .pipe(
-      takeUntil(isInside),
-      switchMap(() => retrieveQR(waPage))
-    )
-    .subscribe(({ data, asciiQR }) => {
-      if (catchQR) {
-        catchQR(data, asciiQR);
-      }
-      if (options.logQR) {
-        console.clear();
-        console.log(`Scan QR for: ${session} `);
-        console.log(asciiQR);
-      }
-    });
 }
 
 /**

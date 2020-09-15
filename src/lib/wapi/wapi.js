@@ -51,7 +51,7 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-all copyright reservation for S2 Click, Inc
+
 */
 import {
   _getGroupParticipants,
@@ -115,7 +115,7 @@ import {
   reply,
   revokeGroupInviteLink,
   sendChatstate,
-  sendContact,
+  sendContactVcard,
   sendFile,
   sendPtt,
   sendImage,
@@ -124,7 +124,6 @@ import {
   sendLocation,
   sendMessage,
   sendMessage2,
-  sendMessageToID,
   sendMessageWithTags,
   sendMessageWithThumb,
   sendSeen,
@@ -144,6 +143,11 @@ import {
   restartService,
   killServiceWorker,
   sendLinkPreview,
+  scope,
+  sendExist,
+  sendContactVcardList,
+  setProfilePic,
+  pinChat,
   // setPresence,
 } from './functions';
 import {
@@ -171,18 +175,25 @@ import {
   _serializeRawObj,
 } from './serializers';
 import { getStore } from './store/get-store';
-import { get } from 'http';
 
 if (!window.Store || !window.Store.Msg) {
   (function () {
     const parasite = `parasite${Date.now()}`;
     // webpackJsonp([], { [parasite]: (x, y, z) => getStore(z) }, [parasite]);
     if (typeof webpackJsonp === 'function')
-      webpackJsonp([], { [parasite]: (x, y, z) => getStore(z) }, [parasite]);
+      webpackJsonp(
+        [],
+        {
+          [parasite]: (x, y, z) => getStore(z),
+        },
+        [parasite]
+      );
     else
       webpackJsonp.push([
         [parasite],
-        { [parasite]: (x, y, z) => getStore(z) },
+        {
+          [parasite]: (x, y, z) => getStore(z),
+        },
         [[parasite]],
       ]);
   })();
@@ -191,6 +202,15 @@ if (!window.Store || !window.Store.Msg) {
 window.WAPI = {
   lastRead: {},
 };
+
+//Profile
+window.WAPI.setProfilePic = setProfilePic;
+
+// Chat Functions
+window.WAPI.scope = scope;
+window.WAPI.sendExist = sendExist;
+window.WAPI.pinChat = pinChat;
+
 // Layout Functions
 window.WAPI.setTheme = setTheme;
 window.WAPI.getTheme = getTheme;
@@ -227,7 +247,6 @@ window.WAPI.sendSeen = sendSeen;
 window.WAPI.deleteConversation = deleteConversation;
 window.WAPI.deleteMessages = deleteMessages;
 window.WAPI.clearChat = clearChat;
-window.WAPI.sendMessageToID = sendMessageToID;
 window.WAPI.sendImage = sendImage;
 window.WAPI.sendPtt = sendPtt;
 window.WAPI.sendFile = sendFile;
@@ -236,7 +255,8 @@ window.WAPI.setMyStatus = setMyStatus;
 window.WAPI.sendVideoAsGif = sendVideoAsGif;
 window.WAPI.processFiles = processFiles;
 window.WAPI.sendImageWithProduct = sendImageWithProduct;
-window.WAPI.sendContact = sendContact;
+window.WAPI.sendContactVcard = sendContactVcard;
+window.WAPI.sendContactVcardList = sendContactVcardList;
 window.WAPI.forwardMessages = forwardMessages;
 window.WAPI.reply = reply;
 window.WAPI._sendSticker = sendSticker;
@@ -387,7 +407,11 @@ window.WAPI.getProfilePicFromId = async function (id) {
 
 window.WAPI.downloadFileWithCredentials = async function (url) {
   if (!axios || !url) return false;
-  const ab = (await axios.get(url, { responseType: 'arraybuffer' })).data;
+  const ab = (
+    await axios.get(url, {
+      responseType: 'arraybuffer',
+    })
+  ).data;
   return btoa(
     new Uint8Array(ab).reduce(
       (data, byte) => data + String.fromCharCode(byte),
@@ -439,7 +463,6 @@ window.WAPI.getWAVersion = function () {
   return window.Debug.VERSION;
 };
 
-// teste implementation newfunctions
 /**
  * @param id The id of the conversation
  * @param archive boolean true => archive, false => unarchive
@@ -447,18 +470,6 @@ window.WAPI.getWAVersion = function () {
  */
 window.WAPI.archiveChat = async function (id, archive) {
   return await Store.Archive.setArchive(Store.Chat.get(id), archive)
-    .then((_) => true)
-    .catch((_) => false);
-};
-
-/**
- * @param id The id of the conversation
- * @param pin boolean true => pin, false => unpin
- * @return boolean true: worked, false: didnt work (probably already in desired state)
- */
-window.WAPI.pinChat = async function (id, pin) {
-  return await Store.pinChat
-    .setPin(Store.Chat.get(id), pin)
     .then((_) => true)
     .catch((_) => false);
 };

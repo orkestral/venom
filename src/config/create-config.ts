@@ -51,8 +51,8 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-all copyright reservation for S2 Click, Inc
 */
+
 export interface CreateConfig {
   headless?: boolean;
   devtools?: boolean;
@@ -60,9 +60,9 @@ export interface CreateConfig {
   debug?: boolean;
   browserArgs?: string[];
   logQR?: boolean;
-  refreshQR?: number;
-  autoClose?: number;
   disableSpins?: boolean;
+  updatesLog?: boolean;
+  autoClose?: number;
 }
 
 export const defaultOptions: CreateConfig = {
@@ -72,7 +72,7 @@ export const defaultOptions: CreateConfig = {
   debug: false,
   logQR: true,
   browserArgs: [''],
-  refreshQR: 30000,
-  autoClose: 60000,
   disableSpins: false,
+  updatesLog: true,
+  autoClose: 60000,
 };

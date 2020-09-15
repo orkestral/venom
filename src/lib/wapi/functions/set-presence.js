@@ -51,15 +51,15 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-all copyright reservation for S2 Click, Inc
+
 */
-export function setPresence(available){
-    if(available == true){
-         Store.Presence.setPresenceAvailable();
-        return true;
-    }
-    if(available == false){
-         Store.Presence.setPresenceUnavailable();
-       return true
-	}
+export function setPresence(available) {
+  if (available == true) {
+    Store.Presence.setPresenceAvailable();
+    return true;
+  }
+  if (available == false) {
+    Store.Presence.setPresenceUnavailable();
+    return true;
+  }
 }

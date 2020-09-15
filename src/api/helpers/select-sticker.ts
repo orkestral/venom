@@ -51,28 +51,47 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-all copyright reservation for S2 Click, Inc
+
 */
 import * as sharp from 'sharp';
-export async function stickerSelect(_B: Buffer, _t: number){
-  
-    let _w,_met, _webb64, _ins, obj = {}; 
-    switch(_t){
-      case 0:
-         _ins = await sharp(_B, { failOnError: false }).resize({ width: 512, height: 512 }).toBuffer();
-         _w = sharp(_ins, { failOnError: false }).webp();
-         _met = (await _w.metadata()) as any;
+export async function stickerSelect(_B: Buffer, _t: number) {
+  let _w,
+    _met,
+    _webb64,
+    _ins,
+    obj = {};
+  switch (_t) {
+    case 0:
+      _ins = await sharp(_B, { failOnError: false })
+        .resize({ width: 512, height: 512 })
+        .toBuffer();
+      _w = sharp(_ins, { failOnError: false }).webp();
+      _met = (await _w.metadata()) as any;
       break;
-      case 1:
-        _w = sharp(_B,{pages: -1}).webp();
-        _met = ((await _w.metadata()).pages) as any;
+    case 1:
+      _w = sharp(_B, { pages: -1 }).webp();
+      _met = (await _w.metadata()).pages as any;
       break;
-      default:
-        console.error("Enter a valid number 0 or 1")
+    default:
+      console.error('Enter a valid number 0 or 1');
       return false;
-    }
+  }
+  _webb64 = (await _w.toBuffer()).toString('base64');
+  obj['webpBase64'] = _webb64;
+  obj['metadata'] = _met;
+  return obj;
+}
+
+interface CreateSize {
+  width?: number;
+  height?: number;
+}
+export async function resizeImg(buff: Buffer, size: CreateSize) {
+  var _ins = await sharp(buff, { failOnError: false })
+      .resize({ width: size.width, height: size.height })
+      .toBuffer(),
+    _w = sharp(_ins, { failOnError: false }).jpeg(),
     _webb64 = (await _w.toBuffer()).toString('base64');
-    obj["webpBase64"] = _webb64;
-    obj["metadata"] = _met;
-    return obj;
+
+  return _webb64;
 }

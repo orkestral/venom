@@ -53,7 +53,7 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-all copyright reservation for S2 Click, Inc
+
 */
 export { areAllMessagesLoaded } from './are-all-messages-loaded';
 export { clearChat } from './clear-chat';
@@ -97,7 +97,10 @@ export { hasUndreadMessages } from './has-unread-messages';
 export { isConnected } from './is-connected';
 export { isLoggedIn } from './is-logged-in';
 export { leaveGroup } from './leave-group';
-export { asyncLoadAllEarlierMessages, loadAllEarlierMessages, } from './load-all-earlier-chat-messages';
+export {
+  asyncLoadAllEarlierMessages,
+  loadAllEarlierMessages,
+} from './load-all-earlier-chat-messages';
 export { loadAndGetAllMessagesInChat } from './load-and-get-all-messages-in-chat';
 export { loadChatEarlierMessages } from './load-earlier-chat-messages';
 export { loadEarlierMessagesTillDate } from './load-earlier-messages-til-date';
@@ -121,12 +124,11 @@ export { sendVideoAsGif } from './send-video-as-gif';
 export { setMyName } from './set-my-name';
 export { setMyStatus } from './set-my-status';
 export { forwardMessages } from './forward-messages';
-export { sendContact } from './send-contact';
+export { sendContactVcard } from './send-contact-vcard';
 export { getNewMessageId } from './get-new-message-id';
 export { reply } from './reply';
 export { startTyping, stopTyping } from './simulate-typing';
 export { getMessageById } from './get-message-by-id';
-export { sendMessageToID } from './send-message-to-id';
 export { blockContact } from './block-contact';
 export { unblockContact } from './unblock-contact';
 export { removeParticipant } from './remove-participant';
@@ -137,8 +139,12 @@ export { openChat, openChatAt } from './open-chat';
 export { joinGroup } from './join-group';
 export { markUnseenMessage } from './mark-unseen-message.js';
 export { getBlockList } from './block-list';
-export { setTheme, getTheme} from './theme';
+export { setTheme, getTheme } from './theme';
 export { restartService } from './restart-service';
 export { killServiceWorker } from './kill-service-worker';
 export { sendLinkPreview } from './send-link-preview';
+export { sendExist, scope } from './check-send-exist';
+export { sendContactVcardList } from './send-contact-vcard-list';
+export { setProfilePic } from './set-profile-pic';
+export { pinChat } from './fix-chat';
 //export { setPresence } from './set-presence';
