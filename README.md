@@ -219,7 +219,7 @@ available can be found in [here](/src/api/layers) and
 
 ### Chatting
 
-##### Here, `chatId` could be `<phoneNumber>@c.us` or `<phoneNumber>-<groupId>@c.us`
+##### Here, `chatId` could be `<phoneNumber>@c.us` or `<phoneNumber>-<groupId>@g.us`
 
 ```javascript
 
@@ -290,11 +290,8 @@ await client.reply("000000000000@c.us", 'This is a reply!', message.id.toString(
 // Reply to a message with mention
 await client.reply("000000000000@c.us", 'Hello @5218113130740 and @5218243160777! This is a reply with mention!', message.id.toString(), ['5218113130740', '5218243160777']);
 
-
-
 // Send gif
 await client.sendVideoAsGif( "000000000000@c.us",'path/to/video.mp4', 'video.gif', 'Gif image file');
-
 
 // Forwards messages
 await client.forwardMessages("000000000000@c.us", [message.id.toString()], true);
@@ -306,9 +303,6 @@ await client.sendImageAsStickerGif("000000000000@c.us", './image.gif');
 //Generates sticker from given image and sends it (Send Image As Sticker)
 // image path imageBase64 A valid png, jpg and webp image is required. You can also send via http/https (http://www.website.com/img.jpg)
 await client.sendImageAsSticker("000000000000@c.us", './image.jpg');
-
-// Send location
-
 
 // Send seen ✔️✔️
 await client.sendSeen("000000000000@c.us");
@@ -326,12 +320,6 @@ await client.setChatState("000000000000@c.us", 0 | 1 | 2);
 ## Retrieving Data
 
 ```javascript
-// Calls your list of blocked contacts (returns an array)
-const getBlockList = await client.getBlockList();
-
-// Retrieve contacts
-const contacts = await client.getAllContacts();
-
 // Retrieve messages in chat
 const Messages = await client.getAllMessagesInChat('000000000000@c.us');
 
@@ -339,24 +327,13 @@ const Messages = await client.getAllMessagesInChat('000000000000@c.us');
 const moreMessages = await client.loadEarlierMessages('000000000000@c.us');
 
 // Retrieve all messages in chat
-const allMessages = await client.loadAndGetAllMessagesInChat(
-  '000000000000@c.us'
-);
+const allMessages = await client.loadAndGetAllMessagesInChat('000000000000@c.us');
 
 // Retrieve contact status
 const status = await client.getStatus('000000000000@c.us');
 
 // Retrieve user profile
 const user = await client.getNumberProfile('000000000000@c.us');
-
-// Retrieve all unread message
-const messages = await client.getAllUnreadMessages();
-
-// Retrieve all chats
-const chats = await client.getAllChats();
-
-// Retrieve all groups
-const chats = await client.getAllGroups();
 
 // Retrieve profile fic (as url)
 const url = await client.getProfilePicFromServer('000000000000@c.us');
@@ -366,6 +343,21 @@ const chat = await client.getChat('000000000000@c.us');
 
 // Check if the number exists
 const chat = await client.checkNumberStatus('000000000000@c.us');
+
+// Calls your list of blocked contacts (returns an array)
+const getBlockList = await client.getBlockList();
+
+// Retrieve contacts
+const contacts = await client.getAllContacts();
+
+// Retrieve all unread message
+const messages = await client.getAllUnreadMessages();
+
+// Retrieve all chats
+const chats = await client.getAllChats();
+
+// Retrieve all groups
+const chats = await client.getAllGroups();
 ```
 
 ## Group Functions
@@ -386,10 +378,7 @@ await client.getGroupMembersIds('00000000-000000@g.us');
 await client.getGroupInviteLink('00000000-000000@g.us');
 
 // Create group (title, participants to add)
-await client.createGroup('Group name', [
-  '111111111111@c.us',
-  '222222222222@c.us',
-]);
+await client.createGroup('Group name', ['111111111111@c.us', '222222222222@c.us']);
 
 // Remove participant
 await client.removeParticipant('00000000-000000@g.us', '111111111111@c.us');
@@ -470,7 +459,6 @@ client.onAck(ack => {
 });
 
 // Listen to live location
-// chatId: 'phone@c.us'
 client.onLiveLocation("000000000000@c.us", (liveLocation) => {
   ...
 });
@@ -493,7 +481,7 @@ client.onAddedToGroup(chatEvent => {
 ```javascript
 // Pin chat and Unpin chat messages with true or false
 await client
-  .pinChat(chatId, true | false)
+  .pinChat('000000000000@c.us', true | false)
   .then((result) => {
     console.log('Result: ', result); //return object success
   })
@@ -516,7 +504,7 @@ await client.deleteChat('000000000000@c.us');
 await client.clearChat('000000000000@c.us');
 
 // Archive and unarchive chat messages with true or false
-await client.archiveChat(chatId, true);
+await client.archiveChat('000000000000@c.us', true | false);
 
 // Delete message (last parameter: delete only locally)
 await client.deleteMessage('000000000000@c.us', message.id.toString(), false);
