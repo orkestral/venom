@@ -251,7 +251,7 @@ await client.sendLocation("000000000000@c.us", "-13.6561589", "-69.7309264", "Br
       console.error("Error when sending: ", erro); //return object error
 });
 
-//Automatically sends a link with the auto generated link preview. You can also add a custom message to be added.
+// Automatically sends a link with the auto generated link preview. You can also add a custom message to be added.
 await client.sendLinkPreview("000000000000@c.us", "https://www.youtube.com/watch?v=V1bFr2SWP1I", "Kamakawiwo ole").then((result)=>{
       console.log("Result: ", result); //return object success
   }).catch((erro)=>{
@@ -266,14 +266,14 @@ await client.sendImage("000000000000@c.us" 'path/to/img.jpg', 'image-name', 'Cap
 });
 
 // Send file (venom will take care of mime types, just need the path)
-//you can also upload an image using a valid HTTP protocol
+// you can also upload an image using a valid HTTP protocol
 await client.sendFile("000000000000@c.us", 'path/to/file.pdf', 'file_name', 'See my file in pdf').then((result)=>{
       console.log("Result: ", result); //return object success
   }).catch((erro)=>{
       console.error("Error when sending: ", erro); //return object error
 });
 
-//Sends file
+// Sends file
 // base64 parameter should have mime type already defined
  await client.sendFileFromBase64("000000000000@c.us", base64PDF, 'file_name.pdf', 'See my file in pdf').then((result)=>{
       console.log("Result: ", result); //return object success
@@ -296,11 +296,11 @@ await client.sendVideoAsGif( "000000000000@c.us",'path/to/video.mp4', 'video.gif
 // Forwards messages
 await client.forwardMessages("000000000000@c.us", [message.id.toString()], true);
 
-//Generates sticker from the provided animated gif image and sends it (Send image as animated sticker)
-//image path imageBase64 A valid gif image is required. You can also send via http/https (http://www.website.com/img.gif)
+// Generates sticker from the provided animated gif image and sends it (Send image as animated sticker)
+// image path imageBase64 A valid gif image is required. You can also send via http/https (http://www.website.com/img.gif)
 await client.sendImageAsStickerGif("000000000000@c.us", './image.gif');
 
-//Generates sticker from given image and sends it (Send Image As Sticker)
+// Generates sticker from given image and sends it (Send Image As Sticker)
 // image path imageBase64 A valid png, jpg and webp image is required. You can also send via http/https (http://www.website.com/img.jpg)
 await client.sendImageAsSticker("000000000000@c.us", './image.jpg');
 
@@ -418,10 +418,10 @@ await client.setProfilePic('path/to/image.jpg');
 ## Device Functions
 
 ```javascript
-//Delete the Service Worker
+// Delete the Service Worker
 await client.killServiceWorker();
 
-//Load the service again
+// Load the service again
 await client.restartService();
 
 // Get device info
@@ -463,7 +463,7 @@ client.onLiveLocation("000000000000@c.us", (liveLocation) => {
   ...
 });
 
-// chatId looks like this: '5518156745634-1516512045@g.us'
+// ChatId looks like this: '5518156745634-1516512045@g.us'
 // Event interface is in here: https://github.com/s2click/venom/blob/master/src/api/model/participant-event.ts
 client.onParticipantsChanged("000000000000@c.us", (event) => {
   ...
@@ -489,12 +489,12 @@ await client
     console.error('Error when sending: ', erro); //return object error
   });
 
-//Change the theme
-//string types "dark" or "light"
+// Change the theme
+// string types "dark" or "light"
 await client.setTheme('dark');
 
-//Receive the current theme
-//returns string light or dark
+// Receive the current theme
+// returns string light or dark
 await client.getTheme();
 
 // Delete chat
@@ -512,10 +512,10 @@ await client.deleteMessage('000000000000@c.us', message.id.toString(), false);
 // Mark chat as not seen (returns true if it works)
 await client.markUnseenMessage('000000000000@c.us');
 
-//blocks a user (returns true if it works)
+// Blocks a user (returns true if it works)
 await client.blockContact('000000000000@c.us');
 
-//unlocks contacts (returns true if it works)
+// Unlocks contacts (returns true if it works)
 await client.unblockContact('000000000000@c.us');
 
 // Retrieve a number profile / check if contact is a valid whatsapp number
