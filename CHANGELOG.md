@@ -2,6 +2,10 @@
 
 _All notable changes to this project will be documented in this file. Dates are displayed in UTC._
 
+**2.0.1**
+14 September 2020
+fix bug initialization
+
 **2.0.0**
 14 September 2020
 add checkNumberStatus, sendContactVcardList
