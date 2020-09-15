@@ -52,35 +52,9 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
-export async function pinChat(chatId, type = true) {
-  if (typeof type != 'boolean') {
-    var text = 'incorrect parameter, insert a boolean true or false';
-    return WAPI.scope(chatId, true, null, text);
-  }
-  let typeFix = type ? 'pin' : 'unpin',
-    retult = void 0;
-  var chat = await WAPI.sendExist(chatId);
-  if (chat.erro === false || chat.__x_id) {
-    var ListChat = await Store.Chat.get(chatId);
-    var m = { type: 'pinChat', typefix: typeFix };
-    Promise.all(
-      ListChat
-        ? await Store.pinChat
-            .setPin(chat, type)
-            .then((_) => {
-              var obj = WAPI.scope(chatId, false, 'OK', null);
-              Object.assign(obj, m);
-              retult = obj;
-            })
-            .catch((error) => {
-              var obj = WAPI.scope(chatId, true, error, 'Pin Chat first');
-              Object.assign(obj, m);
-              retult = obj;
-            })
-        : ''
-    );
-    return retult;
-  } else {
-    return chat;
-  }
+export async function pinChat(id, pin) {
+  return await Store.pinChat
+    .setPin(Store.Chat.get(id), pin)
+    .then((_) => true)
+    .catch((_) => false);
 }
