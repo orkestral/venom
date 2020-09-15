@@ -542,6 +542,9 @@ client.onStateChange((state) => {
   ];
   if (conflits.includes(state)) {
     client.useHere();
+
+    // Detecting Logouts
+    if(state==='UNPAIRED') console.log('LOGGED OUT!!!!')
   }
 });
 ```
