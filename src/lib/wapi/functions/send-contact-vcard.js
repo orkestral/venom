@@ -61,7 +61,7 @@ export async function sendContactVcard(to, contact, name) {
     var tempMsg = Object.create(
       Store.Msg.models.filter((msg) => msg.__x_isSentByMe && !msg.quotedMsg)[0]
     );
-    var cont = await window.Store.Chat.get(contact);
+    var cont = await window.Store.Contact.get(contact);
     var bod = await window.Store.Vcard.vcardFromContactModel(cont.__x_contact);
     name = !name ? cont.__x_formattedTitle : name;
     var extend = {
