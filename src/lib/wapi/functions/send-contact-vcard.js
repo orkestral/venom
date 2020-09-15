@@ -61,7 +61,11 @@ export async function sendContactVcard(to, contact, name) {
     var tempMsg = Object.create(
       Store.Msg.models.filter((msg) => msg.__x_isSentByMe && !msg.quotedMsg)[0]
     );
-    var cont = await window.Store.Contact.get(contact);
+    var cont = await window.Store.Chat.get(contact);
+    if (typeof cont != "Object") {
+      var ck = await Store.WapQuery.queryExist(contact);
+      cont = await Store.Chat.find(ck.jid);
+    }
     var bod = await window.Store.Vcard.vcardFromContactModel(cont.__x_contact);
     name = !name ? cont.__x_formattedTitle : name;
     var extend = {
@@ -81,7 +85,10 @@ export async function sendContactVcard(to, contact, name) {
     var result = await Promise.all(
       ListChat ? Store.addAndSendMsgToChat(chat, tempMsg) : ''
     );
-    var m = { from: contact, type: 'vcard' };
+    var m = {
+      from: contact,
+      type: 'vcard'
+    };
     if (result[1] === 'success' || result[1] === 'OK') {
       var obj = WAPI.scope(to, false, result[1], null);
       Object.assign(obj, m);

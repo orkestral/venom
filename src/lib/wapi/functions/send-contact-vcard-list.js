@@ -1,5 +1,9 @@
-import { constants } from 'buffer';
-import { type } from 'os';
+import {
+  constants
+} from 'buffer';
+import {
+  type
+} from 'os';
 
 /*
 NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN
@@ -82,7 +86,12 @@ export async function sendContactVcardList(to, contacts) {
         )[0]
       ),
       conta = contacts.map(async (e) => {
-        return await window.Store.Chat.get(e);
+        var cont = await window.Store.Chat.get(e);
+        if (typeof cont != "Object") {
+          var ck = await Store.WapQuery.queryExist(e);
+          cont = await Store.Chat.find(ck.jid);
+        }
+        return cont;
       });
     var ar = await Promise.all(conta);
     var cont = new Array();
@@ -110,7 +119,10 @@ export async function sendContactVcardList(to, contacts) {
     var result = await Promise.all(
       ListChat ? Store.addAndSendMsgToChat(chat, tempMsg) : ''
     );
-    var m = { from: contacts, type: 'multi_vcard' };
+    var m = {
+      from: contacts,
+      type: 'multi_vcard'
+    };
     if (result[1] === 'success' || result[1] === 'OK') {
       var obj = WAPI.scope(to, false, result[1], null);
       Object.assign(obj, m);
