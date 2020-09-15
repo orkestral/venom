@@ -220,6 +220,7 @@ available can be found in [here](/src/api/layers) and
 ### Chatting
 
 ##### Here, `chatId` could be `<phoneNumber>@c.us` or `<phoneNumber>-<groupId>@g.us`
+##### You can use the functions below to send a message to new contacts (non-added)
 
 ```javascript
 
