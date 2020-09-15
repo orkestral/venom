@@ -65,12 +65,11 @@ export interface CreateConfig {
   disableSpins?: boolean;
   disableWelcome?: boolean;
   updatesLog?: boolean;
-  autoClose?: number,
+  autoClose?: number;
 }
 
-export const defaultOptions: 
-CreateConfig = {
-  folderNameToken: "tokens",
+export const defaultOptions: CreateConfig = {
+  folderNameToken: 'tokens',
   mkdirFolderToken: '',
   headless: true,
   devtools: false,

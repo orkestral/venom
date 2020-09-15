@@ -61,24 +61,24 @@ import * as fs from 'fs';
  * @param mime Optional, will retrieve file mime automatically if not defined (Example: 'image/png')
  */
 export async function fileToBase64(path: string, mime?: string) {
-  if(fs.existsSync(path)){
+  if (fs.existsSync(path)) {
     const base64 = fs.readFileSync(path, { encoding: 'base64' });
     if (mime === undefined) {
       mime = await mimeTypes.lookup(path);
     }
     const data = `data:${mime};base64,${base64}`;
     return data;
-  }else{
+  } else {
     return false;
   }
 }
 
-export async function Mine(path: string){
-  if(fs.existsSync(path)){
+export async function Mine(path: string) {
+  if (fs.existsSync(path)) {
     const base64 = fs.readFileSync(path, { encoding: 'base64' });
     const mime = await mimeTypes.lookup(path);
     return mime;
-  }else{
+  } else {
     return false;
   }
 }
