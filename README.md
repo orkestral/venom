@@ -84,7 +84,7 @@ venom
     'sessionName',
     (base64Qrimg, asciiQR) => {
       console.log('Terminal qrcode: ', asciiQR);
-      console.log('base64 image string qrcode: ', base64Qrimgr);
+      console.log('base64 image string qrcode: ', base64Qrimg);
     },
     (statusSession) => {
       console.log('Status Session: ', statusSession); //return isLogged || notLogged || browserClose || qrReadSuccess || qrReadFail
@@ -219,7 +219,7 @@ available can be found in [here](/src/api/layers) and
 
 ### Chatting
 
-##### Here, `chatId` could be `<phoneNumber>@c.us` or `<phoneNumber>-<groupId>@c.us`
+##### Here, `chatId` could be `<phoneNumber>@c.us` or `<phoneNumber>-<groupId>@g.us`
 
 ```javascript
 
