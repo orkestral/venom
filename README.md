@@ -97,6 +97,7 @@ venom
       logQR: true, // Logs QR automatically in terminal
       browserArgs: [''], // Parameters to be added into the chrome browser instance
       disableSpins: true, // Will disable Spinnies animation, useful for containers (docker) for a better log
+      disableWelcome: true, // Will disable the welcoming message which appears in the beginning
       updates: true, // Logs info updates automatically in terminal
       autoClose: 60000, // Automatically closes the venom-bot only when scanning the QR code (default 60 seconds, if you want to turn it off, assign 0 or false)
     }
