@@ -92,7 +92,7 @@ export async function create(
 
   const mergedOptions = { ...defaultOptions, ...options };
 
-  if(!mergedOptions.disableWelcome){
+  if(!mergedOptions.disableWelcome) {
     console.log(`\n
   ▗▄ ▄ ▄  ▄▄▄ ▄   ▄▄▄  ▗▄▄▖▗▄▖ ▗▄▖▄▄▄▖                           
    █▟█▙█  █▄▄ █   █    █ ▐█ █ █ █ █▄▄                           
