@@ -6,17 +6,24 @@ _All notable changes to this project will be documented in this file. Dates are 
 21 September 2020
 
 add crete config folderNameToken, mkdirFolderToken
+
 fix package.json rxjs
+
 add option to disable message terminal Welcome Venom
+
 fix function to send by group id
 
 **2.0.1**
 14 September 2020
 
 fix bug initialization
+
 add checkNumberStatus, sendContactVcardList
+
 correction qrcode in terminal, sendContactVcard, setProfilePic, sendLocation
+
 add parameter in Callback Status Session: browserClose || qrReadSuccess || qrReadFail
+
 remove refreshQR and sendMessageToId
 
 **1.1.4**
