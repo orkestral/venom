@@ -14,5 +14,7 @@ app2.js
 LICENSE
 CHANGELOG.md
 .codebeatignore
+.eslintrc.js
+.github
 .prettierignore
 .prettierrc

@@ -58,7 +58,11 @@ import { UILayer } from './ui.layer';
 declare module WAPI {
   const deleteConversation: (chatId: string) => boolean;
   const archiveChat: (chatId: string, option: boolean) => boolean;
-  const pinChat: (chatId: string, option: boolean, nonExistent?: boolean) => Promise<object>;
+  const pinChat: (
+    chatId: string,
+    option: boolean,
+    nonExistent?: boolean
+  ) => Promise<object>;
   const clearChat: (chatId: string) => void;
   const deleteMessages: (
     contactId: string,
@@ -143,10 +147,10 @@ export class ControlsLayer extends UILayer {
    * @param nonExistent {boolean} Pin chat, non-existent (optional)
    * @returns object
    */
-  public async pinChat(chatId: string, option: boolean, nonExistent?:boolean) {
+  public async pinChat(chatId: string, option: boolean, nonExistent?: boolean) {
     return new Promise(async (resolve, reject) => {
       var result = await this.page.evaluate(
-        ({ chatId, option, nonExistent}) => {
+        ({ chatId, option, nonExistent }) => {
           return WAPI.pinChat(chatId, option, nonExistent);
         },
         { chatId, option, nonExistent }

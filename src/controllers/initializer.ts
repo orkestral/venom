@@ -86,7 +86,7 @@ export async function create(
 
   const mergedOptions = { ...defaultOptions, ...options };
 
-  if(!mergedOptions.disableWelcome) {
+  if (!mergedOptions.disableWelcome) {
     console.log(`\n
   ▗▄ ▄ ▄  ▄▄▄ ▄   ▄▄▄  ▗▄▄▖▗▄▖ ▗▄▖▄▄▄▖                           
    █▟█▙█  █▄▄ █   █    █ ▐█ █ █ █ █▄▄                           
@@ -181,8 +181,7 @@ export async function create(
           }
           spinnies.add(`autoclose`, { text: 'check autoClose' });
 
-          if(mergedOptions.autoClose > 0 ){
-
+          if (mergedOptions.autoClose > 0) {
             spinnies.succeed(`autoclose`, {
               text: 'the autoClose function is on',
             });
@@ -194,12 +193,10 @@ export async function create(
               }
               clearInterval(browser_check);
             }, mergedOptions.autoClose);
-
-          }else{
+          } else {
             spinnies.succeed(`autoclose`, {
               text: 'the autoClose function is off ',
             });
-
           }
 
           let tipo_qr = 0,
@@ -261,7 +258,6 @@ export async function create(
                   }
                   break;
               }
-              
             }
           }, 1000);
 
@@ -285,9 +281,9 @@ export async function create(
           clearTimeout(closeBrowser);
 
           spinnies.add(`${session}-inject`, { text: 'Injecting Sibionte...' });
-          
+
           waPage = await injectApi(waPage);
-          
+
           spinnies.succeed(`${session}-inject`, {
             text: 'Starting With Success!',
           });
@@ -312,7 +308,12 @@ export async function create(
             try {
               setTimeout(() => {
                 mkdir(
-                  path.join(path.resolve(process.cwd()+mergedOptions.mkdirFolderToken, mergedOptions.folderNameToken)),
+                  path.join(
+                    path.resolve(
+                      process.cwd() + mergedOptions.mkdirFolderToken,
+                      mergedOptions.folderNameToken
+                    )
+                  ),
                   { recursive: true },
                   (err) => {
                     if (err) {
@@ -327,7 +328,10 @@ export async function create(
               setTimeout(() => {
                 writeFileSync(
                   path.join(
-                    path.resolve(process.cwd()+mergedOptions.mkdirFolderToken, mergedOptions.folderNameToken),
+                    path.resolve(
+                      process.cwd() + mergedOptions.mkdirFolderToken,
+                      mergedOptions.folderNameToken
+                    ),
                     `${session}.data.json`
                   ),
                   JSON.stringify({
