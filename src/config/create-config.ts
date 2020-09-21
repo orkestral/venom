@@ -63,6 +63,7 @@ export interface CreateConfig {
   browserArgs?: string[];
   logQR?: boolean;
   disableSpins?: boolean;
+  disableWelcome?: boolean;
   updatesLog?: boolean;
   autoClose?: number,
 }
@@ -78,6 +79,7 @@ CreateConfig = {
   logQR: true,
   browserArgs: [''],
   disableSpins: false,
+  disableWelcome: false,
   updatesLog: true,
   autoClose: 60000,
 };
