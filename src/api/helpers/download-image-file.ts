@@ -54,7 +54,7 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
 import axios from 'axios';
 
-export async function dowloadFileImgHttp(_path: string, _mines: object) {
+export async function downloadFileImgHttp(_path: string, _mines: object) {
   if (typeof _mines !== 'object') {
     console.error(`set mines object not "${typeof _mines}" `);
     return false;
