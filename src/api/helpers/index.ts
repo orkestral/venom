@@ -54,7 +54,7 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
 export { fileToBase64 } from './file-to-base64';
 export { base64MimeType } from './base64-mimetype';
-export { dowloadFileImgHttp, MINES } from './dowload-image-file';
+export { downloadFileImgHttp, MINES } from './download-image-file';
 export { stickerSelect, resizeImg } from './select-sticker';
 export { scrapeImgReload } from './scrape-img-reload';
 export { scrapeImg } from './scrape-img-qr';
