@@ -448,7 +448,7 @@ window.WAPI.checkNumberStatus = async function (id) {
   } catch (e) {
     return window.WAPI._serializeNumberStatusObj({
       status: e,
-      jid: id,
+      jid: new window.Store.WidFactory.createWid(id),
     });
   }
 };
@@ -475,5 +475,3 @@ window.WAPI.archiveChat = async function (id, archive) {
     .then((_) => true)
     .catch((_) => false);
 };
-
-
