@@ -67,7 +67,7 @@ export async function sendImageAsSticker(imageBase64, chatId, metadata) {
     'data:image/webp;base64,' + imageBase64,
     'file.webp'
   );
-  let encrypted = await window.WAPI.encryptAndUploadFile('sticker', mediaBlob);
+  let encrypted = await window.WAPI.encryptAndUploadFile("sticker", mediaBlob);
 
   return await sendSticker(encrypted, chatId, metadata);
 }

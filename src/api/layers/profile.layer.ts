@@ -55,31 +55,26 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
 import { Page } from 'puppeteer';
 import { HostLayer } from './host.layer';
-import {
-  base64MimeType,
-  fileToBase64,
-  dowloadFileImgHttp,
-  resizeImg,
-} from '../helpers';
+import { base64MimeType, fileToBase64, dowloadFileImgHttp, resizeImg} from '../helpers';
 
 declare module WAPI {
   const setMyStatus: (to: string) => void;
   const setMyName: (name: string) => void;
   const setProfilePic: (path: string) => Promise<boolean>;
   const setPresence: (to: boolean) => boolean;
-  const setTheme: (theme?: string) => boolean;
+  const setTheme:(theme?: string) => boolean;
 }
 
 export class ProfileLayer extends HostLayer {
   constructor(public page: Page) {
     super(page);
   }
-  /**
+ /**
    * Change the theme
    * @param string types "dark" or "light"
    */
   public setTheme(type: string) {
-    return this.page.evaluate((type) => WAPI.setTheme(type), type);
+    return this.page.evaluate( (type) => WAPI.setTheme(type), type);
   }
 
   /*
@@ -104,39 +99,39 @@ export class ProfileLayer extends HostLayer {
     );
   }
 
+
   /**
    * Sets the user's current profile photo
    * @param name
    */
   public async setProfilePic(path: string) {
-    let b64 = await dowloadFileImgHttp(path, [
-      'image/png',
-      'image/jpg',
-      'image/webp',
-    ]);
-    if (!b64) {
-      b64 = await fileToBase64(path);
-    }
-    if (b64) {
-      const buff = Buffer.from(
-        b64.replace(/^data:image\/(png|jpeg|webp);base64,/, ''),
-        'base64'
-      );
-      const mimeInfo = base64MimeType(b64);
 
-      if (!mimeInfo || mimeInfo.includes('image')) {
-        var _webb64_96 = await resizeImg(buff, { width: 96, height: 96 }),
-          _webb64_640 = await resizeImg(buff, { width: 640, height: 640 });
-        var obj = { a: _webb64_640, b: _webb64_96 };
-
-        return await this.page.evaluate(({ obj }) => WAPI.setProfilePic(obj), {
-          obj,
-        });
-      } else {
-        console.log('Not an image, allowed formats png, jpeg and webp');
-        return false;
+    let b64 = await dowloadFileImgHttp(path, ['image/png','image/jpg', 'image/webp']);
+      if(!b64){
+        b64 = await fileToBase64(path);
       }
+      if(b64){
+    const buff = Buffer.from(
+      b64.replace(/^data:image\/(png|jpeg|webp);base64,/,''),
+      'base64'
+    );
+    const mimeInfo = base64MimeType(b64);
+
+    if (!mimeInfo || mimeInfo.includes('image')) {
+      
+      var _webb64_96 = await resizeImg(buff, { width: 96, height: 96 }),
+         _webb64_640 = await resizeImg(buff, { width: 640, height: 640 });
+          var obj = {a:_webb64_640, b:_webb64_96};
+          
+               return await this.page.evaluate(({obj}) => WAPI.setProfilePic(obj), {
+            obj,
+          });
+     
+    } else {
+      console.log('Not an image, allowed formats png, jpeg and webp');
+      return false;
     }
+      }
   }
 
   /**

@@ -2,18 +2,19 @@
 
 _All notable changes to this project will be documented in this file. Dates are displayed in UTC._
 
-**2.0.1**
-14 September 2020
-fix bug initialization
+**2.0.2**
+21 September 2020
 
-**2.0.0**
-14 September 2020
+add crete config folderNameToken, mkdirFolderToken
+fix package.json rxjs
+
+**2.0.1**
+15 September 2020
+
 add checkNumberStatus, sendContactVcardList
 correction qrcode in terminal, sendContactVcard, setProfilePic, sendLocation
 add parameter in Callback Status Session: browserClose || qrReadSuccess || qrReadFail
 remove refreshQR and sendMessageToId
-add decrypt media download
-fix all bugs
 
 **1.1.4**
 26 July 2020

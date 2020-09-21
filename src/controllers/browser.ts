@@ -69,7 +69,7 @@ export async function initWhatsapp(
   const waPage = await getWhatsappPage(browser);
   if (waPage != null) {
     // Auth with token
-    await auth_InjectToken(waPage, session);
+    await auth_InjectToken(waPage, session, options);
 
     await waPage.setUserAgent(
       'WhatsApp/2.2019.8 Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36'

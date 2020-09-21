@@ -64,5 +64,5 @@ import { sendFile } from './send-file';
  * @param {Function} done Optional callback
  */
 export function sendImage(imgBase64, chatid, filename, caption) {
-  return sendFile(imgBase64, chatid, filename, caption, 'sendImage');
+  return sendFile(imgBase64, chatid, filename, caption, "sendImage");
 }

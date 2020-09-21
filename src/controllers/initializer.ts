@@ -73,13 +73,7 @@ let updatesChecked = false;
 let browserFail = false;
 var browser_fail: any, browser_check: any, closeBrowser: any;
 const counter = new Counter();
-/**
- * consult status of whatsapp client
- */
 
-/**
- * Should be called to initialize whatsapp client
- */
 export async function create(
   session = 'session',
   catchQR?: (qrCode: string, asciiQR: string) => void,
@@ -185,20 +179,26 @@ export async function create(
             statusFind('notLogged');
           }
           spinnies.add(`autoclose`, { text: 'check autoClose' });
-          if (mergedOptions.autoClose > 0) {
+
+          if(mergedOptions.autoClose > 0 ){
+
             spinnies.succeed(`autoclose`, {
               text: 'the autoClose function is on',
             });
-
             closeBrowser = setTimeout(() => {
               browserFail = true;
               browser.close();
+              if (statusFind) {
+                statusFind('autocloseCalled');
+              }
               clearInterval(browser_check);
             }, mergedOptions.autoClose);
-          } else {
+
+          }else{
             spinnies.succeed(`autoclose`, {
               text: 'the autoClose function is off ',
             });
+
           }
 
           let tipo_qr = 0,
@@ -260,6 +260,7 @@ export async function create(
                   }
                   break;
               }
+              
             }
           }, 1000);
 
@@ -278,12 +279,14 @@ export async function create(
           }
         }
         if (!browserFail) {
-          spinnies.add(`${session}-inject`, { text: 'Injecting Sibionte...' });
-          waPage = await injectApi(waPage);
           clearInterval(browser_fail);
           clearInterval(browser_check);
           clearTimeout(closeBrowser);
 
+          spinnies.add(`${session}-inject`, { text: 'Injecting Sibionte...' });
+          
+          waPage = await injectApi(waPage);
+          
           spinnies.succeed(`${session}-inject`, {
             text: 'Starting With Success!',
           });
@@ -308,7 +311,7 @@ export async function create(
             try {
               setTimeout(() => {
                 mkdir(
-                  path.join(path.resolve(process.cwd(), 'tokens')),
+                  path.join(path.resolve(process.cwd()+mergedOptions.mkdirFolderToken, mergedOptions.folderNameToken)),
                   { recursive: true },
                   (err) => {
                     if (err) {
@@ -323,7 +326,7 @@ export async function create(
               setTimeout(() => {
                 writeFileSync(
                   path.join(
-                    path.resolve(process.cwd(), 'tokens'),
+                    path.resolve(process.cwd()+mergedOptions.mkdirFolderToken, mergedOptions.folderNameToken),
                     `${session}.data.json`
                   ),
                   JSON.stringify({

@@ -53,52 +53,48 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 
 */
-export async function sendContactVcard(to, contact, name) {
-  var chat = await WAPI.sendExist([to, contact]);
-  if (chat.erro === false || chat.__x_id) {
-    var ListChat = await Store.Chat.get(to);
-    var newId = window.WAPI.getNewMessageId(to);
-    var tempMsg = Object.create(
-      Store.Msg.models.filter((msg) => msg.__x_isSentByMe && !msg.quotedMsg)[0]
-    );
-    var cont = await window.Store.Chat.get(contact);
-    if (typeof cont != "Object") {
-      var ck = await Store.WapQuery.queryExist(contact);
-      cont = await Store.Chat.find(ck.jid);
-    }
-    var bod = await window.Store.Vcard.vcardFromContactModel(cont.__x_contact);
-    name = !name ? cont.__x_formattedTitle : name;
-    var extend = {
-      ack: 0,
-      body: bod.vcard,
-      from: cont.__x_contact,
-      local: !0,
-      self: 'out',
-      id: newId,
-      vcardFormattedName: name,
-      t: parseInt(new Date().getTime() / 1000),
-      to: to,
-      type: 'vcard',
-      isNewMsg: !0,
-    };
-    Object.assign(tempMsg, extend);
-    var result = await Promise.all(
-      ListChat ? Store.addAndSendMsgToChat(chat, tempMsg) : ''
-    );
-    var m = {
-      from: contact,
-      type: 'vcard'
-    };
-    if (result[1] === 'success' || result[1] === 'OK') {
-      var obj = WAPI.scope(to, false, result[1], null);
-      Object.assign(obj, m);
-      return obj;
-    } else {
-      var obj = WAPI.scope(to, true, result[1], null);
-      Object.assign(obj, m);
-      return obj;
-    }
-  } else {
-    return chat;
-  }
+export async function sendContactVcard(to, contact, name){
+
+     var chat = await WAPI.sendExist([to, contact]);
+     if(chat.erro === false || chat.__x_id){
+     var ListChat = await Store.Chat.get(to);
+     var newId = window.WAPI.getNewMessageId(to);
+      var tempMsg = Object.create(Store.Msg.models.filter(msg => msg.__x_isSentByMe && !msg.quotedMsg)[0]);
+         var cont = await window.Store.Chat.get(contact); 
+         if(typeof cont != "Object"){
+          var ck = await Store.WapQuery.queryExist(contact);
+            cont = await Store.Chat.find(ck.jid);   
+        }
+         var  bod = await window.Store.Vcard.vcardFromContactModel(cont.__x_contact);
+         name = !name? cont.__x_formattedTitle : name;
+       var extend = {
+                ack: 0,
+                body: bod.vcard,
+                from: cont.__x_contact,
+                local: !0,
+                self: "out",
+                id: newId,
+                vcardFormattedName: name,
+                t: parseInt(new Date().getTime() / 1000),
+                to: to,
+                type: "vcard",
+                isNewMsg: !0
+            };
+          Object.assign(tempMsg, extend);
+           var result = (await Promise.all((ListChat)? Store.addAndSendMsgToChat(chat, tempMsg) : ""));
+              var m = {from: contact, type: "vcard"},
+                  To = await WAPI.getchatId(to);
+            if(result[1] === "success" || result[1] === "OK"){
+              var obj = WAPI.scope(To, false, result[1], null);
+              Object.assign(obj, m);
+              return obj;
+            }else{
+              var obj = WAPI.scope(To, true, result[1], null);
+              Object.assign(obj, m);
+              return obj;
+            }
+          }else{
+            return chat;
+          }
+
 }

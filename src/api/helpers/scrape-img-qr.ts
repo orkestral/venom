@@ -1,18 +1,17 @@
-export async function scrapeImg(page) {
-  var result = await page.evaluate(() => {
-    const selectorimg = document.querySelector('canvas');
-    let selectorUrl = document.querySelector('._1QMFu');
+export async function scrapeImg(page){
 
-    if (selectorimg != null && selectorUrl != null) {
-      let data = {
-        img: selectorimg.toDataURL(),
-        url: selectorUrl.getAttribute('data-ref'),
-      };
-      return data;
-    } else {
-      return void 0;
-    }
-  });
+    var result = await page.evaluate(()=>{ 
+        
+        const selectorimg = document.querySelector('canvas');
+        let selectorUrl = document.querySelector("._1QMFu");
 
-  return result;
+            if(selectorimg != null && selectorUrl != null){
+                    let data = {  img : selectorimg.toDataURL(),  url: selectorUrl.getAttribute("data-ref") }; 
+                    return data;
+            }else{
+                    return void 0;
+                }
+         });
+
+        return result;
 }

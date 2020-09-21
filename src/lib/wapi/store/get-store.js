@@ -93,11 +93,11 @@ export function getStore(modules) {
           }
         });
         window.Store.sendMessage = function (e) {
-          return window.Store.SendTextMsgToChat(this, ...arguments);
+                 return window.Store.SendTextMsgToChat(this, ...arguments);
         };
         window.Store.sendAddMessage = function (e) {
           return window.Store.addAndSendMsgToChat(this, ...arguments);
-        };
+      }
         if (window.Store.MediaCollection)
           window.Store.MediaCollection.prototype.processFiles =
             window.Store.MediaCollection.prototype.processFiles ||

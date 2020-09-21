@@ -87,9 +87,11 @@ venom
       console.log('base64 image string qrcode: ', base64Qrimgr);
     },
     (statusSession) => {
-      console.log('Status Session: ', statusSession); //return isLogged || notLogged || browserClose || qrReadSuccess || qrReadFail
+      console.log('Status Session: ', statusSession); //return isLogged || notLogged || browserClose || qrReadSuccess || qrReadFail || autocloseCalled
     },
     {
+      folderNameToken: "tokens", //folder name when saving tokens
+      mkdirFolderToken: '', //folder directory tokens, just inside the venom folder, example:  { mkdirFolderToken: '/node_modules', } //will save the tokens folder in the node_modules directory
       headless: true, // Headless chrome
       devtools: false, // Open devtools by default
       useChrome: true, // If false will use Chromium instance
@@ -111,7 +113,7 @@ venom
 
 ## Callback Status Session
 
-Gets the return if the session is `isLogged` or `notLogged` or `browserClose` or `qrReadSuccess` or `qrReadFail`
+Gets the return if the session is `isLogged` or `notLogged` or `browserClose` or `qrReadSuccess` or `qrReadFail` or `autocloseCalled`
 
 ##### `isLogged: When the user is already logged in to the browser`.
 
@@ -123,6 +125,8 @@ Gets the return if the session is `isLogged` or `notLogged` or `browserClose` or
 
 ##### `qrReadFail: If the browser stops when the QR code scan is in progress, this parameter is returned`.
 
+##### `autocloseCalled: The browser was closed using the autoClose command`.
+
 ```javascript
 const venom = require('venom-bot');
 venom
@@ -131,7 +135,7 @@ venom
     undefined,
     (statusSession) => {
       console.log('Status Session: ', statusSession);
-      //return isLogged || notLogged || browserClose || qrReadSuccess || qrReadFail
+      //return isLogged || notLogged || browserClose || qrReadSuccess || qrReadFail || autocloseCalled
     },
     undefined
   )
@@ -219,8 +223,7 @@ available can be found in [here](/src/api/layers) and
 
 ### Chatting
 
-##### Here, `chatId` could be `<phoneNumber>@c.us` or `<phoneNumber>-<groupId>@g.us`
-##### You can use the functions below to send a message to new contacts (non-added)
+##### Here, `chatId` could be `<phoneNumber>@c.us` or `<phoneNumber>-<groupId>@c.us`
 
 ```javascript
 
@@ -252,7 +255,7 @@ await client.sendLocation("000000000000@c.us", "-13.6561589", "-69.7309264", "Br
       console.error("Error when sending: ", erro); //return object error
 });
 
-// Automatically sends a link with the auto generated link preview. You can also add a custom message to be added.
+//Automatically sends a link with the auto generated link preview. You can also add a custom message to be added.
 await client.sendLinkPreview("000000000000@c.us", "https://www.youtube.com/watch?v=V1bFr2SWP1I", "Kamakawiwo ole").then((result)=>{
       console.log("Result: ", result); //return object success
   }).catch((erro)=>{
@@ -267,14 +270,14 @@ await client.sendImage("000000000000@c.us" 'path/to/img.jpg', 'image-name', 'Cap
 });
 
 // Send file (venom will take care of mime types, just need the path)
-// you can also upload an image using a valid HTTP protocol
+//you can also upload an image using a valid HTTP protocol
 await client.sendFile("000000000000@c.us", 'path/to/file.pdf', 'file_name', 'See my file in pdf').then((result)=>{
       console.log("Result: ", result); //return object success
   }).catch((erro)=>{
       console.error("Error when sending: ", erro); //return object error
 });
 
-// Sends file
+//Sends file
 // base64 parameter should have mime type already defined
  await client.sendFileFromBase64("000000000000@c.us", base64PDF, 'file_name.pdf', 'See my file in pdf').then((result)=>{
       console.log("Result: ", result); //return object success
@@ -291,19 +294,25 @@ await client.reply("000000000000@c.us", 'This is a reply!', message.id.toString(
 // Reply to a message with mention
 await client.reply("000000000000@c.us", 'Hello @5218113130740 and @5218243160777! This is a reply with mention!', message.id.toString(), ['5218113130740', '5218243160777']);
 
+
+
 // Send gif
 await client.sendVideoAsGif( "000000000000@c.us",'path/to/video.mp4', 'video.gif', 'Gif image file');
+
 
 // Forwards messages
 await client.forwardMessages("000000000000@c.us", [message.id.toString()], true);
 
-// Generates sticker from the provided animated gif image and sends it (Send image as animated sticker)
-// image path imageBase64 A valid gif image is required. You can also send via http/https (http://www.website.com/img.gif)
+//Generates sticker from the provided animated gif image and sends it (Send image as animated sticker)
+//image path imageBase64 A valid gif image is required. You can also send via http/https (http://www.website.com/img.gif)
 await client.sendImageAsStickerGif("000000000000@c.us", './image.gif');
 
-// Generates sticker from given image and sends it (Send Image As Sticker)
+//Generates sticker from given image and sends it (Send Image As Sticker)
 // image path imageBase64 A valid png, jpg and webp image is required. You can also send via http/https (http://www.website.com/img.jpg)
 await client.sendImageAsSticker("000000000000@c.us", './image.jpg');
+
+// Send location
+
 
 // Send seen ✔️✔️
 await client.sendSeen("000000000000@c.us");
@@ -321,6 +330,12 @@ await client.setChatState("000000000000@c.us", 0 | 1 | 2);
 ## Retrieving Data
 
 ```javascript
+// Calls your list of blocked contacts (returns an array)
+const getBlockList = await client.getBlockList();
+
+// Retrieve contacts
+const contacts = await client.getAllContacts();
+
 // Retrieve messages in chat
 const Messages = await client.getAllMessagesInChat('000000000000@c.us');
 
@@ -328,28 +343,15 @@ const Messages = await client.getAllMessagesInChat('000000000000@c.us');
 const moreMessages = await client.loadEarlierMessages('000000000000@c.us');
 
 // Retrieve all messages in chat
-const allMessages = await client.loadAndGetAllMessagesInChat('000000000000@c.us');
+const allMessages = await client.loadAndGetAllMessagesInChat(
+  '000000000000@c.us'
+);
 
 // Retrieve contact status
 const status = await client.getStatus('000000000000@c.us');
 
 // Retrieve user profile
 const user = await client.getNumberProfile('000000000000@c.us');
-
-// Retrieve profile fic (as url)
-const url = await client.getProfilePicFromServer('000000000000@c.us');
-
-// Retrieve chat/conversation
-const chat = await client.getChat('000000000000@c.us');
-
-// Check if the number exists
-const chat = await client.checkNumberStatus('000000000000@c.us');
-
-// Calls your list of blocked contacts (returns an array)
-const getBlockList = await client.getBlockList();
-
-// Retrieve contacts
-const contacts = await client.getAllContacts();
 
 // Retrieve all unread message
 const messages = await client.getAllUnreadMessages();
@@ -359,6 +361,15 @@ const chats = await client.getAllChats();
 
 // Retrieve all groups
 const chats = await client.getAllGroups();
+
+// Retrieve profile fic (as url)
+const url = await client.getProfilePicFromServer('000000000000@c.us');
+
+// Retrieve chat/conversation
+const chat = await client.getChat('000000000000@c.us');
+
+// Check if the number exists
+const chat = await client.checkNumberStatus('000000000000@c.us');
 ```
 
 ## Group Functions
@@ -379,7 +390,10 @@ await client.getGroupMembersIds('00000000-000000@g.us');
 await client.getGroupInviteLink('00000000-000000@g.us');
 
 // Create group (title, participants to add)
-await client.createGroup('Group name', ['111111111111@c.us', '222222222222@c.us']);
+await client.createGroup('Group name', [
+  '111111111111@c.us',
+  '222222222222@c.us',
+]);
 
 // Remove participant
 await client.removeParticipant('00000000-000000@g.us', '111111111111@c.us');
@@ -419,10 +433,10 @@ await client.setProfilePic('path/to/image.jpg');
 ## Device Functions
 
 ```javascript
-// Delete the Service Worker
+//Delete the Service Worker
 await client.killServiceWorker();
 
-// Load the service again
+//Load the service again
 await client.restartService();
 
 // Get device info
@@ -460,11 +474,12 @@ client.onAck(ack => {
 });
 
 // Listen to live location
+// chatId: 'phone@c.us'
 client.onLiveLocation("000000000000@c.us", (liveLocation) => {
   ...
 });
 
-// ChatId looks like this: '5518156745634-1516512045@g.us'
+// chatId looks like this: '5518156745634-1516512045@g.us'
 // Event interface is in here: https://github.com/s2click/venom/blob/master/src/api/model/participant-event.ts
 client.onParticipantsChanged("000000000000@c.us", (event) => {
   ...
@@ -480,22 +495,22 @@ client.onAddedToGroup(chatEvent => {
 ## Other
 
 ```javascript
-// Pin chat and Unpin chat messages with true or false
-await client
-  .pinChat('000000000000@c.us', true | false)
-  .then((result) => {
-    console.log('Result: ', result); //return object success
-  })
-  .catch((erro) => {
-    console.error('Error when sending: ', erro); //return object error
-  });
 
-// Change the theme
-// string types "dark" or "light"
+// Pin chat and Unpin chat messages with true or false
+// Pin chat, non-existent (optional)
+await client.pinChat(chatId, true, false).then((result)=>{
+       console.log("Result: ", result); //return object success
+   }).catch((erro)=>{
+       console.error("Error when sending: ", erro); //return object error
+ });
+
+
+//Change the theme
+//string types "dark" or "light"
 await client.setTheme('dark');
 
-// Receive the current theme
-// returns string light or dark
+//Receive the current theme
+//returns string light or dark
 await client.getTheme();
 
 // Delete chat
@@ -505,7 +520,9 @@ await client.deleteChat('000000000000@c.us');
 await client.clearChat('000000000000@c.us');
 
 // Archive and unarchive chat messages with true or false
-await client.archiveChat('000000000000@c.us', true | false);
+await client.archiveChat(chatId, true);
+
+
 
 // Delete message (last parameter: delete only locally)
 await client.deleteMessage('000000000000@c.us', message.id.toString(), false);
@@ -513,10 +530,10 @@ await client.deleteMessage('000000000000@c.us', message.id.toString(), false);
 // Mark chat as not seen (returns true if it works)
 await client.markUnseenMessage('000000000000@c.us');
 
-// Blocks a user (returns true if it works)
+//blocks a user (returns true if it works)
 await client.blockContact('000000000000@c.us');
 
-// Unlocks contacts (returns true if it works)
+//unlocks contacts (returns true if it works)
 await client.unblockContact('000000000000@c.us');
 
 // Retrieve a number profile / check if contact is a valid whatsapp number
@@ -542,9 +559,6 @@ client.onStateChange((state) => {
   ];
   if (conflits.includes(state)) {
     client.useHere();
-
-    // Detecting Logouts
-    if(state==='UNPAIRED') console.log('LOGGED OUT!!!!')
   }
 });
 ```
