@@ -57,7 +57,7 @@ import { Page } from 'puppeteer';
 import {
   base64MimeType,
   fileToBase64,
-  dowloadFileImgHttp,
+  downloadFileImgHttp,
   stickerSelect,
   MINES,
 } from '../helpers';
@@ -213,7 +213,7 @@ export class SenderLayer extends ListenerLayer {
     caption?: string
   ) {
     return new Promise(async (resolve, reject) => {
-      let data = await dowloadFileImgHttp(path, [
+      let data = await downloadFileImgHttp(path, [
         'image/png',
         'image/jpg',
         'image/webp',
@@ -375,7 +375,7 @@ export class SenderLayer extends ListenerLayer {
       var extension = path.split('.').pop();
       filename = filename + '.' + extension;
 
-      let b64 = await dowloadFileImgHttp(path, MINES()),
+      let b64 = await downloadFileImgHttp(path, MINES()),
         obj;
       if (!b64) {
         b64 = await fileToBase64(path);
@@ -514,7 +514,7 @@ export class SenderLayer extends ListenerLayer {
    *  @param to chatId '000000000000@c.us'
    */
   public async sendImageAsStickerGif(to: string, path: string) {
-    let b64 = await dowloadFileImgHttp(path, ['image/gif']);
+    let b64 = await downloadFileImgHttp(path, ['image/gif']);
     if (!b64) {
       b64 = await fileToBase64(path);
     }
@@ -549,7 +549,7 @@ export class SenderLayer extends ListenerLayer {
    * @param to chatId '000000000000@c.us'
    */
   public async sendImageAsSticker(to: string, path: string) {
-    let b64 = await dowloadFileImgHttp(path, [
+    let b64 = await downloadFileImgHttp(path, [
       'image/png',
       'image/jpg',
       'image/webp',
