@@ -54,9 +54,7 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 
 */
 export function getNewMessageId(chatId) {
-  const newMsgId = new Store.MsgKey(
-    Object.assign({}, Store.Msg.models[0].__x_id)
-  );
+  const newMsgId = new Store.MsgKey( Object.assign({}, Store.Msg.models[0].__x_id) );
 
   newMsgId.fromMe = true;
   newMsgId.id = WAPI.getNewId().toUpperCase();

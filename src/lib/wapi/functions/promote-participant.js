@@ -59,7 +59,7 @@ export async function promoteParticipant(groupId, participantId, done) {
   return window.Store.Participants.promoteParticipants(chat, [
     participant,
   ]).then(() => {
-    if (done !== undefined) {
+    if(done !== undefined) {
       done(true);
     }
     return true;

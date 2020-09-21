@@ -87,9 +87,11 @@ venom
       console.log('base64 image string qrcode: ', base64Qrimgr);
     },
     (statusSession) => {
-      console.log('Status Session: ', statusSession); //return isLogged || notLogged || browserClose || qrReadSuccess || qrReadFail
+      console.log('Status Session: ', statusSession); //return isLogged || notLogged || browserClose || qrReadSuccess || qrReadFail || autocloseCalled
     },
     {
+      folderNameToken: "tokens", //folder name when saving tokens
+      mkdirFolderToken: '', //folder directory tokens, just inside the venom folder, example:  { mkdirFolderToken: '/node_modules', } //will save the tokens folder in the node_modules directory
       headless: true, // Headless chrome
       devtools: false, // Open devtools by default
       useChrome: true, // If false will use Chromium instance
@@ -111,7 +113,7 @@ venom
 
 ## Callback Status Session
 
-Gets the return if the session is `isLogged` or `notLogged` or `browserClose` or `qrReadSuccess` or `qrReadFail`
+Gets the return if the session is `isLogged` or `notLogged` or `browserClose` or `qrReadSuccess` or `qrReadFail` or `autocloseCalled`
 
 ##### `isLogged: When the user is already logged in to the browser`.
 
@@ -123,6 +125,8 @@ Gets the return if the session is `isLogged` or `notLogged` or `browserClose` or
 
 ##### `qrReadFail: If the browser stops when the QR code scan is in progress, this parameter is returned`.
 
+##### `autocloseCalled: The browser was closed using the autoClose command`.
+
 ```javascript
 const venom = require('venom-bot');
 venom
@@ -131,7 +135,7 @@ venom
     undefined,
     (statusSession) => {
       console.log('Status Session: ', statusSession);
-      //return isLogged || notLogged || browserClose || qrReadSuccess || qrReadFail
+      //return isLogged || notLogged || browserClose || qrReadSuccess || qrReadFail || autocloseCalled
     },
     undefined
   )
@@ -491,15 +495,15 @@ client.onAddedToGroup(chatEvent => {
 ## Other
 
 ```javascript
+
 // Pin chat and Unpin chat messages with true or false
-await client
-  .pinChat(chatId, true | false)
-  .then((result) => {
-    console.log('Result: ', result); //return object success
-  })
-  .catch((erro) => {
-    console.error('Error when sending: ', erro); //return object error
-  });
+// Pin chat, non-existent (optional)
+await client.pinChat(chatId, true, false).then((result)=>{
+       console.log("Result: ", result); //return object success
+   }).catch((erro)=>{
+       console.error("Error when sending: ", erro); //return object error
+ });
+
 
 //Change the theme
 //string types "dark" or "light"
@@ -517,6 +521,8 @@ await client.clearChat('000000000000@c.us');
 
 // Archive and unarchive chat messages with true or false
 await client.archiveChat(chatId, true);
+
+
 
 // Delete message (last parameter: delete only locally)
 await client.deleteMessage('000000000000@c.us', message.id.toString(), false);

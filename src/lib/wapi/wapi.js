@@ -144,6 +144,7 @@ import {
   killServiceWorker,
   sendLinkPreview,
   scope,
+  getchatId,
   sendExist,
   sendContactVcardList,
   setProfilePic,
@@ -208,6 +209,7 @@ window.WAPI.setProfilePic = setProfilePic;
 
 // Chat Functions
 window.WAPI.scope = scope;
+window.WAPI.getchatId = getchatId;
 window.WAPI.sendExist = sendExist;
 window.WAPI.pinChat = pinChat;
 
@@ -473,3 +475,5 @@ window.WAPI.archiveChat = async function (id, archive) {
     .then((_) => true)
     .catch((_) => false);
 };
+
+

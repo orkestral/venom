@@ -53,9 +53,10 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 
 */
-export async function sendSticker(sticker, chatId, metadata) {
-  var chat = await WAPI.sendExist(chatId);
-  if (chat.erro === false || chat.__x_id) {
+export async function sendSticker(sticker, chatId, metadata){
+  
+    var chat = await WAPI.sendExist(chatId);
+    if(chat.erro === false || chat.__x_id){
     var ListChat = await Store.Chat.get(chatId);
     var stick = new window.Store.Sticker.modelClass();
     stick.__x_clientUrl = sticker.clientUrl;
@@ -69,18 +70,18 @@ export async function sendSticker(sticker, chatId, metadata) {
     stick.height = metadata && metadata.height ? metadata.height : 512;
     stick.width = metadata && metadata.width ? metadata.width : 512;
     var init = await stick.initialize();
-    var result = Promise.all(ListChat ? await stick.sendToChat(chat) : '');
-    var m = { type: 'sendSticker' };
-    if (result._resolveLevel === 1) {
-      var obj = WAPI.scope(chatId, false, result._resolveLevel, null);
-      Object.assign(obj, m);
-      return obj;
-    } else {
-      var obj = WAPI.scope(chatId, true, result._resolveLevel, null);
-      Object.assign(obj, m);
-      return obj;
-    }
-  } else {
-    return chat;
-  }
+    var result = Promise.all((ListChat)? await stick.sendToChat(chat) : "");
+    var m = {type: "sendSticker"}; 
+      if(result._resolveLevel === 1){
+        var obj = WAPI.scope(chatId, false, result._resolveLevel, null);
+        Object.assign(obj, m);
+        return obj;
+      }else{
+        var obj = WAPI.scope(chatId, true, result._resolveLevel, null);
+        Object.assign(obj, m);
+        return obj;
+       }
+      }else{
+          return chat;
+      }
 }

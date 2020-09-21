@@ -54,6 +54,8 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
 
 export interface CreateConfig {
+  folderNameToken?: string;
+  mkdirFolderToken?: string;
   headless?: boolean;
   devtools?: boolean;
   useChrome?: boolean;
@@ -62,10 +64,13 @@ export interface CreateConfig {
   logQR?: boolean;
   disableSpins?: boolean;
   updatesLog?: boolean;
-  autoClose?: number;
+  autoClose?: number,
 }
 
-export const defaultOptions: CreateConfig = {
+export const defaultOptions: 
+CreateConfig = {
+  folderNameToken: "tokens",
+  mkdirFolderToken: '',
   headless: true,
   devtools: false,
   useChrome: true,

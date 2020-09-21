@@ -59,6 +59,7 @@ import * as qrcode from 'qrcode-terminal';
 import { from, merge } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { existsSync, readFileSync } from 'fs';
+import { CreateConfig } from '../config/create-config';
 
 /**
  * Validates if client is authenticated
@@ -66,25 +67,20 @@ import { existsSync, readFileSync } from 'fs';
  * @param waPage
  */
 export const isAuthenticated = (waPage: puppeteer.Page) => {
-  return merge(needsToScan(waPage), isInsideChat(waPage))
-    .pipe(take(1))
-    .toPromise();
+  return merge(needsToScan(waPage), isInsideChat(waPage)).pipe(take(1)).toPromise();
 };
 
 export const needsToScan = (waPage: puppeteer.Page) => {
   return from(
-    waPage
-      .waitForSelector('body > div > div > .landing-wrapper', {
+    waPage.waitForSelector('body > div > div > .landing-wrapper',{
         timeout: 0,
-      })
-      .then(() => false)
+      }).then(() => false)
   );
 };
 
 export const isInsideChat = (waPage: puppeteer.Page) => {
   return from(
-    waPage
-      .waitForFunction(
+    waPage.waitForFunction(
         `
         (document.getElementsByClassName('app')[0] &&
         document.getElementsByClassName('app')[0].attributes &&
@@ -96,9 +92,7 @@ export const isInsideChat = (waPage: puppeteer.Page) => {
         {
           timeout: 0,
         }
-      )
-      .then(() => true)
-      .catch(() => false)
+      ).then(() => true).catch(() => false)
   );
 };
 export async function retrieveQR(page: puppeteer.Page) {
@@ -138,10 +132,10 @@ async function decodeQR(
   });
 }
 
-export async function auth_InjectToken(page: puppeteer.Page, session: string) {
+export async function auth_InjectToken(page: puppeteer.Page, session: string, options: CreateConfig) {
   //Auth with token ->start<-
   const pathToken: string = path.join(
-    path.resolve(process.cwd(), 'tokens'),
+    path.resolve(process.cwd()+options.mkdirFolderToken, options.folderNameToken),
     `${session}.data.json`
   );
 
@@ -150,16 +144,19 @@ export async function auth_InjectToken(page: puppeteer.Page, session: string) {
   if (existsSync(pathToken)) {
     jsonToken = JSON.parse(readFileSync(pathToken).toString());
 
-    if (!jsonToken) {
-      return false;
-    } else {
-      return await page.evaluateOnNewDocument((session) => {
-        localStorage.clear();
-        Object.keys(session).forEach((key) => {
-          localStorage.setItem(key, session[key]);
-        });
-      }, jsonToken);
-    }
+    if(!jsonToken){ 
+    return false;
+ 
+  }else{
+ 
+    return await page.evaluateOnNewDocument((session) => {
+      localStorage.clear();
+      Object.keys(session).forEach((key) =>{
+        localStorage.setItem(key, session[key])
+      }
+      );
+    }, jsonToken);
+  }
   }
   //End Auth with token
 

@@ -54,6 +54,6 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 
 */
 export async function restartService() {
-  await Store.ServiceWorker.default.restart();
-  return true;
+       await Store.ServiceWorker.default.restart();
+       return true;
 }

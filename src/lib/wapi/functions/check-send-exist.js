@@ -53,54 +53,59 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 
 */
-export function scope(id, erro, status, text = null) {
-  let e = {
-    me: Store.Me.attributes,
-    to: id,
-    erro: erro,
-    text: text,
-    status: status,
+export function scope(id, erro, status, text = null ){
+    let e = {
+      me : Store.Me.attributes,
+      to : id,
+      erro: erro,
+      text: text,
+      status: status,
+    }  
+    return e;    
+  }
+export async function getchatId(chatId){
+    var to = await WAPI.getChatById(chatId),
+     objTo = to.lastReceivedKey,
+    extend = {
+    formattedName: to.contact.formattedName,
+    isBusiness: to.contact.isBusiness,
+    isMyContact: to.contact.isMyContact,
+    verifiedName: to.contact.verifiedName,
+    pushname: to.contact.pushname,
+    isOnline: to.isOnline,
   };
-  return e;
+  Object.assign(objTo, extend);
+  return objTo;
 }
-export async function sendExist(id, chat = true) {
-  var ck = '',
-    textErro = 'The number does not exist';
-  if (typeof id === 'object') {
-    for (var key in id) {
-      ck = await Store.WapQuery.queryExist(id[key]);
-      if (ck.status != 200) {
-        return scope(id[key], true, ck.status, textErro);
+
+  export async function sendExist(id, chat = true, Send = true){
+    var ck = "", textErro = "The number does not exist";
+    if(typeof id === "object"){
+      for(var key in id){
+        ck = await Store.WapQuery.queryExist(id[key]);
+        if(ck.status != 200){ 
+          return scope(id[key], true, ck.status, textErro);
+        }
+      }
+    }else{
+       ck = await Store.WapQuery.queryExist(id);
+      
+      if(ck.status != 200){ 
+          return scope(id, true, ck.status, textErro);
       }
     }
-  } else {
-    ck = await Store.WapQuery.queryExist(id);
-
-    if (ck.status != 200) {
-      return scope(id, true, ck.status, textErro);
+    if(chat === true){
+          ck = (typeof id === "object")? await Store.WapQuery.queryExist(id[0]): await Store.WapQuery.queryExist(id);
+        chat = await Store.Chat.find(ck.jid);
+        if(chat){
+          chat.sendAddMessage = (chat.sendAddMessage) ? chat.sendAddMessage : function () { return window.Store.sendAddMessage.apply(this, arguments); };
+             chat.sendMessage = chat.sendMessage ? chat.sendMessage : function () { return window.Store.sendMessage.apply(this, arguments); };
+             if(Send){
+                Store.SendSeen(chat, false);
+             }
+          return chat;
+        }
+    }else{
+        return scope(ck.jid._serialized, false, ck.status);
     }
   }
-  if (chat === true) {
-    ck =
-      typeof id === 'object'
-        ? await Store.WapQuery.queryExist(id[0])
-        : await Store.WapQuery.queryExist(id);
-    chat = await Store.Chat.find(ck.jid);
-    if (chat) {
-      chat.sendAddMessage = chat.sendAddMessage
-        ? chat.sendAddMessage
-        : function () {
-            return window.Store.sendAddMessage.apply(this, arguments);
-          };
-      chat.sendMessage = chat.sendMessage
-        ? chat.sendMessage
-        : function () {
-            return window.Store.sendMessage.apply(this, arguments);
-          };
-      Store.SendSeen(chat, false);
-      return chat;
-    }
-  } else {
-    return scope(ck.jid._serialized, false, ck.status);
-  }
-}

@@ -53,7 +53,7 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 
 */
-export async function killServiceWorker() {
-  await Store.ServiceWorker.default.killServiceWorker();
-  return true;
+export async function killServiceWorker(){
+    await Store.ServiceWorker.default.killServiceWorker();
+    return true;
 }
