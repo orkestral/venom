@@ -53,59 +53,58 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 
 */
-export function scope(id, erro, status, text = null ){
-    let e = {
-      me : Store.Me.attributes,
-      to : id,
-      erro: erro,
-      text: text,
-      status: status,
-    }  
-    return e;    
-  }
-export async function getchatId(chatId){
-    var to = await WAPI.getChatById(chatId),
-     objTo = to.lastReceivedKey,
-    extend = {
-    formattedName: to.contact.formattedName,
-    isBusiness: to.contact.isBusiness,
-    isMyContact: to.contact.isMyContact,
-    verifiedName: to.contact.verifiedName,
-    pushname: to.contact.pushname,
-    isOnline: to.isOnline,
+export function scope(id, erro, status, text = null) {
+  let e = {
+    me: Store.Me.attributes,
+    to: id,
+    erro: erro,
+    text: text,
+    status: status,
   };
+  return e;
+}
+export async function getchatId(chatId) {
+  var to = await WAPI.getChatById(chatId),
+    objTo = to.lastReceivedKey,
+    extend = {
+      formattedName: to.contact.formattedName,
+      isBusiness: to.contact.isBusiness,
+      isMyContact: to.contact.isMyContact,
+      verifiedName: to.contact.verifiedName,
+      pushname: to.contact.pushname,
+      isOnline: to.isOnline,
+    };
   Object.assign(objTo, extend);
   return objTo;
 }
 
-  export async function sendExist(id, chat = true, Send = true){
-    var ck = "", textErro = "The number does not exist";
-    if(typeof id === "object"){
-      for(var key in id){
-        ck = await Store.WapQuery.queryExist(id[key]);
-        if(ck.status != 200){ 
-          return scope(id[key], true, ck.status, textErro);
-        }
-      }
-    }else{
-       ck = await Store.WapQuery.queryExist(id);
-      
-      if(ck.status != 200){ 
-          return scope(id, true, ck.status, textErro);
-      }
+export async function sendExist(chatId, returnChat = true, Send = true) {
+  // Check chat exists (group is always a chat)
+  let chat = await window.WAPI.getChat(chatId);
+
+  // Check if contact number exists
+  if (!chat && !chatId.includes('@g')) {
+    let ck = await window.WAPI.checkNumberStatus(chatId);
+
+    if (!ck.numberExists) {
+      return scope(chatId, true, ck.status, 'The number does not exist');
     }
-    if(chat === true){
-          ck = (typeof id === "object")? await Store.WapQuery.queryExist(id[0]): await Store.WapQuery.queryExist(id);
-        chat = await Store.Chat.find(ck.jid);
-        if(chat){
-          chat.sendAddMessage = (chat.sendAddMessage) ? chat.sendAddMessage : function () { return window.Store.sendAddMessage.apply(this, arguments); };
-             chat.sendMessage = chat.sendMessage ? chat.sendMessage : function () { return window.Store.sendMessage.apply(this, arguments); };
-             if(Send){
-                Store.SendSeen(chat, false);
-             }
-          return chat;
-        }
-    }else{
-        return scope(ck.jid._serialized, false, ck.status);
-    }
+
+    // Load chat ID for non contact
+    await window.Store.Chat.find(ck.id);
+
+    chatId = ck.id._serialized;
+    chat = await window.WAPI.getChat(chatId);
   }
+
+  if (!chat) {
+    return scope(chatId, true, 404);
+  }
+  if (Send) {
+    await window.Store.SendSeen(chat, false);
+  }
+  if (returnChat) {
+    return chat;
+  }
+  return scope(chatId, false, 200);
+}
