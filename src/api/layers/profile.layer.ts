@@ -58,7 +58,7 @@ import { HostLayer } from './host.layer';
 import {
   base64MimeType,
   fileToBase64,
-  dowloadFileImgHttp,
+  downloadFileImgHttp,
   resizeImg,
 } from '../helpers';
 
@@ -109,7 +109,7 @@ export class ProfileLayer extends HostLayer {
    * @param name
    */
   public async setProfilePic(path: string) {
-    let b64 = await dowloadFileImgHttp(path, [
+    let b64 = await downloadFileImgHttp(path, [
       'image/png',
       'image/jpg',
       'image/webp',
