@@ -286,6 +286,23 @@ await client.sendFile("000000000000@c.us", 'path/to/file.pdf', 'file_name', 'See
       console.error("Error when sending: ", erro); //return object error
 });
 
+//Generates sticker from the provided animated gif image and sends it (Send image as animated sticker)
+//image path imageBase64 A valid gif image is required. You can also send via http/https (http://www.website.com/img.gif)
+await client.sendImageAsStickerGif("000000000000@c.us", './image.gif').then((result)=>{
+      console.log("Result: ", result); //return object success
+  }).catch((erro)=>{
+      console.error("Error when sending: ", erro); //return object error
+});
+
+//Generates sticker from given image and sends it (Send Image As Sticker)
+// image path imageBase64 A valid png, jpg and webp image is required. You can also send via http/https (http://www.website.com/img.jpg)
+await client.sendImageAsSticker("000000000000@c.us", './image.jpg').then((result)=>{
+      console.log("Result: ", result); //return object success
+  }).catch((erro)=>{
+      console.error("Error when sending: ", erro); //return object error
+});
+
+
 // Send @tagged message
 await client.sendMentioned("000000000000@c.us", 'Hello @5218113130740 and @5218243160777!',['5218113130740','5218243160777']);
 
@@ -303,16 +320,6 @@ await client.sendVideoAsGif( "000000000000@c.us",'path/to/video.mp4', 'video.gif
 
 // Forwards messages
 await client.forwardMessages("000000000000@c.us", [message.id.toString()], true);
-
-//Generates sticker from the provided animated gif image and sends it (Send image as animated sticker)
-//image path imageBase64 A valid gif image is required. You can also send via http/https (http://www.website.com/img.gif)
-await client.sendImageAsStickerGif("000000000000@c.us", './image.gif');
-
-//Generates sticker from given image and sends it (Send Image As Sticker)
-// image path imageBase64 A valid png, jpg and webp image is required. You can also send via http/https (http://www.website.com/img.jpg)
-await client.sendImageAsSticker("000000000000@c.us", './image.jpg');
-
-// Send location
 
 
 // Send seen ✔️✔️
@@ -601,9 +608,7 @@ try {
 The auto close is enabled by default and the timeout is setted to 60 sec.
 Receives the time in milliseconds to countdown until paired.
 
-##### Important with `autoClose` enabled the "refreshQR" parameter is changed to 1000 (1 sec.)!
-
-Use "autoClose: false" to disable auto closing.
+Use "autoClose: 0 | false" to disable auto closing.
 
 ### Debugging
 

@@ -53,12 +53,13 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 
 */
-export async function sendSticker(sticker, chatId, metadata){
-  
+export async function sendSticker(sticker, chatId, metadata, type){
     var chat = await WAPI.sendExist(chatId);
+
     if(chat.erro === false || chat.__x_id){
-    var ListChat = await Store.Chat.get(chatId);
-    var stick = new window.Store.Sticker.modelClass();
+    var ListChat = await Store.Chat.get(chatId),
+           stick = new window.Store.Sticker.modelClass();
+
     stick.__x_clientUrl = sticker.clientUrl;
     stick.__x_filehash = sticker.filehash;
     stick.__x_id = sticker.filehash;
@@ -69,19 +70,24 @@ export async function sendSticker(sticker, chatId, metadata){
     stick.mimetype = 'image/webp';
     stick.height = metadata && metadata.height ? metadata.height : 512;
     stick.width = metadata && metadata.width ? metadata.width : 512;
-    var init = await stick.initialize();
-    var result = Promise.all((ListChat)? await stick.sendToChat(chat) : "");
-    var m = {type: "sendSticker"}; 
-      if(result._resolveLevel === 1){
-        var obj = WAPI.scope(chatId, false, result._resolveLevel, null);
+    
+    await stick.initialize();
+    
+    var result = await (Promise.all((ListChat)? await stick.sendToChat(chat, {stickerIsFirstParty: false, stickerSendOrigin: 6}) : ""));
+    result = result.join('');
+    var m = {type: type},
+    To = await WAPI.getchatId(chatId);
+      if(result === "OK"){
+        var obj = WAPI.scope(To, false, result, null);
         Object.assign(obj, m);
         return obj;
-      }else{
-        var obj = WAPI.scope(chatId, true, result._resolveLevel, null);
-        Object.assign(obj, m);
-        return obj;
-       }
+        }else{
+          var obj = WAPI.scope(To, true, result, null);
+          Object.assign(obj, m);
+          return obj;
+      }
       }else{
           return chat;
       }
 }
+

@@ -128,7 +128,8 @@ declare module WAPI {
   const sendImageAsSticker: (
     webpBase64: string,
     to: string,
-    metadata?: any
+    metadata?: any,
+    type?: string,
   ) => object;
   const sendImageAsStickerGif: (
     webpBase64: string,
@@ -529,12 +530,21 @@ export class SenderLayer extends ListenerLayer {
         if (typeof obj == 'object') {
           let _webb64 = obj['webpBase64'];
           let _met = obj['metadata'];
-          return await this.page.evaluate(
-            ({ _webb64, to, _met }) => {
-              return WAPI.sendImageAsSticker(_webb64, to, _met);
-            },
-            { _webb64, to, _met }
-          );
+
+          return new Promise(async (resolve, reject) => {
+            var result = await this.page.evaluate(
+              ({ _webb64, to, _met }) => {
+                return WAPI.sendImageAsSticker(_webb64, to, _met, "StickerGif" );
+              },
+              { _webb64, to, _met }
+            );
+            if (result['erro'] == true) {
+              reject(result);
+            } else {
+              resolve(result);
+            }
+          });
+
         }
       } else {
         console.log('Not an image, allowed format gif');
@@ -569,12 +579,19 @@ export class SenderLayer extends ListenerLayer {
         if (typeof obj == 'object') {
           let _webb64 = obj['webpBase64'];
           let _met = obj['metadata'];
-          return await this.page.evaluate(
-            ({ _webb64, to, _met }) => {
-              return WAPI.sendImageAsSticker(_webb64, to, _met);
-            },
-            { _webb64, to, _met }
-          );
+          return new Promise(async (resolve, reject) => {
+            var result = await this.page.evaluate(
+              ({ _webb64, to, _met }) => {
+                return WAPI.sendImageAsSticker(_webb64, to, _met, "Sticker");
+              },
+              { _webb64, to, _met }
+            );
+            if (result['erro'] == true) {
+              reject(result);
+            } else {
+              resolve(result);
+            }
+          });
         }
       } else {
         console.log('Not an image, allowed formats png, jpeg and webp');

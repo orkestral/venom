@@ -13,6 +13,10 @@ add option to disable message terminal Welcome Venom
 
 fix function to send by group id
 
+fix bug sendImageAsStickerGif, sendImageAsSticker
+
+return to chatid to object route treatment
+
 **2.0.1**
 14 September 2020
 
