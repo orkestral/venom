@@ -129,7 +129,7 @@ declare module WAPI {
     webpBase64: string,
     to: string,
     metadata?: any,
-    type?: string,
+    type?: string
   ) => object;
   const sendImageAsStickerGif: (
     webpBase64: string,
@@ -534,7 +534,7 @@ export class SenderLayer extends ListenerLayer {
           return new Promise(async (resolve, reject) => {
             var result = await this.page.evaluate(
               ({ _webb64, to, _met }) => {
-                return WAPI.sendImageAsSticker(_webb64, to, _met, "StickerGif" );
+                return WAPI.sendImageAsSticker(_webb64, to, _met, 'StickerGif');
               },
               { _webb64, to, _met }
             );
@@ -544,7 +544,6 @@ export class SenderLayer extends ListenerLayer {
               resolve(result);
             }
           });
-
         }
       } else {
         console.log('Not an image, allowed format gif');
@@ -582,7 +581,7 @@ export class SenderLayer extends ListenerLayer {
           return new Promise(async (resolve, reject) => {
             var result = await this.page.evaluate(
               ({ _webb64, to, _met }) => {
-                return WAPI.sendImageAsSticker(_webb64, to, _met, "Sticker");
+                return WAPI.sendImageAsSticker(_webb64, to, _met, 'Sticker');
               },
               { _webb64, to, _met }
             );

@@ -72,7 +72,7 @@ export async function initWhatsapp(
     await auth_InjectToken(waPage, session, options);
 
     await waPage.setUserAgent(
-      'WhatsApp/2.2019.8 Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36'
+      'WhatsApp/2.2037.6 Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.83 Safari/537.36'
     );
 
     const timeout = 2 * 1000;
