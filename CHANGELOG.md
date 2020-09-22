@@ -2,7 +2,7 @@
 
 _All notable changes to this project will be documented in this file. Dates are displayed in UTC._
 
-**2.0.2**
+**2.0.2 | 2.0.3**
 21 September 2020
 
 add crete config folderNameToken, mkdirFolderToken
