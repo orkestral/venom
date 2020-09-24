@@ -178,11 +178,8 @@ export const storeObjects = [
     conditions: (module) => (module.Catalog ? module.Catalog : null),
   },
   {
-    id: 'bp',
-    conditions: (module) =>
-      module.default && module.default.toString().includes('bp_unknown_version')
-        ? module.default
-        : null,
+    id: 'Perfil',
+    conditions: (module) => module.__esModule === true && module.setPushname && !module.getComposeContents? module  : null,
   },
   {
     id: 'MsgKey',
