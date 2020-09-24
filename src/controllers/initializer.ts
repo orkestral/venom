@@ -67,6 +67,7 @@ import path = require('path');
 import Counter = require('../lib/counter/Counter.js');
 const { version } = require('../../package.json');
 import { scrapeImgReload, scrapeImg } from '../api/helpers';
+import { red } from 'chalk';
 
 // Global
 let updatesChecked = false;
@@ -79,7 +80,7 @@ export async function create(
   catchQR?: (qrCode: string, asciiQR: string) => void,
   statusFind?: (statusGet: string) => void,
   options?: CreateConfig
-) {
+): Promise<Whatsapp> {
   const spinnies = new Spinnies({
     disableSpins: options ? options.disableSpins : '',
   });
@@ -267,7 +268,10 @@ export async function create(
             // Wait til inside chat
             var IsLog = await isInsideChat(waPage).toPromise();
             if (IsLog == false) {
-              return false;
+              spinnies.fail(`${session}-auth`, {
+                text: 'Failed to verify chat...',
+                failColor: 'redBright',
+              });
             }
             if (statusFind) {
               statusFind('qrReadSuccess');
