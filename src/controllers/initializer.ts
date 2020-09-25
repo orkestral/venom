@@ -66,12 +66,9 @@ import path = require('path');
 import Counter = require('../lib/counter/Counter.js');
 const { version } = require('../../package.json');
 import { scrapeImgReload, scrapeImg } from '../api/helpers';
-import { red } from 'chalk';
 
 // Global
 let updatesChecked = false;
-let browserFail = false;
-var browser_fail: any, browser_check: any, closeBrowser: any;
 const counter = new Counter();
 
 export async function create(
@@ -80,6 +77,9 @@ export async function create(
   statusFind?: (statusGet: string) => void,
   options?: CreateConfig
 ): Promise<Whatsapp> {
+  let browserFail = false;
+  var browser_fail: any, browser_check: any, closeBrowser: any;
+
   const spinnies = new Spinnies({
     disableSpins: options ? options.disableSpins : '',
   });
@@ -150,6 +150,7 @@ export async function create(
         if (statusFind) {
           statusFind('browserClose');
         }
+        clearTimeout(closeBrowser);
         clearInterval(browser_fail);
       }
     }, 1000);
@@ -211,6 +212,7 @@ export async function create(
                 statusFind('qrReadFail');
               }
               browserFail = true;
+              clearTimeout(closeBrowser);
               clearInterval(browser_check);
             } else {
               switch (tipo_qr) {
@@ -265,12 +267,10 @@ export async function create(
 
           if (!browserFail) {
             // Wait til inside chat
+
             var IsLog = await isInsideChat(waPage).toPromise();
             if (IsLog == false) {
-              spinnies.fail(`${session}-auth`, {
-                text: 'Failed to verify chat...',
-                failColor: 'redBright',
-              });
+              throw 'The browser is closed';
             }
             if (statusFind) {
               statusFind('qrReadSuccess');
@@ -278,6 +278,8 @@ export async function create(
             spinnies.succeed(`${session}-auth`, {
               text: 'Compilation Mutation',
             });
+          } else {
+            throw 'Browser Fail';
           }
         }
         if (!browserFail) {
