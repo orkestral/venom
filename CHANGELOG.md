@@ -11,6 +11,8 @@ Update user agent
 
 Fix is connected
 
+Fix initialization with autoclose
+
 **2.0.2 | 2.0.3**
 21 September 2020
 
