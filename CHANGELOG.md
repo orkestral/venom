@@ -2,6 +2,13 @@
 
 _All notable changes to this project will be documented in this file. Dates are displayed in UTC._
 
+**2.0.6**
+28 September 2020
+
+Fixed return type of create function
+
+Fix initialization with autoclose
+
 **2.0.4 | 2.0.5**
 22 September 2020
 
@@ -10,8 +17,6 @@ Change ascii welcome venom
 Update user agent
 
 Fix is connected
-
-Fix initialization with autoclose
 
 **2.0.2 | 2.0.3**
 21 September 2020
