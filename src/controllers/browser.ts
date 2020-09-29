@@ -142,7 +142,7 @@ export async function initBrowser(
       //userDataDir: path.join(process.cwd(), session),
       args: options.browserArgs
         ? options.browserArgs
-        : [...puppeteerConfig.chroniumArgs],
+        : [...puppeteerConfig.chromiumArgs],
       ...extras,
     })
     .then((e) => {
