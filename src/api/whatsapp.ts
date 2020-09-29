@@ -129,6 +129,7 @@ export class Whatsapp extends ControlsLayer {
     try {
       await closing(this.page);
     } catch (error) {}
+    return true;
   }
 
   /**

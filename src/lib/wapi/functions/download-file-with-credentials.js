@@ -54,8 +54,8 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 
 */
 export async function downloadFile(url) {
-  return await new Promise((resolve,reject) => {
-  let xhr = new XMLHttpRequest();
+  return await new Promise((resolve, reject) => {
+    let xhr = new XMLHttpRequest();
     xhr.onload = function () {
       if (xhr.readyState == 4) {
         if (xhr.status == 200) {
@@ -76,4 +76,4 @@ export async function downloadFile(url) {
     xhr.responseType = 'blob';
     xhr.send(null);
   });
-};
+}
