@@ -53,14 +53,10 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 
 */
-var path = require('path');
-
 const puppeteerConfig = {
   whatsappUrl: 'https://web.whatsapp.com',
   chroniumArgs: [
-    // `--app=${whatsappUrl}`,
-    '--log-level=3', // fatal only
-    //'--start-maximized',
+    '--log-level=3',
     '--no-default-browser-check',
     '--disable-site-isolation-trials',
     '--no-experiments',

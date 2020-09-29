@@ -59,6 +59,7 @@ import { Message } from './model';
 import treekill = require('tree-kill');
 import { magix, timeout, makeOptions } from './helpers/decrypt';
 import axios from 'axios';
+import { useragentOverride } from '../config/WAuserAgente';
 
 declare module WAPI {
   const arrayBufferToBase64: (buffer: ArrayBuffer) => string;
@@ -135,10 +136,9 @@ export class Whatsapp extends ControlsLayer {
   /**
    * Decrypts message file
    * @param message Message object
-   * @param useragentOverride String to change user agent
    * @returns Decrypted file buffer (null otherwise)
    */
-  public async decryptFile(message: Message, useragentOverride?: string) {
+  public async decryptFile(message: Message) {
     const options = makeOptions(useragentOverride);
     if (!message.clientUrl)
       throw new Error(
