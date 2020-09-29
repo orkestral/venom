@@ -55,8 +55,10 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
 const puppeteerConfig = {
   whatsappUrl: 'https://web.whatsapp.com',
-  chroniumArgs: [
-    '--log-level=3',
+  chromiumArgs: [
+    // `--app=${WAUrl}`,
+    '--log-level=3', // fatal only
+    //'--start-maximized',
     '--no-default-browser-check',
     '--disable-site-isolation-trials',
     '--no-experiments',
@@ -71,6 +73,10 @@ const puppeteerConfig = {
     '--no-sandbox',
     // Extras
     '--disable-webgl',
+    '--disable-infobars',
+    '--window-position=0,0',
+    '--ignore-certifcate-errors',
+    '--ignore-certifcate-errors-spki-list',
     '--disable-threaded-animation',
     '--disable-threaded-scrolling',
     '--disable-in-process-stack-traces',
@@ -84,6 +90,7 @@ const puppeteerConfig = {
     '--disable-accelerated-mjpeg-decode',
     '--disable-app-list-dismiss-on-blur',
     '--disable-accelerated-video-decode',
+    '--disable-dev-shm-usage',
   ],
 };
 
