@@ -155,7 +155,9 @@ export class Whatsapp extends ControlsLayer {
           await timeout(2000);
         }
       }
-    } catch (error) {}
+    } catch (error) {
+      throw 'Error trying to download the file.';
+    }
     const buff = Buffer.from(res.data, 'binary');
     return magix(buff, message.mediaKey, message.type, message.size);
   }
