@@ -2,12 +2,14 @@
 
 _All notable changes to this project will be documented in this file. Dates are displayed in UTC._
 
-**2.0.7**
+**2.0.7 | 2.0.8**
 29 September 2020
 
 Updating packages
 
 Improved message download
+
+Message error when try descrypt
 
 **2.0.6**
 28 September 2020
