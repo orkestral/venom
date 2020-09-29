@@ -625,8 +625,9 @@ There are some tricks for a better usage of venom.
 // In case of being logged out of whatsapp web
 // Force it to keep the current session
 // State change
+// Detect a logout
 client.onStateChange((state) => {
-  console.log(state);
+  console.log('State changed: ', state);
   const conflits = [
     venom.SocketState.CONFLICT,
     venom.SocketState.UNPAIRED,
@@ -634,6 +635,8 @@ client.onStateChange((state) => {
   ];
   if (conflits.includes(state)) {
     client.useHere();
+    // Detect a logout
+    if (state === 'UNPAIRED') console.log('Client logout!');
   }
 });
 ```
