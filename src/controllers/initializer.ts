@@ -87,13 +87,12 @@ export async function create(
   const mergedOptions = { ...defaultOptions, ...options };
 
   if (!mergedOptions.disableWelcome) {
-    console.log(`\n
+    console.log(`
      
     ▐█  ██  █░▐█▀▀▀░▐█     ▄█▀▀█▄ ▄█▀▀█▄ ▐██   ██▌ ▓█▀▀▀░
      █▌▐██▄▓█ ▐█▄▄▄ ▐█    ▐█      █▒  ▐█▄▐█▀▌ ▐▌█▌ ▓█▄▄▄
      ▐██ ▐██░ ▐█    ▐█    ▐█▄  ▄▀ █▌  ▐█ ▐█ █▓█ █▌ ██
       ▀▀  ▀▀  ▀▀▀▀▀░▐▀▀▀▀▀  ▀▀▀▀   ▀▀▀▀  ▐▀  ▀  ▀▀ ▀▀▀▀▀
-    \n
                                    ▄
       ▄▄░          ▄ ▄▄▄▄▄▄▄▄▄▄▄▄▄ ██         ▄▄       ▄▄▄▄      ░
       ░██▄        ██ ███▀▀▀▀▀▀▀▀█▌ ███▌       ██▄  ▄▄█▀▀▀▀▀▀█▄   ▓█▄           ▄█░
@@ -103,8 +102,7 @@ export async function create(
            ▓████     ███           ██     ▀██▄██▄ █▌          ██ ▓█▌    ▀█░    ██░
             ▀██      ███        █▌ ██       ▀███▄  ▀█▄     ▄▄█▀  ▓█▌           ██░
              ▀       ▀███████████▌ ██        ░██▄    ▀▀███▀▀░    ▀█▌           ▓█░
-                                               ▀░                             
-    \n`);
+                                              ▀░                                   \n`);
   }
   // Check for updates if needed
   if (!updatesChecked && mergedOptions.updatesLog) {
@@ -381,7 +379,6 @@ function checkVenomVersion(spinnies) {
     if (!upToDate(version, latest)) {
       logUpdateAvailable(version, latest);
     }
-
     spinnies.succeed('venom-version-spinner', { text: 'Checking for updates' });
   });
 }
@@ -401,7 +398,7 @@ function logUpdateAvailable(current: string, latest: string) {
   console.log(boxen(newVersionLog, { padding: 1 }));
   console.log(
     `For more info visit: ${chalk.underline(
-      'https://github.com/orkestral/venom/blob/master/UPDATES.md'
+      'https://github.com/orkestral/venom/blob/master/Update.md'
     )}\n`
   );
 }
