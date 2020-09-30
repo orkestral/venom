@@ -626,6 +626,20 @@ There are some tricks for a better usage of venom.
 // Force it to keep the current session
 // State change
 // Detect a logout
+// Possible state values:
+// CONFLICT
+// CONNECTED
+// DEPRECATED_VERSION
+// OPENING
+// PAIRING
+// PROXYBLOCK
+// SMB_TOS_BLOCK
+// TIMEOUT
+// TOS_BLOCK
+// UNLAUNCHED
+// UNPAIRED
+// UNPAIRED_IDLE
+
 client.onStateChange((state) => {
   console.log('State changed: ', state);
   const conflits = [
