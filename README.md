@@ -671,7 +671,7 @@ async () => {
 #### Closing (saving) sessions
 
 Close the session properly to ensure the session is saved for the next time you
-log in (So it wont ask for QR scan again). So instead of CTRL+C,
+log in (So it won't ask for QR scan again). So instead of CTRL+C,
 
 ```javascript
 // Catch ctrl+C
@@ -689,7 +689,7 @@ try {
 
 ### Auto closing unsynced sessions
 
-The auto close is enabled by default and the timeout is setted to 60 sec.
+The auto close is enabled by default and the timeout is set to 60 sec.
 Receives the time in milliseconds to countdown until paired.
 
 Use "autoClose: 0 | false" to disable auto closing.
@@ -698,7 +698,7 @@ Use "autoClose: 0 | false" to disable auto closing.
 
 ## Development
 
-Building venom is really simple altough it contians 3 main projects inside
+Building venom is really simple altough it contains 3 main projects inside
 
 1. Wapi project
 
@@ -706,7 +706,7 @@ Building venom is really simple altough it contians 3 main projects inside
 > npm run build:wapi
 ```
 
-2. Middleeware
+2. Middleware
 
 ```bash
 > npm run build:middleware
