@@ -161,7 +161,7 @@ venom
   .create(
     'sessionName',
     (base64Qr, asciiQR) => {
-      console.log(asciiQR); // Opcional to log the QR in the terminal
+      console.log(asciiQR); // Optional to log the QR in the terminal
       var matches = base64Qr.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/),
         response = {};
 
@@ -270,7 +270,7 @@ await client
     console.error('Error when sending: ', erro); //return object error
   });
 
-//Automatically sends a link with the auto generated link preview. You can also add a custom message to be added.
+// Automatically sends a link with the auto generated link preview. You can also add a custom message to be added.
 await client
   .sendLinkPreview(
     '000000000000@c.us',
@@ -300,7 +300,7 @@ await client
   });
 
 // Send file (venom will take care of mime types, just need the path)
-//you can also upload an image using a valid HTTP protocol
+// you can also upload an image using a valid HTTP protocol
 await client
   .sendFile(
     '000000000000@c.us',
@@ -315,7 +315,7 @@ await client
     console.error('Error when sending: ', erro); //return object error
   });
 
-//Sends file
+// Sends file
 // base64 parameter should have mime type already defined
 await client
   .sendFileFromBase64(
@@ -331,8 +331,8 @@ await client
     console.error('Error when sending: ', erro); //return object error
   });
 
-//Generates sticker from the provided animated gif image and sends it (Send image as animated sticker)
-//image path imageBase64 A valid gif image is required. You can also send via http/https (http://www.website.com/img.gif)
+// Generates sticker from the provided animated gif image and sends it (Send image as animated sticker)
+// image path imageBase64 A valid gif image is required. You can also send via http/https (http://www.website.com/img.gif)
 await client
   .sendImageAsStickerGif('000000000000@c.us', './image.gif')
   .then((result) => {
@@ -342,7 +342,7 @@ await client
     console.error('Error when sending: ', erro); //return object error
   });
 
-//Generates sticker from given image and sends it (Send Image As Sticker)
+// Generates sticker from given image and sends it (Send Image As Sticker)
 // image path imageBase64 A valid png, jpg and webp image is required. You can also send via http/https (http://www.website.com/img.jpg)
 await client
   .sendImageAsSticker('000000000000@c.us', './image.jpg')
@@ -509,10 +509,10 @@ await client.setProfilePic('path/to/image.jpg');
 ## Device Functions
 
 ```javascript
-//Delete the Service Worker
+// Delete the Service Worker
 await client.killServiceWorker();
 
-//Load the service again
+// Load the service again
 await client.restartService();
 
 // Get device info
@@ -582,12 +582,12 @@ await client
     console.error('Error when sending: ', erro); //return object error
   });
 
-//Change the theme
-//string types "dark" or "light"
+// Change the theme
+// string types "dark" or "light"
 await client.setTheme('dark');
 
-//Receive the current theme
-//returns string light or dark
+// Receive the current theme
+// returns string light or dark
 await client.getTheme();
 
 // Delete chat
@@ -605,10 +605,10 @@ await client.deleteMessage('000000000000@c.us', message.id.toString(), false);
 // Mark chat as not seen (returns true if it works)
 await client.markUnseenMessage('000000000000@c.us');
 
-//blocks a user (returns true if it works)
+// Blocks a user (returns true if it works)
 await client.blockContact('000000000000@c.us');
 
-//unlocks contacts (returns true if it works)
+// Unlocks contacts (returns true if it works)
 await client.unblockContact('000000000000@c.us');
 
 // Retrieve a number profile / check if contact is a valid whatsapp number
