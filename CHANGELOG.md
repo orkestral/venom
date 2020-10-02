@@ -1,145 +1,97 @@
-﻿## Changelog
+## [2.0.7 | 2.0.8](https://github.com/orkestral/venom/compare/v2.0.6...v2.0.8) (2020-09-29)
 
-_All notable changes to this project will be documented in this file. Dates are displayed in UTC._
+- Updating packages
+- Improved message download
+- Message error when try descrypt
 
-**2.0.7 | 2.0.8**
-29 September 2020
+## [2.0.6](https://github.com/orkestral/venom/compare/v2.0.4...v2.0.6) (2020-09-28)
 
-Updating packages
+- Fixed return type of create function
+- Fix initialization with autoclose
 
-Improved message download
+## [2.0.4 | 2.0.5](https://github.com/orkestral/venom/compare/v2.0.3...v2.0.4) (2020-09-22)
 
-Message error when try descrypt
+- Change ascii welcome venom
+- Update user agent
+- Fix is connected
 
-**2.0.6**
-28 September 2020
+## [2.0.2 | 2.0.3](https://github.com/orkestral/venom/compare/a6ac61cd31c759dc75b1bfac3c6ecee645f54ee5...v2.0.3) (2020-09-21)
 
-Fixed return type of create function
+- add crete config folderNameToken, mkdirFolderToken
+- fix package.json rxjs
+- add option to disable message terminal Welcome Venom
+- fix function to send by group id
+- fix bug sendImageAsStickerGif, sendImageAsSticker
+- return to chatid to object route treatment
 
-Fix initialization with autoclose
+## 2.0.1 (2020-09-14)
 
-**2.0.4 | 2.0.5**
-22 September 2020
+- fix bug initialization
+- add checkNumberStatus, sendContactVcardList
+- correction qrcode in terminal, sendContactVcard, setProfilePic, sendLocation
+- add parameter in Callback Status Session: browserClose || qrReadSuccess \* || qrReadFail
+- remove refreshQR and sendMessageToId
 
-Change ascii welcome venom
+## 1.1.4 (2020-07-26)
 
-Update user agent
+- fix bug
 
-Fix is connected
+## 1.1.2 (2020-07-24)
 
-**2.0.2 | 2.0.3**
-21 September 2020
+- fix bug autoclose
 
-add crete config folderNameToken, mkdirFolderToken
+## 1.1.1 (2020-07-24)
 
-fix package.json rxjs
+- New functions
 
-add option to disable message terminal Welcome Venom
+## 1.0.9 (2020-06-30)
 
-fix function to send by group id
+- remove fix file mime type discovery
 
-fix bug sendImageAsStickerGif, sendImageAsSticker
+## 1.0.8 (2020-06-29)
 
-return to chatid to object route treatment
+- fix reply (with mention)
+- add function autoClose
+- add function joingroup
+- add function getgroupinfofrominvitelink
+- fix file mime type discovery
 
-**2.0.1**
-14 September 2020
+## 1.0.7 (2020-06-20)
 
-fix bug initialization
+- add setProfilePic
+- Fix bug getAllNewMessages
 
-add checkNumberStatus, sendContactVcardList
+## 1.0.6 (2020-06-19)
 
-correction qrcode in terminal, sendContactVcard, setProfilePic, sendLocation
+- Fix bug not exist folder dist
 
-add parameter in Callback Status Session: browserClose || qrReadSuccess || qrReadFail
+## 1.0.5 (2020-06-19)
 
-remove refreshQR and sendMessageToId
+- Fix bug useHere
 
-**1.1.4**
-26 July 2020
+## 1.0.4 (2020-06-15)
 
-fix bug
+- Fix bug performace
 
-**1.1.2**
-24 July 2020
+## 1.0.3 (2020-06-14)
 
-fix bug autoclose
+- Fix bug performace
 
-**1.1.1**
-24 July 2020
+## 1.0.2 (2020-06-13)
 
-New functions
+\*Fix bug disabled spinners
 
-**1.0.9**
-30 June 2020
+## 1.0.1 (2020-06-13)
 
-remove fix file mime type discovery
+- Session for Token - for [HelioSilva](https://github.com/orkestral/venom/commits?author=HelioSilva)
+- Spinners disabled options - for [CosmicSnow](https://github.com/orkestral/venom/commits?author=CosmicSnow)
 
-**1.0.8**
-29 June 2020
+## 1.0.0 (2020-06-06)
 
-fix reply (with mention)
-
-add function autoClose
-
-add function joingroup
-
-add function getgroupinfofrominvitelink
-
-fix file mime type discovery
-
-**1.0.7**
-20 June 2020
-
-add setProfilePic
-
-Fix bug getAllNewMessages
-
-**1.0.6**
-19 June 2020
-
-Fix bug not exist folder dist
-
-**1.0.5**
-19 June 2020
-
-Fix bug useHere
-
-**1.0.4**
-15 June 2020
-
-Fix bug performace
-
-**1.0.3**
-14 June 2020
-
-Fix bug performace
-
-**1.0.2**
-13 June 2020
-
-Fix bug disabled spinners
-
-**1.0.1**
-13 June 2020
-
-Session for Token - for [HelioSilva](https://github.com/orkestral/venom/commits?author=HelioSilva)
-
-Spinners disabled options - for [CosmicSnow](https://github.com/orkestral/venom/commits?author=CosmicSnow)
-
-**1.0.0**
-6 June 2020
-
-    First version
-
-    Init readme
-
-    Do not force rxjs
-
-    Initial commit
-
-    Fix CatchQR erro
-
-    QR catching
-
-    Add Status of Session
+- First version
+- Init readme
+- Do not force rxjs
+- Initial commit
+- Fix CatchQR erro
+- QR catching
+- Add Status of Session
