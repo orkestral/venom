@@ -16,6 +16,7 @@
     "changelog:preview": "conventional-changelog -p angular -u",
     "changelog:update": "conventional-changelog -p angular -i CHANGELOG.md -s",
     "clean": "rimraf session dist",
+    "commit": "cz",
     "lint": "npx eslint -c .eslintrc.js --ext .ts src",
     "prepublish": "npm run clean && npm run build",
     "release": "release-it",
@@ -25,7 +26,13 @@
   },
   "husky": {
     "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
       "pre-commit": "pretty-quick --staged"
+    }
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
     }
   },
   "repository": {
@@ -52,6 +59,8 @@
   },
   "homepage": "https://github.com/orkestral/venom#readme",
   "devDependencies": {
+    "@commitlint/cli": "^11.0.0",
+    "@commitlint/config-angular": "^11.0.0",
     "@types/atob": "^2.1.2",
     "@types/mime-types": "^2.1.0",
     "@types/node": "^13.13.19",
@@ -59,9 +68,11 @@
     "@types/sharp": "^0.25.0",
     "@typescript-eslint/eslint-plugin": "^4.3.0",
     "@typescript-eslint/parser": "^4.3.0",
+    "commitizen": "^4.2.1",
     "concurrently": "^5.1.0",
     "conventional-changelog-cli": "^2.1.0",
     "copy-webpack-plugin": "^6.1.1",
+    "cz-conventional-changelog": "^3.3.0",
     "eslint": "^7.10.0",
     "eslint-config-prettier": "^6.12.0",
     "eslint-plugin-prettier": "^3.1.4",
