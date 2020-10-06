@@ -134,11 +134,11 @@ export async function create(
         text: 'headless option is disabled, browser visible',
       });
     }
-
-    browser['_process'].once('close', () => {
-      browser['isClose'] = true;
-    });
-
+    if (!options.browserWS || options.browserWS == '') {
+      browser['_process'].once('close', () => {
+        browser['isClose'] = true;
+      });
+    }
     browser_fail = setInterval(() => {
       if (browser['isClose'] != undefined) {
         spinnies.fail(`${session}-auth`, {
