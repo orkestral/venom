@@ -1,3 +1,17 @@
+## [2.0.9](https://github.com/orkestral/venom/compare/v2.0.8...v2.0.9) (2020-10-06)
+
+### Bug Fixes
+
+- change chromium args ([1a18c5d](https://github.com/orkestral/venom/commit/1a18c5dbfaefe25de543db6ee179ffd8a02f20ad))
+- change user agent ([baf9598](https://github.com/orkestral/venom/commit/baf9598e876245c8f51f8d3791727af61eab3979))
+- correct link update ([599c562](https://github.com/orkestral/venom/commit/599c5625be97b07f5857683dea3cbc77f5ea35cc))
+- name chromium ([25c1a3d](https://github.com/orkestral/venom/commit/25c1a3d1aef646ae4a93026e7880274c6b56988e))
+
+### Features
+
+- new option to connect browserWSEndpoint ([2343e1a](https://github.com/orkestral/venom/commit/2343e1a39059dced4a13dc6b41fc4055ac55ddcc))
+- new option to connect with external browser ([2a62bb9](https://github.com/orkestral/venom/commit/2a62bb9d254d6651e5040d84128043d696d6694d))
+
 ## [2.0.7 | 2.0.8](https://github.com/orkestral/venom/compare/v2.0.6...v2.0.8) (2020-09-29)
 
 - Updating packages
