@@ -5,32 +5,34 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "start": "npm run build:venom & tsc app.ts && node app.js",
-    "build": "npm run build:wapi && npm run build:middleware && npm run build:jsQR && npm run build:counter && tsc",
-    "build:venom": "tsc",
-    "build:wapi": "cd src/lib/wapi/ && webpack",
-    "build:middleware": "cd src/lib/middleware/ && webpack",
-    "build:jsQR": "cd src/lib/jsQR/ && gulp",
     "build:counter": "cd src/lib/counter/ && gulp",
     "build:docs": "typedoc && git add docs/*",
-    "watch": "concurrently \"tsc -w\" \"nodemon dist/index.js\"",
-    "clean": "rm -rf session && rm -rf dist",
-    "test": "echo \"No tests yet\"",
+    "build:jsQR": "cd src/lib/jsQR/ && gulp",
+    "build:middleware": "cd src/lib/middleware/ && webpack",
+    "build:venom": "tsc",
+    "build:wapi": "cd src/lib/wapi/ && webpack",
+    "build": "npm run build:wapi && npm run build:middleware && npm run build:jsQR && npm run build:counter && npm run build:venom",
+    "changelog:last": "conventional-changelog -p angular -r 2",
+    "changelog:preview": "conventional-changelog -p angular -u",
+    "changelog:update": "conventional-changelog -p angular -i CHANGELOG.md -s",
+    "clean": "rimraf session dist",
+    "commit": "cz",
     "lint": "npx eslint -c .eslintrc.js --ext .ts src",
-    "changelog": "auto-changelog -p && git add CHANGELOG.md",
-    "release": "read -p 'GITHUB_TOKEN: ' GITHUB_TOKEN && export GITHUB_TOKEN=$GITHUB_TOKEN && release-it"
-  },
-  "release-it": {
-    "github": {
-      "release": true
-    }
-  },
-  "auto-changelog": {
-    "commitLimit": false
+    "prepublish": "npm run clean && npm run build",
+    "release": "release-it",
+    "start": "npm run build:venom & tsc app.ts && node app.js",
+    "test": "echo \"No tests yet\"",
+    "watch": "concurrently \"tsc -w\" \"nodemon dist/index.js\""
   },
   "husky": {
     "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
       "pre-commit": "pretty-quick --staged"
+    }
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
     }
   },
   "repository": {
@@ -57,6 +59,8 @@
   },
   "homepage": "https://github.com/orkestral/venom#readme",
   "devDependencies": {
+    "@commitlint/cli": "^11.0.0",
+    "@commitlint/config-angular": "^11.0.0",
     "@types/atob": "^2.1.2",
     "@types/mime-types": "^2.1.0",
     "@types/node": "^13.13.19",
@@ -64,9 +68,11 @@
     "@types/sharp": "^0.25.0",
     "@typescript-eslint/eslint-plugin": "^4.3.0",
     "@typescript-eslint/parser": "^4.3.0",
-    "auto-changelog": "^2.2.1",
+    "commitizen": "^4.2.1",
     "concurrently": "^5.1.0",
+    "conventional-changelog-cli": "^2.1.0",
     "copy-webpack-plugin": "^6.1.1",
+    "cz-conventional-changelog": "^3.3.0",
     "eslint": "^7.10.0",
     "eslint-config-prettier": "^6.12.0",
     "eslint-plugin-prettier": "^3.1.4",
@@ -76,6 +82,7 @@
     "prettier": "^2.0.4",
     "pretty-quick": "^2.0.1",
     "release-it": "^14.0.3",
+    "rimraf": "^3.0.2",
     "ts-loader": "^7.0.0",
     "typedoc": "^0.17.4",
     "typescript": "^3.8.3",
