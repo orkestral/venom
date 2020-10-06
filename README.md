@@ -97,6 +97,7 @@ venom
       useChrome: true, // If false will use Chromium instance
       debug: false, // Opens a debug session
       logQR: true, // Logs QR automatically in terminal
+      browserWS: '', // If u want to use browserWSEndpoint
       browserArgs: [''], // Parameters to be added into the chrome browser instance
       disableSpins: true, // Will disable Spinnies animation, useful for containers (docker) for a better log
       disableWelcome: true, // Will disable the welcoming message which appears in the beginning

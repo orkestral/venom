@@ -133,22 +133,28 @@ export async function initBrowser(
   // Use stealth plugin to avoid being detected as a bot
   puppeteer.use(StealthPlugin());
 
+  puppeteer.defaultArgs({
+    headless: options.headless,
+    devtools: options.devtools,
+    args: options.browserArgs
+      ? options.browserArgs
+      : [...puppeteerConfig.chromiumArgs],
+    ...extras,
+  });
+
   let browser = null;
-  await puppeteer
-    .launch({
-      // headless: true,
-      headless: options.headless,
-      devtools: options.devtools,
-      //userDataDir: path.join(process.cwd(), session),
-      args: options.browserArgs
-        ? options.browserArgs
-        : [...puppeteerConfig.chromiumArgs],
-      ...extras,
-    })
-    .then((e) => {
-      browser = e;
-    })
-    .catch(() => {});
+  if (options.browserWS && options.browserWS != '') {
+    browser = await puppeteer.connect({
+      browserWSEndpoint: options.browserWS,
+    });
+  } else {
+    await puppeteer
+      .launch()
+      .then((e) => {
+        browser = e;
+      })
+      .catch(() => {});
+  }
 
   return browser;
 }

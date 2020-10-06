@@ -61,6 +61,7 @@ export interface CreateConfig {
   devtools?: boolean;
   useChrome?: boolean;
   debug?: boolean;
+  browserWS?: string;
   browserArgs?: string[];
   logQR?: boolean;
   disableSpins?: boolean;
@@ -77,6 +78,7 @@ export const defaultOptions: CreateConfig = {
   useChrome: true,
   debug: false,
   logQR: true,
+  browserWS: '',
   browserArgs: [''],
   disableSpins: false,
   disableWelcome: false,
