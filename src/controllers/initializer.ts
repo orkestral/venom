@@ -99,7 +99,10 @@ export async function create(
     browser_check: any,
     closeBrowser: any,
     attempt = 0,
-    browserToken: any;
+    browserToken: any,
+    Session: string;
+  Session = session;
+
   const spinnies = new Spinnies({
     disableSpins: options ? options.disableSpins : '',
   });
@@ -134,11 +137,11 @@ export async function create(
   }
 
   // Initialize whatsapp
-  spinnies.add(`${session}-auth`, {
+  spinnies.add(`${Session}-auth`, {
     text: 'Waiting...',
   });
 
-  const browser = await initBrowser(session, mergedOptions);
+  const browser = await initBrowser(Session, mergedOptions);
 
   if (browser != null) {
     spinnies.add(`browser`, {
@@ -161,7 +164,10 @@ export async function create(
     }
     browser_fail = setInterval(() => {
       if (browser['isClose'] != undefined) {
-        spinnies.fail(`${session}-auth`, {
+        spinnies.add(`${Session}-auths`, {
+          text: '....',
+        });
+        spinnies.fail(`${Session}-auths`, {
           text: 'The browser is closed',
         });
         browserFail = true;
@@ -178,14 +184,14 @@ export async function create(
     }
 
     var waPage = await initWhatsapp(
-      session,
+      Session,
       mergedOptions,
       browser,
       browserToken
     );
 
     if (waPage) {
-      spinnies.update(`${session}-auth`, { text: 'Authenticating...' });
+      spinnies.update(`${Session}-auth`, { text: 'Authenticating...' });
 
       let authenticated = null;
 
@@ -205,7 +211,7 @@ export async function create(
           }
 
           await isInsideChat(waPage).toPromise();
-          spinnies.succeed(`${session}-auth`, { text: 'Authenticated' });
+          spinnies.succeed(`${Session}-auth`, { text: 'Authenticated' });
         } else {
           if (statusFind) {
             statusFind('notLogged');
@@ -254,8 +260,8 @@ export async function create(
                     await asciiQr(result['url'])
                       .then((qr) => {
                         if (mergedOptions.logQR) {
-                          spinnies.update(`${session}-auth`, {
-                            text: 'Scan QR for Session: ' + session,
+                          spinnies.update(`${Session}-auth`, {
+                            text: 'Scan QR for Session: ' + Session,
                           });
                           console.log(qr);
                         }
@@ -279,8 +285,8 @@ export async function create(
                       await asciiQr(re['url'])
                         .then((qr) => {
                           if (mergedOptions.logQR) {
-                            spinnies.update(`${session}-auth`, {
-                              text: 'Scan QR for Session: ' + session,
+                            spinnies.update(`${Session}-auth`, {
+                              text: 'Scan QR for Session: ' + Session,
                             });
                             console.log(qr);
                           }
@@ -303,7 +309,7 @@ export async function create(
             if (statusFind) {
               statusFind('qrReadSuccess');
             }
-            spinnies.succeed(`${session}-auth`, {
+            spinnies.succeed(`${Session}-auth`, {
               text: 'Compilation Mutation',
             });
           } else {
@@ -311,22 +317,21 @@ export async function create(
           }
         }
         if (!browserFail) {
-          clearInterval(browser_fail);
           clearInterval(browser_check);
           clearTimeout(closeBrowser);
 
-          spinnies.add(`${session}-inject`, { text: 'Injecting Sibionte...' });
+          spinnies.add(`${Session}-inject`, { text: 'Injecting Sibionte...' });
 
           waPage = await injectApi(waPage);
 
-          spinnies.succeed(`${session}-inject`, {
+          spinnies.succeed(`${Session}-inject`, {
             text: 'Starting With Success!',
           });
 
           // Saving Token
-          spinnies.add(`${session}-inject`, { text: 'Saving Token...' });
+          spinnies.add(`${Session}-inject`, { text: 'Saving Token...' });
 
-          if (true && browserToken && options.createPathFileToken) {
+          if (true || (browserToken && !options.createPathFileToken)) {
             const localStorage = JSON.parse(
               await waPage.evaluate(() => {
                 return JSON.stringify(window.localStorage);
@@ -352,7 +357,7 @@ export async function create(
                   { recursive: true },
                   (err) => {
                     if (err) {
-                      spinnies.fail(`${session}-inject`, {
+                      spinnies.fail(`${Session}-inject`, {
                         text: 'Failed to create folder tokens...',
                       });
                     }
@@ -367,7 +372,7 @@ export async function create(
                       process.cwd() + mergedOptions.mkdirFolderToken,
                       mergedOptions.folderNameToken
                     ),
-                    `${session}.data.json`
+                    `${Session}.data.json`
                   ),
                   JSON.stringify({
                     WABrowserId,
@@ -376,20 +381,24 @@ export async function create(
                     WAToken2,
                   })
                 );
-                spinnies.succeed(`${session}-inject`, {
+                spinnies.succeed(`${Session}-inject`, {
                   text: 'Token saved successfully...',
                 });
               }, 500);
             } catch (error) {
-              spinnies.fail(`${session}-inject`, {
+              spinnies.fail(`${Session}-inject`, {
                 text: 'Failed to save token...',
               });
             }
+          } else {
+            spinnies.succeed(`${Session}-inject`, {
+              text: 'No saving, to use comand: browserToken...',
+            });
           }
 
           if (mergedOptions.debug) {
             const debugURL = `http://localhost:${readFileSync(
-              `./${session}/DevToolsActivePort`
+              `./${Session}/DevToolsActivePort`
             ).slice(0, -54)}`;
             console.log(`\nDebug: \x1b[34m${debugURL}\x1b[0m`);
           }
