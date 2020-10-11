@@ -139,34 +139,57 @@ async function decodeQR(
   });
 }
 
+export function SessionTokenCkeck(token: object) {
+  if (
+    token &&
+    token['WABrowserId'] &&
+    token['WASecretBundle'] &&
+    token['WAToken1'] &&
+    token['WAToken2']
+  ) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
 export async function auth_InjectToken(
   page: puppeteer.Page,
   session: string,
-  options: CreateConfig
+  options: CreateConfig,
+  token: object
 ) {
-  //Auth with token ->start<-
-  const pathToken: string = path.join(
-    path.resolve(
-      process.cwd() + options.mkdirFolderToken,
-      options.folderNameToken
-    ),
-    `${session}.data.json`
-  );
-
   let jsonToken: any;
+  if (typeof token === 'object') {
+    jsonToken = token;
+    return await page.evaluateOnNewDocument((session) => {
+      localStorage.clear();
+      Object.keys(session).forEach((key) => {
+        localStorage.setItem(key, session[key]);
+      });
+    }, jsonToken);
+  } else {
+    //Auth with token ->start<-
+    const pathToken: string = path.join(
+      path.resolve(
+        process.cwd() + options.mkdirFolderToken,
+        options.folderNameToken
+      ),
+      `${session}.data.json`
+    );
 
-  if (existsSync(pathToken)) {
-    jsonToken = JSON.parse(readFileSync(pathToken).toString());
-
-    if (!jsonToken) {
-      return false;
-    } else {
-      return await page.evaluateOnNewDocument((session) => {
-        localStorage.clear();
-        Object.keys(session).forEach((key) => {
-          localStorage.setItem(key, session[key]);
-        });
-      }, jsonToken);
+    if (existsSync(pathToken)) {
+      jsonToken = JSON.parse(readFileSync(pathToken).toString());
+      if (!jsonToken) {
+        return false;
+      } else {
+        return await page.evaluateOnNewDocument((session) => {
+          localStorage.clear();
+          Object.keys(session).forEach((key) => {
+            localStorage.setItem(key, session[key]);
+          });
+        }, jsonToken);
+      }
     }
   }
   //End Auth with token

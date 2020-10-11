@@ -97,7 +97,10 @@ export { hasUndreadMessages } from './has-unread-messages';
 export { isConnected } from './is-connected';
 export { isLoggedIn } from './is-logged-in';
 export { leaveGroup } from './leave-group';
-export { asyncLoadAllEarlierMessages, loadAllEarlierMessages, } from './load-all-earlier-chat-messages';
+export {
+  asyncLoadAllEarlierMessages,
+  loadAllEarlierMessages,
+} from './load-all-earlier-chat-messages';
 export { loadAndGetAllMessagesInChat } from './load-and-get-all-messages-in-chat';
 export { loadChatEarlierMessages } from './load-earlier-chat-messages';
 export { loadEarlierMessagesTillDate } from './load-earlier-messages-til-date';
@@ -136,12 +139,13 @@ export { openChat, openChatAt } from './open-chat';
 export { joinGroup } from './join-group';
 export { markUnseenMessage } from './mark-unseen-message.js';
 export { getBlockList } from './block-list';
-export { setTheme, getTheme} from './theme';
+export { setTheme, getTheme } from './theme';
 export { restartService } from './restart-service';
 export { killServiceWorker } from './kill-service-worker';
 export { sendLinkPreview } from './send-link-preview';
-export { sendExist, scope, getchatId} from './check-send-exist';
+export { sendExist, scope, getchatId } from './check-send-exist';
 export { sendContactVcardList } from './send-contact-vcard-list';
 export { setProfilePic } from './set-profile-pic';
 export { pinChat } from './fix-chat';
+export { getSessionTokenBrowser } from './get-session-token';
 //export { setPresence } from './set-presence';

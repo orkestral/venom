@@ -77,10 +77,68 @@ WAPI.waitNewMessages(false, (data) => {
 });
 
 WAPI.waitNewAcknowledgements(function (data) {
-  if (!Array.isArray(data)) {
-    data = [data];
+  function ack(data) {
+    switch (data) {
+      case -7:
+        return 'MD_DOWNGRADE';
+        break;
+      case -6:
+        return 'INACTIVE';
+        break;
+      case -5:
+        return 'CONTENT_UNUPLOADABLE';
+        break;
+      case -4:
+        return 'CONTENT_TOO_BIG';
+        break;
+      case -3:
+        return 'CONTENT_GONE';
+        break;
+      case -2:
+        return 'EXPIRED';
+        break;
+      case -1:
+        return 'FAILED';
+        break;
+      case 0:
+        return 'CLOCK';
+        break;
+      case 1:
+        return 'SENT';
+        break;
+      case 2:
+        return 'RECEIVED';
+        break;
+      case 3:
+        return 'READ';
+      case 4:
+        return 'PLAYED';
+    }
   }
-  data.forEach(function (message) {
-    if (window[ExposedFn.OnAck]) window[ExposedFn.OnAck](message);
-  });
+  let message = {
+    id: data.id,
+    body: data.body,
+    type: data.type,
+    t: data.t,
+    subtype: data.subtype,
+    notifyName: data.notifyName,
+    from: data.from,
+    to: data.to,
+    self: data.self,
+    ack: ack(data.ack),
+    invis: data.invis,
+    isNewMsg: data.isNewMsg,
+    star: data.star,
+    loc: data.loc,
+    lat: data.lat,
+    lng: data.lng,
+    mentionedJidList: data.mentionedJidList,
+    isForwarded: data.isForwarded,
+    labels: data.labels,
+    ephemeralStartTimestamp: data.ephemeralStartTimestamp,
+  };
+
+  if (window[ExposedFn.OnAck]) {
+    window[ExposedFn.OnAck](message);
+  }
 });

@@ -68,6 +68,15 @@ declare module WAPI {
   const onLiveLocation: (chatId: string, callback: Function) => any;
 }
 
+declare global {
+  interface Window {
+    onMessage: any;
+    onAnyMessage: any;
+    onStateChange: any;
+    onAck: any;
+  }
+}
+
 export class ListenerLayer extends ProfileLayer {
   constructor(public page: Page) {
     super(page);
@@ -77,10 +86,15 @@ export class ListenerLayer extends ProfileLayer {
    * Listens to messages received
    * @returns Observable stream of messages
    */
-  public onMessage(fn: (message: Message) => void) {
-    this.page.exposeFunction(ExposedFn.OnMessage, (message: Message) =>
-      fn(message)
-    );
+  public async onMessage(fn: (message: Message) => void) {
+    var has = await this.page.evaluate(() => {
+      return window.onMessage;
+    });
+    if (!has) {
+      await this.page.exposeFunction(ExposedFn.OnMessage, (message: Message) =>
+        fn(message)
+      );
+    }
   }
 
   /**
@@ -89,37 +103,54 @@ export class ListenerLayer extends ProfileLayer {
    * @fires Message
    */
   public async onAnyMessage(fn: (message: Message) => void) {
-    this.page
-      .exposeFunction(ExposedFn.OnAnyMessage, (message: Message) => fn(message))
-      .then((_) =>
-        this.page.evaluate(() => {
-          WAPI.allNewMessagesListener(window['onAnyMessage']);
-        })
-      );
+    var has = await this.page.evaluate(() => {
+      return window.onAnyMessage;
+    });
+    if (!has) {
+      await this.page
+        .exposeFunction(ExposedFn.OnAnyMessage, (message: Message) =>
+          fn(message)
+        )
+        .then((_) =>
+          this.page.evaluate(() => {
+            WAPI.allNewMessagesListener(window['onAnyMessage']);
+          })
+        );
+    }
   }
 
   /**
    * @event Listens to messages received
    * @returns Observable stream of messages
    */
-  public onStateChange(fn: (state: SocketState) => void) {
-    this.page
-      .exposeFunction(ExposedFn.onStateChange, (state: SocketState) =>
-        fn(state)
-      )
-      .then(() =>
-        this.page.evaluate(() => {
-          WAPI.onStateChange((_) => window['onStateChange'](_.state));
-        })
-      );
+  public async onStateChange(fn: (state: SocketState) => void) {
+    var has = await this.page.evaluate(() => {
+      return window.onStateChange;
+    });
+    if (!has) {
+      await this.page
+        .exposeFunction(ExposedFn.onStateChange, (state: SocketState) =>
+          fn(state)
+        )
+        .then(() =>
+          this.page.evaluate(() => {
+            WAPI.onStateChange((_) => window['onStateChange'](_.state));
+          })
+        );
+    }
   }
 
   /**
    * @event Listens to messages acknowledgement Changes
    * @returns Observable stream of messages
    */
-  public onAck(fn: (ack: Ack) => void) {
-    this.page.exposeFunction(ExposedFn.onAck, (ack: Ack) => fn(ack));
+  public async onAck(fn: (ack: Ack) => void) {
+    var has = await this.page.evaluate(() => {
+      return window.onAck;
+    });
+    if (!has) {
+      await this.page.exposeFunction(ExposedFn.onAck, (ack: Ack) => fn(ack));
+    }
   }
 
   /**

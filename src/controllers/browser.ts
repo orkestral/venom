@@ -65,12 +65,13 @@ import { useragentOverride } from '../config/WAuserAgente';
 export async function initWhatsapp(
   session: string,
   options: CreateConfig,
-  browser: any
+  browser: any,
+  token?: object
 ) {
   const waPage = await getWhatsappPage(browser);
   if (waPage != null) {
     // Auth with token
-    await auth_InjectToken(waPage, session, options);
+    await auth_InjectToken(waPage, session, options, token);
 
     await waPage.setUserAgent(useragentOverride);
 

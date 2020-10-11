@@ -97,11 +97,20 @@ declare module WAPI {
     includeMe: boolean,
     includeNotifications: boolean
   ) => Message[];
+  const getSessionTokenBrowser: () => object;
 }
 
 export class RetrieverLayer extends SenderLayer {
   constructor(page: Page) {
     super(page);
+  }
+
+  /**
+   * returns browser session token
+   * @returns obj [token]
+   */
+  public async getSessionTokenBrowser() {
+    return await this.page.evaluate(() => WAPI.getSessionTokenBrowser());
   }
 
   /**

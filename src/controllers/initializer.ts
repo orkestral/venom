@@ -57,7 +57,13 @@ import latestVersion from 'latest-version';
 import { Whatsapp } from '../api/whatsapp';
 import { CreateConfig, defaultOptions } from '../config/create-config';
 import { upToDate } from '../utils/semver';
-import { isAuthenticated, isInsideChat, asciiQr, retrieveQR } from './auth';
+import {
+  isAuthenticated,
+  isInsideChat,
+  asciiQr,
+  retrieveQR,
+  SessionTokenCkeck,
+} from './auth';
 import { initWhatsapp, injectApi, initBrowser } from './browser';
 import chalk = require('chalk');
 import boxen = require('boxen');
@@ -71,15 +77,29 @@ import { scrapeImgReload, scrapeImg } from '../api/helpers';
 let updatesChecked = false;
 const counter = new Counter();
 
+/**
+ * Start the bot
+ * @param session, You must pass a string type parameter, this parameter will be the name of the client's session. If the parameter is not passed, the section name will be "session".
+ * @param catchQR, A callback will be received, informing the status of the qrcode
+ * @param statusFind, A callback will be received, informing the customer's status
+ * @param options, Pass an object with the bot settings
+ * @param browserSessionToken, Pass the session token information you can receive this token with the await clinet.getSessionTokenBrowser () function
+ * @returns Whatsapp page, with this parameter you will be able to access the bot functions
+ */
+
 export async function create(
   session = 'session',
-  catchQR?: (qrCode: string, asciiQR: string) => void,
+  catchQR?: (qrCode: string, asciiQR: string, attempt: number) => void,
   statusFind?: (statusGet: string) => void,
-  options?: CreateConfig
+  options?: CreateConfig,
+  browserSessionToken?: object
 ): Promise<Whatsapp> {
   let browserFail = false;
-  var browser_fail: any, browser_check: any, closeBrowser: any;
-
+  var browser_fail: any,
+    browser_check: any,
+    closeBrowser: any,
+    attempt = 0,
+    browserToken: any;
   const spinnies = new Spinnies({
     disableSpins: options ? options.disableSpins : '',
   });
@@ -153,13 +173,23 @@ export async function create(
       }
     }, 1000);
 
-    var waPage = await initWhatsapp(session, mergedOptions, browser);
+    if (SessionTokenCkeck(browserSessionToken)) {
+      browserToken = browserSessionToken;
+    }
+
+    var waPage = await initWhatsapp(
+      session,
+      mergedOptions,
+      browser,
+      browserToken
+    );
 
     if (waPage) {
       spinnies.update(`${session}-auth`, { text: 'Authenticating...' });
 
       let authenticated = null;
 
+      //session authenticated
       await isAuthenticated(waPage)
         .then((e) => {
           authenticated = e;
@@ -219,7 +249,7 @@ export async function create(
                   if (result != undefined) {
                     var { data, asciiQR } = await retrieveQR(waPage);
                     if (catchQR) {
-                      catchQR(data, asciiQR);
+                      catchQR(data, asciiQR, attempt++);
                     }
                     await asciiQr(result['url'])
                       .then((qr) => {
@@ -244,7 +274,7 @@ export async function create(
                     if (re != undefined) {
                       var { data, asciiQR } = await retrieveQR(waPage);
                       if (catchQR) {
-                        catchQR(data, asciiQR);
+                        catchQR(data, asciiQR, attempt++);
                       }
                       await asciiQr(re['url'])
                         .then((qr) => {
@@ -296,7 +326,7 @@ export async function create(
           // Saving Token
           spinnies.add(`${session}-inject`, { text: 'Saving Token...' });
 
-          if (true) {
+          if (true && browserToken && options.createPathFileToken) {
             const localStorage = JSON.parse(
               await waPage.evaluate(() => {
                 return JSON.stringify(window.localStorage);

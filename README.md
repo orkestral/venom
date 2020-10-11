@@ -17,6 +17,7 @@
 | Multiple Sessions                                          | ✔   |
 | Forward Messages                                           | ✔   |
 | Receive message                                            | ✔   |
+| insert user section                                        | ✔   |
 | 📍 Send location!!                                         | ✔   |
 | 🕸🕸 **and much more**                                       | ✔   |
 
@@ -81,14 +82,19 @@ const venom = require('venom-bot');
 
 venom
   .create(
-    'sessionName',
-    (base64Qrimg, asciiQR) => {
+    //session
+    'sessionName', //Pass the name of the client you want to start the bot
+    //catchQR
+    (base64Qrimg, asciiQR, attempts) => {
+      console.log('Numero de tentativas para ler o qrcode: ', attempts);
       console.log('Terminal qrcode: ', asciiQR);
       console.log('base64 image string qrcode: ', base64Qrimg);
     },
+    ////statusFind
     (statusSession) => {
       console.log('Status Session: ', statusSession); //return isLogged || notLogged || browserClose || qrReadSuccess || qrReadFail || autocloseCalled
     },
+    ////options
     {
       folderNameToken: 'tokens', //folder name when saving tokens
       mkdirFolderToken: '', //folder directory tokens, just inside the venom folder, example:  { mkdirFolderToken: '/node_modules', } //will save the tokens folder in the node_modules directory
@@ -103,6 +109,16 @@ venom
       disableWelcome: true, // Will disable the welcoming message which appears in the beginning
       updatesLog: true, // Logs info updates automatically in terminal
       autoClose: 60000, // Automatically closes the venom-bot only when scanning the QR code (default 60 seconds, if you want to turn it off, assign 0 or false)
+      createPathFileToken: false, //creates a folder when inserting an object in the client's browser, to work it is necessary to pass the parameters in the function create browserSessionToken
+    },
+    ////browserSessionToken
+    ///To receive the client's token use the function await clinet.getSessionTokenBrowser()
+    {
+      WABrowserId: '"UnXjH....."',
+      WASecretBundle:
+        '{"key":"+i/nRgWJ....","encKey":"kGdMR5t....","macKey":"+i/nRgW...."}',
+      WAToken1: '"0i8...."',
+      WAToken2: '"1@lPpzwC...."',
     }
   )
   .then((client) => {
@@ -407,6 +423,10 @@ await client.setChatState('000000000000@c.us', 0 | 1 | 2);
 ## Retrieving Data
 
 ```javascript
+///returns browser session token
+//these parameters you can pass when starting the bot in the function browserSessionToken
+const browserSessionToken = await client.getSessionTokenBrowser();
+
 // Calls your list of blocked contacts (returns an array)
 const getBlockList = await client.getBlockList();
 
@@ -546,6 +566,8 @@ client.onStateChange(state => {
 });
 
 // Listen to ack's
+// See the status of the message when sent.
+// When receiving the confirmation object, "ack" may return: "INACTIVE", "CONTENT_UNUPLOADABLE", "CONTENT_TOO_BIG", "CONTENT_GONE", "EXPIRED", "FAILED", "CLOCK", "SENT", "RECEIVED", "RECEIVED", "READ" or "PLAYED".
 client.onAck(ack => {
   ...
 });

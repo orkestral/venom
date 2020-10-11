@@ -1,3 +1,12 @@
+## [2.0.12]
+
+- fix is onAck
+- fix create more than one function: onMessage, onAnyMessage, onStateChange and onAck
+- new option createPathFileToken
+- new option in create browserSessionToken
+- new option catchQR: attempt
+- new function getSessionTokenBrowser
+
 ## [2.0.11](https://github.com/orkestral/venom/compare/v2.0.10...v2.0.11) (2020-10-07)
 
 ## [2.0.10](https://github.com/orkestral/venom/compare/v2.0.9...v2.0.10) (2020-10-06)

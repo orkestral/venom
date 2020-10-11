@@ -149,6 +149,7 @@ import {
   sendContactVcardList,
   setProfilePic,
   pinChat,
+  getSessionTokenBrowser,
   // setPresence,
 } from './functions';
 import {
@@ -206,6 +207,7 @@ window.WAPI = {
 
 //Profile
 window.WAPI.setProfilePic = setProfilePic;
+window.WAPI.getSessionTokenBrowser = getSessionTokenBrowser;
 
 // Chat Functions
 window.WAPI.scope = scope;
