@@ -154,6 +154,8 @@ venom
     (statusSession) => {
       console.log('Status Session: ', statusSession);
       //return isLogged || notLogged || browserClose || qrReadSuccess || qrReadFail || autocloseCalled
+      //
+A criação de sessão no wss retorna "serverClose" se o servidor não estiver funcionando.
     },
     undefined
   )

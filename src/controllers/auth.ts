@@ -104,6 +104,9 @@ export const isInsideChat = (waPage: puppeteer.Page) => {
 };
 export async function retrieveQR(page: puppeteer.Page) {
   const { code, data } = await decodeQR(page);
+  if (data === null || code === null) {
+    return false;
+  }
   const asciiQR = await asciiQr(code);
   return { code, data, asciiQR };
 }
@@ -120,22 +123,27 @@ async function decodeQR(
   page: puppeteer.Page
 ): Promise<{ code: string; data: string }> {
   await page.waitForSelector('canvas', { timeout: 0 });
+
   await page.addScriptTag({
     path: require.resolve(path.join(__dirname, '../lib/jsQR', 'jsQR.js')),
   });
 
   return await page.evaluate(() => {
-    const canvas = document.querySelector('canvas');
-    const context = canvas.getContext('2d');
-
-    // @ts-ignore
-    const code = jsQR(
-      context.getImageData(0, 0, canvas.width, canvas.height).data,
-      canvas.width,
-      canvas.height
-    );
-
-    return { code: code.data, data: canvas.toDataURL() };
+    const canvas = document.querySelector('canvas') || null;
+    if (canvas !== null) {
+      const context = canvas.getContext('2d') || null;
+      if (context !== null) {
+        // @ts-ignore
+        const code = jsQR(
+          context.getImageData(0, 0, canvas.width, canvas.height).data,
+          canvas.width,
+          canvas.height
+        );
+        return { code: code.data, data: canvas.toDataURL() };
+      }
+    } else {
+      return { code: null, data: null };
+    }
   });
 }
 
