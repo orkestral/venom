@@ -90,12 +90,12 @@ venom
       console.log('Terminal qrcode: ', asciiQR);
       console.log('base64 image string qrcode: ', base64Qrimg);
     },
-    ////statusFind
+    // statusFind
     (statusSession) => {
       console.log('Status Session: ', statusSession); //return isLogged || notLogged || browserClose || qrReadSuccess || qrReadFail || autocloseCalled || desconnectedMobile
       //Create session wss return "serverClose" case server for close
     },
-    ////options
+    // options
     {
       folderNameToken: 'tokens', //folder name when saving tokens
       mkdirFolderToken: '', //folder directory tokens, just inside the venom folder, example:  { mkdirFolderToken: '/node_modules', } //will save the tokens folder in the node_modules directory
@@ -112,8 +112,8 @@ venom
       autoClose: 60000, // Automatically closes the venom-bot only when scanning the QR code (default 60 seconds, if you want to turn it off, assign 0 or false)
       createPathFileToken: false, //creates a folder when inserting an object in the client's browser, to work it is necessary to pass the parameters in the function create browserSessionToken
     },
-    ////browserSessionToken
-    ///To receive the client's token use the function await clinet.getSessionTokenBrowser()
+    // BrowserSessionToken
+    // To receive the client's token use the function await clinet.getSessionTokenBrowser()
     {
       WABrowserId: '"UnXjH....."',
       WASecretBundle:
@@ -427,8 +427,7 @@ await client.setChatState('000000000000@c.us', 0 | 1 | 2);
 ## Retrieving Data
 
 ```javascript
-///returns browser session token
-//these parameters you can pass when starting the bot in the function browserSessionToken
+// Retrieve the browser session token
 const browserSessionToken = await client.getSessionTokenBrowser();
 
 // Calls your list of blocked contacts (returns an array)
