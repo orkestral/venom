@@ -172,6 +172,7 @@ export async function create(
         text: 'headless option is disabled, browser visible',
       });
     }
+
     if (!mergedOptions.browserWS) {
       browser['_process'].once('close', () => {
         browser['isClose'] = true;
@@ -314,6 +315,7 @@ export async function create(
               spinnies.fail(`${Session}-auths`, {
                 text: `Session Autoclose Called`,
               });
+
               clearInterval(_fail);
               clearInterval(browser_check);
               clearTimeout(closeBrowser);
@@ -415,11 +417,8 @@ export async function create(
 
         clearInterval(browser_check);
         clearTimeout(closeBrowser);
-
         spinnies.add(`${Session}-inject`, { text: 'Injecting Sibionte...' });
-
         waPage = await injectApi(waPage);
-
         spinnies.succeed(`${Session}-inject`, {
           text: 'Starting With Success!',
         });
