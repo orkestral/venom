@@ -103,7 +103,7 @@
     "puppeteer-extra-plugin-stealth": "^2.4.9",
     "qrcode-terminal": "^0.12.0",
     "rxjs": "^6.6.3",
-    "sharp": "^0.25.2",
+    "sharp": "^0.26.1",
     "spinnies": "^0.5.1",
     "tree-kill": "^1.2.2"
   }
