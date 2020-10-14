@@ -54,6 +54,7 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 
 */
 import { Page } from 'puppeteer';
+import { async } from 'rxjs';
 import {
   Chat,
   Contact,
@@ -97,7 +98,7 @@ declare module WAPI {
     includeMe: boolean,
     includeNotifications: boolean
   ) => Message[];
-  const getSessionTokenBrowser: () => object;
+  const getSessionTokenBrowser: () => void;
 }
 
 export class RetrieverLayer extends SenderLayer {

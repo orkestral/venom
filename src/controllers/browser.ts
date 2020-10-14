@@ -144,7 +144,7 @@ export async function initBrowser(
         browser = e;
       })
       .catch(() => {
-        throw new Error('Error when try to connect');
+        browser = 'connect';
       });
   } else {
     await puppeteer
@@ -159,7 +159,9 @@ export async function initBrowser(
       .then((e) => {
         browser = e;
       })
-      .catch(() => {});
+      .catch(() => {
+        browser = 'launch';
+      });
   }
 
   return browser;

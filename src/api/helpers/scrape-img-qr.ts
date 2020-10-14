@@ -1,4 +1,4 @@
-export async function scrapeImg(page) {
+export async function scrapeImg(page): Promise<any> {
   var result = await page.evaluate(() => {
     const selectorimg = document.querySelector('canvas');
     let selectorUrl = document.querySelector('._1QMFu');

@@ -58,3 +58,4 @@ export { downloadFileImgHttp, MINES } from './download-image-file';
 export { stickerSelect, resizeImg } from './select-sticker';
 export { scrapeImgReload } from './scrape-img-reload';
 export { scrapeImg } from './scrape-img-qr';
+export { scrapeLogin } from './scrape-login';

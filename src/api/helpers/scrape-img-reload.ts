@@ -1,4 +1,4 @@
-export async function scrapeImgReload(page, url) {
+export async function scrapeImgReload(page, url): Promise<any> {
   let click = await page.evaluate(() => {
     let bt = document.querySelector('._3IKPF');
     if (bt != null) {
