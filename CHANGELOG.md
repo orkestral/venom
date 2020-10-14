@@ -1,3 +1,16 @@
+## [2.0.14](https://github.com/orkestral/venom/compare/v2.0.11...v2.0.14) (2020-10-14)
+
+### Bug Fixes
+
+- change package ([9770cb6](https://github.com/orkestral/venom/commit/9770cb6d178877661531fe42e44070c51d64353c))
+
+### Features
+
+- **context:** client desconnected mobile ([0fafa3c](https://github.com/orkestral/venom/commit/0fafa3c3dbb71e2e7008eab1c69712b292d9f103))
+- **context:** fix and add functions ([9222837](https://github.com/orkestral/venom/commit/9222837b7b8f5b328783b7077e7756155fbbdf01))
+- **context:** return browserClose after logging in ([fed693c](https://github.com/orkestral/venom/commit/fed693c0229c7fe293ec45c13a82078ea3386f78))
+- **context:** Treatment of the puppeteer.connect() function ([0dbebee](https://github.com/orkestral/venom/commit/0dbebeefeaaeeeb0e6327a876af18fd9691f9525))
+
 ## [2.0.12]
 
 - fix is onAck
