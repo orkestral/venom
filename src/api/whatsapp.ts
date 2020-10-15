@@ -64,6 +64,7 @@ import { useragentOverride } from '../config/WAuserAgente';
 declare module WAPI {
   const arrayBufferToBase64: (buffer: ArrayBuffer) => string;
   const downloadFile: (data: string) => Promise<string | boolean>;
+  const takeOver: () => boolean;
 }
 
 export class Whatsapp extends ControlsLayer {
@@ -95,18 +96,7 @@ export class Whatsapp extends ControlsLayer {
    * Dont rely on this method
    */
   public async useHere() {
-    await this.page.waitForFunction(
-      () => {
-        const useHereClass = '.S7_rT.FV2Qy';
-        return document.querySelector(useHereClass);
-      },
-      { timeout: 0 }
-    );
-
-    await this.page.evaluate(() => {
-      const useHereClass = '.S7_rT.FV2Qy';
-      (<any>document.querySelector(useHereClass)).click();
-    });
+    return await this.page.evaluate(() => WAPI.takeOver());
   }
 
   /**

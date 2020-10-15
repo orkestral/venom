@@ -477,3 +477,8 @@ window.WAPI.archiveChat = async function (id, archive) {
     .then((_) => true)
     .catch((_) => false);
 };
+
+window.WAPI.takeOver = async function () {
+  await Store.State.default.takeover();
+  return true;
+};

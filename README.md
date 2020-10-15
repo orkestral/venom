@@ -668,11 +668,7 @@ There are some tricks for a better usage of venom.
 
 client.onStateChange((state) => {
   console.log('State changed: ', state);
-  const conflits = [
-    venom.SocketState.CONFLICT,
-    venom.SocketState.UNPAIRED,
-    venom.SocketState.UNLAUNCHED,
-  ];
+  const conflits = ['CONFLICT', 'UNPAIRED', 'UNLAUNCHED', 'UNPAIRED_IDLE'];
   if (conflits.includes(state)) {
     client.useHere();
     // Detect a logout
