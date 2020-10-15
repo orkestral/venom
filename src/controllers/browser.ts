@@ -154,6 +154,7 @@ export async function initBrowser(
         args: options.browserArgs
           ? options.browserArgs
           : [...puppeteerConfig.chromiumArgs],
+        ...options.puppeteerOptions,
         ...extras,
       })
       .then((e) => {
