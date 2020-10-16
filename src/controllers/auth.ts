@@ -51,7 +51,6 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-
 */
 import * as path from 'path';
 import * as puppeteer from 'puppeteer';
@@ -66,11 +65,12 @@ import { CreateConfig } from '../config/create-config';
  * @returns true if is authenticated, false otherwise
  * @param waPage
  */
-export const isAuthenticated = (waPage: puppeteer.Page) => {
-  return merge(needsToScan(waPage), isInsideChat(waPage))
-    .pipe(take(1))
-    .toPromise()
-    .catch(() => {});
+export const isAuthenticated = async (waPage: puppeteer.Page) => {
+  try {
+    return merge(needsToScan(waPage), isInsideChat(waPage))
+      .pipe(take(1))
+      .toPromise();
+  } catch (e) {}
 };
 
 export const needsToScan = (waPage: puppeteer.Page) => {
@@ -200,22 +200,5 @@ export async function auth_InjectToken(
         }, jsonToken);
       }
     }
-  }
-  //End Auth with token
-
-  //return await page.evaluateOnNewDocument(() => {
-  // localStorage.setItem('WABrowserId', '"5AXJMPZneACe3iMkbH40+w=="');
-  // localStorage.setItem(
-  //   'WASecretBundle',
-  //   '{"key":"iBZb0m3w6dMfpU9UwF9Tr6/ckNV1NxDqnuZA7De/KMM=","encKey":"KjvvH/np261TSPjoFCsaRitodt96TT7qecBK797Cc7c=","macKey":"iBZb0m3w6dMfpU9UwF9Tr6/ckNV1NxDqnuZA7De/KMM="}'
-  // );
-  // localStorage.setItem(
-  //   'WAToken1',
-  //   '"8qUJJ+jGYn5tgVnMk/wnOeTX2gZUzYED/R2nQHuz8Ek="'
-  // );
-  // localStorage.setItem(
-  //   'WAToken2',
-  //   '"1@9YlRlvFq4fFgrLe7DtvgHPC8TqTmFdDsUW3m/+uyyCSaUkzQbvJeIQ5RD0niIxWHGcN3/aiQ0J5PIg=="'
-  // );
-  //  });
+  } //End Auth with token
 }

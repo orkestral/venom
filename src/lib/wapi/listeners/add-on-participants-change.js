@@ -51,7 +51,6 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-
 */
 let groupParticpiantsEvents = {};
 
@@ -111,7 +110,10 @@ export function addOnParticipantsChange() {
               //ignore it, plus 1,
               i++;
             } else {
-              groupParticpiantsEvents[groupId][rec] = { subtype, from };
+              groupParticpiantsEvents[groupId][rec] = {
+                subtype,
+                from,
+              };
               //fire the callback
               // // previewMessage.from.toString()
               // x removed y

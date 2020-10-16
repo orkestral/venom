@@ -62,7 +62,10 @@ export async function pinChat(chatId, type = true, notExist = false) {
   var chat = await WAPI.sendExist(chatId, true, notExist);
   if (chat.erro === false || chat.__x_id) {
     var ListChat = await Store.Chat.get(chatId);
-    var m = { type: 'pinChat', typefix: typeFix },
+    var m = {
+        type: 'pinChat',
+        typefix: typeFix,
+      },
       To = await WAPI.getchatId(chat.id);
     Promise.all(
       ListChat

@@ -51,7 +51,6 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-
 */
 export const storeObjects = [
   {
@@ -179,7 +178,12 @@ export const storeObjects = [
   },
   {
     id: 'Perfil',
-    conditions: (module) => module.__esModule === true && module.setPushname && !module.getComposeContents? module  : null,
+    conditions: (module) =>
+      module.__esModule === true &&
+      module.setPushname &&
+      !module.getComposeContents
+        ? module
+        : null,
   },
   {
     id: 'MsgKey',
@@ -348,7 +352,4 @@ export const storeObjects = [
     conditions: (module) =>
       module.sendSetPicture && module.requestDeletePicture ? module : null,
   },
-  //{
-  //   id: "Presence", conditions: (module) => ( module.setPresenceAvailable &&  module.setPresenceUnavailable) ? module : null
-  //},
 ];

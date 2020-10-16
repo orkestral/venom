@@ -51,9 +51,7 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-
 */
-
 declare module WAPI {
   const waitNewMessages: (rmCallback: boolean, callback: Function) => void;
   const waitNewAcknowledgements: (callback: Function) => void;
@@ -70,45 +68,56 @@ enum ExposedFn {
 /**
  * Exposes [OnMessage] function
  */
-WAPI.waitNewMessages(false, (data) => {
-  data.forEach((message) => {
+WAPI.waitNewMessages(false, (data: any[]) => {
+  data.forEach((message: any) => {
     window[ExposedFn.OnMessage](message);
   });
 });
 
-WAPI.waitNewAcknowledgements(function (data) {
-  function ack(data) {
+WAPI.waitNewAcknowledgements(function (data: {
+  id: any;
+  body: any;
+  type: any;
+  t: any;
+  subtype: any;
+  notifyName: any;
+  from: any;
+  to: any;
+  self: any;
+  ack: any;
+  invis: any;
+  isNewMsg: any;
+  star: any;
+  loc: any;
+  lat: any;
+  lng: any;
+  mentionedJidList: any;
+  isForwarded: any;
+  labels: any;
+  ephemeralStartTimestamp: any;
+}) {
+  function ack(data: any) {
     switch (data) {
       case -7:
         return 'MD_DOWNGRADE';
-        break;
       case -6:
         return 'INACTIVE';
-        break;
       case -5:
         return 'CONTENT_UNUPLOADABLE';
-        break;
       case -4:
         return 'CONTENT_TOO_BIG';
-        break;
       case -3:
         return 'CONTENT_GONE';
-        break;
       case -2:
         return 'EXPIRED';
-        break;
       case -1:
         return 'FAILED';
-        break;
       case 0:
         return 'CLOCK';
-        break;
       case 1:
         return 'SENT';
-        break;
       case 2:
         return 'RECEIVED';
-        break;
       case 3:
         return 'READ';
       case 4:

@@ -51,7 +51,6 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-
 */
 import { Page } from 'puppeteer';
 import { ControlsLayer } from './layers/controls.layer';
@@ -65,6 +64,7 @@ declare module WAPI {
   const arrayBufferToBase64: (buffer: ArrayBuffer) => string;
   const downloadFile: (data: string) => Promise<string | boolean>;
   const takeOver: () => boolean;
+  const getMessageById: (messageId: string) => Message;
 }
 
 export class Whatsapp extends ControlsLayer {
@@ -121,6 +121,13 @@ export class Whatsapp extends ControlsLayer {
       await closing(this.page);
     } catch (error) {}
     return true;
+  }
+
+  public async getMessageById(messageId: string) {
+    return (await this.page.evaluate(
+      (messageId: any) => WAPI.getMessageById(messageId),
+      messageId
+    )) as Message;
   }
 
   /**

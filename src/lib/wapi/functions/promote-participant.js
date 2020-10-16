@@ -51,7 +51,6 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-
 */
 export async function promoteParticipant(groupId, participantId, done) {
   const chat = Store.Chat.get(groupId);
@@ -59,7 +58,7 @@ export async function promoteParticipant(groupId, participantId, done) {
   return window.Store.Participants.promoteParticipants(chat, [
     participant,
   ]).then(() => {
-    if(done !== undefined) {
+    if (done !== undefined) {
       done(true);
     }
     return true;

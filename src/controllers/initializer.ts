@@ -75,7 +75,6 @@ import { scrapeImgReload, scrapeImg, scrapeLogin } from '../api/helpers';
 
 // Global
 let updatesChecked = false;
-const counter = new Counter();
 
 /**
  * Start the bot
@@ -426,68 +425,57 @@ export async function create(
         // Saving Token
         spinnies.add(`${Session}-inject`, { text: 'Saving Token...' });
 
-        if (true || (browserToken && !mergedOptions.createPathFileToken)) {
-          const localStorage = JSON.parse(
-            await waPage.evaluate(() => {
-              return JSON.stringify(window.localStorage);
-            })
-          );
+        const localStorage = JSON.parse(
+          await waPage.evaluate(() => {
+            return JSON.stringify(window.localStorage);
+          })
+        );
 
-          let {
-            WABrowserId,
-            WASecretBundle,
-            WAToken1,
-            WAToken2,
-          } = localStorage;
+        let { WABrowserId, WASecretBundle, WAToken1, WAToken2 } = localStorage;
 
-          try {
-            setTimeout(() => {
-              mkdir(
-                path.join(
-                  path.resolve(
-                    process.cwd() + mergedOptions.mkdirFolderToken,
-                    mergedOptions.folderNameToken
-                  )
-                ),
-                { recursive: true },
-                (err) => {
-                  if (err) {
-                    spinnies.fail(`${Session}-inject`, {
-                      text: 'Failed to create folder tokens...',
-                    });
-                  }
+        try {
+          setTimeout(() => {
+            mkdir(
+              path.join(
+                path.resolve(
+                  process.cwd() + mergedOptions.mkdirFolderToken,
+                  mergedOptions.folderNameToken
+                )
+              ),
+              { recursive: true },
+              (err) => {
+                if (err) {
+                  spinnies.fail(`${Session}-inject`, {
+                    text: 'Failed to create folder tokens...',
+                  });
                 }
-              );
-            }, 200);
+              }
+            );
+          }, 200);
 
-            setTimeout(() => {
-              writeFileSync(
-                path.join(
-                  path.resolve(
-                    process.cwd() + mergedOptions.mkdirFolderToken,
-                    mergedOptions.folderNameToken
-                  ),
-                  `${Session}.data.json`
+          setTimeout(() => {
+            writeFileSync(
+              path.join(
+                path.resolve(
+                  process.cwd() + mergedOptions.mkdirFolderToken,
+                  mergedOptions.folderNameToken
                 ),
-                JSON.stringify({
-                  WABrowserId,
-                  WASecretBundle,
-                  WAToken1,
-                  WAToken2,
-                })
-              );
-              spinnies.succeed(`${Session}-inject`, {
-                text: 'Token saved successfully...',
-              });
-            }, 500);
-          } catch (error) {
-            spinnies.fail(`${Session}-inject`, {
-              text: 'Failed to save token...',
+                `${Session}.data.json`
+              ),
+              JSON.stringify({
+                WABrowserId,
+                WASecretBundle,
+                WAToken1,
+                WAToken2,
+              })
+            );
+            spinnies.succeed(`${Session}-inject`, {
+              text: 'Token saved successfully...',
             });
-          }
-        } else {
-          spinnies.succeed(`${Session}-inject`, {
-            text: 'No saving, to use comand: browserToken...',
+          }, 500);
+        } catch (error) {
+          spinnies.fail(`${Session}-inject`, {
+            text: 'Failed to save token...',
           });
         }
 

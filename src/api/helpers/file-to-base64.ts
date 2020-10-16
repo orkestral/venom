@@ -75,7 +75,6 @@ export async function fileToBase64(path: string, mime?: string) {
 
 export async function Mine(path: string) {
   if (fs.existsSync(path)) {
-    const base64 = fs.readFileSync(path, { encoding: 'base64' });
     const mime = await mimeTypes.lookup(path);
     return mime;
   } else {
