@@ -648,10 +648,8 @@ There are some tricks for a better usage of venom.
 #### Keep session alive:
 
 ```javascript
-// In case of being logged out of whatsapp web
+// function to detect conflits and change status
 // Force it to keep the current session
-// State change
-// Detect a logout
 // Possible state values:
 // CONFLICT
 // CONNECTED
@@ -665,15 +663,19 @@ There are some tricks for a better usage of venom.
 // UNLAUNCHED
 // UNPAIRED
 // UNPAIRED_IDLE
-
 client.onStateChange((state) => {
   console.log('State changed: ', state);
-  const conflits = ['CONFLICT', 'UNPAIRED', 'UNLAUNCHED', 'UNPAIRED_IDLE'];
-  if (conflits.includes(state)) {
-    client.useHere();
-    // Detect a logout
-    if (state === 'UNPAIRED') console.log('Client logout!');
-  }
+  if ('CONFLICT'.includes(state)) client.useHere();
+});
+
+// function to detect disconnected, sincronization
+// Possible state values:
+// DISCONNECTED
+// RESUMING
+// SYNCING
+client.onStreamChange((stream) => {
+  console.log('Stream changed: ', stream);
+  if ('DISCONNECTED'.includes(stream)) console.log('logout');
 });
 ```
 

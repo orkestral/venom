@@ -58,4 +58,5 @@ export enum ExposedFn {
   onAck = 'onAck',
   onParticipantsChanged = 'onParticipantsChanged',
   onStateChange = 'onStateChange',
+  onStreamChange = 'onStreamChange',
 }
