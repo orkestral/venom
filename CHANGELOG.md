@@ -1,3 +1,19 @@
+## [2.0.15](https://github.com/orkestral/venom/compare/v2.0.14...v2.0.15) (2020-10-16)
+
+### Bug Fixes
+
+- fix function useHere() ([dd0564e](https://github.com/orkestral/venom/commit/dd0564e9fe975a3f61a9779053f3b81ab5b771a5))
+- Update dependabot.yml ([472b407](https://github.com/orkestral/venom/commit/472b4070cfcdbe1f169aa18533d389d6e3346cd0))
+- Update dependabot.yml ([a63d969](https://github.com/orkestral/venom/commit/a63d969e6d41cc79eb85b16c28abd89b3c22842c))
+- Update dependabot.yml ([b41867f](https://github.com/orkestral/venom/commit/b41867f9ded889d74a91b208a355f10778b5538c))
+- Update dependabot.yml ([c3f996f](https://github.com/orkestral/venom/commit/c3f996f6b8e99c3cd9b5558cca9a5dc05c005977))
+
+### Features
+
+- Create codeql-analysis workflow ([f35d3c1](https://github.com/orkestral/venom/commit/f35d3c151e2e85004ae1188ca8cdc803e2c52d69))
+- Create dependabot ([2b59f52](https://github.com/orkestral/venom/commit/2b59f527a21efda62b1bfa7163828ff80f6a9ba4))
+- create new function to detect disconnect ([1d70c9c](https://github.com/orkestral/venom/commit/1d70c9cc9a069a2b079e0ed40ee0488f84e3f27b))
+
 ## [2.0.14](https://github.com/orkestral/venom/compare/v2.0.11...v2.0.14) (2020-10-14)
 
 ### Bug Fixes
