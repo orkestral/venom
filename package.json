@@ -80,7 +80,7 @@
     "husky": "^4.2.5",
     "nodemon": "^2.0.3",
     "prettier": "^2.0.4",
-    "pretty-quick": "^2.0.1",
+    "pretty-quick": "^3.1.0",
     "release-it": "^14.1.0",
     "rimraf": "^3.0.2",
     "ts-loader": "^7.0.0",
