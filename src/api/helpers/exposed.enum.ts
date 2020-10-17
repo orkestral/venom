@@ -59,4 +59,5 @@ export enum ExposedFn {
   onParticipantsChanged = 'onParticipantsChanged',
   onStateChange = 'onStateChange',
   onStreamChange = 'onStreamChange',
+  onIncomingCall = 'onIncomingCall',
 }

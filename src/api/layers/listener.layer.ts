@@ -66,6 +66,7 @@ declare module WAPI {
   const onAddedToGroup: (callback: Function) => any;
   const onParticipantsChanged: (groupId: string, callback: Function) => any;
   const onLiveLocation: (chatId: string, callback: Function) => any;
+  const onIncomingCall: (callback: Function) => any;
 }
 
 declare global {
@@ -74,6 +75,7 @@ declare global {
     onAnyMessage: any;
     onStateChange: any;
     onStreamChange: any;
+    onIncomingCall: any;
     onAck: any;
   }
 }
@@ -241,6 +243,22 @@ export class ListenerLayer extends ProfileLayer {
         this.page.evaluate(() => {
           //@ts-ignore
           WAPI.onAddedToGroup(window.onAddedToGroup);
+        })
+      );
+  }
+
+  /**
+   * @event Listens to messages received
+   * @returns Observable stream of messages
+   */
+  public async onIncomingCall(fn: (call: any) => any) {
+    const method = 'onIncomingCall';
+    return this.page
+      .exposeFunction(method, (call: any) => fn(call))
+      .then((_) =>
+        this.page.evaluate(() => {
+          //@ts-ignore
+          WAPI.onIncomingCall(window.onIncomingCall);
         })
       );
   }

@@ -591,7 +591,6 @@ client.onParticipantsChanged("000000000000@c.us", (event) => {
 client.onAddedToGroup(chatEvent => {
   ...
 });
-
 ```
 
 ## Other
@@ -676,6 +675,12 @@ client.onStateChange((state) => {
 client.onStreamChange((stream) => {
   console.log('Stream changed: ', stream);
   if ('DISCONNECTED'.includes(stream)) console.log('logout');
+});
+
+// function to detect incoming call
+client.onIncomingCall(async (call) => {
+  console.log(call);
+  client.sendText(call.peerJid, "Sorry, I still can't answer calls");
 });
 ```
 
