@@ -52,116 +52,88 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
-import { Page } from 'puppeteer';
-import { HostLayer } from './host.layer';
-import {
-  base64MimeType,
-  fileToBase64,
-  downloadFileImgHttp,
-  resizeImg,
-} from '../helpers';
-
-declare module WAPI {
-  const setMyStatus: (to: string) => void;
-  const setMyName: (name: string) => void;
-  const setProfilePic: (path: string) => Promise<boolean>;
-  const setTheme: (theme?: string) => boolean;
-  const sendMute: (id: string, time: number, type: string) => Promise<object>;
-}
-
-export class ProfileLayer extends HostLayer {
-  constructor(public page: Page) {
-    super(page);
-  }
-
-  /**
-   * @param contactsId Example: 0000@c.us | [000@c.us, 1111@c.us]
-   * @param time duration of silence
-   * @param type kind of silence "hours" "minutes" "year"
-   * To remove the silence, just enter the contact parameter
-   */
-  public sendMute(id: string, time: number, type: string): Promise<object> {
-    return new Promise(async (resolve, reject) => {
-      var result = await this.page.evaluate(
-        (id, time, type) => WAPI.sendMute(id, time, type),
-        id,
-        time,
-        type
-      );
-      if (result['erro'] == true) {
-        reject(result);
-      } else {
-        resolve(result);
+export async function sendMute(chatId, time, type) {
+  var chat = await WAPI.sendExist(chatId);
+  if (chat.erro === false || chat.__x_id) {
+    let TimeInt = null;
+    var result = null,
+      remove = null,
+      texto = null;
+    var ListChat = await Store.Chat.get(chatId),
+      To = await WAPI.getchatId(chat.id),
+      isMute = await window.Store.Mute.get(chatId),
+      m = { type: 'sendMute', time: time, type: type };
+    if (typeof time === 'number' && typeof type === 'string') {
+      switch (type) {
+        case 'hours':
+          TimeInt = parseInt(
+            new Date(
+              new Date().setHours(new Date().getHours() + time)
+            ).getTime() / 1000
+          );
+          break;
+        case 'minutes':
+          TimeInt = parseInt(
+            new Date(
+              new Date().setMinutes(new Date().getMinutes() + time)
+            ).getTime() / 1000
+          );
+          break;
+        case 'year':
+          TimeInt = parseInt(
+            new Date(
+              new Date().setDate(new Date().getDate() + time)
+            ).getTime() / 1000
+          );
+          break;
       }
-    });
-  }
-
-  /**
-   * Change the theme
-   * @param string types "dark" or "light"
-   */
-  public setTheme(type: string) {
-    return this.page.evaluate((type) => WAPI.setTheme(type), type);
-  }
-
-  /**
-   * Sets current user profile status
-   * @param status
-   */
-  public async setProfileStatus(status: string) {
-    return await this.page.evaluate(
-      ({ status }) => {
-        WAPI.setMyStatus(status);
-      },
-      { status }
-    );
-  }
-
-  /**
-   * Sets the user's current profile photo
-   * @param name
-   */
-  public async setProfilePic(path: string) {
-    let b64 = await downloadFileImgHttp(path, [
-      'image/png',
-      'image/jpg',
-      'image/webp',
-    ]);
-    if (!b64) {
-      b64 = await fileToBase64(path);
+      ListChat
+        ? await window.Store.SendMute.sendConversationMute(chatId, TimeInt, 0)
+            .then((e) => {
+              result = e;
+            })
+            .catch((e) => {
+              result = e;
+            })
+        : '';
+    } else {
+      remove = true;
+      ListChat
+        ? await window.Store.SendMute.sendConversationMute(
+            chatId,
+            0,
+            isMute.__x_expiration
+          )
+            .then((e) => {
+              result = e;
+            })
+            .catch((e) => {
+              result = e;
+            })
+        : '';
     }
-    if (b64) {
-      const buff = Buffer.from(
-        b64.replace(/^data:image\/(png|jpeg|webp);base64,/, ''),
-        'base64'
-      );
-      const mimeInfo = base64MimeType(b64);
-
-      if (!mimeInfo || mimeInfo.includes('image')) {
-        var _webb64_96 = await resizeImg(buff, { width: 96, height: 96 }),
-          _webb64_640 = await resizeImg(buff, { width: 640, height: 640 });
-        var obj = { a: _webb64_640, b: _webb64_96 };
-
-        return await this.page.evaluate(({ obj }) => WAPI.setProfilePic(obj), {
-          obj,
-        });
+    if (result.status === 200) {
+      if (remove) {
+        isMute.__x_expiration = 0;
+        isMute.__x_isMuted = false;
       } else {
-        console.log('Not an image, allowed formats png, jpeg and webp');
-        return false;
+        isMute.__x_expiration = TimeInt;
+        isMute.__x_isMuted = true;
       }
+      var obj = WAPI.scope(To, false, result.status, null);
+      Object.assign(obj, m);
+      return obj;
+    } else {
+      if (remove) {
+        texto = 'is not mute to remove';
+      } else {
+        texto = 'This chat is already mute';
+      }
+      var obj = WAPI.scope(To, true, result['status'], exto);
+      Object.assign(obj, m);
+      return obj;
     }
-  }
-
-  /**
-   * Sets current user profile name
-   * @param name
-   */
-  public async setProfileName(name: string) {
-    return this.page.evaluate(
-      ({ name }) => {
-        WAPI.setMyName(name);
-      },
-      { name }
-    );
+  } else {
+    return chat;
   }
 }

@@ -149,6 +149,9 @@ import {
   setProfilePic,
   pinChat,
   getSessionTokenBrowser,
+  sendMute,
+  getListMute,
+  interfaceMute,
 } from './functions';
 import {
   base64ToFile,
@@ -202,7 +205,8 @@ if (!window.Store || !window.Store.Msg) {
 window.WAPI = {
   lastRead: {},
 };
-
+//others
+window.WAPI.interfaceMute = interfaceMute;
 //Profile
 window.WAPI.setProfilePic = setProfilePic;
 window.WAPI.getSessionTokenBrowser = getSessionTokenBrowser;
@@ -317,6 +321,7 @@ window.WAPI.getNewMessageId = getNewMessageId;
 window.WAPI.getFileHash = getFileHash;
 window.WAPI.generateMediaKey = generateMediaKey;
 window.WAPI.arrayBufferToBase64 = arrayBufferToBase64;
+window.WAPI.getListMute = getListMute;
 
 // Device functions
 window.WAPI.getHost = getHost;
@@ -328,6 +333,7 @@ window.WAPI.base64ImageToFile = base64ToFile;
 window.WAPI.base64ToFile = base64ToFile;
 window.WAPI.restartService = restartService;
 window.WAPI.killServiceWorker = killServiceWorker;
+window.WAPI.sendMute = sendMute;
 
 // Listeners initialization
 window.WAPI._newMessagesQueue = [];

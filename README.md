@@ -427,6 +427,12 @@ await client.setChatState('000000000000@c.us', 0 | 1 | 2);
 ## Retrieving Data
 
 ```javascript
+// Returns a list of mute and non-mute users
+// "all" List all mutes
+// "toMute" List all silent chats
+// "noMute" List all chats without silence
+const listMute = await client.getListMute('all');
+
 // Retrieve the browser session token
 const browserSessionToken = await client.getSessionTokenBrowser();
 
@@ -598,8 +604,35 @@ client.onAddedToGroup(chatEvent => {
 ```javascript
 // Pin chat and Unpin chat messages with true or false
 // Pin chat, non-existent (optional)
+
 await client
   .pinChat(chatId, true, false)
+  .then((result) => {
+    console.log('Result: ', result); //return object success
+  })
+  .catch((erro) => {
+    console.error('Error when sending: ', erro); //return object error
+  });
+
+///mute a contact
+await client
+  .sendMute(
+    '000000000000@c.us', //contact mute
+    30, //duration of silence, example: 30 minutes
+    'minutes' ///kind of silence "hours" "minutes" "year"
+  )
+  .then((result) => {
+    console.log('Result: ', result); //return object success
+  })
+  .catch((erro) => {
+    console.error('Error when sending: ', erro); //return object error
+  });
+
+///unmute contact
+await client
+  .sendMute(
+    '000000000000@c.us' //contact unmute
+  )
   .then((result) => {
     console.log('Result: ', result); //return object success
   })

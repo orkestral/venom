@@ -425,58 +425,65 @@ export async function create(
         // Saving Token
         spinnies.add(`${Session}-inject`, { text: 'Saving Token...' });
 
-        const localStorage = JSON.parse(
-          await waPage.evaluate(() => {
-            return JSON.stringify(window.localStorage);
-          })
-        );
+        if (true || (browserToken && !mergedOptions.createPathFileToken)) {
+          const localStorage = JSON.parse(
+            await waPage.evaluate(() => {
+              return JSON.stringify(window.localStorage);
+            })
+          );
 
-        let { WABrowserId, WASecretBundle, WAToken1, WAToken2 } = localStorage;
+          let {
+            WABrowserId,
+            WASecretBundle,
+            WAToken1,
+            WAToken2,
+          } = localStorage;
 
-        try {
-          setTimeout(() => {
-            mkdir(
-              path.join(
-                path.resolve(
-                  process.cwd() + mergedOptions.mkdirFolderToken,
-                  mergedOptions.folderNameToken
-                )
-              ),
-              { recursive: true },
-              (err) => {
-                if (err) {
-                  spinnies.fail(`${Session}-inject`, {
-                    text: 'Failed to create folder tokens...',
-                  });
-                }
-              }
-            );
-          }, 200);
-
-          setTimeout(() => {
-            writeFileSync(
-              path.join(
-                path.resolve(
-                  process.cwd() + mergedOptions.mkdirFolderToken,
-                  mergedOptions.folderNameToken
+          try {
+            setTimeout(() => {
+              mkdir(
+                path.join(
+                  path.resolve(
+                    process.cwd() + mergedOptions.mkdirFolderToken,
+                    mergedOptions.folderNameToken
+                  )
                 ),
-                `${Session}.data.json`
-              ),
-              JSON.stringify({
-                WABrowserId,
-                WASecretBundle,
-                WAToken1,
-                WAToken2,
-              })
-            );
-            spinnies.succeed(`${Session}-inject`, {
-              text: 'Token saved successfully...',
+                { recursive: true },
+                (err) => {
+                  if (err) {
+                    spinnies.fail(`${Session}-inject`, {
+                      text: 'Failed to create folder tokens...',
+                    });
+                  }
+                }
+              );
+            }, 200);
+
+            setTimeout(() => {
+              writeFileSync(
+                path.join(
+                  path.resolve(
+                    process.cwd() + mergedOptions.mkdirFolderToken,
+                    mergedOptions.folderNameToken
+                  ),
+                  `${Session}.data.json`
+                ),
+                JSON.stringify({
+                  WABrowserId,
+                  WASecretBundle,
+                  WAToken1,
+                  WAToken2,
+                })
+              );
+              spinnies.succeed(`${Session}-inject`, {
+                text: 'Token saved successfully...',
+              });
+            }, 500);
+          } catch (error) {
+            spinnies.fail(`${Session}-inject`, {
+              text: 'Failed to save token...',
             });
-          }, 500);
-        } catch (error) {
-          spinnies.fail(`${Session}-inject`, {
-            text: 'Failed to save token...',
-          });
+          }
         }
 
         if (mergedOptions.debug) {

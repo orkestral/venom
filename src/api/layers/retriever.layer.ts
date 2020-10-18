@@ -97,6 +97,7 @@ declare module WAPI {
     includeNotifications: boolean
   ) => Message[];
   const getSessionTokenBrowser: () => void;
+  const getListMute: (type?: string) => object;
 }
 
 export class RetrieverLayer extends SenderLayer {
@@ -105,7 +106,19 @@ export class RetrieverLayer extends SenderLayer {
   }
 
   /**
-   * returns browser session token
+   * Returns a list of mute and non-mute users
+   * @param type return type: all, toMute and noMute.
+   * @returns obj
+   */
+  public async getListMutes(type?: string): Promise<object> {
+    return await this.page.evaluate(
+      (type: string) => WAPI.getListMute(type),
+      type
+    );
+  }
+
+  /**
+   * Returns browser session token
    * @returns obj [token]
    */
   public async getSessionTokenBrowser() {

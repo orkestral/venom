@@ -352,4 +352,8 @@ export const storeObjects = [
     conditions: (module) =>
       module.sendSetPicture && module.requestDeletePicture ? module : null,
   },
+  {
+    id: 'SendMute',
+    conditions: (module) => (module.sendConversationMute ? module : null),
+  },
 ];
