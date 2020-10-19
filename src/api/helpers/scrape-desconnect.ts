@@ -53,21 +53,22 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
 import { Page } from 'puppeteer';
-export async function scrapeImg(page: Page): Promise<any> {
+declare global {
+  interface Window {
+    Store: any;
+  }
+}
+export async function scrapeDesconnected(page: Page): Promise<boolean> {
   var result = await page.evaluate(() => {
-    const selectorimg = document.querySelector('canvas');
-    let selectorUrl = document.querySelector('._1QMFu');
-
-    if (selectorimg != null && selectorUrl != null) {
-      let data = {
-        img: selectorimg.toDataURL(),
-        url: selectorUrl.getAttribute('data-ref'),
-      };
-      return data;
+    var scrape = window.Store.State.default.on('change:state');
+    if (
+      scrape.__x_stream === 'DISCONNECTED' &&
+      scrape.__x_state === 'CONNECTED'
+    ) {
+      return true;
     } else {
-      return void 0;
+      return false;
     }
   });
-
   return result;
 }

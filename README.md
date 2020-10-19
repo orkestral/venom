@@ -86,14 +86,15 @@ venom
     'sessionName', //Pass the name of the client you want to start the bot
     //catchQR
     (base64Qrimg, asciiQR, attempts) => {
-      console.log('Numero de tentativas para ler o qrcode: ', attempts);
+      console.log('Number of attempts to read the qrcode: ', attempts);
       console.log('Terminal qrcode: ', asciiQR);
       console.log('base64 image string qrcode: ', base64Qrimg);
     },
     // statusFind
-    (statusSession) => {
-      console.log('Status Session: ', statusSession); //return isLogged || notLogged || browserClose || qrReadSuccess || qrReadFail || autocloseCalled || desconnectedMobile
+    (statusSession, session) => {
+      console.log('Status Session: ', statusSession); //return isLogged || notLogged || browserClose || qrReadSuccess || qrReadFail || autocloseCalled || desconnectedMobile || deleteToken
       //Create session wss return "serverClose" case server for close
+      console.log('Session name: ', session);
     },
     // options
     {
@@ -132,7 +133,7 @@ venom
 
 ## Callback Status Session
 
-Gets the return if the session is `isLogged` or `notLogged` or `browserClose` or `qrReadSuccess` or `qrReadFail` or `autocloseCalled` or `desconnectedMobile` or `Create session wss return "serverClose" case server for close`
+Gets the return if the session is `isLogged` or `notLogged` or `browserClose` or `qrReadSuccess` or `qrReadFail` or `autocloseCalled` or `desconnectedMobile` or `deleteToken` or `Create session wss return "serverClose" case server for close`
 
 ##### `isLogged: When the user is already logged in to the browser`.
 
@@ -148,16 +149,21 @@ Gets the return if the session is `isLogged` or `notLogged` or `browserClose` or
 
 ##### `desconnectedMobile: Client has desconnected in to mobile`.
 
+##### `serverClose: Client has desconnected in to wss`.
+
+##### `deleteToken: If you pass true within the function clinet.getSessionTokenBrowser(true)`.
+
 ```javascript
 const venom = require('venom-bot');
 venom
   .create(
     'sessionName',
     undefined,
-    (statusSession) => {
+    (statusSession, session) => {
       console.log('Status Session: ', statusSession);
-      //return isLogged || notLogged || browserClose || qrReadSuccess || qrReadFail || autocloseCalled || desconnectedMobile
+      //return isLogged || notLogged || browserClose || qrReadSuccess || qrReadFail || autocloseCalled || desconnectedMobile || deleteToken
       //Create session wss return "serverClose" case server for close
+      console.log('Session name: ', session);
     },
     undefined
   )
@@ -434,6 +440,7 @@ await client.setChatState('000000000000@c.us', 0 | 1 | 2);
 const listMute = await client.getListMute('all');
 
 // Retrieve the browser session token
+// if you want to delete the token file -> const browserSessionToken = await client.getSessionTokenBrowser(true);
 const browserSessionToken = await client.getSessionTokenBrowser();
 
 // Calls your list of blocked contacts (returns an array)
@@ -715,19 +722,6 @@ client.onIncomingCall(async (call) => {
   console.log(call);
   client.sendText(call.peerJid, "Sorry, I still can't answer calls");
 });
-```
-
-#### Multiple sessions
-
-If you need to run multiple sessions at once just pass a session name to
-`create()` method, not use hyphen for name of sessions.
-
-```javascript
-async () => {
-  const marketingClient = await venom.create('marketing');
-  const salesClient = await venom.create('sales');
-  const supportClient = await venom.create('support');
-};
 ```
 
 #### Closing (saving) sessions

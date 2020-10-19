@@ -96,7 +96,7 @@ declare module WAPI {
     includeMe: boolean,
     includeNotifications: boolean
   ) => Message[];
-  const getSessionTokenBrowser: () => void;
+  const getSessionTokenBrowser: (removePath?: boolean) => void;
   const getListMute: (type?: string) => object;
 }
 
@@ -121,7 +121,12 @@ export class RetrieverLayer extends SenderLayer {
    * Returns browser session token
    * @returns obj [token]
    */
-  public async getSessionTokenBrowser() {
+  public async getSessionTokenBrowser(removePath?: boolean) {
+    if (removePath === true) {
+      await this.page.evaluate(() => {
+        window['pathSession'] = true;
+      });
+    }
     return await this.page.evaluate(() => WAPI.getSessionTokenBrowser());
   }
 

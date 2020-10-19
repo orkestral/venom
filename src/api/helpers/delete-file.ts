@@ -52,22 +52,33 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
-import { Page } from 'puppeteer';
-export async function scrapeImg(page: Page): Promise<any> {
-  var result = await page.evaluate(() => {
-    const selectorimg = document.querySelector('canvas');
-    let selectorUrl = document.querySelector('._1QMFu');
-
-    if (selectorimg != null && selectorUrl != null) {
-      let data = {
-        img: selectorimg.toDataURL(),
-        url: selectorUrl.getAttribute('data-ref'),
-      };
-      return data;
-    } else {
-      return void 0;
+import path = require('path');
+import { unlinkSync, existsSync } from 'fs';
+export function deleteFiles(
+  mergedOptions: any,
+  Session: String,
+  spinnies: any
+) {
+  spinnies.add(`removeFile`, { text: '....' });
+  var pathTokens: string = path.join(
+    path.resolve(
+      process.cwd() + mergedOptions.mkdirFolderToken,
+      mergedOptions.folderNameToken
+    ),
+    `${Session}.data.json`
+  );
+  if (existsSync(pathTokens)) {
+    try {
+      unlinkSync(pathTokens);
+      spinnies.succeed(`removeFile`, {
+        text: `Removed file: ${pathTokens}`,
+      });
+    } catch (err) {
+      spinnies.fail(`removeFile`, {
+        text: `Not removed file: ${pathTokens}`,
+      });
     }
-  });
-
-  return result;
+  } else {
+    spinnies.fail(`removeFile`, { text: `Not Files: ${pathTokens}` });
+  }
 }
