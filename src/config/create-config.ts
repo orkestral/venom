@@ -63,6 +63,7 @@ export interface CreateConfig {
   debug?: boolean;
   browserWS?: string;
   browserArgs?: string[];
+  puppeteerOptions: { [key: string]: string };
   logQR?: boolean;
   disableSpins?: boolean;
   disableWelcome?: boolean;
@@ -80,6 +81,7 @@ export const defaultOptions: CreateConfig = {
   logQR: true,
   browserWS: '',
   browserArgs: [''],
+  puppeteerOptions: {},
   disableSpins: false,
   disableWelcome: false,
   updatesLog: true,
