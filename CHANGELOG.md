@@ -1,3 +1,15 @@
+## [2.0.16](https://github.com/orkestral/venom/compare/v2.0.15...v2.0.16) (2020-10-20)
+
+### Bug Fixes
+
+- **#222:** add option to inject options into puppeteer ([bbd907c](https://github.com/orkestral/venom/commit/bbd907c808a1990786ad7d48033bcad35ee48a84)), closes [#222](https://github.com/orkestral/venom/issues/222)
+
+### Features
+
+- **context:** delete token after disconnecting by phone and others ([e88fbd0](https://github.com/orkestral/venom/commit/e88fbd07b1cbd2d4f800366cd1a075db45771028))
+- **context:** list mute chats and add mute chat ([0d37634](https://github.com/orkestral/venom/commit/0d3763498543f876e7c42661933e31a822d1e048))
+- add new function to detect incoming call ([e6e2b7c](https://github.com/orkestral/venom/commit/e6e2b7c573383338954233757b3bd00c4aabc9a5))
+
 ## [2.0.15](https://github.com/orkestral/venom/compare/v2.0.14...v2.0.15) (2020-10-16)
 
 ### Bug Fixes
