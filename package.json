@@ -78,7 +78,7 @@
     "eslint-plugin-prettier": "^3.1.4",
     "gulp": "^4.0.2",
     "husky": "^4.2.5",
-    "nodemon": "^2.0.3",
+    "nodemon": "^2.0.6",
     "prettier": "^2.0.4",
     "pretty-quick": "^3.1.0",
     "release-it": "^14.1.0",
