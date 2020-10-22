@@ -62,7 +62,6 @@ declare module WAPI {
   const waitNewMessages: (rmCallback: boolean, callback: Function) => void;
   const allNewMessagesListener: (callback: Function) => void;
   const onStateChange: (callback: Function) => void;
-  const onStreamChange: (callback: Function) => void;
   const onAddedToGroup: (callback: Function) => any;
   const onParticipantsChanged: (groupId: string, callback: Function) => any;
   const onLiveLocation: (chatId: string, callback: Function) => any;
@@ -74,7 +73,6 @@ declare global {
     onMessage: any;
     onAnyMessage: any;
     onStateChange: any;
-    onStreamChange: any;
     onIncomingCall: any;
     onAck: any;
   }
@@ -138,27 +136,6 @@ export class ListenerLayer extends ProfileLayer {
         .then(() =>
           this.page.evaluate(() => {
             WAPI.onStateChange((_) => window['onStateChange'](_.state));
-          })
-        );
-    }
-  }
-
-  /**
-   * @event Listens to messages received
-   * @returns Observable stream of messages
-   */
-  public async onStreamChange(fn: (state: SocketState) => void) {
-    var has = await this.page.evaluate(() => {
-      return window.onStreamChange;
-    });
-    if (!has) {
-      await this.page
-        .exposeFunction(ExposedFn.onStreamChange, (state: SocketState) =>
-          fn(state)
-        )
-        .then(() =>
-          this.page.evaluate(() => {
-            WAPI.onStreamChange((_) => window['onStreamChange'](_.stream));
           })
         );
     }

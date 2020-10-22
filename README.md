@@ -705,17 +705,10 @@ There are some tricks for a better usage of venom.
 // UNPAIRED_IDLE
 client.onStateChange((state) => {
   console.log('State changed: ', state);
+  // force whatsapp take over
   if ('CONFLICT'.includes(state)) client.useHere();
-});
-
-// function to detect disconnected, sincronization
-// Possible state values:
-// DISCONNECTED
-// RESUMING
-// SYNCING
-client.onStreamChange((stream) => {
-  console.log('Stream changed: ', stream);
-  if ('DISCONNECTED'.includes(stream)) console.log('logout');
+  // detect disconnect on whatsapp
+  if ('UNPAIRED'.includes(state)) console.log('logout');
 });
 
 // function to detect incoming call

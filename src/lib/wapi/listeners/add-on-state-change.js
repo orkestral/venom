@@ -58,8 +58,4 @@ export function addOnStateChange() {
     window.Store.State.default.on('change:state', callback);
     return true;
   };
-  window.WAPI.onStreamChange = function (callback) {
-    window.Store.State.default.on('change:stream', callback);
-    return true;
-  };
 }
