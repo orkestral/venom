@@ -136,23 +136,17 @@ venom
 
 Gets the return if the session is `isLogged` or `notLogged` or `browserClose` or `qrReadSuccess` or `qrReadFail` or `autocloseCalled` or `desconnectedMobile` or `deleteToken` or `Create session wss return "serverClose" case server for close`
 
-##### `isLogged: When the user is already logged in to the browser`.
-
-##### `notLogged: When the user is not connected to the browser, it is necessary to scan the QR code through the cell phone in the option WharsApp Web`.
-
-##### `browserClose: If the browser is closed this parameter and returned`.
-
-##### `qrReadSuccess: if the user is not logged in, the QR code is passed on the terminal a callback is returned. After the correct reading by cell phone this parameter is returned`.
-
-##### `qrReadFail: If the browser stops when the QR code scan is in progress, this parameter is returned`.
-
-##### `autocloseCalled: The browser was closed using the autoClose command`.
-
-##### `desconnectedMobile: Client has desconnected in to mobile`.
-
-##### `serverClose: Client has desconnected in to wss`.
-
-##### `deleteToken: If you pass true within the function clinet.getSessionTokenBrowser(true)`.
+| Status               | Condition                                                                                                                                                      |
+|----------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `isLogged`           | When the user is already logged in to the browser                                                                                                              |
+| `notLogged`          | When the user is not connected to the browser, it is necessary to scan the QR code through the cell phone in the option WharsApp Web                           |
+| `browserClose`       | If the browser is closed this parameter and returned                                                                                                           |
+| `qrReadSuccess`      | If the user is not logged in, the QR code is passed on the terminal a callback is returned. After the correct reading by cell phone this parameter is returned |
+| `qrReadFail`         | If the browser stops when the QR code scan is in progress, this parameter is returned                                                                          |
+| `autocloseCalled`    | The browser was closed using the autoClose command                                                                                                             |
+| `desconnectedMobile` | Client has desconnected in to mobile                                                                                                                           |
+| `serverClose`        | Client has desconnected in to wss                                                                                                                              |
+| `deleteToken`        | If you pass true within the function `client.getSessionTokenBrowser(true)`                                                                                     |
 
 ```javascript
 const venom = require('venom-bot');
