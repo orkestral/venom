@@ -1,3 +1,9 @@
+## [2.0.18](https://github.com/orkestral/venom/compare/v2.0.17...v2.0.18) (2020-10-22)
+
+### Bug Fixes
+
+- change deprecated function puppeteer ([eff5660](https://github.com/orkestral/venom/commit/eff5660edd031f46b6d4f6fdc68314586ec017ff))
+
 ## [2.0.17](https://github.com/orkestral/venom/compare/v2.0.16...v2.0.17) (2020-10-22)
 
 ### Bug Fixes
