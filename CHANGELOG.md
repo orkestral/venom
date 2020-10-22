@@ -1,3 +1,9 @@
+## [2.0.17](https://github.com/orkestral/venom/compare/v2.0.16...v2.0.17) (2020-10-22)
+
+### Bug Fixes
+
+- remove function stream and fix userAgente ([7fe0701](https://github.com/orkestral/venom/commit/7fe0701f71da1d3e4b8b85152120bf547b691fbc))
+
 ## [2.0.16](https://github.com/orkestral/venom/compare/v2.0.15...v2.0.16) (2020-10-20)
 
 ### Bug Fixes
