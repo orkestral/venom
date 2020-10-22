@@ -81,7 +81,7 @@
     "nodemon": "^2.0.6",
     "prettier": "^2.0.4",
     "pretty-quick": "^3.1.0",
-    "release-it": "^14.1.0",
+    "release-it": "^14.2.0",
     "rimraf": "^3.0.2",
     "ts-loader": "^8.0.6",
     "typedoc": "^0.19.2",
