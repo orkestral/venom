@@ -91,7 +91,7 @@
   },
   "dependencies": {
     "atob": "^2.1.2",
-    "axios": "^0.19.2",
+    "axios": "^0.20.0",
     "boxen": "^4.2.0",
     "chalk": "^4.0.0",
     "chrome-launcher": "^0.13.1",
