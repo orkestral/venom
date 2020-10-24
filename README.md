@@ -6,9 +6,10 @@
 
 
 # Important Warning
-```
+
 **Future fixes that we will be making on the venom-bot.***
 
+```
 Hello people!
 
 We apologize, if deleted by problems with the updates that follow!
