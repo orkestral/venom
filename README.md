@@ -4,6 +4,37 @@
 
 > Venom is a high-performance system developed with JavaScript to create a bot for WhatsApp, support for creating any interaction, such as customer service, media sending, sentence recognition based on artificial intelligence and all types of design architecture for WhatsApp.
 
+
+# Important Warning
+
+> Future fixes that we will be making on the venom-bot.
+
+Hello people!
+
+We apologize, if deleted by problems with the updates that follow!
+
+Our community is growing little by little and we have to be more careful when updating our repository, so we decided to take steps to improve our venom-bot.
+
+Problems reported so far, which will be fixed:
+
+1 - Venom-bot Initialization Errors (when trying to install venom-bot and start the errors are due);
+
+2 - Errors in sending files in base64 format;
+
+3 - Functions that are not working at the moment;
+
+4 - Functions that do not return parameters of success or error.
+
+These are just serious problems, reported so far.
+
+What are we going to solve now?
+
+At the moment we will be solving problems with the venom-bot startup and reviewing the functions.
+
+We will not be adding new functions, as it is necessary to resolve the functions that are currently implemented.
+
+Thank you for understanding.
+
 ## 🕷🕷 Functions Venom🕷🕷
 
 |                                                            |     |
