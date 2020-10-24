@@ -12,7 +12,7 @@
 ```
 Hello people!
 
-We apologize, if deleted by problems with the updates that follow!
+We apologize if you are experiencing problems with the updates that follow
 
 Our community is growing little by little and we have to be more careful when updating our repository, so we decided to take steps to improve our venom-bot.
 
