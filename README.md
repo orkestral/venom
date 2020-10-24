@@ -6,8 +6,8 @@
 
 
 # Important Warning
-
-> Future fixes that we will be making on the venom-bot.
+```
+Future fixes that we will be making on the venom-bot.
 
 Hello people!
 
@@ -34,6 +34,7 @@ At the moment we will be solving problems with the venom-bot startup and reviewi
 We will not be adding new functions, as it is necessary to resolve the functions that are currently implemented.
 
 Thank you for understanding.
+```
 
 ## 🕷🕷 Functions Venom🕷🕷
 
