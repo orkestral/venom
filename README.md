@@ -7,7 +7,7 @@
 
 # Important Warning
 
-**Future fixes that we will be making on the venom-bot.***
+**Future fixes that we will be making on the venom-bot.**
 
 ```
 Hello people!
