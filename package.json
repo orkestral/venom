@@ -22,7 +22,8 @@
     "release": "release-it",
     "start": "npm run build:venom & tsc app.ts && node app.js",
     "test": "echo \"No tests yet\"",
-    "watch": "concurrently \"tsc -w\" \"nodemon dist/index.js\""
+    "watch": "concurrently \"tsc -w\" \"nodemon dist/index.js\"",
+    "postinstall": "npm rebuild sharp"
   },
   "husky": {
     "hooks": {
