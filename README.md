@@ -60,6 +60,12 @@ Thank you for understanding.
 > npm i --save venom-bot
 ```
 
+However, this will also install a fresh copy chromium with it (Approx. 150MB). To avoid this - 
+
+```bash
+>npm i --save --ignore-scripts venom-bot
+```
+
 ## Getting started
 
 ```javascript
