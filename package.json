@@ -67,7 +67,7 @@
     "@types/puppeteer": "^3.0.2",
     "@types/sharp": "^0.26.0",
     "@typescript-eslint/eslint-plugin": "^4.5.0",
-    "@typescript-eslint/parser": "^4.3.0",
+    "@typescript-eslint/parser": "^4.6.1",
     "commitizen": "^4.2.2",
     "concurrently": "^5.1.0",
     "conventional-changelog-cli": "^2.1.0",
