@@ -497,3 +497,8 @@ window.WAPI.onIncomingCall = function (callback) {
   window.Store.Call.on('add', callback);
   return true;
 };
+
+window.WAPI.setMessagesAdminsOnly = async function (chatId, option) {
+  await Store.WapQuery.setGroupProperty(chatId, 'announcement', option);
+  return true;
+};

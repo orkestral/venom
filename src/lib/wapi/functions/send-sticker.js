@@ -82,13 +82,14 @@ export async function sendSticker(sticker, chatId, metadata, type) {
     );
     result = result.join('');
     var m = { type: type },
+      obj,
       To = await WAPI.getchatId(chatId);
     if (result === 'OK') {
-      var obj = WAPI.scope(To, false, result, null);
+      obj = WAPI.scope(To, false, result, null);
       Object.assign(obj, m);
       return obj;
     } else {
-      var obj = WAPI.scope(To, true, result, null);
+      obj = WAPI.scope(To, true, result, null);
       Object.assign(obj, m);
       return obj;
     }
