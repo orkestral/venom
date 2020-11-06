@@ -4,7 +4,6 @@
 
 > Venom is a high-performance system developed with JavaScript to create a bot for WhatsApp, support for creating any interaction, such as customer service, media sending, sentence recognition based on artificial intelligence and all types of design architecture for WhatsApp.
 
-
 # Important Warning
 
 **Future fixes that we will be making on the venom-bot.**
@@ -170,7 +169,7 @@ venom
 Gets the return if the session is `isLogged` or `notLogged` or `browserClose` or `qrReadSuccess` or `qrReadFail` or `autocloseCalled` or `desconnectedMobile` or `deleteToken` or `Create session wss return "serverClose" case server for close`
 
 | Status               | Condition                                                                                                                                                      |
-|----------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| -------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `isLogged`           | When the user is already logged in to the browser                                                                                                              |
 | `notLogged`          | When the user is not connected to the browser, it is necessary to scan the QR code through the cell phone in the option WhatsApp Web                           |
 | `browserClose`       | If the browser is closed this parameter is returned                                                                                                            |
@@ -429,6 +428,22 @@ await client.reply(
   message.id.toString(),
   ['5218113130740', '5218243160777']
 );
+
+// Send message with options
+await client.
+        .sendMessageOptions(
+          '000000000000@c.us',
+          'This is a reply!',
+           {
+              quotedMessageId: reply,
+            }
+        )
+        .then((retorno) => {
+          resp = retorno;
+        })
+        .catch((e) => {
+          console.log(e);
+        });
 
 // Send gif
 await client.sendVideoAsGif(
