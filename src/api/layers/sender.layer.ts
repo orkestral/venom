@@ -70,6 +70,7 @@ declare module WAPI {
   const startTyping: (to: string) => void;
   const stopTyping: (to: string) => void;
   const sendMessage: (to: string, content: string) => Promise<object>;
+  const sendMessageOptions: (chat: any, content: any, options?: any) => any;
   const sendImage: (
     imgBase64: string,
     to: string,
@@ -195,6 +196,26 @@ export class SenderLayer extends ListenerLayer {
         reject(result);
       } else {
         resolve(result);
+      }
+    });
+  }
+
+  public async sendMessageOptions(
+    chat: any,
+    content: any,
+    options?: any
+  ): Promise<any> {
+    return new Promise(async (resolve, reject) => {
+      try {
+        var result = await this.page.evaluate(
+          ({ chat, content, options }) => {
+            return WAPI.sendMessageOptions(chat, content, options);
+          },
+          { chat, content, options }
+        );
+        resolve(result);
+      } catch (error) {
+        reject(error);
       }
     });
   }
@@ -376,7 +397,7 @@ export class SenderLayer extends ListenerLayer {
       filename = filename + '.' + extension;
 
       let b64 = await downloadFileImgHttp(path, MINES()),
-        obj;
+        obj: { erro: boolean; to: string; text: string };
       if (!b64) {
         b64 = await fileToBase64(path);
       }

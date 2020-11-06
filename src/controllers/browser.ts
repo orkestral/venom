@@ -78,7 +78,7 @@ export async function initWhatsapp(
     const timeout = 2 * 1000;
     await Promise.race([
       waPage.goto(puppeteerConfig.whatsappUrl, { timeout }).catch(() => {}),
-      waPage.waitForTimeout('body', { timeout }).catch(() => {}),
+      waPage.waitForSelector('body', { timeout }).catch(() => {}),
     ]);
 
     return waPage;

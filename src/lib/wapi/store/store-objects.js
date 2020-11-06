@@ -356,4 +356,21 @@ export const storeObjects = [
     id: 'SendMute',
     conditions: (module) => (module.sendConversationMute ? module : null),
   },
+  {
+    id: 'Validators',
+    conditions: (module) => (module.findLinks ? module : null),
+  },
+  {
+    id: 'Wap2',
+    conditions: (module) => (module.Wap ? module : null),
+  },
+  {
+    id: 'genId',
+    conditions: (module) =>
+      module.default &&
+      typeof module.default === 'function' &&
+      module.default.toString().match(/crypto/)
+        ? module
+        : null,
+  },
 ];

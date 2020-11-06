@@ -114,6 +114,7 @@ export { sendImageAsSticker } from './send-image-as-stricker';
 export { sendImageWithProduct } from './send-image-with-product';
 export { sendLocation } from './send-location';
 export { sendMessage } from './send-message';
+export { sendMessageOptions } from './sendMessageOptions';
 export { sendMessageWithTags } from './send-message-with-tags';
 export { sendMessageWithThumb } from './send-message-with-thumb';
 export { sendMessage2 } from './send-message2';
