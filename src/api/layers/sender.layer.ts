@@ -514,13 +514,13 @@ export class SenderLayer extends ListenerLayer {
    *  @param to chatId '000000000000@c.us'
    */
   public async sendImageAsStickerGif(to: string, path: string) {
-    let b64 = await downloadFileImgHttp(path, ['image/gif']);
+    let b64 = await downloadFileImgHttp(path, ['image/gif', 'image/webp']);
     if (!b64) {
       b64 = await fileToBase64(path);
     }
     if (b64) {
       const buff = Buffer.from(
-        b64.replace(/^data:image\/(gif);base64,/, ''),
+        b64.replace(/^data:image\/(gif|webp);base64,/, ''),
         'base64'
       );
       const mimeInfo = base64MimeType(b64);
