@@ -373,4 +373,9 @@ export const storeObjects = [
         ? module
         : null,
   },
+  {
+    id: 'GroupMetadata',
+    conditions: (module) =>
+      module.default && module.default.handlePendingInvite ? module : null,
+  },
 ];
