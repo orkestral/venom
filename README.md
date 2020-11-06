@@ -386,7 +386,7 @@ await client
   });
 
 // Generates sticker from the provided animated gif image and sends it (Send image as animated sticker)
-// image path imageBase64 A valid gif image is required. You can also send via http/https (http://www.website.com/img.gif)
+// image path imageBase64 A valid gif and webp image is required. You can also send via http/https (http://www.website.com/img.gif)
 await client
   .sendImageAsStickerGif('000000000000@c.us', './image.gif')
   .then((result) => {
