@@ -1,0 +1,17 @@
+.*
+*.tgz
+app.js
+app.ts
+app2.js
+assets
+CONTRIBUTING.md
+docs
+img
+LICENSE
+session
+session-*
+src
+tokens
+tsconfig.json
+Update.md
+UPDATES.md

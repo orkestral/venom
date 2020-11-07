@@ -1,0 +1,14 @@
+.DS_Store
+*.tgz
+006.png
+app.js
+app.ts
+app2.js
+assets
+dist
+gohan.jpg
+node_modules
+session
+session-*
+src/app.ts
+tokens
