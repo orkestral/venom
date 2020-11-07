@@ -57,7 +57,7 @@ export async function sendSticker(sticker, chatId, metadata, type) {
 
   if (chat.erro === false || chat.__x_id) {
     var ListChat = await Store.Chat.get(chatId),
-      stick = new window.Store.StickerPack.modelClass();
+      stick = new window.Store.Sticker.default.modelClass();
 
     stick.__x_clientUrl = sticker.clientUrl;
     stick.__x_filehash = sticker.filehash;

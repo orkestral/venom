@@ -71,5 +71,6 @@ export async function encryptAndUploadFile(type, blob) {
     filehash,
     id: filehash,
     uploadhash: encrypted.encFilehash,
+    mediaBlob: blob,
   };
 }

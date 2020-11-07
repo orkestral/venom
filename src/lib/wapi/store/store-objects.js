@@ -308,7 +308,14 @@ export const storeObjects = [
   {
     id: 'Sticker',
     conditions: (module) =>
-      module.default && module.default.Sticker ? module.default.Sticker : null,
+      module.StickerCollection && module.default ? module : null,
+  },
+  {
+    id: 'MediaObject',
+    conditions: (module) =>
+      module.getOrCreateMediaObject && module.disassociateMediaFromStickerPack
+        ? module
+        : null,
   },
   {
     id: 'MediaUpload',
