@@ -72,6 +72,7 @@ declare module WAPI {
   const markUnseenMessage: (messageId: string) => boolean;
   const blockContact: (messageId: string) => boolean;
   const unblockContact: (messageId: string) => boolean;
+  const setMessagesAdminsOnly: (chatId: string, option: boolean) => boolean;
 }
 
 export class ControlsLayer extends UILayer {
@@ -187,6 +188,19 @@ export class ControlsLayer extends UILayer {
       ({ contactId, messageId, onlyLocal }) =>
         WAPI.deleteMessages(contactId, messageId, onlyLocal),
       { contactId: chatId, messageId, onlyLocal }
+    );
+  }
+
+  /**
+   * Archive and unarchive chat messages with true or false
+   * @param chatId {string} id '000000000000@c.us'
+   * @param option {boolean} true or false
+   * @returns boolean
+   */
+  public async setMessagesAdminsOnly(chatId: string, option: boolean) {
+    return this.page.evaluate(
+      ({ chatId, option }) => WAPI.setMessagesAdminsOnly(chatId, option),
+      { chatId, option }
     );
   }
 }
