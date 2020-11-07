@@ -2,7 +2,7 @@
 
 **Donate for Project**
 
-<a href="https://www.paypal.com/donate?hosted_button_id=62BBB32FGRB2A"><img src="https://raw.githubusercontent.com/stefan-niedermann/paypal-donate-button/master/paypal-donate-button.png" alt="Consulting"></a>
+<a href="https://www.paypal.com/donate?hosted_button_id=62BBB32FGRB2A"><img src="./donate.png" alt="Consulting"></a>
 
 <a href="https://chat.whatsapp.com/CMJYfPFqRyE2GxrnkldYED" target="_blank"><img title="whatzapp" height="120" width="435" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/WhatsApp_logo.svg/2000px-WhatsApp_logo.svg.png"></a>
 
