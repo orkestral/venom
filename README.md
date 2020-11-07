@@ -7,10 +7,10 @@
 
 **Donate for Project**
 
-<a href="https://www.paypal.com/donate?hosted_button_id=62BBB32FGRB2A"><img width="227" height="68" src="./donate.png" alt="Consulting"></a>
+<a target="_blank" href="https://www.paypal.com/donate?hosted_button_id=62BBB32FGRB2A"><img width="227" height="68" src="./donate.png" alt="Consulting"></a>
 
 **Access our whatsapp** <br> <br>
-<a href="https://chat.whatsapp.com/CMJYfPFqRyE2GxrnkldYED" target="_blank"><img title="whatzapp" height="100" width="375" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/WhatsApp_logo.svg/2000px-WhatsApp_logo.svg.png"></a>
+<a target="_blank" href="https://chat.whatsapp.com/CMJYfPFqRyE2GxrnkldYED" target="_blank"><img title="whatzapp" height="100" width="375" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/WhatsApp_logo.svg/2000px-WhatsApp_logo.svg.png"></a>
 
 
 # Important Warning
