@@ -13,38 +13,6 @@
 <a target="_blank" href="https://chat.whatsapp.com/CMJYfPFqRyE2GxrnkldYED" target="_blank"><img title="whatzapp" height="100" width="375" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/WhatsApp_logo.svg/2000px-WhatsApp_logo.svg.png"></a>
 
 
-# Important Warning
-
-**Future fixes that we will be making on the venom-bot.**
-
-```
-Hello people!
-
-We apologize if you are experiencing problems with the updates that follow
-
-Our community is growing little by little and we have to be more careful when updating our repository, so we decided to take steps to improve our venom-bot.
-
-Problems reported so far, which will be fixed:
-
-1 - Venom-bot Initialization Errors (when trying to install venom-bot and start the errors are due);
-
-2 - Errors in sending files in base64 format;
-
-3 - Functions that are not working at the moment;
-
-4 - Functions that do not return parameters of success or error.
-
-These are just serious problems, reported so far.
-
-What are we going to solve now?
-
-At the moment we will be solving problems with the venom-bot startup and reviewing the functions.
-
-We will not be adding new functions, as it is necessary to resolve the functions that are currently implemented.
-
-Thank you for understanding.
-```
-
 ## 🕷🕷 Functions Venom🕷🕷
 
 |                                                            |     |
