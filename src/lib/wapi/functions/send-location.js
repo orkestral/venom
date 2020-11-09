@@ -93,7 +93,6 @@ export async function sendLocation(
       ephemeralStartTimestamp: undefined,
       body: undefined,
       mediaData: undefined,
-      isQuotedMsgAvailable: false,
     };
 
     Object.assign(tempMsg, extend);
@@ -106,13 +105,14 @@ export async function sendLocation(
         title: location,
         type: 'location',
       },
+      obj,
       To = await WAPI.getchatId(chat.id);
     if (result[1] == 'success' || result[1] == 'OK') {
-      var obj = WAPI.scope(To, false, result[1], null);
+      obj = WAPI.scope(To, false, result[1], null);
       Object.assign(obj, m);
       return obj;
     } else {
-      var obj = WAPI.scope(To, true, result[1], null);
+      obj = WAPI.scope(To, true, result[1], null);
       Object.assign(obj, m);
       return obj;
     }

@@ -57,7 +57,7 @@ import latestVersion from 'latest-version';
 import { Whatsapp } from '../api/whatsapp';
 import { CreateConfig, defaultOptions } from '../config/create-config';
 import { upToDate } from '../utils/semver';
-import { asciiQr, retrieveQR, SessionTokenCkeck, scrapeDesconnected, checkWebpackJsonp, checkDeleteToken, stateInject } from './auth';
+import { asciiQr, retrieveQR, SessionTokenCkeck, scrapeDesconnected, checkWebpackJsonp, checkDeleteToken, stateInject, isInsideChat } from './auth';
 import { initWhatsapp, injectApi, initBrowser } from './browser';
 import chalk = require('chalk');
 import boxen = require('boxen');
@@ -86,7 +86,8 @@ export async function create(
   catchQR?: (qrCode: string, asciiQR: string, attempt: number) => void,
   statusFind?: (statusGet: string, session: string) => void,
   options?: CreateConfig,
-  browserSessionToken?: object
+  browserSessionToken?: object,
+  onState?: (state: string, session: string) => void
 ): Promise<Whatsapp> {
   
   var disconnectOrClose: NodeJS.Timeout,
@@ -242,14 +243,18 @@ export async function create(
       );
 
     if(typeof waPage.isClosed === 'function' && waPage.isClosed() === false){
-      spinnies.update(`${Session}-auth`, { text: 'Authenticating...' });
+
+      spinnies.update(`${Session}-auth`, { 
+        text: 'Authenticating...' 
+      });
+      //Promise del token
       deleteToken(waPage, Session, mergedOptions, spinnies, async () => {
           if (statusFind) {
             statusFind('deleteToken', Session);
           }
         });
 
-        // inject state
+        // inject state browser
         try{
             var result = await scrapeWebpackJsonp(
               waPage, 
@@ -265,9 +270,19 @@ export async function create(
                   if(statusFind){
                     statusFind(statusGet, Session);
                   }
+                },
+                (qrCode, asciiQR, attempt)=>{
+                  if(catchQR){
+                    catchQR(qrCode, asciiQR, attempt);
+                  }
+                },
+                (state, session)=>{
+                    if(onState){
+                      onState(state, session);
+                    }
                 });
           if(result){
-            return new Whatsapp(waPage);
+                return new Whatsapp(waPage);
           }
                
         }catch(e){
@@ -280,7 +295,7 @@ export async function create(
 /**
  * Checs for a new versoin of venom and logs
  */
-function checkVenomVersion(spinnies: any, session: string) {
+function checkVenomVersion(spinnies: Spinnies, session: string) {
   latestVersion('venom-bot').then((latest) => {
     if (!upToDate(version, latest)) {
       logUpdateAvailable(version, latest);
@@ -289,7 +304,7 @@ function checkVenomVersion(spinnies: any, session: string) {
   });
 }
 
-async function deleteToken(waPage: Page, Session: string, mergedOptions: any, spinnies: any, C?: (t: boolean) => void): Promise<Boolean>{
+async function deleteToken(waPage: Page, Session: string, mergedOptions: CreateConfig, spinnies: Spinnies, C?: (t: boolean) => void): Promise<Boolean>{
   var checkDelete = await checkDeleteToken(waPage).toPromise();
   if(checkDelete === true){
     deleteFiles(mergedOptions, Session, spinnies);
@@ -303,7 +318,7 @@ async function deleteToken(waPage: Page, Session: string, mergedOptions: any, sp
 /**
  * scrape Desconnected
  */
-async function scrapeDesc(waPage: Page, session: string, mergedOptions: any, spinnies: any, D?: (t: boolean) => void): Promise<Boolean>{
+async function scrapeDesc(waPage: Page, session: string, mergedOptions: CreateConfig, spinnies: Spinnies, D?: (t: boolean) => void): Promise<Boolean>{
   let clientExit = await scrapeDesconnected(waPage).toPromise();
    if(clientExit == true){
       deleteFiles(mergedOptions, session, spinnies);
@@ -319,60 +334,76 @@ async function scrapeDesc(waPage: Page, session: string, mergedOptions: any, spi
 async function scrapeWebpackJsonp(
   waPage: Page,
   AutoCloseBrowser: NodeJS.Timeout,
-  spinnies: any,
+  spinnies: Spinnies,
   disconnectOrClose: NodeJS.Timeout,
   intervalScrapeQrcode: NodeJS.Timeout,
   Session: string,
   browser: Browser, 
-  mergedOptions: any,
+  mergedOptions: CreateConfig,
   browserToken: object,
   statusWS:(
        status: string, 
       session: string
     ) 
     => void,
-  callqr?:(
+  callqr:(
       callCode: string,
       callciiQR: string,
       callattempt: number
-  ) => void
+  ) => void,
+  callState:(
+      state: string,
+      session: string
+  ) => void,
     ): Promise<any>{
 
       var connect: boolean = true, unpaired: boolean = true;
       
       return new Promise(async (resolve) => {
         try{
+          spinnies.add(`${Session}-jsonp`, {
+            text: 'Wait injecting state...',
+          });
           var ch = await checkWebpackJsonp(waPage).toPromise();
             if(ch){
                 var inj = await injectState(waPage);
                   if(inj === true){
-                    console.log("injectState");
+                    spinnies.succeed(`${Session}-jsonp`, {
+                      text: 'Successfully injected state.'
+                    });
                   }
             }
           }catch{
-               console.log("error inject state");
+            spinnies.fail(`${Session}-jsonp`, {
+              text: 'Fail injected state.'
+            });
           }
-
+          spinnies.add(`${Session}-jsonp`, {
+            text: 'check injecting state...',
+          });
           var inject = await stateInject(waPage).toPromise();
 
           if(inject === true){
-          
+            spinnies.succeed(`${Session}-jsonp`, {
+              text: 'State complete...',
+            });
             await webpackJsonpWI(waPage, async (state: string) => {
-             console.log("LOG: ", state);
-
+              if(callState){
+                callState(state, Session);
+              }
             if(state === "UNPAIRED"){
             
               (unpaired)? statusWS('notLogged', Session) : unpaired = !unpaired;
 
               spinnies.add(`${Session}-autoclose`, { 
-                text: 'check autoClose' 
+                text: 'check autoClose...' 
               });
 
               //check options autoclose 
            if(mergedOptions.autoClose > 0) {
 
-                spinnies.succeed(`${Session}-autoclose`,{
-                  text: 'The autoClose function is on',
+                spinnies.succeed(`${Session}-autoclose`, {
+                  text: `The autoClose function is on. Time: ${mergedOptions.autoClose}`,
                 });      
                 
                 AutoCloseBrowser = setTimeout(() => {
@@ -397,9 +428,9 @@ async function scrapeWebpackJsonp(
                               mergedOptions.autoClose 
                              );
                     }else{  
-                    spinnies.succeed(`${Session}-autoclose`, {
-                      text: 'The autoClose function is off ',
-                    });
+                      spinnies.succeed(`${Session}-autoclose`, {
+                        text: 'The autoClose function is off ',
+                      });
                   }
             
                   intervalScrapeQrcode = scrapQrcodeTime(
@@ -422,7 +453,7 @@ async function scrapeWebpackJsonp(
                                 }
                               },
                           );
-                     
+        
             }
 
             if(state === "CONNECTED" && connect === true){
@@ -461,8 +492,8 @@ async function scrapeWebpackJsonp(
 async function tokenSave(
   intervalScrapeQrcode: NodeJS.Timeout, 
   AutoCloseBrowser: NodeJS.Timeout,
-  spinnies: any,
-  mergedOptions: any,
+  spinnies: Spinnies,
+  mergedOptions: CreateConfig,
   browserToken: object,
   Session: string,
   waPage: Page
@@ -547,8 +578,8 @@ async function tokenSave(
  */
 function autoCloseF(
   AutoCloseBrowser: NodeJS.Timeout,
-  mergedOptions: any,
-  spinnies: any,
+  mergedOptions: CreateConfig,
+  spinnies: Spinnies,
   disconnectOrClose: NodeJS.Timeout,
   intervalScrapeQrcode: NodeJS.Timeout,
   Session: string,
@@ -593,8 +624,8 @@ function autoCloseF(
  */
  function scrapQrcodeTime (
   intervalScrapeQrcode: NodeJS.Timeout,
-    mergedOptions: any,
-         spinnies: any,
+    mergedOptions: CreateConfig,
+         spinnies: Spinnies,
           browser: Browser, 
            waPage: Page,
           Session: string,
@@ -611,11 +642,12 @@ function autoCloseF(
          ) => void,
 
     ): any {
+
         let tipo_qr = 0, attempt = 0, result = undefined, url = null;
+
           // Scraper qrcode
           intervalScrapeQrcode = setInterval(async () => {
             // Close client browser
-
             if (
               browser['isClose'] != undefined ||
               browser.isConnected() === false
@@ -642,9 +674,6 @@ function autoCloseF(
                       await asciiQr(result['url'])
                         .then((qr) => {
                           if (mergedOptions.logQR) {
-                            spinnies.update(`${Session}-auth`, {
-                              text: 'Scan QR for Session: ' + Session,
-                            });
                             console.log(qr);
                           }
                           tipo_qr++;
@@ -670,10 +699,7 @@ function autoCloseF(
                         await asciiQr(re['url'])
                           .then((qr) => {
                             if (mergedOptions.logQR) {
-                              spinnies.update(`${Session}-auth`, {
-                                text: 'Scan QR for Session: ' + Session,
-                              });
-                              console.log(qr);
+                               console.log(qr);
                             }
                           })
                           .catch(() => {});

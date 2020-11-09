@@ -308,7 +308,14 @@ export const storeObjects = [
   {
     id: 'Sticker',
     conditions: (module) =>
-      module.default && module.default.Sticker ? module.default.Sticker : null,
+      module.StickerCollection && module.default ? module : null,
+  },
+  {
+    id: 'MediaObject',
+    conditions: (module) =>
+      module.getOrCreateMediaObject && module.disassociateMediaFromStickerPack
+        ? module
+        : null,
   },
   {
     id: 'MediaUpload',
@@ -355,5 +362,27 @@ export const storeObjects = [
   {
     id: 'SendMute',
     conditions: (module) => (module.sendConversationMute ? module : null),
+  },
+  {
+    id: 'Validators',
+    conditions: (module) => (module.findLinks ? module : null),
+  },
+  {
+    id: 'Wap2',
+    conditions: (module) => (module.Wap ? module : null),
+  },
+  {
+    id: 'genId',
+    conditions: (module) =>
+      module.default &&
+      typeof module.default === 'function' &&
+      module.default.toString().match(/crypto/)
+        ? module
+        : null,
+  },
+  {
+    id: 'GroupMetadata',
+    conditions: (module) =>
+      module.default && module.default.handlePendingInvite ? module : null,
   },
 ];

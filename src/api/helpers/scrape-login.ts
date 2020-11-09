@@ -52,25 +52,20 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
-import { generateMediaKey, getFileHash } from '../helper';
-
-export async function encryptAndUploadFile(type, blob) {
-  const filehash = await getFileHash(blob);
-  const mediaKey = generateMediaKey(32);
-  const controller = new AbortController();
-  const signal = controller.signal;
-  const encrypted = await window.Store.UploadUtils.encryptAndUpload({
-    blob,
-    type,
-    signal,
-    mediaKey,
+import { Page } from 'puppeteer';
+export async function scrapeLogin(page: Page): Promise<boolean> {
+  var result = await page.evaluate(() => {
+    let count = document.querySelector('._9a59P');
+    var data: boolean;
+    data = false;
+    if (count != null) {
+      var text = count.textContent,
+        timeNumber = text.match('Invalid');
+      if (timeNumber) {
+        data = true;
+      }
+      return data;
+    }
   });
-  return {
-    ...encrypted,
-    clientUrl: encrypted.url,
-    filehash,
-    id: filehash,
-    uploadhash: encrypted.encFilehash,
-    mediaBlob: blob,
-  };
+  return result;
 }

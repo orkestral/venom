@@ -5,10 +5,11 @@ app.js
 app.ts
 app2.js
 assets
-dist
+dist/
 gohan.jpg
 node_modules
 session
 session-*
 src/app.ts
 tokens
+package-lock.json

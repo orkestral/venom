@@ -53,8 +53,8 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
 export function getAllGroupMetadata(done) {
-  const groupData = window.Store.GroupMetadata.map(
-    (groupData) => groupData.all
+  const groupData = window.Store.GroupMetadata.default.map(
+    (groupData) => groupData.attributes
   );
 
   if (done !== undefined) done(groupData);

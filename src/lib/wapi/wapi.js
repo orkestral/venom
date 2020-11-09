@@ -113,6 +113,7 @@ import {
   removeParticipant,
   reply,
   revokeGroupInviteLink,
+  sendMessageOptions,
   sendChatstate,
   sendContactVcard,
   sendFile,
@@ -276,6 +277,8 @@ window.WAPI.openChat = openChat;
 window.WAPI.openChatAt = openChatAt;
 window.WAPI.markUnseenMessage = markUnseenMessage;
 window.WAPI.sendLinkPreview = sendLinkPreview;
+window.WAPI.sendMessageOptions = sendMessageOptions;
+
 
 //////block functions
 window.WAPI.blockContact = blockContact;
@@ -493,5 +496,10 @@ window.WAPI.takeOver = async function () {
  */
 window.WAPI.onIncomingCall = function (callback) {
   window.Store.Call.on('add', callback);
+  return true;
+};
+
+window.WAPI.setMessagesAdminsOnly = async function (chatId, option) {
+  await Store.WapQuery.setGroupProperty(chatId, 'announcement', option);
   return true;
 };
