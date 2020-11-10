@@ -12,3 +12,4 @@ session
 session-*
 src/app.ts
 tokens
+.idea/
