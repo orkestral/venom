@@ -10,28 +10,28 @@
     - [Passing options to create](#passing-options-on-create)
         - [Callback Status Session](#callback-status-session)
         - [Exporting QR Code](#exporting-qr-code)
-    - [Basic Functions (usage)](#basic-functions-usage)
-        - [Chatting](#chatting)
-            - [sendContactVcard](#sendcontactvcard)
-            - [sendContactVcardList](#sendcontactvcardlist)
-            - [sendText](#sendtext)
-            - [sendLocation](#sendlocation)
-            - [sendLinkPreview](#sendlinkpreview)
-            - [sendImage](#sendimage)
-            - [sendFile](#sendfile)
-            - [sendFileFromBase64](#sendfilefrombase64)
-            - [sendImageAsStickerGif](#sendimageasstickergif)
-            - [sendImageAsSticker](#sendimageassticker)
-            - [sendMentioned](#sendmentioned)
-            - [reply](#reply)
-            - [reply with mention](#reply-with-mention)
-            - [sendMessageOptions](#sendmessageoptions)
-            - [sendVideoAsGif](#sendvideoasgif)
-            - [forwardMessages](#forwardmessages)
-            - [sendSeen](#sendseen)
-            - [startTyping](#starttyping)
-            - [stopTyping](#stoptyping)
-            - [setChatState](#setchatstate)
+- [Basic Functions (usage)](#basic-functions-usage)
+    - [Chatting](#chatting)
+        - [sendContactVcard](#sendcontactvcard)
+        - [sendContactVcardList](#sendcontactvcardlist)
+        - [sendText](#sendtext)
+        - [sendLocation](#sendlocation)
+        - [sendLinkPreview](#sendlinkpreview)
+        - [sendImage](#sendimage)
+        - [sendFile](#sendfile)
+        - [sendFileFromBase64](#sendfilefrombase64)
+        - [sendImageAsStickerGif](#sendimageasstickergif)
+        - [sendImageAsSticker](#sendimageassticker)
+        - [sendMentioned](#sendmentioned)
+        - [reply](#reply)
+        - [reply with mention](#reply-with-mention)
+        - [sendMessageOptions](#sendmessageoptions)
+        - [sendVideoAsGif](#sendvideoasgif)
+        - [forwardMessages](#forwardmessages)
+        - [sendSeen](#sendseen)
+        - [startTyping](#starttyping)
+        - [stopTyping](#stoptyping)
+        - [setChatState](#setchatstate)
 
 ### Installation
 
@@ -57,7 +57,7 @@ venom
   .catch((error) => console.log(error));
 ```
 
-#### Multi sessions
+### Multi sessions
 
 If you want to start more than one session, for example, 
 in case you have different departments in your project, 
@@ -71,7 +71,7 @@ venom.create('sales').then((client) => startClient(client));
 venom.create('support').then((client) => startSupport(client));
 ```
 
-#### Passing options on create
+### Passing options on create
 
 The `create` method third parameter can have the following optional parameters:
 
@@ -123,7 +123,7 @@ venom.create(
   .catch((error) => console.log(error));
 ```
 
-##### Callback Status Session
+#### Callback Status Session
 
 Gets the return if the session is `isLogged` or `notLogged` or `browserClose` 
 or `qrReadSuccess` or `qrReadFail` or `autocloseCalled` or `desconnectedMobile` 
@@ -159,7 +159,7 @@ venom
   .catch((error) => console.log(error));
 ```
 
-##### Exporting QR Code
+#### Exporting QR Code
 
 By default, QR code will appear on the terminal. If you need to pass the QR
 somewhere else heres how:
@@ -201,17 +201,17 @@ venom
   .catch((error) => console.log(error));
 ```
 
-#### Basic Functions (usage)
+### Basic Functions (usage)
 
 Not every available function will be listed, for further look, every function
 available can be found in [here](/src/api/layers) and
 [here](/src/lib/wapi/functions)
 
-##### Chatting
+#### Chatting
 
 > Here, `chatId` could be `<phoneNumber>@c.us` or `<phoneNumber>-<groupId>@g.us`
 
-###### sendContactVcard
+##### sendContactVcard
 
 Send contact
 
@@ -226,7 +226,7 @@ await client
   });
 ```
 
-###### sendContactVcardList
+##### sendContactVcardList
 
 Send a list of contact cards
 
@@ -244,7 +244,7 @@ await client
   });
 ```
 
-###### sendText
+##### sendText
 
 Send basic text
 
@@ -259,7 +259,7 @@ await client
   });
 ```
 
-###### sendLocation
+##### sendLocation
 
 Send location
 
@@ -274,7 +274,7 @@ await client
   });
 ```
 
-###### sendLinkPreview
+##### sendLinkPreview
 
 Automatically sends a link with the auto generated link preview. You can also add a custom message to be added.
 
@@ -293,7 +293,7 @@ await client
   });
 ```
 
-###### sendImage
+##### sendImage
 
 Send an image (you can also upload an image using a valid HTTP protocol)
 
@@ -313,7 +313,7 @@ await client
   });
 ```
 
-###### sendFile
+##### sendFile
 
 Send a file (venom will take care of mime types, just need the path).\
 You can also upload an image using a valid HTTP protocol
@@ -334,7 +334,7 @@ await client
   });
 ```
 
-###### sendFileFromBase64
+##### sendFileFromBase64
 
 Sends a file.
 
@@ -356,7 +356,7 @@ await client
   });
 ```
 
-###### sendImageAsStickerGif
+##### sendImageAsStickerGif
 
 Generates a sticker from the provided animated gif image and sends it (Send an image as animated sticker)\
 Image path imageBase64 A valid gif and webp image will be required. You can also send via http/https (http://www.website.com/img.gif)
@@ -372,7 +372,7 @@ await client
   });
 ```
 
-###### sendImageAsSticker
+##### sendImageAsSticker
 
 Generates a sticker from given image and sends it (Send Image As Sticker)\
 image path imageBase64 A valid png, jpg and webp image will be required. You can also send via http/https (http://www.website.com/img.jpg)
@@ -388,7 +388,7 @@ await client
   });
 ```
 
-###### sendMentioned
+##### sendMentioned
 
 Send `@tagged` message
 
@@ -400,7 +400,7 @@ await client.sendMentioned(
 );
 ```
 
-###### reply
+##### reply
 
 Reply to a message
 
@@ -412,7 +412,7 @@ await client.reply(
 );
 ```
 
-###### reply with mention
+##### reply with mention
 
 Reply to a message with mention
 
@@ -425,7 +425,7 @@ await client.reply(
 );
 ```
 
-###### sendMessageOptions
+##### sendMessageOptions
 
 Send a message with options
 
@@ -447,7 +447,7 @@ await client
 
 ```
 
-###### sendVideoAsGif
+##### sendVideoAsGif
 
 Send a gif
 
@@ -460,7 +460,7 @@ await client.sendVideoAsGif(
 );
 ```
 
-###### forwardMessages
+##### forwardMessages
 
 Forwards messages
 
@@ -472,7 +472,7 @@ await client.forwardMessages(
 );
 ```
 
-###### sendSeen
+##### sendSeen
 
 Send seen ✔️✔️
 
@@ -480,7 +480,7 @@ Send seen ✔️✔️
 await client.sendSeen('000000000000@c.us');
 ```
 
-###### startTyping
+##### startTyping
 
 Start typing...
 
@@ -488,7 +488,7 @@ Start typing...
 await client.startTyping('000000000000@c.us');
 ```
 
-###### stopTyping
+##### stopTyping
 
 Stop typing
 
@@ -496,7 +496,7 @@ Stop typing
 await client.stopTyping('000000000000@c.us');
 ```
 
-###### setChatState
+##### setChatState
 
 Set chat state (0: Typing, 1: Recording, 2: Paused)
 
