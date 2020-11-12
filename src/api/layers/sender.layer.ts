@@ -139,7 +139,7 @@ declare module WAPI {
   ) => Promise<object>;
 
   const sendMessageMentioned: (...args: any) => any;
-  const setChatState: (chatState: string, chatId: string) => void;
+  const sendChatstate: (chatState: string, chatId: string) => void;
   const sendLinkPreview: (
     chatId: string,
     url: string,
@@ -706,9 +706,9 @@ export class SenderLayer extends ListenerLayer {
   public async setChatState(chatId: string, chatState: ChatState) {
     return await this.page.evaluate(
       ({ chatState, chatId }) => {
-        WAPI.setChatState(chatState, chatId);
+        WAPI.sendChatstate(chatState, chatId);
       },
-      { chatState: chatState, chatId }
+      { chatState, chatId }
     );
   }
 }

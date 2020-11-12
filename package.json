@@ -106,5 +106,8 @@
     "sharp": "^0.26.2",
     "spinnies": "^0.5.1",
     "tree-kill": "^1.2.2"
+  },
+  "optionalDependencies": {
+    "fsevents": "^2.2.1"
   }
 }
