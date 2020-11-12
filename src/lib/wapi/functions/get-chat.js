@@ -64,11 +64,6 @@ export function getChat(id) {
       : function () {
           return window.Store.sendMessage.apply(this, arguments);
         };
-    found.sendAddMessage = found.sendAddMessage
-      ? found.sendAddMessage
-      : function () {
-          return window.Store.sendAddMessage.apply(this, arguments);
-        };
   }
   return found;
 }

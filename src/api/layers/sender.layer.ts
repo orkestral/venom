@@ -69,7 +69,7 @@ declare module WAPI {
   const getChat: (contactId: string) => Chat;
   const startTyping: (to: string) => void;
   const stopTyping: (to: string) => void;
-  const sendMessage: (to: string, content: string) => Promise<object>;
+  const sendMessage: (to: string, content: string) => Promise<any>;
   const sendMessageOptions: (chat: any, content: any, options?: any) => any;
   const sendImage: (
     imgBase64: string,
@@ -84,12 +84,7 @@ declare module WAPI {
     description: string,
     chatId: string
   ) => void;
-  const reply: (
-    to: string,
-    content: string,
-    quotedMsg: string | Message,
-    mentioned: string[]
-  ) => void;
+  const reply: (to: string, content: string, quotedMsg: string) => any;
   const sendPtt: (
     base64: string,
     to: string,
@@ -150,6 +145,7 @@ declare module WAPI {
     url: string,
     title: string
   ) => Promise<object>;
+  const getMessageById: (messageId: string) => Message;
 }
 
 export class SenderLayer extends ListenerLayer {
@@ -186,12 +182,16 @@ export class SenderLayer extends ListenerLayer {
    */
   public async sendText(to: string, content: string): Promise<object> {
     return new Promise(async (resolve, reject) => {
-      var result = await this.page.evaluate(
+      var messageId: string = await this.page.evaluate(
         ({ to, content }) => {
           return WAPI.sendMessage(to, content);
         },
         { to, content }
       );
+      var result = (await this.page.evaluate(
+        (messageId: any) => WAPI.getMessageById(messageId),
+        messageId
+      )) as Message;
       if (result['erro'] == true) {
         reject(result);
       } else {
@@ -207,12 +207,16 @@ export class SenderLayer extends ListenerLayer {
   ): Promise<any> {
     return new Promise(async (resolve, reject) => {
       try {
-        var result = await this.page.evaluate(
+        var messageId = await this.page.evaluate(
           ({ chat, content, options }) => {
             return WAPI.sendMessageOptions(chat, content, options);
           },
           { chat, content, options }
         );
+        var result = (await this.page.evaluate(
+          (messageId: any) => WAPI.getMessageById(messageId),
+          messageId
+        )) as Message;
         resolve(result);
       } catch (error) {
         reject(error);
@@ -311,20 +315,29 @@ export class SenderLayer extends ListenerLayer {
    * @param to Chat id
    * @param content Message body
    * @param quotedMsg Message id to reply to.
-   * @param mentioned User id to mentioned (just phone number).
    */
   public async reply(
     to: string,
     content: string,
-    quotedMsg: string,
-    mentioned: string[]
-  ) {
-    return await this.page.evaluate(
-      ({ to, content, quotedMsg, mentioned }) => {
-        return WAPI.reply(to, content, quotedMsg, mentioned);
-      },
-      { to, content, quotedMsg, mentioned }
-    );
+    quotedMsg: string
+  ): Promise<object> {
+    return new Promise(async (resolve, reject) => {
+      var messageId: string = await this.page.evaluate(
+        ({ to, content, quotedMsg }) => {
+          return WAPI.reply(to, content, quotedMsg);
+        },
+        { to, content, quotedMsg }
+      );
+      var result = (await this.page.evaluate(
+        (messageId: any) => WAPI.getMessageById(messageId),
+        messageId
+      )) as Message;
+      if (result['erro'] == true) {
+        reject(result);
+      } else {
+        resolve(result);
+      }
+    });
   }
 
   /**

@@ -53,25 +53,34 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
 
-export async function reply(chatId, message, quotedMsg, mentioned) {
-  if (typeof quotedMsg !== 'object') {
-    quotedMsg = Store.Msg.get(quotedMsg);
-  }
-  if (!Array.isArray(mentioned)) {
-    mentioned = [mentioned];
+export async function reply(chatId, content, quotedMessageId) {
+  const chat = Store.Chat.get(chatId);
+
+  let quotedMsgOptions = {};
+  if (quotedMessageId) {
+    let quotedMessage = window.Store.Msg.get(quotedMessageId);
+    if (quotedMessage.canReply()) {
+      quotedMsgOptions = quotedMessage.msgContextInfo(chat);
+    }
   }
 
-  const chat = WAPI.getChat(chatId);
-  const users = await Store.Contact.serialize().filter((x) =>
-    mentioned.includes(x.id.user)
-  );
+  const newMsgId = await window.WAPI.getNewMessageId(chat.id);
+  const fromwWid = await window.Store.Conn.wid;
+  const message = {
+    id: newMsgId,
+    ack: 0,
+    body: content,
+    from: fromwWid,
+    to: chat.id,
+    local: !0,
+    self: 'out',
+    t: parseInt(new Date().getTime() / 1000),
+    isNewMsg: !0,
+    type: 'chat',
+    ...quotedMsgOptions,
+  };
 
-  return chat
-    .sendMessage(message, {
-      linkPreview: null,
-      mentionedJidList: users.map((u) => u.id),
-      quotedMsg: quotedMsg,
-      quotedMsgAdminGroupJid: null,
-    })
-    .then((_) => chat.lastReceivedKey._serialized);
+  await window.Store.addAndSendMsgToChat(chat, message);
+
+  return newMsgId._serialized;
 }
