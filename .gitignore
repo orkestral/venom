@@ -12,4 +12,3 @@ session
 session-*
 src/app.ts
 tokens
-package-lock.json
