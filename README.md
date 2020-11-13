@@ -9,8 +9,8 @@
 
 <a target="_blank" href="https://www.paypal.com/donate?hosted_button_id=62BBB32FGRB2A"><img width="227" height="68" src="./donate.png" alt="Consulting"></a>
 
-**Access our whatsapp** <br> <br>
-<a target="_blank" href="https://chat.whatsapp.com/CMJYfPFqRyE2GxrnkldYED" target="_blank"><img title="whatzapp" height="100" width="375" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/WhatsApp_logo.svg/2000px-WhatsApp_logo.svg.png"></a>
+**request support group access in whatsapp for $5 month** <br> <br>
+<a target="_blank" href="https://web.whatsapp.com/send?phone=556181590153&text=I%20want%20access%20to%20the%20WhatsApp%20Venom%20support%20group" target="_blank"><img title="whatzapp" height="100" width="375" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/WhatsApp_logo.svg/2000px-WhatsApp_logo.svg.png"></a>
 
 
 ## 🕷🕷 Functions Venom🕷🕷
