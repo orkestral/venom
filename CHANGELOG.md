@@ -1,3 +1,24 @@
+## [2.0.19](https://github.com/orkestral/venom/compare/v2.0.18...v2.0.19) (2020-11-14)
+
+### Bug Fixes
+
+- Add StickerGif compatibility with Webp format ([#278](https://github.com/orkestral/venom/issues/278)) ([9104a9b](https://github.com/orkestral/venom/commit/9104a9b4713b1c5a194a8f9f955240318a5d4b2d)), closes [/github.com/orkestral/venom/issues/277#issuecomment-719068476](https://github.com//github.com/orkestral/venom/issues/277/issues/issuecomment-719068476)
+- git ignore ([2c1fc1d](https://github.com/orkestral/venom/commit/2c1fc1d108bb907f83fe6ab1d00439c0ad6ce0ae))
+- remove package-lock.json ([2c2e134](https://github.com/orkestral/venom/commit/2c2e134f40d97b6583797aa0c6f20b728e87b713))
+- sendSticker 'modelClass' of undefined ([9166c68](https://github.com/orkestral/venom/commit/9166c6821e1c91c446478e4584c9ef0304f081f1))
+- **293:** group property 'find' of undefined ([a661e1c](https://github.com/orkestral/venom/commit/a661e1c0d3505469af1ce8f2af198ad016b7ba85))
+
+### Features
+
+- fix some things and create space for examples ([ed964d8](https://github.com/orkestral/venom/commit/ed964d8829d26ae2740442c27bf7ab333d28b8ac))
+- **conteex:** fix sticker ([f8feaae](https://github.com/orkestral/venom/commit/f8feaae74b71328ac0ab541cdea15c939a4308a2))
+- **context:** file dist.zip ([3134cdf](https://github.com/orkestral/venom/commit/3134cdfeb24422874b1a996b176183c93b4d4cba))
+- **context:** readme whatsapp ([6682e01](https://github.com/orkestral/venom/commit/6682e01779f13f967fc16544763fb02f88c4ba57))
+- dist teste ([68d63de](https://github.com/orkestral/venom/commit/68d63ded50b98e7968dff32320c8c1f999229ef1))
+- new function and fixed some things ([#295](https://github.com/orkestral/venom/issues/295)) ([f1cea5d](https://github.com/orkestral/venom/commit/f1cea5d5ec1e3610087363c5d4df7545033f60d9))
+- new function and some corrections ([a4be96f](https://github.com/orkestral/venom/commit/a4be96fd589ca40a0d8c85720bda36515caea59c))
+- new function to change group permission ([9f4eeef](https://github.com/orkestral/venom/commit/9f4eeef3bfd8fffe61897d0c9051e1aa4bbe8241))
+
 ## [2.0.18](https://github.com/orkestral/venom/compare/v2.0.17...v2.0.18) (2020-10-22)
 
 ### Bug Fixes
