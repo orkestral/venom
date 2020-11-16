@@ -52,14 +52,16 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
+import * as path from 'path';
 import { Page } from 'puppeteer';
 import {
   base64MimeType,
-  fileToBase64,
   downloadFileImgHttp,
-  stickerSelect,
+  fileToBase64,
   MINES,
+  stickerSelect,
 } from '../helpers';
+import { filenameFromMimeType } from '../helpers/filename-from-mimetype';
 import { Chat, Message } from '../model';
 import { ChatState } from '../model/enum';
 import { ListenerLayer } from './listener.layer';
@@ -227,56 +229,92 @@ export class SenderLayer extends ListenerLayer {
   /**
    * Sends image message
    * @param to Chat id
-   * @param imgBase64
+   * @param filePath File path or http link
    * @param filename
    * @param caption
    */
   public async sendImage(
     to: string,
-    path: string,
-    filename: string,
+    filePath: string,
+    filename?: string,
     caption?: string
   ) {
     return new Promise(async (resolve, reject) => {
-      let data = await downloadFileImgHttp(path, [
+      let base64 = await downloadFileImgHttp(filePath, [
         'image/png',
         'image/jpg',
         'image/webp',
       ]);
-      if (!data) {
-        data = await fileToBase64(path);
+
+      if (!base64) {
+        base64 = await fileToBase64(filePath);
       }
-      var extension = path.split('.').pop();
-      filename = filename + '.' + extension;
-      if (data) {
-        const mimeInfo = base64MimeType(data);
-        if (!mimeInfo || mimeInfo.includes('image')) {
-          var result = await this.page.evaluate(
-            ({ to, data, filename, caption }) => {
-              return WAPI.sendImage(data, to, filename, caption);
-            },
-            { to, data, filename, caption }
-          );
-          if (result['erro'] == true) {
-            reject(result);
-          } else {
-            resolve(result);
-          }
-        } else {
-          var obj = {
-            erro: true,
-            to: to,
-            text: 'Not an image, allowed formats png, jpeg and webp',
-          };
-          reject(obj);
-        }
-      } else {
+
+      if (!base64) {
         var obj = {
           erro: true,
           to: to,
-          text: 'No such file or directory, open "' + path + '"',
+          text: 'No such file or directory, open "' + filePath + '"',
         };
-        reject(obj);
+        return reject(obj);
+      }
+
+      if (!filename) {
+        filename = path.basename(filePath);
+      }
+
+      this.sendImageFromBase64(to, base64, filename, caption)
+        .then(resolve)
+        .catch(reject);
+    });
+  }
+
+  /**
+   * Sends image message
+   * @param to Chat id
+   * @param base64 File path, http link or base64Encoded
+   * @param filename
+   * @param caption
+   */
+  public async sendImageFromBase64(
+    to: string,
+    base64: string,
+    filename: string,
+    caption?: string
+  ) {
+    return new Promise(async (resolve, reject) => {
+      let mimeType = base64MimeType(base64);
+
+      if (!mimeType) {
+        var obj = {
+          erro: true,
+          to: to,
+          text: 'Invalid base64!',
+        };
+        return reject(obj);
+      }
+
+      if (!mimeType.includes('image')) {
+        var obj = {
+          erro: true,
+          to: to,
+          text: 'Not an image, allowed formats png, jpeg and webp',
+        };
+        return reject(obj);
+      }
+
+      filename = filenameFromMimeType(filename, mimeType);
+
+      var result = await this.page.evaluate(
+        ({ to, base64, filename, caption }) => {
+          return WAPI.sendImage(base64, to, filename, caption);
+        },
+        { to, base64, filename, caption }
+      );
+      if (result['erro'] == true) {
+        reject(result);
+      } else {
+        resolve(result);
       }
     });
   }
