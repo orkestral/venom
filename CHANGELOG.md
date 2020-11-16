@@ -1,3 +1,13 @@
+## [2.0.20](https://github.com/orkestral/venom/compare/v2.0.19...v2.0.20) (2020-11-16)
+
+### Bug Fixes
+
+- Fixed error on replying a invalid message (close [#320](https://github.com/orkestral/venom/issues/320)) ([917db7a](https://github.com/orkestral/venom/commit/917db7a8db960d914d207a967bdd3603dbf040e0))
+
+### Features
+
+- Send image from base64 ([#319](https://github.com/orkestral/venom/issues/319)) ([9085132](https://github.com/orkestral/venom/commit/90851322e9cedddb16299dbc93c675af084033c0))
+
 ## [2.0.19](https://github.com/orkestral/venom/compare/v2.0.18...v2.0.19) (2020-11-14)
 
 ### Bug Fixes
