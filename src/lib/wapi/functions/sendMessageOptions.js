@@ -74,7 +74,7 @@ export async function sendMessageOptions(chatId, content, options = {}) {
   let quotedMsgOptions = {};
   if (options.quotedMessageId) {
     let quotedMessage = window.Store.Msg.get(options.quotedMessageId);
-    if (quotedMessage.canReply()) {
+    if (quotedMessage && quotedMessage.canReply()) {
       quotedMsgOptions = quotedMessage.msgContextInfo(chat);
     }
     delete options.quotedMessageId;
