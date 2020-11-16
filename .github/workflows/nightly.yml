@@ -29,6 +29,9 @@ jobs:
       - name: Build NPM package
         run: npm pack && mv venom-bot-*.tgz venom-bot-nightly.tgz
 
+      - name: Build API-Docs
+        run: npm run generate-api-docs
+
       - name: Generate Changelog
         id: generate_changelog
         run: |
@@ -59,5 +62,6 @@ jobs:
           prerelease: true
           files: >
             venom-bot-nightly.tgz
+            api-docs/
           gzip: folders
           allow_override: true
