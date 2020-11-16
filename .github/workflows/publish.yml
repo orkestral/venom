@@ -55,3 +55,14 @@ jobs:
           body: ${{ steps.generate_changelog.outputs.changelog }}
           draft: false
           prerelease: false
+
+      - name: Build API-Docs
+        run: npm run generate-api-docs
+        continue-on-error: true
+
+      - name: Deploy API-Docs
+        uses: peaceiris/actions-gh-pages@v3
+        continue-on-error: true
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./api-docs
