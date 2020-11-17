@@ -85,6 +85,12 @@ export interface Contact {
   type: string;
   verifiedLevel: any;
   verifiedName: any;
-  isOnline?: any;
-  lastSeen?: any;
+  /**
+   * @deprecated This is unreliable. Use the method {@link Whatsapp.getChatIsOnline} instead.
+   */
+  isOnline: null | boolean;
+  /**
+   * @deprecated This is unreliable. Use the method {@link Whatsapp.getLastSeen} instead.
+   */
+  lastSeen: null | number | boolean;
 }
