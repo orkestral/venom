@@ -62,93 +62,9 @@ import {
   stickerSelect,
 } from '../helpers';
 import { filenameFromMimeType } from '../helpers/filename-from-mimetype';
-import { Chat, Message } from '../model';
+import { Message } from '../model';
 import { ChatState } from '../model/enum';
 import { ListenerLayer } from './listener.layer';
-
-declare module WAPI {
-  const sendSeen: (to: string) => void;
-  const getChat: (contactId: string) => Chat;
-  const startTyping: (to: string) => void;
-  const stopTyping: (to: string) => void;
-  const sendMessage: (to: string, content: string) => Promise<any>;
-  const sendMessageOptions: (chat: any, content: any, options?: any) => any;
-  const sendImage: (
-    imgBase64: string,
-    to: string,
-    filename: string,
-    caption?: string
-  ) => Promise<object>;
-  const sendMessageWithThumb: (
-    thumb: string,
-    url: string,
-    title: string,
-    description: string,
-    chatId: string
-  ) => void;
-  const reply: (to: string, content: string, quotedMsg: string) => any;
-  const sendPtt: (
-    base64: string,
-    to: string,
-    filename: string,
-    caption: string
-  ) => any;
-  const sendFile: (
-    base64: string,
-    to: string,
-    filename: string,
-    caption: string,
-    type?: string
-  ) => Promise<object>;
-  const sendVideoAsGif: (
-    base64: string,
-    to: string,
-    filename: string,
-    caption: string
-  ) => void;
-
-  const forwardMessages: (
-    to: string,
-    messages: string | string[],
-    skipMyMessages: boolean
-  ) => any;
-
-  const sendContactVcard: (
-    to: string,
-    contact: string,
-    name?: string
-  ) => Promise<object>;
-  const sendContactVcardList: (
-    to: string,
-    contacts: string[]
-  ) => Promise<object>;
-  const sendImageAsSticker: (
-    webpBase64: string,
-    to: string,
-    metadata?: any,
-    type?: string
-  ) => object;
-  const sendImageAsStickerGif: (
-    webpBase64: string,
-    to: string,
-    metadata?: any
-  ) => object;
-  const sendLocation: (
-    to: string,
-    latitude: string,
-    longitude: string,
-    title: string
-  ) => Promise<object>;
-
-  const sendMessageMentioned: (...args: any) => any;
-  const sendChatstate: (chatState: string, chatId: string) => void;
-  const sendLinkPreview: (
-    chatId: string,
-    url: string,
-    title: string
-  ) => Promise<object>;
-  const getMessageById: (messageId: string) => Message;
-}
 
 export class SenderLayer extends ListenerLayer {
   constructor(public page: Page) {

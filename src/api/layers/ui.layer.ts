@@ -55,14 +55,6 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 import { Page } from 'puppeteer';
 import { GroupLayer } from './group.layer';
 
-declare module WAPI {
-  const openChat: (chatId: string) => boolean;
-  const openChatAt: (
-    chatId: string,
-    messageId: string
-  ) => { wasVisible: boolean; alignAt: string };
-}
-
 export class UILayer extends GroupLayer {
   constructor(page: Page) {
     super(page);

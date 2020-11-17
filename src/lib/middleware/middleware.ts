@@ -52,11 +52,6 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
-declare module WAPI {
-  const waitNewMessages: (rmCallback: boolean, callback: Function) => void;
-  const waitNewAcknowledgements: (callback: Function) => void;
-}
-
 enum ExposedFn {
   OnMessage = 'onMessage',
   OnAck = 'onAck',
@@ -66,13 +61,13 @@ enum ExposedFn {
 /**
  * Exposes [OnMessage] function
  */
-WAPI.waitNewMessages(false, (data: any[]) => {
+(window as any).WAPI.waitNewMessages(false, (data: any[]) => {
   data.forEach((message: any) => {
     window[ExposedFn.OnMessage](message);
   });
 });
 
-WAPI.waitNewAcknowledgements(function (data: any) {
+(window as any).WAPI.waitNewAcknowledgements(function (data: any) {
   if (window[ExposedFn.OnAck]) {
     window[ExposedFn.OnAck](data);
   }

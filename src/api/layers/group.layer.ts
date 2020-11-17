@@ -53,27 +53,8 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
 import { Page } from 'puppeteer';
-import { Contact, GroupCreation, Id } from '../model';
+import { Id } from '../model';
 import { RetrieverLayer } from './retriever.layer';
-
-declare module WAPI {
-  const leaveGroup: (groupId: string) => any;
-  const getGroupParticipantIDs: (groupId: string) => Id[];
-  const getGroupInviteLink: (chatId: string) => Promise<string>;
-  const getGroupInfoFromInviteLink: (
-    inviteCode: string
-  ) => Promise<string | boolean>;
-  const createGroup: (
-    groupName: string,
-    contactId: string | string[]
-  ) => GroupCreation;
-  const removeParticipant: (groupId: string, contactId: string) => void;
-  const addParticipant: (groupId: string, contactId: string) => boolean;
-  const promoteParticipant: (groupId: string, contactId: string) => void;
-  const demoteParticipant: (groupId: string, contactId: string) => void;
-  const getGroupAdmins: (groupId: string) => Contact[];
-  const joinGroup: (groupId: string) => Promise<string | boolean>;
-}
 
 export class GroupLayer extends RetrieverLayer {
   constructor(page: Page) {

@@ -60,13 +60,6 @@ import { magix, timeout, makeOptions } from './helpers/decrypt';
 import axios from 'axios';
 import { useragentOverride } from '../config/WAuserAgente';
 
-declare module WAPI {
-  const arrayBufferToBase64: (buffer: ArrayBuffer) => string;
-  const downloadFile: (data: string) => Promise<string | boolean>;
-  const takeOver: () => boolean;
-  const getMessageById: (messageId: string) => Message;
-}
-
 export class Whatsapp extends ControlsLayer {
   constructor(public page: Page) {
     super(page);

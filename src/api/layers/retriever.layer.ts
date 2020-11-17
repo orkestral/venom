@@ -53,52 +53,7 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
 import { Page } from 'puppeteer';
-import {
-  Chat,
-  Contact,
-  ContactStatus,
-  Message,
-  PartialMessage,
-  WhatsappProfile,
-} from '../model';
 import { SenderLayer } from './sender.layer';
-
-declare module WAPI {
-  const getTheme: () => string;
-  const getBlockList: () => Contact[];
-  const getAllChatsWithNewMsg: () => Chat[];
-  const getAllNewMessages: () => any;
-  const getAllChats: () => Chat[];
-  const getAllChatsWithMessages: (withNewMessageOnly?: boolean) => Chat[];
-  const getContact: (contactId: string) => Contact;
-  const getAllContacts: () => Contact[];
-  const getChatById: (contactId: string) => Chat;
-  const getChat: (contactId: string) => Chat;
-  const getProfilePicFromServer: (chatId: string) => string;
-  const checkNumberStatus: (contactId: string) => any;
-  const loadEarlierMessages: (contactId: string) => Message[];
-  const getStatus: (contactId: string) => ContactStatus;
-  const getNumberProfile: (contactId: string) => WhatsappProfile;
-  const getUnreadMessages: (
-    includeMe: boolean,
-    includeNotifications: boolean,
-    useUnreadCount: boolean
-  ) => any;
-  const getAllUnreadMessages: () => PartialMessage[];
-  const getAllMessagesInChat: (
-    chatId: string,
-    includeMe: boolean,
-    includeNotifications: boolean
-  ) => Message[];
-  const getChatIsOnline: (chatId: string) => any;
-  const loadAndGetAllMessagesInChat: (
-    chatId: string,
-    includeMe: boolean,
-    includeNotifications: boolean
-  ) => Message[];
-  const getSessionTokenBrowser: (removePath?: boolean) => void;
-  const getListMute: (type?: string) => object;
-}
 
 export class RetrieverLayer extends SenderLayer {
   constructor(page: Page) {

@@ -58,16 +58,6 @@ import { Ack, Chat, LiveLocation, Message, ParticipantEvent } from '../model';
 import { SocketState } from '../model/enum';
 import { ProfileLayer } from './profile.layer';
 
-declare module WAPI {
-  const waitNewMessages: (rmCallback: boolean, callback: Function) => void;
-  const allNewMessagesListener: (callback: Function) => void;
-  const onStateChange: (callback: Function) => void;
-  const onAddedToGroup: (callback: Function) => any;
-  const onParticipantsChanged: (groupId: string, callback: Function) => any;
-  const onLiveLocation: (chatId: string, callback: Function) => any;
-  const onIncomingCall: (callback: Function) => any;
-}
-
 declare global {
   interface Window {
     onMessage: any;

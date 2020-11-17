@@ -55,26 +55,6 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 import { Page } from 'puppeteer';
 import { UILayer } from './ui.layer';
 
-declare module WAPI {
-  const deleteConversation: (chatId: string) => boolean;
-  const archiveChat: (chatId: string, option: boolean) => boolean;
-  const pinChat: (
-    chatId: string,
-    option: boolean,
-    nonExistent?: boolean
-  ) => Promise<object>;
-  const clearChat: (chatId: string) => void;
-  const deleteMessages: (
-    contactId: string,
-    messageId: string[] | string,
-    onlyLocal: boolean
-  ) => any;
-  const markUnseenMessage: (messageId: string) => boolean;
-  const blockContact: (messageId: string) => boolean;
-  const unblockContact: (messageId: string) => boolean;
-  const setMessagesAdminsOnly: (chatId: string, option: boolean) => boolean;
-}
-
 export class ControlsLayer extends UILayer {
   constructor(page: Page) {
     super(page);
