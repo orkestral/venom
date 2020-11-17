@@ -75,9 +75,9 @@ export async function sendMessage(to, content) {
     return newMsgId._serialized;
   } else {
     chat = await WAPI.sendExist(to);
-    message = content;
+    const message = content;
     if (chat.erro === false || chat.__x_id) {
-      var ListChat = await Store.Chat.get(chatId);
+      var ListChat = await Store.Chat.get(to);
       var result = await Promise.all(
         ListChat ? await chat.sendMessage(message) : ''
       );
