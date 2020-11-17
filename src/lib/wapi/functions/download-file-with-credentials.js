@@ -67,7 +67,7 @@ export async function downloadFile(url) {
           console.error(xhr.statusText);
         }
       } else {
-        console.log(err);
+        // console.log(err);
         resolve(false);
       }
     };

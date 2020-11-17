@@ -30,4 +30,41 @@ module.exports = {
     'no-var': 'off',
     'prefer-const': 'off',
   },
+  overrides: [
+    {
+      files: ['src/lib/**/*.js'],
+      parserOptions: {
+        ecmaVersion: 6,
+        sourceType: 'module',
+      },
+      env: {
+        amd: true,
+        commonjs: true,
+        es6: true,
+        browser: true,
+        node: false,
+      },
+      globals: {
+        axios: true,
+        Debug: true,
+        Store: true,
+        WAPI: true,
+        webpackJsonp: true,
+        WWebJS: true,
+      },
+      rules: {
+        // @todo more restrictive
+        '@typescript-eslint/no-array-constructor': 'off',
+        'no-prototype-builtins': 'off',
+        'no-redeclare': 'off',
+      },
+    },
+    {
+      files: ['src/lib/**/webpack.*.js', 'src/lib/**/gulpfile.js'],
+      env: {
+        browser: false,
+        node: true,
+      },
+    },
+  ],
 };

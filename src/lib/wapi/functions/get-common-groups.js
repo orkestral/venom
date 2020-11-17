@@ -54,10 +54,12 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
 export async function getCommonGroups(participantId, done) {
   let output = [];
-  groups = window.WAPI.getAllGroups();
+  let groups = window.WAPI.getAllGroups();
   for (let idx in groups) {
     try {
-      participants = await window.WAPI.getGroupParticipantIDs(groups[idx].id);
+      let participants = await window.WAPI.getGroupParticipantIDs(
+        groups[idx].id
+      );
       if (
         participants.filter((participant) => participant == participantId)
           .length

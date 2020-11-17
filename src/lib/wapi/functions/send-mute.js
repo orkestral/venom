@@ -62,7 +62,7 @@ export async function sendMute(chatId, time, type) {
     var ListChat = await Store.Chat.get(chatId),
       To = await WAPI.getchatId(chat.id),
       isMute = await window.Store.Mute.get(chatId),
-      m = { type: 'sendMute', time: time, type: type };
+      m = { type: 'sendMute', time: time, timeType: type };
     if (typeof time === 'number' && typeof type === 'string') {
       switch (type) {
         case 'hours':
@@ -129,7 +129,7 @@ export async function sendMute(chatId, time, type) {
       } else {
         texto = 'This chat is already mute';
       }
-      var obj = WAPI.scope(To, true, result['status'], exto);
+      var obj = WAPI.scope(To, true, result['status'], texto);
       Object.assign(obj, m);
       return obj;
     }

@@ -61,5 +61,5 @@ export const getAllNewMessages = function () {
       .flatMap((c) => c.msgs._models.filter((x) => x.isNewMsg))
       .map(WAPI._serializeMessageObj) || [];
 
-  return JSON.parse(_newMessages);
+  return _newMessages;
 };
