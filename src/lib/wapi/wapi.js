@@ -460,12 +460,22 @@ window.WAPI.checkNumberStatus = async function (id) {
   }
 };
 
-window.WAPI.getChatIsOnline = async function (id) {
-  return Store.Chat.get(id)
-    ? await Store.Chat.get(id)
-        .presence.subscribe()
-        .then((_) => Store.Chat.get(id).presence.attributes.isOnline)
-    : false;
+window.WAPI.getChatIsOnline = async function (chatId) {
+  const chat = Store.Chat.get(chatId);
+  if (!chat) {
+    return false;
+  }
+  await chat.presence.subscribe();
+  return chat.presence.attributes.isOnline;
+};
+
+window.WAPI.getLastSeen = async function (chatId) {
+  const chat = Store.Chat.get(chatId);
+  if (!chat) {
+    return false;
+  }
+  await chat.presence.subscribe();
+  return chat.presence.chatstate.t || false;
 };
 
 window.WAPI.getWAVersion = function () {

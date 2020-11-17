@@ -51,7 +51,8 @@ interface WAPI {
   getBusinessProfilesProducts: (to: string) => any;
   getChat: (contactId: string) => Chat;
   getChatById: (contactId: string) => Chat;
-  getChatIsOnline: (chatId: string) => any;
+  getChatIsOnline: (chatId: string) => Promise<boolean>;
+  getLastSeen: (chatId: string) => Promise<number | boolean>;
   getContact: (contactId: string) => Contact;
   getGroupAdmins: (groupId: string) => Contact[];
   getGroupInfoFromInviteLink: (inviteCode: string) => Promise<string | boolean>;

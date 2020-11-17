@@ -74,8 +74,14 @@ export interface Chat {
   contact: Contact;
   groupMetadata: GroupMetadata;
   presence: Presence;
-  isOnline: null;
-  lastSeen: null;
+  /**
+   * @deprecated This is unreliable. Use the method {@link Whatsapp.getChatIsOnline} instead.
+   */
+  isOnline: null | boolean;
+  /**
+   * @deprecated This is unreliable. Use the method {@link Whatsapp.getLastSeen} instead.
+   */
+  lastSeen: null | number | boolean;
 }
 
 export interface ProfilePicThumbObj {

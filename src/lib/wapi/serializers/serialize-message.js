@@ -71,11 +71,12 @@ export const _serializeMessageObj = (obj) => {
         ? obj.author._serialized
         : undefined
       : undefined,
-    chatId: obj.chatId
-      ? obj.chatId._serialized
+    chatId:
+      obj.id && obj.id.remote
+        ? obj.id.remote
+        : obj.chatId && obj.chatId._serialized
         ? obj.chatId._serialized
-        : undefined
-      : undefined,
+        : undefined,
     to: obj.to
       ? obj.to._serialized
         ? obj.to._serialized

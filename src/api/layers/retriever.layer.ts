@@ -326,10 +326,21 @@ export class RetrieverLayer extends SenderLayer {
    * Checks if a CHAT contact is online.
    * @param chatId chat id: xxxxx@c.us
    */
-  public async getChatIsOnline(chatId: string) {
-    return (await this.page.evaluate(
-      (chatId: any) => WAPI.getChatIsOnline(chatId),
+  public async getChatIsOnline(chatId: string): Promise<boolean> {
+    return await this.page.evaluate(
+      (chatId: string) => WAPI.getChatIsOnline(chatId),
       chatId
-    )) as Promise<boolean>;
+    );
+  }
+
+  /**
+   * Retrieves the last seen of a CHAT.
+   * @param chatId chat id: xxxxx@c.us
+   */
+  public async getLastSeen(chatId: string): Promise<number | boolean> {
+    return await this.page.evaluate(
+      (chatId: string) => WAPI.getLastSeen(chatId),
+      chatId
+    );
   }
 }
