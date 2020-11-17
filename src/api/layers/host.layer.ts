@@ -53,18 +53,7 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
 import { Page } from 'puppeteer';
-import { HostDevice } from '../model';
 import { SocketState } from '../model/enum';
-
-declare module WAPI {
-  const getHost: () => HostDevice;
-  const getWAVersion: () => string;
-  const isConnected: () => boolean;
-  const isLoggedIn: () => boolean;
-  const getBatteryLevel: () => number;
-  const restartService: () => boolean;
-  const killServiceWorker: () => boolean;
-}
 
 export class HostLayer {
   constructor(public page: Page) {

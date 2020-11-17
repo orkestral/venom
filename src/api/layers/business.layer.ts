@@ -55,17 +55,6 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 import { Page } from 'puppeteer';
 import { ControlsLayer } from './controls.layer';
 
-declare module WAPI {
-  const getBusinessProfilesProducts: (to: string) => any;
-  const sendImageWithProduct: (
-    base64: string,
-    to: string,
-    caption: string,
-    bizNumber: string,
-    productId: string
-  ) => any;
-}
-
 export class BusinessLayer extends ControlsLayer {
   constructor(page: Page) {
     super(page);

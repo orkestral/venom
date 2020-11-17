@@ -61,14 +61,6 @@ import {
   resizeImg,
 } from '../helpers';
 
-declare module WAPI {
-  const setMyStatus: (to: string) => void;
-  const setMyName: (name: string) => void;
-  const setProfilePic: (path: string) => Promise<boolean>;
-  const setTheme: (theme?: string) => boolean;
-  const sendMute: (id: string, time: number, type: string) => Promise<object>;
-}
-
 export class ProfileLayer extends HostLayer {
   constructor(public page: Page) {
     super(page);
