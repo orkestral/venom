@@ -3,8 +3,8 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Whatsapp | venom-bot - v2.0.20</title>
-	<meta name="description" content="Documentation for venom-bot - v2.0.20">
+	<title>Whatsapp | venom-bot - v2.0.21</title>
+	<meta name="description" content="Documentation for venom-bot - v2.0.21">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
 	<script async src="../assets/js/search.js" id="search-script"></script>
@@ -23,7 +23,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../index.html" class="title">venom-bot - v2.0.20</a>
+					<a href="../index.html" class="title">venom-bot - v2.0.21</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -50,7 +50,7 @@
 		<div class="container">
 			<ul class="tsd-breadcrumb">
 				<li>
-					<a href="../modules.html">venom-bot - v2.0.20</a>
+					<a href="../modules.html">venom-bot - v2.0.21</a>
 				</li>
 				<li>
 					<a href="whatsapp.html">Whatsapp</a>
@@ -145,6 +145,7 @@
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="whatsapp.html#getgroupmembers" class="tsd-kind-icon">get<wbr>Group<wbr>Members</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="whatsapp.html#getgroupmembersids" class="tsd-kind-icon">get<wbr>Group<wbr>Members<wbr>Ids</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="whatsapp.html#gethostdevice" class="tsd-kind-icon">get<wbr>Host<wbr>Device</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="whatsapp.html#getlastseen" class="tsd-kind-icon">get<wbr>Last<wbr>Seen</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="whatsapp.html#getlistmutes" class="tsd-kind-icon">get<wbr>List<wbr>Mutes</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="whatsapp.html#getmessagebyid" class="tsd-kind-icon">get<wbr>Message<wbr>ById</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="whatsapp.html#getnumberprofile" class="tsd-kind-icon">get<wbr>Number<wbr>Profile</a></li>
@@ -1241,7 +1242,7 @@
 					<a name="getchatisonline" class="tsd-anchor"></a>
 					<h3>get<wbr>Chat<wbr>IsOnline</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Chat<wbr>IsOnline<span class="tsd-signature-symbol">(</span>chatId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span></li>
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Chat<wbr>IsOnline<span class="tsd-signature-symbol">(</span>chatId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -1258,11 +1259,11 @@
 								<li>
 									<h5>chatId: <span class="tsd-signature-type">string</span></h5>
 									<div class="tsd-comment tsd-typography">
-										<p>chat id: <a href="mailto:&#120;&#x78;&#120;&#120;&#x78;&#x40;&#99;&#46;&#x75;&#x73;">&#120;&#x78;&#120;&#120;&#x78;&#x40;&#99;&#46;&#x75;&#x73;</a></p>
+										<p>chat id: <a href="mailto:&#x78;&#x78;&#120;&#x78;&#120;&#x40;&#x63;&#x2e;&#x75;&#x73;">&#x78;&#x78;&#120;&#x78;&#120;&#x40;&#x63;&#x2e;&#x75;&#x73;</a></p>
 									</div>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -1468,6 +1469,35 @@
 							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span></h4>
 							<p>Current host device details</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<a name="getlastseen" class="tsd-anchor"></a>
+					<h3>get<wbr>Last<wbr>Seen</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Last<wbr>Seen<span class="tsd-signature-symbol">(</span>chatId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="whatsapp.html">Whatsapp</a>.<a href="whatsapp.html#getlastseen">getLastSeen</a></p>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Retrieves the last seen of a CHAT.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>chatId: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>chat id: <a href="mailto:&#120;&#120;&#120;&#120;&#120;&#x40;&#99;&#46;&#117;&#115;">&#120;&#120;&#120;&#120;&#120;&#x40;&#99;&#46;&#117;&#115;</a></p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -2276,7 +2306,7 @@
 								<li>
 									<h5>contactsId: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></h5>
 									<div class="tsd-comment tsd-typography">
-										<p>Example: <a href="mailto:&#48;&#48;&#x30;&#x30;&#x40;&#99;&#46;&#x75;&#x73;">&#48;&#48;&#x30;&#x30;&#x40;&#99;&#46;&#x75;&#x73;</a> | [<a href="mailto:&#48;&#48;&#48;&#64;&#x63;&#46;&#x75;&#x73;">&#48;&#48;&#48;&#64;&#x63;&#46;&#x75;&#x73;</a>, <a href="mailto:&#49;&#x31;&#49;&#49;&#x40;&#99;&#46;&#117;&#x73;">&#49;&#x31;&#49;&#49;&#x40;&#99;&#46;&#117;&#x73;</a>]</p>
+										<p>Example: <a href="mailto:&#x30;&#x30;&#x30;&#x30;&#x40;&#x63;&#x2e;&#117;&#115;">&#x30;&#x30;&#x30;&#x30;&#x40;&#x63;&#x2e;&#117;&#115;</a> | [<a href="mailto:&#x30;&#x30;&#48;&#64;&#x63;&#x2e;&#x75;&#x73;">&#x30;&#x30;&#48;&#64;&#x63;&#x2e;&#x75;&#x73;</a>, <a href="mailto:&#x31;&#49;&#49;&#x31;&#64;&#99;&#46;&#x75;&#x73;">&#x31;&#49;&#49;&#x31;&#64;&#99;&#46;&#x75;&#x73;</a>]</p>
 									</div>
 								</li>
 								<li>
@@ -2314,7 +2344,7 @@
 								<li>
 									<h5>contacts: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></h5>
 									<div class="tsd-comment tsd-typography">
-										<p>Example: | [<a href="mailto:&#x30;&#48;&#x30;&#x40;&#99;&#46;&#x75;&#115;">&#x30;&#48;&#x30;&#x40;&#99;&#46;&#x75;&#115;</a>, <a href="mailto:&#x31;&#x31;&#49;&#x31;&#x40;&#x63;&#46;&#117;&#x73;">&#x31;&#x31;&#49;&#x31;&#x40;&#x63;&#46;&#117;&#x73;</a>]</p>
+										<p>Example: | [<a href="mailto:&#x30;&#x30;&#48;&#x40;&#99;&#x2e;&#117;&#115;">&#x30;&#x30;&#48;&#x40;&#99;&#x2e;&#117;&#115;</a>, <a href="mailto:&#x31;&#49;&#49;&#x31;&#x40;&#x63;&#46;&#117;&#x73;">&#x31;&#49;&#49;&#x31;&#x40;&#x63;&#46;&#117;&#x73;</a>]</p>
 									</div>
 								</li>
 							</ul>
@@ -2851,7 +2881,7 @@
 								<li>
 									<h5>chatId: <span class="tsd-signature-type">string</span></h5>
 									<div class="tsd-comment tsd-typography">
-										<p>chat id: <a href="mailto:&#x78;&#x78;&#120;&#x78;&#x78;&#64;&#x75;&#x73;&#x2e;&#99;">&#x78;&#x78;&#120;&#x78;&#x78;&#64;&#x75;&#x73;&#x2e;&#99;</a></p>
+										<p>chat id: <a href="mailto:&#x78;&#120;&#x78;&#120;&#120;&#x40;&#117;&#x73;&#46;&#x63;">&#x78;&#120;&#x78;&#120;&#120;&#x40;&#117;&#x73;&#46;&#x63;</a></p>
 									</div>
 								</li>
 							</ul>
@@ -2880,7 +2910,7 @@
 								<li>
 									<h5>to: <span class="tsd-signature-type">string</span></h5>
 									<div class="tsd-comment tsd-typography">
-										<p>chat id: <a href="mailto:&#120;&#x78;&#x78;&#120;&#x78;&#64;&#x75;&#115;&#46;&#99;">&#120;&#x78;&#x78;&#120;&#x78;&#64;&#x75;&#115;&#46;&#99;</a></p>
+										<p>chat id: <a href="mailto:&#120;&#x78;&#x78;&#120;&#x78;&#64;&#117;&#115;&#x2e;&#99;">&#120;&#x78;&#x78;&#120;&#x78;&#64;&#117;&#115;&#x2e;&#99;</a></p>
 									</div>
 								</li>
 								<li>
@@ -2915,7 +2945,7 @@
 								<li>
 									<h5>to: <span class="tsd-signature-type">string</span></h5>
 									<div class="tsd-comment tsd-typography">
-										<p>chat id <a href="mailto:&#x78;&#x78;&#120;&#120;&#120;&#64;&#117;&#115;&#46;&#x63;">&#x78;&#x78;&#120;&#120;&#120;&#64;&#117;&#115;&#46;&#x63;</a></p>
+										<p>chat id <a href="mailto:&#120;&#120;&#x78;&#x78;&#x78;&#64;&#x75;&#115;&#x2e;&#99;">&#120;&#120;&#x78;&#x78;&#x78;&#64;&#x75;&#115;&#x2e;&#99;</a></p>
 									</div>
 								</li>
 								<li>
@@ -2959,7 +2989,7 @@
 								<li>
 									<h5>to: <span class="tsd-signature-type">string</span></h5>
 									<div class="tsd-comment tsd-typography">
-										<p>chat id <a href="mailto:&#x78;&#120;&#x78;&#x78;&#x78;&#x40;&#117;&#115;&#x2e;&#x63;">&#x78;&#120;&#x78;&#x78;&#x78;&#x40;&#117;&#115;&#x2e;&#x63;</a></p>
+										<p>chat id <a href="mailto:&#120;&#120;&#120;&#x78;&#x78;&#64;&#117;&#115;&#x2e;&#99;">&#120;&#120;&#120;&#x78;&#x78;&#64;&#117;&#115;&#x2e;&#99;</a></p>
 									</div>
 								</li>
 								<li>
@@ -3427,6 +3457,9 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 								<a href="whatsapp.html#gethostdevice" class="tsd-kind-icon">get<wbr>Host<wbr>Device</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="whatsapp.html#getlastseen" class="tsd-kind-icon">get<wbr>Last<wbr>Seen</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 								<a href="whatsapp.html#getlistmutes" class="tsd-kind-icon">get<wbr>List<wbr>Mutes</a>
