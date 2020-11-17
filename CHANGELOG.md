@@ -1,3 +1,13 @@
+## [2.0.21](https://github.com/orkestral/venom/compare/v2.0.20...v2.0.21) (2020-11-17)
+
+### Bug Fixes
+
+- Added lint and fixed javascript issues (close [#326](https://github.com/orkestral/venom/issues/326)) ([#328](https://github.com/orkestral/venom/issues/328)) ([31509d6](https://github.com/orkestral/venom/commit/31509d64de7ce228653f8b521986c4c29ff1ac80))
+
+### Features
+
+- Added method getLastSeen (close [#303](https://github.com/orkestral/venom/issues/303)) ([#330](https://github.com/orkestral/venom/issues/330)) ([430e2c3](https://github.com/orkestral/venom/commit/430e2c32d398240991b50c8984a508dc0a2952a9))
+
 ## [2.0.20](https://github.com/orkestral/venom/compare/v2.0.19...v2.0.20) (2020-11-16)
 
 ### Bug Fixes
