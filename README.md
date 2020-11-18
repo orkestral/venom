@@ -101,27 +101,31 @@ venom
     },
     // statusFind
     (statusSession, session) => {
-      console.log('Status Session: ', statusSession); //return isLogged || notLogged || browserClose || qrReadSuccess || qrReadFail || autocloseCalled || desconnectedMobile || deleteToken
-      //Create session wss return "serverClose" case server for close
+      console.log('Status Session: ', statusSession); //return isLogged || notLogged || browserClose || qrReadSuccess || qrReadFail || autocloseCalled || deleteToken || useherecalled || autoclosePairingCalled || returnQrcode
+      //Create session wss return "serverClose" case server for close.
       console.log('Session name: ', session);
     },
     // options
     {
-      folderNameToken: 'tokens', //folder name when saving tokens
-      mkdirFolderToken: '', //folder directory tokens, just inside the venom folder, example:  { mkdirFolderToken: '/node_modules', } //will save the tokens folder in the node_modules directory
-      headless: true, // Headless chrome
-      devtools: false, // Open devtools by default
-      useChrome: true, // If false will use Chromium instance
-      debug: false, // Opens a debug session
-      logQR: true, // Logs QR automatically in terminal
-      browserWS: '', // If u want to use browserWSEndpoint
-      browserArgs: [''], // Parameters to be added into the chrome browser instance
-      puppeteerOptions: {}, // Will be passed to puppeteer.launch
-      disableSpins: true, // Will disable Spinnies animation, useful for containers (docker) for a better log
-      disableWelcome: true, // Will disable the welcoming message which appears in the beginning
-      updatesLog: true, // Logs info updates automatically in terminal
-      autoClose: 60000, // Automatically closes the venom-bot only when scanning the QR code (default 60 seconds, if you want to turn it off, assign 0 or false)
-      createPathFileToken: false, //creates a folder when inserting an object in the client's browser, to work it is necessary to pass the parameters in the function create browserSessionToken
+      folderNameToken: 'tokens', //folder name when saving tokens.
+      mkdirFolderToken: '', //folder directory tokens, just inside the venom folder, example:  { mkdirFolderToken: '/node_modules', } //will save the tokens folder in the node_modules directory.
+      headless: true, // Headless chrome.
+      devtools: false, // Open devtools by default.
+      useChrome: true, // If false will use Chromium instance.
+      debug: false, // Opens a debug session.
+      logQR: true, // Logs QR automatically in terminal.
+      browserWS: '', // If u want to use browserWSEndpoint.
+      browserArgs: [''], // Parameters to be added into the chrome browser instance.
+      puppeteerOptions: {}, // Will be passed to puppeteer.launch.
+      disableSpins: true, // Will disable Spinnies animation, useful for containers (docker) for a better log.
+      disableWelcome: true, // Will disable the welcoming message which appears in the beginning.
+      updatesLog: true, // Logs info updates automatically in terminal.
+      autoClose: 60000, // Automatically closes the venom-bot only when scanning the QR code (default 60 seconds, if you want to turn it off, assign 0 or false).
+      createPathFileToken: false, // creates a folder when inserting an object in the client's browser, to work it is necessary to pass the parameters in the function create browserSessionToken.
+      autoClosePairing: 60000, // the browser is closed automatically if the client has no internet.
+      wapage: false, // This parameter, if used, returns the puppeteer class at the end of the promise, ie the address (id) of the customer's page! Use to make any scraping on the page.
+      usehere: true, // Insist the connection through your browser, if the client is open in another instance (browser).
+      saveToken: true, // Use this parameter to save or not save the json token file in your current directory.
     },
     // BrowserSessionToken
     // To receive the client's token use the function await clinet.getSessionTokenBrowser()
@@ -131,6 +135,16 @@ venom
         '{"key":"+i/nRgWJ....","encKey":"kGdMR5t....","macKey":"+i/nRgW...."}',
       WAToken1: '"0i8...."',
       WAToken2: '"1@lPpzwC...."',
+    },
+    // retunToken
+    (token, session) => {
+      console.log('Client browser token', token); //instead of using the json file to log in with the client you can use this object parameter.
+      console.log('Session name: ', session);
+    },
+    // onState
+    (state, session) => {
+      console.log('Connection status with whatzapp', state); // Receive customer status, sent directly by whatsapp.
+      console.log('Session name: ', session);
     }
   )
   .then((client) => {
@@ -143,19 +157,21 @@ venom
 
 ## Callback Status Session
 
-Gets the return if the session is `isLogged` or `notLogged` or `browserClose` or `qrReadSuccess` or `qrReadFail` or `autocloseCalled` or `desconnectedMobile` or `deleteToken` or `Create session wss return "serverClose" case server for close`
+Gets the return if the session is `isLogged` or `notLogged` or `browserClose` or `qrReadSuccess` or `qrReadFail` or `autocloseCalled` or `deleteToken` or `useherecalled` or `autoclosePairingCalled` or `returnQrcode` or `Create session wss return "serverClose" case server for close`
 
-| Status               | Condition                                                                                                                                                      |
-| -------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `isLogged`           | When the user is already logged in to the browser                                                                                                              |
-| `notLogged`          | When the user is not connected to the browser, it is necessary to scan the QR code through the cell phone in the option WhatsApp Web                           |
-| `browserClose`       | If the browser is closed this parameter is returned                                                                                                            |
-| `qrReadSuccess`      | If the user is not logged in, the QR code is passed on the terminal a callback is returned. After the correct reading by cell phone this parameter is returned |
-| `qrReadFail`         | If the browser stops when the QR code scan is in progress, this parameter is returned                                                                          |
-| `autocloseCalled`    | The browser was closed using the autoClose command                                                                                                             |
-| `desconnectedMobile` | Client has desconnected in to mobile                                                                                                                           |
-| `serverClose`        | Client has desconnected in to wss                                                                                                                              |
-| `deleteToken`        | If you pass true within the function `client.getSessionTokenBrowser(true)`                                                                                     |
+| Status                   | Condition                                                                                                                                                      |
+| ------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `isLogged`               | When the user is already logged in to the browser                                                                                                              |
+| `notLogged`              | When the user is not connected to the browser, it is necessary to scan the QR code through the cell phone in the option WhatsApp Web                           |
+| `browserClose`           | If the browser is closed this parameter is returned                                                                                                            |
+| `qrReadSuccess`          | If the user is not logged in, the QR code is passed on the terminal a callback is returned. After the correct reading by cell phone this parameter is returned |
+| `qrReadFail`             | If the browser stops when the QR code scan is in progress, this parameter is returned                                                                          |
+| `autocloseCalled`        | The browser was closed using the autoClose command                                                                                                             |
+| `serverClose`            | Client has desconnected in to wss                                                                                                                              |
+| `useherecalled`          | Called insist the connection through your browser                                                                                                              |
+| `autoclosePairingCalled` | The browser was closed automatically if the client is on the internet                                                                                          |
+| `returnQrcode`           | scraping the QRCODE                                                                                                                                            |
+| `deleteToken`            | If you pass true within the function `client.getSessionTokenBrowser(true)`                                                                                     |
 
 ```javascript
 const venom = require('venom-bot');
@@ -165,7 +181,7 @@ venom
     undefined,
     (statusSession, session) => {
       console.log('Status Session: ', statusSession);
-      //return isLogged || notLogged || browserClose || qrReadSuccess || qrReadFail || autocloseCalled || desconnectedMobile || deleteToken
+      //return isLogged || notLogged || browserClose || qrReadSuccess || qrReadFail || autocloseCalled || deleteToken || useherecalled || autoclosePairingCalled || returnQrcode
       //Create session wss return "serverClose" case server for close
       console.log('Session name: ', session);
     },
