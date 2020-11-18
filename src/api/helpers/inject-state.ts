@@ -54,6 +54,7 @@ async function scrapeState(): Promise<boolean>{
 	})
 
 }
+
 await page.addScriptTag({ content: `${scrapeState}`});
 	var value = await page.evaluate(async () => {
 					try{
@@ -65,3 +66,5 @@ await page.addScriptTag({ content: `${scrapeState}`});
 	return value;
 
 }
+
+

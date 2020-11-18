@@ -61,7 +61,7 @@ import { puppeteerConfig } from '../config/puppeteer.config';
 import StealthPlugin = require('puppeteer-extra-plugin-stealth');
 import { auth_InjectToken } from './auth';
 import { useragentOverride } from '../config/WAuserAgente';
-
+import { checkWebpackJsonp } from './auth';
 export async function initWhatsapp(
   session: string,
   options: CreateConfig,
@@ -72,9 +72,8 @@ export async function initWhatsapp(
   if (waPage != null) {
     // Auth with token
     await auth_InjectToken(waPage, session, options, token);
-
     await waPage.setUserAgent(useragentOverride);
-
+    
     const timeout = 2 * 1000;
     await Promise.race([
       waPage.goto(puppeteerConfig.whatsappUrl, { timeout }).catch(() => {}),
@@ -91,29 +90,33 @@ function time(page:Page, time:number){
     return page.waitFor(time);
   }
 }
-export async function injectApi(page: Page) {
-  await page.waitForFunction(() => {
-    // @ts-ignore
-    return webpackJsonp !== undefined;
+export async function injectApi(page: Page): Promise<Page>{
+  return new Promise(async (resolve, reject) => {
+    let ch = await checkWebpackJsonp(page).toPromise();
+        if(ch){
+          try{
+              await page.addScriptTag({
+                path: require.resolve(
+                  path.join(__dirname, '../lib/wapi', 'wapi.js')),
+              });
+          
+              await page.addScriptTag({
+                path: require.resolve(
+                  path.join(__dirname, '../lib/middleware', 'middleware.js')
+                ),
+              });
+          
+              // Make sure WAPI is initialized
+              await page.waitForFunction(() => {
+                // @ts-ignore
+                return !!WAPI.getWAVersion;
+              });
+              resolve(page);
+        }catch{}
+    }else{
+      reject(false);
+    }
   });
-
-  await page.addScriptTag({
-    path: require.resolve(path.join(__dirname, '../lib/wapi', 'wapi.js')),
-  });
-
-  await page.addScriptTag({
-    path: require.resolve(
-      path.join(__dirname, '../lib/middleware', 'middleware.js')
-    ),
-  });
-
-  // Make sure WAPI is initialized
-  await page.waitForFunction(() => {
-    // @ts-ignore
-    return !!WAPI.getWAVersion;
-  });
-
-  return page;
 }
 
 /**

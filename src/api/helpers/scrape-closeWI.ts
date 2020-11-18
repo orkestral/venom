@@ -56,19 +56,37 @@ import { Page } from 'puppeteer';
 declare global {
   interface Window {
     injects: any;
+    eventeState: any;
+    webpackJsonp: any;
   }
 }
-export async function webpackJsonpWI(page: Page, fns: (state: any) => void){
+export async function webpackJsonpWI(page: Page, fns: (state: any) => void) {
+
+  function callBackState() {
+    window.eventeState((e: any) => {
+      window.injects(e.state);
+    });
+  }
+  await page.addScriptTag({ content: `${callBackState}` });
+
   var has = await page.evaluate(() => {
+    // @ts-ignore
     return window.injects;
   });
+
   if (!has) {
+
     await page
-      .exposeFunction("injects", (state: any) =>{ fns(state); })
-      .then(() =>
-         page.evaluate(() => {
-          window.eventeState((e:any) =>{ window.injects(e.state); });
-        })
-      );
+          .exposeFunction("injects", (state: any) => { fns(state); })
+          .then(() =>
+            page.evaluate(() => {
+              callBackState();
+            })
+          );
+
+  } else {
+    page.evaluate(async () => {
+      callBackState();
+    });
   }
 }

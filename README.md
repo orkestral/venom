@@ -1,42 +1,15 @@
 # 🕷Venom Bot🕸
 
-<a href="https://chat.whatsapp.com/CMJYfPFqRyE2GxrnkldYED" target="_blank"><img title="whatzapp" height="120" width="435" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/WhatsApp_logo.svg/2000px-WhatsApp_logo.svg.png"></a>
-
 ![enter image description here](https://s2.click/venom.jpg)
 
 > Venom is a high-performance system developed with JavaScript to create a bot for WhatsApp, support for creating any interaction, such as customer service, media sending, sentence recognition based on artificial intelligence and all types of design architecture for WhatsApp.
 
-# Important Warning
+**Donate for Project**
 
-**Future fixes that we will be making on the venom-bot.**
+<a target="_blank" href="https://www.paypal.com/donate?hosted_button_id=62BBB32FGRB2A"><img width="227" height="68" src="./donate.png" alt="Consulting"></a>
 
-```
-Hello people!
-
-We apologize if you are experiencing problems with the updates that follow
-
-Our community is growing little by little and we have to be more careful when updating our repository, so we decided to take steps to improve our venom-bot.
-
-Problems reported so far, which will be fixed:
-
-1 - Venom-bot Initialization Errors (when trying to install venom-bot and start the errors are due);
-
-2 - Errors in sending files in base64 format;
-
-3 - Functions that are not working at the moment;
-
-4 - Functions that do not return parameters of success or error.
-
-These are just serious problems, reported so far.
-
-What are we going to solve now?
-
-At the moment we will be solving problems with the venom-bot startup and reviewing the functions.
-
-We will not be adding new functions, as it is necessary to resolve the functions that are currently implemented.
-
-Thank you for understanding.
-```
+**Request Support Group Access In Whatsapp For \$5 Month** <br> <br>
+<a target="_blank" href="https://web.whatsapp.com/send?phone=556181590153&text=I%20want%20access%20to%20the%20WhatsApp%20Venom%20support%20group" target="_blank"><img title="whatzapp" height="100" width="375" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/WhatsApp_logo.svg/2000px-WhatsApp_logo.svg.png"></a>
 
 ## 🕷🕷 Functions Venom🕷🕷
 
@@ -126,27 +99,31 @@ venom
     },
     // statusFind
     (statusSession, session) => {
-      console.log('Status Session: ', statusSession); //return isLogged || notLogged || browserClose || qrReadSuccess || qrReadFail || autocloseCalled || desconnectedMobile || deleteToken
-      //Create session wss return "serverClose" case server for close
-      console.log('Session name: ', session);
+      console.log('Status Session: ', statusSession); //return isLogged || notLogged || browserClose || qrReadSuccess || qrReadFail || autocloseCalled || deleteToken || useherecalled || autoclosePairingCalled || returnQrcode
+      //Create session wss return "serverClose" case server for close.
+      console.log('Session name: ', session); 
     },
     // options
     {
-      folderNameToken: 'tokens', //folder name when saving tokens
-      mkdirFolderToken: '', //folder directory tokens, just inside the venom folder, example:  { mkdirFolderToken: '/node_modules', } //will save the tokens folder in the node_modules directory
-      headless: true, // Headless chrome
-      devtools: false, // Open devtools by default
-      useChrome: true, // If false will use Chromium instance
-      debug: false, // Opens a debug session
-      logQR: true, // Logs QR automatically in terminal
-      browserWS: '', // If u want to use browserWSEndpoint
-      browserArgs: [''], // Parameters to be added into the chrome browser instance
-      puppeteerOptions: {}, // Will be passed to puppeteer.launch
-      disableSpins: true, // Will disable Spinnies animation, useful for containers (docker) for a better log
-      disableWelcome: true, // Will disable the welcoming message which appears in the beginning
-      updatesLog: true, // Logs info updates automatically in terminal
-      autoClose: 60000, // Automatically closes the venom-bot only when scanning the QR code (default 60 seconds, if you want to turn it off, assign 0 or false)
-      createPathFileToken: false, //creates a folder when inserting an object in the client's browser, to work it is necessary to pass the parameters in the function create browserSessionToken
+      folderNameToken: 'tokens', //folder name when saving tokens.
+      mkdirFolderToken: '', //folder directory tokens, just inside the venom folder, example:  { mkdirFolderToken: '/node_modules', } //will save the tokens folder in the node_modules directory.
+      headless: true, // Headless chrome.
+      devtools: false, // Open devtools by default.
+      useChrome: true, // If false will use Chromium instance.
+      debug: false, // Opens a debug session.
+      logQR: true, // Logs QR automatically in terminal.
+      browserWS: '', // If u want to use browserWSEndpoint.
+      browserArgs: [''], // Parameters to be added into the chrome browser instance.
+      puppeteerOptions: {}, // Will be passed to puppeteer.launch.
+      disableSpins: true, // Will disable Spinnies animation, useful for containers (docker) for a better log.
+      disableWelcome: true, // Will disable the welcoming message which appears in the beginning.
+      updatesLog: true, // Logs info updates automatically in terminal.
+      autoClose: 60000, // Automatically closes the venom-bot only when scanning the QR code (default 60 seconds, if you want to turn it off, assign 0 or false).
+      createPathFileToken: false, // creates a folder when inserting an object in the client's browser, to work it is necessary to pass the parameters in the function create browserSessionToken.
+      autoClosePairing: 60000, // the browser is closed automatically if the client has no internet.
+      wapage: false, // This parameter, if used, returns the puppeteer class at the end of the promise, ie the address (id) of the customer's page! Use to make any scraping on the page.
+      usehere: true, // Insist the connection through your browser, if the client is open in another instance (browser).
+      saveToken: true // Use this parameter to save or not save the json token file in your current directory.
     },
     // BrowserSessionToken
     // To receive the client's token use the function await clinet.getSessionTokenBrowser()
@@ -156,6 +133,16 @@ venom
         '{"key":"+i/nRgWJ....","encKey":"kGdMR5t....","macKey":"+i/nRgW...."}',
       WAToken1: '"0i8...."',
       WAToken2: '"1@lPpzwC...."',
+    },
+    // retunToken
+    (token, session) => {
+      console.log("Client browser token", token); //instead of using the json file to log in with the client you can use this object parameter.
+      console.log('Session name: ', session);
+    },
+    // onState
+    (state, session) =>{
+      console.log("Connection status with whatzapp", state); // Receive customer status, sent directly by whatsapp.
+      console.log('Session name: ', session);
     }
   )
   .then((client) => {
@@ -168,20 +155,22 @@ venom
 
 ## Callback Status Session
 
-Gets the return if the session is `isLogged` or `notLogged` or `browserClose` or `qrReadSuccess` or `qrReadFail` or `autocloseCalled` or `desconnectedMobile` or `deleteToken` or `Create session wss return "serverClose" case server for close`
+Gets the return if the session is `isLogged` or `notLogged` or `browserClose` or `qrReadSuccess` or `qrReadFail` or `autocloseCalled` or `deleteToken` or `useherecalled` or `autoclosePairingCalled` or `returnQrcode` or `Create session wss return "serverClose" case server for close`
 
 | Status               | Condition                                                                                                                                                      |
 | -------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 
-| `isLogged`           | When the user is already logged in to the browser                                                                                                              |
-| `notLogged`          | When the user is not connected to the browser, it is necessary to scan the QR code through the cell phone in the option WhatsApp Web                           |
-| `browserClose`       | If the browser is closed this parameter is returned                                                                                                            |
-| `qrReadSuccess`      | If the user is not logged in, the QR code is passed on the terminal a callback is returned. After the correct reading by cell phone this parameter is returned |
-| `qrReadFail`         | If the browser stops when the QR code scan is in progress, this parameter is returned                                                                          |
-| `autocloseCalled`    | The browser was closed using the autoClose command                                                                                                             |
-| `desconnectedMobile` | Client has desconnected in to mobile                                                                                                                           |
-| `serverClose`        | Client has desconnected in to wss                                                                                                                              |
-| `deleteToken`        | If you pass true within the function `client.getSessionTokenBrowser(true)`                                                                                     |
+| `isLogged`                    | When the user is already logged in to the browser |
+| `notLogged`                   | When the user is not connected to the browser, it is necessary to scan the QR code through the cell phone in the option WhatsApp Web |
+| `browserClose`                | If the browser is closed this parameter is returned |
+| `qrReadSuccess`               | If the user is not logged in, the QR code is passed on the terminal a callback is returned. After the correct reading by cell phone this parameter is returned |
+| `qrReadFail`                  | If the browser stops when the QR code scan is in progress, this parameter is returned |
+| `autocloseCalled`             | The browser was closed using the autoClose command |
+| `serverClose`                 | Client has desconnected in to wss |
+| `useherecalled`               | Called insist the connection through your browser |
+| `autoclosePairingCalled`      | The browser was closed automatically if the client is on the internet |
+| `returnQrcode`                | scraping the QRCODE |
+| `deleteToken`                 | If you pass true within the function `client.getSessionTokenBrowser(true)` |
 
 ```javascript
 const venom = require('venom-bot');
@@ -191,7 +180,7 @@ venom
     undefined,
     (statusSession, session) => {
       console.log('Status Session: ', statusSession);
-      //return isLogged || notLogged || browserClose || qrReadSuccess || qrReadFail || autocloseCalled || desconnectedMobile || deleteToken
+      //return isLogged || notLogged || browserClose || qrReadSuccess || qrReadFail || autocloseCalled || deleteToken || useherecalled || autoclosePairingCalled || returnQrcode
       //Create session wss return "serverClose" case server for close
       console.log('Session name: ', session);
     },
@@ -624,6 +613,7 @@ client.onMessage(message => {
 })
 
 // Listen to state changes
+// this function is depreciated
 client.onStateChange(state => {
   ...
 });
@@ -734,9 +724,11 @@ There are some tricks for a better usage of venom.
 #### Keep session alive:
 
 ```javascript
+
 // function to detect conflits and change status
 // Force it to keep the current session
 // Possible state values:
+
 // CONFLICT
 // CONNECTED
 // DEPRECATED_VERSION
@@ -749,6 +741,8 @@ There are some tricks for a better usage of venom.
 // UNLAUNCHED
 // UNPAIRED
 // UNPAIRED_IDLE
+
+// this function is depreciated
 client.onStateChange((state) => {
   console.log('State changed: ', state);
   // force whatsapp take over

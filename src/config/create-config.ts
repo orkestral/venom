@@ -70,7 +70,12 @@ export interface CreateConfig {
   updatesLog?: boolean;
   autoClose?: number;
   createPathFileToken: boolean;
+  autoClosePairing?: number;
+  wapage?: boolean;
+  usehere?: boolean;
+  saveToken?: boolean;
 }
+
 export const defaultOptions: CreateConfig = {
   folderNameToken: 'tokens',
   mkdirFolderToken: '',
@@ -87,4 +92,8 @@ export const defaultOptions: CreateConfig = {
   updatesLog: true,
   autoClose: 60000,
   createPathFileToken: false,
+  autoClosePairing: 60000,
+  wapage: false,
+  usehere: true,
+  saveToken: true
 };

@@ -143,18 +143,6 @@ export const checkWebpackJsonp = (page: puppeteer.Page) => {
   );
 }
 
-
-export const  scrapeDesconnected = (page: puppeteer.Page) => {
-  return from( 
-    page.waitForFunction(
-    `(window.Store && window.Store.State.default.on('change:state').__x_state === 'UNPAIRED')`,{
-          timeout: 0,
-       }
-      )
-      .then(() => true)
-      .catch(() => false)
-  );
-}
 export async function retrieveQR(page: puppeteer.Page) {
   const { code, data } = await decodeQR(page);
   if (data === null || code === null) {
