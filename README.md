@@ -157,9 +157,8 @@ venom
 
 Gets the return if the session is `isLogged` or `notLogged` or `browserClose` or `qrReadSuccess` or `qrReadFail` or `autocloseCalled` or `deleteToken` or `useherecalled` or `autoclosePairingCalled` or `returnQrcode` or `Create session wss return "serverClose" case server for close`
 
-| Status               | Condition                                                                                                                                                      |
-| -------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-
+| Status                        | Condition                                                                              |
+| ----------------------------- | ---------------------------------------------------------------------------------------|
 | `isLogged`                    | When the user is already logged in to the browser |
 | `notLogged`                   | When the user is not connected to the browser, it is necessary to scan the QR code through the cell phone in the option WhatsApp Web |
 | `browserClose`                | If the browser is closed this parameter is returned |
@@ -171,7 +170,6 @@ Gets the return if the session is `isLogged` or `notLogged` or `browserClose` or
 | `autoclosePairingCalled`      | The browser was closed automatically if the client is on the internet |
 | `returnQrcode`                | scraping the QRCODE |
 | `deleteToken`                 | If you pass true within the function `client.getSessionTokenBrowser(true)` |
-
 ```javascript
 const venom = require('venom-bot');
 venom
