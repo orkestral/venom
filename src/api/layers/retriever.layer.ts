@@ -53,6 +53,8 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
 import { Page } from 'puppeteer';
+import { tokenSession } from '../../config/tokenSession.config';
+import { WhatsappProfile } from '../model';
 import { SenderLayer } from './sender.layer';
 
 export class RetrieverLayer extends SenderLayer {
@@ -76,7 +78,9 @@ export class RetrieverLayer extends SenderLayer {
    * Returns browser session token
    * @returns obj [token]
    */
-  public async getSessionTokenBrowser(removePath?: boolean) {
+  public async getSessionTokenBrowser(
+    removePath?: boolean
+  ): Promise<tokenSession> {
     if (removePath === true) {
       await this.page.evaluate(() => {
         window['pathSession'] = true;
@@ -118,7 +122,7 @@ export class RetrieverLayer extends SenderLayer {
    * @param contactId, you need to include the @c.us at the end.
    * @returns contact detial as promise
    */
-  public async checkNumberStatus(contactId: string) {
+  public async checkNumberStatus(contactId: string): Promise<WhatsappProfile> {
     return await this.page.evaluate(
       (contactId) => WAPI.checkNumberStatus(contactId),
       contactId

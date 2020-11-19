@@ -9,6 +9,7 @@ import {
   PartialMessage,
   WhatsappProfile,
 } from '../api/model';
+import { tokenSession } from '../config/tokenSession.config';
 
 interface WAPI {
   addParticipant: (groupId: string, contactId: string) => boolean;
@@ -16,7 +17,7 @@ interface WAPI {
   archiveChat: (chatId: string, option: boolean) => boolean;
   arrayBufferToBase64: (buffer: ArrayBuffer) => string;
   blockContact: (messageId: string) => boolean;
-  checkNumberStatus: (contactId: string) => any;
+  checkNumberStatus: (contactId: string) => Promise<WhatsappProfile>;
   clearChat: (chatId: string) => void;
   createGroup: (
     groupName: string,
@@ -44,7 +45,7 @@ interface WAPI {
     includeMe: boolean,
     includeNotifications: boolean
   ) => Message[];
-  getAllNewMessages: () => any;
+  getAllNewMessages: () => Message[];
   getAllUnreadMessages: () => PartialMessage[];
   getBatteryLevel: () => number;
   getBlockList: () => Contact[];
@@ -63,7 +64,7 @@ interface WAPI {
   getMessageById: (messageId: string) => Message;
   getNumberProfile: (contactId: string) => WhatsappProfile;
   getProfilePicFromServer: (chatId: string) => string;
-  getSessionTokenBrowser: (removePath?: boolean) => void;
+  getSessionTokenBrowser: (removePath?: boolean) => tokenSession;
   getStatus: (contactId: string) => ContactStatus;
   getTheme: () => string;
   getUnreadMessages: (
@@ -101,7 +102,7 @@ interface WAPI {
   ) => Promise<object>;
   promoteParticipant: (groupId: string, contactId: string) => void;
   removeParticipant: (groupId: string, contactId: string) => void;
-  reply: (to: string, content: string, quotedMsg: string) => any;
+  reply: (to: string, content: string, quotedMsg: string) => Promise<string>;
   restartService: () => boolean;
   sendChatstate: (chatState: string, chatId: string) => void;
   sendContactVcard: (
@@ -154,7 +155,11 @@ interface WAPI {
   ) => Promise<object>;
   sendMessage: (to: string, content: string) => Promise<any>;
   sendMessageMentioned: (...args: any) => any;
-  sendMessageOptions: (chat: any, content: any, options?: any) => any;
+  sendMessageOptions: (
+    chat: any,
+    content: any,
+    options?: any
+  ) => Promise<string>;
   sendMessageWithThumb: (
     thumb: string,
     url: string,
