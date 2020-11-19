@@ -55,61 +55,67 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 import * as ChromeLauncher from 'chrome-launcher';
 import * as path from 'path';
 import { Browser, Page } from 'puppeteer';
-import puppeteer from 'puppeteer-extra';
+import puppeteer_extra from 'puppeteer-extra';
 import { CreateConfig } from '../config/create-config';
 import { puppeteerConfig } from '../config/puppeteer.config';
 import StealthPlugin = require('puppeteer-extra-plugin-stealth');
 import { auth_InjectToken } from './auth';
 import { useragentOverride } from '../config/WAuserAgente';
-
+import { checkWebpackJsonp } from './auth';
 export async function initWhatsapp(
   session: string,
   options: CreateConfig,
-  browser: any,
+  browser: Browser,
   token?: object
-) {
-  const waPage = await getWhatsappPage(browser);
+): Promise<Page> {
+  const waPage: Page = await getWhatsappPage(browser);
   if (waPage != null) {
     // Auth with token
     await auth_InjectToken(waPage, session, options, token);
-
     await waPage.setUserAgent(useragentOverride);
 
     const timeout = 2 * 1000;
     await Promise.race([
       waPage.goto(puppeteerConfig.whatsappUrl, { timeout }).catch(() => {}),
-      waPage.waitForSelector('body', { timeout }).catch(() => {}),
+      time(waPage, timeout).catch(() => {}),
     ]);
 
     return waPage;
-  } else {
-    return false;
   }
 }
+function time(page: Page, time: number) {
+  if (typeof (page as any).waitForTimeout === 'function') {
+    return (page as any).waitForTimeout(time);
+  } else {
+    return page.waitFor(time);
+  }
+}
+export async function injectApi(page: Page): Promise<Page> {
+  return new Promise(async (resolve, reject) => {
+    let ch = await checkWebpackJsonp(page).toPromise();
+    if (ch) {
+      try {
+        await page.addScriptTag({
+          path: require.resolve(path.join(__dirname, '../lib/wapi', 'wapi.js')),
+        });
 
-export async function injectApi(page: Page) {
-  await page.waitForFunction(() => {
-    // @ts-ignore
-    return webpackJsonp !== undefined;
+        await page.addScriptTag({
+          path: require.resolve(
+            path.join(__dirname, '../lib/middleware', 'middleware.js')
+          ),
+        });
+
+        // Make sure WAPI is initialized
+        await page.waitForFunction(() => {
+          // @ts-ignore
+          return !!WAPI.getWAVersion;
+        });
+        resolve(page);
+      } catch {}
+    } else {
+      reject(false);
+    }
   });
-
-  await page.addScriptTag({
-    path: require.resolve(path.join(__dirname, '../lib/wapi', 'wapi.js')),
-  });
-
-  await page.addScriptTag({
-    path: require.resolve(
-      path.join(__dirname, '../lib/middleware', 'middleware.js')
-    ),
-  });
-
-  // Make sure WAPI is initialized
-  await page.waitForFunction(() => {
-    // @ts-ignore
-    return !!WAPI.getWAVersion;
-  });
-
-  return page;
 }
 
 /**
@@ -132,11 +138,11 @@ export async function initBrowser(
   }
 
   // Use stealth plugin to avoid being detected as a bot
-  puppeteer.use(StealthPlugin());
+  puppeteer_extra.use(StealthPlugin());
 
   let browser = null;
   if (options.browserWS && options.browserWS != '') {
-    await puppeteer
+    await puppeteer_extra
       .connect({
         browserWSEndpoint: options.browserWS,
       })
@@ -147,7 +153,7 @@ export async function initBrowser(
         browser = 'connect';
       });
   } else {
-    await puppeteer
+    await puppeteer_extra
       .launch({
         headless: options.headless,
         devtools: options.devtools,

@@ -67,7 +67,10 @@ import { CreateConfig } from '../config/create-config';
  */
 export const isAuthenticated = async (waPage: puppeteer.Page) => {
   try {
-    return merge(needsToScan(waPage), isInsideChat(waPage))
+    return await merge(
+      needsToScan(waPage).toPromise(),
+      isInsideChat(waPage).toPromise()
+    )
       .pipe(take(1))
       .toPromise();
   } catch (e) {}
@@ -103,6 +106,44 @@ export const isInsideChat = (waPage: puppeteer.Page) => {
       .catch(() => false)
   );
 };
+
+export const checkDeleteToken = (page: puppeteer.Page) => {
+  return from(
+    page
+      .waitForFunction(`(window.pathSession && window.pathSession === true)`, {
+        timeout: 0,
+      })
+      .then(() => true)
+      .catch(() => false)
+  );
+};
+
+export const stateInject = (page: puppeteer.Page) => {
+  return from(
+    page
+      .waitForFunction(`(window && window.eventeState)`, {
+        timeout: 0,
+      })
+      .then(() => true)
+      .catch(() => false)
+  );
+};
+
+// check inject script
+export const checkWebpackJsonp = (page: puppeteer.Page) => {
+  return from(
+    page
+      .waitForFunction(
+        `(window.webpackJsonp && window.webpackJsonp[0] && window.webpackJsonp.length > 0)`,
+        {
+          timeout: 0,
+        }
+      )
+      .then(() => true)
+      .catch(() => false)
+  );
+};
+
 export async function retrieveQR(page: puppeteer.Page) {
   const { code, data } = await decodeQR(page);
   if (data === null || code === null) {

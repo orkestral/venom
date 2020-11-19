@@ -54,12 +54,16 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
 import path = require('path');
 import { unlinkSync, existsSync } from 'fs';
+import { CreateConfig } from '../../../src/config/create-config';
+import Spinnies = require('spinnies');
+
 export function deleteFiles(
-  mergedOptions: any,
+  mergedOptions: CreateConfig,
   Session: String,
-  spinnies: any
-) {
-  spinnies.add(`removeFile`, { text: '....' });
+  spinnies: Spinnies,
+  type?: any
+): boolean {
+  spinnies.add(`removeFile`, { text: 'Check File json...' });
   var pathTokens: string = path.join(
     path.resolve(
       process.cwd() + mergedOptions.mkdirFolderToken,
@@ -70,15 +74,22 @@ export function deleteFiles(
   if (existsSync(pathTokens)) {
     try {
       unlinkSync(pathTokens);
-      spinnies.succeed(`removeFile`, {
-        text: `Removed file: ${pathTokens}`,
-      });
-    } catch (err) {
       spinnies.fail(`removeFile`, {
-        text: `Not removed file: ${pathTokens}`,
+        text: `Is no longer connected to the system, removing the json file: ${pathTokens}`,
       });
+      return true;
+    } catch (err) {
+      if (!type) {
+        spinnies.fail(`removeFile`, {
+          text: `Client does not have the json file`,
+        });
+        return false;
+      }
     }
   } else {
-    spinnies.fail(`removeFile`, { text: `Not Files: ${pathTokens}` });
+    spinnies.succeed(`removeFile`, {
+      text: `Client does not have the json file`,
+    });
+    return false;
   }
 }
