@@ -98,7 +98,7 @@ export class SenderLayer extends ListenerLayer {
    * @param to chat id: xxxxx@us.c
    * @param content text message
    */
-  public async sendText(to: string, content: string): Promise<object> {
+  public async sendText(to: string, content: string): Promise<Message> {
     return new Promise(async (resolve, reject) => {
       var messageId: string = await this.page.evaluate(
         ({ to, content }) => {
@@ -122,7 +122,7 @@ export class SenderLayer extends ListenerLayer {
     chat: any,
     content: any,
     options?: any
-  ): Promise<any> {
+  ): Promise<Message> {
     return new Promise(async (resolve, reject) => {
       try {
         var messageId = await this.page.evaluate(
@@ -274,7 +274,7 @@ export class SenderLayer extends ListenerLayer {
     to: string,
     content: string,
     quotedMsg: string
-  ): Promise<object> {
+  ): Promise<Message> {
     return new Promise(async (resolve, reject) => {
       var messageId: string = await this.page.evaluate(
         ({ to, content, quotedMsg }) => {
