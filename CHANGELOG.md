@@ -1,3 +1,9 @@
+## [2.0.22](https://github.com/orkestral/venom/compare/v2.0.21...v2.0.22) (2020-11-19)
+
+### Bug Fixes
+
+- Fixed QRCode reader ([247fe17](https://github.com/orkestral/venom/commit/247fe178aec25c504afd6142464ea7420a489a7c))
+
 ## [2.0.21](https://github.com/orkestral/venom/compare/v2.0.20...v2.0.21) (2020-11-17)
 
 ### Bug Fixes
