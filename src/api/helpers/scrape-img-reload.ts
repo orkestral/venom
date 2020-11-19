@@ -55,22 +55,27 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 import { Page } from 'puppeteer';
 export async function scrapeImgReload(page: Page, url): Promise<any> {
   let click = await page.evaluate(() => {
-    let bt = document.querySelector('._3IKPF');
-    if (bt != null) {
+    const selectorImg = document.querySelector('canvas');
+    const selectorUrl = selectorImg.closest('[data-ref]');
+    const buttonReload = selectorUrl.querySelector(
+      '[role="button"]'
+    ) as HTMLButtonElement;
+    if (buttonReload != null) {
+      buttonReload.click();
       return true;
     } else {
       return void 0;
     }
   });
   if (click != undefined) {
-    page.click('._3IKPF');
     await page.waitForNavigation();
     console.log('Load button pressed');
   }
   var result = await page.evaluate(() => {
-    let selector = document.querySelector('._1QMFu');
-    if (selector != null) {
-      return selector.getAttribute('data-ref');
+    const selectorImg = document.querySelector('canvas');
+    const selectorUrl = selectorImg.closest('[data-ref]');
+    if (selectorUrl != null) {
+      return selectorUrl.getAttribute('data-ref');
     } else {
       return void 0;
     }
