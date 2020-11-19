@@ -52,20 +52,33 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
+import { readFileSync, writeFileSync, mkdir, unlinkSync, existsSync } from 'fs';
 import latestVersion from 'latest-version';
 import { Whatsapp } from '../api/whatsapp';
 import { CreateConfig, defaultOptions } from '../config/create-config';
 import { upToDate } from '../utils/semver';
-import { asciiQr, SessionTokenCkeck } from './auth';
+import {
+  isAuthenticated,
+  isInsideChat,
+  asciiQr,
+  retrieveQR,
+  SessionTokenCkeck,
+} from './auth';
 import { initWhatsapp, injectApi, initBrowser } from './browser';
 import chalk = require('chalk');
 import boxen = require('boxen');
 import Spinnies = require('spinnies');
 import path = require('path');
+import Counter = require('../lib/counter/Counter.js');
 const { version } = require('../../package.json');
-import { Browser, Page } from 'puppeteer';
-import { clearInterval, clearTimeout, setInterval } from 'timers';
-import { constructConn, deleteToken, scrapeWebpackJsonp } from './functions';
+import {
+  scrapeImgReload,
+  scrapeImg,
+  scrapeLogin,
+  scrapeDesconnected,
+  scrapeDeleteToken,
+  deleteFiles,
+} from '../api/helpers';
 
 // Global
 let updatesChecked = false;
@@ -77,31 +90,27 @@ let updatesChecked = false;
  * @param statusFind, A callback will be received, informing the customer's status
  * @param options, Pass an object with the bot settings
  * @param browserSessionToken, Pass the session token information you can receive this token with the await client.getSessionTokenBrowser () function
- * @param onState, returns the connection status!
- * @param retunToken, returns the user's token!
  * @returns Whatsapp page, with this parameter you will be able to access the bot functions
  */
 
 export async function create(
-  Session = 'session',
+  session = 'session',
   catchQR?: (qrCode: string, asciiQR: string, attempt: number) => void,
   statusFind?: (statusGet: string, session: string) => void,
   options?: CreateConfig,
-  browserSessionToken?: object,
-  retunToken?: (token: object, session: string) => void,
-  onState?: (state: string, session: string) => void
-): Promise<Whatsapp | Page> {
-  var disconnectOrClose: NodeJS.Timeout,
-    AutoCloseBrowser: NodeJS.Timeout, //setTimeout autoClose
-    intervalScrapeQrcode: NodeJS.Timeout, //setInterval qrcode
-    browserToken: object, //inject browser
-    waPage: Page; // puppeteer function
+  browserSessionToken?: object
+): Promise<Whatsapp> {
+  var _fail: any,
+    browser_check: any,
+    closeBrowser: any,
+    attempt = 0,
+    browserToken: any,
+    Session: string,
+    clientCheck: any,
+    Session = session,
+    DelFileCheck = false;
 
-  interface waPage {
-    isClosed: any;
-  }
-
-  const spinnies: Spinnies = new Spinnies({
+  const spinnies = new Spinnies({
     disableSpins: options ? options.disableSpins : '',
   });
 
@@ -125,216 +134,363 @@ export async function create(
              ▀       ▀███████████▌ ██        ░██▄    ▀▀███▀▀░    ▀█▌           ▓█░
                                               ▀░                                   \n`);
   }
-
   // Check for updates if needed
   if (!updatesChecked && mergedOptions.updatesLog) {
-    spinnies.add(`${Session}-venom-version-spinner`, {
+    spinnies.add('venom-version-spinner', {
       text: 'Checking for updates',
     });
-    checkVenomVersion(spinnies, Session);
+    checkVenomVersion(spinnies);
     updatesChecked = true;
   }
 
   // Initialize whatsapp
-  spinnies.add(`${Session}-browser`, {
-    text: 'Waiting... checking the browser...',
+  spinnies.add(`${Session}-auth`, {
+    text: 'Waiting...',
   });
 
-  // Opening a connection through the browser or wss
   var browser = await initBrowser(Session, mergedOptions);
 
-  // Erro of connect wss
   if (browser === 'connect') {
-    spinnies.fail(`${Session}-browser`, {
+    spinnies.fail(`${Session}-auth`, {
       text: `Error when try to connect ${mergedOptions.browserWS}`,
     });
+    browser = null;
     throw `Error when try to connect ${mergedOptions.browserWS}`;
   }
 
-  // Erro open browser
   if (browser === 'launch') {
-    spinnies.fail(`${Session}-browser`, {
+    spinnies.fail(`${Session}-auth`, {
       text: `Error no open browser`,
     });
+    browser = null;
     throw `Error no open browser`;
   }
 
-  spinnies.succeed(`${Session}-browser`, {
-    text: `Browser successfully opened`,
-  });
-
-  // check if the wss function is on
-  if (!mergedOptions.browserWS) {
-    spinnies.add(`${Session}-browserActive`, {
-      text: 'check headless...',
+  if (browser !== null) {
+    spinnies.add(`browser`, {
+      text: 'check headless',
     });
 
-    //check if the browser is visible or not
     if (mergedOptions.headless) {
-      spinnies.succeed(`${Session}-browserActive`, {
+      spinnies.succeed(`browser`, {
         text: 'headless option is active, browser hidden',
       });
     } else {
-      spinnies.succeed(`${Session}-browserActive`, {
+      spinnies.succeed(`browser`, {
         text: 'headless option is disabled, browser visible',
       });
     }
 
-    // checking that the browser has been closed
-    browser['_process'].once('close', () => {
-      browser['isClose'] = true;
-    });
-  }
+    if (!mergedOptions.browserWS) {
+      browser['_process'].once('close', () => {
+        browser['isClose'] = true;
+      });
+    }
 
-  // disconnect (wss) or close (browser)
-  disconnectOrClose = setInterval(() => {
-    // disconnect (wss)
-    if (mergedOptions.browserWS) {
-      if (browser.isConnected() === false) {
-        try {
-          spinnies.fail(`${Session}-auth`, {
-            text: 'Authentication failure',
-          });
-          spinnies.fail(`${Session}-jsonp`, {
-            text: 'Fail injected state',
-          });
-          spinnies.fail(`${Session}-inject`, {
-            text: 'Error Sibionte',
-          });
-        } catch {}
-
+    ///disconnect || close
+    _fail = setInterval(() => {
+      if (mergedOptions.browserWS) {
         if (browser.isConnected() === false) {
-          spinnies.add(`${Session}-wss`, {
+          spinnies.add(`${Session}-auths`, {
             text: '....',
           });
 
-          spinnies.fail(`${Session}-wss`, {
+          spinnies.fail(`${Session}-auths`, {
             text: `The server is closed ${Session}`,
           });
 
           if (statusFind) {
             statusFind('serverClose', Session);
           }
-
           browser.close();
-          clearTimeout(AutoCloseBrowser); // clear autoClose
-          clearInterval(intervalScrapeQrcode);
-          clearInterval(disconnectOrClose);
+          clearTimeout(closeBrowser);
+          clearInterval(browser_check);
+          clearInterval(_fail);
         }
       }
+
+      if (browser['isClose'] != undefined && !mergedOptions.browserWS) {
+        spinnies.add(`${Session}-auths`, {
+          text: '....',
+        });
+        spinnies.fail(`${Session}-auths`, {
+          text: 'The browser is closed',
+        });
+        if (statusFind) {
+          statusFind('browserClose', Session);
+        }
+        clearTimeout(closeBrowser);
+        clearInterval(clientCheck);
+        clearInterval(_fail);
+      }
+    }, 1000);
+
+    if (SessionTokenCkeck(browserSessionToken)) {
+      browserToken = browserSessionToken;
     }
 
-    if (browser['isClose'] != undefined && !mergedOptions.browserWS) {
-      try {
-        spinnies.fail(`${Session}-auth`, {
-          text: 'Authentication failure',
-        });
-        spinnies.fail(`${Session}-jsonp`, {
-          text: 'Fail injected state',
-        });
-        spinnies.fail(`${Session}-inject`, {
-          text: 'Error Sibionte',
-        });
-      } catch {}
+    var waPage = await initWhatsapp(
+      Session,
+      mergedOptions,
+      browser,
+      browserToken
+    );
 
-      spinnies.add(`${Session}-browserClose`, {
-        text: '....',
-      });
-
-      spinnies.fail(`${Session}-browserClose`, {
-        text: 'The browser is closed',
-      });
-
-      if (statusFind) {
-        statusFind('browserClose', Session);
-      }
-
-      clearTimeout(AutoCloseBrowser); // clear autoClose
-      clearInterval(disconnectOrClose);
-    }
-  }, 1000);
-
-  if (SessionTokenCkeck(browserSessionToken)) {
-    browserToken = browserSessionToken;
-  }
-
-  spinnies.add(`${Session}-whatzapp`, {
-    text: 'Starting whatzapp...',
-  });
-
-  waPage = await initWhatsapp(Session, mergedOptions, browser, browserToken);
-
-  spinnies.succeed(`${Session}-whatzapp`, {
-    text: 'Whatzapp started successfully...',
-  });
-
-  if (typeof waPage.isClosed === 'function' && waPage.isClosed() === false) {
-    spinnies.add(`${Session}-auth`, {
-      text: 'Authenticating...',
-    });
-
-    //Promise del token
-    deleteToken(waPage, Session, mergedOptions, spinnies, async () => {
-      if (statusFind) {
-        statusFind('deleteToken', Session);
-      }
-    });
-
-    // inject state browser
-    try {
-      const conn = new constructConn(true);
-      let result = new Promise<Whatsapp | Page>(async (resolve) => {
-        waPage.on('load', async () => {
-          var result = await scrapeWebpackJsonp(
-            waPage,
-            AutoCloseBrowser,
-            spinnies,
-            disconnectOrClose,
-            intervalScrapeQrcode,
-            Session,
-            browser,
-            mergedOptions,
-            browserToken,
-            conn,
-            (statusGet, session) => {
-              if (statusFind) {
-                statusFind(statusGet, Session);
-              }
-            },
-            (qrCode, asciiQR, attempt) => {
-              if (catchQR) {
-                catchQR(qrCode, asciiQR, attempt);
-              }
-            },
-            (state, session) => {
-              if (onState) {
-                onState(state, session);
-              }
-            },
-            (token, session) => {
-              retunToken(token, session);
-            }
-          );
-          if (result) {
-            spinnies.succeed(`${Session}-auth`, {
-              text: 'Successfully authenticated',
-            });
-            let wapp: Whatsapp | Page;
-            if (!mergedOptions.wapage) {
-              wapp = new Whatsapp(waPage);
-            } else {
-              wapp = waPage;
-            }
-            return resolve(wapp);
+    if (waPage) {
+      spinnies.update(`${Session}-auth`, { text: 'Authenticating...' });
+      let authenticated = null;
+      clientCheck = setInterval(async () => {
+        ////check delete file
+        var DeleteToken = await scrapeDeleteToken(waPage).catch(() => {});
+        if (!DelFileCheck && DeleteToken === true) {
+          deleteFiles(mergedOptions, Session, spinnies);
+          if (statusFind) {
+            statusFind('deleteToken', Session);
           }
+          DelFileCheck = true;
+        }
+        ///client disconnect mobile
+        var clientInput = await scrapeLogin(waPage).catch(() => {}),
+          clientExit = await scrapeDesconnected(waPage).catch(() => {});
+        if (clientInput === true || clientExit === true) {
+          spinnies.add(`${Session}-authS`, { text: '...' });
+          spinnies.fail(`${Session}-authS`, {
+            text: 'client has desconnected in to mobile',
+          });
+          if (statusFind) {
+            statusFind('desconnectedMobile', Session);
+          }
+          deleteFiles(mergedOptions, Session, spinnies);
+          browser.close();
+          browser.disconnect();
+          clearInterval(_fail);
+          clearInterval(browser_check);
+          clearTimeout(closeBrowser);
+          clearInterval(clientCheck);
+        }
+      }, 1000);
+
+      //session authenticated
+      await isAuthenticated(waPage)
+        .then((e) => {
+          authenticated = e;
+        })
+        .catch(() => {});
+
+      if (authenticated != null) {
+        // If not authenticated, show QR and wait for scan
+        if (authenticated) {
+          // Wait til inside chat
+          if (statusFind) {
+            statusFind('isLogged', Session);
+          }
+
+          await isInsideChat(waPage).toPromise();
+          spinnies.succeed(`${Session}-auth`, { text: 'Authenticated' });
+        } else {
+          if (statusFind) {
+            statusFind('notLogged', Session);
+          }
+          spinnies.add(`autoclose`, { text: 'check autoClose' });
+
+          if (mergedOptions.autoClose > 0) {
+            spinnies.succeed(`autoclose`, {
+              text: 'the autoClose function is on',
+            });
+            ////on autoclose
+            closeBrowser = setTimeout(() => {
+              browser.disconnect();
+              browser.close();
+              if (statusFind) {
+                statusFind('autocloseCalled', Session);
+              }
+              spinnies.add(`${Session}-auths`, {
+                text: `....`,
+              });
+              spinnies.fail(`${Session}-auths`, {
+                text: `Session Autoclose Called`,
+              });
+
+              clearInterval(_fail);
+              clearInterval(browser_check);
+              clearTimeout(closeBrowser);
+            }, mergedOptions.autoClose);
+          } else {
+            spinnies.succeed(`autoclose`, {
+              text: 'the autoClose function is off ',
+            });
+          }
+
+          let tipo_qr = 0,
+            result = undefined,
+            url = null;
+
+          ///scraper qrcode
+          browser_check = setInterval(async () => {
+            ///close client browser
+            if (
+              browser['isClose'] != undefined ||
+              browser.isConnected() === false
+            ) {
+              if (statusFind) {
+                statusFind('qrReadFail', Session);
+              }
+              clearTimeout(closeBrowser);
+              clearInterval(_fail);
+              clearInterval(browser_check);
+            } else {
+              switch (tipo_qr) {
+                case 0:
+                  result = await scrapeImg(waPage).catch(() => {});
+                  if (result != undefined) {
+                    var retri = await retrieveQR(waPage).catch(() => {});
+                    if (retri) {
+                      var { data, asciiQR } = retri;
+                      if (catchQR) {
+                        catchQR(data, asciiQR, attempt++);
+                      }
+                      await asciiQr(result['url'])
+                        .then((qr) => {
+                          if (mergedOptions.logQR) {
+                            spinnies.update(`${Session}-auth`, {
+                              text: 'Scan QR for Session: ' + Session,
+                            });
+                            console.log(qr);
+                          }
+                          tipo_qr++;
+                        })
+                        .catch(() => {});
+                    }
+                  }
+                  break;
+                case 1:
+                  result = await scrapeImgReload(waPage, url).catch(() => {});
+                  if (typeof result === 'object') {
+                    url = result.url;
+                  }
+                  if (typeof result === 'object' && result.status === true) {
+                    let re = await scrapeImg(waPage).catch(() => {});
+                    if (re != undefined) {
+                      var retri = await retrieveQR(waPage).catch(() => {});
+                      if (retri) {
+                        var { data, asciiQR } = retri;
+                        if (catchQR) {
+                          catchQR(data, asciiQR, attempt++);
+                        }
+                        await asciiQr(re['url'])
+                          .then((qr) => {
+                            if (mergedOptions.logQR) {
+                              spinnies.update(`${Session}-auth`, {
+                                text: 'Scan QR for Session: ' + Session,
+                              });
+                              console.log(qr);
+                            }
+                          })
+                          .catch(() => {});
+                      }
+                    }
+                  }
+                  break;
+              }
+            }
+          }, 1000);
+
+          var IsLog = await isInsideChat(waPage).toPromise();
+          if (IsLog == false) {
+            spinnies.fail(`${Session}-auth`, {
+              text: 'Not Login',
+            });
+            throw 'Error in login';
+          }
+          if (statusFind) {
+            statusFind('qrReadSuccess', Session);
+          }
+          spinnies.succeed(`${Session}-auth`, {
+            text: 'Compilation Mutation',
+          });
+        }
+
+        clearInterval(browser_check);
+        clearTimeout(closeBrowser);
+        spinnies.add(`${Session}-inject`, { text: 'Injecting Sibionte...' });
+        waPage = await injectApi(waPage);
+        spinnies.succeed(`${Session}-inject`, {
+          text: 'Starting With Success!',
         });
-      });
-      return result;
-    } catch (e) {
-      spinnies.fail(`${Session}-auth`, {
-        text: 'Authentication failure',
-      });
-      throw e;
+
+        // Saving Token
+        spinnies.add(`${Session}-inject`, { text: 'Saving Token...' });
+
+        if (true || (browserToken && !mergedOptions.createPathFileToken)) {
+          const localStorage = JSON.parse(
+            await waPage.evaluate(() => {
+              return JSON.stringify(window.localStorage);
+            })
+          );
+
+          let {
+            WABrowserId,
+            WASecretBundle,
+            WAToken1,
+            WAToken2,
+          } = localStorage;
+
+          try {
+            setTimeout(() => {
+              mkdir(
+                path.join(
+                  path.resolve(
+                    process.cwd() + mergedOptions.mkdirFolderToken,
+                    mergedOptions.folderNameToken
+                  )
+                ),
+                { recursive: true },
+                (err) => {
+                  if (err) {
+                    spinnies.fail(`${Session}-inject`, {
+                      text: 'Failed to create folder tokens...',
+                    });
+                  }
+                }
+              );
+            }, 200);
+
+            setTimeout(() => {
+              writeFileSync(
+                path.join(
+                  path.resolve(
+                    process.cwd() + mergedOptions.mkdirFolderToken,
+                    mergedOptions.folderNameToken
+                  ),
+                  `${Session}.data.json`
+                ),
+                JSON.stringify({
+                  WABrowserId,
+                  WASecretBundle,
+                  WAToken1,
+                  WAToken2,
+                })
+              );
+              spinnies.succeed(`${Session}-inject`, {
+                text: 'Token saved successfully...',
+              });
+            }, 500);
+          } catch (error) {
+            spinnies.fail(`${Session}-inject`, {
+              text: 'Failed to save token...',
+            });
+          }
+        }
+
+        if (mergedOptions.debug) {
+          const debugURL = `http://localhost:${readFileSync(
+            `./${Session}/DevToolsActivePort`
+          ).slice(0, -54)}`;
+          console.log(`\nDebug: \x1b[34m${debugURL}\x1b[0m`);
+        }
+
+        return new Whatsapp(waPage);
+      }
     }
   }
 }
@@ -342,14 +498,12 @@ export async function create(
 /**
  * Checs for a new versoin of venom and logs
  */
-function checkVenomVersion(spinnies: Spinnies, session: string) {
+function checkVenomVersion(spinnies) {
   latestVersion('venom-bot').then((latest) => {
     if (!upToDate(version, latest)) {
       logUpdateAvailable(version, latest);
     }
-    spinnies.succeed(`${session}-venom-version-spinner`, {
-      text: 'Checking for updates',
-    });
+    spinnies.succeed('venom-version-spinner', { text: 'Checking for updates' });
   });
 }
 

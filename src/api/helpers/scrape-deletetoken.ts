@@ -53,10 +53,13 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
 import { Page } from 'puppeteer';
-
+declare global {
+  interface Window {
+    pathSession: any;
+  }
+}
 export async function scrapeDeleteToken(page: Page): Promise<boolean> {
   var result = await page.evaluate(() => {
-    // @ts-ignore
     var scrape = window.pathSession;
     if (scrape === true) {
       return true;
