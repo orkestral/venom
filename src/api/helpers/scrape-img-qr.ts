@@ -55,12 +55,12 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 import { Page } from 'puppeteer';
 export async function scrapeImg(page: Page): Promise<any> {
   var result = await page.evaluate(() => {
-    const selectorimg = document.querySelector('canvas');
-    let selectorUrl = document.querySelector('._1QMFu');
+    const selectorImg = document.querySelector('canvas');
+    const selectorUrl = selectorImg.closest('[data-ref]');
 
-    if (selectorimg != null && selectorUrl != null) {
+    if (selectorImg != null && selectorUrl != null) {
       let data = {
-        img: selectorimg.toDataURL(),
+        img: selectorImg.toDataURL(),
         url: selectorUrl.getAttribute('data-ref'),
       };
       return data;
