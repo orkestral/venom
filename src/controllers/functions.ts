@@ -90,7 +90,7 @@ export async function tokenSave(
     });
 
     var token: string = await waPage.evaluate(() => {
-      if (!!window.localStorage) {
+      if (window.localStorage) {
         return JSON.stringify(window.localStorage);
       }
     });
