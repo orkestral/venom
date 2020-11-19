@@ -28,13 +28,19 @@
 | 📍 Send location!!                                         | ✔   |
 | 🕸🕸 **and much more**                                       | ✔   |
 
+Documentation at https://orkestral.github.io/venom/index.html
+
 ## Installation
 
 ```bash
 > npm i --save venom-bot
 ```
 
-Nightly releases: https://github.com/orkestral/venom/releases/tag/nightly
+or for [Nightly releases](https://github.com/orkestral/venom/releases/tag/nightly):
+
+```bash
+> npm i --save https://github.com/orkestral/venom/releases/download/nightly/venom-bot-nightly.tgz
+```
 
 ## Getting started
 
