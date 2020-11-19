@@ -26,6 +26,9 @@ jobs:
       - name: Install Dependencies
         run: npm install --ignore-scripts
 
+      - name: Update version to alpha
+        run: npm version prerelease --preid=alpha --no-git --no-git-tag-version
+
       - name: Build NPM package
         run: npm pack && mv venom-bot-*.tgz venom-bot-nightly.tgz
 
