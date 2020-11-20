@@ -82,7 +82,7 @@
     "gulp": "^4.0.2",
     "husky": "^4.2.5",
     "nodemon": "^2.0.6",
-    "prettier": "^2.0.4",
+    "prettier": "^2.2.0",
     "pretty-quick": "^3.1.0",
     "release-it": "^14.2.0",
     "rimraf": "^3.0.2",
