@@ -90,7 +90,7 @@ export async function create(
   browserSessionToken?: object,
   retunToken?: (token: object, session: string) => void,
   onState?: (state: string, session: string) => void
-): Promise<Whatsapp | Page> {
+): Promise<Whatsapp> {
   var disconnectOrClose: NodeJS.Timeout,
     AutoCloseBrowser: NodeJS.Timeout, //setTimeout autoClose
     intervalScrapeQrcode: NodeJS.Timeout, //setInterval qrcode
@@ -283,51 +283,60 @@ export async function create(
     // inject state browser
     try {
       const conn = new constructConn(true);
-      let result = new Promise<Whatsapp | Page>(async (resolve) => {
-        waPage.on('load', async () => {
-          var result = await scrapeWebpackJsonp(
-            waPage,
-            AutoCloseBrowser,
-            spinnies,
-            disconnectOrClose,
-            intervalScrapeQrcode,
-            Session,
-            browser,
-            mergedOptions,
-            browserToken,
-            conn,
-            (statusGet, session) => {
-              if (statusFind) {
-                statusFind(statusGet, Session);
-              }
-            },
-            (qrCode, asciiQR, attempt) => {
-              if (catchQR) {
-                catchQR(qrCode, asciiQR, attempt);
-              }
-            },
-            (state, session) => {
-              if (onState) {
-                onState(state, session);
-              }
-            },
-            (token, session) => {
-              retunToken(token, session);
-            }
-          );
+      let scrapf = scrapeWebpackJsonp(
+        waPage,
+        AutoCloseBrowser,
+        spinnies,
+        disconnectOrClose,
+        intervalScrapeQrcode,
+        Session,
+        browser,
+        mergedOptions,
+        browserToken,
+        conn,
+        (statusGet, session) => {
+          if (statusFind) {
+            statusFind(statusGet, Session);
+          }
+        },
+        (qrCode, asciiQR, attempt) => {
+          if (catchQR) {
+            catchQR(qrCode, asciiQR, attempt);
+          }
+        },
+        (state, session) => {
+          if (onState) {
+            onState(state, session);
+          }
+        },
+        (token, session) => {
+          if (retunToken) {
+            retunToken(token, session);
+          }
+        }
+      );
+      let result = new Promise<Whatsapp>(async (resolve) => {
+        if (mergedOptions.browserWS) {
+          var result = await scrapf;
           if (result) {
             spinnies.succeed(`${Session}-auth`, {
               text: 'Successfully authenticated',
             });
-            let wapp: Whatsapp | Page;
-            if (!mergedOptions.wapage) {
-              wapp = new Whatsapp(waPage);
-            } else {
-              wapp = waPage;
-            }
+            const wapp = new Whatsapp(waPage);
             return resolve(wapp);
           }
-        });
+        } else {
+          waPage.on('load', async () => {
+            var result = await scrapf;
+            if (result) {
+              spinnies.succeed(`${Session}-auth`, {
+                text: 'Successfully authenticated',
+              });
+              const wapp = new Whatsapp(waPage);
+              return resolve(wapp);
+            }
+          });
+        }
       });
       return result;
     } catch (e) {

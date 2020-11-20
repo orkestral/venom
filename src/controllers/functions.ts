@@ -61,7 +61,7 @@ export async function tokenSave(
   browserToken: object,
   Session: string,
   waPage: Page,
-  returnToken: (token: object, session: string) => void
+  rToken?: (token: object, session: string) => void
 ) {
   spinnies.add(`${Session}-inject`, {
     text: 'Injecting Sibionte...',
@@ -99,12 +99,9 @@ export async function tokenSave(
       const localStorage = JSON.parse(token);
 
       let { WABrowserId, WASecretBundle, WAToken1, WAToken2 } = localStorage;
-
-      if (returnToken) {
-        returnToken(
-          { WABrowserId, WASecretBundle, WAToken1, WAToken2 },
-          Session
-        );
+      let objSession = { WABrowserId, WASecretBundle, WAToken1, WAToken2 };
+      if (rToken) {
+        rToken(objSession, Session);
       }
 
       if (mergedOptions.saveToken === true) {
@@ -201,8 +198,8 @@ export function scrapQrcodeTime(
   let tipo_qr: number = 0,
     attempt: number = 0,
     result = undefined,
-    url = null;
-
+    url = null,
+    anterior: string = null;
   // Scraper qrcode
   intervalScrapeQrcode = setInterval(async () => {
     // Close client browser
@@ -219,8 +216,11 @@ export function scrapQrcodeTime(
             var retri = await retrieveQR(waPage).catch(() => {});
             if (retri) {
               var { data, asciiQR } = retri;
-              if (catQR) {
-                catQR(data, asciiQR, attempt++);
+              if (anterior === null) {
+                if (catQR) {
+                  catQR(data, asciiQR, attempt++);
+                }
+                anterior = data;
               }
               await asciiQr(result['url'])
                 .then((qr) => {
@@ -279,7 +279,6 @@ export function autoCloseF(
   statusFc: (statusGet: string, session: string) => void
 ): NodeJS.Timeout {
   clearTimeout(AutoCloseBrowser);
-
   let time = void 0;
 
   spinnies.add(`${Session}-autoclose`, {
@@ -373,7 +372,7 @@ export async function scrapeWebpackJsonp(
   statusWS: (status: string, session: string) => void,
   callqr: (callCode: string, callciiQR: string, callattempt: number) => void,
   callState: (state: string, session: string) => void,
-  callToken: (token: object, session: string) => void
+  callToken?: (token: object, session: string) => void
 ): Promise<any> {
   conn.setConnet = true;
   let UNP: boolean = true;
@@ -506,7 +505,9 @@ export async function scrapeWebpackJsonp(
             Session,
             waPage,
             (token, session) => {
-              callToken(token, session);
+              if (callToken) {
+                callToken(token, session);
+              }
             }
           );
           conn.setConnet = false;

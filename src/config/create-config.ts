@@ -70,7 +70,6 @@ export interface CreateConfig {
   autoClose?: number;
   createPathFileToken: boolean;
   autoClosePairing?: number;
-  wapage?: boolean;
   usehere?: boolean;
   saveToken?: boolean;
 }
@@ -92,7 +91,6 @@ export const defaultOptions: CreateConfig = {
   autoClose: 60000,
   createPathFileToken: false,
   autoClosePairing: 60000,
-  wapage: false,
   usehere: true,
   saveToken: true,
 };

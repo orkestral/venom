@@ -129,7 +129,6 @@ venom
       autoClose: 60000, // Automatically closes the venom-bot only when scanning the QR code (default 60 seconds, if you want to turn it off, assign 0 or false).
       createPathFileToken: false, // creates a folder when inserting an object in the client's browser, to work it is necessary to pass the parameters in the function create browserSessionToken.
       autoClosePairing: 60000, // the browser is closed automatically if the client has no internet.
-      wapage: false, // This parameter, if used, returns the puppeteer class at the end of the promise, ie the address (id) of the customer's page! Use to make any scraping on the page.
       usehere: true, // Insist the connection through your browser, if the client is open in another instance (browser).
       saveToken: true, // Use this parameter to save or not save the json token file in your current directory.
     },
