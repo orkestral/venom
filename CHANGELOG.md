@@ -1,3 +1,14 @@
+## [2.0.23](https://github.com/orkestral/venom/compare/v2.0.22...v2.0.23) (2020-11-21)
+
+### Bug Fixes
+
+- Added timeout for browserWS connection ([3b31c1f](https://github.com/orkestral/venom/commit/3b31c1f2412559d87ee4097d7ab4cd027445b5e6))
+- Added timeout for browserWS connection ([1b28832](https://github.com/orkestral/venom/commit/1b288322d5e4a4ef7d52402be28d638aaf478d6a))
+- Fixed autoclose is holding promise ([35a5898](https://github.com/orkestral/venom/commit/35a58989d6314a82dfc3a0c4f8bb81c58b98808a))
+- Fixed return of sendText for new non contact ([4147e75](https://github.com/orkestral/venom/commit/4147e75b53ca22fecd855356dbaaf80dd3710f94))
+- Fixed send content from URL ([325538b](https://github.com/orkestral/venom/commit/325538b80f45a2792ff1119841bf03849723a416))
+- Fixed sendImageAsStickerGif for big images (close [#251](https://github.com/orkestral/venom/issues/251)) ([48b1268](https://github.com/orkestral/venom/commit/48b12683bf8b249bf1088d2a8dd8071140109014))
+
 ## [2.0.22](https://github.com/orkestral/venom/compare/v2.0.21...v2.0.22) (2020-11-19)
 
 ### Bug Fixes
