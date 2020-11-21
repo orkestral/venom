@@ -1,5 +1,6 @@
 .*
 *.tgz
+*.zip
 api-docs
 app.js
 app.ts
