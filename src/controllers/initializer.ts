@@ -314,6 +314,7 @@ export async function create(
               clearInterval(_fail);
               clearInterval(browser_check);
               clearTimeout(closeBrowser);
+              clearInterval(clientCheck);
             }, mergedOptions.autoClose);
           } else {
             spinnies.succeed(`autoclose`, {
