@@ -56,7 +56,7 @@ import * as path from 'path';
 import { Page } from 'puppeteer';
 import {
   base64MimeType,
-  downloadFileImgHttp,
+  downloadFileToBase64,
   fileToBase64,
   MINES,
   stickerSelect,
@@ -156,7 +156,7 @@ export class SenderLayer extends ListenerLayer {
     caption?: string
   ) {
     return new Promise(async (resolve, reject) => {
-      let base64 = await downloadFileImgHttp(filePath, [
+      let base64 = await downloadFileToBase64(filePath, [
         'image/png',
         'image/jpg',
         'image/webp',
@@ -331,6 +331,19 @@ export class SenderLayer extends ListenerLayer {
     caption?: string
   ) {
     return new Promise(async (resolve, reject) => {
+      let mimeType = base64MimeType(base64);
+
+      if (!mimeType) {
+        var obj = {
+          erro: true,
+          to: to,
+          text: 'Invalid base64!',
+        };
+        return reject(obj);
+      }
+
+      filename = filenameFromMimeType(filename, mimeType);
+
       var type = 'FileFromBase64';
       var result = await this.page.evaluate(
         ({ to, base64, filename, caption, type }) => {
@@ -349,46 +362,40 @@ export class SenderLayer extends ListenerLayer {
   /**
    * Sends file from path
    * @param to Chat id
-   * @param path File path
+   * @param filePath File path
    * @param filename
    * @param caption
    */
   public async sendFile(
     to: string,
-    path: string,
-    filename: string,
+    filePath: string,
+    filename?: string,
     caption?: string
   ) {
     return new Promise(async (resolve, reject) => {
-      var extension = path.split('.').pop();
-      filename = filename + '.' + extension;
-
-      let b64 = await downloadFileImgHttp(path, MINES()),
+      let base64 = await downloadFileToBase64(filePath, MINES()),
         obj: { erro: boolean; to: string; text: string };
-      if (!b64) {
-        b64 = await fileToBase64(path);
+
+      if (!base64) {
+        base64 = await fileToBase64(filePath);
       }
-      if (b64) {
-        var type = 'sendFile';
-        var result = await this.page.evaluate(
-          ({ to, b64, filename, caption, type }) => {
-            return WAPI.sendFile(b64, to, filename, caption, type);
-          },
-          { to, b64, filename, caption, type }
-        );
-        if (result['erro'] == true) {
-          reject(result);
-        } else {
-          resolve(result);
-        }
-      } else {
+
+      if (!base64) {
         obj = {
           erro: true,
           to: to,
-          text: 'No such file or directory, open "' + path + '"',
+          text: 'No such file or directory, open "' + filePath + '"',
         };
-        reject(obj);
+        return reject(obj);
       }
+
+      if (!filename) {
+        filename = path.basename(filePath);
+      }
+
+      this.sendFileFromBase64(to, base64, filename, caption)
+        .then(resolve)
+        .catch(reject);
     });
   }
 
@@ -502,7 +509,7 @@ export class SenderLayer extends ListenerLayer {
    *  @param to chatId '000000000000@c.us'
    */
   public async sendImageAsStickerGif(to: string, path: string) {
-    let b64 = await downloadFileImgHttp(path, ['image/gif', 'image/webp']);
+    let b64 = await downloadFileToBase64(path, ['image/gif', 'image/webp']);
     if (!b64) {
       b64 = await fileToBase64(path);
     }
@@ -545,7 +552,7 @@ export class SenderLayer extends ListenerLayer {
    * @param to chatId '000000000000@c.us'
    */
   public async sendImageAsSticker(to: string, path: string) {
-    let b64 = await downloadFileImgHttp(path, [
+    let b64 = await downloadFileToBase64(path, [
       'image/png',
       'image/jpg',
       'image/webp',
