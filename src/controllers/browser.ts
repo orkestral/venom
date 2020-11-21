@@ -136,16 +136,28 @@ export async function initBrowser(
 
   let browser = null;
   if (options.browserWS && options.browserWS != '') {
-    await puppeteer
-      .connect({
-        browserWSEndpoint: options.browserWS,
-      })
-      .then((e) => {
-        browser = e;
-      })
-      .catch(() => {
+    const checkConnection = new Promise(async (resolve) => {
+      const timeout = setTimeout(() => {
         browser = 'connect';
-      });
+        resolve();
+      }, 10000);
+
+      puppeteer
+        .connect({
+          browserWSEndpoint: options.browserWS,
+        })
+        .then((e) => {
+          browser = e;
+        })
+        .catch(() => {
+          browser = 'connect';
+        })
+        .finally(() => {
+          clearTimeout(timeout);
+          resolve();
+        });
+    });
+    await checkConnection;
   } else {
     await puppeteer
       .launch({
