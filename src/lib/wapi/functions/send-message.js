@@ -76,21 +76,14 @@ export async function sendMessage(to, content) {
   } else {
     chat = await WAPI.sendExist(to);
     const message = content;
-    if (chat.erro === false || chat.__x_id) {
-      var ListChat = await Store.Chat.get(to);
-      var result = await Promise.all(
-        ListChat ? await chat.sendMessage(message) : ''
-      );
-      result = result.join('');
-      var m = { type: 'sendtext', text: message },
-        obj,
-        To = await WAPI.getchatId(chat.id);
+    if (!chat.erro) {
+      const result = await chat.sendMessage(message);
       if (result === 'success' || result === 'OK') {
-        obj = WAPI.scope(To, false, result, null);
-        Object.assign(obj, m);
-        return obj;
+        return chat.lastReceivedKey._serialized;
       } else {
-        obj = WAPI.scope(To, true, result, null);
+        const m = { type: 'sendtext', text: message };
+        const To = await WAPI.getchatId(chat.id);
+        const obj = WAPI.scope(To, true, result, null);
         Object.assign(obj, m);
         return obj;
       }

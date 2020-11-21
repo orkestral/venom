@@ -153,7 +153,7 @@ interface WAPI {
     longitude: string,
     title: string
   ) => Promise<object>;
-  sendMessage: (to: string, content: string) => Promise<any>;
+  sendMessage: (to: string, content: string) => Promise<string>;
   sendMessageMentioned: (...args: any) => any;
   sendMessageOptions: (
     chat: any,
