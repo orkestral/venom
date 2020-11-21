@@ -61,6 +61,7 @@ import { puppeteerConfig } from '../config/puppeteer.config';
 import StealthPlugin = require('puppeteer-extra-plugin-stealth');
 import { auth_InjectToken } from './auth';
 import { useragentOverride } from '../config/WAuserAgente';
+import { WebSocketTransport } from './websocket';
 
 export async function initWhatsapp(
   session: string,
@@ -136,28 +137,24 @@ export async function initBrowser(
 
   let browser = null;
   if (options.browserWS && options.browserWS != '') {
-    const checkConnection = new Promise(async (resolve) => {
-      const timeout = setTimeout(() => {
-        browser = 'connect';
-        resolve();
-      }, 10000);
-
-      puppeteer
+    const transport = await WebSocketTransport.create(
+      options.browserWS,
+      10000
+    ).catch(() => {
+      browser = 'connect';
+    });
+    if (transport) {
+      await puppeteer
         .connect({
-          browserWSEndpoint: options.browserWS,
+          transport: transport,
         })
         .then((e) => {
           browser = e;
         })
         .catch(() => {
           browser = 'connect';
-        })
-        .finally(() => {
-          clearTimeout(timeout);
-          resolve();
         });
-    });
-    await checkConnection;
+    }
   } else {
     await puppeteer
       .launch({

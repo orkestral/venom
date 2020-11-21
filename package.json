@@ -93,6 +93,7 @@
     "webpack-cli": "^4.1.0"
   },
   "dependencies": {
+    "@types/ws": "^7.4.0",
     "atob": "^2.1.2",
     "axios": "^0.21.0",
     "boxen": "^4.2.0",
