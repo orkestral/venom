@@ -1,3 +1,9 @@
+## [2.0.25](https://github.com/orkestral/venom/compare/v2.0.24...v2.0.25) (2020-11-23)
+
+### Bug Fixes
+
+- Fixed download GIF image format ([78def2e](https://github.com/orkestral/venom/commit/78def2e1e55de40f63c7b2374f4285676d10424f))
+
 ## [2.0.24](https://github.com/orkestral/venom/compare/v2.0.23...v2.0.24) (2020-11-23)
 
 ### Bug Fixes
