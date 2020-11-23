@@ -67,7 +67,7 @@ import {
 import { initWhatsapp, injectApi, initBrowser } from './browser';
 import chalk = require('chalk');
 import boxen = require('boxen');
-import Spinnies = require('spinnies');
+import * as Spinnies from 'spinnies';
 import path = require('path');
 import Counter = require('../lib/counter/Counter.js');
 const { version } = require('../../package.json');
@@ -111,7 +111,7 @@ export async function create(
     DelFileCheck = false;
 
   const spinnies = new Spinnies({
-    disableSpins: options ? options.disableSpins : '',
+    disableSpins: options ? options.disableSpins : false,
   });
 
   const mergedOptions = { ...defaultOptions, ...options };
@@ -139,7 +139,7 @@ export async function create(
     spinnies.add('venom-version-spinner', {
       text: 'Checking for updates',
     });
-    checkVenomVersion(spinnies);
+    await checkVenomVersion(spinnies);
     updatesChecked = true;
   }
 
@@ -499,12 +499,17 @@ export async function create(
 /**
  * Checs for a new versoin of venom and logs
  */
-function checkVenomVersion(spinnies) {
-  latestVersion('venom-bot').then((latest) => {
-    if (!upToDate(version, latest)) {
+async function checkVenomVersion(spinnies: Spinnies) {
+  spinnies.update('venom-version-spinner', { text: 'Checking for updates...' });
+  await latestVersion('venom-bot').then((latest) => {
+    if (upToDate(version, latest)) {
+      spinnies.succeed('venom-version-spinner', { text: "You're up to date" });
+    } else {
+      spinnies.succeed('venom-version-spinner', {
+        text: 'There is a new version available',
+      });
       logUpdateAvailable(version, latest);
     }
-    spinnies.succeed('venom-version-spinner', { text: 'Checking for updates' });
   });
 }
 
