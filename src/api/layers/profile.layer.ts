@@ -115,6 +115,7 @@ export class ProfileLayer extends HostLayer {
    */
   public async setProfilePic(path: string) {
     let b64 = await downloadFileToBase64(path, [
+      'image/gif',
       'image/png',
       'image/jpg',
       'image/jpeg',

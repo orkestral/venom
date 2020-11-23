@@ -157,6 +157,7 @@ export class SenderLayer extends ListenerLayer {
   ) {
     return new Promise(async (resolve, reject) => {
       let base64 = await downloadFileToBase64(filePath, [
+        'image/gif',
         'image/png',
         'image/jpg',
         'image/jpeg',
@@ -554,6 +555,7 @@ export class SenderLayer extends ListenerLayer {
    */
   public async sendImageAsSticker(to: string, path: string) {
     let b64 = await downloadFileToBase64(path, [
+      'image/gif',
       'image/png',
       'image/jpg',
       'image/jpeg',
