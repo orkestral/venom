@@ -159,6 +159,7 @@ export class SenderLayer extends ListenerLayer {
       let base64 = await downloadFileToBase64(filePath, [
         'image/png',
         'image/jpg',
+        'image/jpeg',
         'image/webp',
       ]);
 
@@ -555,6 +556,7 @@ export class SenderLayer extends ListenerLayer {
     let b64 = await downloadFileToBase64(path, [
       'image/png',
       'image/jpg',
+      'image/jpeg',
       'image/webp',
     ]);
     if (!b64) {
@@ -562,7 +564,7 @@ export class SenderLayer extends ListenerLayer {
     }
     if (b64) {
       const buff = Buffer.from(
-        b64.replace(/^data:image\/(png|jpeg|webp);base64,/, ''),
+        b64.replace(/^data:image\/(png|jpe?g|webp);base64,/, ''),
         'base64'
       );
       const mimeInfo = base64MimeType(b64);
