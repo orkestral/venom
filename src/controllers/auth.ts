@@ -59,6 +59,7 @@ import { from, merge } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { existsSync, readFileSync } from 'fs';
 import { CreateConfig } from '../config/create-config';
+import { ScrapQrcode } from '../api/model/qrcode';
 
 /**
  * Validates if client is authenticated
@@ -103,15 +104,6 @@ export const isInsideChat = (waPage: puppeteer.Page) => {
       .catch(() => false)
   );
 };
-export async function retrieveQR(page: puppeteer.Page) {
-  const { code, data } = await decodeQR(page);
-  if (data === null || code === null) {
-    return false;
-  }
-  const asciiQR = await asciiQr(code);
-  return { code, data, asciiQR };
-}
-
 export async function asciiQr(code: string): Promise<string> {
   return new Promise((resolve) => {
     qrcode.generate(code, { small: true }, (qrcode) => {
@@ -120,9 +112,9 @@ export async function asciiQr(code: string): Promise<string> {
   });
 }
 
-async function decodeQR(
+export async function retrieveQR(
   page: puppeteer.Page
-): Promise<{ code: string; data: string }> {
+): Promise<ScrapQrcode | undefined> {
   await page.waitForSelector('canvas', { timeout: 0 });
 
   await page.addScriptTag({
@@ -140,11 +132,10 @@ async function decodeQR(
           canvas.width,
           canvas.height
         );
-        return { code: code.data, data: canvas.toDataURL() };
+        return { urlCode: code.data, base64Image: canvas.toDataURL() };
       }
-    } else {
-      return { code: null, data: null };
     }
+    return undefined;
   });
 }
 

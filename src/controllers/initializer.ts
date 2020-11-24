@@ -66,7 +66,6 @@ import { initWhatsapp, injectApi, initBrowser } from './browser';
 import * as Spinnies from 'spinnies';
 import path = require('path');
 import {
-  scrapeImgReload,
   scrapeImg,
   scrapeLogin,
   scrapeDesconnected,
@@ -74,6 +73,7 @@ import {
   deleteFiles,
 } from '../api/helpers';
 import { checkUpdates, welcomeScreen } from './welcome';
+import { ScrapQrcode } from '../api/model/qrcode';
 
 /**
  * Start the bot
@@ -87,7 +87,12 @@ import { checkUpdates, welcomeScreen } from './welcome';
 
 export async function create(
   session = 'session',
-  catchQR?: (qrCode: string, asciiQR: string, attempt: number) => void,
+  catchQR?: (
+    qrCode: string,
+    asciiQR: string,
+    attempt: number,
+    urlCode?: string
+  ) => void,
   statusFind?: (statusGet: string, session: string) => void,
   options?: CreateConfig,
   browserSessionToken?: object
@@ -202,7 +207,7 @@ export async function create(
       browserToken = browserSessionToken;
     }
 
-    var waPage = await initWhatsapp(
+    const waPage = await initWhatsapp(
       Session,
       mergedOptions,
       browser,
@@ -295,9 +300,7 @@ export async function create(
             });
           }
 
-          let tipo_qr = 0,
-            result = undefined,
-            url = null;
+          let urlCode = null;
 
           ///scraper qrcode
           browser_check = setInterval(async () => {
@@ -312,59 +315,33 @@ export async function create(
               clearTimeout(closeBrowser);
               clearInterval(_fail);
               clearInterval(browser_check);
+              clearInterval(clientCheck);
             } else {
-              switch (tipo_qr) {
-                case 0:
-                  result = await scrapeImg(waPage).catch(() => {});
-                  if (result != undefined) {
-                    var retri = await retrieveQR(waPage).catch(() => {});
-                    if (retri) {
-                      var { data, asciiQR } = retri;
-                      if (catchQR) {
-                        catchQR(data, asciiQR, attempt++);
-                      }
-                      await asciiQr(result['url'])
-                        .then((qr) => {
-                          if (mergedOptions.logQR) {
-                            spinnies.update(`${Session}-auth`, {
-                              text: 'Scan QR for Session: ' + Session,
-                            });
-                            console.log(qr);
-                          }
-                          tipo_qr++;
-                        })
-                        .catch(() => {});
-                    }
-                  }
-                  break;
-                case 1:
-                  result = await scrapeImgReload(waPage, url).catch(() => {});
-                  if (typeof result === 'object') {
-                    url = result.url;
-                  }
-                  if (typeof result === 'object' && result.status === true) {
-                    let re = await scrapeImg(waPage).catch(() => {});
-                    if (re != undefined) {
-                      var retri = await retrieveQR(waPage).catch(() => {});
-                      if (retri) {
-                        var { data, asciiQR } = retri;
-                        if (catchQR) {
-                          catchQR(data, asciiQR, attempt++);
-                        }
-                        await asciiQr(re['url'])
-                          .then((qr) => {
-                            if (mergedOptions.logQR) {
-                              spinnies.update(`${Session}-auth`, {
-                                text: 'Scan QR for Session: ' + Session,
-                              });
-                              console.log(qr);
-                            }
-                          })
-                          .catch(() => {});
-                      }
-                    }
-                  }
-                  break;
+              let qrResult: ScrapQrcode | undefined;
+
+              qrResult = await scrapeImg(waPage).catch(() => undefined);
+              if (!qrResult || !qrResult.urlCode) {
+                qrResult = await retrieveQR(waPage).catch(() => undefined);
+              }
+
+              if (
+                !qrResult ||
+                !qrResult.urlCode ||
+                qrResult.urlCode === urlCode
+              ) {
+                return;
+              }
+
+              urlCode = qrResult.urlCode;
+              const qr = await asciiQr(urlCode);
+
+              if (catchQR) {
+                catchQR(qrResult.base64Image, qr, attempt++, urlCode);
+              }
+              if (mergedOptions.logQR) {
+                spinnies.update(`${Session}-auth`, {
+                  text: `Scan QR for Session: ${Session}\n${qr}`,
+                });
               }
             }
           }, 1000);
@@ -387,7 +364,7 @@ export async function create(
         clearInterval(browser_check);
         clearTimeout(closeBrowser);
         spinnies.add(`${Session}-inject`, { text: 'Injecting Sibionte...' });
-        waPage = await injectApi(waPage);
+        await injectApi(waPage);
         spinnies.succeed(`${Session}-inject`, {
           text: 'Starting With Success!',
         });
