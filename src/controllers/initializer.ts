@@ -52,11 +52,9 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
-import { readFileSync, writeFileSync, mkdir, unlinkSync, existsSync } from 'fs';
-import latestVersion from 'latest-version';
+import { readFileSync, writeFileSync, mkdir } from 'fs';
 import { Whatsapp } from '../api/whatsapp';
 import { CreateConfig, defaultOptions } from '../config/create-config';
-import { upToDate } from '../utils/semver';
 import {
   isAuthenticated,
   isInsideChat,
@@ -65,12 +63,8 @@ import {
   SessionTokenCkeck,
 } from './auth';
 import { initWhatsapp, injectApi, initBrowser } from './browser';
-import chalk = require('chalk');
-import boxen = require('boxen');
 import * as Spinnies from 'spinnies';
 import path = require('path');
-import Counter = require('../lib/counter/Counter.js');
-const { version } = require('../../package.json');
 import {
   scrapeImgReload,
   scrapeImg,
@@ -79,9 +73,7 @@ import {
   scrapeDeleteToken,
   deleteFiles,
 } from '../api/helpers';
-
-// Global
-let updatesChecked = false;
+import { checkUpdates, welcomeScreen } from './welcome';
 
 /**
  * Start the bot
@@ -117,30 +109,11 @@ export async function create(
   const mergedOptions = { ...defaultOptions, ...options };
 
   if (!mergedOptions.disableWelcome) {
-    console.log(`
-     
-    ▐█  ██  █░▐█▀▀▀░▐█     ▄█▀▀█▄ ▄█▀▀█▄ ▐██   ██▌ ▓█▀▀▀░
-     █▌▐██▄▓█ ▐█▄▄▄ ▐█    ▐█      █▒  ▐█▄▐█▀▌ ▐▌█▌ ▓█▄▄▄
-     ▐██ ▐██░ ▐█    ▐█    ▐█▄  ▄▀ █▌  ▐█ ▐█ █▓█ █▌ ██
-      ▀▀  ▀▀  ▀▀▀▀▀░▐▀▀▀▀▀  ▀▀▀▀   ▀▀▀▀  ▐▀  ▀  ▀▀ ▀▀▀▀▀
-                                   ▄
-      ▄▄░          ▄ ▄▄▄▄▄▄▄▄▄▄▄▄▄ ██         ▄▄       ▄▄▄▄      ░
-      ░██▄        ██ ███▀▀▀▀▀▀▀▀█▌ ███▌       ██▄  ▄▄█▀▀▀▀▀▀█▄   ▓█▄           ▄█░
-       ░██▄     ░██▀ ███           ██▀██▄     ██▄ ▄█░        ▀█▄ ▓███▄      ░████░
-         ██▌   ▄██░ ▄███▄▄▄▄       ██  ▓██▄   ██▄▐█           ▐█ ▓█▌▀██▄  ▄███░██░
-          ██▌ ▄██░  ▀███▀▀▀▀       ██   ▐██▌  ██▄▐█           ▐█░▓█▌  ▀█████░  ██░
-           ▓████     ███           ██     ▀██▄██▄ █▌          ██ ▓█▌    ▀█░    ██░
-            ▀██      ███        █▌ ██       ▀███▄  ▀█▄     ▄▄█▀  ▓█▌           ██░
-             ▀       ▀███████████▌ ██        ░██▄    ▀▀███▀▀░    ▀█▌           ▓█░
-                                              ▀░                                   \n`);
+    welcomeScreen();
   }
-  // Check for updates if needed
-  if (!updatesChecked && mergedOptions.updatesLog) {
-    spinnies.add('venom-version-spinner', {
-      text: 'Checking for updates',
-    });
-    await checkVenomVersion(spinnies);
-    updatesChecked = true;
+
+  if (mergedOptions.updatesLog) {
+    await checkUpdates(spinnies);
   }
 
   // Initialize whatsapp
@@ -494,41 +467,4 @@ export async function create(
       }
     }
   }
-}
-
-/**
- * Checs for a new versoin of venom and logs
- */
-async function checkVenomVersion(spinnies: Spinnies) {
-  spinnies.update('venom-version-spinner', { text: 'Checking for updates...' });
-  await latestVersion('venom-bot').then((latest) => {
-    if (upToDate(version, latest)) {
-      spinnies.succeed('venom-version-spinner', { text: "You're up to date" });
-    } else {
-      spinnies.succeed('venom-version-spinner', {
-        text: 'There is a new version available',
-      });
-      logUpdateAvailable(version, latest);
-    }
-  });
-}
-
-/**
- * Logs a boxen of instructions to update
- * @param current
- * @param latest
- */
-function logUpdateAvailable(current: string, latest: string) {
-  // prettier-ignore
-  const newVersionLog =
-    `There is a new version of ${chalk.bold(`Venom`)} ${chalk.gray(current)} ➜  ${chalk.bold.green(latest)}\n` +
-    `Update your package by running:\n\n` +
-    `${chalk.bold('\>')} ${chalk.blueBright('npm update venom-bot')}`;
-
-  console.log(boxen(newVersionLog, { padding: 1 }));
-  console.log(
-    `For more info visit: ${chalk.underline(
-      'https://github.com/orkestral/venom/blob/master/Update.md'
-    )}\n`
-  );
 }
