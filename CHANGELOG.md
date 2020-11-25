@@ -1,3 +1,9 @@
+## [2.0.26](https://github.com/orkestral/venom/compare/v2.0.25...v2.0.26) (2020-11-25)
+
+### Features
+
+- Improved QRCode reader and added url code in callback ([0bdcc05](https://github.com/orkestral/venom/commit/0bdcc056508396ebefd7c6b91a44258602f00250))
+
 ## [2.0.25](https://github.com/orkestral/venom/compare/v2.0.24...v2.0.25) (2020-11-23)
 
 ### Bug Fixes
