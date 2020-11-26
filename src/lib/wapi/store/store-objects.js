@@ -385,4 +385,11 @@ export const storeObjects = [
     conditions: (module) =>
       module.default && module.default.handlePendingInvite ? module : null,
   },
+  {
+    id: 'i10n',
+    conditions: (module) =>
+      module.default && module.default.downloadAppLocale
+        ? module.default
+        : null,
+  },
 ];

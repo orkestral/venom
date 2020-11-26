@@ -55,8 +55,10 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 import { storeObjects } from './store-objects';
 
 export function getStore(modules) {
+  console.log('store');
   let foundCount = 0;
   let neededObjects = storeObjects;
+  window.Store = window.Store || {};
   for (let idx in modules) {
     if (typeof modules[idx] === 'object' && modules[idx] !== null) {
       let first = Object.values(modules[idx])[0];
@@ -72,6 +74,18 @@ export function getStore(modules) {
             if (neededModule !== null) {
               foundCount++;
               needObj.foundedModule = neededModule;
+              if (needObj.id === 'Store') {
+                const oldStore = window.Store;
+                window.Store = needObj.foundedModule;
+                Object.assign(window.Store, oldStore);
+              } else {
+                window.Store[needObj.id] = needObj.foundedModule;
+              }
+
+              var index = neededObjects.indexOf(needObj);
+              if (index > -1) {
+                neededObjects.splice(index, 1);
+              }
             }
           });
           if (foundCount == neededObjects.length) {
@@ -79,18 +93,6 @@ export function getStore(modules) {
           }
         }
 
-        let neededStore = neededObjects.find(
-          (needObj) => needObj.id === 'Store'
-        );
-        window.Store = neededStore.foundedModule
-          ? neededStore.foundedModule
-          : {};
-        neededObjects.splice(neededObjects.indexOf(neededStore), 1);
-        neededObjects.forEach((needObj) => {
-          if (needObj.foundedModule) {
-            window.Store[needObj.id] = needObj.foundedModule;
-          }
-        });
         window.Store.sendMessage = function (e) {
           return window.Store.SendTextMsgToChat(this, ...arguments);
         };
