@@ -1,0 +1,306 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Creating a Client | venom-bot - v2.0.26</title>
+	<meta name="description" content="Documentation for venom-bot - v2.0.26">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="../../assets/css/main.css">
+	<link rel="stylesheet" href="../../assets/css/pages.css">
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="../../assets/js/search.json" data-base="../..">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="../../index.html" class="title">venom-bot - v2.0.26</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-only-exported" />
+							<label class="tsd-widget" for="tsd-filter-only-exported">Only exported</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<ul class="tsd-breadcrumb">
+				<li>
+					<a href="../../modules.html">Globals</a>
+				</li>
+				<li>
+					<a href="installation.html">Getting Started</a>
+				</li>
+				<li>
+					<a href="creating-client.html">Creating a Client</a>
+				</li>
+			</ul>
+			<h1>Creating a Client</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<div class="tsd-panel tsd-typography">
+				<a href="#creating-a-client" id="creating-a-client" style="color: inherit; text-decoration: none;">
+					<h1>Creating a Client</h1>
+				</a>
+				<p>To start using <code>Venom Bot</code>, you need to create a file and call the <a href="../../modules.html#create">create</a> method.<br>That method returns an <code>Promise</code> of <a href="../../classes/whatsapp.html">Whatsapp</a>.</p>
+				<pre><code class="language-javascript"><span class="hljs-comment">// Supports ES6</span>
+<span class="hljs-comment">// import { create, Whatsapp } from &#x27;venom-bot&#x27;;</span>
+<span class="hljs-keyword">const</span> venom = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;venom-bot&#x27;</span>);
+
+venom
+  .create()
+  .then(<span class="hljs-function">(<span class="hljs-params">client</span>) =&gt;</span> start(client))
+  .catch(<span class="hljs-function">(<span class="hljs-params">error</span>) =&gt;</span> <span class="hljs-built_in">console</span>.log(error));</code></pre>
+				<a href="#multi-sessions" id="multi-sessions" style="color: inherit; text-decoration: none;">
+					<h2>Multi sessions</h2>
+				</a>
+				<p>If you want to start more than one session, for example,
+					in case you have different departments in your project,
+				then you had to specify it in your code like in that example:</p>
+				<pre><code class="language-javascript"><span class="hljs-comment">// Init sales whatsapp bot</span>
+venom.create(<span class="hljs-string">&#x27;sales&#x27;</span>).then(<span class="hljs-function">(<span class="hljs-params">client</span>) =&gt;</span> startClient(client));
+
+<span class="hljs-comment">// Init support whatsapp bot</span>
+venom.create(<span class="hljs-string">&#x27;support&#x27;</span>).then(<span class="hljs-function">(<span class="hljs-params">client</span>) =&gt;</span> startSupport(client));</code></pre>
+				<a href="#passing-options-on-create" id="passing-options-on-create" style="color: inherit; text-decoration: none;">
+					<h2>Passing options on create</h2>
+				</a>
+				<p>The <code>create</code> method third parameter can have the following optional parameters:</p>
+				<pre><code class="language-javascript">venom.create(
+    <span class="hljs-comment">//session</span>
+    <span class="hljs-string">&#x27;sessionName&#x27;</span>, <span class="hljs-comment">//Pass the name of the client you want to start the bot</span>
+    <span class="hljs-comment">//catchQR</span>
+    <span class="hljs-function">(<span class="hljs-params">base64Qrimg, asciiQR, attempts, urlCode</span>) =&gt;</span> {
+      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;Number of attempts to read the qrcode: &#x27;</span>, attempts);
+      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;Terminal qrcode: &#x27;</span>, asciiQR);
+      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;base64 image string qrcode: &#x27;</span>, base64Qrimg);
+      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;urlCode (data-ref): &#x27;</span>, urlCode);
+    },
+    <span class="hljs-comment">// statusFind</span>
+    <span class="hljs-function">(<span class="hljs-params">statusSession, session</span>) =&gt;</span> {
+      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;Status Session: &#x27;</span>, statusSession); <span class="hljs-comment">//return isLogged || notLogged || browserClose || qrReadSuccess || qrReadFail || autocloseCalled || desconnectedMobile || deleteToken</span>
+      <span class="hljs-comment">//Create session wss return &quot;serverClose&quot; case server for close</span>
+      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;Session name: &#x27;</span>, session);
+    },
+    <span class="hljs-comment">// options</span>
+    {
+      <span class="hljs-attr">folderNameToken</span>: <span class="hljs-string">&#x27;tokens&#x27;</span>, <span class="hljs-comment">//folder name when saving tokens</span>
+      <span class="hljs-attr">mkdirFolderToken</span>: <span class="hljs-string">&#x27;&#x27;</span>, <span class="hljs-comment">//folder directory tokens, just inside the venom folder, example:  { mkdirFolderToken: &#x27;/node_modules&#x27;, } //will save the tokens folder in the node_modules directory</span>
+      <span class="hljs-attr">headless</span>: <span class="hljs-literal">true</span>, <span class="hljs-comment">// Headless chrome</span>
+      <span class="hljs-attr">devtools</span>: <span class="hljs-literal">false</span>, <span class="hljs-comment">// Open devtools by default</span>
+      <span class="hljs-attr">useChrome</span>: <span class="hljs-literal">true</span>, <span class="hljs-comment">// If false will use Chromium instance</span>
+      <span class="hljs-attr">debug</span>: <span class="hljs-literal">false</span>, <span class="hljs-comment">// Opens a debug session</span>
+      <span class="hljs-attr">logQR</span>: <span class="hljs-literal">true</span>, <span class="hljs-comment">// Logs QR automatically in terminal</span>
+      <span class="hljs-attr">browserWS</span>: <span class="hljs-string">&#x27;&#x27;</span>, <span class="hljs-comment">// If u want to use browserWSEndpoint</span>
+      <span class="hljs-attr">browserArgs</span>: [<span class="hljs-string">&#x27;&#x27;</span>], <span class="hljs-comment">// Parameters to be added into the chrome browser instance</span>
+      <span class="hljs-attr">puppeteerOptions</span>: {}, <span class="hljs-comment">// Will be passed to puppeteer.launch</span>
+      <span class="hljs-attr">disableSpins</span>: <span class="hljs-literal">true</span>, <span class="hljs-comment">// Will disable Spinnies animation, useful for containers (docker) for a better log</span>
+      <span class="hljs-attr">disableWelcome</span>: <span class="hljs-literal">true</span>, <span class="hljs-comment">// Will disable the welcoming message which appears in the beginning</span>
+      <span class="hljs-attr">updatesLog</span>: <span class="hljs-literal">true</span>, <span class="hljs-comment">// Logs info updates automatically in terminal</span>
+      <span class="hljs-attr">autoClose</span>: <span class="hljs-number">60000</span>, <span class="hljs-comment">// Automatically closes the venom-bot only when scanning the QR code (default 60 seconds, if you want to turn it off, assign 0 or false)</span>
+      <span class="hljs-attr">createPathFileToken</span>: <span class="hljs-literal">false</span>, <span class="hljs-comment">//creates a folder when inserting an object in the client&#x27;s browser, to work it is necessary to pass the parameters in the function create browserSessionToken</span>
+    },
+    <span class="hljs-comment">// BrowserSessionToken</span>
+    <span class="hljs-comment">// To receive the client&#x27;s token use the function await clinet.getSessionTokenBrowser()</span>
+    {
+      <span class="hljs-attr">WABrowserId</span>: <span class="hljs-string">&#x27;&quot;UnXjH.....&quot;&#x27;</span>,
+      <span class="hljs-attr">WASecretBundle</span>:
+        <span class="hljs-string">&#x27;{&quot;key&quot;:&quot;+i/nRgWJ....&quot;,&quot;encKey&quot;:&quot;kGdMR5t....&quot;,&quot;macKey&quot;:&quot;+i/nRgW....&quot;}&#x27;</span>,
+      <span class="hljs-attr">WAToken1</span>: <span class="hljs-string">&#x27;&quot;0i8....&quot;&#x27;</span>,
+      <span class="hljs-attr">WAToken2</span>: <span class="hljs-string">&#x27;&quot;1@lPpzwC....&quot;&#x27;</span>,
+    }
+  )
+  .then(<span class="hljs-function">(<span class="hljs-params">client</span>) =&gt;</span> start(client))
+  .catch(<span class="hljs-function">(<span class="hljs-params">error</span>) =&gt;</span> <span class="hljs-built_in">console</span>.log(error));</code></pre>
+				<a href="#callback-status-session" id="callback-status-session" style="color: inherit; text-decoration: none;">
+					<h3>Callback Status Session</h3>
+				</a>
+				<p>Gets the return if the session is <code>isLogged</code> or <code>notLogged</code> or <code>browserClose</code>
+					or <code>qrReadSuccess</code> or <code>qrReadFail</code> or <code>autocloseCalled</code> or <code>desconnectedMobile</code>
+				or <code>deleteToken</code> or <code>Create session wss return &quot;serverClose&quot; case server for close</code></p>
+				<table>
+					<thead>
+						<tr>
+							<th>Status</th>
+							<th>Condition</th>
+						</tr>
+					</thead>
+					<tbody><tr>
+							<td><code>isLogged</code></td>
+							<td>When the user is already logged in to the browser</td>
+						</tr>
+						<tr>
+							<td><code>notLogged</code></td>
+							<td>When the user is not connected to the browser, it is necessary to scan the QR code through the cell phone in the option WhatsApp Web</td>
+						</tr>
+						<tr>
+							<td><code>browserClose</code></td>
+							<td>If the browser is closed this parameter is returned</td>
+						</tr>
+						<tr>
+							<td><code>qrReadSuccess</code></td>
+							<td>If the user is not logged in, the QR code is passed on the terminal a callback is returned. After the correct reading by cell phone this parameter is returned</td>
+						</tr>
+						<tr>
+							<td><code>qrReadFail</code></td>
+							<td>If the browser stops when the QR code scan is in progress, this parameter is returned</td>
+						</tr>
+						<tr>
+							<td><code>autocloseCalled</code></td>
+							<td>The browser was closed using the autoClose command</td>
+						</tr>
+						<tr>
+							<td><code>desconnectedMobile</code></td>
+							<td>Client has disconnected in to mobile</td>
+						</tr>
+						<tr>
+							<td><code>serverClose</code></td>
+							<td>Client has disconnected in to wss</td>
+						</tr>
+						<tr>
+							<td><code>deleteToken</code></td>
+							<td>If you pass true within the function <code>client.getSessionTokenBrowser(true)</code></td>
+						</tr>
+				</tbody></table>
+				<pre><code class="language-javascript"><span class="hljs-keyword">const</span> venom = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;venom-bot&#x27;</span>);
+venom
+  .create(
+    <span class="hljs-string">&#x27;sessionName&#x27;</span>,
+    <span class="hljs-literal">undefined</span>,
+    <span class="hljs-function">(<span class="hljs-params">statusSession, session</span>) =&gt;</span> {
+      <span class="hljs-comment">// return: isLogged || notLogged || browserClose || qrReadSuccess || qrReadFail || autocloseCalled || desconnectedMobile || deleteToken</span>
+      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;Status Session: &#x27;</span>, statusSession);
+      <span class="hljs-comment">// create session wss return &quot;serverClose&quot; case server for close</span>
+      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;Session name: &#x27;</span>, session);
+    },
+    <span class="hljs-literal">undefined</span>
+  )
+  .then(<span class="hljs-function">(<span class="hljs-params">client</span>) =&gt;</span> start(client))
+  .catch(<span class="hljs-function">(<span class="hljs-params">error</span>) =&gt;</span> <span class="hljs-built_in">console</span>.log(error));</code></pre>
+				<a href="#exporting-qr-code" id="exporting-qr-code" style="color: inherit; text-decoration: none;">
+					<h3>Exporting QR Code</h3>
+				</a>
+				<p>By default, QR code will appear on the terminal. If you need to pass the QR
+				somewhere else heres how:</p>
+				<pre><code class="language-javascript"><span class="hljs-keyword">const</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;fs&#x27;</span>);
+<span class="hljs-keyword">const</span> venom = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;venom-bot&#x27;</span>);
+
+venom
+  .create(
+    <span class="hljs-string">&#x27;sessionName&#x27;</span>,
+    <span class="hljs-function">(<span class="hljs-params">base64Qr, asciiQR</span>) =&gt;</span> {
+      <span class="hljs-built_in">console</span>.log(asciiQR); <span class="hljs-comment">// Optional to log the QR in the terminal</span>
+      <span class="hljs-keyword">var</span> matches = base64Qr.match(<span class="hljs-regexp">/^data:([A-Za-z-+\/]+);base64,(.+)$/</span>),
+        response = {};
+
+      <span class="hljs-keyword">if</span> (matches.length !== <span class="hljs-number">3</span>) {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">&#x27;Invalid input string&#x27;</span>);
+      }
+      response.type = matches[<span class="hljs-number">1</span>];
+      response.data = <span class="hljs-keyword">new</span> Buffer.from(matches[<span class="hljs-number">2</span>], <span class="hljs-string">&#x27;base64&#x27;</span>);
+
+      <span class="hljs-keyword">var</span> imageBuffer = response;
+      <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;fs&#x27;</span>).writeFile(
+        <span class="hljs-string">&#x27;out.png&#x27;</span>,
+        imageBuffer[<span class="hljs-string">&#x27;data&#x27;</span>],
+        <span class="hljs-string">&#x27;binary&#x27;</span>,
+        <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err</span>) </span>{
+          <span class="hljs-keyword">if</span> (err != <span class="hljs-literal">null</span>) {
+            <span class="hljs-built_in">console</span>.log(err);
+          }
+        }
+      );
+    },
+    <span class="hljs-literal">undefined</span>,
+    { <span class="hljs-attr">logQR</span>: <span class="hljs-literal">false</span> }
+  )
+  .then(<span class="hljs-function">(<span class="hljs-params">client</span>) =&gt;</span> start(client))
+  .catch(<span class="hljs-function">(<span class="hljs-params">error</span>) =&gt;</span> <span class="hljs-built_in">console</span>.log(error));</code></pre>
+			</div>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class="label pp-nav pp-group">
+						<span>Getting <wbr>Started</span>
+					</li>
+					<li class=" pp-nav pp-page">
+						<a href="installation.html">Installation</a>
+					</li>
+					<li class="current pp-nav pp-page">
+						<a href="creating-client.html">Creating a <wbr>Client</a>
+					</li>
+					<li class=" pp-nav pp-page">
+						<a href="basic-functions.html">Basic <wbr>Functions</a>
+					</li>
+					<li class="label pp-nav pp-group">
+						<span>API</span>
+					</li>
+					<li class=" ">
+						<a href="../../modules.html">Exports</a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="../../assets/js/main.js"></script>
+<script>if (location.protocol == 'file:') document.write('<script src="../../assets/js/search.json"><' + '/script>');</script>
+</body>
+</html>

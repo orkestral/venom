@@ -7,7 +7,7 @@
 	<meta name="description" content="Documentation for venom-bot - v2.0.26">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
-	<script async src="../assets/js/search.js" id="search-script"></script>
+	<link rel="stylesheet" href="../assets/css/pages.css">
 </head>
 <body>
 <header>
@@ -39,6 +39,8 @@
 							</div>
 							<input type="checkbox" id="tsd-filter-inherited" checked />
 							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-only-exported" />
+							<label class="tsd-widget" for="tsd-filter-only-exported">Only exported</label>
 						</div>
 					</div>
 					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
@@ -50,7 +52,7 @@
 		<div class="container">
 			<ul class="tsd-breadcrumb">
 				<li>
-					<a href="../modules.html">venom-bot - v2.0.26</a>
+					<a href="../modules.html">Globals</a>
 				</li>
 				<li>
 					<a href="whatsapp.html">Whatsapp</a>
@@ -94,6 +96,8 @@
 								<li class="tsd-kind-event tsd-parent-kind-class tsd-is-inherited"><a href="whatsapp.html#onanymessage" class="tsd-kind-icon">on<wbr>Any<wbr>Message</a></li>
 								<li class="tsd-kind-event tsd-parent-kind-class tsd-is-inherited"><a href="whatsapp.html#onincomingcall" class="tsd-kind-icon">on<wbr>Incoming<wbr>Call</a></li>
 								<li class="tsd-kind-event tsd-parent-kind-class tsd-is-inherited"><a href="whatsapp.html#onlivelocation" class="tsd-kind-icon">on<wbr>Live<wbr>Location</a></li>
+								<li class="tsd-kind-event tsd-parent-kind-class tsd-is-inherited"><a href="whatsapp.html#onmessage" class="tsd-kind-icon">on<wbr>Message</a></li>
+								<li class="tsd-kind-event tsd-parent-kind-class tsd-is-inherited"><a href="whatsapp.html#onparticipantschanged" class="tsd-kind-icon">on<wbr>Participants<wbr>Changed</a></li>
 								<li class="tsd-kind-event tsd-parent-kind-class tsd-is-inherited"><a href="whatsapp.html#onstatechange" class="tsd-kind-icon">on<wbr>State<wbr>Change</a></li>
 							</ul>
 						</section>
@@ -163,8 +167,6 @@
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="whatsapp.html#loadandgetallmessagesinchat" class="tsd-kind-icon">load<wbr>And<wbr>Get<wbr>All<wbr>Messages<wbr>InChat</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="whatsapp.html#loadearliermessages" class="tsd-kind-icon">load<wbr>Earlier<wbr>Messages</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="whatsapp.html#markunseenmessage" class="tsd-kind-icon">mark<wbr>Unseen<wbr>Message</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="whatsapp.html#onmessage" class="tsd-kind-icon">on<wbr>Message</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="whatsapp.html#onparticipantschanged" class="tsd-kind-icon">on<wbr>Participants<wbr>Changed</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="whatsapp.html#openchat" class="tsd-kind-icon">open<wbr>Chat</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="whatsapp.html#openchatat" class="tsd-kind-icon">open<wbr>Chat<wbr>At</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="whatsapp.html#pinchat" class="tsd-kind-icon">pin<wbr>Chat</a></li>
@@ -457,6 +459,93 @@
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span></h4>
 							<p>boolean, if returns false then there were no valid live locations in the chat of chatId</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-event tsd-parent-kind-class tsd-is-inherited">
+					<a name="onmessage" class="tsd-anchor"></a>
+					<h3>on<wbr>Message</h3>
+					<ul class="tsd-signatures tsd-kind-event tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">on<wbr>Message<span class="tsd-signature-symbol">(</span>fn<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>message<span class="tsd-signature-symbol">: </span><a href="../interfaces/message.html" class="tsd-signature-type">Message</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="whatsapp.html">Whatsapp</a>.<a href="whatsapp.html#onmessage">onMessage</a></p>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>fn: <span class="tsd-signature-symbol">(</span>message<span class="tsd-signature-symbol">: </span><a href="../interfaces/message.html" class="tsd-signature-type">Message</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></h5>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter-signature">
+											<ul class="tsd-signatures tsd-kind-type-literal">
+												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>message<span class="tsd-signature-symbol">: </span><a href="../interfaces/message.html" class="tsd-signature-type">Message</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+											</ul>
+											<ul class="tsd-descriptions">
+												<li class="tsd-description">
+													<h4 class="tsd-parameters-title">Parameters</h4>
+													<ul class="tsd-parameters">
+														<li>
+															<h5>message: <a href="../interfaces/message.html" class="tsd-signature-type">Message</a></h5>
+														</li>
+													</ul>
+													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+												</li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span></h4>
+							<p>Observable stream of messages</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-event tsd-parent-kind-class tsd-is-inherited">
+					<a name="onparticipantschanged" class="tsd-anchor"></a>
+					<h3>on<wbr>Participants<wbr>Changed</h3>
+					<ul class="tsd-signatures tsd-kind-event tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">on<wbr>Participants<wbr>Changed<span class="tsd-signature-symbol">(</span>groupId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, fn<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>participantChangedEvent<span class="tsd-signature-symbol">: </span><a href="../interfaces/participantevent.html" class="tsd-signature-type">ParticipantEvent</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="whatsapp.html">Whatsapp</a>.<a href="whatsapp.html#onparticipantschanged">onParticipantsChanged</a></p>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>groupId: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>fn: <span class="tsd-signature-symbol">(</span>participantChangedEvent<span class="tsd-signature-symbol">: </span><a href="../interfaces/participantevent.html" class="tsd-signature-type">ParticipantEvent</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></h5>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter-signature">
+											<ul class="tsd-signatures tsd-kind-type-literal">
+												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>participantChangedEvent<span class="tsd-signature-symbol">: </span><a href="../interfaces/participantevent.html" class="tsd-signature-type">ParticipantEvent</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+											</ul>
+											<ul class="tsd-descriptions">
+												<li class="tsd-description">
+													<h4 class="tsd-parameters-title">Parameters</h4>
+													<ul class="tsd-parameters">
+														<li>
+															<h5>participantChangedEvent: <a href="../interfaces/participantevent.html" class="tsd-signature-type">ParticipantEvent</a></h5>
+														</li>
+													</ul>
+													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+												</li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span></h4>
+							<p>Stream of ParticipantEvent</p>
 						</li>
 					</ul>
 				</section>
@@ -1259,7 +1348,7 @@
 								<li>
 									<h5>chatId: <span class="tsd-signature-type">string</span></h5>
 									<div class="tsd-comment tsd-typography">
-										<p>chat id: <a href="mailto:&#x78;&#x78;&#120;&#x78;&#x78;&#x40;&#99;&#46;&#x75;&#x73;">&#x78;&#x78;&#120;&#x78;&#x78;&#x40;&#99;&#46;&#x75;&#x73;</a></p>
+										<p>chat id: <a href="mailto:&#x78;&#x78;&#120;&#120;&#120;&#64;&#99;&#46;&#x75;&#x73;">&#x78;&#x78;&#120;&#120;&#120;&#64;&#99;&#46;&#x75;&#x73;</a></p>
 									</div>
 								</li>
 							</ul>
@@ -1493,7 +1582,7 @@
 								<li>
 									<h5>chatId: <span class="tsd-signature-type">string</span></h5>
 									<div class="tsd-comment tsd-typography">
-										<p>chat id: <a href="mailto:&#x78;&#x78;&#x78;&#120;&#120;&#x40;&#x63;&#x2e;&#117;&#115;">&#x78;&#x78;&#x78;&#120;&#120;&#x40;&#x63;&#x2e;&#117;&#115;</a></p>
+										<p>chat id: <a href="mailto:&#120;&#120;&#x78;&#x78;&#x78;&#64;&#99;&#46;&#117;&#x73;">&#120;&#120;&#x78;&#x78;&#x78;&#64;&#99;&#46;&#117;&#x73;</a></p>
 									</div>
 								</li>
 							</ul>
@@ -1953,96 +2042,6 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-					<a name="onmessage" class="tsd-anchor"></a>
-					<h3>on<wbr>Message</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon">on<wbr>Message<span class="tsd-signature-symbol">(</span>fn<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>message<span class="tsd-signature-symbol">: </span><a href="../interfaces/message.html" class="tsd-signature-type">Message</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<p>Inherited from <a href="whatsapp.html">Whatsapp</a>.<a href="whatsapp.html#onmessage">onMessage</a></p>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Listens to messages received</p>
-								</div>
-							</div>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>fn: <span class="tsd-signature-symbol">(</span>message<span class="tsd-signature-symbol">: </span><a href="../interfaces/message.html" class="tsd-signature-type">Message</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></h5>
-									<ul class="tsd-parameters">
-										<li class="tsd-parameter-signature">
-											<ul class="tsd-signatures tsd-kind-type-literal">
-												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>message<span class="tsd-signature-symbol">: </span><a href="../interfaces/message.html" class="tsd-signature-type">Message</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
-											</ul>
-											<ul class="tsd-descriptions">
-												<li class="tsd-description">
-													<h4 class="tsd-parameters-title">Parameters</h4>
-													<ul class="tsd-parameters">
-														<li>
-															<h5>message: <a href="../interfaces/message.html" class="tsd-signature-type">Message</a></h5>
-														</li>
-													</ul>
-													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
-												</li>
-											</ul>
-										</li>
-									</ul>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span></h4>
-							<p>Observable stream of messages</p>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-					<a name="onparticipantschanged" class="tsd-anchor"></a>
-					<h3>on<wbr>Participants<wbr>Changed</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon">on<wbr>Participants<wbr>Changed<span class="tsd-signature-symbol">(</span>groupId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, fn<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>participantChangedEvent<span class="tsd-signature-symbol">: </span><a href="../interfaces/participantevent.html" class="tsd-signature-type">ParticipantEvent</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<p>Inherited from <a href="whatsapp.html">Whatsapp</a>.<a href="whatsapp.html#onparticipantschanged">onParticipantsChanged</a></p>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-							</div>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>groupId: <span class="tsd-signature-type">string</span></h5>
-								</li>
-								<li>
-									<h5>fn: <span class="tsd-signature-symbol">(</span>participantChangedEvent<span class="tsd-signature-symbol">: </span><a href="../interfaces/participantevent.html" class="tsd-signature-type">ParticipantEvent</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></h5>
-									<ul class="tsd-parameters">
-										<li class="tsd-parameter-signature">
-											<ul class="tsd-signatures tsd-kind-type-literal">
-												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>participantChangedEvent<span class="tsd-signature-symbol">: </span><a href="../interfaces/participantevent.html" class="tsd-signature-type">ParticipantEvent</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
-											</ul>
-											<ul class="tsd-descriptions">
-												<li class="tsd-description">
-													<h4 class="tsd-parameters-title">Parameters</h4>
-													<ul class="tsd-parameters">
-														<li>
-															<h5>participantChangedEvent: <a href="../interfaces/participantevent.html" class="tsd-signature-type">ParticipantEvent</a></h5>
-														</li>
-													</ul>
-													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
-												</li>
-											</ul>
-										</li>
-									</ul>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span></h4>
-							<p>Stream of ParticipantEvent</p>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 					<a name="openchat" class="tsd-anchor"></a>
 					<h3>open<wbr>Chat</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
@@ -2306,7 +2305,7 @@
 								<li>
 									<h5>contactsId: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></h5>
 									<div class="tsd-comment tsd-typography">
-										<p>Example: <a href="mailto:&#48;&#48;&#48;&#48;&#x40;&#99;&#46;&#x75;&#115;">&#48;&#48;&#48;&#48;&#x40;&#99;&#46;&#x75;&#115;</a> | [<a href="mailto:&#48;&#x30;&#x30;&#x40;&#99;&#x2e;&#x75;&#x73;">&#48;&#x30;&#x30;&#x40;&#99;&#x2e;&#x75;&#x73;</a>, <a href="mailto:&#x31;&#x31;&#x31;&#49;&#x40;&#99;&#46;&#117;&#x73;">&#x31;&#x31;&#x31;&#49;&#x40;&#99;&#46;&#117;&#x73;</a>]</p>
+										<p>Example: <a href="mailto:&#x30;&#48;&#x30;&#x30;&#64;&#99;&#x2e;&#117;&#x73;">&#x30;&#48;&#x30;&#x30;&#64;&#99;&#x2e;&#117;&#x73;</a> | [<a href="mailto:&#x30;&#48;&#48;&#x40;&#99;&#46;&#x75;&#115;">&#x30;&#48;&#48;&#x40;&#99;&#46;&#x75;&#115;</a>, <a href="mailto:&#49;&#49;&#x31;&#x31;&#64;&#x63;&#x2e;&#117;&#115;">&#49;&#49;&#x31;&#x31;&#64;&#x63;&#x2e;&#117;&#115;</a>]</p>
 									</div>
 								</li>
 								<li>
@@ -2344,7 +2343,7 @@
 								<li>
 									<h5>contacts: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></h5>
 									<div class="tsd-comment tsd-typography">
-										<p>Example: | [<a href="mailto:&#x30;&#48;&#x30;&#64;&#x63;&#x2e;&#117;&#115;">&#x30;&#48;&#x30;&#64;&#x63;&#x2e;&#117;&#115;</a>, <a href="mailto:&#49;&#49;&#49;&#49;&#64;&#99;&#x2e;&#x75;&#x73;">&#49;&#49;&#49;&#49;&#64;&#99;&#x2e;&#x75;&#x73;</a>]</p>
+										<p>Example: | [<a href="mailto:&#x30;&#48;&#x30;&#x40;&#x63;&#46;&#117;&#115;">&#x30;&#48;&#x30;&#x40;&#x63;&#46;&#117;&#115;</a>, <a href="mailto:&#x31;&#x31;&#49;&#x31;&#x40;&#99;&#46;&#117;&#x73;">&#x31;&#x31;&#49;&#x31;&#x40;&#99;&#46;&#117;&#x73;</a>]</p>
 									</div>
 								</li>
 							</ul>
@@ -2399,7 +2398,7 @@
 					<a name="sendfilefrombase64" class="tsd-anchor"></a>
 					<h3>send<wbr>File<wbr>From<wbr>Base64</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon">send<wbr>File<wbr>From<wbr>Base64<span class="tsd-signature-symbol">(</span>to<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, base64<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, filename<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, caption<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span></li>
+						<li class="tsd-signature tsd-kind-icon">send<wbr>File<wbr>From<wbr>Base64<span class="tsd-signature-symbol">(</span>to<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, base64<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, filename<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, caption<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/sendfileresult.html" class="tsd-signature-type">SendFileResult</a><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -2435,7 +2434,7 @@
 									</div>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/sendfileresult.html" class="tsd-signature-type">SendFileResult</a><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -2443,7 +2442,7 @@
 					<a name="sendimage" class="tsd-anchor"></a>
 					<h3>send<wbr>Image</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon">send<wbr>Image<span class="tsd-signature-symbol">(</span>to<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, filePath<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, filename<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, caption<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span></li>
+						<li class="tsd-signature tsd-kind-icon">send<wbr>Image<span class="tsd-signature-symbol">(</span>to<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, filePath<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, filename<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, caption<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/sendfileresult.html" class="tsd-signature-type">SendFileResult</a><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -2478,7 +2477,7 @@
 									</div>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/sendfileresult.html" class="tsd-signature-type">SendFileResult</a><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -2486,7 +2485,7 @@
 					<a name="sendimageassticker" class="tsd-anchor"></a>
 					<h3>send<wbr>Image<wbr>AsSticker</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon">send<wbr>Image<wbr>AsSticker<span class="tsd-signature-symbol">(</span>to<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, path<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span></li>
+						<li class="tsd-signature tsd-kind-icon">send<wbr>Image<wbr>AsSticker<span class="tsd-signature-symbol">(</span>to<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, path<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/sendstickerresult.html" class="tsd-signature-type">SendStickerResult</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">false</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -2513,7 +2512,7 @@
 									</div>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/sendstickerresult.html" class="tsd-signature-type">SendStickerResult</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">false</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -2521,7 +2520,7 @@
 					<a name="sendimageasstickergif" class="tsd-anchor"></a>
 					<h3>send<wbr>Image<wbr>AsSticker<wbr>Gif</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon">send<wbr>Image<wbr>AsSticker<wbr>Gif<span class="tsd-signature-symbol">(</span>to<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, path<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span></li>
+						<li class="tsd-signature tsd-kind-icon">send<wbr>Image<wbr>AsSticker<wbr>Gif<span class="tsd-signature-symbol">(</span>to<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, path<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/sendstickerresult.html" class="tsd-signature-type">SendStickerResult</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">false</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -2548,7 +2547,7 @@
 									</div>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/sendstickerresult.html" class="tsd-signature-type">SendStickerResult</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">false</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -2556,7 +2555,7 @@
 					<a name="sendimagefrombase64" class="tsd-anchor"></a>
 					<h3>send<wbr>Image<wbr>From<wbr>Base64</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon">send<wbr>Image<wbr>From<wbr>Base64<span class="tsd-signature-symbol">(</span>to<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, base64<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, filename<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, caption<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span></li>
+						<li class="tsd-signature tsd-kind-icon">send<wbr>Image<wbr>From<wbr>Base64<span class="tsd-signature-symbol">(</span>to<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, base64<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, filename<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, caption<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/sendfileresult.html" class="tsd-signature-type">SendFileResult</a><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -2591,7 +2590,7 @@
 									</div>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/sendfileresult.html" class="tsd-signature-type">SendFileResult</a><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -2599,7 +2598,7 @@
 					<a name="sendlinkpreview" class="tsd-anchor"></a>
 					<h3>send<wbr>Link<wbr>Preview</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon">send<wbr>Link<wbr>Preview<span class="tsd-signature-symbol">(</span>chatId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, url<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, title<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span></li>
+						<li class="tsd-signature tsd-kind-icon">send<wbr>Link<wbr>Preview<span class="tsd-signature-symbol">(</span>chatId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, url<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, title<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/sendlinkresult.html" class="tsd-signature-type">SendLinkResult</a><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -2629,7 +2628,7 @@
 									</div>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/sendlinkresult.html" class="tsd-signature-type">SendLinkResult</a><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -2881,7 +2880,7 @@
 								<li>
 									<h5>chatId: <span class="tsd-signature-type">string</span></h5>
 									<div class="tsd-comment tsd-typography">
-										<p>chat id: <a href="mailto:&#x78;&#120;&#120;&#120;&#x78;&#64;&#x75;&#x73;&#x2e;&#99;">&#x78;&#120;&#120;&#120;&#x78;&#64;&#x75;&#x73;&#x2e;&#99;</a></p>
+										<p>chat id: <a href="mailto:&#x78;&#120;&#x78;&#120;&#x78;&#64;&#x75;&#x73;&#x2e;&#99;">&#x78;&#120;&#x78;&#120;&#x78;&#64;&#x75;&#x73;&#x2e;&#99;</a></p>
 									</div>
 								</li>
 							</ul>
@@ -2910,7 +2909,7 @@
 								<li>
 									<h5>to: <span class="tsd-signature-type">string</span></h5>
 									<div class="tsd-comment tsd-typography">
-										<p>chat id: <a href="mailto:&#x78;&#x78;&#x78;&#120;&#x78;&#64;&#117;&#115;&#46;&#x63;">&#x78;&#x78;&#x78;&#120;&#x78;&#64;&#117;&#115;&#46;&#x63;</a></p>
+										<p>chat id: <a href="mailto:&#x78;&#120;&#120;&#120;&#x78;&#x40;&#117;&#x73;&#46;&#x63;">&#x78;&#120;&#120;&#120;&#x78;&#x40;&#117;&#x73;&#46;&#x63;</a></p>
 									</div>
 								</li>
 								<li>
@@ -2945,7 +2944,7 @@
 								<li>
 									<h5>to: <span class="tsd-signature-type">string</span></h5>
 									<div class="tsd-comment tsd-typography">
-										<p>chat id <a href="mailto:&#x78;&#120;&#120;&#x78;&#x78;&#x40;&#x75;&#115;&#x2e;&#x63;">&#x78;&#120;&#120;&#x78;&#x78;&#x40;&#x75;&#115;&#x2e;&#x63;</a></p>
+										<p>chat id <a href="mailto:&#x78;&#120;&#120;&#120;&#120;&#64;&#117;&#115;&#x2e;&#x63;">&#x78;&#120;&#120;&#120;&#120;&#64;&#117;&#115;&#x2e;&#x63;</a></p>
 									</div>
 								</li>
 								<li>
@@ -2989,7 +2988,7 @@
 								<li>
 									<h5>to: <span class="tsd-signature-type">string</span></h5>
 									<div class="tsd-comment tsd-typography">
-										<p>chat id <a href="mailto:&#120;&#x78;&#x78;&#120;&#x78;&#64;&#x75;&#x73;&#x2e;&#x63;">&#120;&#x78;&#x78;&#120;&#x78;&#64;&#x75;&#x73;&#x2e;&#x63;</a></p>
+										<p>chat id <a href="mailto:&#120;&#120;&#120;&#x78;&#120;&#64;&#117;&#x73;&#46;&#99;">&#120;&#120;&#120;&#x78;&#120;&#64;&#117;&#x73;&#46;&#99;</a></p>
 									</div>
 								</li>
 								<li>
@@ -3302,6 +3301,18 @@
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
 			<nav class="tsd-navigation primary">
 				<ul>
+					<li class="label pp-nav pp-group">
+						<span>Getting <wbr>Started</span>
+					</li>
+					<li class=" pp-nav pp-page">
+						<a href="../pages/Getting Started/installation.html">Installation</a>
+					</li>
+					<li class=" pp-nav pp-page">
+						<a href="../pages/Getting Started/creating-client.html">Creating a <wbr>Client</a>
+					</li>
+					<li class=" pp-nav pp-page">
+						<a href="../pages/Getting Started/basic-functions.html">Basic <wbr>Functions</a>
+					</li>
 					<li class=" ">
 						<a href="../modules.html">Exports</a>
 					</li>
@@ -3349,6 +3360,12 @@
 							</li>
 							<li class=" tsd-kind-event tsd-parent-kind-class tsd-is-inherited">
 								<a href="whatsapp.html#onlivelocation" class="tsd-kind-icon">on<wbr>Live<wbr>Location</a>
+							</li>
+							<li class=" tsd-kind-event tsd-parent-kind-class tsd-is-inherited">
+								<a href="whatsapp.html#onmessage" class="tsd-kind-icon">on<wbr>Message</a>
+							</li>
+							<li class=" tsd-kind-event tsd-parent-kind-class tsd-is-inherited">
+								<a href="whatsapp.html#onparticipantschanged" class="tsd-kind-icon">on<wbr>Participants<wbr>Changed</a>
 							</li>
 							<li class=" tsd-kind-event tsd-parent-kind-class tsd-is-inherited">
 								<a href="whatsapp.html#onstatechange" class="tsd-kind-icon">on<wbr>State<wbr>Change</a>
@@ -3513,12 +3530,6 @@
 								<a href="whatsapp.html#markunseenmessage" class="tsd-kind-icon">mark<wbr>Unseen<wbr>Message</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-								<a href="whatsapp.html#onmessage" class="tsd-kind-icon">on<wbr>Message</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-								<a href="whatsapp.html#onparticipantschanged" class="tsd-kind-icon">on<wbr>Participants<wbr>Changed</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 								<a href="whatsapp.html#openchat" class="tsd-kind-icon">open<wbr>Chat</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
@@ -3655,6 +3666,9 @@
 						<a href="../interfaces/id.html" class="tsd-kind-icon">Id</a>
 					</li>
 					<li class=" tsd-kind-interface">
+						<a href="../interfaces/lastreceivedkey.html" class="tsd-kind-icon">Last<wbr>Received<wbr>Key</a>
+					</li>
+					<li class=" tsd-kind-interface">
 						<a href="../interfaces/livelocation.html" class="tsd-kind-icon">Live<wbr>Location</a>
 					</li>
 					<li class=" tsd-kind-interface">
@@ -3665,6 +3679,18 @@
 					</li>
 					<li class=" tsd-kind-interface">
 						<a href="../interfaces/participantevent.html" class="tsd-kind-icon">Participant<wbr>Event</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="../interfaces/scoperesult.html" class="tsd-kind-icon">Scope<wbr>Result</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="../interfaces/sendfileresult.html" class="tsd-kind-icon">Send<wbr>File<wbr>Result</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="../interfaces/sendlinkresult.html" class="tsd-kind-icon">Send<wbr>Link<wbr>Result</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="../interfaces/sendstickerresult.html" class="tsd-kind-icon">Send<wbr>Sticker<wbr>Result</a>
 					</li>
 					<li class=" tsd-kind-interface">
 						<a href="../interfaces/whatsappprofile.html" class="tsd-kind-icon">Whatsapp<wbr>Profile</a>
@@ -3700,5 +3726,6 @@
 </div>
 <div class="overlay"></div>
 <script src="../assets/js/main.js"></script>
+<script>if (location.protocol == 'file:') document.write('<script src="../assets/js/search.json"><' + '/script>');</script>
 </body>
 </html>

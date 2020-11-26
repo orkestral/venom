@@ -1,0 +1,399 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Basic Functions | venom-bot - v2.0.26</title>
+	<meta name="description" content="Documentation for venom-bot - v2.0.26">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="../../assets/css/main.css">
+	<link rel="stylesheet" href="../../assets/css/pages.css">
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="../../assets/js/search.json" data-base="../..">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="../../index.html" class="title">venom-bot - v2.0.26</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-only-exported" />
+							<label class="tsd-widget" for="tsd-filter-only-exported">Only exported</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<ul class="tsd-breadcrumb">
+				<li>
+					<a href="../../modules.html">Globals</a>
+				</li>
+				<li>
+					<a href="installation.html">Getting Started</a>
+				</li>
+				<li>
+					<a href="basic-functions.html">Basic Functions</a>
+				</li>
+			</ul>
+			<h1>Basic Functions</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<div class="tsd-panel tsd-typography">
+				<a href="#basic-functions-usage" id="basic-functions-usage" style="color: inherit; text-decoration: none;">
+					<h1>Basic Functions (usage)</h1>
+				</a>
+				<p>Not every available function will be listed, for further look, every function
+				available can be found in <a href="../../classes/whatsapp.html">Whatsapp</a></p>
+				<a href="#summary" id="summary" style="color: inherit; text-decoration: none;">
+					<h3>Summary</h3>
+				</a>
+				<ul>
+					<li><a href="#chatting">Chatting</a><ul>
+							<li><a href="#sendcontactvcard">sendContactVcard</a></li>
+							<li><a href="#sendcontactvcardlist">sendContactVcardList</a></li>
+							<li><a href="#sendtext">sendText</a></li>
+							<li><a href="#sendlocation">sendLocation</a></li>
+							<li><a href="#sendlinkpreview">sendLinkPreview</a></li>
+							<li><a href="#sendimage">sendImage</a></li>
+							<li><a href="#sendfile">sendFile</a></li>
+							<li><a href="#sendfilefrombase64">sendFileFromBase64</a></li>
+							<li><a href="#sendimageasstickergif">sendImageAsStickerGif</a></li>
+							<li><a href="#sendimageassticker">sendImageAsSticker</a></li>
+							<li><a href="#sendmentioned">sendMentioned</a></li>
+							<li><a href="#reply">reply</a></li>
+							<li><a href="#reply-with-mention">reply with mention</a></li>
+							<li><a href="#sendmessageoptions">sendMessageOptions</a></li>
+							<li><a href="#sendvideoasgif">sendVideoAsGif</a></li>
+							<li><a href="#forwardmessages">forwardMessages</a></li>
+							<li><a href="#sendseen">sendSeen</a></li>
+							<li><a href="#starttyping">startTyping</a></li>
+							<li><a href="#stoptyping">stopTyping</a></li>
+							<li><a href="#setchatstate">setChatState</a></li>
+						</ul>
+					</li>
+				</ul>
+				<a href="#chatting" id="chatting" style="color: inherit; text-decoration: none;">
+					<h2>Chatting</h2>
+				</a>
+				<blockquote>
+					<p>Here, <code>chatId</code> could be <code>&lt;phoneNumber&gt;@c.us</code> or <code>&lt;phoneNumber&gt;-&lt;groupId&gt;@g.us</code></p>
+				</blockquote>
+				<a href="#sendcontactvcard" id="sendcontactvcard" style="color: inherit; text-decoration: none;">
+					<h3>sendContactVcard</h3>
+				</a>
+				<p>Send contact</p>
+				<pre><code class="language-javascript"><span class="hljs-keyword">await</span> client
+  .sendContactVcard(<span class="hljs-string">&#x27;000000000000@c.us&#x27;</span>, <span class="hljs-string">&#x27;111111111111@c.us&#x27;</span>, <span class="hljs-string">&#x27;Name of contact&#x27;</span>)
+  .then(<span class="hljs-function">(<span class="hljs-params">result</span>) =&gt;</span> {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;Result: &#x27;</span>, result); <span class="hljs-comment">//return object success</span>
+  })
+  .catch(<span class="hljs-function">(<span class="hljs-params">erro</span>) =&gt;</span> {
+    <span class="hljs-built_in">console</span>.error(<span class="hljs-string">&#x27;Error when sending: &#x27;</span>, erro); <span class="hljs-comment">//return object error</span>
+  });</code></pre>
+				<a href="#sendcontactvcardlist" id="sendcontactvcardlist" style="color: inherit; text-decoration: none;">
+					<h3>sendContactVcardList</h3>
+				</a>
+				<p>Send a list of contact cards</p>
+				<pre><code class="language-javascript"><span class="hljs-keyword">await</span> client
+  .sendContactVcardList(<span class="hljs-string">&#x27;000000000000@c.us&#x27;</span>, [
+    <span class="hljs-string">&#x27;111111111111@c.us&#x27;</span>,
+    <span class="hljs-string">&#x27;222222222222@c.us&#x27;</span>,
+  ])
+  .then(<span class="hljs-function">(<span class="hljs-params">result</span>) =&gt;</span> {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;Result: &#x27;</span>, result); <span class="hljs-comment">//return object success</span>
+  })
+  .catch(<span class="hljs-function">(<span class="hljs-params">erro</span>) =&gt;</span> {
+    <span class="hljs-built_in">console</span>.error(<span class="hljs-string">&#x27;Error when sending: &#x27;</span>, erro); <span class="hljs-comment">//return object error</span>
+  });</code></pre>
+				<a href="#sendtext" id="sendtext" style="color: inherit; text-decoration: none;">
+					<h3>sendText</h3>
+				</a>
+				<p>Send basic text</p>
+				<pre><code class="language-javascript"><span class="hljs-keyword">await</span> client
+  .sendText(<span class="hljs-string">&#x27;000000000000@c.us&#x27;</span>, <span class="hljs-string">&#x27;👋 Hello from venom!&#x27;</span>)
+  .then(<span class="hljs-function">(<span class="hljs-params">result</span>) =&gt;</span> {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;Result: &#x27;</span>, result); <span class="hljs-comment">//return object success</span>
+  })
+  .catch(<span class="hljs-function">(<span class="hljs-params">erro</span>) =&gt;</span> {
+    <span class="hljs-built_in">console</span>.error(<span class="hljs-string">&#x27;Error when sending: &#x27;</span>, erro); <span class="hljs-comment">//return object error</span>
+  });</code></pre>
+				<a href="#sendlocation" id="sendlocation" style="color: inherit; text-decoration: none;">
+					<h3>sendLocation</h3>
+				</a>
+				<p>Send location</p>
+				<pre><code class="language-javascript"><span class="hljs-keyword">await</span> client
+  .sendLocation(<span class="hljs-string">&#x27;000000000000@c.us&#x27;</span>, <span class="hljs-string">&#x27;-13.6561589&#x27;</span>, <span class="hljs-string">&#x27;-69.7309264&#x27;</span>, <span class="hljs-string">&#x27;Brasil&#x27;</span>)
+  .then(<span class="hljs-function">(<span class="hljs-params">result</span>) =&gt;</span> {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;Result: &#x27;</span>, result); <span class="hljs-comment">//return object success</span>
+  })
+  .catch(<span class="hljs-function">(<span class="hljs-params">erro</span>) =&gt;</span> {
+    <span class="hljs-built_in">console</span>.error(<span class="hljs-string">&#x27;Error when sending: &#x27;</span>, erro); <span class="hljs-comment">//return object error</span>
+  });</code></pre>
+				<a href="#sendlinkpreview" id="sendlinkpreview" style="color: inherit; text-decoration: none;">
+					<h3>sendLinkPreview</h3>
+				</a>
+				<p>Automatically sends a link with the auto generated link preview. You can also add a custom message to be added.</p>
+				<pre><code class="language-javascript"><span class="hljs-keyword">await</span> client
+  .sendLinkPreview(
+    <span class="hljs-string">&#x27;000000000000@c.us&#x27;</span>,
+    <span class="hljs-string">&#x27;https://www.youtube.com/watch?v=V1bFr2SWP1I&#x27;</span>,
+    <span class="hljs-string">&#x27;Kamakawiwo ole&#x27;</span>
+  )
+  .then(<span class="hljs-function">(<span class="hljs-params">result</span>) =&gt;</span> {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;Result: &#x27;</span>, result); <span class="hljs-comment">//return object success</span>
+  })
+  .catch(<span class="hljs-function">(<span class="hljs-params">erro</span>) =&gt;</span> {
+    <span class="hljs-built_in">console</span>.error(<span class="hljs-string">&#x27;Error when sending: &#x27;</span>, erro); <span class="hljs-comment">//return object error</span>
+  });</code></pre>
+				<a href="#sendimage" id="sendimage" style="color: inherit; text-decoration: none;">
+					<h3>sendImage</h3>
+				</a>
+				<p>Send an image (you can also upload an image using a valid HTTP protocol)</p>
+				<pre><code class="language-javascript"><span class="hljs-keyword">await</span> client
+  .sendImage(
+    <span class="hljs-string">&#x27;000000000000@c.us&#x27;</span>,
+    <span class="hljs-string">&#x27;path/to/img.jpg&#x27;</span>,
+    <span class="hljs-string">&#x27;image-name&#x27;</span>,
+    <span class="hljs-string">&#x27;Caption text&#x27;</span>
+  )
+  .then(<span class="hljs-function">(<span class="hljs-params">result</span>) =&gt;</span> {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;Result: &#x27;</span>, result); <span class="hljs-comment">//return object success</span>
+  })
+  .catch(<span class="hljs-function">(<span class="hljs-params">erro</span>) =&gt;</span> {
+    <span class="hljs-built_in">console</span>.error(<span class="hljs-string">&#x27;Error when sending: &#x27;</span>, erro); <span class="hljs-comment">//return object error</span>
+  });</code></pre>
+				<a href="#sendfile" id="sendfile" style="color: inherit; text-decoration: none;">
+					<h3>sendFile</h3>
+				</a>
+				<p>Send a file (venom will take care of mime types, just need the path).<br>You can also upload an image using a valid HTTP protocol</p>
+				<pre><code class="language-javascript"><span class="hljs-keyword">await</span> client
+  .sendFile(
+    <span class="hljs-string">&#x27;000000000000@c.us&#x27;</span>,
+    <span class="hljs-string">&#x27;path/to/file.pdf&#x27;</span>,
+    <span class="hljs-string">&#x27;file_name&#x27;</span>,
+    <span class="hljs-string">&#x27;See my file in pdf&#x27;</span>
+  )
+  .then(<span class="hljs-function">(<span class="hljs-params">result</span>) =&gt;</span> {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;Result: &#x27;</span>, result); <span class="hljs-comment">//return object success</span>
+  })
+  .catch(<span class="hljs-function">(<span class="hljs-params">erro</span>) =&gt;</span> {
+    <span class="hljs-built_in">console</span>.error(<span class="hljs-string">&#x27;Error when sending: &#x27;</span>, erro); <span class="hljs-comment">//return object error</span>
+  });</code></pre>
+				<a href="#sendfilefrombase64" id="sendfilefrombase64" style="color: inherit; text-decoration: none;">
+					<h3>sendFileFromBase64</h3>
+				</a>
+				<p>Sends a file.</p>
+				<blockquote>
+					<p>base64 parameter should have mime type already defined</p>
+				</blockquote>
+				<pre><code class="language-javascript"><span class="hljs-keyword">await</span> client
+  .sendFileFromBase64(
+    <span class="hljs-string">&#x27;000000000000@c.us&#x27;</span>,
+    base64PDF,
+    <span class="hljs-string">&#x27;file_name.pdf&#x27;</span>,
+    <span class="hljs-string">&#x27;See my file in pdf&#x27;</span>
+  )
+  .then(<span class="hljs-function">(<span class="hljs-params">result</span>) =&gt;</span> {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;Result: &#x27;</span>, result); <span class="hljs-comment">//return object success</span>
+  })
+  .catch(<span class="hljs-function">(<span class="hljs-params">erro</span>) =&gt;</span> {
+    <span class="hljs-built_in">console</span>.error(<span class="hljs-string">&#x27;Error when sending: &#x27;</span>, erro); <span class="hljs-comment">//return object error</span>
+  });</code></pre>
+				<a href="#sendimageasstickergif" id="sendimageasstickergif" style="color: inherit; text-decoration: none;">
+					<h3>sendImageAsStickerGif</h3>
+				</a>
+				<p>Generates a sticker from the provided animated gif image and sends it (Send an image as animated sticker)<br>Image path imageBase64 A valid gif and webp image will be required. You can also send via http/https (<a href="http://www.website.com/img.gif">http://www.website.com/img.gif</a>)</p>
+				<pre><code class="language-javascript"><span class="hljs-keyword">await</span> client
+  .sendImageAsStickerGif(<span class="hljs-string">&#x27;000000000000@c.us&#x27;</span>, <span class="hljs-string">&#x27;./image.gif&#x27;</span>)
+  .then(<span class="hljs-function">(<span class="hljs-params">result</span>) =&gt;</span> {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;Result: &#x27;</span>, result); <span class="hljs-comment">//return object success</span>
+  })
+  .catch(<span class="hljs-function">(<span class="hljs-params">erro</span>) =&gt;</span> {
+    <span class="hljs-built_in">console</span>.error(<span class="hljs-string">&#x27;Error when sending: &#x27;</span>, erro); <span class="hljs-comment">//return object error</span>
+  });</code></pre>
+				<a href="#sendimageassticker" id="sendimageassticker" style="color: inherit; text-decoration: none;">
+					<h3>sendImageAsSticker</h3>
+				</a>
+				<p>Generates a sticker from given image and sends it (Send Image As Sticker)<br>image path imageBase64 A valid png, jpg and webp image will be required. You can also send via http/https (<a href="http://www.website.com/img.jpg">http://www.website.com/img.jpg</a>)</p>
+				<pre><code class="language-javascript"><span class="hljs-keyword">await</span> client
+  .sendImageAsSticker(<span class="hljs-string">&#x27;000000000000@c.us&#x27;</span>, <span class="hljs-string">&#x27;./image.jpg&#x27;</span>)
+  .then(<span class="hljs-function">(<span class="hljs-params">result</span>) =&gt;</span> {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;Result: &#x27;</span>, result); <span class="hljs-comment">//return object success</span>
+  })
+  .catch(<span class="hljs-function">(<span class="hljs-params">erro</span>) =&gt;</span> {
+    <span class="hljs-built_in">console</span>.error(<span class="hljs-string">&#x27;Error when sending: &#x27;</span>, erro); <span class="hljs-comment">//return object error</span>
+  });</code></pre>
+				<a href="#sendmentioned" id="sendmentioned" style="color: inherit; text-decoration: none;">
+					<h3>sendMentioned</h3>
+				</a>
+				<p>Send <code>@tagged</code> message</p>
+				<pre><code class="language-javascript"><span class="hljs-keyword">await</span> client.sendMentioned(
+  <span class="hljs-string">&#x27;000000000000@c.us&#x27;</span>,
+  <span class="hljs-string">&#x27;Hello @5218113130740 and @5218243160777!&#x27;</span>,
+  [<span class="hljs-string">&#x27;5218113130740&#x27;</span>, <span class="hljs-string">&#x27;5218243160777&#x27;</span>]
+);</code></pre>
+				<a href="#reply" id="reply" style="color: inherit; text-decoration: none;">
+					<h3>reply</h3>
+				</a>
+				<p>Reply to a message</p>
+				<pre><code class="language-javascript"><span class="hljs-keyword">await</span> client.reply(
+  <span class="hljs-string">&#x27;000000000000@c.us&#x27;</span>,
+  <span class="hljs-string">&#x27;This is a reply!&#x27;</span>,
+  message.id.toString()
+);</code></pre>
+				<a href="#reply-with-mention" id="reply-with-mention" style="color: inherit; text-decoration: none;">
+					<h3>reply with mention</h3>
+				</a>
+				<p>Reply to a message with mention</p>
+				<pre><code class="language-javascript"><span class="hljs-keyword">await</span> client.reply(
+  <span class="hljs-string">&#x27;000000000000@c.us&#x27;</span>,
+  <span class="hljs-string">&#x27;Hello @5218113130740 and @5218243160777! This is a reply with mention!&#x27;</span>,
+  message.id.toString(),
+  [<span class="hljs-string">&#x27;5218113130740&#x27;</span>, <span class="hljs-string">&#x27;5218243160777&#x27;</span>]
+);</code></pre>
+				<a href="#sendmessageoptions" id="sendmessageoptions" style="color: inherit; text-decoration: none;">
+					<h3>sendMessageOptions</h3>
+				</a>
+				<p>Send a message with options</p>
+				<pre><code class="language-javascript"><span class="hljs-keyword">await</span> client
+    .sendMessageOptions(
+      <span class="hljs-string">&#x27;000000000000@c.us&#x27;</span>,
+      <span class="hljs-string">&#x27;This is a reply!&#x27;</span>,
+       {
+          <span class="hljs-attr">quotedMessageId</span>: reply,
+        }
+    )
+    .then(<span class="hljs-function">(<span class="hljs-params">result</span>) =&gt;</span> {
+        <span class="hljs-built_in">console</span>.log(result);
+    })
+    .catch(<span class="hljs-function">(<span class="hljs-params">e</span>) =&gt;</span> {
+      <span class="hljs-built_in">console</span>.log(e);
+    });
+</code></pre>
+				<a href="#sendvideoasgif" id="sendvideoasgif" style="color: inherit; text-decoration: none;">
+					<h3>sendVideoAsGif</h3>
+				</a>
+				<p>Send a gif</p>
+				<pre><code class="language-javascript"><span class="hljs-keyword">await</span> client.sendVideoAsGif(
+  <span class="hljs-string">&#x27;000000000000@c.us&#x27;</span>,
+  <span class="hljs-string">&#x27;path/to/video.mp4&#x27;</span>,
+  <span class="hljs-string">&#x27;video.gif&#x27;</span>,
+  <span class="hljs-string">&#x27;Gif image file&#x27;</span>
+);</code></pre>
+				<a href="#forwardmessages" id="forwardmessages" style="color: inherit; text-decoration: none;">
+					<h3>forwardMessages</h3>
+				</a>
+				<p>Forwards messages</p>
+				<pre><code class="language-javascript"><span class="hljs-keyword">await</span> client.forwardMessages(
+  <span class="hljs-string">&#x27;000000000000@c.us&#x27;</span>,
+  [message.id.toString()],
+  <span class="hljs-literal">true</span>
+);</code></pre>
+				<a href="#sendseen" id="sendseen" style="color: inherit; text-decoration: none;">
+					<h3>sendSeen</h3>
+				</a>
+				<p>Send seen ✔️✔️</p>
+				<pre><code class="language-javascript"><span class="hljs-keyword">await</span> client.sendSeen(<span class="hljs-string">&#x27;000000000000@c.us&#x27;</span>);</code></pre>
+				<a href="#starttyping" id="starttyping" style="color: inherit; text-decoration: none;">
+					<h3>startTyping</h3>
+				</a>
+				<p>Start typing...</p>
+				<pre><code class="language-javascript"><span class="hljs-keyword">await</span> client.startTyping(<span class="hljs-string">&#x27;000000000000@c.us&#x27;</span>);</code></pre>
+				<a href="#stoptyping" id="stoptyping" style="color: inherit; text-decoration: none;">
+					<h3>stopTyping</h3>
+				</a>
+				<p>Stop typing</p>
+				<pre><code class="language-javascript"><span class="hljs-keyword">await</span> client.stopTyping(<span class="hljs-string">&#x27;000000000000@c.us&#x27;</span>);</code></pre>
+				<a href="#setchatstate" id="setchatstate" style="color: inherit; text-decoration: none;">
+					<h3>setChatState</h3>
+				</a>
+				<p>Set chat state (0: Typing, 1: Recording, 2: Paused)</p>
+				<pre><code class="language-javascript"><span class="hljs-keyword">await</span> client.setChatState(<span class="hljs-string">&#x27;000000000000@c.us&#x27;</span>, <span class="hljs-number">0</span> | <span class="hljs-number">1</span> | <span class="hljs-number">2</span>);</code></pre>
+			</div>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class="label pp-nav pp-group">
+						<span>Getting <wbr>Started</span>
+					</li>
+					<li class=" pp-nav pp-page">
+						<a href="installation.html">Installation</a>
+					</li>
+					<li class=" pp-nav pp-page">
+						<a href="creating-client.html">Creating a <wbr>Client</a>
+					</li>
+					<li class="current pp-nav pp-page">
+						<a href="basic-functions.html">Basic <wbr>Functions</a>
+					</li>
+					<li class="label pp-nav pp-group">
+						<span>API</span>
+					</li>
+					<li class=" ">
+						<a href="../../modules.html">Exports</a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="../../assets/js/main.js"></script>
+<script>if (location.protocol == 'file:') document.write('<script src="../../assets/js/search.json"><' + '/script>');</script>
+</body>
+</html>

@@ -7,7 +7,7 @@
 	<meta name="description" content="Documentation for venom-bot - v2.0.26">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="assets/css/main.css">
-	<script async src="assets/js/search.js" id="search-script"></script>
+	<link rel="stylesheet" href="assets/css/pages.css">
 </head>
 <body>
 <header>
@@ -39,6 +39,8 @@
 							</div>
 							<input type="checkbox" id="tsd-filter-inherited" checked />
 							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-only-exported" />
+							<label class="tsd-widget" for="tsd-filter-only-exported">Only exported</label>
 						</div>
 					</div>
 					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
@@ -48,6 +50,11 @@
 	</div>
 	<div class="tsd-page-title">
 		<div class="container">
+			<ul class="tsd-breadcrumb">
+				<li>
+					<a href="modules.html">Globals</a>
+				</li>
+			</ul>
 			<h1>Project venom-bot - v2.0.26</h1>
 		</div>
 	</div>
@@ -60,9 +67,23 @@
 					<h1>🕷Venom Bot🕸</h1>
 				</a>
 				<p><img src="https://s2.click/venom.jpg" alt="enter image description here"></p>
+				<p><a href="https://www.npmjs.com/package/venom-bot"><img src="https://img.shields.io/npm/v/venom-bot.svg?color=green" alt="npm version"></a>
+					<img src="https://img.shields.io/node/v/venom-bot" alt="node">
+					<a href="https://www.npmjs.com/package/venom-bot"><img src="https://img.shields.io/npm/dm/venom-bot.svg" alt="Downloads"></a>
+					<a href="http://isitmaintained.com/project/orkestral/venom" title="Average time to resolve an issue"><img src="http://isitmaintained.com/badge/resolution/orkestral/venom.svg" alt="Average time to resolve an issue"></a>
+					<a href="http://isitmaintained.com/project/orkestral/venom" title="Percentage of issues still open"><img src="http://isitmaintained.com/badge/open/orkestral/venom.svg" alt="Percentage of issues still open"></a>
+				<a href="https://discord.gg/qCJ95FVbzR"><img src="https://img.shields.io/discord/772885202351292426?color=blueviolet&label=discord&style=flat" /></a></p>
+				<p><a href="https://github.com/orkestral/venom/actions"><img src="https://img.shields.io/github/workflow/status/orkestral/venom/build.svg" alt="Build Status"></a>
+					<a href="https://github.com/orkestral/venom/actions"><img src="https://img.shields.io/github/workflow/status/orkestral/venom/lint.svg?label=lint" alt="Lint Status"></a>
+				<a href="https://github.com/release-it/release-it"><img src="https://img.shields.io/badge/%F0%9F%93%A6%F0%9F%9A%80-release--it-e10079.svg" alt="release-it"></a></p>
 				<blockquote>
 					<p>Venom is a high-performance system developed with JavaScript to create a bot for WhatsApp, support for creating any interaction, such as customer service, media sending, sentence recognition based on artificial intelligence and all types of design architecture for WhatsApp.</p>
 				</blockquote>
+				<p align="center">
+					<a href="https://orkestral.github.io/venom/pages/Getting%20Started/creating-client.html">Getting Started</a> •
+					<a href="https://orkestral.github.io/venom/pages/Getting%20Started/basic-functions.html">Basic Function</a> •
+					<a href="https://orkestral.github.io/venom">Documentation</a>
+				</p>
 				<p><strong>Donate for Project</strong></p>
 				<p><a target="_blank" href="https://www.paypal.com/donate?hosted_button_id=62BBB32FGRB2A"><img width="227" height="68" src="./donate.png" alt="Consulting"></a></p>
 				<p><strong>Request Support Group Access In Whatsapp For $5 Month</strong> <br> <br>
@@ -896,6 +917,21 @@ process.on(<span class="hljs-string">&#x27;SIGINT&#x27;</span>, <span class="hlj
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
 			<nav class="tsd-navigation primary">
 				<ul>
+					<li class="label pp-nav pp-group">
+						<span>Getting <wbr>Started</span>
+					</li>
+					<li class=" pp-nav pp-page">
+						<a href="pages/Getting Started/installation.html">Installation</a>
+					</li>
+					<li class=" pp-nav pp-page">
+						<a href="pages/Getting Started/creating-client.html">Creating a <wbr>Client</a>
+					</li>
+					<li class=" pp-nav pp-page">
+						<a href="pages/Getting Started/basic-functions.html">Basic <wbr>Functions</a>
+					</li>
+					<li class="label pp-nav pp-group">
+						<span>API</span>
+					</li>
 					<li class=" ">
 						<a href="modules.html">Exports</a>
 					</li>
@@ -949,6 +985,9 @@ process.on(<span class="hljs-string">&#x27;SIGINT&#x27;</span>, <span class="hlj
 						<a href="interfaces/id.html" class="tsd-kind-icon">Id</a>
 					</li>
 					<li class=" tsd-kind-interface">
+						<a href="interfaces/lastreceivedkey.html" class="tsd-kind-icon">Last<wbr>Received<wbr>Key</a>
+					</li>
+					<li class=" tsd-kind-interface">
 						<a href="interfaces/livelocation.html" class="tsd-kind-icon">Live<wbr>Location</a>
 					</li>
 					<li class=" tsd-kind-interface">
@@ -959,6 +998,18 @@ process.on(<span class="hljs-string">&#x27;SIGINT&#x27;</span>, <span class="hlj
 					</li>
 					<li class=" tsd-kind-interface">
 						<a href="interfaces/participantevent.html" class="tsd-kind-icon">Participant<wbr>Event</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/scoperesult.html" class="tsd-kind-icon">Scope<wbr>Result</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/sendfileresult.html" class="tsd-kind-icon">Send<wbr>File<wbr>Result</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/sendlinkresult.html" class="tsd-kind-icon">Send<wbr>Link<wbr>Result</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/sendstickerresult.html" class="tsd-kind-icon">Send<wbr>Sticker<wbr>Result</a>
 					</li>
 					<li class=" tsd-kind-interface">
 						<a href="interfaces/whatsappprofile.html" class="tsd-kind-icon">Whatsapp<wbr>Profile</a>
@@ -994,5 +1045,6 @@ process.on(<span class="hljs-string">&#x27;SIGINT&#x27;</span>, <span class="hlj
 </div>
 <div class="overlay"></div>
 <script src="assets/js/main.js"></script>
+<script>if (location.protocol == 'file:') document.write('<script src="assets/js/search.json"><' + '/script>');</script>
 </body>
 </html>

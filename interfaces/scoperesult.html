@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>ParticipantEvent | venom-bot - v2.0.26</title>
+	<title>ScopeResult | venom-bot - v2.0.26</title>
 	<meta name="description" content="Documentation for venom-bot - v2.0.26">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -55,10 +55,10 @@
 					<a href="../modules.html">Globals</a>
 				</li>
 				<li>
-					<a href="participantevent.html">ParticipantEvent</a>
+					<a href="scoperesult.html">ScopeResult</a>
 				</li>
 			</ul>
-			<h1>Interface ParticipantEvent</h1>
+			<h1>Interface ScopeResult</h1>
 		</div>
 	</div>
 </header>
@@ -69,7 +69,18 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">ParticipantEvent</span>
+						<span class="target">ScopeResult</span>
+						<ul class="tsd-hierarchy">
+							<li>
+								<a href="sendfileresult.html" class="tsd-signature-type">SendFileResult</a>
+							</li>
+							<li>
+								<a href="sendstickerresult.html" class="tsd-signature-type">SendStickerResult</a>
+							</li>
+							<li>
+								<a href="sendlinkresult.html" class="tsd-signature-type">SendLinkResult</a>
+							</li>
+						</ul>
 					</li>
 				</ul>
 			</section>
@@ -80,9 +91,11 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="participantevent.html#action" class="tsd-kind-icon">action</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="participantevent.html#by" class="tsd-kind-icon">by</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="participantevent.html#who" class="tsd-kind-icon">who</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="scoperesult.html#erro" class="tsd-kind-icon">erro</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="scoperesult.html#me" class="tsd-kind-icon">me</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="scoperesult.html#status" class="tsd-kind-icon">status</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="scoperesult.html#text" class="tsd-kind-icon">text</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="scoperesult.html#to" class="tsd-kind-icon">to</a></li>
 							</ul>
 						</section>
 					</div>
@@ -91,23 +104,37 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="action" class="tsd-anchor"></a>
-					<h3>action</h3>
-					<div class="tsd-signature tsd-kind-icon">action<span class="tsd-signature-symbol">:</span> <a href="../enums/groupchangeevent.html" class="tsd-signature-type">GroupChangeEvent</a></div>
+					<a name="erro" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> erro</h3>
+					<div class="tsd-signature tsd-kind-icon">erro<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="by" class="tsd-anchor"></a>
-					<h3>by</h3>
-					<div class="tsd-signature tsd-kind-icon">by<span class="tsd-signature-symbol">:</span> <a href="id.html" class="tsd-signature-type">Id</a></div>
+					<a name="me" class="tsd-anchor"></a>
+					<h3>me</h3>
+					<div class="tsd-signature tsd-kind-icon">me<span class="tsd-signature-symbol">:</span> <a href="hostdevice.html" class="tsd-signature-type">HostDevice</a></div>
 					<aside class="tsd-sources">
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="who" class="tsd-anchor"></a>
-					<h3>who</h3>
-					<div class="tsd-signature tsd-kind-icon">who<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">[</span><a href="id.html" class="tsd-signature-type">Id</a><span class="tsd-signature-symbol">]</span></div>
+					<a name="status" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> status</h3>
+					<div class="tsd-signature tsd-kind-icon">status<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="text" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> text</h3>
+					<div class="tsd-signature tsd-kind-icon">text<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span></div>
+					<aside class="tsd-sources">
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="to" class="tsd-anchor"></a>
+					<h3>to</h3>
+					<div class="tsd-signature tsd-kind-icon">to<span class="tsd-signature-symbol">:</span> <a href="lastreceivedkey.html" class="tsd-signature-type">LastReceivedKey</a><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-symbol">{ </span>formattedName<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>isBusiness<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">; </span>isMyContact<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">; </span>isOnline<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">; </span>pushname<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>verifiedName<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> }</span></div>
 					<aside class="tsd-sources">
 					</aside>
 				</section>
@@ -192,27 +219,33 @@
 					<li class=" tsd-kind-interface">
 						<a href="partialmessage.html" class="tsd-kind-icon">Partial<wbr>Message</a>
 					</li>
+					<li class=" tsd-kind-interface">
+						<a href="participantevent.html" class="tsd-kind-icon">Participant<wbr>Event</a>
+					</li>
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-interface">
-						<a href="participantevent.html" class="tsd-kind-icon">Participant<wbr>Event</a>
+						<a href="scoperesult.html" class="tsd-kind-icon">Scope<wbr>Result</a>
 						<ul>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="participantevent.html#action" class="tsd-kind-icon">action</a>
+								<a href="scoperesult.html#erro" class="tsd-kind-icon">erro</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="participantevent.html#by" class="tsd-kind-icon">by</a>
+								<a href="scoperesult.html#me" class="tsd-kind-icon">me</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="participantevent.html#who" class="tsd-kind-icon">who</a>
+								<a href="scoperesult.html#status" class="tsd-kind-icon">status</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="scoperesult.html#text" class="tsd-kind-icon">text</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="scoperesult.html#to" class="tsd-kind-icon">to</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
-					<li class=" tsd-kind-interface">
-						<a href="scoperesult.html" class="tsd-kind-icon">Scope<wbr>Result</a>
-					</li>
 					<li class=" tsd-kind-interface">
 						<a href="sendfileresult.html" class="tsd-kind-icon">Send<wbr>File<wbr>Result</a>
 					</li>
