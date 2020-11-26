@@ -74,7 +74,7 @@ export class ListenerLayer extends ProfileLayer {
   }
 
   /**
-   * Listens to messages received
+   * @event Listens to messages received
    * @returns Observable stream of messages
    */
   public async onMessage(fn: (message: Message) => void) {
@@ -172,6 +172,7 @@ export class ListenerLayer extends ProfileLayer {
   }
 
   /**
+   * @event Listens to participants changed
    * @param to group id: xxxxx-yyyy@us.c
    * @param to callback
    * @returns Stream of ParticipantEvent

@@ -62,7 +62,12 @@ import {
   stickerSelect,
 } from '../helpers';
 import { filenameFromMimeType } from '../helpers/filename-from-mimetype';
-import { Message } from '../model';
+import {
+  Message,
+  SendFileResult,
+  SendLinkResult,
+  SendStickerResult,
+} from '../model';
 import { ChatState } from '../model/enum';
 import { ListenerLayer } from './listener.layer';
 
@@ -77,7 +82,11 @@ export class SenderLayer extends ListenerLayer {
    * @param url string A link, for example for youtube. e.g https://www.youtube.com/watch?v=Zi_XLOBDo_Y&list=RDEMe12_MlgO8mGFdeeftZ2nOQ&start_radio=1
    * @param title custom text as the message body, this includes the link or will be attached after the link
    */
-  public async sendLinkPreview(chatId: string, url: string, title: string) {
+  public async sendLinkPreview(
+    chatId: string,
+    url: string,
+    title: string
+  ): Promise<SendLinkResult> {
     return new Promise(async (resolve, reject) => {
       var result = await this.page.evaluate(
         ({ chatId, url, title }) => {
@@ -154,7 +163,7 @@ export class SenderLayer extends ListenerLayer {
     filePath: string,
     filename?: string,
     caption?: string
-  ) {
+  ): Promise<SendFileResult> {
     return new Promise(async (resolve, reject) => {
       let base64 = await downloadFileToBase64(filePath, [
         'image/gif',
@@ -199,7 +208,7 @@ export class SenderLayer extends ListenerLayer {
     base64: string,
     filename: string,
     caption?: string
-  ) {
+  ): Promise<SendFileResult> {
     return new Promise(async (resolve, reject) => {
       let mimeType = base64MimeType(base64);
 
@@ -331,7 +340,7 @@ export class SenderLayer extends ListenerLayer {
     base64: string,
     filename: string,
     caption?: string
-  ) {
+  ): Promise<SendFileResult> {
     return new Promise(async (resolve, reject) => {
       let mimeType = base64MimeType(base64);
 
@@ -510,7 +519,10 @@ export class SenderLayer extends ListenerLayer {
    *  @param path image path imageBase64 A valid gif image is required. You can also send via http/https (http://www.website.com/img.gif)
    *  @param to chatId '000000000000@c.us'
    */
-  public async sendImageAsStickerGif(to: string, path: string) {
+  public async sendImageAsStickerGif(
+    to: string,
+    path: string
+  ): Promise<SendStickerResult | false> {
     let b64 = await downloadFileToBase64(path, ['image/gif', 'image/webp']);
     if (!b64) {
       b64 = await fileToBase64(path);
@@ -553,7 +565,10 @@ export class SenderLayer extends ListenerLayer {
    * @param path image path imageBase64 A valid png, jpg and webp image is required. You can also send via http/https (http://www.website.com/img.gif)
    * @param to chatId '000000000000@c.us'
    */
-  public async sendImageAsSticker(to: string, path: string) {
+  public async sendImageAsSticker(
+    to: string,
+    path: string
+  ): Promise<SendStickerResult | false> {
     let b64 = await downloadFileToBase64(path, [
       'image/gif',
       'image/png',

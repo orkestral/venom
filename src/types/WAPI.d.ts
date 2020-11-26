@@ -7,6 +7,9 @@ import {
   Id,
   Message,
   PartialMessage,
+  SendFileResult,
+  SendLinkResult,
+  SendStickerResult,
   WhatsappProfile,
 } from '../api/model';
 import { tokenSession } from '../config/tokenSession.config';
@@ -117,24 +120,24 @@ interface WAPI {
     filename: string,
     caption: string,
     type?: string
-  ) => Promise<object>;
+  ) => Promise<SendFileResult>;
   sendImage: (
     imgBase64: string,
     to: string,
     filename: string,
     caption?: string
-  ) => Promise<object>;
+  ) => Promise<SendFileResult>;
   sendImageAsSticker: (
     webpBase64: string,
     to: string,
     metadata?: any,
     type?: string
-  ) => object;
+  ) => Promise<SendStickerResult>;
   sendImageAsStickerGif: (
     webpBase64: string,
     to: string,
     metadata?: any
-  ) => object;
+  ) => Promise<SendStickerResult>;
   sendImageWithProduct: (
     base64: string,
     to: string,
@@ -146,7 +149,7 @@ interface WAPI {
     chatId: string,
     url: string,
     title: string
-  ) => Promise<object>;
+  ) => Promise<SendLinkResult>;
   sendLocation: (
     to: string,
     latitude: string,
