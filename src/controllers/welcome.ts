@@ -35,11 +35,11 @@ export function welcomeScreen() {
 export async function checkUpdates(spinnies: Spinnies) {
   // Check for updates if needed
   if (!updatesChecked) {
+    updatesChecked = true;
     spinnies.add('venom-version-spinner', {
       text: 'Checking for updates',
     });
     await checkVenomVersion(spinnies);
-    updatesChecked = true;
   }
 }
 

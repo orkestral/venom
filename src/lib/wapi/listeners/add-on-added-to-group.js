@@ -59,10 +59,12 @@ export function addOnAddedToGroup() {
    * @returns {boolean}
    */
   window.WAPI.onAddedToGroup = function (callback) {
-    Store.Chat.on('add', (chatObject) => {
-      if (chatObject && chatObject.isGroup) {
-        callback(chatObject);
-      }
+    window.WAPI.waitForStore(['Chat', 'Msg'], () => {
+      Store.Chat.on('add', (chatObject) => {
+        if (chatObject && chatObject.isGroup) {
+          callback(chatObject);
+        }
+      });
     });
     return true;
   };

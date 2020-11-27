@@ -55,7 +55,10 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 
 export function addOnStateChange() {
   window.WAPI.onStateChange = function (callback) {
-    window.Store.State.default.on('change:state', callback);
+    window.WAPI.waitForStore('State', () => {
+      window.Store.State.default.on('change:state', callback);
+      callback(window.Store.State.default.state);
+    });
     return true;
   };
 }

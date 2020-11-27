@@ -63,13 +63,14 @@ export interface CreateConfig {
   debug?: boolean;
   browserWS?: string;
   browserArgs?: string[];
-  puppeteerOptions: { [key: string]: string };
+  puppeteerOptions?: { [key: string]: string };
   logQR?: boolean;
   disableSpins?: boolean;
   disableWelcome?: boolean;
   updatesLog?: boolean;
   autoClose?: number;
-  createPathFileToken: boolean;
+  createPathFileToken?: boolean;
+  waitForLogin?: boolean;
 }
 export const defaultOptions: CreateConfig = {
   folderNameToken: 'tokens',
@@ -87,4 +88,5 @@ export const defaultOptions: CreateConfig = {
   updatesLog: true,
   autoClose: 60000,
   createPathFileToken: false,
+  waitForLogin: true,
 };

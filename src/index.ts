@@ -62,4 +62,5 @@ export {
   SocketState,
 } from './api/model/enum';
 export { Whatsapp } from './api/whatsapp';
+export { CreateConfig } from './config/create-config';
 export { create } from './controllers/initializer';

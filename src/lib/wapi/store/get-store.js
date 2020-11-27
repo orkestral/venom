@@ -55,7 +55,6 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 import { storeObjects } from './store-objects';
 
 export function getStore(modules) {
-  console.log('store');
   let foundCount = 0;
   let neededObjects = storeObjects;
   window.Store = window.Store || {};
@@ -74,6 +73,9 @@ export function getStore(modules) {
             if (neededModule !== null) {
               foundCount++;
               needObj.foundedModule = neededModule;
+              const event = new CustomEvent('storeLoaded', {
+                detail: needObj.id,
+              });
               if (needObj.id === 'Store') {
                 const oldStore = window.Store;
                 window.Store = needObj.foundedModule;
@@ -81,6 +83,7 @@ export function getStore(modules) {
               } else {
                 window.Store[needObj.id] = needObj.foundedModule;
               }
+              window.dispatchEvent(event);
 
               var index = neededObjects.indexOf(needObj);
               if (index > -1) {

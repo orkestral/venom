@@ -521,7 +521,9 @@ if (typeof window.WAPI === 'undefined') {
    * @returns {boolean}
    */
   window.WAPI.onIncomingCall = function (callback) {
-    window.Store.Call.on('add', callback);
+    window.WAPI.waitForStore(['Call'], () => {
+      window.Store.Call.on('add', callback);
+    });
     return true;
   };
 
@@ -530,12 +532,43 @@ if (typeof window.WAPI === 'undefined') {
     return true;
   };
 
+  window.WAPI.waitForStore = async function (stores, callback) {
+    if (!Array.isArray(stores)) {
+      stores = [stores];
+    }
+
+    const isUndefined = (p) => typeof Store[p] === 'undefined';
+    const missing = stores.filter(isUndefined);
+
+    const promises = missing.map(
+      (s) =>
+        new Promise((resolve) => {
+          const listen = (e) => {
+            const name = e.detail;
+            if (name === s || !isUndefined(s)) {
+              window.removeEventListener('storeLoaded', listen);
+              resolve(true);
+            }
+          };
+          window.addEventListener('storeLoaded', listen);
+        })
+    );
+
+    const all = Promise.all(promises);
+
+    if (typeof callback === 'function') {
+      all.then(callback);
+    }
+
+    return await all;
+  };
+
+  addOnStateChange();
   initNewMessagesListener();
   addNewMessagesListener();
   allNewMessagesListener();
-  addOnStateChange();
   addOnNewAcks();
+  addOnAddedToGroup();
   addOnLiveLocation();
   addOnParticipantsChange();
-  addOnAddedToGroup();
 }

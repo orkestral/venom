@@ -54,6 +54,7 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
 import * as path from 'path';
 import { Page } from 'puppeteer';
+import { CreateConfig } from '../../config/create-config';
 import {
   base64MimeType,
   downloadFileToBase64,
@@ -72,8 +73,8 @@ import { ChatState } from '../model/enum';
 import { ListenerLayer } from './listener.layer';
 
 export class SenderLayer extends ListenerLayer {
-  constructor(public page: Page) {
-    super(page);
+  constructor(public page: Page, session?: string, options?: CreateConfig) {
+    super(page, session, options);
   }
 
   /**

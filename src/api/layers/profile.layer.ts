@@ -60,10 +60,11 @@ import {
   downloadFileToBase64,
   resizeImg,
 } from '../helpers';
+import { CreateConfig } from '../../config/create-config';
 
 export class ProfileLayer extends HostLayer {
-  constructor(public page: Page) {
-    super(page);
+  constructor(public page: Page, session?: string, options?: CreateConfig) {
+    super(page, session, options);
   }
 
   /**

@@ -1,5 +1,7 @@
 .DS_Store
+.idea/
 *.tgz
+/debug.log
 006.png
 api-docs
 app.js
@@ -14,4 +16,3 @@ session
 session-*
 src/app.ts
 tokens
-.idea/

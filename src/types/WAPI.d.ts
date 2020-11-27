@@ -192,6 +192,7 @@ interface WAPI {
   stopTyping: (to: string) => void;
   takeOver: () => boolean;
   unblockContact: (messageId: string) => boolean;
+  waitForStore: (store: string | string[], callback?: Function) => Promise<any>;
   waitNewAcknowledgements: (callback: Function) => void;
   waitNewMessages: (rmCallback: boolean, callback: Function) => void;
   sendSeen: (to: string) => void;

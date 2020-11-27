@@ -59,10 +59,11 @@ import treekill = require('tree-kill');
 import { magix, timeout, makeOptions } from './helpers/decrypt';
 import axios from 'axios';
 import { useragentOverride } from '../config/WAuserAgente';
+import { CreateConfig } from '../config/create-config';
 
 export class Whatsapp extends ControlsLayer {
-  constructor(public page: Page) {
-    super(page);
+  constructor(public page: Page, session?: string, options?: CreateConfig) {
+    super(page, session, options);
   }
 
   /**

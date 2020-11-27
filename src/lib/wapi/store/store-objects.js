@@ -392,4 +392,16 @@ export const storeObjects = [
         ? module.default
         : null,
   },
+  {
+    id: 'NetworkStatus',
+    conditions: (module) =>
+      module.default && module.default._logOnlineOffline
+        ? module.default
+        : null,
+  },
+  {
+    id: 'Stream',
+    conditions: (module) =>
+      module.default && module.default.unobscure ? module.default : null,
+  },
 ];
