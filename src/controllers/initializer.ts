@@ -60,6 +60,7 @@ import { initWhatsapp, initBrowser } from './browser';
 import { checkUpdates, welcomeScreen } from './welcome';
 import { getSpinnies } from '../utils/spinnies';
 import { SocketState } from '../api/model/enum';
+import { deleteFiles } from '../api/helpers';
 
 /**
  * Start the bot
@@ -182,12 +183,16 @@ export async function create(
               saveToken(waPage, session, mergedOptions).catch((e) => {
                 console.log(e);
               });
-            }, 100);
+            }, 1000);
           }
         });
       }
 
       if (mergedOptions.waitForLogin) {
+        const isLogged = await client.waitForLogin(catchQR, statusFind);
+        if (!isLogged) {
+          throw 'Not Logged';
+        }
         client.onStateChange((state) => {
           if (
             state === SocketState.UNPAIRED ||
@@ -196,14 +201,10 @@ export async function create(
             if (statusFind) {
               statusFind('desconnectedMobile', session);
             }
+            deleteFiles(mergedOptions, session, spinnies);
             client.waitForLogin(catchQR, statusFind).catch(() => {});
           }
         });
-
-        const isLogged = await client.waitForLogin(catchQR, statusFind);
-        if (!isLogged) {
-          throw 'Not Logged';
-        }
       }
 
       if (mergedOptions.debug) {

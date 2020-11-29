@@ -214,7 +214,7 @@ export class HostLayer {
 
     while (true) {
       const result = await this.getQrCode();
-      if (!result || !result.urlCode) {
+      if (!result?.urlCode) {
         break;
       }
       if (urlCode !== result.urlCode) {
@@ -239,6 +239,16 @@ export class HostLayer {
       }
       await sleep(500);
     }
+  }
+
+  public async waitForInChat() {
+    let inChat = await isInsideChat(this.page);
+
+    while (inChat === false) {
+      await sleep(200);
+      inChat = await isInsideChat(this.page);
+    }
+    return inChat;
   }
 
   public async waitForLogin(
@@ -266,6 +276,7 @@ export class HostLayer {
       statusFind && statusFind('notLogged', this.session);
       await this.waitForQrCodeScan(catchQR);
 
+      this.spin('Checking QRCode status...');
       // Wait for interface update
       await sleep(200);
       authenticated = await isAuthenticated(this.page).catch(() => null);
@@ -289,9 +300,7 @@ export class HostLayer {
       // Wait for interface update
       await sleep(200);
       this.spin('Checking phone is connected...');
-      const inChat = await isInsideChat(this.page)
-        .toPromise()
-        .catch(() => false);
+      const inChat = await this.waitForInChat();
 
       if (!inChat) {
         this.spin('Phone not connected', 'fail');
