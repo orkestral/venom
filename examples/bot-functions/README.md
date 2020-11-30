@@ -8,6 +8,7 @@
 | `!ping reply`                                           | pong like reply              |
 | `!chats`                                                | total chats opened           |
 | `!info`                                                 | infos about connection       |
+| `!location`                                             | send location                |
 | `!sendto <number> <msg>`                                | send msg to some number      |
 | `!pin <true or false>`                                  | freeze this chat             |
 | `!typing <true or false>`                               | change state chat to typing  |
