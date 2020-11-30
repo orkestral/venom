@@ -63,6 +63,12 @@ export async function downloadFileToBase64(
     return false;
   }
 
+  const reHttp = /^https?:/;
+
+  if (!reHttp.test(_path)) {
+    return false;
+  }
+
   try {
     const response = await axios.get(_path, {
       responseType: 'arraybuffer',
@@ -77,9 +83,7 @@ export async function downloadFileToBase64(
     const content = Buffer.from(response.data, 'binary').toString('base64');
 
     return `data:${mimeType};base64,${content}`;
-  } catch (error) {
-    console.error(error);
-  }
+  } catch (error) {}
 
   return false;
 }

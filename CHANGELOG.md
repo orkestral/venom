@@ -1,3 +1,9 @@
+## [2.0.27](https://github.com/orkestral/venom/compare/v2.0.26...v2.0.27) (2020-11-28)
+
+### Bug Fixes
+
+- Fixed error log for send files from local ([e4a6f06](https://github.com/orkestral/venom/commit/e4a6f069d3a8c1d8f1d3478fb3cd43b3c50a0aa7))
+
 ## [2.0.26](https://github.com/orkestral/venom/compare/v2.0.25...v2.0.26) (2020-11-25)
 
 ### Features
