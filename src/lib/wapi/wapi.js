@@ -532,6 +532,13 @@ if (typeof window.WAPI === 'undefined') {
     return true;
   };
 
+  window.WAPI.logout = async function () {
+    return await window.WAPI.waitForStore(['ws2'], () => {
+      window.Store.ws2.logout();
+      return true;
+    });
+  };
+
   window.WAPI.waitForStore = async function (stores, callback) {
     if (!Array.isArray(stores)) {
       stores = [stores];

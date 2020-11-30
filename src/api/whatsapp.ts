@@ -93,6 +93,10 @@ export class Whatsapp extends ControlsLayer {
     return await this.page.evaluate(() => WAPI.takeOver());
   }
 
+  public async logout() {
+    return await this.page.evaluate(() => WAPI.logout());
+  }
+
   /**
    * Closes page and browser
    * @internal

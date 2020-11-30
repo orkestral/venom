@@ -404,4 +404,9 @@ export const storeObjects = [
     conditions: (module) =>
       module.default && module.default.unobscure ? module.default : null,
   },
+  {
+    id: 'ws2',
+    conditions: (module) =>
+      module.default && module.default.destroyStorage ? module.default : null,
+  },
 ];

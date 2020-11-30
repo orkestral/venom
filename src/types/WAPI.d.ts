@@ -87,6 +87,7 @@ interface WAPI {
     includeNotifications: boolean
   ) => Message[];
   loadEarlierMessages: (contactId: string) => Message[];
+  logout: () => Promise<boolean>;
   markUnseenMessage: (messageId: string) => boolean;
   onAddedToGroup: (callback: Function) => any;
   onIncomingCall: (callback: Function) => any;
