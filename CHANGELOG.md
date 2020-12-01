@@ -1,3 +1,16 @@
+# [2.1.0](https://github.com/orkestral/venom/compare/v2.0.27...v2.1.0) (2020-12-01)
+
+### Bug Fixes
+
+- Fixed CPU and memory usage ([b439abf](https://github.com/orkestral/venom/commit/b439abf53372fbe935bbedba8e6967cd78194693))
+
+### Features
+
+- Added logout method ([6950e40](https://github.com/orkestral/venom/commit/6950e4053ab80976064ee353f011cb5eb5be8426))
+- Improved client, allow page refresh, better event listener ([fec67ca](https://github.com/orkestral/venom/commit/fec67caada07443a26c6b9bf66a976a16285df48))
+- Improved the quality of wapi.js ([5ea77e3](https://github.com/orkestral/venom/commit/5ea77e3d269edc959d7730c7fa59b60b7d68a486))
+- new example ([ea45fa5](https://github.com/orkestral/venom/commit/ea45fa50b720e96a4f7389b093ca0013e816dc7e))
+
 ## [2.0.27](https://github.com/orkestral/venom/compare/v2.0.26...v2.0.27) (2020-11-28)
 
 ### Bug Fixes
