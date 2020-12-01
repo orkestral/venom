@@ -3,8 +3,8 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>venom-bot - v2.0.27</title>
-	<meta name="description" content="Documentation for venom-bot - v2.0.27">
+	<title>venom-bot - v2.1.0</title>
+	<meta name="description" content="Documentation for venom-bot - v2.1.0">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="assets/css/main.css">
 	<link rel="stylesheet" href="assets/css/pages.css">
@@ -23,7 +23,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="index.html" class="title">venom-bot - v2.0.27</a>
+					<a href="index.html" class="title">venom-bot - v2.1.0</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -55,7 +55,7 @@
 					<a href="modules.html">Globals</a>
 				</li>
 			</ul>
-			<h1>Project venom-bot - v2.0.27</h1>
+			<h1>Project venom-bot - v2.1.0</h1>
 		</div>
 	</div>
 </header>
@@ -85,7 +85,7 @@
 					<a href="https://orkestral.github.io/venom">Documentation</a>
 				</p>
 				<p><strong>Donate for Project</strong></p>
-				<p><a target="_blank" href="https://www.paypal.com/donate?hosted_button_id=62BBB32FGRB2A"><img width="227" height="68" src="./donate.png" alt="Consulting"></a></p>
+				<p><a target="_blank" href="https://www.paypal.com/donate?hosted_button_id=62BBB32FGRB2A"><img width="227" height="68" src="./media/donate.png" alt="Consulting"></a></p>
 				<p><strong>Request Support Group Access In Whatsapp For $5 Month</strong> <br> <br>
 				<a target="_blank" href="https://web.whatsapp.com/send?phone=556181590153&text=I%20want%20access%20to%20the%20WhatsApp%20Venom%20support%20group" target="_blank"><img title="whatzapp" height="100" width="375" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/WhatsApp_logo.svg/2000px-WhatsApp_logo.svg.png"></a></p>
 				<a href="#🕷🕷-functions-venom🕷🕷" id="🕷🕷-functions-venom🕷🕷" style="color: inherit; text-decoration: none;">
@@ -157,31 +157,32 @@
 				<a href="#getting-started" id="getting-started" style="color: inherit; text-decoration: none;">
 					<h2>Getting started</h2>
 				</a>
-				<pre><code class="language-javascript"><span class="hljs-comment">// Supports ES6</span>
-<span class="hljs-comment">// import { create, Whatsapp } from &#x27;venom-bot&#x27;;</span>
-<span class="hljs-keyword">const</span> venom = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;venom-bot&#x27;</span>);
+				<pre><code class="language-javascript"><span style="color: #008000">// Supports ES6</span>
+<span style="color: #008000">// import { create, Whatsapp } from &#039;venom-bot&#039;;</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">venom</span><span style="color: #000000"> = </span><span style="color: #795E26">require</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;venom-bot&#039;</span><span style="color: #000000">);</span>
 
-venom
-  .create()
-  .then(<span class="hljs-function">(<span class="hljs-params">client</span>) =&gt;</span> start(client))
-  .catch(<span class="hljs-function">(<span class="hljs-params">erro</span>) =&gt;</span> {
-    <span class="hljs-built_in">console</span>.log(erro);
-  });
+<span style="color: #001080">venom</span>
+<span style="color: #000000">  .</span><span style="color: #795E26">create</span><span style="color: #000000">()</span>
+<span style="color: #000000">  .</span><span style="color: #795E26">then</span><span style="color: #000000">((</span><span style="color: #001080">client</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> </span><span style="color: #795E26">start</span><span style="color: #000000">(</span><span style="color: #001080">client</span><span style="color: #000000">))</span>
+<span style="color: #000000">  .</span><span style="color: #795E26">catch</span><span style="color: #000000">((</span><span style="color: #001080">erro</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">    </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #001080">erro</span><span style="color: #000000">);</span>
+<span style="color: #000000">  });</span>
 
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">start</span>(<span class="hljs-params">client</span>) </span>{
-  client.onMessage(<span class="hljs-function">(<span class="hljs-params">message</span>) =&gt;</span> {
-    <span class="hljs-keyword">if</span> (message.body === <span class="hljs-string">&#x27;Hi&#x27;</span> &amp;&amp; message.isGroupMsg === <span class="hljs-literal">false</span>) {
-      client
-        .sendText(message.from, <span class="hljs-string">&#x27;Welcome Venom 🕷&#x27;</span>)
-        .then(<span class="hljs-function">(<span class="hljs-params">result</span>) =&gt;</span> {
-          <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;Result: &#x27;</span>, result); <span class="hljs-comment">//return object success</span>
-        })
-        .catch(<span class="hljs-function">(<span class="hljs-params">erro</span>) =&gt;</span> {
-          <span class="hljs-built_in">console</span>.error(<span class="hljs-string">&#x27;Error when sending: &#x27;</span>, erro); <span class="hljs-comment">//return object error</span>
-        });
-    }
-  });
-}</code></pre>
+<span style="color: #0000FF">function</span><span style="color: #000000"> </span><span style="color: #795E26">start</span><span style="color: #000000">(</span><span style="color: #001080">client</span><span style="color: #000000">) {</span>
+<span style="color: #000000">  </span><span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #795E26">onMessage</span><span style="color: #000000">((</span><span style="color: #001080">message</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">    </span><span style="color: #AF00DB">if</span><span style="color: #000000"> (</span><span style="color: #001080">message</span><span style="color: #000000">.</span><span style="color: #001080">body</span><span style="color: #000000"> === </span><span style="color: #A31515">&#039;Hi&#039;</span><span style="color: #000000"> &amp;&amp; </span><span style="color: #001080">message</span><span style="color: #000000">.</span><span style="color: #001080">isGroupMsg</span><span style="color: #000000"> === </span><span style="color: #0000FF">false</span><span style="color: #000000">) {</span>
+<span style="color: #000000">      </span><span style="color: #001080">client</span>
+<span style="color: #000000">        .</span><span style="color: #795E26">sendText</span><span style="color: #000000">(</span><span style="color: #001080">message</span><span style="color: #000000">.</span><span style="color: #001080">from</span><span style="color: #000000">, </span><span style="color: #A31515">&#039;Welcome Venom 🕷&#039;</span><span style="color: #000000">)</span>
+<span style="color: #000000">        .</span><span style="color: #795E26">then</span><span style="color: #000000">((</span><span style="color: #001080">result</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">          </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;Result: &#039;</span><span style="color: #000000">, </span><span style="color: #001080">result</span><span style="color: #000000">); </span><span style="color: #008000">//return object success</span>
+<span style="color: #000000">        })</span>
+<span style="color: #000000">        .</span><span style="color: #795E26">catch</span><span style="color: #000000">((</span><span style="color: #001080">erro</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">          </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">error</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;Error when sending: &#039;</span><span style="color: #000000">, </span><span style="color: #001080">erro</span><span style="color: #000000">); </span><span style="color: #008000">//return object error</span>
+<span style="color: #000000">        });</span>
+<span style="color: #000000">    }</span>
+<span style="color: #000000">  });</span>
+<span style="color: #000000">}</span>
+</code></pre>
 				<a href="#after-executing-create-function-venom-will-create-an-instance-of-whatsapp-web-if-you-are-not-logged-in-it-will-print-a-qr-code-in-the-terminal-scan-it-with-your-phone-and-you-are-ready-to-go" id="after-executing-create-function-venom-will-create-an-instance-of-whatsapp-web-if-you-are-not-logged-in-it-will-print-a-qr-code-in-the-terminal-scan-it-with-your-phone-and-you-are-ready-to-go" style="color: inherit; text-decoration: none;">
 					<h5>After executing <code>create()</code> function, <strong>venom</strong> will create an instance of whatsapp web. If you are not logged in, it will print a QR code in the terminal. Scan it with your phone and you are ready to go!</h5>
 				</a>
@@ -191,69 +192,71 @@ venom
 				<a href="#multiples-sessions-can-be-created-at-the-same-time-by-pasing-a-session-name-to-create-function" id="multiples-sessions-can-be-created-at-the-same-time-by-pasing-a-session-name-to-create-function" style="color: inherit; text-decoration: none;">
 					<h5>Multiples sessions can be created at the same time by pasing a session name to <code>create()</code> function:</h5>
 				</a>
-				<pre><code class="language-javascript"><span class="hljs-comment">// Init sales whatsapp bot</span>
-venom.create(<span class="hljs-string">&#x27;sales&#x27;</span>).then(<span class="hljs-function">(<span class="hljs-params">salesClient</span>) =&gt;</span> {...});
+				<pre><code class="language-javascript"><span style="color: #008000">// Init sales whatsapp bot</span>
+<span style="color: #001080">venom</span><span style="color: #000000">.</span><span style="color: #795E26">create</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;sales&#039;</span><span style="color: #000000">).</span><span style="color: #795E26">then</span><span style="color: #000000">((</span><span style="color: #001080">salesClient</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {...});</span>
 
-<span class="hljs-comment">// Init support whatsapp bot</span>
-venom.create(<span class="hljs-string">&#x27;support&#x27;</span>).then(<span class="hljs-function">(<span class="hljs-params">supportClient</span>) =&gt;</span> {...});</code></pre>
+<span style="color: #008000">// Init support whatsapp bot</span>
+<span style="color: #001080">venom</span><span style="color: #000000">.</span><span style="color: #795E26">create</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;support&#039;</span><span style="color: #000000">).</span><span style="color: #795E26">then</span><span style="color: #000000">((</span><span style="color: #001080">supportClient</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {...});</span>
+</code></pre>
 				<br>
 				<a href="#optional-create-parameters" id="optional-create-parameters" style="color: inherit; text-decoration: none;">
 					<h2>Optional create parameters</h2>
 				</a>
 				<p>Venom <code>create()</code> method third parameter can have the following optional parameters:</p>
-				<pre><code class="language-javascript"><span class="hljs-keyword">const</span> venom = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;venom-bot&#x27;</span>);
+				<pre><code class="language-javascript"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">venom</span><span style="color: #000000"> = </span><span style="color: #795E26">require</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;venom-bot&#039;</span><span style="color: #000000">);</span>
 
-venom
-  .create(
-    <span class="hljs-comment">//session</span>
-    <span class="hljs-string">&#x27;sessionName&#x27;</span>, <span class="hljs-comment">//Pass the name of the client you want to start the bot</span>
-    <span class="hljs-comment">//catchQR</span>
-    <span class="hljs-function">(<span class="hljs-params">base64Qrimg, asciiQR, attempts, urlCode</span>) =&gt;</span> {
-      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;Number of attempts to read the qrcode: &#x27;</span>, attempts);
-      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;Terminal qrcode: &#x27;</span>, asciiQR);
-      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;base64 image string qrcode: &#x27;</span>, base64Qrimg);
-      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;urlCode (data-ref): &#x27;</span>, urlCode);
-    },
-    <span class="hljs-comment">// statusFind</span>
-    <span class="hljs-function">(<span class="hljs-params">statusSession, session</span>) =&gt;</span> {
-      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;Status Session: &#x27;</span>, statusSession); <span class="hljs-comment">//return isLogged || notLogged || browserClose || qrReadSuccess || qrReadFail || autocloseCalled || desconnectedMobile || deleteToken</span>
-      <span class="hljs-comment">//Create session wss return &quot;serverClose&quot; case server for close</span>
-      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;Session name: &#x27;</span>, session);
-    },
-    <span class="hljs-comment">// options</span>
-    {
-      <span class="hljs-attr">folderNameToken</span>: <span class="hljs-string">&#x27;tokens&#x27;</span>, <span class="hljs-comment">//folder name when saving tokens</span>
-      <span class="hljs-attr">mkdirFolderToken</span>: <span class="hljs-string">&#x27;&#x27;</span>, <span class="hljs-comment">//folder directory tokens, just inside the venom folder, example:  { mkdirFolderToken: &#x27;/node_modules&#x27;, } //will save the tokens folder in the node_modules directory</span>
-      <span class="hljs-attr">headless</span>: <span class="hljs-literal">true</span>, <span class="hljs-comment">// Headless chrome</span>
-      <span class="hljs-attr">devtools</span>: <span class="hljs-literal">false</span>, <span class="hljs-comment">// Open devtools by default</span>
-      <span class="hljs-attr">useChrome</span>: <span class="hljs-literal">true</span>, <span class="hljs-comment">// If false will use Chromium instance</span>
-      <span class="hljs-attr">debug</span>: <span class="hljs-literal">false</span>, <span class="hljs-comment">// Opens a debug session</span>
-      <span class="hljs-attr">logQR</span>: <span class="hljs-literal">true</span>, <span class="hljs-comment">// Logs QR automatically in terminal</span>
-      <span class="hljs-attr">browserWS</span>: <span class="hljs-string">&#x27;&#x27;</span>, <span class="hljs-comment">// If u want to use browserWSEndpoint</span>
-      <span class="hljs-attr">browserArgs</span>: [<span class="hljs-string">&#x27;&#x27;</span>], <span class="hljs-comment">// Parameters to be added into the chrome browser instance</span>
-      <span class="hljs-attr">puppeteerOptions</span>: {}, <span class="hljs-comment">// Will be passed to puppeteer.launch</span>
-      <span class="hljs-attr">disableSpins</span>: <span class="hljs-literal">true</span>, <span class="hljs-comment">// Will disable Spinnies animation, useful for containers (docker) for a better log</span>
-      <span class="hljs-attr">disableWelcome</span>: <span class="hljs-literal">true</span>, <span class="hljs-comment">// Will disable the welcoming message which appears in the beginning</span>
-      <span class="hljs-attr">updatesLog</span>: <span class="hljs-literal">true</span>, <span class="hljs-comment">// Logs info updates automatically in terminal</span>
-      <span class="hljs-attr">autoClose</span>: <span class="hljs-number">60000</span>, <span class="hljs-comment">// Automatically closes the venom-bot only when scanning the QR code (default 60 seconds, if you want to turn it off, assign 0 or false)</span>
-      <span class="hljs-attr">createPathFileToken</span>: <span class="hljs-literal">false</span>, <span class="hljs-comment">//creates a folder when inserting an object in the client&#x27;s browser, to work it is necessary to pass the parameters in the function create browserSessionToken</span>
-    },
-    <span class="hljs-comment">// BrowserSessionToken</span>
-    <span class="hljs-comment">// To receive the client&#x27;s token use the function await clinet.getSessionTokenBrowser()</span>
-    {
-      <span class="hljs-attr">WABrowserId</span>: <span class="hljs-string">&#x27;&quot;UnXjH.....&quot;&#x27;</span>,
-      <span class="hljs-attr">WASecretBundle</span>:
-        <span class="hljs-string">&#x27;{&quot;key&quot;:&quot;+i/nRgWJ....&quot;,&quot;encKey&quot;:&quot;kGdMR5t....&quot;,&quot;macKey&quot;:&quot;+i/nRgW....&quot;}&#x27;</span>,
-      <span class="hljs-attr">WAToken1</span>: <span class="hljs-string">&#x27;&quot;0i8....&quot;&#x27;</span>,
-      <span class="hljs-attr">WAToken2</span>: <span class="hljs-string">&#x27;&quot;1@lPpzwC....&quot;&#x27;</span>,
-    }
-  )
-  .then(<span class="hljs-function">(<span class="hljs-params">client</span>) =&gt;</span> {
-    start(client);
-  })
-  .catch(<span class="hljs-function">(<span class="hljs-params">erro</span>) =&gt;</span> {
-    <span class="hljs-built_in">console</span>.log(erro);
-  });</code></pre>
+<span style="color: #001080">venom</span>
+<span style="color: #000000">  .</span><span style="color: #795E26">create</span><span style="color: #000000">(</span>
+<span style="color: #000000">    </span><span style="color: #008000">//session</span>
+<span style="color: #000000">    </span><span style="color: #A31515">&#039;sessionName&#039;</span><span style="color: #000000">, </span><span style="color: #008000">//Pass the name of the client you want to start the bot</span>
+<span style="color: #000000">    </span><span style="color: #008000">//catchQR</span>
+<span style="color: #000000">    (</span><span style="color: #001080">base64Qrimg</span><span style="color: #000000">, </span><span style="color: #001080">asciiQR</span><span style="color: #000000">, </span><span style="color: #001080">attempts</span><span style="color: #000000">, </span><span style="color: #001080">urlCode</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">      </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;Number of attempts to read the qrcode: &#039;</span><span style="color: #000000">, </span><span style="color: #001080">attempts</span><span style="color: #000000">);</span>
+<span style="color: #000000">      </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;Terminal qrcode: &#039;</span><span style="color: #000000">, </span><span style="color: #001080">asciiQR</span><span style="color: #000000">);</span>
+<span style="color: #000000">      </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;base64 image string qrcode: &#039;</span><span style="color: #000000">, </span><span style="color: #001080">base64Qrimg</span><span style="color: #000000">);</span>
+<span style="color: #000000">      </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;urlCode (data-ref): &#039;</span><span style="color: #000000">, </span><span style="color: #001080">urlCode</span><span style="color: #000000">);</span>
+<span style="color: #000000">    },</span>
+<span style="color: #000000">    </span><span style="color: #008000">// statusFind</span>
+<span style="color: #000000">    (</span><span style="color: #001080">statusSession</span><span style="color: #000000">, </span><span style="color: #001080">session</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">      </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;Status Session: &#039;</span><span style="color: #000000">, </span><span style="color: #001080">statusSession</span><span style="color: #000000">); </span><span style="color: #008000">//return isLogged || notLogged || browserClose || qrReadSuccess || qrReadFail || autocloseCalled || desconnectedMobile || deleteToken</span>
+<span style="color: #000000">      </span><span style="color: #008000">//Create session wss return &quot;serverClose&quot; case server for close</span>
+<span style="color: #000000">      </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;Session name: &#039;</span><span style="color: #000000">, </span><span style="color: #001080">session</span><span style="color: #000000">);</span>
+<span style="color: #000000">    },</span>
+<span style="color: #000000">    </span><span style="color: #008000">// options</span>
+<span style="color: #000000">    {</span>
+<span style="color: #000000">      </span><span style="color: #001080">folderNameToken:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;tokens&#039;</span><span style="color: #000000">, </span><span style="color: #008000">//folder name when saving tokens</span>
+<span style="color: #000000">      </span><span style="color: #001080">mkdirFolderToken:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;&#039;</span><span style="color: #000000">, </span><span style="color: #008000">//folder directory tokens, just inside the venom folder, example:  { mkdirFolderToken: &#039;/node_modules&#039;, } //will save the tokens folder in the node_modules directory</span>
+<span style="color: #000000">      </span><span style="color: #001080">headless:</span><span style="color: #000000"> </span><span style="color: #0000FF">true</span><span style="color: #000000">, </span><span style="color: #008000">// Headless chrome</span>
+<span style="color: #000000">      </span><span style="color: #001080">devtools:</span><span style="color: #000000"> </span><span style="color: #0000FF">false</span><span style="color: #000000">, </span><span style="color: #008000">// Open devtools by default</span>
+<span style="color: #000000">      </span><span style="color: #001080">useChrome:</span><span style="color: #000000"> </span><span style="color: #0000FF">true</span><span style="color: #000000">, </span><span style="color: #008000">// If false will use Chromium instance</span>
+<span style="color: #000000">      </span><span style="color: #001080">debug:</span><span style="color: #000000"> </span><span style="color: #0000FF">false</span><span style="color: #000000">, </span><span style="color: #008000">// Opens a debug session</span>
+<span style="color: #000000">      </span><span style="color: #001080">logQR:</span><span style="color: #000000"> </span><span style="color: #0000FF">true</span><span style="color: #000000">, </span><span style="color: #008000">// Logs QR automatically in terminal</span>
+<span style="color: #000000">      </span><span style="color: #001080">browserWS:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;&#039;</span><span style="color: #000000">, </span><span style="color: #008000">// If u want to use browserWSEndpoint</span>
+<span style="color: #000000">      </span><span style="color: #001080">browserArgs:</span><span style="color: #000000"> [</span><span style="color: #A31515">&#039;&#039;</span><span style="color: #000000">], </span><span style="color: #008000">// Parameters to be added into the chrome browser instance</span>
+<span style="color: #000000">      </span><span style="color: #001080">puppeteerOptions:</span><span style="color: #000000"> {}, </span><span style="color: #008000">// Will be passed to puppeteer.launch</span>
+<span style="color: #000000">      </span><span style="color: #001080">disableSpins:</span><span style="color: #000000"> </span><span style="color: #0000FF">true</span><span style="color: #000000">, </span><span style="color: #008000">// Will disable Spinnies animation, useful for containers (docker) for a better log</span>
+<span style="color: #000000">      </span><span style="color: #001080">disableWelcome:</span><span style="color: #000000"> </span><span style="color: #0000FF">true</span><span style="color: #000000">, </span><span style="color: #008000">// Will disable the welcoming message which appears in the beginning</span>
+<span style="color: #000000">      </span><span style="color: #001080">updatesLog:</span><span style="color: #000000"> </span><span style="color: #0000FF">true</span><span style="color: #000000">, </span><span style="color: #008000">// Logs info updates automatically in terminal</span>
+<span style="color: #000000">      </span><span style="color: #001080">autoClose:</span><span style="color: #000000"> </span><span style="color: #098658">60000</span><span style="color: #000000">, </span><span style="color: #008000">// Automatically closes the venom-bot only when scanning the QR code (default 60 seconds, if you want to turn it off, assign 0 or false)</span>
+<span style="color: #000000">      </span><span style="color: #001080">createPathFileToken:</span><span style="color: #000000"> </span><span style="color: #0000FF">false</span><span style="color: #000000">, </span><span style="color: #008000">//creates a folder when inserting an object in the client&#039;s browser, to work it is necessary to pass the parameters in the function create browserSessionToken</span>
+<span style="color: #000000">    },</span>
+<span style="color: #000000">    </span><span style="color: #008000">// BrowserSessionToken</span>
+<span style="color: #000000">    </span><span style="color: #008000">// To receive the client&#039;s token use the function await clinet.getSessionTokenBrowser()</span>
+<span style="color: #000000">    {</span>
+<span style="color: #000000">      </span><span style="color: #001080">WABrowserId:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;&quot;UnXjH.....&quot;&#039;</span><span style="color: #000000">,</span>
+<span style="color: #000000">      </span><span style="color: #001080">WASecretBundle:</span>
+<span style="color: #000000">        </span><span style="color: #A31515">&#039;{&quot;key&quot;:&quot;+i/nRgWJ....&quot;,&quot;encKey&quot;:&quot;kGdMR5t....&quot;,&quot;macKey&quot;:&quot;+i/nRgW....&quot;}&#039;</span><span style="color: #000000">,</span>
+<span style="color: #000000">      </span><span style="color: #001080">WAToken1:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;&quot;0i8....&quot;&#039;</span><span style="color: #000000">,</span>
+<span style="color: #000000">      </span><span style="color: #001080">WAToken2:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;&quot;1@lPpzwC....&quot;&#039;</span><span style="color: #000000">,</span>
+<span style="color: #000000">    }</span>
+<span style="color: #000000">  )</span>
+<span style="color: #000000">  .</span><span style="color: #795E26">then</span><span style="color: #000000">((</span><span style="color: #001080">client</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">    </span><span style="color: #795E26">start</span><span style="color: #000000">(</span><span style="color: #001080">client</span><span style="color: #000000">);</span>
+<span style="color: #000000">  })</span>
+<span style="color: #000000">  .</span><span style="color: #795E26">catch</span><span style="color: #000000">((</span><span style="color: #001080">erro</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">    </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #001080">erro</span><span style="color: #000000">);</span>
+<span style="color: #000000">  });</span>
+</code></pre>
 				<a href="#callback-status-session" id="callback-status-session" style="color: inherit; text-decoration: none;">
 					<h2>Callback Status Session</h2>
 				</a>
@@ -302,87 +305,90 @@ venom
 							<td>If you pass true within the function <code>client.getSessionTokenBrowser(true)</code></td>
 						</tr>
 				</tbody></table>
-				<pre><code class="language-javascript"><span class="hljs-keyword">const</span> venom = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;venom-bot&#x27;</span>);
-venom
-  .create(
-    <span class="hljs-string">&#x27;sessionName&#x27;</span>,
-    <span class="hljs-literal">undefined</span>,
-    <span class="hljs-function">(<span class="hljs-params">statusSession, session</span>) =&gt;</span> {
-      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;Status Session: &#x27;</span>, statusSession);
-      <span class="hljs-comment">//return isLogged || notLogged || browserClose || qrReadSuccess || qrReadFail || autocloseCalled || desconnectedMobile || deleteToken</span>
-      <span class="hljs-comment">//Create session wss return &quot;serverClose&quot; case server for close</span>
-      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;Session name: &#x27;</span>, session);
-    },
-    <span class="hljs-literal">undefined</span>
-  )
-  .then(<span class="hljs-function">(<span class="hljs-params">client</span>) =&gt;</span> {
-    start(client);
-  })
-  .catch(<span class="hljs-function">(<span class="hljs-params">erro</span>) =&gt;</span> {
-    <span class="hljs-built_in">console</span>.log(erro);
-  });</code></pre>
+				<pre><code class="language-javascript"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">venom</span><span style="color: #000000"> = </span><span style="color: #795E26">require</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;venom-bot&#039;</span><span style="color: #000000">);</span>
+<span style="color: #001080">venom</span>
+<span style="color: #000000">  .</span><span style="color: #795E26">create</span><span style="color: #000000">(</span>
+<span style="color: #000000">    </span><span style="color: #A31515">&#039;sessionName&#039;</span><span style="color: #000000">,</span>
+<span style="color: #000000">    </span><span style="color: #0000FF">undefined</span><span style="color: #000000">,</span>
+<span style="color: #000000">    (</span><span style="color: #001080">statusSession</span><span style="color: #000000">, </span><span style="color: #001080">session</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">      </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;Status Session: &#039;</span><span style="color: #000000">, </span><span style="color: #001080">statusSession</span><span style="color: #000000">);</span>
+<span style="color: #000000">      </span><span style="color: #008000">//return isLogged || notLogged || browserClose || qrReadSuccess || qrReadFail || autocloseCalled || desconnectedMobile || deleteToken</span>
+<span style="color: #000000">      </span><span style="color: #008000">//Create session wss return &quot;serverClose&quot; case server for close</span>
+<span style="color: #000000">      </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;Session name: &#039;</span><span style="color: #000000">, </span><span style="color: #001080">session</span><span style="color: #000000">);</span>
+<span style="color: #000000">    },</span>
+<span style="color: #000000">    </span><span style="color: #0000FF">undefined</span>
+<span style="color: #000000">  )</span>
+<span style="color: #000000">  .</span><span style="color: #795E26">then</span><span style="color: #000000">((</span><span style="color: #001080">client</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">    </span><span style="color: #795E26">start</span><span style="color: #000000">(</span><span style="color: #001080">client</span><span style="color: #000000">);</span>
+<span style="color: #000000">  })</span>
+<span style="color: #000000">  .</span><span style="color: #795E26">catch</span><span style="color: #000000">((</span><span style="color: #001080">erro</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">    </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #001080">erro</span><span style="color: #000000">);</span>
+<span style="color: #000000">  });</span>
+</code></pre>
 				<a href="#exporting-qr-code" id="exporting-qr-code" style="color: inherit; text-decoration: none;">
 					<h2>Exporting QR Code</h2>
 				</a>
 				<p>By default QR code will appear on the terminal. If you need to pass the QR
 				somewhere else heres how:</p>
-				<pre><code class="language-javascript"><span class="hljs-keyword">const</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;fs&#x27;</span>);
-<span class="hljs-keyword">const</span> venom = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;venom-bot&#x27;</span>);
+				<pre><code class="language-javascript"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">fs</span><span style="color: #000000"> = </span><span style="color: #795E26">require</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;fs&#039;</span><span style="color: #000000">);</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">venom</span><span style="color: #000000"> = </span><span style="color: #795E26">require</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;venom-bot&#039;</span><span style="color: #000000">);</span>
 
-venom
-  .create(
-    <span class="hljs-string">&#x27;sessionName&#x27;</span>,
-    <span class="hljs-function">(<span class="hljs-params">base64Qr, asciiQR, attempts, urlCode</span>) =&gt;</span> {
-      <span class="hljs-built_in">console</span>.log(asciiQR); <span class="hljs-comment">// Optional to log the QR in the terminal</span>
-      <span class="hljs-keyword">var</span> matches = base64Qr.match(<span class="hljs-regexp">/^data:([A-Za-z-+\/]+);base64,(.+)$/</span>),
-        response = {};
+<span style="color: #001080">venom</span>
+<span style="color: #000000">  .</span><span style="color: #795E26">create</span><span style="color: #000000">(</span>
+<span style="color: #000000">    </span><span style="color: #A31515">&#039;sessionName&#039;</span><span style="color: #000000">,</span>
+<span style="color: #000000">    (</span><span style="color: #001080">base64Qr</span><span style="color: #000000">, </span><span style="color: #001080">asciiQR</span><span style="color: #000000">, </span><span style="color: #001080">attempts</span><span style="color: #000000">, </span><span style="color: #001080">urlCode</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">      </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #001080">asciiQR</span><span style="color: #000000">); </span><span style="color: #008000">// Optional to log the QR in the terminal</span>
+<span style="color: #000000">      </span><span style="color: #0000FF">var</span><span style="color: #000000"> </span><span style="color: #001080">matches</span><span style="color: #000000"> = </span><span style="color: #001080">base64Qr</span><span style="color: #000000">.</span><span style="color: #795E26">match</span><span style="color: #000000">(</span><span style="color: #811F3F">/</span><span style="color: #EE0000">^</span><span style="color: #811F3F">data:</span><span style="color: #D16969">([</span><span style="color: #811F3F">A-Za-z-+</span><span style="color: #EE0000">\/</span><span style="color: #D16969">]</span><span style="color: #000000">+</span><span style="color: #D16969">)</span><span style="color: #811F3F">;base64,</span><span style="color: #D16969">(</span><span style="color: #811F3F">.</span><span style="color: #000000">+</span><span style="color: #D16969">)</span><span style="color: #EE0000">$</span><span style="color: #811F3F">/</span><span style="color: #000000">),</span>
+<span style="color: #000000">        </span><span style="color: #001080">response</span><span style="color: #000000"> = {};</span>
 
-      <span class="hljs-keyword">if</span> (matches.length !== <span class="hljs-number">3</span>) {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">&#x27;Invalid input string&#x27;</span>);
-      }
-      response.type = matches[<span class="hljs-number">1</span>];
-      response.data = <span class="hljs-keyword">new</span> Buffer.from(matches[<span class="hljs-number">2</span>], <span class="hljs-string">&#x27;base64&#x27;</span>);
+<span style="color: #000000">      </span><span style="color: #AF00DB">if</span><span style="color: #000000"> (</span><span style="color: #001080">matches</span><span style="color: #000000">.</span><span style="color: #001080">length</span><span style="color: #000000"> !== </span><span style="color: #098658">3</span><span style="color: #000000">) {</span>
+<span style="color: #000000">        </span><span style="color: #AF00DB">return</span><span style="color: #000000"> </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #267F99">Error</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;Invalid input string&#039;</span><span style="color: #000000">);</span>
+<span style="color: #000000">      }</span>
+<span style="color: #000000">      </span><span style="color: #001080">response</span><span style="color: #000000">.</span><span style="color: #001080">type</span><span style="color: #000000"> = </span><span style="color: #001080">matches</span><span style="color: #000000">[</span><span style="color: #098658">1</span><span style="color: #000000">];</span>
+<span style="color: #000000">      </span><span style="color: #001080">response</span><span style="color: #000000">.</span><span style="color: #001080">data</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #267F99">Buffer</span><span style="color: #000000">.</span><span style="color: #267F99">from</span><span style="color: #000000">(</span><span style="color: #001080">matches</span><span style="color: #000000">[</span><span style="color: #098658">2</span><span style="color: #000000">], </span><span style="color: #A31515">&#039;base64&#039;</span><span style="color: #000000">);</span>
 
-      <span class="hljs-keyword">var</span> imageBuffer = response;
-      <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;fs&#x27;</span>).writeFile(
-        <span class="hljs-string">&#x27;out.png&#x27;</span>,
-        imageBuffer[<span class="hljs-string">&#x27;data&#x27;</span>],
-        <span class="hljs-string">&#x27;binary&#x27;</span>,
-        <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err</span>) </span>{
-          <span class="hljs-keyword">if</span> (err != <span class="hljs-literal">null</span>) {
-            <span class="hljs-built_in">console</span>.log(err);
-          }
-        }
-      );
-    },
-    <span class="hljs-literal">undefined</span>,
-    { <span class="hljs-attr">logQR</span>: <span class="hljs-literal">false</span> }
-  )
-  .then(<span class="hljs-function">(<span class="hljs-params">client</span>) =&gt;</span> {
-    start(client);
-  })
-  .catch(<span class="hljs-function">(<span class="hljs-params">erro</span>) =&gt;</span> {
-    <span class="hljs-built_in">console</span>.log(erro);
-  });</code></pre>
+<span style="color: #000000">      </span><span style="color: #0000FF">var</span><span style="color: #000000"> </span><span style="color: #001080">imageBuffer</span><span style="color: #000000"> = </span><span style="color: #001080">response</span><span style="color: #000000">;</span>
+<span style="color: #000000">      </span><span style="color: #795E26">require</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;fs&#039;</span><span style="color: #000000">).</span><span style="color: #795E26">writeFile</span><span style="color: #000000">(</span>
+<span style="color: #000000">        </span><span style="color: #A31515">&#039;out.png&#039;</span><span style="color: #000000">,</span>
+<span style="color: #000000">        </span><span style="color: #001080">imageBuffer</span><span style="color: #000000">[</span><span style="color: #A31515">&#039;data&#039;</span><span style="color: #000000">],</span>
+<span style="color: #000000">        </span><span style="color: #A31515">&#039;binary&#039;</span><span style="color: #000000">,</span>
+<span style="color: #000000">        </span><span style="color: #0000FF">function</span><span style="color: #000000"> (</span><span style="color: #001080">err</span><span style="color: #000000">) {</span>
+<span style="color: #000000">          </span><span style="color: #AF00DB">if</span><span style="color: #000000"> (</span><span style="color: #001080">err</span><span style="color: #000000"> != </span><span style="color: #0000FF">null</span><span style="color: #000000">) {</span>
+<span style="color: #000000">            </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #001080">err</span><span style="color: #000000">);</span>
+<span style="color: #000000">          }</span>
+<span style="color: #000000">        }</span>
+<span style="color: #000000">      );</span>
+<span style="color: #000000">    },</span>
+<span style="color: #000000">    </span><span style="color: #0000FF">undefined</span><span style="color: #000000">,</span>
+<span style="color: #000000">    { </span><span style="color: #001080">logQR:</span><span style="color: #000000"> </span><span style="color: #0000FF">false</span><span style="color: #000000"> }</span>
+<span style="color: #000000">  )</span>
+<span style="color: #000000">  .</span><span style="color: #795E26">then</span><span style="color: #000000">((</span><span style="color: #001080">client</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">    </span><span style="color: #795E26">start</span><span style="color: #000000">(</span><span style="color: #001080">client</span><span style="color: #000000">);</span>
+<span style="color: #000000">  })</span>
+<span style="color: #000000">  .</span><span style="color: #795E26">catch</span><span style="color: #000000">((</span><span style="color: #001080">erro</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">    </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #001080">erro</span><span style="color: #000000">);</span>
+<span style="color: #000000">  });</span>
+</code></pre>
 				<a href="#downloading-files" id="downloading-files" style="color: inherit; text-decoration: none;">
 					<h2>Downloading Files</h2>
 				</a>
 				<p>Puppeteer takes care of the file downloading. The decryption is being done as
 				fast as possible (outruns native methods). Supports big files!</p>
-				<pre><code class="language-javascript"><span class="hljs-keyword">import</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;fs&#x27;</span>);
-<span class="hljs-keyword">import</span> mime = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;mime-types&#x27;</span>);
+				<pre><code class="language-javascript"><span style="color: #AF00DB">import</span><span style="color: #000000"> </span><span style="color: #001080">fs</span><span style="color: #000000"> = </span><span style="color: #AF00DB">require</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;fs&#039;</span><span style="color: #000000">);</span>
+<span style="color: #AF00DB">import</span><span style="color: #000000"> </span><span style="color: #001080">mime</span><span style="color: #000000"> = </span><span style="color: #AF00DB">require</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;mime-types&#039;</span><span style="color: #000000">);</span>
 
-client.onMessage( <span class="hljs-keyword">async</span> (message) =&gt; {
-  <span class="hljs-keyword">if</span> (message.isMedia === <span class="hljs-literal">true</span> || message.isMMS === <span class="hljs-literal">true</span>) {
-    <span class="hljs-keyword">const</span> buffer = <span class="hljs-keyword">await</span> client.decryptFile(message);
-    <span class="hljs-comment">// At this point you can do whatever you want with the buffer</span>
-    <span class="hljs-comment">// Most likely you want to write it into a file</span>
-    <span class="hljs-keyword">const</span> fileName = <span class="hljs-string">`some-file-name.<span class="hljs-subst">${mime.extension(message.mimetype)}</span>`</span>;
-    <span class="hljs-keyword">await</span> fs.writeFile(fileName, buffer, <span class="hljs-function">(<span class="hljs-params">err</span>) =&gt;</span> {
-      ...
-    });
-  }
-});</code></pre>
+<span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #795E26">onMessage</span><span style="color: #000000">( </span><span style="color: #0000FF">async</span><span style="color: #000000"> (</span><span style="color: #001080">message</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">  </span><span style="color: #AF00DB">if</span><span style="color: #000000"> (</span><span style="color: #001080">message</span><span style="color: #000000">.</span><span style="color: #001080">isMedia</span><span style="color: #000000"> === </span><span style="color: #0000FF">true</span><span style="color: #000000"> || </span><span style="color: #001080">message</span><span style="color: #000000">.</span><span style="color: #001080">isMMS</span><span style="color: #000000"> === </span><span style="color: #0000FF">true</span><span style="color: #000000">) {</span>
+<span style="color: #000000">    </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">buffer</span><span style="color: #000000"> = </span><span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #795E26">decryptFile</span><span style="color: #000000">(</span><span style="color: #001080">message</span><span style="color: #000000">);</span>
+<span style="color: #000000">    </span><span style="color: #008000">// At this point you can do whatever you want with the buffer</span>
+<span style="color: #000000">    </span><span style="color: #008000">// Most likely you want to write it into a file</span>
+<span style="color: #000000">    </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">fileName</span><span style="color: #000000"> = </span><span style="color: #A31515">`some-file-name.</span><span style="color: #0000FF">${</span><span style="color: #001080">mime</span><span style="color: #000000FF">.</span><span style="color: #795E26">extension</span><span style="color: #000000FF">(</span><span style="color: #001080">message</span><span style="color: #000000FF">.</span><span style="color: #001080">mimetype</span><span style="color: #000000FF">)</span><span style="color: #0000FF">}</span><span style="color: #A31515">`</span><span style="color: #000000">;</span>
+<span style="color: #000000">    </span><span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">fs</span><span style="color: #000000">.</span><span style="color: #795E26">writeFile</span><span style="color: #000000">(</span><span style="color: #001080">fileName</span><span style="color: #000000">, </span><span style="color: #001080">buffer</span><span style="color: #000000">, (</span><span style="color: #001080">err</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">      ...</span>
+<span style="color: #000000">    });</span>
+<span style="color: #000000">  }</span>
+<span style="color: #000000">});</span>
+</code></pre>
 				<a href="#basic-functions-usage" id="basic-functions-usage" style="color: inherit; text-decoration: none;">
 					<h2>Basic Functions (usage)</h2>
 				</a>
@@ -395,434 +401,454 @@ client.onMessage( <span class="hljs-keyword">async</span> (message) =&gt; {
 				<a href="#here-chatid-could-be-ltphonenumbergtcus-or-ltphonenumbergt-ltgroupidgtgus" id="here-chatid-could-be-ltphonenumbergtcus-or-ltphonenumbergt-ltgroupidgtgus" style="color: inherit; text-decoration: none;">
 					<h5>Here, <code>chatId</code> could be <code>&lt;phoneNumber&gt;@c.us</code> or <code>&lt;phoneNumber&gt;-&lt;groupId&gt;@g.us</code></h5>
 				</a>
-				<pre><code class="language-javascript"><span class="hljs-comment">// Send contact</span>
-<span class="hljs-keyword">await</span> client
-  .sendContactVcard(<span class="hljs-string">&#x27;000000000000@c.us&#x27;</span>, <span class="hljs-string">&#x27;111111111111@c.us&#x27;</span>, <span class="hljs-string">&#x27;Name of contact&#x27;</span>)
-  .then(<span class="hljs-function">(<span class="hljs-params">result</span>) =&gt;</span> {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;Result: &#x27;</span>, result); <span class="hljs-comment">//return object success</span>
-  })
-  .catch(<span class="hljs-function">(<span class="hljs-params">erro</span>) =&gt;</span> {
-    <span class="hljs-built_in">console</span>.error(<span class="hljs-string">&#x27;Error when sending: &#x27;</span>, erro); <span class="hljs-comment">//return object error</span>
-  });
+				<pre><code class="language-javascript"><span style="color: #008000">// Send contact</span>
+<span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">client</span>
+<span style="color: #000000">  .</span><span style="color: #795E26">sendContactVcard</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;000000000000@c.us&#039;</span><span style="color: #000000">, </span><span style="color: #A31515">&#039;111111111111@c.us&#039;</span><span style="color: #000000">, </span><span style="color: #A31515">&#039;Name of contact&#039;</span><span style="color: #000000">)</span>
+<span style="color: #000000">  .</span><span style="color: #795E26">then</span><span style="color: #000000">((</span><span style="color: #001080">result</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">    </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;Result: &#039;</span><span style="color: #000000">, </span><span style="color: #001080">result</span><span style="color: #000000">); </span><span style="color: #008000">//return object success</span>
+<span style="color: #000000">  })</span>
+<span style="color: #000000">  .</span><span style="color: #795E26">catch</span><span style="color: #000000">((</span><span style="color: #001080">erro</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">    </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">error</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;Error when sending: &#039;</span><span style="color: #000000">, </span><span style="color: #001080">erro</span><span style="color: #000000">); </span><span style="color: #008000">//return object error</span>
+<span style="color: #000000">  });</span>
 
-<span class="hljs-comment">// Send a list of contact cards</span>
-<span class="hljs-keyword">await</span> client
-  .sendContactVcardList(<span class="hljs-string">&#x27;000000000000@c.us&#x27;</span>, [
-    <span class="hljs-string">&#x27;111111111111@c.us&#x27;</span>,
-    <span class="hljs-string">&#x27;222222222222@c.us&#x27;</span>,
-  ])
-  .then(<span class="hljs-function">(<span class="hljs-params">result</span>) =&gt;</span> {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;Result: &#x27;</span>, result); <span class="hljs-comment">//return object success</span>
-  })
-  .catch(<span class="hljs-function">(<span class="hljs-params">erro</span>) =&gt;</span> {
-    <span class="hljs-built_in">console</span>.error(<span class="hljs-string">&#x27;Error when sending: &#x27;</span>, erro); <span class="hljs-comment">//return object error</span>
-  });
+<span style="color: #008000">// Send a list of contact cards</span>
+<span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">client</span>
+<span style="color: #000000">  .</span><span style="color: #795E26">sendContactVcardList</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;000000000000@c.us&#039;</span><span style="color: #000000">, [</span>
+<span style="color: #000000">    </span><span style="color: #A31515">&#039;111111111111@c.us&#039;</span><span style="color: #000000">,</span>
+<span style="color: #000000">    </span><span style="color: #A31515">&#039;222222222222@c.us&#039;</span><span style="color: #000000">,</span>
+<span style="color: #000000">  ])</span>
+<span style="color: #000000">  .</span><span style="color: #795E26">then</span><span style="color: #000000">((</span><span style="color: #001080">result</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">    </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;Result: &#039;</span><span style="color: #000000">, </span><span style="color: #001080">result</span><span style="color: #000000">); </span><span style="color: #008000">//return object success</span>
+<span style="color: #000000">  })</span>
+<span style="color: #000000">  .</span><span style="color: #795E26">catch</span><span style="color: #000000">((</span><span style="color: #001080">erro</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">    </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">error</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;Error when sending: &#039;</span><span style="color: #000000">, </span><span style="color: #001080">erro</span><span style="color: #000000">); </span><span style="color: #008000">//return object error</span>
+<span style="color: #000000">  });</span>
 
-<span class="hljs-comment">// Send basic text</span>
-<span class="hljs-keyword">await</span> client
-  .sendText(<span class="hljs-string">&#x27;000000000000@c.us&#x27;</span>, <span class="hljs-string">&#x27;👋 Hello from venom!&#x27;</span>)
-  .then(<span class="hljs-function">(<span class="hljs-params">result</span>) =&gt;</span> {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;Result: &#x27;</span>, result); <span class="hljs-comment">//return object success</span>
-  })
-  .catch(<span class="hljs-function">(<span class="hljs-params">erro</span>) =&gt;</span> {
-    <span class="hljs-built_in">console</span>.error(<span class="hljs-string">&#x27;Error when sending: &#x27;</span>, erro); <span class="hljs-comment">//return object error</span>
-  });
+<span style="color: #008000">// Send basic text</span>
+<span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">client</span>
+<span style="color: #000000">  .</span><span style="color: #795E26">sendText</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;000000000000@c.us&#039;</span><span style="color: #000000">, </span><span style="color: #A31515">&#039;👋 Hello from venom!&#039;</span><span style="color: #000000">)</span>
+<span style="color: #000000">  .</span><span style="color: #795E26">then</span><span style="color: #000000">((</span><span style="color: #001080">result</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">    </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;Result: &#039;</span><span style="color: #000000">, </span><span style="color: #001080">result</span><span style="color: #000000">); </span><span style="color: #008000">//return object success</span>
+<span style="color: #000000">  })</span>
+<span style="color: #000000">  .</span><span style="color: #795E26">catch</span><span style="color: #000000">((</span><span style="color: #001080">erro</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">    </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">error</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;Error when sending: &#039;</span><span style="color: #000000">, </span><span style="color: #001080">erro</span><span style="color: #000000">); </span><span style="color: #008000">//return object error</span>
+<span style="color: #000000">  });</span>
 
-<span class="hljs-comment">// Send location</span>
-<span class="hljs-keyword">await</span> client
-  .sendLocation(<span class="hljs-string">&#x27;000000000000@c.us&#x27;</span>, <span class="hljs-string">&#x27;-13.6561589&#x27;</span>, <span class="hljs-string">&#x27;-69.7309264&#x27;</span>, <span class="hljs-string">&#x27;Brasil&#x27;</span>)
-  .then(<span class="hljs-function">(<span class="hljs-params">result</span>) =&gt;</span> {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;Result: &#x27;</span>, result); <span class="hljs-comment">//return object success</span>
-  })
-  .catch(<span class="hljs-function">(<span class="hljs-params">erro</span>) =&gt;</span> {
-    <span class="hljs-built_in">console</span>.error(<span class="hljs-string">&#x27;Error when sending: &#x27;</span>, erro); <span class="hljs-comment">//return object error</span>
-  });
+<span style="color: #008000">// Send location</span>
+<span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">client</span>
+<span style="color: #000000">  .</span><span style="color: #795E26">sendLocation</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;000000000000@c.us&#039;</span><span style="color: #000000">, </span><span style="color: #A31515">&#039;-13.6561589&#039;</span><span style="color: #000000">, </span><span style="color: #A31515">&#039;-69.7309264&#039;</span><span style="color: #000000">, </span><span style="color: #A31515">&#039;Brasil&#039;</span><span style="color: #000000">)</span>
+<span style="color: #000000">  .</span><span style="color: #795E26">then</span><span style="color: #000000">((</span><span style="color: #001080">result</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">    </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;Result: &#039;</span><span style="color: #000000">, </span><span style="color: #001080">result</span><span style="color: #000000">); </span><span style="color: #008000">//return object success</span>
+<span style="color: #000000">  })</span>
+<span style="color: #000000">  .</span><span style="color: #795E26">catch</span><span style="color: #000000">((</span><span style="color: #001080">erro</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">    </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">error</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;Error when sending: &#039;</span><span style="color: #000000">, </span><span style="color: #001080">erro</span><span style="color: #000000">); </span><span style="color: #008000">//return object error</span>
+<span style="color: #000000">  });</span>
 
-<span class="hljs-comment">// Automatically sends a link with the auto generated link preview. You can also add a custom message to be added.</span>
-<span class="hljs-keyword">await</span> client
-  .sendLinkPreview(
-    <span class="hljs-string">&#x27;000000000000@c.us&#x27;</span>,
-    <span class="hljs-string">&#x27;https://www.youtube.com/watch?v=V1bFr2SWP1I&#x27;</span>,
-    <span class="hljs-string">&#x27;Kamakawiwo ole&#x27;</span>
-  )
-  .then(<span class="hljs-function">(<span class="hljs-params">result</span>) =&gt;</span> {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;Result: &#x27;</span>, result); <span class="hljs-comment">//return object success</span>
-  })
-  .catch(<span class="hljs-function">(<span class="hljs-params">erro</span>) =&gt;</span> {
-    <span class="hljs-built_in">console</span>.error(<span class="hljs-string">&#x27;Error when sending: &#x27;</span>, erro); <span class="hljs-comment">//return object error</span>
-  });
+<span style="color: #008000">// Automatically sends a link with the auto generated link preview. You can also add a custom message to be added.</span>
+<span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">client</span>
+<span style="color: #000000">  .</span><span style="color: #795E26">sendLinkPreview</span><span style="color: #000000">(</span>
+<span style="color: #000000">    </span><span style="color: #A31515">&#039;000000000000@c.us&#039;</span><span style="color: #000000">,</span>
+<span style="color: #000000">    </span><span style="color: #A31515">&#039;https://www.youtube.com/watch?v=V1bFr2SWP1I&#039;</span><span style="color: #000000">,</span>
+<span style="color: #000000">    </span><span style="color: #A31515">&#039;Kamakawiwo ole&#039;</span>
+<span style="color: #000000">  )</span>
+<span style="color: #000000">  .</span><span style="color: #795E26">then</span><span style="color: #000000">((</span><span style="color: #001080">result</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">    </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;Result: &#039;</span><span style="color: #000000">, </span><span style="color: #001080">result</span><span style="color: #000000">); </span><span style="color: #008000">//return object success</span>
+<span style="color: #000000">  })</span>
+<span style="color: #000000">  .</span><span style="color: #795E26">catch</span><span style="color: #000000">((</span><span style="color: #001080">erro</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">    </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">error</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;Error when sending: &#039;</span><span style="color: #000000">, </span><span style="color: #001080">erro</span><span style="color: #000000">); </span><span style="color: #008000">//return object error</span>
+<span style="color: #000000">  });</span>
 
-<span class="hljs-comment">// Send image (you can also upload an image using a valid HTTP protocol)</span>
-<span class="hljs-keyword">await</span> client
-  .sendImage(
-    <span class="hljs-string">&#x27;000000000000@c.us&#x27;</span>,
-    <span class="hljs-string">&#x27;path/to/img.jpg&#x27;</span>,
-    <span class="hljs-string">&#x27;image-name&#x27;</span>,
-    <span class="hljs-string">&#x27;Caption text&#x27;</span>
-  )
-  .then(<span class="hljs-function">(<span class="hljs-params">result</span>) =&gt;</span> {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;Result: &#x27;</span>, result); <span class="hljs-comment">//return object success</span>
-  })
-  .catch(<span class="hljs-function">(<span class="hljs-params">erro</span>) =&gt;</span> {
-    <span class="hljs-built_in">console</span>.error(<span class="hljs-string">&#x27;Error when sending: &#x27;</span>, erro); <span class="hljs-comment">//return object error</span>
-  });
+<span style="color: #008000">// Send image (you can also upload an image using a valid HTTP protocol)</span>
+<span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">client</span>
+<span style="color: #000000">  .</span><span style="color: #795E26">sendImage</span><span style="color: #000000">(</span>
+<span style="color: #000000">    </span><span style="color: #A31515">&#039;000000000000@c.us&#039;</span><span style="color: #000000">,</span>
+<span style="color: #000000">    </span><span style="color: #A31515">&#039;path/to/img.jpg&#039;</span><span style="color: #000000">,</span>
+<span style="color: #000000">    </span><span style="color: #A31515">&#039;image-name&#039;</span><span style="color: #000000">,</span>
+<span style="color: #000000">    </span><span style="color: #A31515">&#039;Caption text&#039;</span>
+<span style="color: #000000">  )</span>
+<span style="color: #000000">  .</span><span style="color: #795E26">then</span><span style="color: #000000">((</span><span style="color: #001080">result</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">    </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;Result: &#039;</span><span style="color: #000000">, </span><span style="color: #001080">result</span><span style="color: #000000">); </span><span style="color: #008000">//return object success</span>
+<span style="color: #000000">  })</span>
+<span style="color: #000000">  .</span><span style="color: #795E26">catch</span><span style="color: #000000">((</span><span style="color: #001080">erro</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">    </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">error</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;Error when sending: &#039;</span><span style="color: #000000">, </span><span style="color: #001080">erro</span><span style="color: #000000">); </span><span style="color: #008000">//return object error</span>
+<span style="color: #000000">  });</span>
 
-<span class="hljs-comment">// Send file (venom will take care of mime types, just need the path)</span>
-<span class="hljs-comment">// you can also upload an image using a valid HTTP protocol</span>
-<span class="hljs-keyword">await</span> client
-  .sendFile(
-    <span class="hljs-string">&#x27;000000000000@c.us&#x27;</span>,
-    <span class="hljs-string">&#x27;path/to/file.pdf&#x27;</span>,
-    <span class="hljs-string">&#x27;file_name&#x27;</span>,
-    <span class="hljs-string">&#x27;See my file in pdf&#x27;</span>
-  )
-  .then(<span class="hljs-function">(<span class="hljs-params">result</span>) =&gt;</span> {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;Result: &#x27;</span>, result); <span class="hljs-comment">//return object success</span>
-  })
-  .catch(<span class="hljs-function">(<span class="hljs-params">erro</span>) =&gt;</span> {
-    <span class="hljs-built_in">console</span>.error(<span class="hljs-string">&#x27;Error when sending: &#x27;</span>, erro); <span class="hljs-comment">//return object error</span>
-  });
+<span style="color: #008000">// Send file (venom will take care of mime types, just need the path)</span>
+<span style="color: #008000">// you can also upload an image using a valid HTTP protocol</span>
+<span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">client</span>
+<span style="color: #000000">  .</span><span style="color: #795E26">sendFile</span><span style="color: #000000">(</span>
+<span style="color: #000000">    </span><span style="color: #A31515">&#039;000000000000@c.us&#039;</span><span style="color: #000000">,</span>
+<span style="color: #000000">    </span><span style="color: #A31515">&#039;path/to/file.pdf&#039;</span><span style="color: #000000">,</span>
+<span style="color: #000000">    </span><span style="color: #A31515">&#039;file_name&#039;</span><span style="color: #000000">,</span>
+<span style="color: #000000">    </span><span style="color: #A31515">&#039;See my file in pdf&#039;</span>
+<span style="color: #000000">  )</span>
+<span style="color: #000000">  .</span><span style="color: #795E26">then</span><span style="color: #000000">((</span><span style="color: #001080">result</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">    </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;Result: &#039;</span><span style="color: #000000">, </span><span style="color: #001080">result</span><span style="color: #000000">); </span><span style="color: #008000">//return object success</span>
+<span style="color: #000000">  })</span>
+<span style="color: #000000">  .</span><span style="color: #795E26">catch</span><span style="color: #000000">((</span><span style="color: #001080">erro</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">    </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">error</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;Error when sending: &#039;</span><span style="color: #000000">, </span><span style="color: #001080">erro</span><span style="color: #000000">); </span><span style="color: #008000">//return object error</span>
+<span style="color: #000000">  });</span>
 
-<span class="hljs-comment">// Sends file</span>
-<span class="hljs-comment">// base64 parameter should have mime type already defined</span>
-<span class="hljs-keyword">await</span> client
-  .sendFileFromBase64(
-    <span class="hljs-string">&#x27;000000000000@c.us&#x27;</span>,
-    base64PDF,
-    <span class="hljs-string">&#x27;file_name.pdf&#x27;</span>,
-    <span class="hljs-string">&#x27;See my file in pdf&#x27;</span>
-  )
-  .then(<span class="hljs-function">(<span class="hljs-params">result</span>) =&gt;</span> {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;Result: &#x27;</span>, result); <span class="hljs-comment">//return object success</span>
-  })
-  .catch(<span class="hljs-function">(<span class="hljs-params">erro</span>) =&gt;</span> {
-    <span class="hljs-built_in">console</span>.error(<span class="hljs-string">&#x27;Error when sending: &#x27;</span>, erro); <span class="hljs-comment">//return object error</span>
-  });
+<span style="color: #008000">// Sends file</span>
+<span style="color: #008000">// base64 parameter should have mime type already defined</span>
+<span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">client</span>
+<span style="color: #000000">  .</span><span style="color: #795E26">sendFileFromBase64</span><span style="color: #000000">(</span>
+<span style="color: #000000">    </span><span style="color: #A31515">&#039;000000000000@c.us&#039;</span><span style="color: #000000">,</span>
+<span style="color: #000000">    </span><span style="color: #001080">base64PDF</span><span style="color: #000000">,</span>
+<span style="color: #000000">    </span><span style="color: #A31515">&#039;file_name.pdf&#039;</span><span style="color: #000000">,</span>
+<span style="color: #000000">    </span><span style="color: #A31515">&#039;See my file in pdf&#039;</span>
+<span style="color: #000000">  )</span>
+<span style="color: #000000">  .</span><span style="color: #795E26">then</span><span style="color: #000000">((</span><span style="color: #001080">result</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">    </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;Result: &#039;</span><span style="color: #000000">, </span><span style="color: #001080">result</span><span style="color: #000000">); </span><span style="color: #008000">//return object success</span>
+<span style="color: #000000">  })</span>
+<span style="color: #000000">  .</span><span style="color: #795E26">catch</span><span style="color: #000000">((</span><span style="color: #001080">erro</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">    </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">error</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;Error when sending: &#039;</span><span style="color: #000000">, </span><span style="color: #001080">erro</span><span style="color: #000000">); </span><span style="color: #008000">//return object error</span>
+<span style="color: #000000">  });</span>
 
-<span class="hljs-comment">// Generates sticker from the provided animated gif image and sends it (Send image as animated sticker)</span>
-<span class="hljs-comment">// image path imageBase64 A valid gif and webp image is required. You can also send via http/https (http://www.website.com/img.gif)</span>
-<span class="hljs-keyword">await</span> client
-  .sendImageAsStickerGif(<span class="hljs-string">&#x27;000000000000@c.us&#x27;</span>, <span class="hljs-string">&#x27;./image.gif&#x27;</span>)
-  .then(<span class="hljs-function">(<span class="hljs-params">result</span>) =&gt;</span> {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;Result: &#x27;</span>, result); <span class="hljs-comment">//return object success</span>
-  })
-  .catch(<span class="hljs-function">(<span class="hljs-params">erro</span>) =&gt;</span> {
-    <span class="hljs-built_in">console</span>.error(<span class="hljs-string">&#x27;Error when sending: &#x27;</span>, erro); <span class="hljs-comment">//return object error</span>
-  });
+<span style="color: #008000">// Generates sticker from the provided animated gif image and sends it (Send image as animated sticker)</span>
+<span style="color: #008000">// image path imageBase64 A valid gif and webp image is required. You can also send via http/https (http://www.website.com/img.gif)</span>
+<span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">client</span>
+<span style="color: #000000">  .</span><span style="color: #795E26">sendImageAsStickerGif</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;000000000000@c.us&#039;</span><span style="color: #000000">, </span><span style="color: #A31515">&#039;./image.gif&#039;</span><span style="color: #000000">)</span>
+<span style="color: #000000">  .</span><span style="color: #795E26">then</span><span style="color: #000000">((</span><span style="color: #001080">result</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">    </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;Result: &#039;</span><span style="color: #000000">, </span><span style="color: #001080">result</span><span style="color: #000000">); </span><span style="color: #008000">//return object success</span>
+<span style="color: #000000">  })</span>
+<span style="color: #000000">  .</span><span style="color: #795E26">catch</span><span style="color: #000000">((</span><span style="color: #001080">erro</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">    </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">error</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;Error when sending: &#039;</span><span style="color: #000000">, </span><span style="color: #001080">erro</span><span style="color: #000000">); </span><span style="color: #008000">//return object error</span>
+<span style="color: #000000">  });</span>
 
-<span class="hljs-comment">// Generates sticker from given image and sends it (Send Image As Sticker)</span>
-<span class="hljs-comment">// image path imageBase64 A valid png, jpg and webp image is required. You can also send via http/https (http://www.website.com/img.jpg)</span>
-<span class="hljs-keyword">await</span> client
-  .sendImageAsSticker(<span class="hljs-string">&#x27;000000000000@c.us&#x27;</span>, <span class="hljs-string">&#x27;./image.jpg&#x27;</span>)
-  .then(<span class="hljs-function">(<span class="hljs-params">result</span>) =&gt;</span> {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;Result: &#x27;</span>, result); <span class="hljs-comment">//return object success</span>
-  })
-  .catch(<span class="hljs-function">(<span class="hljs-params">erro</span>) =&gt;</span> {
-    <span class="hljs-built_in">console</span>.error(<span class="hljs-string">&#x27;Error when sending: &#x27;</span>, erro); <span class="hljs-comment">//return object error</span>
-  });
+<span style="color: #008000">// Generates sticker from given image and sends it (Send Image As Sticker)</span>
+<span style="color: #008000">// image path imageBase64 A valid png, jpg and webp image is required. You can also send via http/https (http://www.website.com/img.jpg)</span>
+<span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">client</span>
+<span style="color: #000000">  .</span><span style="color: #795E26">sendImageAsSticker</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;000000000000@c.us&#039;</span><span style="color: #000000">, </span><span style="color: #A31515">&#039;./image.jpg&#039;</span><span style="color: #000000">)</span>
+<span style="color: #000000">  .</span><span style="color: #795E26">then</span><span style="color: #000000">((</span><span style="color: #001080">result</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">    </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;Result: &#039;</span><span style="color: #000000">, </span><span style="color: #001080">result</span><span style="color: #000000">); </span><span style="color: #008000">//return object success</span>
+<span style="color: #000000">  })</span>
+<span style="color: #000000">  .</span><span style="color: #795E26">catch</span><span style="color: #000000">((</span><span style="color: #001080">erro</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">    </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">error</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;Error when sending: &#039;</span><span style="color: #000000">, </span><span style="color: #001080">erro</span><span style="color: #000000">); </span><span style="color: #008000">//return object error</span>
+<span style="color: #000000">  });</span>
 
-<span class="hljs-comment">// Send @tagged message</span>
-<span class="hljs-keyword">await</span> client.sendMentioned(
-  <span class="hljs-string">&#x27;000000000000@c.us&#x27;</span>,
-  <span class="hljs-string">&#x27;Hello @5218113130740 and @5218243160777!&#x27;</span>,
-  [<span class="hljs-string">&#x27;5218113130740&#x27;</span>, <span class="hljs-string">&#x27;5218243160777&#x27;</span>]
-);
+<span style="color: #008000">// Send @tagged message</span>
+<span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #795E26">sendMentioned</span><span style="color: #000000">(</span>
+<span style="color: #000000">  </span><span style="color: #A31515">&#039;000000000000@c.us&#039;</span><span style="color: #000000">,</span>
+<span style="color: #000000">  </span><span style="color: #A31515">&#039;Hello @5218113130740 and @5218243160777!&#039;</span><span style="color: #000000">,</span>
+<span style="color: #000000">  [</span><span style="color: #A31515">&#039;5218113130740&#039;</span><span style="color: #000000">, </span><span style="color: #A31515">&#039;5218243160777&#039;</span><span style="color: #000000">]</span>
+<span style="color: #000000">);</span>
 
-<span class="hljs-comment">// Reply to a message</span>
-<span class="hljs-keyword">await</span> client.reply(
-  <span class="hljs-string">&#x27;000000000000@c.us&#x27;</span>,
-  <span class="hljs-string">&#x27;This is a reply!&#x27;</span>,
-  message.id.toString()
-);
+<span style="color: #008000">// Reply to a message</span>
+<span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #795E26">reply</span><span style="color: #000000">(</span>
+<span style="color: #000000">  </span><span style="color: #A31515">&#039;000000000000@c.us&#039;</span><span style="color: #000000">,</span>
+<span style="color: #000000">  </span><span style="color: #A31515">&#039;This is a reply!&#039;</span><span style="color: #000000">,</span>
+<span style="color: #000000">  </span><span style="color: #001080">message</span><span style="color: #000000">.</span><span style="color: #001080">id</span><span style="color: #000000">.</span><span style="color: #795E26">toString</span><span style="color: #000000">()</span>
+<span style="color: #000000">);</span>
 
-<span class="hljs-comment">// Reply to a message with mention</span>
-<span class="hljs-keyword">await</span> client.reply(
-  <span class="hljs-string">&#x27;000000000000@c.us&#x27;</span>,
-  <span class="hljs-string">&#x27;Hello @5218113130740 and @5218243160777! This is a reply with mention!&#x27;</span>,
-  message.id.toString(),
-  [<span class="hljs-string">&#x27;5218113130740&#x27;</span>, <span class="hljs-string">&#x27;5218243160777&#x27;</span>]
-);
+<span style="color: #008000">// Reply to a message with mention</span>
+<span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #795E26">reply</span><span style="color: #000000">(</span>
+<span style="color: #000000">  </span><span style="color: #A31515">&#039;000000000000@c.us&#039;</span><span style="color: #000000">,</span>
+<span style="color: #000000">  </span><span style="color: #A31515">&#039;Hello @5218113130740 and @5218243160777! This is a reply with mention!&#039;</span><span style="color: #000000">,</span>
+<span style="color: #000000">  </span><span style="color: #001080">message</span><span style="color: #000000">.</span><span style="color: #001080">id</span><span style="color: #000000">.</span><span style="color: #795E26">toString</span><span style="color: #000000">(),</span>
+<span style="color: #000000">  [</span><span style="color: #A31515">&#039;5218113130740&#039;</span><span style="color: #000000">, </span><span style="color: #A31515">&#039;5218243160777&#039;</span><span style="color: #000000">]</span>
+<span style="color: #000000">);</span>
 
-<span class="hljs-comment">// Send message with options</span>
-<span class="hljs-keyword">await</span> client.
-        .sendMessageOptions(
-          <span class="hljs-string">&#x27;000000000000@c.us&#x27;</span>,
-          <span class="hljs-string">&#x27;This is a reply!&#x27;</span>,
-           {
-              <span class="hljs-attr">quotedMessageId</span>: reply,
-            }
-        )
-        .then(<span class="hljs-function">(<span class="hljs-params">retorno</span>) =&gt;</span> {
-          resp = retorno;
-        })
-        .catch(<span class="hljs-function">(<span class="hljs-params">e</span>) =&gt;</span> {
-          <span class="hljs-built_in">console</span>.log(e);
-        });
+<span style="color: #008000">// Send message with options</span>
+<span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">client</span><span style="color: #000000">.</span>
+<span style="color: #000000">        .</span><span style="color: #795E26">sendMessageOptions</span><span style="color: #000000">(</span>
+<span style="color: #000000">          </span><span style="color: #A31515">&#039;000000000000@c.us&#039;</span><span style="color: #000000">,</span>
+<span style="color: #000000">          </span><span style="color: #A31515">&#039;This is a reply!&#039;</span><span style="color: #000000">,</span>
+<span style="color: #000000">           {</span>
+<span style="color: #000000">              </span><span style="color: #001080">quotedMessageId:</span><span style="color: #000000"> </span><span style="color: #001080">reply</span><span style="color: #000000">,</span>
+<span style="color: #000000">            }</span>
+<span style="color: #000000">        )</span>
+<span style="color: #000000">        .</span><span style="color: #795E26">then</span><span style="color: #000000">((</span><span style="color: #001080">retorno</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">          </span><span style="color: #001080">resp</span><span style="color: #000000"> = </span><span style="color: #001080">retorno</span><span style="color: #000000">;</span>
+<span style="color: #000000">        })</span>
+<span style="color: #000000">        .</span><span style="color: #795E26">catch</span><span style="color: #000000">((</span><span style="color: #001080">e</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">          </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #001080">e</span><span style="color: #000000">);</span>
+<span style="color: #000000">        });</span>
 
-<span class="hljs-comment">// Send gif</span>
-<span class="hljs-keyword">await</span> client.sendVideoAsGif(
-  <span class="hljs-string">&#x27;000000000000@c.us&#x27;</span>,
-  <span class="hljs-string">&#x27;path/to/video.mp4&#x27;</span>,
-  <span class="hljs-string">&#x27;video.gif&#x27;</span>,
-  <span class="hljs-string">&#x27;Gif image file&#x27;</span>
-);
+<span style="color: #008000">// Send gif</span>
+<span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #795E26">sendVideoAsGif</span><span style="color: #000000">(</span>
+<span style="color: #000000">  </span><span style="color: #A31515">&#039;000000000000@c.us&#039;</span><span style="color: #000000">,</span>
+<span style="color: #000000">  </span><span style="color: #A31515">&#039;path/to/video.mp4&#039;</span><span style="color: #000000">,</span>
+<span style="color: #000000">  </span><span style="color: #A31515">&#039;video.gif&#039;</span><span style="color: #000000">,</span>
+<span style="color: #000000">  </span><span style="color: #A31515">&#039;Gif image file&#039;</span>
+<span style="color: #000000">);</span>
 
-<span class="hljs-comment">// Forwards messages</span>
-<span class="hljs-keyword">await</span> client.forwardMessages(
-  <span class="hljs-string">&#x27;000000000000@c.us&#x27;</span>,
-  [message.id.toString()],
-  <span class="hljs-literal">true</span>
-);
+<span style="color: #008000">// Forwards messages</span>
+<span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #795E26">forwardMessages</span><span style="color: #000000">(</span>
+<span style="color: #000000">  </span><span style="color: #A31515">&#039;000000000000@c.us&#039;</span><span style="color: #000000">,</span>
+<span style="color: #000000">  [</span><span style="color: #001080">message</span><span style="color: #000000">.</span><span style="color: #001080">id</span><span style="color: #000000">.</span><span style="color: #795E26">toString</span><span style="color: #000000">()],</span>
+<span style="color: #000000">  </span><span style="color: #0000FF">true</span>
+<span style="color: #000000">);</span>
 
-<span class="hljs-comment">// Send seen ✔️✔️</span>
-<span class="hljs-keyword">await</span> client.sendSeen(<span class="hljs-string">&#x27;000000000000@c.us&#x27;</span>);
+<span style="color: #008000">// Send seen ✔️✔️</span>
+<span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #795E26">sendSeen</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;000000000000@c.us&#039;</span><span style="color: #000000">);</span>
 
-<span class="hljs-comment">// Start typing...</span>
-<span class="hljs-keyword">await</span> client.startTyping(<span class="hljs-string">&#x27;000000000000@c.us&#x27;</span>);
+<span style="color: #008000">// Start typing...</span>
+<span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #795E26">startTyping</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;000000000000@c.us&#039;</span><span style="color: #000000">);</span>
 
-<span class="hljs-comment">// Stop typing</span>
-<span class="hljs-keyword">await</span> client.stopTyping(<span class="hljs-string">&#x27;000000000000@c.us&#x27;</span>);
+<span style="color: #008000">// Stop typing</span>
+<span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #795E26">stopTyping</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;000000000000@c.us&#039;</span><span style="color: #000000">);</span>
 
-<span class="hljs-comment">// Set chat state (0: Typing, 1: Recording, 2: Paused)</span>
-<span class="hljs-keyword">await</span> client.setChatState(<span class="hljs-string">&#x27;000000000000@c.us&#x27;</span>, <span class="hljs-number">0</span> | <span class="hljs-number">1</span> | <span class="hljs-number">2</span>);</code></pre>
+<span style="color: #008000">// Set chat state (0: Typing, 1: Recording, 2: Paused)</span>
+<span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #795E26">setChatState</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;000000000000@c.us&#039;</span><span style="color: #000000">, </span><span style="color: #098658">0</span><span style="color: #000000"> | </span><span style="color: #098658">1</span><span style="color: #000000"> | </span><span style="color: #098658">2</span><span style="color: #000000">);</span>
+</code></pre>
 				<a href="#retrieving-data" id="retrieving-data" style="color: inherit; text-decoration: none;">
 					<h2>Retrieving Data</h2>
 				</a>
-				<pre><code class="language-javascript"><span class="hljs-comment">// Returns a list of mute and non-mute users</span>
-<span class="hljs-comment">// &quot;all&quot; List all mutes</span>
-<span class="hljs-comment">// &quot;toMute&quot; List all silent chats</span>
-<span class="hljs-comment">// &quot;noMute&quot; List all chats without silence</span>
-<span class="hljs-keyword">const</span> listMute = <span class="hljs-keyword">await</span> client.getListMute(<span class="hljs-string">&#x27;all&#x27;</span>);
+				<pre><code class="language-javascript"><span style="color: #008000">// Returns a list of mute and non-mute users</span>
+<span style="color: #008000">// &quot;all&quot; List all mutes</span>
+<span style="color: #008000">// &quot;toMute&quot; List all silent chats</span>
+<span style="color: #008000">// &quot;noMute&quot; List all chats without silence</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">listMute</span><span style="color: #000000"> = </span><span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #795E26">getListMute</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;all&#039;</span><span style="color: #000000">);</span>
 
-<span class="hljs-comment">// Retrieve the browser session token</span>
-<span class="hljs-comment">// if you want to delete the token file -&gt; const browserSessionToken = await client.getSessionTokenBrowser(true);</span>
-<span class="hljs-keyword">const</span> browserSessionToken = <span class="hljs-keyword">await</span> client.getSessionTokenBrowser();
+<span style="color: #008000">// Retrieve the browser session token</span>
+<span style="color: #008000">// if you want to delete the token file -&gt; const browserSessionToken = await client.getSessionTokenBrowser(true);</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">browserSessionToken</span><span style="color: #000000"> = </span><span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #795E26">getSessionTokenBrowser</span><span style="color: #000000">();</span>
 
-<span class="hljs-comment">// Calls your list of blocked contacts (returns an array)</span>
-<span class="hljs-keyword">const</span> getBlockList = <span class="hljs-keyword">await</span> client.getBlockList();
+<span style="color: #008000">// Calls your list of blocked contacts (returns an array)</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">getBlockList</span><span style="color: #000000"> = </span><span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #795E26">getBlockList</span><span style="color: #000000">();</span>
 
-<span class="hljs-comment">// Retrieve contacts</span>
-<span class="hljs-keyword">const</span> contacts = <span class="hljs-keyword">await</span> client.getAllContacts();
+<span style="color: #008000">// Retrieve contacts</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">contacts</span><span style="color: #000000"> = </span><span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #795E26">getAllContacts</span><span style="color: #000000">();</span>
 
-<span class="hljs-comment">// Retrieve messages in chat</span>
-<span class="hljs-keyword">const</span> Messages = <span class="hljs-keyword">await</span> client.getAllMessagesInChat(<span class="hljs-string">&#x27;000000000000@c.us&#x27;</span>);
+<span style="color: #008000">// Retrieve messages in chat</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">Messages</span><span style="color: #000000"> = </span><span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #795E26">getAllMessagesInChat</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;000000000000@c.us&#039;</span><span style="color: #000000">);</span>
 
-<span class="hljs-comment">// Retrieve more chat message</span>
-<span class="hljs-keyword">const</span> moreMessages = <span class="hljs-keyword">await</span> client.loadEarlierMessages(<span class="hljs-string">&#x27;000000000000@c.us&#x27;</span>);
+<span style="color: #008000">// Retrieve more chat message</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">moreMessages</span><span style="color: #000000"> = </span><span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #795E26">loadEarlierMessages</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;000000000000@c.us&#039;</span><span style="color: #000000">);</span>
 
-<span class="hljs-comment">// Retrieve all messages in chat</span>
-<span class="hljs-keyword">const</span> allMessages = <span class="hljs-keyword">await</span> client.loadAndGetAllMessagesInChat(
-  <span class="hljs-string">&#x27;000000000000@c.us&#x27;</span>
-);
+<span style="color: #008000">// Retrieve all messages in chat</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">allMessages</span><span style="color: #000000"> = </span><span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #795E26">loadAndGetAllMessagesInChat</span><span style="color: #000000">(</span>
+<span style="color: #000000">  </span><span style="color: #A31515">&#039;000000000000@c.us&#039;</span>
+<span style="color: #000000">);</span>
 
-<span class="hljs-comment">// Retrieve contact status</span>
-<span class="hljs-keyword">const</span> status = <span class="hljs-keyword">await</span> client.getStatus(<span class="hljs-string">&#x27;000000000000@c.us&#x27;</span>);
+<span style="color: #008000">// Retrieve contact status</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">status</span><span style="color: #000000"> = </span><span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #795E26">getStatus</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;000000000000@c.us&#039;</span><span style="color: #000000">);</span>
 
-<span class="hljs-comment">// Retrieve user profile</span>
-<span class="hljs-keyword">const</span> user = <span class="hljs-keyword">await</span> client.getNumberProfile(<span class="hljs-string">&#x27;000000000000@c.us&#x27;</span>);
+<span style="color: #008000">// Retrieve user profile</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">user</span><span style="color: #000000"> = </span><span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #795E26">getNumberProfile</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;000000000000@c.us&#039;</span><span style="color: #000000">);</span>
 
-<span class="hljs-comment">// Retrieve all unread message</span>
-<span class="hljs-keyword">const</span> messages = <span class="hljs-keyword">await</span> client.getAllUnreadMessages();
+<span style="color: #008000">// Retrieve all unread message</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">messages</span><span style="color: #000000"> = </span><span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #795E26">getAllUnreadMessages</span><span style="color: #000000">();</span>
 
-<span class="hljs-comment">// Retrieve all chats</span>
-<span class="hljs-keyword">const</span> chats = <span class="hljs-keyword">await</span> client.getAllChats();
+<span style="color: #008000">// Retrieve all chats</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">chats</span><span style="color: #000000"> = </span><span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #795E26">getAllChats</span><span style="color: #000000">();</span>
 
-<span class="hljs-comment">// Retrieve all groups</span>
-<span class="hljs-keyword">const</span> chats = <span class="hljs-keyword">await</span> client.getAllGroups();
+<span style="color: #008000">// Retrieve all groups</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">chats</span><span style="color: #000000"> = </span><span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #795E26">getAllGroups</span><span style="color: #000000">();</span>
 
-<span class="hljs-comment">// Retrieve profile fic (as url)</span>
-<span class="hljs-keyword">const</span> url = <span class="hljs-keyword">await</span> client.getProfilePicFromServer(<span class="hljs-string">&#x27;000000000000@c.us&#x27;</span>);
+<span style="color: #008000">// Retrieve profile fic (as url)</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">url</span><span style="color: #000000"> = </span><span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #795E26">getProfilePicFromServer</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;000000000000@c.us&#039;</span><span style="color: #000000">);</span>
 
-<span class="hljs-comment">// Retrieve chat/conversation</span>
-<span class="hljs-keyword">const</span> chat = <span class="hljs-keyword">await</span> client.getChat(<span class="hljs-string">&#x27;000000000000@c.us&#x27;</span>);
+<span style="color: #008000">// Retrieve chat/conversation</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">chat</span><span style="color: #000000"> = </span><span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #795E26">getChat</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;000000000000@c.us&#039;</span><span style="color: #000000">);</span>
 
-<span class="hljs-comment">// Check if the number exists</span>
-<span class="hljs-keyword">const</span> chat = <span class="hljs-keyword">await</span> client.checkNumberStatus(<span class="hljs-string">&#x27;000000000000@c.us&#x27;</span>);</code></pre>
+<span style="color: #008000">// Check if the number exists</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">chat</span><span style="color: #000000"> = </span><span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #795E26">checkNumberStatus</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;000000000000@c.us&#039;</span><span style="color: #000000">);</span>
+</code></pre>
 				<a href="#group-functions" id="group-functions" style="color: inherit; text-decoration: none;">
 					<h2>Group Functions</h2>
 				</a>
-				<pre><code class="language-javascript"><span class="hljs-comment">// groupId or chatId: leaveGroup 52123123-323235@g.us</span>
+				<pre><code class="language-javascript"><span style="color: #008000">// groupId or chatId: leaveGroup 52123123-323235@g.us</span>
 
-<span class="hljs-comment">// Leave group</span>
-<span class="hljs-keyword">await</span> client.leaveGroup(<span class="hljs-string">&#x27;00000000-000000@g.us&#x27;</span>);
+<span style="color: #008000">// Leave group</span>
+<span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #795E26">leaveGroup</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;00000000-000000@g.us&#039;</span><span style="color: #000000">);</span>
 
-<span class="hljs-comment">// Get group members</span>
-<span class="hljs-keyword">await</span> client.getGroupMembers(<span class="hljs-string">&#x27;00000000-000000@g.us&#x27;</span>);
+<span style="color: #008000">// Get group members</span>
+<span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #795E26">getGroupMembers</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;00000000-000000@g.us&#039;</span><span style="color: #000000">);</span>
 
-<span class="hljs-comment">// Get group members ids</span>
-<span class="hljs-keyword">await</span> client.getGroupMembersIds(<span class="hljs-string">&#x27;00000000-000000@g.us&#x27;</span>);
+<span style="color: #008000">// Get group members ids</span>
+<span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #795E26">getGroupMembersIds</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;00000000-000000@g.us&#039;</span><span style="color: #000000">);</span>
 
-<span class="hljs-comment">// Generate group invite url link</span>
-<span class="hljs-keyword">await</span> client.getGroupInviteLink(<span class="hljs-string">&#x27;00000000-000000@g.us&#x27;</span>);
+<span style="color: #008000">// Generate group invite url link</span>
+<span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #795E26">getGroupInviteLink</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;00000000-000000@g.us&#039;</span><span style="color: #000000">);</span>
 
-<span class="hljs-comment">// Create group (title, participants to add)</span>
-<span class="hljs-keyword">await</span> client.createGroup(<span class="hljs-string">&#x27;Group name&#x27;</span>, [
-  <span class="hljs-string">&#x27;111111111111@c.us&#x27;</span>,
-  <span class="hljs-string">&#x27;222222222222@c.us&#x27;</span>,
-]);
+<span style="color: #008000">// Create group (title, participants to add)</span>
+<span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #795E26">createGroup</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;Group name&#039;</span><span style="color: #000000">, [</span>
+<span style="color: #000000">  </span><span style="color: #A31515">&#039;111111111111@c.us&#039;</span><span style="color: #000000">,</span>
+<span style="color: #000000">  </span><span style="color: #A31515">&#039;222222222222@c.us&#039;</span><span style="color: #000000">,</span>
+<span style="color: #000000">]);</span>
 
-<span class="hljs-comment">// Remove participant</span>
-<span class="hljs-keyword">await</span> client.removeParticipant(<span class="hljs-string">&#x27;00000000-000000@g.us&#x27;</span>, <span class="hljs-string">&#x27;111111111111@c.us&#x27;</span>);
+<span style="color: #008000">// Remove participant</span>
+<span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #795E26">removeParticipant</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;00000000-000000@g.us&#039;</span><span style="color: #000000">, </span><span style="color: #A31515">&#039;111111111111@c.us&#039;</span><span style="color: #000000">);</span>
 
-<span class="hljs-comment">// Add participant</span>
-<span class="hljs-keyword">await</span> client.addParticipant(<span class="hljs-string">&#x27;00000000-000000@g.us&#x27;</span>, <span class="hljs-string">&#x27;111111111111@c.us&#x27;</span>);
+<span style="color: #008000">// Add participant</span>
+<span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #795E26">addParticipant</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;00000000-000000@g.us&#039;</span><span style="color: #000000">, </span><span style="color: #A31515">&#039;111111111111@c.us&#039;</span><span style="color: #000000">);</span>
 
-<span class="hljs-comment">// Promote participant (Give admin privileges)</span>
-<span class="hljs-keyword">await</span> client.promoteParticipant(<span class="hljs-string">&#x27;00000000-000000@g.us&#x27;</span>, <span class="hljs-string">&#x27;111111111111@c.us&#x27;</span>);
+<span style="color: #008000">// Promote participant (Give admin privileges)</span>
+<span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #795E26">promoteParticipant</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;00000000-000000@g.us&#039;</span><span style="color: #000000">, </span><span style="color: #A31515">&#039;111111111111@c.us&#039;</span><span style="color: #000000">);</span>
 
-<span class="hljs-comment">// Demote particiapnt (Revoke admin privileges)</span>
-<span class="hljs-keyword">await</span> client.demoteParticipant(<span class="hljs-string">&#x27;00000000-000000@g.us&#x27;</span>, <span class="hljs-string">&#x27;111111111111@c.us&#x27;</span>);
+<span style="color: #008000">// Demote particiapnt (Revoke admin privileges)</span>
+<span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #795E26">demoteParticipant</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;00000000-000000@g.us&#039;</span><span style="color: #000000">, </span><span style="color: #A31515">&#039;111111111111@c.us&#039;</span><span style="color: #000000">);</span>
 
-<span class="hljs-comment">// Get group admins</span>
-<span class="hljs-keyword">await</span> client.getGroupAdmins(<span class="hljs-string">&#x27;00000000-000000@g.us&#x27;</span>);
+<span style="color: #008000">// Get group admins</span>
+<span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #795E26">getGroupAdmins</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;00000000-000000@g.us&#039;</span><span style="color: #000000">);</span>
 
-<span class="hljs-comment">// Return the group status, jid, description from it&#x27;s invite link</span>
-<span class="hljs-keyword">await</span> client.getGroupInfoFromInviteLink(InviteCode);
+<span style="color: #008000">// Return the group status, jid, description from it&#039;s invite link</span>
+<span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #795E26">getGroupInfoFromInviteLink</span><span style="color: #000000">(</span><span style="color: #001080">InviteCode</span><span style="color: #000000">);</span>
 
-<span class="hljs-comment">// Join a group using the group invite code</span>
-<span class="hljs-keyword">await</span> client.joinGroup(InviteCode);</code></pre>
+<span style="color: #008000">// Join a group using the group invite code</span>
+<span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #795E26">joinGroup</span><span style="color: #000000">(</span><span style="color: #001080">InviteCode</span><span style="color: #000000">);</span>
+</code></pre>
 				<a href="#profile-functions" id="profile-functions" style="color: inherit; text-decoration: none;">
 					<h2>Profile Functions</h2>
 				</a>
-				<pre><code class="language-javascript"><span class="hljs-comment">// Set client status</span>
-<span class="hljs-keyword">await</span> client.setProfileStatus(<span class="hljs-string">&#x27;On vacations! ✈️&#x27;</span>);
+				<pre><code class="language-javascript"><span style="color: #008000">// Set client status</span>
+<span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #795E26">setProfileStatus</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;On vacations! ✈️&#039;</span><span style="color: #000000">);</span>
 
-<span class="hljs-comment">// Set client profile name</span>
-<span class="hljs-keyword">await</span> client.setProfileName(<span class="hljs-string">&#x27;Venom bot&#x27;</span>);
+<span style="color: #008000">// Set client profile name</span>
+<span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #795E26">setProfileName</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;Venom bot&#039;</span><span style="color: #000000">);</span>
 
-<span class="hljs-comment">// Set client profile photo</span>
-<span class="hljs-keyword">await</span> client.setProfilePic(<span class="hljs-string">&#x27;path/to/image.jpg&#x27;</span>);</code></pre>
+<span style="color: #008000">// Set client profile photo</span>
+<span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #795E26">setProfilePic</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;path/to/image.jpg&#039;</span><span style="color: #000000">);</span>
+</code></pre>
 				<a href="#device-functions" id="device-functions" style="color: inherit; text-decoration: none;">
 					<h2>Device Functions</h2>
 				</a>
-				<pre><code class="language-javascript"><span class="hljs-comment">// Delete the Service Worker</span>
-<span class="hljs-keyword">await</span> client.killServiceWorker();
+				<pre><code class="language-javascript"><span style="color: #008000">// Delete the Service Worker</span>
+<span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #795E26">killServiceWorker</span><span style="color: #000000">();</span>
 
-<span class="hljs-comment">// Load the service again</span>
-<span class="hljs-keyword">await</span> client.restartService();
+<span style="color: #008000">// Load the service again</span>
+<span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #795E26">restartService</span><span style="color: #000000">();</span>
 
-<span class="hljs-comment">// Get device info</span>
-<span class="hljs-keyword">await</span> client.getHostDevice();
+<span style="color: #008000">// Get device info</span>
+<span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #795E26">getHostDevice</span><span style="color: #000000">();</span>
 
-<span class="hljs-comment">// Get connection state</span>
-<span class="hljs-keyword">await</span> client.getConnectionState();
+<span style="color: #008000">// Get connection state</span>
+<span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #795E26">getConnectionState</span><span style="color: #000000">();</span>
 
-<span class="hljs-comment">// Get battery level</span>
-<span class="hljs-keyword">await</span> client.getBatteryLevel();
+<span style="color: #008000">// Get battery level</span>
+<span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #795E26">getBatteryLevel</span><span style="color: #000000">();</span>
 
-<span class="hljs-comment">// Is connected</span>
-<span class="hljs-keyword">await</span> client.isConnected();
+<span style="color: #008000">// Is connected</span>
+<span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #795E26">isConnected</span><span style="color: #000000">();</span>
 
-<span class="hljs-comment">// Get whatsapp web version</span>
-<span class="hljs-keyword">await</span> client.getWAVersion();</code></pre>
+<span style="color: #008000">// Get whatsapp web version</span>
+<span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #795E26">getWAVersion</span><span style="color: #000000">();</span>
+</code></pre>
 				<a href="#events" id="events" style="color: inherit; text-decoration: none;">
 					<h2>Events</h2>
 				</a>
-				<pre><code class="language-javascript"><span class="hljs-comment">// Listen to messages</span>
-client.onMessage(<span class="hljs-function"><span class="hljs-params">message</span> =&gt;</span> {
-  ...
-})
+				<pre><code class="language-javascript"><span style="color: #008000">// Listen to messages</span>
+<span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #795E26">onMessage</span><span style="color: #000000">(</span><span style="color: #001080">message</span><span style="color: #000000"> </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">  ...</span>
+<span style="color: #000000">})</span>
 
-<span class="hljs-comment">// Listen to state changes</span>
-client.onStateChange(<span class="hljs-function"><span class="hljs-params">state</span> =&gt;</span> {
-  ...
-});
+<span style="color: #008000">// Listen to state changes</span>
+<span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #795E26">onStateChange</span><span style="color: #000000">(</span><span style="color: #001080">state</span><span style="color: #000000"> </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">  ...</span>
+<span style="color: #000000">});</span>
 
-<span class="hljs-comment">// Listen to ack&#x27;s</span>
-<span class="hljs-comment">// See the status of the message when sent.</span>
-<span class="hljs-comment">// When receiving the confirmation object, &quot;ack&quot; may return: &quot;INACTIVE&quot;, &quot;CONTENT_UNUPLOADABLE&quot;, &quot;CONTENT_TOO_BIG&quot;, &quot;CONTENT_GONE&quot;, &quot;EXPIRED&quot;, &quot;FAILED&quot;, &quot;CLOCK&quot;, &quot;SENT&quot;, &quot;RECEIVED&quot;, &quot;RECEIVED&quot;, &quot;READ&quot; or &quot;PLAYED&quot;.</span>
-client.onAck(<span class="hljs-function"><span class="hljs-params">ack</span> =&gt;</span> {
-  ...
-});
+<span style="color: #008000">// Listen to ack&#039;s</span>
+<span style="color: #008000">// See the status of the message when sent.</span>
+<span style="color: #008000">// When receiving the confirmation object, &quot;ack&quot; may return a number, look &lt;a href=&quot;enums/acktype.html&quot;&gt;AckType&lt;/a&gt; for details:</span>
+<span style="color: #008000">// -7 = MD_DOWNGRADE,</span>
+<span style="color: #008000">// -6 = INACTIVE,</span>
+<span style="color: #008000">// -5 = CONTENT_UNUPLOADABLE,</span>
+<span style="color: #008000">// -4 = CONTENT_TOO_BIG,</span>
+<span style="color: #008000">// -3 = CONTENT_GONE,</span>
+<span style="color: #008000">// -2 = EXPIRED,</span>
+<span style="color: #008000">// -1 = FAILED,</span>
+<span style="color: #008000">//  0 = CLOCK,</span>
+<span style="color: #008000">//  1 = SENT,</span>
+<span style="color: #008000">//  2 = RECEIVED,</span>
+<span style="color: #008000">//  3 = READ,</span>
+<span style="color: #008000">//  4 = PLAYED =</span>
 
-<span class="hljs-comment">// Listen to live location</span>
-<span class="hljs-comment">// chatId: &#x27;phone@c.us&#x27;</span>
-client.onLiveLocation(<span class="hljs-string">&quot;000000000000@c.us&quot;</span>, <span class="hljs-function">(<span class="hljs-params">liveLocation</span>) =&gt;</span> {
-  ...
-});
+<span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #795E26">onAck</span><span style="color: #000000">(</span><span style="color: #001080">ack</span><span style="color: #000000"> </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">  ...</span>
+<span style="color: #000000">});</span>
 
-<span class="hljs-comment">// chatId looks like this: &#x27;5518156745634-1516512045@g.us&#x27;</span>
-<span class="hljs-comment">// Event interface is in here: https://github.com/s2click/venom/blob/master/src/api/model/participant-event.ts</span>
-client.onParticipantsChanged(<span class="hljs-string">&quot;000000000000@c.us&quot;</span>, <span class="hljs-function">(<span class="hljs-params">event</span>) =&gt;</span> {
-  ...
-});
+<span style="color: #008000">// Listen to live location</span>
+<span style="color: #008000">// chatId: &#039;phone@c.us&#039;</span>
+<span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #795E26">onLiveLocation</span><span style="color: #000000">(</span><span style="color: #A31515">&quot;000000000000@c.us&quot;</span><span style="color: #000000">, (</span><span style="color: #001080">liveLocation</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">  ...</span>
+<span style="color: #000000">});</span>
 
-<span class="hljs-comment">// Listen when client has been added to a group</span>
-client.onAddedToGroup(<span class="hljs-function"><span class="hljs-params">chatEvent</span> =&gt;</span> {
-  ...
-});</code></pre>
+<span style="color: #008000">// chatId looks like this: &#039;5518156745634-1516512045@g.us&#039;</span>
+<span style="color: #008000">// Event interface is in here: https://github.com/s2click/venom/blob/master/src/api/model/participant-event.ts</span>
+<span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #795E26">onParticipantsChanged</span><span style="color: #000000">(</span><span style="color: #A31515">&quot;000000000000@c.us&quot;</span><span style="color: #000000">, (</span><span style="color: #001080">event</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">  ...</span>
+<span style="color: #000000">});</span>
+
+<span style="color: #008000">// Listen when client has been added to a group</span>
+<span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #795E26">onAddedToGroup</span><span style="color: #000000">(</span><span style="color: #001080">chatEvent</span><span style="color: #000000"> </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">  ...</span>
+<span style="color: #000000">});</span>
+</code></pre>
 				<a href="#other" id="other" style="color: inherit; text-decoration: none;">
 					<h2>Other</h2>
 				</a>
-				<pre><code class="language-javascript"><span class="hljs-comment">// Pin chat and Unpin chat messages with true or false</span>
-<span class="hljs-comment">// Pin chat, non-existent (optional)</span>
+				<pre><code class="language-javascript"><span style="color: #008000">// Pin chat and Unpin chat messages with true or false</span>
+<span style="color: #008000">// Pin chat, non-existent (optional)</span>
 
-<span class="hljs-keyword">await</span> client
-  .pinChat(chatId, <span class="hljs-literal">true</span>, <span class="hljs-literal">false</span>)
-  .then(<span class="hljs-function">(<span class="hljs-params">result</span>) =&gt;</span> {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;Result: &#x27;</span>, result); <span class="hljs-comment">//return object success</span>
-  })
-  .catch(<span class="hljs-function">(<span class="hljs-params">erro</span>) =&gt;</span> {
-    <span class="hljs-built_in">console</span>.error(<span class="hljs-string">&#x27;Error when sending: &#x27;</span>, erro); <span class="hljs-comment">//return object error</span>
-  });
+<span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">client</span>
+<span style="color: #000000">  .</span><span style="color: #795E26">pinChat</span><span style="color: #000000">(</span><span style="color: #001080">chatId</span><span style="color: #000000">, </span><span style="color: #0000FF">true</span><span style="color: #000000">, </span><span style="color: #0000FF">false</span><span style="color: #000000">)</span>
+<span style="color: #000000">  .</span><span style="color: #795E26">then</span><span style="color: #000000">((</span><span style="color: #001080">result</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">    </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;Result: &#039;</span><span style="color: #000000">, </span><span style="color: #001080">result</span><span style="color: #000000">); </span><span style="color: #008000">//return object success</span>
+<span style="color: #000000">  })</span>
+<span style="color: #000000">  .</span><span style="color: #795E26">catch</span><span style="color: #000000">((</span><span style="color: #001080">erro</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">    </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">error</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;Error when sending: &#039;</span><span style="color: #000000">, </span><span style="color: #001080">erro</span><span style="color: #000000">); </span><span style="color: #008000">//return object error</span>
+<span style="color: #000000">  });</span>
 
-<span class="hljs-comment">///mute a contact</span>
-<span class="hljs-keyword">await</span> client
-  .sendMute(
-    <span class="hljs-string">&#x27;000000000000@c.us&#x27;</span>, <span class="hljs-comment">//contact mute</span>
-    <span class="hljs-number">30</span>, <span class="hljs-comment">//duration of silence, example: 30 minutes</span>
-    <span class="hljs-string">&#x27;minutes&#x27;</span> <span class="hljs-comment">///kind of silence &quot;hours&quot; &quot;minutes&quot; &quot;year&quot;</span>
-  )
-  .then(<span class="hljs-function">(<span class="hljs-params">result</span>) =&gt;</span> {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;Result: &#x27;</span>, result); <span class="hljs-comment">//return object success</span>
-  })
-  .catch(<span class="hljs-function">(<span class="hljs-params">erro</span>) =&gt;</span> {
-    <span class="hljs-built_in">console</span>.error(<span class="hljs-string">&#x27;Error when sending: &#x27;</span>, erro); <span class="hljs-comment">//return object error</span>
-  });
+<span style="color: #008000">///mute a contact</span>
+<span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">client</span>
+<span style="color: #000000">  .</span><span style="color: #795E26">sendMute</span><span style="color: #000000">(</span>
+<span style="color: #000000">    </span><span style="color: #A31515">&#039;000000000000@c.us&#039;</span><span style="color: #000000">, </span><span style="color: #008000">//contact mute</span>
+<span style="color: #000000">    </span><span style="color: #098658">30</span><span style="color: #000000">, </span><span style="color: #008000">//duration of silence, example: 30 minutes</span>
+<span style="color: #000000">    </span><span style="color: #A31515">&#039;minutes&#039;</span><span style="color: #000000"> </span><span style="color: #008000">///kind of silence &quot;hours&quot; &quot;minutes&quot; &quot;year&quot;</span>
+<span style="color: #000000">  )</span>
+<span style="color: #000000">  .</span><span style="color: #795E26">then</span><span style="color: #000000">((</span><span style="color: #001080">result</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">    </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;Result: &#039;</span><span style="color: #000000">, </span><span style="color: #001080">result</span><span style="color: #000000">); </span><span style="color: #008000">//return object success</span>
+<span style="color: #000000">  })</span>
+<span style="color: #000000">  .</span><span style="color: #795E26">catch</span><span style="color: #000000">((</span><span style="color: #001080">erro</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">    </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">error</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;Error when sending: &#039;</span><span style="color: #000000">, </span><span style="color: #001080">erro</span><span style="color: #000000">); </span><span style="color: #008000">//return object error</span>
+<span style="color: #000000">  });</span>
 
-<span class="hljs-comment">///unmute contact</span>
-<span class="hljs-keyword">await</span> client
-  .sendMute(
-    <span class="hljs-string">&#x27;000000000000@c.us&#x27;</span> <span class="hljs-comment">//contact unmute</span>
-  )
-  .then(<span class="hljs-function">(<span class="hljs-params">result</span>) =&gt;</span> {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;Result: &#x27;</span>, result); <span class="hljs-comment">//return object success</span>
-  })
-  .catch(<span class="hljs-function">(<span class="hljs-params">erro</span>) =&gt;</span> {
-    <span class="hljs-built_in">console</span>.error(<span class="hljs-string">&#x27;Error when sending: &#x27;</span>, erro); <span class="hljs-comment">//return object error</span>
-  });
+<span style="color: #008000">///unmute contact</span>
+<span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">client</span>
+<span style="color: #000000">  .</span><span style="color: #795E26">sendMute</span><span style="color: #000000">(</span>
+<span style="color: #000000">    </span><span style="color: #A31515">&#039;000000000000@c.us&#039;</span><span style="color: #000000"> </span><span style="color: #008000">//contact unmute</span>
+<span style="color: #000000">  )</span>
+<span style="color: #000000">  .</span><span style="color: #795E26">then</span><span style="color: #000000">((</span><span style="color: #001080">result</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">    </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;Result: &#039;</span><span style="color: #000000">, </span><span style="color: #001080">result</span><span style="color: #000000">); </span><span style="color: #008000">//return object success</span>
+<span style="color: #000000">  })</span>
+<span style="color: #000000">  .</span><span style="color: #795E26">catch</span><span style="color: #000000">((</span><span style="color: #001080">erro</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">    </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">error</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;Error when sending: &#039;</span><span style="color: #000000">, </span><span style="color: #001080">erro</span><span style="color: #000000">); </span><span style="color: #008000">//return object error</span>
+<span style="color: #000000">  });</span>
 
-<span class="hljs-comment">// Change the theme</span>
-<span class="hljs-comment">// string types &quot;dark&quot; or &quot;light&quot;</span>
-<span class="hljs-keyword">await</span> client.setTheme(<span class="hljs-string">&#x27;dark&#x27;</span>);
+<span style="color: #008000">// Change the theme</span>
+<span style="color: #008000">// string types &quot;dark&quot; or &quot;light&quot;</span>
+<span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #795E26">setTheme</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;dark&#039;</span><span style="color: #000000">);</span>
 
-<span class="hljs-comment">// Receive the current theme</span>
-<span class="hljs-comment">// returns string light or dark</span>
-<span class="hljs-keyword">await</span> client.getTheme();
+<span style="color: #008000">// Receive the current theme</span>
+<span style="color: #008000">// returns string light or dark</span>
+<span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #795E26">getTheme</span><span style="color: #000000">();</span>
 
-<span class="hljs-comment">// Delete chat</span>
-<span class="hljs-keyword">await</span> client.deleteChat(<span class="hljs-string">&#x27;000000000000@c.us&#x27;</span>);
+<span style="color: #008000">// Delete chat</span>
+<span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #795E26">deleteChat</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;000000000000@c.us&#039;</span><span style="color: #000000">);</span>
 
-<span class="hljs-comment">// Clear chat messages</span>
-<span class="hljs-keyword">await</span> client.clearChat(<span class="hljs-string">&#x27;000000000000@c.us&#x27;</span>);
+<span style="color: #008000">// Clear chat messages</span>
+<span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #795E26">clearChat</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;000000000000@c.us&#039;</span><span style="color: #000000">);</span>
 
-<span class="hljs-comment">// Archive and unarchive chat messages with true or false</span>
-<span class="hljs-keyword">await</span> client.archiveChat(chatId, <span class="hljs-literal">true</span>);
+<span style="color: #008000">// Archive and unarchive chat messages with true or false</span>
+<span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #795E26">archiveChat</span><span style="color: #000000">(</span><span style="color: #001080">chatId</span><span style="color: #000000">, </span><span style="color: #0000FF">true</span><span style="color: #000000">);</span>
 
-<span class="hljs-comment">// Delete message (last parameter: delete only locally)</span>
-<span class="hljs-keyword">await</span> client.deleteMessage(<span class="hljs-string">&#x27;000000000000@c.us&#x27;</span>, message.id.toString(), <span class="hljs-literal">false</span>);
+<span style="color: #008000">// Delete message (last parameter: delete only locally)</span>
+<span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #795E26">deleteMessage</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;000000000000@c.us&#039;</span><span style="color: #000000">, </span><span style="color: #001080">message</span><span style="color: #000000">.</span><span style="color: #001080">id</span><span style="color: #000000">.</span><span style="color: #795E26">toString</span><span style="color: #000000">(), </span><span style="color: #0000FF">false</span><span style="color: #000000">);</span>
 
-<span class="hljs-comment">// Mark chat as not seen (returns true if it works)</span>
-<span class="hljs-keyword">await</span> client.markUnseenMessage(<span class="hljs-string">&#x27;000000000000@c.us&#x27;</span>);
+<span style="color: #008000">// Mark chat as not seen (returns true if it works)</span>
+<span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #795E26">markUnseenMessage</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;000000000000@c.us&#039;</span><span style="color: #000000">);</span>
 
-<span class="hljs-comment">// Blocks a user (returns true if it works)</span>
-<span class="hljs-keyword">await</span> client.blockContact(<span class="hljs-string">&#x27;000000000000@c.us&#x27;</span>);
+<span style="color: #008000">// Blocks a user (returns true if it works)</span>
+<span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #795E26">blockContact</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;000000000000@c.us&#039;</span><span style="color: #000000">);</span>
 
-<span class="hljs-comment">// Unlocks contacts (returns true if it works)</span>
-<span class="hljs-keyword">await</span> client.unblockContact(<span class="hljs-string">&#x27;000000000000@c.us&#x27;</span>);
+<span style="color: #008000">// Unlocks contacts (returns true if it works)</span>
+<span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #795E26">unblockContact</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;000000000000@c.us&#039;</span><span style="color: #000000">);</span>
 
-<span class="hljs-comment">// Retrieve a number profile / check if contact is a valid whatsapp number</span>
-<span class="hljs-keyword">const</span> profile = <span class="hljs-keyword">await</span> client.getNumberProfile(<span class="hljs-string">&#x27;000000000000@c.us&#x27;</span>);</code></pre>
+<span style="color: #008000">// Retrieve a number profile / check if contact is a valid whatsapp number</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">profile</span><span style="color: #000000"> = </span><span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #795E26">getNumberProfile</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;000000000000@c.us&#039;</span><span style="color: #000000">);</span>
+</code></pre>
 				<a href="#misc" id="misc" style="color: inherit; text-decoration: none;">
 					<h2>Misc</h2>
 				</a>
@@ -830,50 +856,52 @@ client.onAddedToGroup(<span class="hljs-function"><span class="hljs-params">chat
 				<a href="#keep-session-alive" id="keep-session-alive" style="color: inherit; text-decoration: none;">
 					<h4>Keep session alive:</h4>
 				</a>
-				<pre><code class="language-javascript"><span class="hljs-comment">// function to detect conflits and change status</span>
-<span class="hljs-comment">// Force it to keep the current session</span>
-<span class="hljs-comment">// Possible state values:</span>
-<span class="hljs-comment">// CONFLICT</span>
-<span class="hljs-comment">// CONNECTED</span>
-<span class="hljs-comment">// DEPRECATED_VERSION</span>
-<span class="hljs-comment">// OPENING</span>
-<span class="hljs-comment">// PAIRING</span>
-<span class="hljs-comment">// PROXYBLOCK</span>
-<span class="hljs-comment">// SMB_TOS_BLOCK</span>
-<span class="hljs-comment">// TIMEOUT</span>
-<span class="hljs-comment">// TOS_BLOCK</span>
-<span class="hljs-comment">// UNLAUNCHED</span>
-<span class="hljs-comment">// UNPAIRED</span>
-<span class="hljs-comment">// UNPAIRED_IDLE</span>
-client.onStateChange(<span class="hljs-function">(<span class="hljs-params">state</span>) =&gt;</span> {
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;State changed: &#x27;</span>, state);
-  <span class="hljs-comment">// force whatsapp take over</span>
-  <span class="hljs-keyword">if</span> (<span class="hljs-string">&#x27;CONFLICT&#x27;</span>.includes(state)) client.useHere();
-  <span class="hljs-comment">// detect disconnect on whatsapp</span>
-  <span class="hljs-keyword">if</span> (<span class="hljs-string">&#x27;UNPAIRED&#x27;</span>.includes(state)) <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;logout&#x27;</span>);
-});
+				<pre><code class="language-javascript"><span style="color: #008000">// function to detect conflits and change status</span>
+<span style="color: #008000">// Force it to keep the current session</span>
+<span style="color: #008000">// Possible state values:</span>
+<span style="color: #008000">// CONFLICT</span>
+<span style="color: #008000">// CONNECTED</span>
+<span style="color: #008000">// DEPRECATED_VERSION</span>
+<span style="color: #008000">// OPENING</span>
+<span style="color: #008000">// PAIRING</span>
+<span style="color: #008000">// PROXYBLOCK</span>
+<span style="color: #008000">// SMB_TOS_BLOCK</span>
+<span style="color: #008000">// TIMEOUT</span>
+<span style="color: #008000">// TOS_BLOCK</span>
+<span style="color: #008000">// UNLAUNCHED</span>
+<span style="color: #008000">// UNPAIRED</span>
+<span style="color: #008000">// UNPAIRED_IDLE</span>
+<span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #795E26">onStateChange</span><span style="color: #000000">((</span><span style="color: #001080">state</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">  </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;State changed: &#039;</span><span style="color: #000000">, </span><span style="color: #001080">state</span><span style="color: #000000">);</span>
+<span style="color: #000000">  </span><span style="color: #008000">// force whatsapp take over</span>
+<span style="color: #000000">  </span><span style="color: #AF00DB">if</span><span style="color: #000000"> (</span><span style="color: #A31515">&#039;CONFLICT&#039;</span><span style="color: #000000">.</span><span style="color: #795E26">includes</span><span style="color: #000000">(</span><span style="color: #001080">state</span><span style="color: #000000">)) </span><span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #795E26">useHere</span><span style="color: #000000">();</span>
+<span style="color: #000000">  </span><span style="color: #008000">// detect disconnect on whatsapp</span>
+<span style="color: #000000">  </span><span style="color: #AF00DB">if</span><span style="color: #000000"> (</span><span style="color: #A31515">&#039;UNPAIRED&#039;</span><span style="color: #000000">.</span><span style="color: #795E26">includes</span><span style="color: #000000">(</span><span style="color: #001080">state</span><span style="color: #000000">)) </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;logout&#039;</span><span style="color: #000000">);</span>
+<span style="color: #000000">});</span>
 
-<span class="hljs-comment">// function to detect incoming call</span>
-client.onIncomingCall(<span class="hljs-keyword">async</span> (call) =&gt; {
-  <span class="hljs-built_in">console</span>.log(call);
-  client.sendText(call.peerJid, <span class="hljs-string">&quot;Sorry, I still can&#x27;t answer calls&quot;</span>);
-});</code></pre>
+<span style="color: #008000">// function to detect incoming call</span>
+<span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #795E26">onIncomingCall</span><span style="color: #000000">(</span><span style="color: #0000FF">async</span><span style="color: #000000"> (</span><span style="color: #001080">call</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">  </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #001080">call</span><span style="color: #000000">);</span>
+<span style="color: #000000">  </span><span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #795E26">sendText</span><span style="color: #000000">(</span><span style="color: #001080">call</span><span style="color: #000000">.</span><span style="color: #001080">peerJid</span><span style="color: #000000">, </span><span style="color: #A31515">&quot;Sorry, I still can&#039;t answer calls&quot;</span><span style="color: #000000">);</span>
+<span style="color: #000000">});</span>
+</code></pre>
 				<a href="#closing-saving-sessions" id="closing-saving-sessions" style="color: inherit; text-decoration: none;">
 					<h4>Closing (saving) sessions</h4>
 				</a>
 				<p>Close the session properly to ensure the session is saved for the next time you
 				log in (So it won&#39;t ask for QR scan again). So instead of CTRL+C,</p>
-				<pre><code class="language-javascript"><span class="hljs-comment">// Catch ctrl+C</span>
-process.on(<span class="hljs-string">&#x27;SIGINT&#x27;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
-  client.close();
-});
+				<pre><code class="language-javascript"><span style="color: #008000">// Catch ctrl+C</span>
+<span style="color: #001080">process</span><span style="color: #000000">.</span><span style="color: #795E26">on</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;SIGINT&#039;</span><span style="color: #000000">, </span><span style="color: #0000FF">function</span><span style="color: #000000">() {</span>
+<span style="color: #000000">  </span><span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #795E26">close</span><span style="color: #000000">();</span>
+<span style="color: #000000">});</span>
 
-<span class="hljs-comment">// Try-catch close</span>
-<span class="hljs-keyword">try</span> {
-   ...
-} <span class="hljs-keyword">catch</span> (error) {
-   client.close();
-}</code></pre>
+<span style="color: #008000">// Try-catch close</span>
+<span style="color: #AF00DB">try</span><span style="color: #000000"> {</span>
+<span style="color: #000000">   ...</span>
+<span style="color: #000000">} </span><span style="color: #AF00DB">catch</span><span style="color: #000000"> (</span><span style="color: #001080">error</span><span style="color: #000000">) {</span>
+<span style="color: #000000">   </span><span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #795E26">close</span><span style="color: #000000">();</span>
+<span style="color: #000000">}</span>
+</code></pre>
 				<a href="#auto-closing-unsynced-sessions" id="auto-closing-unsynced-sessions" style="color: inherit; text-decoration: none;">
 					<h3>Auto closing unsynced sessions</h3>
 				</a>
@@ -973,6 +1001,9 @@ process.on(<span class="hljs-string">&#x27;SIGINT&#x27;</span>, <span class="hlj
 						<a href="interfaces/contactstatus.html" class="tsd-kind-icon">Contact<wbr>Status</a>
 					</li>
 					<li class=" tsd-kind-interface">
+						<a href="interfaces/createconfig.html" class="tsd-kind-icon">Create<wbr>Config</a>
+					</li>
+					<li class=" tsd-kind-interface">
 						<a href="interfaces/groupcreation.html" class="tsd-kind-icon">Group<wbr>Creation</a>
 					</li>
 					<li class=" tsd-kind-interface">
@@ -1030,6 +1061,10 @@ process.on(<span class="hljs-string">&#x27;SIGINT&#x27;</span>, <span class="hlj
 				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
 				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
 				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected method</span></li>
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
