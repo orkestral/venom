@@ -6,6 +6,7 @@
   "includeVersion": true,
   "out": "api-docs",
   "theme": "pages-plugin",
+  "media": "media",
   "pages": {
     "groups": [
       {
