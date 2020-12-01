@@ -627,7 +627,20 @@ client.onStateChange(state => {
 
 // Listen to ack's
 // See the status of the message when sent.
-// When receiving the confirmation object, "ack" may return: "INACTIVE", "CONTENT_UNUPLOADABLE", "CONTENT_TOO_BIG", "CONTENT_GONE", "EXPIRED", "FAILED", "CLOCK", "SENT", "RECEIVED", "RECEIVED", "READ" or "PLAYED".
+// When receiving the confirmation object, "ack" may return a number, look {@link AckType} for details:
+// -7 = MD_DOWNGRADE,
+// -6 = INACTIVE,
+// -5 = CONTENT_UNUPLOADABLE,
+// -4 = CONTENT_TOO_BIG,
+// -3 = CONTENT_GONE,
+// -2 = EXPIRED,
+// -1 = FAILED,
+//  0 = CLOCK,
+//  1 = SENT,
+//  2 = RECEIVED,
+//  3 = READ,
+//  4 = PLAYED =
+
 client.onAck(ack => {
   ...
 });
