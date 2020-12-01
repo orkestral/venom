@@ -56,8 +56,7 @@ export async function sendContactVcard(chatId, contact, name) {
   var chat = await WAPI.sendExist(chatId);
   var cont = await WAPI.sendExist(contact);
   if (chat.id && cont.id) {
-    var ListChat = await Store.Chat.get(chatId);
-    var newId = window.WAPI.getNewMessageId(chatId);
+    var newId = window.WAPI.getNewMessageId(chat.id);
     var tempMsg = Object.create(
       Store.Msg.models.filter((msg) => msg.__x_isSentByMe && !msg.quotedMsg)[0]
     );
@@ -77,17 +76,15 @@ export async function sendContactVcard(chatId, contact, name) {
       isNewMsg: !0,
     };
     Object.assign(tempMsg, extend);
-    var result = await Promise.all(
-      ListChat ? Store.addAndSendMsgToChat(chat, tempMsg) : ''
-    );
+    var result = (await Store.addAndSendMsgToChat(chat, tempMsg)) || '';
     var m = { from: contact, type: 'vcard' },
       To = await WAPI.getchatId(chat.id);
-    if (result[1] === 'success' || result[1] === 'OK') {
-      var obj = WAPI.scope(To, false, result[1], null);
+    if (result === 'success' || result === 'OK') {
+      var obj = WAPI.scope(To, false, result, null);
       Object.assign(obj, m);
       return obj;
     } else {
-      var obj = WAPI.scope(To, true, result[1], null);
+      var obj = WAPI.scope(To, true, result, null);
       Object.assign(obj, m);
       return obj;
     }

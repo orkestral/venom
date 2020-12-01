@@ -60,8 +60,7 @@ export async function sendLocation(
 ) {
   var chat = await WAPI.sendExist(chatId);
 
-  if (chat.erro === false || chat.__x_id) {
-    var ListChat = await Store.Chat.get(chatId);
+  if (!chat.erro) {
     var tempMsg = await Object.create(
       Store.Msg.models.filter((msg) => msg.__x_isSentByMe && !msg.quotedMsg)[0]
     );
@@ -96,9 +95,7 @@ export async function sendLocation(
     };
 
     Object.assign(tempMsg, extend);
-    var result = await Promise.all(
-      ListChat ? Store.addAndSendMsgToChat(chat, tempMsg) : ''
-    );
+    var result = (await Store.addAndSendMsgToChat(chat, tempMsg)) || '';
     var m = {
         latitude: latitude,
         longitude: longitude,
@@ -107,12 +104,12 @@ export async function sendLocation(
       },
       obj,
       To = await WAPI.getchatId(chat.id);
-    if (result[1] == 'success' || result[1] == 'OK') {
-      obj = WAPI.scope(To, false, result[1], null);
+    if (result == 'success' || result == 'OK') {
+      obj = WAPI.scope(To, false, result, null);
       Object.assign(obj, m);
       return obj;
     } else {
-      obj = WAPI.scope(To, true, result[1], null);
+      obj = WAPI.scope(To, true, result, null);
       Object.assign(obj, m);
       return obj;
     }

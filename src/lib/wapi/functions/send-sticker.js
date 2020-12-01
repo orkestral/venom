@@ -55,9 +55,8 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 export async function sendSticker(sticker, chatId, metadata, type) {
   var chat = await WAPI.sendExist(chatId);
 
-  if (chat.erro === false || chat.__x_id) {
-    var ListChat = await Store.Chat.get(chatId),
-      stick = new window.Store.Sticker.default.modelClass();
+  if (!chat.erro) {
+    var stick = new window.Store.Sticker.default.modelClass();
 
     stick.__x_clientUrl = sticker.clientUrl;
     stick.__x_filehash = sticker.filehash;
@@ -72,18 +71,14 @@ export async function sendSticker(sticker, chatId, metadata, type) {
 
     await stick.initialize();
 
-    var result = await Promise.all(
-      ListChat
-        ? await stick.sendToChat(chat, {
-            stickerIsFirstParty: false,
-            stickerSendOrigin: 6,
-          })
-        : ''
-    );
-    result = result.join('');
+    var result =
+      (await stick.sendToChat(chat, {
+        stickerIsFirstParty: false,
+        stickerSendOrigin: 6,
+      })) || '';
     var m = { type: type },
       obj,
-      To = await WAPI.getchatId(chatId);
+      To = await WAPI.getchatId(chat.id);
     if (result === 'OK') {
       obj = WAPI.scope(To, false, result, null);
       Object.assign(obj, m);

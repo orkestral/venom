@@ -54,14 +54,13 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
 export async function sendMute(chatId, time, type) {
   var chat = await WAPI.sendExist(chatId);
-  if (chat.erro === false || chat.__x_id) {
+  if (!chat.erro) {
     let TimeInt = null;
     var result = null,
       remove = null,
       texto = null;
-    var ListChat = await Store.Chat.get(chatId),
-      To = await WAPI.getchatId(chat.id),
-      isMute = await window.Store.Mute.get(chatId),
+    var To = await WAPI.getchatId(chat.id),
+      isMute = await window.Store.Mute.get(chat.id),
       m = { type: 'sendMute', time: time, timeType: type };
     if (typeof time === 'number' && typeof type === 'string') {
       switch (type) {
@@ -87,30 +86,26 @@ export async function sendMute(chatId, time, type) {
           );
           break;
       }
-      ListChat
-        ? await window.Store.SendMute.sendConversationMute(chatId, TimeInt, 0)
-            .then((e) => {
-              result = e;
-            })
-            .catch((e) => {
-              result = e;
-            })
-        : '';
+      await window.Store.SendMute.sendConversationMute(chat.id, TimeInt, 0)
+        .then((e) => {
+          result = e;
+        })
+        .catch((e) => {
+          result = e;
+        });
     } else {
       remove = true;
-      ListChat
-        ? await window.Store.SendMute.sendConversationMute(
-            chatId,
-            0,
-            isMute.__x_expiration
-          )
-            .then((e) => {
-              result = e;
-            })
-            .catch((e) => {
-              result = e;
-            })
-        : '';
+      await window.Store.SendMute.sendConversationMute(
+        chat.id,
+        0,
+        isMute.__x_expiration
+      )
+        .then((e) => {
+          result = e;
+        })
+        .catch((e) => {
+          result = e;
+        });
     }
     if (result.status === 200) {
       if (remove) {

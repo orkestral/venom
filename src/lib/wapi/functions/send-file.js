@@ -70,15 +70,11 @@ export async function sendFile(imgBase64, chatid, filename, caption, type) {
     mime = mime[1];
   }
   var chat = await WAPI.sendExist(chatid);
-  if (chat.erro === false || chat.__x_id) {
-    var ListChat = await Store.Chat.get(chatid);
+  if (!chat.erro) {
     var mediaBlob = base64ToFile(imgBase64, filename),
       mediaCollection = await processFiles(chat, mediaBlob),
-      media = mediaCollection.models[0],
-      result = await Promise.all(
-        ListChat ? await media.sendToChat(chat, { caption: caption }) : ''
-      );
-    result = result.join('');
+      media = mediaCollection.models[0];
+    var result = (await media.sendToChat(chat, { caption: caption })) || '';
     var m = { type: type, filename: filename, text: caption, mimeType: mime },
       To = await WAPI.getchatId(chat.id);
     if (result === 'success' || result === 'OK') {

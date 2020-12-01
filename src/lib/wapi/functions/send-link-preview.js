@@ -53,7 +53,7 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
 export async function sendLinkPreview(chatId, url, text) {
-  text = text || null;
+  text = text || '';
   const _Path = {
     Protocol: '^(https?:\\/\\/)?',
     Domain: '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|',
@@ -79,18 +79,12 @@ export async function sendLinkPreview(chatId, url, text) {
     return WAPI.scope(chatId, true, null, text);
   }
   var chat = await WAPI.sendExist(chatId);
-  if (chat.erro === false || chat.__x_id) {
-    var ListChat = await Store.Chat.get(chatId);
+  if (!chat.erro) {
     const linkPreview = await Store.WapQuery.queryLinkPreview(url);
-    var result = Promise.all(
-      ListChat
-        ? await chat.sendMessage(
-            text.includes(url) ? text : `${url}\n${text}`,
-            { linkPreview }
-          )
-        : ''
-    );
-    result = result._value.join('');
+    var result =
+      (await chat.sendMessage(text.includes(url) ? text : `${url}\n${text}`, {
+        linkPreview,
+      })) || '';
     var m = { type: 'LinkPreview', url: url, text: text },
       To = await WAPI.getchatId(chat.id);
     if (result === 'success' || result === 'OK') {
