@@ -92,7 +92,7 @@ export class ListenerLayer extends ProfileLayer {
     ];
 
     for (const func of functions) {
-      var has = await this.page
+      const has = await this.page
         .evaluate((func) => typeof window[func] === 'function', func)
         .catch(() => false);
 

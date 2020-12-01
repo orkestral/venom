@@ -203,5 +203,5 @@ declare global {
   interface Window {
     WAPI: WAPI;
   }
-  var WAPI: WAPI;
+  const WAPI: WAPI;
 }

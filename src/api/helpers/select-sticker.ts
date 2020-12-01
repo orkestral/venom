@@ -104,7 +104,7 @@ interface CreateSize {
   height?: number;
 }
 export async function resizeImg(buff: Buffer, size: CreateSize) {
-  var _ins = await sharp(buff, { failOnError: false })
+  const _ins = await sharp(buff, { failOnError: false })
       .resize({ width: size.width, height: size.height })
       .toBuffer(),
     _w = sharp(_ins, { failOnError: false }).jpeg(),

@@ -89,7 +89,7 @@ export class SenderLayer extends ListenerLayer {
     title: string
   ): Promise<SendLinkResult> {
     return new Promise(async (resolve, reject) => {
-      var result = await this.page.evaluate(
+      const result = await this.page.evaluate(
         ({ chatId, url, title }) => {
           return WAPI.sendLinkPreview(chatId, url, title);
         },
@@ -110,13 +110,13 @@ export class SenderLayer extends ListenerLayer {
    */
   public async sendText(to: string, content: string): Promise<Message> {
     return new Promise(async (resolve, reject) => {
-      var messageId: string = await this.page.evaluate(
+      const messageId: string = await this.page.evaluate(
         ({ to, content }) => {
           return WAPI.sendMessage(to, content);
         },
         { to, content }
       );
-      var result = (await this.page.evaluate(
+      const result = (await this.page.evaluate(
         (messageId: any) => WAPI.getMessageById(messageId),
         messageId
       )) as Message;
@@ -135,13 +135,13 @@ export class SenderLayer extends ListenerLayer {
   ): Promise<Message> {
     return new Promise(async (resolve, reject) => {
       try {
-        var messageId = await this.page.evaluate(
+        const messageId = await this.page.evaluate(
           ({ chat, content, options }) => {
             return WAPI.sendMessageOptions(chat, content, options);
           },
           { chat, content, options }
         );
-        var result = (await this.page.evaluate(
+        const result = (await this.page.evaluate(
           (messageId: any) => WAPI.getMessageById(messageId),
           messageId
         )) as Message;
@@ -179,7 +179,7 @@ export class SenderLayer extends ListenerLayer {
       }
 
       if (!base64) {
-        var obj = {
+        const obj = {
           erro: true,
           to: to,
           text: 'No such file or directory, open "' + filePath + '"',
@@ -214,7 +214,7 @@ export class SenderLayer extends ListenerLayer {
       let mimeType = base64MimeType(base64);
 
       if (!mimeType) {
-        var obj = {
+        const obj = {
           erro: true,
           to: to,
           text: 'Invalid base64!',
@@ -223,7 +223,7 @@ export class SenderLayer extends ListenerLayer {
       }
 
       if (!mimeType.includes('image')) {
-        var obj = {
+        const obj = {
           erro: true,
           to: to,
           text: 'Not an image, allowed formats png, jpeg and webp',
@@ -233,7 +233,7 @@ export class SenderLayer extends ListenerLayer {
 
       filename = filenameFromMimeType(filename, mimeType);
 
-      var result = await this.page.evaluate(
+      const result = await this.page.evaluate(
         ({ to, base64, filename, caption }) => {
           return WAPI.sendImage(base64, to, filename, caption);
         },
@@ -288,13 +288,13 @@ export class SenderLayer extends ListenerLayer {
     quotedMsg: string
   ): Promise<Message> {
     return new Promise(async (resolve, reject) => {
-      var messageId: string = await this.page.evaluate(
+      const messageId: string = await this.page.evaluate(
         ({ to, content, quotedMsg }) => {
           return WAPI.reply(to, content, quotedMsg);
         },
         { to, content, quotedMsg }
       );
-      var result = (await this.page.evaluate(
+      const result = (await this.page.evaluate(
         (messageId: any) => WAPI.getMessageById(messageId),
         messageId
       )) as Message;
@@ -346,7 +346,7 @@ export class SenderLayer extends ListenerLayer {
       let mimeType = base64MimeType(base64);
 
       if (!mimeType) {
-        var obj = {
+        const obj = {
           erro: true,
           to: to,
           text: 'Invalid base64!',
@@ -356,8 +356,8 @@ export class SenderLayer extends ListenerLayer {
 
       filename = filenameFromMimeType(filename, mimeType);
 
-      var type = 'FileFromBase64';
-      var result = await this.page.evaluate(
+      const type = 'FileFromBase64';
+      const result = await this.page.evaluate(
         ({ to, base64, filename, caption, type }) => {
           return WAPI.sendFile(base64, to, filename, caption, type);
         },
@@ -462,7 +462,7 @@ export class SenderLayer extends ListenerLayer {
     name?: string
   ) {
     return new Promise(async (resolve, reject) => {
-      var result = await this.page.evaluate(
+      const result = await this.page.evaluate(
         ({ to, contactsId, name }) => {
           return WAPI.sendContactVcard(to, contactsId, name);
         },
@@ -483,7 +483,7 @@ export class SenderLayer extends ListenerLayer {
    */
   public async sendContactVcardList(to: string, contacts: string[]) {
     return new Promise(async (resolve, reject) => {
-      var result = await this.page.evaluate(
+      const result = await this.page.evaluate(
         ({ to, contacts }) => {
           return WAPI.sendContactVcardList(to, contacts);
         },
@@ -541,7 +541,7 @@ export class SenderLayer extends ListenerLayer {
           let _met = obj['metadata'];
 
           return new Promise(async (resolve, reject) => {
-            var result = await this.page.evaluate(
+            const result = await this.page.evaluate(
               ({ _webb64, to, _met }) => {
                 return WAPI.sendImageAsSticker(_webb64, to, _met, 'StickerGif');
               },
@@ -593,7 +593,7 @@ export class SenderLayer extends ListenerLayer {
           let _webb64 = obj['webpBase64'];
           let _met = obj['metadata'];
           return new Promise(async (resolve, reject) => {
-            var result = await this.page.evaluate(
+            const result = await this.page.evaluate(
               ({ _webb64, to, _met }) => {
                 return WAPI.sendImageAsSticker(_webb64, to, _met, 'Sticker');
               },
@@ -628,7 +628,7 @@ export class SenderLayer extends ListenerLayer {
     title: string
   ) {
     return new Promise(async (resolve, reject) => {
-      var result = await this.page.evaluate(
+      const result = await this.page.evaluate(
         ({ to, latitude, longitude, title }) => {
           return WAPI.sendLocation(to, latitude, longitude, title);
         },

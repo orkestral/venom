@@ -75,7 +75,7 @@ export class ProfileLayer extends HostLayer {
    */
   public sendMute(id: string, time: number, type: string): Promise<object> {
     return new Promise(async (resolve, reject) => {
-      var result = await this.page.evaluate(
+      const result = await this.page.evaluate(
         (id, time, type) => WAPI.sendMute(id, time, type),
         id,
         time,
@@ -133,9 +133,9 @@ export class ProfileLayer extends HostLayer {
       const mimeInfo = base64MimeType(b64);
 
       if (!mimeInfo || mimeInfo.includes('image')) {
-        var _webb64_96 = await resizeImg(buff, { width: 96, height: 96 }),
+        let _webb64_96 = await resizeImg(buff, { width: 96, height: 96 }),
           _webb64_640 = await resizeImg(buff, { width: 640, height: 640 });
-        var obj = { a: _webb64_640, b: _webb64_96 };
+        let obj = { a: _webb64_640, b: _webb64_96 };
 
         return await this.page.evaluate(({ obj }) => WAPI.setProfilePic(obj), {
           obj,

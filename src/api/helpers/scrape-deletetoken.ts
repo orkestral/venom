@@ -59,8 +59,8 @@ declare global {
   }
 }
 export async function scrapeDeleteToken(page: Page): Promise<boolean> {
-  var result = await page.evaluate(() => {
-    var scrape = window.pathSession;
+  const result = await page.evaluate(() => {
+    const scrape = window.pathSession;
     if (scrape === true) {
       return true;
     } else {

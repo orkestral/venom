@@ -61,7 +61,7 @@ export function deleteFiles(
   spinnies: Spinnies
 ) {
   spinnies.add(`removeFile`, { text: '....' });
-  var pathTokens: string = path.join(
+  const pathTokens: string = path.join(
     path.resolve(
       process.cwd() + mergedOptions.mkdirFolderToken,
       mergedOptions.folderNameToken

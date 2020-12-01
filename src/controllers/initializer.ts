@@ -84,9 +84,7 @@ export async function create(
   options?: CreateConfig,
   browserSessionToken?: object
 ): Promise<Whatsapp> {
-  var browserToken: any,
-    Session: string,
-    Session = session;
+  let browserToken: any;
 
   const spinnies = getSpinnies({
     disableSpins: options ? options.disableSpins : false,
@@ -107,7 +105,7 @@ export async function create(
     text: 'Initializing browser...',
   });
 
-  const browser = await initBrowser(Session, mergedOptions);
+  const browser = await initBrowser(session, mergedOptions);
 
   if (browser === 'connect') {
     spinnies.fail(`browser-${session}`, {
@@ -167,7 +165,7 @@ export async function create(
     }
 
     const waPage = await initWhatsapp(
-      Session,
+      session,
       mergedOptions,
       browser,
       browserToken

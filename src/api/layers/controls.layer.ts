@@ -131,7 +131,7 @@ export class ControlsLayer extends UILayer {
    */
   public async pinChat(chatId: string, option: boolean, nonExistent?: boolean) {
     return new Promise(async (resolve, reject) => {
-      var result = await this.page.evaluate(
+      const result = await this.page.evaluate(
         ({ chatId, option, nonExistent }) => {
           return WAPI.pinChat(chatId, option, nonExistent);
         },

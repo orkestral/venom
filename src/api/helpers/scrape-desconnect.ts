@@ -59,8 +59,8 @@ declare global {
   }
 }
 export async function scrapeDesconnected(page: Page): Promise<boolean> {
-  var result = await page.evaluate(() => {
-    var scrape = window.Store.State.default.on('change:state');
+  const result = await page.evaluate(() => {
+    const scrape = window.Store.State.default.on('change:state');
     if (
       scrape.__x_stream === 'DISCONNECTED' &&
       scrape.__x_state === 'CONNECTED'

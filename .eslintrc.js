@@ -27,7 +27,6 @@ module.exports = {
     'no-empty': ['error', { allowEmptyCatch: true }],
     'no-useless-catch': 'off',
     'no-useless-escape': 'off',
-    'no-var': 'off',
     'prefer-const': 'off',
   },
   overrides: [

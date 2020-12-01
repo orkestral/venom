@@ -93,9 +93,9 @@ export const magix = (
   mediaType: any,
   expectedSize?: number
 ) => {
-  var encodedHex = fileData.toString('hex');
-  var encodedBytes = hexToBytes(encodedHex);
-  var mediaKeyBytes: any = base64ToBytes(mediaKeyBase64);
+  const encodedHex = fileData.toString('hex');
+  const encodedBytes = hexToBytes(encodedHex);
+  const mediaKeyBytes: any = base64ToBytes(mediaKeyBase64);
   const info = `WhatsApp ${mediaTypes[mediaType.toUpperCase()]} Keys`;
   const hash: string = 'sha256';
   const salt: any = new Uint8Array(32);
@@ -105,10 +105,10 @@ export const magix = (
     info,
     hash,
   });
-  var iv = mediaKeyExpanded.slice(0, 16);
-  var cipherKey = mediaKeyExpanded.slice(16, 48);
-  var decipher = crypto.createDecipheriv('aes-256-cbc', cipherKey, iv);
-  var decoded: Buffer = decipher.update(encodedBytes);
+  const iv = mediaKeyExpanded.slice(0, 16);
+  const cipherKey = mediaKeyExpanded.slice(16, 48);
+  const decipher = crypto.createDecipheriv('aes-256-cbc', cipherKey, iv);
+  const decoded: Buffer = decipher.update(encodedBytes);
   const mediaDataBuffer = expectedSize
     ? fixPadding(decoded, expectedSize)
     : decoded;
@@ -132,17 +132,17 @@ const fixPadding = (data: Buffer, expectedSize: number) => {
 };
 
 const hexToBytes = (hexStr: any) => {
-  var intArray = [];
-  for (var i = 0; i < hexStr.length; i += 2) {
+  const intArray = [];
+  for (let i = 0; i < hexStr.length; i += 2) {
     intArray.push(parseInt(hexStr.substr(i, 2), 16));
   }
   return new Uint8Array(intArray);
 };
 
 const base64ToBytes = (base64Str: any) => {
-  var binaryStr = atob(base64Str);
-  var byteArray = new Uint8Array(binaryStr.length);
-  for (var i = 0; i < binaryStr.length; i++) {
+  const binaryStr = atob(base64Str);
+  const byteArray = new Uint8Array(binaryStr.length);
+  for (let i = 0; i < binaryStr.length; i++) {
     byteArray[i] = binaryStr.charCodeAt(i);
   }
   return byteArray;

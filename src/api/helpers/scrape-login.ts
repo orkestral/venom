@@ -54,12 +54,12 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
 import { Page } from 'puppeteer';
 export async function scrapeLogin(page: Page): Promise<boolean> {
-  var result = await page.evaluate(() => {
-    let count = document.querySelector('._9a59P');
-    var data: boolean;
+  const result = await page.evaluate(() => {
+    const count = document.querySelector('._9a59P');
+    let data: boolean;
     data = false;
     if (count != null) {
-      var text = count.textContent,
+      const text = count.textContent,
         timeNumber = text.match('Invalid');
       if (timeNumber) {
         data = true;
