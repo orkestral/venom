@@ -1,3 +1,11 @@
+## [2.1.1](https://github.com/orkestral/venom/compare/v2.1.0...v2.1.1) (2020-12-02)
+
+### Bug Fixes
+
+- Fixed ninth digit problem (close [#370](https://github.com/orkestral/venom/issues/370)) ([ee970dd](https://github.com/orkestral/venom/commit/ee970ddb38ed0a5c048cff093dc337f109de34fb))
+- Fixed ninth digit problem for groups (close [#372](https://github.com/orkestral/venom/issues/372)) ([7017dea](https://github.com/orkestral/venom/commit/7017dea8ab66298a267e7cdcf9aa810b82d7313a))
+- Fixed ninth digit problem group operation (close [#374](https://github.com/orkestral/venom/issues/374)) ([df477e7](https://github.com/orkestral/venom/commit/df477e7973b620c1f80850d95842ae09936985bc))
+
 # [2.1.0](https://github.com/orkestral/venom/compare/v2.0.27...v2.1.0) (2020-12-01)
 
 ### Bug Fixes
