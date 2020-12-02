@@ -16,8 +16,8 @@ venom
 
 ## Multi sessions
 
-If you want to start more than one session, for example, 
-in case you have different departments in your project, 
+If you want to start more than one session, for example,
+in case you have different departments in your project,
 then you had to specify it in your code like in that example:
 
 ```javascript
@@ -83,12 +83,12 @@ venom.create(
 
 ### Callback Status Session
 
-Gets the return if the session is `isLogged` or `notLogged` or `browserClose` 
-or `qrReadSuccess` or `qrReadFail` or `autocloseCalled` or `desconnectedMobile` 
+Gets the return if the session is `isLogged` or `notLogged` or `browserClose`
+or `qrReadSuccess` or `qrReadFail` or `autocloseCalled` or `desconnectedMobile`
 or `deleteToken` or `Create session wss return "serverClose" case server for close`
 
 | Status               | Condition                                                                                                                                                      |
-| -------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|----------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `isLogged`           | When the user is already logged in to the browser                                                                                                              |
 | `notLogged`          | When the user is not connected to the browser, it is necessary to scan the QR code through the cell phone in the option WhatsApp Web                           |
 | `browserClose`       | If the browser is closed this parameter is returned                                                                                                            |

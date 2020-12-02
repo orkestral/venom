@@ -3,30 +3,29 @@
 Not every available function will be listed, for further look, every function
 available can be found in {@link Whatsapp}
 
-### Summary
+## Summary
 
 - [Chatting](#chatting)
-    - [sendContactVcard](#sendcontactvcard)
-    - [sendContactVcardList](#sendcontactvcardlist)
-    - [sendText](#sendtext)
-    - [sendLocation](#sendlocation)
-    - [sendLinkPreview](#sendlinkpreview)
-    - [sendImage](#sendimage)
-    - [sendFile](#sendfile)
-    - [sendFileFromBase64](#sendfilefrombase64)
-    - [sendImageAsStickerGif](#sendimageasstickergif)
-    - [sendImageAsSticker](#sendimageassticker)
-    - [sendMentioned](#sendmentioned)
-    - [reply](#reply)
-    - [reply with mention](#reply-with-mention)
-    - [sendMessageOptions](#sendmessageoptions)
-    - [sendVideoAsGif](#sendvideoasgif)
-    - [forwardMessages](#forwardmessages)
-    - [sendSeen](#sendseen)
-    - [startTyping](#starttyping)
-    - [stopTyping](#stoptyping)
-    - [setChatState](#setchatstate)
-
+  - [sendContactVcard](#sendcontactvcard)
+  - [sendContactVcardList](#sendcontactvcardlist)
+  - [sendText](#sendtext)
+  - [sendLocation](#sendlocation)
+  - [sendLinkPreview](#sendlinkpreview)
+  - [sendImage](#sendimage)
+  - [sendFile](#sendfile)
+  - [sendFileFromBase64](#sendfilefrombase64)
+  - [sendImageAsStickerGif](#sendimageasstickergif)
+  - [sendImageAsSticker](#sendimageassticker)
+  - [sendMentioned](#sendmentioned)
+  - [reply](#reply)
+  - [reply with mention](#reply-with-mention)
+  - [sendMessageOptions](#sendmessageoptions)
+  - [sendVideoAsGif](#sendvideoasgif)
+  - [forwardMessages](#forwardmessages)
+  - [sendSeen](#sendseen)
+  - [startTyping](#starttyping)
+  - [stopTyping](#stoptyping)
+  - [setChatState](#setchatstate)
 
 ## Chatting
 
@@ -180,7 +179,7 @@ await client
 ### sendImageAsStickerGif
 
 Generates a sticker from the provided animated gif image and sends it (Send an image as animated sticker)\
-Image path imageBase64 A valid gif and webp image will be required. You can also send via http/https (http://www.website.com/img.gif)
+Image path imageBase64 A valid gif and webp image will be required. You can also send via http/https (<http://www.website.com/img.gif>)
 
 ```javascript
 await client
@@ -196,7 +195,7 @@ await client
 ### sendImageAsSticker
 
 Generates a sticker from given image and sends it (Send Image As Sticker)\
-image path imageBase64 A valid png, jpg and webp image will be required. You can also send via http/https (http://www.website.com/img.jpg)
+image path imageBase64 A valid png, jpg and webp image will be required. You can also send via http/https (<http://www.website.com/img.jpg>)
 
 ```javascript
 await client

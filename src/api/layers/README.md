@@ -1,6 +1,6 @@
 # Layers
 
-#### Each layer should extends the previous one in the next order:
+## Each layer should extends the previous one in the next order
 
 1. Host layer
 2. Profile layer
