@@ -52,15 +52,27 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
-export async function promoteParticipant(groupId, participantId, done) {
+export async function promoteParticipant(groupId, contactsId, done) {
   const chat = Store.Chat.get(groupId);
-  const participant = chat.groupMetadata.participants.get(participantId);
-  return window.Store.Participants.promoteParticipants(chat, [
-    participant,
-  ]).then(() => {
-    if (done !== undefined) {
-      done(true);
+  if (!Array.isArray(contactsId)) {
+    contactsId = [contactsId];
+  }
+
+  contactsId = await Promise.all(contactsId.map((c) => WAPI.sendExist(c)));
+  contactsId = contactsId
+    .filter((c) => !c.erro && c.isUser)
+    .map((c) => chat.groupMetadata.participants.get(c.id))
+    .filter((c) => typeof c !== 'undefined');
+
+  if (!contactsId.length) {
+    typeof done === 'function' && done(false);
+    return false;
+  }
+
+  return window.Store.Participants.promoteParticipants(chat, contactsId).then(
+    () => {
+      typeof done === 'function' && done(true);
+      return true;
     }
-    return true;
-  });
+  );
 }

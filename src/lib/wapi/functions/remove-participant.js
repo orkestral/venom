@@ -52,14 +52,26 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
-export async function removeParticipant(groupId, participantId, done) {
+export async function removeParticipant(groupId, contactsId, done) {
   const chat = Store.Chat.get(groupId);
-  const participant = chat.groupMetadata.participants.get(participantId);
-  return window.Store.Participants.removeParticipants(chat, [participant]).then(
+  if (!Array.isArray(contactsId)) {
+    contactsId = [contactsId];
+  }
+
+  contactsId = await Promise.all(contactsId.map((c) => WAPI.sendExist(c)));
+  contactsId = contactsId
+    .filter((c) => !c.erro && c.isUser)
+    .map((c) => chat.groupMetadata.participants.get(c.id))
+    .filter((c) => typeof c !== 'undefined');
+
+  if (!contactsId.length) {
+    typeof done === 'function' && done(false);
+    return false;
+  }
+
+  return window.Store.Participants.removeParticipants(chat, contactsId).then(
     () => {
-      if (done !== undefined) {
-        done(true);
-      }
+      typeof done === 'function' && done(true);
       return true;
     }
   );

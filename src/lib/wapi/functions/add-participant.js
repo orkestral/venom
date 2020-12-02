@@ -52,9 +52,21 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
-export async function addParticipant(groupId, participantId) {
+export async function addParticipant(groupId, contactsId) {
   const chat = Store.Chat.get(groupId);
-  const participant = Store.Contact.get(participantId);
-  await window.Store.Participants.addParticipants(chat, [participant]);
+
+  if (!Array.isArray(contactsId)) {
+    contactsId = [contactsId];
+  }
+
+  contactsId = await Promise.all(contactsId.map((c) => WAPI.sendExist(c)));
+  contactsId = contactsId
+    .filter((c) => !c.erro && c.isUser)
+    .map((c) => c.contact);
+
+  if (!contactsId.length) {
+    return false;
+  }
+  await window.Store.Participants.addParticipants(chat, contactsId);
   return true;
 }

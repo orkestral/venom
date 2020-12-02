@@ -15,7 +15,7 @@ import {
 import { tokenSession } from '../config/tokenSession.config';
 
 interface WAPI {
-  addParticipant: (groupId: string, contactId: string) => boolean;
+  addParticipant: (groupId: string, contactId: string | string[]) => boolean;
   allNewMessagesListener: (callback: Function) => void;
   archiveChat: (chatId: string, option: boolean) => boolean;
   arrayBufferToBase64: (buffer: ArrayBuffer) => string;
@@ -32,7 +32,7 @@ interface WAPI {
     messageId: string[] | string,
     onlyLocal: boolean
   ) => any;
-  demoteParticipant: (groupId: string, contactId: string) => void;
+  demoteParticipant: (groupId: string, contactId: string | string[]) => void;
   downloadFile: (data: string) => Promise<string | boolean>;
   forwardMessages: (
     to: string,
@@ -104,8 +104,8 @@ interface WAPI {
     option: boolean,
     nonExistent?: boolean
   ) => Promise<object>;
-  promoteParticipant: (groupId: string, contactId: string) => void;
-  removeParticipant: (groupId: string, contactId: string) => void;
+  promoteParticipant: (groupId: string, contactId: string | string[]) => void;
+  removeParticipant: (groupId: string, contactId: string | string[]) => void;
   reply: (to: string, content: string, quotedMsg: string) => Promise<string>;
   restartService: () => boolean;
   sendChatstate: (chatState: string, chatId: string) => void;
