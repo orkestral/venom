@@ -52,24 +52,49 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
-export async function processFiles(chat, blobs) {
-  if (!Array.isArray(blobs)) {
-    blobs = [blobs];
-  }
-  const mediaCollection = new Store.MediaCollection({
-    chatParticipantCount: chat.getParticipantCount(),
-  });
+export async function downloadMedia(messageId) {
+  const msg = Store.Msg.get(messageId);
 
-  await mediaCollection.processFiles(
-    Debug.VERSION === '0.4.613'
-      ? blobs
-      : blobs.map((blob) => {
-          return {
-            file: blob,
-          };
-        }),
-    chat,
-    1
-  );
-  return mediaCollection;
+  if (!msg) {
+    throw {
+      error: true,
+      code: 'message_not_found',
+      message: 'Message not found',
+    };
+  }
+  if (!msg.mediaData) {
+    throw {
+      error: true,
+      code: 'message_not_contains_media',
+      message: 'Message not contains media',
+    };
+  }
+
+  await msg.downloadMedia(true, 1);
+
+  let blob = null;
+
+  if (msg.mediaData.mediaBlob) {
+    blob = msg.mediaData.mediaBlob.forceToBlob();
+  } else if (msg.mediaData.filehash) {
+    blob = Store.BlobCache.get(msg.mediaData.filehash);
+  }
+
+  if (!blob) {
+    throw {
+      error: true,
+      code: 'media_not_found',
+      message: 'Media not found',
+    };
+  }
+
+  return await new Promise((resolve, reject) => {
+    let reader = new FileReader();
+    reader.onloadend = function (e) {
+      resolve(reader.result);
+    };
+    reader.onabort = reject;
+    reader.onerror = reject;
+    reader.readAsDataURL(blob);
+  });
 }

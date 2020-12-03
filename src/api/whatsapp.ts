@@ -76,6 +76,22 @@ export class Whatsapp extends ControlsLayer {
   }
 
   /**
+   * Download and returns the media content in base64 format
+   * @param messageId Message ou id
+   * @returns Base64 of media
+   */
+  public async downloadMedia(messageId: string | Message): Promise<string> {
+    if (typeof messageId !== 'string') {
+      messageId = messageId.id;
+    }
+
+    return await this.page.evaluate(
+      (messageId) => WAPI.downloadMedia(messageId),
+      messageId
+    );
+  }
+
+  /**
    * Get the puppeteer page instance
    * @returns The Whatsapp page
    */

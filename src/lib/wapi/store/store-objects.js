@@ -409,4 +409,9 @@ export const storeObjects = [
     conditions: (module) =>
       module.default && module.default.destroyStorage ? module.default : null,
   },
+  {
+    id: 'BlobCache',
+    conditions: (module) =>
+      module.default && module.default.getOrCreateURL ? module.default : null,
+  },
 ];

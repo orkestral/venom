@@ -153,6 +153,7 @@ import {
   sendMute,
   getListMute,
   interfaceMute,
+  downloadMedia,
 } from './functions';
 import {
   base64ToFile,
@@ -341,6 +342,7 @@ if (typeof window.WAPI === 'undefined') {
   window.WAPI.getCommonGroups = getCommonGroups;
   window.WAPI.getProfilePicFromServer = getProfilePicFromServer;
   window.WAPI.downloadFile = downloadFile;
+  window.WAPI.downloadMedia = downloadMedia;
   window.WAPI.getNumberProfile = getNumberProfile;
   window.WAPI.getMessageById = getMessageById;
   window.WAPI.getNewMessageId = getNewMessageId;

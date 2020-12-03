@@ -88,6 +88,7 @@ interface WAPI {
   ) => any;
   demoteParticipant: (groupId: string, contactId: string | string[]) => void;
   downloadFile: (data: string) => Promise<string | boolean>;
+  downloadMedia: (messageId: string) => Promise<string>;
   forwardMessages: (
     to: string,
     messages: string | string[],
