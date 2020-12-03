@@ -553,6 +553,11 @@ export class SenderLayer extends ListenerLayer {
               resolve(result);
             }
           });
+        } else {
+          throw {
+            error: true,
+            message: 'Error with sharp library, check the console log',
+          };
         }
       } else {
         console.log('Not an image, allowed format gif');
@@ -582,7 +587,7 @@ export class SenderLayer extends ListenerLayer {
     }
     if (b64) {
       const buff = Buffer.from(
-        b64.replace(/^data:image\/(png|jpe?g|webp);base64,/, ''),
+        b64.replace(/^data:image\/(png|jpe?g|webp|gif);base64,/, ''),
         'base64'
       );
       const mimeInfo = base64MimeType(b64);
@@ -605,6 +610,11 @@ export class SenderLayer extends ListenerLayer {
               resolve(result);
             }
           });
+        } else {
+          throw {
+            error: true,
+            message: 'Error with sharp library, check the console log',
+          };
         }
       } else {
         console.log('Not an image, allowed formats png, jpeg and webp');
