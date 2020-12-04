@@ -1,3 +1,13 @@
+## [2.1.2](https://github.com/orkestral/venom/compare/v2.1.1...v2.1.2) (2020-12-04)
+
+### Bug Fixes
+
+- Added error throw for sendSticker ([cdd43ef](https://github.com/orkestral/venom/commit/cdd43ef6b3a031a3820b92aba79f5f6da5c94d5c))
+
+### Features
+
+- Added downloadMedia method (close [#383](https://github.com/orkestral/venom/issues/383), close [#378](https://github.com/orkestral/venom/issues/378)) ([f3e3906](https://github.com/orkestral/venom/commit/f3e3906836c0b9458a8244995c7c32292eacb065))
+
 ## [2.1.1](https://github.com/orkestral/venom/compare/v2.1.0...v2.1.1) (2020-12-02)
 
 ### Bug Fixes
