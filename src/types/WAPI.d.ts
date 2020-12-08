@@ -85,7 +85,7 @@ interface WAPI {
     contactId: string,
     messageId: string[] | string,
     onlyLocal: boolean
-  ) => any;
+  ) => Promise<boolean>;
   demoteParticipant: (groupId: string, contactId: string | string[]) => void;
   downloadFile: (data: string) => Promise<string | boolean>;
   downloadMedia: (messageId: string) => Promise<string>;
@@ -119,7 +119,7 @@ interface WAPI {
   getGroupParticipantIDs: (groupId: string) => Id[];
   getHost: () => HostDevice;
   getListMute: (type?: string) => object;
-  getMessageById: (messageId: string) => Message;
+  getMessageById: (messageId: string) => Promise<Message>;
   getNumberProfile: (contactId: string) => WhatsappProfile;
   getProfilePicFromServer: (chatId: string) => string;
   getSessionTokenBrowser: (removePath?: boolean) => tokenSession;

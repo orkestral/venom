@@ -52,6 +52,7 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
+import { getMessageById } from './get-message-by-id';
 
 /**
  * Send message with options
@@ -73,7 +74,11 @@ export async function sendMessageOptions(chatId, content, options = {}) {
 
   let quotedMsgOptions = {};
   if (options.quotedMessageId) {
-    let quotedMessage = window.Store.Msg.get(options.quotedMessageId);
+    let quotedMessage = await getMessageById(
+      options.quotedMessageId,
+      null,
+      false
+    );
     if (quotedMessage && quotedMessage.canReply()) {
       quotedMsgOptions = quotedMessage.msgContextInfo(chat);
     }
