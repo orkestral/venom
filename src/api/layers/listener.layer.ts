@@ -79,8 +79,7 @@ export class ListenerLayer extends ProfileLayer {
     super(page, session, options);
 
     this.listenerEmitter.on(ExposedFn.onInterfaceChange, (state) => {
-      this.spinStatus.state = `${state.mode} (${state.displayInfo})`;
-      this.spin();
+      this.log('http', `Current state: ${state.mode} (${state.displayInfo})`);
     });
   }
 
@@ -99,6 +98,7 @@ export class ListenerLayer extends ProfileLayer {
         .catch(() => false);
 
       if (!has) {
+        this.log('debug', `Exposing ${func} function`);
         await this.page
           .exposeFunction(func, (...args) =>
             this.listenerEmitter.emit(func, ...args)

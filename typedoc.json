@@ -22,6 +22,10 @@
             "source": "./docs/getting-started/creating-client.md"
           },
           {
+            "title": "Configuring the logger",
+            "source": "./docs/getting-started/configuring-logger.md"
+          },
+          {
             "title": "Basic Functions",
             "source": "./docs/getting-started/basic-functions.md"
           }
