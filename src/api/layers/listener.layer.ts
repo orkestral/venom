@@ -58,6 +58,8 @@ import { CreateConfig } from '../../config/create-config';
 import { ExposedFn } from '../helpers/exposed.enum';
 import { Ack, Chat, LiveLocation, Message, ParticipantEvent } from '../model';
 import { SocketState } from '../model/enum';
+import { InterfaceMode } from '../model/enum/interface-mode';
+import { InterfaceState } from '../model/enum/interface-state';
 import { ProfileLayer } from './profile.layer';
 
 declare global {
@@ -76,8 +78,8 @@ export class ListenerLayer extends ProfileLayer {
   constructor(public page: Page, session?: string, options?: CreateConfig) {
     super(page, session, options);
 
-    this.listenerEmitter.on(ExposedFn.onStateChange, (state) => {
-      this.spinStatus.state = state;
+    this.listenerEmitter.on(ExposedFn.onInterfaceChange, (state) => {
+      this.spinStatus.state = `${state.mode} (${state.displayInfo})`;
       this.spin();
     });
   }
@@ -125,6 +127,10 @@ export class ListenerLayer extends ProfileLayer {
           window.WAPI.onIncomingCall(window['onIncomingCall']);
           window['onIncomingCall'].exposed = true;
         }
+        if (!window['onInterfaceChange'].exposed) {
+          window.WAPI.onInterfaceChange(window['onInterfaceChange']);
+          window['onInterfaceChange'].exposed = true;
+        }
       })
       .catch(() => {});
   }
@@ -168,6 +174,22 @@ export class ListenerLayer extends ProfileLayer {
     return {
       dispose: () => {
         this.listenerEmitter.off(ExposedFn.onStateChange, fn);
+      },
+    };
+  }
+
+  /**
+   * @event Listens to interface mode change See {@link InterfaceState} and {@link InterfaceMode} for details
+   * @returns A disposable object to cancel the event
+   */
+  public onInterfaceChange(
+    fn: (state: { displayInfo: InterfaceState; mode: InterfaceMode }) => void
+  ) {
+    this.listenerEmitter.on(ExposedFn.onInterfaceChange, fn);
+
+    return {
+      dispose: () => {
+        this.listenerEmitter.off(ExposedFn.onInterfaceChange, fn);
       },
     };
   }

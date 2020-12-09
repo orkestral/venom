@@ -529,6 +529,29 @@ if (typeof window.WAPI === 'undefined') {
     return true;
   };
 
+  /**
+   * Registers a callback to be called when the interface change
+   * @param callback - function - Callback function to be called upon interface change. returns a call object.
+   * @returns {boolean}
+   */
+  window.WAPI.onInterfaceChange = function (callback) {
+    window.WAPI.waitForStore('Stream', () => {
+      const getData = () => ({
+        displayInfo: window.Store.Stream.displayInfo,
+        mode: window.Store.Stream.mode,
+        info: window.Store.Stream.info,
+      });
+      callback(getData());
+      window.Store.Stream.on(
+        'change:info change:displayInfo change:mode',
+        () => {
+          callback(getData());
+        }
+      );
+    });
+    return true;
+  };
+
   window.WAPI.setMessagesAdminsOnly = async function (chatId, option) {
     await Store.WapQuery.setGroupProperty(chatId, 'announcement', option);
     return true;
