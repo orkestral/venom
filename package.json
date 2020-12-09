@@ -68,7 +68,7 @@
     "@types/atob": "^2.1.2",
     "@types/mime-types": "^2.1.0",
     "@types/node": "^14.14.11",
-    "@types/puppeteer": "^5.4.1",
+    "@types/puppeteer": "^5.4.2",
     "@types/sharp": "^0.26.0",
     "@types/ws": "^7.4.0",
     "@typescript-eslint/eslint-plugin": "^4.9.1",
