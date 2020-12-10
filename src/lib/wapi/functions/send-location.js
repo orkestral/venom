@@ -95,7 +95,8 @@ export async function sendLocation(
     };
 
     Object.assign(tempMsg, extend);
-    var result = (await Store.addAndSendMsgToChat(chat, tempMsg)) || '';
+    var result =
+      (await Promise.all(Store.addAndSendMsgToChat(chat, tempMsg)))[1] || '';
     var m = {
         latitude: latitude,
         longitude: longitude,

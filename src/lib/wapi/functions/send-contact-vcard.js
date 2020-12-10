@@ -76,7 +76,8 @@ export async function sendContactVcard(chatId, contact, name) {
       isNewMsg: !0,
     };
     Object.assign(tempMsg, extend);
-    var result = (await Store.addAndSendMsgToChat(chat, tempMsg)) || '';
+    var result =
+      (await Promise.all(Store.addAndSendMsgToChat(chat, tempMsg)))[1] || '';
     var m = { from: contact, type: 'vcard' },
       To = await WAPI.getchatId(chat.id);
     if (result === 'success' || result === 'OK') {
