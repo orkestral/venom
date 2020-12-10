@@ -54,6 +54,7 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
 export async function demoteParticipant(groupId, contactsId, done) {
   const chat = Store.Chat.get(groupId);
+
   if (!Array.isArray(contactsId)) {
     contactsId = [contactsId];
   }
@@ -62,17 +63,22 @@ export async function demoteParticipant(groupId, contactsId, done) {
   contactsId = contactsId
     .filter((c) => !c.erro && c.isUser)
     .map((c) => chat.groupMetadata.participants.get(c.id))
-    .filter((c) => typeof c !== 'undefined');
+    .filter((c) => typeof c !== 'undefined')
+    .map((c) => c.id);
 
   if (!contactsId.length) {
     typeof done === 'function' && done(false);
     return false;
   }
 
-  return window.Store.Participants.demoteParticipants(chat, contactsId).then(
-    () => {
-      typeof done === 'function' && done(true);
-      return true;
-    }
+  await window.Store.WapQuery.demoteParticipants(chat.id, contactsId);
+
+  const participants = contactsId.map((c) =>
+    chat.groupMetadata.participants.get(c)
   );
+
+  await window.Store.Participants.demoteParticipants(chat, participants);
+
+  typeof done === 'function' && done(true);
+  return true;
 }
