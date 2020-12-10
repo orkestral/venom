@@ -54,6 +54,15 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
 export async function getMessageById(id, done, serialize = true) {
   //Parse message ID
+
+  if (typeof id === 'object' && id._serialized) {
+    id = id._serialized;
+  }
+
+  if (typeof id !== 'string') {
+    return false;
+  }
+
   const key = window.Store.MsgKey.fromString(id);
 
   if (!key) {
