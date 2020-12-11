@@ -146,6 +146,7 @@ interface WAPI {
   markUnseenMessage: (messageId: string) => boolean;
   onAddedToGroup: (callback: Function) => any;
   onIncomingCall: (callback: Function) => any;
+  onInterfaceChange: (callback: Function) => void;
   onLiveLocation: (chatId: string, callback: Function) => any;
   onParticipantsChanged: (groupId: string, callback: Function) => any;
   onStateChange: (callback: Function) => void;
