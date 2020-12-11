@@ -181,17 +181,14 @@ import {
 } from './serializers';
 import { getStore } from './store/get-store';
 
+window['webpackJsonp'] = window['webpackJsonp'] || [];
+
 if (typeof window.Store === 'undefined') {
   window.Store = {};
   var loadParasite = function () {
-    var originalJsonpFunction;
-
     function injectParasite() {
-      if (!originalJsonpFunction) {
-        return;
-      }
       const parasite = `parasite${Date.now()}`;
-      originalJsonpFunction([
+      window['webpackJsonp'].push([
         [parasite],
         {
           [parasite]: (x, y, z) => getStore(z),
@@ -200,31 +197,19 @@ if (typeof window.Store === 'undefined') {
       ]);
     }
 
-    function webpackJsonpCallback(data) {
-      if (!originalJsonpFunction) {
-        return;
-      }
-      var r = originalJsonpFunction(data);
-
-      // Re-inject after module load
-      injectParasite();
-      return r;
-    }
-
-    // Override the default webpackJsonp
-    var jsonpArray = (window['webpackJsonp'] = window['webpackJsonp'] || []);
-    originalJsonpFunction = jsonpArray.push.bind(jsonpArray);
-    jsonpArray.push = webpackJsonpCallback;
-
-    // Initialize
     injectParasite();
+
+    setInterval(() => {
+      try {
+        const last = window['webpackJsonp'].length - 1;
+        if (!/^parasite/.test(window['webpackJsonp'][last][0][0])) {
+          injectParasite();
+        }
+      } catch (e) {}
+    }, 100);
   };
 
-  if (document.readyState === 'complete') {
-    loadParasite();
-  } else {
-    window.addEventListener('load', loadParasite);
-  }
+  loadParasite();
 }
 
 if (typeof window.WAPI === 'undefined') {
@@ -564,27 +549,33 @@ if (typeof window.WAPI === 'undefined') {
     });
   };
 
+  window.WAPI.storePromises = {};
   window.WAPI.waitForStore = async function (stores, callback) {
     if (!Array.isArray(stores)) {
       stores = [stores];
     }
 
-    const isUndefined = (p) => typeof Store[p] === 'undefined';
+    const isUndefined = (p) => typeof window.Store[p] === 'undefined';
     const missing = stores.filter(isUndefined);
 
-    const promises = missing.map(
-      (s) =>
-        new Promise((resolve) => {
+    const promises = missing.map((s) => {
+      if (!window.WAPI.storePromises[s]) {
+        window.WAPI.storePromises[s] = new Promise((resolve) => {
+          let time = null;
           const listen = (e) => {
-            const name = e.detail;
+            const name = (e && e.detail) || '';
             if (name === s || !isUndefined(s)) {
               window.removeEventListener('storeLoaded', listen);
+              clearInterval(time);
               resolve(true);
             }
           };
           window.addEventListener('storeLoaded', listen);
-        })
-    );
+          time = setInterval(listen, 1000);
+        });
+      }
+      return window.WAPI.storePromises[s];
+    });
 
     const all = Promise.all(promises);
 

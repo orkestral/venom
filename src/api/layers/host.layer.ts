@@ -62,6 +62,7 @@ import {
   asciiQr,
   isAuthenticated,
   isInsideChat,
+  needsToScan,
   retrieveQR,
 } from '../../controllers/auth';
 import { sleep } from '../../utils/sleep';
@@ -181,6 +182,11 @@ export class HostLayer {
     let attempt = 0;
 
     while (true) {
+      let needsScan = await needsToScan(this.page).catch(() => null);
+      if (!needsScan) {
+        break;
+      }
+
       const result = await this.getQrCode();
       if (!result?.urlCode) {
         break;
@@ -235,7 +241,7 @@ export class HostLayer {
     this.log('info', 'Waiting page load');
 
     await this.page
-      .waitForFunction(`document.readyState === 'complete'`)
+      .waitForFunction(`!document.querySelector('#initial_startup')`)
       .catch(() => {});
 
     this.startAutoClose();
