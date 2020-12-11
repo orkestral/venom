@@ -52,7 +52,9 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
-export function deleteMessages(chatId, messageArray, onlyLocal, done) {
+import { getMessageById } from './get-message-by-id';
+
+export async function deleteMessages(chatId, messageArray, onlyLocal, done) {
   const userId = new Store.WidFactory.createWid(chatId);
   const conversation = WAPI.getChat(userId);
   if (!conversation) {
@@ -66,11 +68,15 @@ export function deleteMessages(chatId, messageArray, onlyLocal, done) {
     messageArray = [messageArray];
   }
 
-  let messagesToDelete = messageArray
-    .map((msgId) =>
-      typeof msgId == 'string' ? window.Store.Msg.get(msgId) : msgId
+  let messagesToDelete = (
+    await Promise.all(
+      messageArray.map(async (msgId) =>
+        typeof msgId == 'string'
+          ? await getMessageById(msgId, null, false)
+          : msgId
+      )
     )
-    .filter((x) => x);
+  ).filter((x) => x);
   if (messagesToDelete.length == 0) return true;
   let jobs = onlyLocal
     ? [conversation.sendDeleteMsgs(messagesToDelete, conversation)]

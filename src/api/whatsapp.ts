@@ -85,10 +85,18 @@ export class Whatsapp extends ControlsLayer {
       messageId = messageId.id;
     }
 
-    return await this.page.evaluate(
-      (messageId) => WAPI.downloadMedia(messageId),
+    const result = await this.page.evaluate(
+      (messageId) =>
+        WAPI.downloadMedia(messageId).catch((e) => ({
+          __error: e,
+        })),
       messageId
     );
+
+    if (typeof result === 'object' && result.__error) {
+      throw result.__error;
+    }
+    return result as string;
   }
 
   /**

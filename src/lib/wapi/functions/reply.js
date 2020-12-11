@@ -52,13 +52,14 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
+import { getMessageById } from './get-message-by-id';
 
 export async function reply(chatId, content, quotedMessageId) {
   const chat = Store.Chat.get(chatId);
 
   let quotedMsgOptions = {};
   if (quotedMessageId) {
-    let quotedMessage = window.Store.Msg.get(quotedMessageId);
+    let quotedMessage = await getMessageById(quotedMessageId, null, false);
     if (quotedMessage && quotedMessage.canReply()) {
       quotedMsgOptions = quotedMessage.msgContextInfo(chat);
     }
