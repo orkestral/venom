@@ -1,3 +1,18 @@
+# [2.2.0](https://github.com/orkestral/venom/compare/v2.1.2...v2.2.0) (2020-12-15)
+
+### Bug Fixes
+
+- Fixed getMessageById from non loaded chat ([600ace1](https://github.com/orkestral/venom/commit/600ace18eb87807d07f813e06e6758dba2f79ad1))
+- Fixed group functions (close [#416](https://github.com/orkestral/venom/issues/416)) ([e595f94](https://github.com/orkestral/venom/commit/e595f94a0768af41e2a89e6fbabe058deb2af637))
+- Fixed undefined from sendLocation and sendContactVcard (close [#410](https://github.com/orkestral/venom/issues/410)) ([b46fc39](https://github.com/orkestral/venom/commit/b46fc39133f44e60b5833211b2eb700e6662a5e1))
+- Improved script injection ([ba3b109](https://github.com/orkestral/venom/commit/ba3b109820c4dce62d02568b88b6174c5f9ea3b3))
+
+### Features
+
+- Added onInterfaceChange listener ([61e5fdf](https://github.com/orkestral/venom/commit/61e5fdfa43256b1eb4b91a1928fdf3ed6dfbf544))
+- Added option to create from object ([6e9d557](https://github.com/orkestral/venom/commit/6e9d55757a76e969399e27f4a1798192e8663397))
+- Improved logger using winston package ([dffb38c](https://github.com/orkestral/venom/commit/dffb38cc8330cec53aa70f66cff1b105e9c027d1))
+
 ## [2.1.2](https://github.com/orkestral/venom/compare/v2.1.1...v2.1.2) (2020-12-04)
 
 ### Bug Fixes
