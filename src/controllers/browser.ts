@@ -104,11 +104,6 @@ export async function injectApi(page: Page) {
     return;
   }
 
-  await page.waitForFunction(() => {
-    // @ts-ignore
-    return typeof webpackJsonp !== 'undefined';
-  });
-
   await page.addScriptTag({
     path: require.resolve(path.join(__dirname, '../lib/wapi', 'wapi.js')),
   });

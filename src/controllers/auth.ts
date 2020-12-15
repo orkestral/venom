@@ -79,7 +79,7 @@ export const getInterfaceStatus = async (
           window['Store'] &&
           window['Store'].Stream &&
           window['Store'].Stream.displayInfo;
-        if (['PAIRING', 'RESUMING'].includes(streamStatus)) {
+        if (['PAIRING', 'RESUMING', 'SYNCING'].includes(streamStatus)) {
           return 'PAIRING';
         }
         const elChat = document.querySelector('.app,.two') as HTMLDivElement;

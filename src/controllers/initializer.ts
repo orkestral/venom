@@ -240,7 +240,9 @@ export async function create(
         if (!isLogged) {
           throw 'Not Logged';
         }
-        client.onStateChange((state) => {
+
+        let waitLoginPromise = null;
+        client.onStateChange(async (state) => {
           if (
             state === SocketState.UNPAIRED ||
             state === SocketState.UNPAIRED_IDLE
@@ -250,7 +252,16 @@ export async function create(
               statusFind('desconnectedMobile', session);
             }
             deleteFiles(mergedOptions, session, logger);
-            client.waitForLogin(catchQR, statusFind).catch(() => {});
+
+            if (!waitLoginPromise) {
+              waitLoginPromise = client
+                .waitForLogin(catchQR, statusFind)
+                .catch(() => {})
+                .finally(() => {
+                  waitLoginPromise = null;
+                });
+            }
+            await waitLoginPromise;
           }
         });
       }

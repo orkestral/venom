@@ -114,9 +114,7 @@ export class ListenerLayer extends ProfileLayer {
           window['onAnyMessage'].exposed = true;
         }
         if (!window['onStateChange'].exposed) {
-          window.WAPI.onStateChange((s: any) =>
-            window['onStateChange'](s.state)
-          );
+          window.WAPI.onStateChange(window['onStateChange']);
           window['onStateChange'].exposed = true;
         }
         if (!window['onAddedToGroup'].exposed) {
