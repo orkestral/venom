@@ -73,3 +73,4 @@ export {
   CreateOptions,
   StatusFind,
 } from './controllers/initializer';
+export { defaultLogger } from './utils/logger';

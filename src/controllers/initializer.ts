@@ -58,7 +58,6 @@ import { CreateConfig, defaultOptions } from '../config/create-config';
 import { SessionTokenCkeck, saveToken } from './auth';
 import { initWhatsapp, initBrowser } from './browser';
 import { checkUpdates, welcomeScreen } from './welcome';
-import { getSpinnies } from '../utils/spinnies';
 import { SocketState } from '../api/model/enum';
 import { deleteFiles } from '../api/helpers';
 import { tokenSession } from '../config/tokenSession.config';
@@ -136,53 +135,53 @@ export async function create(
 
   let browserToken: any;
 
-  const spinnies = getSpinnies({
-    disableSpins: options ? options.disableSpins : false,
-  });
-
   const mergedOptions = { ...defaultOptions, ...options };
+
+  const logger = mergedOptions.logger;
 
   if (!mergedOptions.disableWelcome) {
     welcomeScreen();
   }
 
   if (mergedOptions.updatesLog) {
-    await checkUpdates(spinnies);
+    await checkUpdates();
   }
 
   // Initialize whatsapp
-  spinnies.add(`browser-${session}`, {
-    text: 'Initializing browser...',
-  });
-
+  logger.info('Initializing browser...', { session, type: 'browser' });
   const browser = await initBrowser(session, mergedOptions);
 
   if (browser === 'connect') {
-    spinnies.fail(`browser-${session}`, {
-      text: `Error when try to connect ${mergedOptions.browserWS}`,
+    logger.error(`Error when try to connect ${mergedOptions.browserWS}`, {
+      session,
+      type: 'browser',
     });
     throw `Error when try to connect ${mergedOptions.browserWS}`;
   }
 
   if (browser === 'launch') {
-    spinnies.fail(`browser-${session}`, {
-      text: `Error no open browser`,
+    logger.error(`Error no open browser`, {
+      session,
+      type: 'browser',
     });
     throw `Error no open browser`;
   }
 
   if (typeof browser === 'object') {
-    spinnies.update(`browser-${session}`, {
-      text: 'checking headless...',
+    logger.http('checking headless...', {
+      session,
+      type: 'browser',
     });
 
     if (mergedOptions.headless) {
-      spinnies.succeed(`browser-${session}`, {
-        text: 'headless option is active, browser hidden',
+      logger.http('headless option is active, browser hidden', {
+        session,
+        type: 'browser',
       });
     } else {
-      spinnies.succeed(`browser-${session}`, {
-        text: 'headless option is disabled, browser visible',
+      logger.http('headless option is disabled, browser visible', {
+        session,
+        type: 'browser',
       });
     }
 
@@ -229,7 +228,7 @@ export async function create(
           if (state === SocketState.CONNECTED) {
             setTimeout(() => {
               saveToken(waPage, session, mergedOptions).catch((e) => {
-                console.log(e);
+                logger.error(e, { session });
               });
             }, 1000);
           }
@@ -246,10 +245,11 @@ export async function create(
             state === SocketState.UNPAIRED ||
             state === SocketState.UNPAIRED_IDLE
           ) {
+            logger.info('Session Unpaired', { session });
             if (statusFind) {
               statusFind('desconnectedMobile', session);
             }
-            deleteFiles(mergedOptions, session, spinnies);
+            deleteFiles(mergedOptions, session, logger);
             client.waitForLogin(catchQR, statusFind).catch(() => {});
           }
         });
@@ -259,7 +259,7 @@ export async function create(
         const debugURL = `http://localhost:${readFileSync(
           `./${session}/DevToolsActivePort`
         ).slice(0, -54)}`;
-        console.log(`\nDebug: \x1b[34m${debugURL}\x1b[0m`);
+        logger.info(`\nDebug: \x1b[34m${debugURL}\x1b[0m`);
       }
 
       return client;

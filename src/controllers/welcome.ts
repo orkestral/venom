@@ -1,7 +1,7 @@
 import * as boxen from 'boxen';
 import * as chalk from 'chalk';
 import latestVersion from 'latest-version';
-import * as Spinnies from 'spinnies';
+import { defaultLogger as logger } from '../utils/logger';
 import { upToDate } from '../utils/semver';
 const { version } = require('../../package.json');
 
@@ -14,7 +14,7 @@ export function welcomeScreen() {
     return;
   }
   welcomeShown = true;
-  console.log(`
+  logger.info(`
      
     ▐█  ██  █░▐█▀▀▀░▐█     ▄█▀▀█▄ ▄█▀▀█▄ ▐██   ██▌ ▓█▀▀▀░
      █▌▐██▄▓█ ▐█▄▄▄ ▐█    ▐█      █▒  ▐█▄▐█▀▌ ▐▌█▌ ▓█▄▄▄
@@ -32,29 +32,24 @@ export function welcomeScreen() {
                                               ▀░                                   \n`);
 }
 
-export async function checkUpdates(spinnies: Spinnies) {
+export async function checkUpdates() {
   // Check for updates if needed
   if (!updatesChecked) {
     updatesChecked = true;
-    spinnies.add('venom-version-spinner', {
-      text: 'Checking for updates',
-    });
-    await checkVenomVersion(spinnies);
+    await checkVenomVersion();
   }
 }
 
 /**
  * Checs for a new versoin of venom and logs
  */
-async function checkVenomVersion(spinnies: Spinnies) {
-  spinnies.update('venom-version-spinner', { text: 'Checking for updates...' });
+async function checkVenomVersion() {
+  logger.info('Checking for updates');
   await latestVersion('venom-bot').then((latest) => {
     if (upToDate(version, latest)) {
-      spinnies.succeed('venom-version-spinner', { text: "You're up to date" });
+      logger.info("You're up to date");
     } else {
-      spinnies.succeed('venom-version-spinner', {
-        text: 'There is a new version available',
-      });
+      logger.info('There is a new version available');
       logUpdateAvailable(version, latest);
     }
   });
@@ -72,8 +67,8 @@ function logUpdateAvailable(current: string, latest: string) {
       `Update your package by running:\n\n` +
       `${chalk.bold('\>')} ${chalk.blueBright('npm update venom-bot')}`;
 
-  console.log(boxen(newVersionLog, { padding: 1 }));
-  console.log(
+  logger.info(boxen(newVersionLog, { padding: 1 }));
+  logger.info(
     `For more info visit: ${chalk.underline(
       'https://github.com/orkestral/venom/blob/master/Update.md'
     )}\n`

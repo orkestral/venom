@@ -110,8 +110,8 @@
     "qrcode-terminal": "^0.12.0",
     "rxjs": "^6.6.3",
     "sharp": "^0.26.3",
-    "spinnies": "^0.5.1",
-    "tree-kill": "^1.2.2"
+    "tree-kill": "^1.2.2",
+    "winston": "^3.3.3"
   },
   "optionalDependencies": {
     "fsevents": "^2.2.1"
