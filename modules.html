@@ -3,8 +3,8 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>venom-bot - v2.1.2</title>
-	<meta name="description" content="Documentation for venom-bot - v2.1.2">
+	<title>venom-bot - v2.2.0</title>
+	<meta name="description" content="Documentation for venom-bot - v2.2.0">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="assets/css/main.css">
 	<link rel="stylesheet" href="assets/css/pages.css">
@@ -23,7 +23,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="index.html" class="title">venom-bot - v2.1.2</a>
+					<a href="index.html" class="title">venom-bot - v2.2.0</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -55,7 +55,7 @@
 					<a href="modules.html">Globals</a>
 				</li>
 			</ul>
-			<h1>Project venom-bot - v2.1.2</h1>
+			<h1>Project venom-bot - v2.2.0</h1>
 		</div>
 	</div>
 </header>
@@ -73,6 +73,8 @@
 								<li class="tsd-kind-enum"><a href="enums/chatstate.html" class="tsd-kind-icon">Chat<wbr>State</a></li>
 								<li class="tsd-kind-enum"><a href="enums/groupchangeevent.html" class="tsd-kind-icon">Group<wbr>Change<wbr>Event</a></li>
 								<li class="tsd-kind-enum"><a href="enums/groupnotificationtype.html" class="tsd-kind-icon">Group<wbr>Notification<wbr>Type</a></li>
+								<li class="tsd-kind-enum"><a href="enums/interfacemode.html" class="tsd-kind-icon">Interface<wbr>Mode</a></li>
+								<li class="tsd-kind-enum"><a href="enums/interfacestate.html" class="tsd-kind-icon">Interface<wbr>State</a></li>
 								<li class="tsd-kind-enum"><a href="enums/messagetype.html" class="tsd-kind-icon">Message<wbr>Type</a></li>
 								<li class="tsd-kind-enum"><a href="enums/socketstate.html" class="tsd-kind-icon">Socket<wbr>State</a></li>
 							</ul>
@@ -91,6 +93,7 @@
 								<li class="tsd-kind-interface"><a href="interfaces/contact.html" class="tsd-kind-icon">Contact</a></li>
 								<li class="tsd-kind-interface"><a href="interfaces/contactstatus.html" class="tsd-kind-icon">Contact<wbr>Status</a></li>
 								<li class="tsd-kind-interface"><a href="interfaces/createconfig.html" class="tsd-kind-icon">Create<wbr>Config</a></li>
+								<li class="tsd-kind-interface"><a href="interfaces/createoptions.html" class="tsd-kind-icon">Create<wbr>Options</a></li>
 								<li class="tsd-kind-interface"><a href="interfaces/groupcreation.html" class="tsd-kind-icon">Group<wbr>Creation</a></li>
 								<li class="tsd-kind-interface"><a href="interfaces/groupmetadata.html" class="tsd-kind-icon">Group<wbr>Metadata</a></li>
 								<li class="tsd-kind-interface"><a href="interfaces/hostdevice.html" class="tsd-kind-icon">Host<wbr>Device</a></li>
@@ -108,6 +111,19 @@
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
+							<h3>Type aliases</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-type-alias"><a href="modules.html#catchqr" class="tsd-kind-icon">CatchQR</a></li>
+								<li class="tsd-kind-type-alias"><a href="modules.html#statusfind" class="tsd-kind-icon">Status<wbr>Find</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
+							<h3>Variables</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-variable"><a href="modules.html#defaultlogger" class="tsd-kind-icon">default<wbr>Logger</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
 							<h3>Functions</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-function"><a href="modules.html#create" class="tsd-kind-icon">create</a></li>
@@ -117,12 +133,104 @@
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Type aliases</h2>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias">
+					<a name="catchqr" class="tsd-anchor"></a>
+					<h3>CatchQR</h3>
+					<div class="tsd-signature tsd-kind-icon">CatchQR<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>qrCode<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, asciiQR<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, attempt<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, urlCode<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></div>
+					<aside class="tsd-sources">
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>A callback will be received, informing the status of the qrcode</p>
+						</div>
+					</div>
+					<div class="tsd-type-declaration">
+						<h4>Type declaration</h4>
+						<ul class="tsd-parameters">
+							<li class="tsd-parameter-signature">
+								<ul class="tsd-signatures tsd-kind-type-literal">
+									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>qrCode<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, asciiQR<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, attempt<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, urlCode<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+								</ul>
+								<ul class="tsd-descriptions">
+									<li class="tsd-description">
+										<h4 class="tsd-parameters-title">Parameters</h4>
+										<ul class="tsd-parameters">
+											<li>
+												<h5>qrCode: <span class="tsd-signature-type">string</span></h5>
+											</li>
+											<li>
+												<h5>asciiQR: <span class="tsd-signature-type">string</span></h5>
+											</li>
+											<li>
+												<h5>attempt: <span class="tsd-signature-type">number</span></h5>
+											</li>
+											<li>
+												<h5><span class="tsd-flag ts-flagOptional">Optional</span> urlCode: <span class="tsd-signature-type">string</span></h5>
+											</li>
+										</ul>
+										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias">
+					<a name="statusfind" class="tsd-anchor"></a>
+					<h3>Status<wbr>Find</h3>
+					<div class="tsd-signature tsd-kind-icon">Status<wbr>Find<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>statusGet<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, session<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></div>
+					<aside class="tsd-sources">
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>A callback will be received, informing the customer&#39;s status</p>
+						</div>
+					</div>
+					<div class="tsd-type-declaration">
+						<h4>Type declaration</h4>
+						<ul class="tsd-parameters">
+							<li class="tsd-parameter-signature">
+								<ul class="tsd-signatures tsd-kind-type-literal">
+									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>statusGet<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, session<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+								</ul>
+								<ul class="tsd-descriptions">
+									<li class="tsd-description">
+										<h4 class="tsd-parameters-title">Parameters</h4>
+										<ul class="tsd-parameters">
+											<li>
+												<h5>statusGet: <span class="tsd-signature-type">string</span></h5>
+											</li>
+											<li>
+												<h5>session: <span class="tsd-signature-type">string</span></h5>
+											</li>
+										</ul>
+										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Variables</h2>
+				<section class="tsd-panel tsd-member tsd-kind-variable">
+					<a name="defaultlogger" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> default<wbr>Logger</h3>
+					<div class="tsd-signature tsd-kind-icon">default<wbr>Logger<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Logger</span><span class="tsd-signature-symbol"> = createLogger({level: &#x27;info&#x27;,levels: config.npm.levels,format: format.combine(formatLabelSession(),format.colorize(),format.padLevels(),format.simple()),//   defaultMeta: { service: &#x27;venon-bot&#x27; },transports: [new transports.Console()],})</span></div>
+					<aside class="tsd-sources">
+					</aside>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Functions</h2>
 				<section class="tsd-panel tsd-member tsd-kind-function">
 					<a name="create" class="tsd-anchor"></a>
 					<h3>create</h3>
 					<ul class="tsd-signatures tsd-kind-function">
-						<li class="tsd-signature tsd-kind-icon">create<span class="tsd-signature-symbol">(</span>session<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, catchQR<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-symbol">(</span>qrCode<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, asciiQR<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, attempt<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, urlCode<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span>, statusFind<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-symbol">(</span>statusGet<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, session<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span>, options<span class="tsd-signature-symbol">?: </span><a href="interfaces/createconfig.html" class="tsd-signature-type">CreateConfig</a>, browserSessionToken<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="classes/whatsapp.html" class="tsd-signature-type">Whatsapp</a><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">create<span class="tsd-signature-symbol">(</span>createOption<span class="tsd-signature-symbol">: </span><a href="interfaces/createoptions.html" class="tsd-signature-type">CreateOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="classes/whatsapp.html" class="tsd-signature-type">Whatsapp</a><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">create<span class="tsd-signature-symbol">(</span>sessionName<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, catchQR<span class="tsd-signature-symbol">?: </span><a href="modules.html#catchqr" class="tsd-signature-type">CatchQR</a>, statusFind<span class="tsd-signature-symbol">?: </span><a href="modules.html#statusfind" class="tsd-signature-type">StatusFind</a>, options<span class="tsd-signature-symbol">?: </span><a href="interfaces/createconfig.html" class="tsd-signature-type">CreateConfig</a>, browserSessionToken<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">tokenSession</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="classes/whatsapp.html" class="tsd-signature-type">Whatsapp</a><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -136,67 +244,37 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>session: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = &quot;session&quot;</span></h5>
+									<h5>createOption: <a href="interfaces/createoptions.html" class="tsd-signature-type">CreateOptions</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="classes/whatsapp.html" class="tsd-signature-type">Whatsapp</a><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>Whatsapp page, with this parameter you will be able to access the bot functions</p>
+						</li>
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Start the bot
+									You must pass a string type parameter, this parameter will be the name of the client&#39;s session. If the parameter is not passed, the section name will be &quot;session&quot;.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>sessionName: <span class="tsd-signature-type">string</span></h5>
 								</li>
 								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> catchQR: <span class="tsd-signature-symbol">(</span>qrCode<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, asciiQR<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, attempt<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, urlCode<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></h5>
-									<ul class="tsd-parameters">
-										<li class="tsd-parameter-signature">
-											<ul class="tsd-signatures tsd-kind-type-literal">
-												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>qrCode<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, asciiQR<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, attempt<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, urlCode<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
-											</ul>
-											<ul class="tsd-descriptions">
-												<li class="tsd-description">
-													<h4 class="tsd-parameters-title">Parameters</h4>
-													<ul class="tsd-parameters">
-														<li>
-															<h5>qrCode: <span class="tsd-signature-type">string</span></h5>
-														</li>
-														<li>
-															<h5>asciiQR: <span class="tsd-signature-type">string</span></h5>
-														</li>
-														<li>
-															<h5>attempt: <span class="tsd-signature-type">number</span></h5>
-														</li>
-														<li>
-															<h5><span class="tsd-flag ts-flagOptional">Optional</span> urlCode: <span class="tsd-signature-type">string</span></h5>
-														</li>
-													</ul>
-													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
-												</li>
-											</ul>
-										</li>
-									</ul>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> catchQR: <a href="modules.html#catchqr" class="tsd-signature-type">CatchQR</a></h5>
 								</li>
 								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> statusFind: <span class="tsd-signature-symbol">(</span>statusGet<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, session<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></h5>
-									<ul class="tsd-parameters">
-										<li class="tsd-parameter-signature">
-											<ul class="tsd-signatures tsd-kind-type-literal">
-												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>statusGet<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, session<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
-											</ul>
-											<ul class="tsd-descriptions">
-												<li class="tsd-description">
-													<h4 class="tsd-parameters-title">Parameters</h4>
-													<ul class="tsd-parameters">
-														<li>
-															<h5>statusGet: <span class="tsd-signature-type">string</span></h5>
-														</li>
-														<li>
-															<h5>session: <span class="tsd-signature-type">string</span></h5>
-														</li>
-													</ul>
-													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
-												</li>
-											</ul>
-										</li>
-									</ul>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> statusFind: <a href="modules.html#statusfind" class="tsd-signature-type">StatusFind</a></h5>
 								</li>
 								<li>
 									<h5><span class="tsd-flag ts-flagOptional">Optional</span> options: <a href="interfaces/createconfig.html" class="tsd-signature-type">CreateConfig</a></h5>
 								</li>
 								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> browserSessionToken: <span class="tsd-signature-type">object</span></h5>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> browserSessionToken: <span class="tsd-signature-type">tokenSession</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="classes/whatsapp.html" class="tsd-signature-type">Whatsapp</a><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -217,6 +295,9 @@
 					</li>
 					<li class=" pp-nav pp-page">
 						<a href="pages/Getting Started/creating-client.html">Creating a <wbr>Client</a>
+					</li>
+					<li class=" pp-nav pp-page">
+						<a href="pages/Getting Started/configuring-logger.html">Configuring the logger</a>
 					</li>
 					<li class=" pp-nav pp-page">
 						<a href="pages/Getting Started/basic-functions.html">Basic <wbr>Functions</a>
@@ -244,6 +325,12 @@
 						<a href="enums/groupnotificationtype.html" class="tsd-kind-icon">Group<wbr>Notification<wbr>Type</a>
 					</li>
 					<li class=" tsd-kind-enum">
+						<a href="enums/interfacemode.html" class="tsd-kind-icon">Interface<wbr>Mode</a>
+					</li>
+					<li class=" tsd-kind-enum">
+						<a href="enums/interfacestate.html" class="tsd-kind-icon">Interface<wbr>State</a>
+					</li>
+					<li class=" tsd-kind-enum">
 						<a href="enums/messagetype.html" class="tsd-kind-icon">Message<wbr>Type</a>
 					</li>
 					<li class=" tsd-kind-enum">
@@ -266,6 +353,9 @@
 					</li>
 					<li class=" tsd-kind-interface">
 						<a href="interfaces/createconfig.html" class="tsd-kind-icon">Create<wbr>Config</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/createoptions.html" class="tsd-kind-icon">Create<wbr>Options</a>
 					</li>
 					<li class=" tsd-kind-interface">
 						<a href="interfaces/groupcreation.html" class="tsd-kind-icon">Group<wbr>Creation</a>
@@ -309,6 +399,15 @@
 					<li class=" tsd-kind-interface">
 						<a href="interfaces/whatsappprofile.html" class="tsd-kind-icon">Whatsapp<wbr>Profile</a>
 					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="modules.html#catchqr" class="tsd-kind-icon">CatchQR</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="modules.html#statusfind" class="tsd-kind-icon">Status<wbr>Find</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="modules.html#defaultlogger" class="tsd-kind-icon">default<wbr>Logger</a>
+					</li>
 					<li class=" tsd-kind-function">
 						<a href="modules.html#create" class="tsd-kind-icon">create</a>
 					</li>
@@ -325,10 +424,6 @@
 				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
 				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
 				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected property</span></li>
-				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected method</span></li>
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
