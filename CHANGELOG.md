@@ -1,3 +1,9 @@
+## [2.2.1](https://github.com/orkestral/venom/compare/v2.2.0...v2.2.1) (2020-12-15)
+
+### Bug Fixes
+
+- Fixed sendSeen call ([e2c0026](https://github.com/orkestral/venom/commit/e2c0026763f6255c903095c02c484d763b8de65d))
+
 # [2.2.0](https://github.com/orkestral/venom/compare/v2.1.2...v2.2.0) (2020-12-15)
 
 ### Bug Fixes
