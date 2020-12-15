@@ -57,9 +57,9 @@ export async function sendSeen(id, done) {
   var chat = window.WAPI.getChat(id);
   if (chat !== undefined) {
     await Store.ReadSeen.sendSeen(chat, false);
-    done(true);
+    done && done(true);
     return true;
   }
-  done(false);
+  done && done(false);
   return false;
 }
