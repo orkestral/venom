@@ -54,6 +54,7 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
 import * as ChromeLauncher from 'chrome-launcher';
 import * as path from 'path';
+import axios from 'axios';
 import { Browser, Page } from 'puppeteer';
 import puppeteer from 'puppeteer-extra';
 import { CreateConfig } from '../config/create-config';
@@ -149,41 +150,18 @@ export async function initBrowser(
 
   let browser = null;
   if (options.browserWS && options.browserWS != '') {
-    const transport = await WebSocketTransport.create(
-      options.browserWS,
-      10000
-    ).catch(() => {
-      browser = 'connect';
-    });
-    if (transport) {
-      await puppeteer
-        .connect({
-          transport: transport,
-        })
-        .then((e) => {
-          browser = e;
-        })
-        .catch(() => {
-          browser = 'connect';
-        });
-    }
+    const transport = await getTransport(options.browserWS);
+    browser = await puppeteer.connect({ transport });
   } else {
-    await puppeteer
-      .launch({
-        headless: options.headless,
-        devtools: options.devtools,
-        args: options.browserArgs
-          ? options.browserArgs
-          : [...puppeteerConfig.chromiumArgs],
-        ...options.puppeteerOptions,
-        ...extras,
-      })
-      .then((e) => {
-        browser = e;
-      })
-      .catch(() => {
-        browser = 'launch';
-      });
+    browser = await puppeteer.launch({
+      headless: options.headless,
+      devtools: options.devtools,
+      args: options.browserArgs
+        ? options.browserArgs
+        : [...puppeteerConfig.chromiumArgs],
+      ...options.puppeteerOptions,
+      ...extras,
+    });
   }
 
   return browser;
@@ -211,4 +189,25 @@ function getChrome() {
   } catch (error) {
     return undefined;
   }
+}
+
+async function getTransport(browserWS: string) {
+  let error = null;
+  try {
+    return await WebSocketTransport.create(browserWS, 10000);
+  } catch (e) {
+    error = e;
+  }
+
+  // Automatic get the endpoint
+  try {
+    const endpointURL =
+      browserWS.replace(/ws(s)?:/, 'http$1:') + '/json/version';
+    const data = await axios.get(endpointURL).then((r) => r.data);
+
+    return await WebSocketTransport.create(data.webSocketDebuggerUrl, 10000);
+  } catch (e) {}
+
+  // Throw first error
+  throw error;
 }

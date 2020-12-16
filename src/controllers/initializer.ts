@@ -149,23 +149,25 @@ export async function create(
 
   // Initialize whatsapp
   logger.info('Initializing browser...', { session, type: 'browser' });
-  const browser = await initBrowser(session, mergedOptions);
 
-  if (browser === 'connect') {
-    logger.error(`Error when try to connect ${mergedOptions.browserWS}`, {
+  const browser = await initBrowser(session, mergedOptions).catch((e) => {
+    if (mergedOptions.browserWS && mergedOptions.browserWS != '') {
+      logger.error(`Error when try to connect ${mergedOptions.browserWS}`, {
+        session,
+        type: 'browser',
+      });
+    } else {
+      logger.error(`Error no open browser`, {
+        session,
+        type: 'browser',
+      });
+    }
+    logger.error(e.message, {
       session,
       type: 'browser',
     });
-    throw `Error when try to connect ${mergedOptions.browserWS}`;
-  }
-
-  if (browser === 'launch') {
-    logger.error(`Error no open browser`, {
-      session,
-      type: 'browser',
-    });
-    throw `Error no open browser`;
-  }
+    throw e;
+  });
 
   if (typeof browser === 'object') {
     logger.http('checking headless...', {
