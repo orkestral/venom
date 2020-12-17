@@ -75,6 +75,7 @@ export class HostLayer {
   readonly logger: Logger;
 
   protected autoCloseInterval = null;
+  protected statusFind?: (statusGet: string, session: string) => void = null;
 
   constructor(public page: Page, session?: string, options?: CreateConfig) {
     this.session = session;
@@ -126,6 +127,7 @@ export class HostLayer {
       !this.page.isClosed()
     ) {
       this.log('info', 'Closing the page');
+      this.statusFind && this.statusFind('autocloseCalled', this.session);
       try {
         this.page.close();
       } catch (error) {}
@@ -215,7 +217,7 @@ export class HostLayer {
           catchQR(result.base64Image, qr, attempt, result.urlCode);
         }
       }
-      await sleep(500);
+      await sleep(200);
     }
   }
 
@@ -238,16 +240,18 @@ export class HostLayer {
     ) => void,
     statusFind?: (statusGet: string, session: string) => void
   ) {
-    this.log('info', 'Waiting page load');
+    this.statusFind = statusFind;
+
+    this.log('http', 'Waiting page load');
 
     await this.page
       .waitForFunction(`!document.querySelector('#initial_startup')`)
       .catch(() => {});
 
-    this.startAutoClose();
-
     this.log('http', 'Checking is logged...');
     let authenticated = await isAuthenticated(this.page).catch(() => null);
+
+    this.startAutoClose();
 
     if (authenticated === false) {
       this.log('http', 'Waiting for QRCode Scan...');
@@ -259,7 +263,10 @@ export class HostLayer {
       await sleep(200);
       authenticated = await isAuthenticated(this.page).catch(() => null);
 
-      if (authenticated) {
+      if (authenticated === null) {
+        this.log('warn', 'Failed to authenticate');
+        statusFind && statusFind('qrReadError', this.session);
+      } else if (authenticated) {
         this.log('http', 'QRCode Success');
         statusFind && statusFind('qrReadSuccess', this.session);
       } else {
@@ -274,9 +281,12 @@ export class HostLayer {
     }
 
     if (authenticated === true) {
+      // Reinicia o contador do autoclose
+      this.cancelAutoClose();
+      this.startAutoClose();
       // Wait for interface update
       await sleep(200);
-      this.log('info', 'Checking phone is connected...');
+      this.log('http', 'Checking phone is connected...');
       const inChat = await this.waitForInChat();
 
       if (!inChat) {
