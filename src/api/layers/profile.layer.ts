@@ -114,7 +114,7 @@ export class ProfileLayer extends HostLayer {
    * Sets the user's current profile photo
    * @param name
    */
-  public async setProfilePic(path: string) {
+  public async setProfilePic(path: string, to?: string) {
     let b64 = await downloadFileToBase64(path, [
       'image/gif',
       'image/png',
@@ -137,9 +137,13 @@ export class ProfileLayer extends HostLayer {
           _webb64_640 = await resizeImg(buff, { width: 640, height: 640 });
         let obj = { a: _webb64_640, b: _webb64_96 };
 
-        return await this.page.evaluate(({ obj }) => WAPI.setProfilePic(obj), {
-          obj,
-        });
+        return await this.page.evaluate(
+          ({ obj, to }) => WAPI.setProfilePic(obj, to),
+          {
+            obj,
+            to,
+          }
+        );
       } else {
         console.log('Not an image, allowed formats png, jpeg and webp');
         return false;
