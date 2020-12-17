@@ -1,3 +1,11 @@
+## [2.2.2](https://github.com/orkestral/venom/compare/v2.2.1...v2.2.2) (2020-12-17)
+
+### Bug Fixes
+
+- Fixed browser error output ([b7da3a5](https://github.com/orkestral/venom/commit/b7da3a5ecaf9ea62870f3c6eb18711c359308f06))
+- Fixed set profile picture (fix [#359](https://github.com/orkestral/venom/issues/359), close [#426](https://github.com/orkestral/venom/issues/426)) ([034c603](https://github.com/orkestral/venom/commit/034c603a76d5fb0c16f47fa075dca28ef16a37cb))
+- Reset autoclose interval after QRCode read ([fb9d5bd](https://github.com/orkestral/venom/commit/fb9d5bdcd57f22acbb2e17b29f4656033bb2b2ce))
+
 ## [2.2.1](https://github.com/orkestral/venom/compare/v2.2.0...v2.2.1) (2020-12-15)
 
 ### Bug Fixes
