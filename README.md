@@ -148,7 +148,7 @@ venom
       createPathFileToken: false, //creates a folder when inserting an object in the client's browser, to work it is necessary to pass the parameters in the function create browserSessionToken
     },
     // BrowserSessionToken
-    // To receive the client's token use the function await clinet.getSessionTokenBrowser()
+    // To receive the client's token use the function await client.getSessionTokenBrowser()
     {
       WABrowserId: '"UnXjH....."',
       WASecretBundle:
