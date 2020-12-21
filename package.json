@@ -79,7 +79,7 @@
     "copy-webpack-plugin": "^7.0.0",
     "cz-conventional-changelog": "^3.3.0",
     "eslint": "^7.15.0",
-    "eslint-config-prettier": "^7.0.0",
+    "eslint-config-prettier": "^7.1.0",
     "eslint-plugin-prettier": "^3.3.0",
     "gulp": "^4.0.2",
     "husky": "^4.3.6",
