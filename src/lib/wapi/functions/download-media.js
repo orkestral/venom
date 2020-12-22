@@ -82,6 +82,13 @@ export async function downloadMedia(messageId) {
     blob = Store.BlobCache.get(msg.mediaData.filehash);
   }
 
+  // Transform a VIDEO message to a DOCUMENT message
+  if (!blob && msg.mediaObject.type && msg.mediaObject.type === 'VIDEO') {
+    delete msg.mediaObject.type;
+    msg.type = 'document';
+    return downloadMedia(messageId);
+  }
+
   if (!blob) {
     throw {
       error: true,
