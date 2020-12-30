@@ -1,3 +1,13 @@
+## [2.2.3](https://github.com/orkestral/venom/compare/v2.2.2...v2.2.3) (2020-12-30)
+
+### Bug Fixes
+
+- Fixed downloadMedia for videos on Chromium (close [#456](https://github.com/orkestral/venom/issues/456)) ([8834957](https://github.com/orkestral/venom/commit/8834957b7629976a81a7782f6a0575545ece7c52))
+
+### Features
+
+- append optional 'stale' property to ContactStatus (close [#461](https://github.com/orkestral/venom/issues/461)) ([56cbb68](https://github.com/orkestral/venom/commit/56cbb685b15d0f4d731cd7d4d40faa070585f0fa))
+
 ## [2.2.2](https://github.com/orkestral/venom/compare/v2.2.1...v2.2.2) (2020-12-17)
 
 ### Bug Fixes
