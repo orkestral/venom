@@ -205,10 +205,7 @@ export class RetrieverLayer extends SenderLayer {
    * @returns url of the chat picture or undefined if there is no picture for the chat.
    */
   public async getProfilePicFromServer(chatId: string) {
-    return this.page.evaluate(
-      (chatId) => WAPI.getProfilePicFromServer(chatId),
-      chatId
-    );
+    return this.page.evaluate((chatId) => WAPI._profilePicfunc(chatId), chatId);
   }
 
   /**

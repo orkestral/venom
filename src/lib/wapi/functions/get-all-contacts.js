@@ -52,11 +52,11 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
-export const getAllContacts = function (done) {
-  const contacts = window.Store.Contact.map((contact) =>
-    WAPI._serializeContactObj(contact)
+export const getAllContacts = async function () {
+  let contacts = await Promise.all(
+    window.Store.Contact.map(async (contact) => {
+      return await WAPI._serializeContactObj(contact);
+    })
   );
-
-  if (done !== undefined) done(contacts);
   return contacts;
 };

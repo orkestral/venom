@@ -52,13 +52,21 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
-export const _serializeContactObj = (obj) => {
+export const _serializeContactObj = async (obj) => {
   if (obj == undefined) {
     return null;
   }
 
-  if (!obj.profilePicThumb && obj.id && window.Store.ProfilePicThumb) {
-    obj.profilePicThumb = window.Store.ProfilePicThumb.get(obj.id);
+  let profile = await WAPI._profilePicfunc(obj.id._serialized);
+
+  if (
+    !obj.profilePicThumb &&
+    obj.id &&
+    window.Store.ProfilePicThumb &&
+    profile === null
+  ) {
+    let PicThumb = window.Store.ProfilePicThumb.get(obj.id);
+    profile = PicThumb ? WAPI._serializeProfilePicThumb(PicThumb) : {};
   }
 
   return Object.assign(window.WAPI._serializeRawObj(obj), {
@@ -70,9 +78,7 @@ export const _serializeContactObj = (obj) => {
     isUser: obj.isUser,
     isVerified: obj.isVerified,
     isWAContact: obj.isWAContact,
-    profilePicThumbObj: obj.profilePicThumb
-      ? WAPI._serializeProfilePicThumb(obj.profilePicThumb)
-      : {},
+    profilePicThumbObj: profile,
     statusMute: obj.statusMute,
     msgs: null,
   });

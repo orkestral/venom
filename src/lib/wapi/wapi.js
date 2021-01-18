@@ -95,7 +95,6 @@ import {
   getNewId,
   getNewMessageId,
   getNumberProfile,
-  getProfilePicFromServer,
   getStatus,
   getUnreadMessages,
   getUnreadMessagesInChat,
@@ -178,6 +177,7 @@ import {
   _serializeNumberStatusObj,
   _serializeProfilePicThumb,
   _serializeRawObj,
+  _profilePicfunc,
 } from './serializers';
 import { getStore } from './store/get-store';
 
@@ -239,6 +239,7 @@ if (typeof window.WAPI === 'undefined') {
   window.WAPI._serializeMessageObj = _serializeMessageObj;
   window.WAPI._serializeNumberStatusObj = _serializeNumberStatusObj;
   window.WAPI._serializeProfilePicThumb = _serializeProfilePicThumb;
+  window.WAPI._profilePicfunc = _profilePicfunc;
 
   // Group Functions
   window.WAPI.createGroup = createGroup;
@@ -325,7 +326,6 @@ if (typeof window.WAPI === 'undefined') {
   window.WAPI.loadAndGetAllMessagesInChat = loadAndGetAllMessagesInChat;
   window.WAPI.getUnreadMessages = getUnreadMessages;
   window.WAPI.getCommonGroups = getCommonGroups;
-  window.WAPI.getProfilePicFromServer = getProfilePicFromServer;
   window.WAPI.downloadFile = downloadFile;
   window.WAPI.downloadMedia = downloadMedia;
   window.WAPI.getNumberProfile = getNumberProfile;

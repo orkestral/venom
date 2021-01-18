@@ -121,7 +121,6 @@ interface WAPI {
   getListMute: (type?: string) => object;
   getMessageById: (messageId: string) => Promise<Message>;
   getNumberProfile: (contactId: string) => WhatsappProfile;
-  getProfilePicFromServer: (chatId: string) => string;
   getSessionTokenBrowser: (removePath?: boolean) => tokenSession;
   getStatus: (contactId: string) => ContactStatus;
   getTheme: () => string;
@@ -253,6 +252,7 @@ interface WAPI {
   waitNewAcknowledgements: (callback: Function) => void;
   waitNewMessages: (rmCallback: boolean, callback: Function) => void;
   sendSeen: (to: string) => void;
+  _profilePicfunc: (contactId: string) => Promise<object>;
 }
 
 declare global {

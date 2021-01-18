@@ -86,7 +86,6 @@ export { getMe } from './get-me';
 export { getMyContacts } from './get-my-contacts';
 export { getNewId } from './get-new-id';
 export { getNumberProfile } from './get-number-profile';
-export { getProfilePicFromServer } from './get-profile-pic-from-server';
 export { getStatus } from './get-status';
 export { getUnreadMessages } from './get-unread-messages';
 export { getUnreadMessagesInChat } from './get-unread-messages-in-chat';

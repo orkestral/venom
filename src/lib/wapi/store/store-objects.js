@@ -414,4 +414,11 @@ export const storeObjects = [
     conditions: (module) =>
       module.default && module.default.getOrCreateURL ? module.default : null,
   },
+  {
+    id: 'ProfilePic',
+    conditions: (module) =>
+      module.ProfilePicThumbCollection && module.default
+        ? module.default
+        : null,
+  },
 ];
