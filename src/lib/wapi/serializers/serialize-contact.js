@@ -56,6 +56,11 @@ export const _serializeContactObj = (obj) => {
   if (obj == undefined) {
     return null;
   }
+
+  if (!obj.profilePicThumb && obj.id && window.Store.ProfilePicThumb) {
+    obj.profilePicThumb = window.Store.ProfilePicThumb.get(obj.id);
+  }
+
   return Object.assign(window.WAPI._serializeRawObj(obj), {
     formattedName: obj.formattedName,
     isHighLevelVerified: obj.isHighLevelVerified,
