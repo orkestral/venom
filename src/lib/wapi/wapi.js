@@ -170,6 +170,7 @@ import {
   addOnStateChange,
   allNewMessagesListener,
   initNewMessagesListener,
+  initPhoneConnectionPing,
 } from './listeners';
 import {
   _serializeChatObj,
@@ -594,4 +595,5 @@ if (typeof window.WAPI === 'undefined') {
   addOnAddedToGroup();
   addOnLiveLocation();
   addOnParticipantsChange();
+  initPhoneConnectionPing();
 }

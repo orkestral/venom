@@ -52,12 +52,37 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
-export { initNewMessagesListener } from './init-listeners';
-export { addNewMessagesListener } from './add-new-messages';
-export { allNewMessagesListener } from './add-all-new-messages';
-export { addOnStateChange } from './add-on-state-change';
-export { addOnNewAcks } from './add-on-new-ack';
-export { addOnLiveLocation } from './add-on-live-location';
-export { addOnParticipantsChange } from './add-on-participants-change';
-export { addOnAddedToGroup } from './add-on-added-to-group';
-export { initPhoneConnectionPing } from './init-phone-connection-ping';
+export function initPhoneConnectionPing() {
+  // Ping smartphone connection
+  window.WAPI.waitForStore(['State'], () => {
+    let pong = true;
+    setInterval(() => {
+      // Check only if the interface is in CHAT and not disconnected
+      if (
+        window.Store.Stream.mode !== 'MAIN' ||
+        window.Store.State.default.state === 'TIMEOUT'
+      ) {
+        return;
+      }
+
+      // Start phoneWatchdog if ping fails
+      if (!pong) {
+        window.Store.State.default.phoneWatchdog.activate();
+        return;
+      }
+
+      // Reset ping state
+      pong = false;
+
+      // Send a ping request
+      window.Store.State.default
+        .sendBasic({
+          tag: window.Store.State.default.tag('ping'),
+          data: ['admin', 'test'],
+        })
+        .then(() => {
+          pong = true;
+        });
+    }, 10000);
+  });
+}
