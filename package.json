@@ -79,7 +79,7 @@
     "copy-webpack-plugin": "^7.0.0",
     "cz-conventional-changelog": "^3.3.0",
     "eslint": "^7.18.0",
-    "eslint-config-prettier": "^7.0.0",
+    "eslint-config-prettier": "^7.2.0",
     "eslint-plugin-prettier": "^3.3.1",
     "gulp": "^4.0.2",
     "husky": "^4.3.8",
@@ -92,7 +92,7 @@
     "typedoc": "^0.20.16",
     "typedoc-plugin-pages": "^1.1.0",
     "typescript": "^4.1.2",
-    "webpack": "^5.15.0",
+    "webpack": "^5.16.0",
     "webpack-cli": "^4.3.1"
   },
   "dependencies": {
