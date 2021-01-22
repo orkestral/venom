@@ -113,6 +113,7 @@ export async function create(
   options?: CreateConfig,
   browserSessionToken?: tokenSession
 ): Promise<Whatsapp>;
+
 export async function create(
   sessionOrOption: string | CreateOptions,
   catchQR?: CatchQR,
@@ -240,35 +241,48 @@ export async function create(
         });
       }
 
-      if (mergedOptions.waitForLogin) {
-        const isLogged = await client.waitForLogin(catchQR, statusFind);
-        if (!isLogged) {
-          throw 'Not Logged';
-        }
+      let LocalLogin = JSON.parse(
+        await waPage.evaluate(() => {
+          return JSON.stringify(window.localStorage);
+        })
+      );
 
-        let waitLoginPromise = null;
-        client.onStateChange(async (state) => {
-          if (
-            state === SocketState.UNPAIRED ||
-            state === SocketState.UNPAIRED_IDLE
-          ) {
-            logger.info('Session Unpaired', { session });
-            if (statusFind) {
-              statusFind('desconnectedMobile', session);
-            }
-            deleteFiles(mergedOptions, session, logger);
+      let CheckLogin =
+        LocalLogin.WASecretBundle && LocalLogin.WAToken1 && LocalLogin.WAToken2
+          ? true
+          : false;
 
-            if (!waitLoginPromise) {
-              waitLoginPromise = client
-                .waitForLogin(catchQR, statusFind)
-                .catch(() => {})
-                .finally(() => {
-                  waitLoginPromise = null;
-                });
-            }
-            await waitLoginPromise;
+      if (!CheckLogin) {
+        if (mergedOptions.waitForLogin) {
+          const isLogged = await client.waitForLogin(catchQR, statusFind);
+          if (!isLogged) {
+            throw 'Not Logged';
           }
-        });
+
+          let waitLoginPromise = null;
+          client.onStateChange(async (state) => {
+            if (
+              state === SocketState.UNPAIRED ||
+              state === SocketState.UNPAIRED_IDLE
+            ) {
+              logger.info('Session Unpaired', { session });
+              if (statusFind) {
+                statusFind('desconnectedMobile', session);
+              }
+              deleteFiles(mergedOptions, session, logger);
+
+              if (!waitLoginPromise) {
+                waitLoginPromise = client
+                  .waitForLogin(catchQR, statusFind)
+                  .catch(() => {})
+                  .finally(() => {
+                    waitLoginPromise = null;
+                  });
+              }
+              await waitLoginPromise;
+            }
+          });
+        }
       }
 
       if (mergedOptions.debug) {

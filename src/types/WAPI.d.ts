@@ -149,6 +149,7 @@ interface WAPI {
   onLiveLocation: (chatId: string, callback: Function) => any;
   onParticipantsChanged: (groupId: string, callback: Function) => any;
   onStateChange: (callback: Function) => void;
+  onStreamChange: (callback: Function) => void;
   openChat: (chatId: string) => boolean;
   openChatAt: (
     chatId: string,
