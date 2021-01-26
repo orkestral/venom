@@ -43,6 +43,8 @@
 
 Documentation at https://orkestral.github.io/venom/index.html
 
+> If you are looking for **WhatsApp HTTP API** you should look at https://github.com/allburov/whatsapp-http-api. It's a HTTP wrapper on top of Venom project with prepared docker image.
+
 ## Installation
 
 ```bash
