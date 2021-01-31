@@ -106,7 +106,7 @@
     "mime-types": "^2.1.28",
     "puppeteer": "^5.5.0",
     "puppeteer-extra": "^3.1.16",
-    "puppeteer-extra-plugin-stealth": "^2.6.2",
+    "puppeteer-extra-plugin-stealth": "^2.6.7",
     "qrcode-terminal": "^0.12.0",
     "rxjs": "^6.6.3",
     "sharp": "^0.27.0",
