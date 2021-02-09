@@ -153,6 +153,8 @@ import {
   getListMute,
   interfaceMute,
   downloadMedia,
+  isInsideChat,
+  sendStatusText,
 } from './functions';
 import {
   base64ToFile,
@@ -219,6 +221,7 @@ if (typeof window.WAPI === 'undefined') {
   };
   //others
   window.WAPI.interfaceMute = interfaceMute;
+  window.WAPI.isInsideChat = isInsideChat;
   //Profile
   window.WAPI.setProfilePic = setProfilePic;
   window.WAPI.getSessionTokenBrowser = getSessionTokenBrowser;
@@ -348,6 +351,7 @@ if (typeof window.WAPI === 'undefined') {
   window.WAPI.restartService = restartService;
   window.WAPI.killServiceWorker = killServiceWorker;
   window.WAPI.sendMute = sendMute;
+  window.WAPI.sendStatusText = sendStatusText;
 
   // Listeners initialization
   window.WAPI._newMessagesQueue = [];

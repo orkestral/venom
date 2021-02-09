@@ -176,13 +176,16 @@ interface WAPI {
     to: string,
     filename: string,
     caption: string,
-    type?: string
+    type?: string,
+    status?: boolean
   ) => Promise<SendFileResult>;
   sendImage: (
     imgBase64: string,
     to: string,
     filename: string,
-    caption?: string
+    caption?: string,
+    type?: string,
+    status?: boolean
   ) => Promise<SendFileResult>;
   sendImageAsSticker: (
     webpBase64: string,
@@ -254,6 +257,8 @@ interface WAPI {
   waitNewMessages: (rmCallback: boolean, callback: Function) => void;
   sendSeen: (to: string) => void;
   _profilePicfunc: (contactId: string) => Promise<object>;
+  sendStatusText: (text: string) => Promise<object>;
+  isInsideChat: () => boolean;
 }
 
 declare global {

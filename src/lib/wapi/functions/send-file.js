@@ -52,10 +52,15 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
-import { processFiles } from './process-files';
-import { base64ToFile } from '../helper';
 
-export async function sendFile(imgBase64, chatid, filename, caption, type) {
+export async function sendFile(
+  imgBase64,
+  chatid,
+  filename,
+  caption,
+  type,
+  status
+) {
   type = type ? type : 'sendFile';
 
   if (
@@ -69,14 +74,33 @@ export async function sendFile(imgBase64, chatid, filename, caption, type) {
   if (mime && mime.length) {
     mime = mime[1];
   }
-  var chat = await WAPI.sendExist(chatid);
+
+  let SendLocal = atob('c3RhdHVzQGJyb2FkY2FzdA=='),
+    mediaBlob = WAPI.base64ToFile(imgBase64, filename),
+    chat = {};
+  if (status != true) {
+    chat = await WAPI.sendExist(chatid);
+  }
   if (!chat.erro) {
-    var mediaBlob = base64ToFile(imgBase64, filename),
-      mediaCollection = await processFiles(chat, mediaBlob),
-      media = mediaCollection.models[0];
-    var result = (await media.sendToChat(chat, { caption: caption })) || '';
-    var m = { type: type, filename: filename, text: caption, mimeType: mime },
+    let result = false,
+      m = { type: type, filename: filename, text: caption, mimeType: mime },
+      To = null;
+
+    if (status === true) {
+      const idUser = new Store.WidFactory.createWid(SendLocal);
+      await Store.Chat.find(idUser).then(async (chat) => {
+        await WAPI.processFiles(chat, mediaBlob).then(
+          async (mediaCollection) => {
+            var media = mediaCollection.models[0];
+            result = (await media.sendToChat(chat, { caption: caption })) || '';
+          }
+        );
+      });
+    } else {
+      let mediaCollection = await WAPI.processFiles(chat, mediaBlob),
+        media = mediaCollection.models[0];
       To = await WAPI.getchatId(chat.id);
+    }
     if (result === 'success' || result === 'OK') {
       var obj = WAPI.scope(To, false, result, null);
       Object.assign(obj, m);
