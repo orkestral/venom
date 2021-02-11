@@ -34,6 +34,7 @@
 | Send contacts                                              | ✔   |
 | Send stickers                                              | ✔   |
 | Send stickers GIF                                          | ✔   |
+| Send **Status text, Status img, Status video**             | ✔   |
 | Multiple Sessions                                          | ✔   |
 | Forward Messages                                           | ✔   |
 | Receive message                                            | ✔   |
@@ -64,24 +65,46 @@ const venom = require('venom-bot');
 
 venom
   .create()
-  .then((client) => start(client))
+  .then((client) => {
+
+  let time = 0;
+  client.onStreamChange((state) => {
+
+    console.log('Connection status: ', state);
+
+    clearTimeout(time);
+    if(state === 'CONNECTED'){
+     start(client);
+    }
+   //  DISCONNECTED when the mobile device is disconnected
+    if (state === 'DISCONNECTED' || state === 'SYNCING') {
+      time = setTimeout(() => {
+        client.close();
+       // process.exit(); //optional function if you work with only one session
+      }, 80000);
+    }
+
+  })
   .catch((erro) => {
-    console.log(erro);
+    console.log('There was an error in the bot',erro);
   });
 
 function start(client) {
-  client.onMessage((message) => {
-    if (message.body === 'Hi' && message.isGroupMsg === false) {
-      client
-        .sendText(message.from, 'Welcome Venom 🕷')
-        .then((result) => {
-          console.log('Result: ', result); //return object success
-        })
-        .catch((erro) => {
-          console.error('Error when sending: ', erro); //return object error
-        });
-    }
-  });
+  let inchat = await client.isInsideChat(); //wait until the page is in whatsapp chat
+  if (inchat) {
+    client.onMessage((message) => {
+      if (message.body === 'Hi' && message.isGroupMsg === false) {
+        client
+          .sendText(message.from, 'Welcome Venom 🕷')
+          .then((result) => {
+            console.log('Result: ', result); //return object success
+          })
+          .catch((erro) => {
+            console.error('Error when sending: ', erro); //return object error
+          });
+      }
+    });
+  }
 }
 ```
 
@@ -154,10 +177,27 @@ venom
     }
   )
   .then((client) => {
-    start(client);
+
+  let time = 0;
+  client.onStreamChange((state) => {
+
+    console.log('Connection status: ', state);
+
+    clearTimeout(time);
+    if(state === 'CONNECTED'){
+     start(client);
+    }
+   //  DISCONNECTED when the mobile device is disconnected
+    if (state === 'DISCONNECTED' || state === 'SYNCING') {
+      time = setTimeout(() => {
+        client.close();
+       // process.exit(); //optional function if you work with only one session
+      }, 80000);
+    }
+
   })
   .catch((erro) => {
-    console.log(erro);
+    console.log('There was an error in the bot',erro);
   });
 ```
 
@@ -192,10 +232,25 @@ venom
     undefined
   )
   .then((client) => {
-    start(client);
+      let time = 0;
+  client.onStreamChange((state) => {
+
+    console.log('Connection status: ', state);
+
+    clearTimeout(time);
+    if(state === 'CONNECTED'){
+     start(client);
+    }
+   //  DISCONNECTED when the mobile device is disconnected
+    if (state === 'DISCONNECTED' || state === 'SYNCING') {
+      time = setTimeout(() => {
+        client.close();
+       // process.exit(); //optional function if you work with only one session
+      }, 80000);
+    }
   })
   .catch((erro) => {
-    console.log(erro);
+     console.log('There was an error in the bot', erro);
   });
 ```
 
@@ -238,10 +293,25 @@ venom
     { logQR: false }
   )
   .then((client) => {
-    start(client);
+      let time = 0;
+  client.onStreamChange((state) => {
+
+    console.log('Connection status: ', state);
+
+    clearTimeout(time);
+    if(state === 'CONNECTED'){
+     start(client);
+    }
+   //  DISCONNECTED when the mobile device is disconnected
+    if (state === 'DISCONNECTED' || state === 'SYNCING') {
+      time = setTimeout(() => {
+        client.close();
+       // process.exit(); //optional function if you work with only one session
+      }, 80000);
+    }
   })
   .catch((erro) => {
-    console.log(erro);
+     console.log('There was an error in the bot', erro);
   });
 ```
 
@@ -278,6 +348,31 @@ available can be found in [here](/src/api/layers) and
 ##### Here, `chatId` could be `<phoneNumber>@c.us` or `<phoneNumber>-<groupId>@g.us`
 
 ```javascript
+
+//send an image in Status (history)
+await client.sendStatusImg("https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Alan_Turing_Aged_16_%28cropped%29.jpg/300px-Alan_Turing_Aged_16_%28cropped%29.jpg", "test")
+    .then((result) => {
+     console.log('Result image: ', result); //return object success
+   }).catch((erro) => {
+     console.error('Error when sending image: ', erro); //return object error
+   });
+
+//send an text in Status (history)
+await client.sendStatusText("Água mole em pedra dura tanto bate até que fura").then((result) => {
+  console.log('Result text', result); //return object success
+  })
+  .catch((erro) => {
+    console.error('Error when sending text: ', erro);//return object error
+  });
+
+//send an video in Status (history)
+await client.sendStatusVideo("test.mp4", "test").then((result) => {
+  console.log('Result video', result);
+  })
+  .catch((erro) => {
+    console.error('Error when sending  video: ', erro);
+  });
+
 // Send contact
 await client
   .sendContactVcard('000000000000@c.us', '111111111111@c.us', 'Name of contact')

@@ -57,9 +57,9 @@ export async function processFiles(chat, blobs) {
     blobs = [blobs];
   }
 
-  const mediaCollection = new Store.MediaCollection({
-    chatParticipantCount: chat.getParticipantCount(),
-  });
+  // const mediaCollection = new Store.MediaCollection({
+  //   chatParticipantCount: chat.getParticipantCount(),
+  // });
 
   const mediaCollection = new Store.MediaCollection(chat);
 

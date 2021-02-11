@@ -66,10 +66,10 @@ export async function isInsideChat() {
           document.getElementsByClassName('two')[0].attributes &&
           !!document.getElementsByClassName('two')[0].attributes.tabindex)
       ) {
+        err = false;
         return true;
       } else {
         throw 1;
-        err = false;
       }
     } catch (e) {
       err = true;

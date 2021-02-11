@@ -59,7 +59,7 @@ import { SessionTokenCkeck, saveToken } from './auth';
 import { initWhatsapp, initBrowser } from './browser';
 import { checkUpdates, welcomeScreen } from './welcome';
 import { SocketState } from '../api/model/enum';
-import { deleteFiles } from '../api/helpers';
+import { deleteFiles, checkingCloses } from '../api/helpers';
 import { tokenSession } from '../config/tokenSession.config';
 
 /**
@@ -197,22 +197,8 @@ export async function create(
       });
     }
 
-    browser.on('targetdestroyed', async () => {
-      if (!browser.isConnected()) {
-        return;
-      }
-      const pages = await browser.pages();
-      if (!pages.length) {
-        browser.close();
-      }
-    });
-
-    browser.on('disconnected', () => {
-      if (mergedOptions.browserWS) {
-        statusFind && statusFind('serverClose', session);
-      } else {
-        statusFind && statusFind('browserClose', session);
-      }
+    checkingCloses(browser, mergedOptions, (result) => {
+      statusFind && statusFind(result, session);
     });
 
     if (SessionTokenCkeck(browserSessionToken)) {
@@ -228,7 +214,6 @@ export async function create(
 
     if (waPage) {
       const client = new Whatsapp(waPage, session, mergedOptions);
-
       if (mergedOptions.createPathFileToken) {
         client.onStateChange((state) => {
           if (state === SocketState.CONNECTED) {

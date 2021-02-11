@@ -52,23 +52,35 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
-export * from './api/model';
-export {
-  AckType,
-  ChatState,
-  GroupChangeEvent,
-  GroupNotificationType,
-  MessageType,
-  SocketState,
-  InterfaceMode,
-  InterfaceState,
-} from './api/model/enum';
-export { Whatsapp } from './api/whatsapp';
-export { CreateConfig } from './config/create-config';
-export {
-  create,
-  CatchQR,
-  CreateOptions,
-  StatusFind,
-} from './controllers/initializer';
-export { defaultLogger } from './utils/logger';
+import { Browser } from 'puppeteer';
+import { CreateConfig } from '../../config/create-config';
+
+export async function checkingCloses(
+  browser: Browser,
+  mergedOptions: CreateConfig,
+  callStatus: (e: string) => void
+) {
+  let err: boolean;
+  do {
+    try {
+      await new Promise((r) => setTimeout(r, 2000));
+      if (
+        browser['isClose'] ||
+        (mergedOptions.browserWS && !browser.isConnected())
+      ) {
+        if (mergedOptions.browserWS) {
+          browser.disconnect();
+          callStatus && callStatus('serverClose');
+        } else {
+          browser.close();
+          callStatus && callStatus('browserClose');
+        }
+        err = false;
+      } else {
+        throw 1;
+      }
+    } catch (e) {
+      err = true;
+    }
+  } while (err);
+}
