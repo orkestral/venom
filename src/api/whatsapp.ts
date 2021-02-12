@@ -168,7 +168,11 @@ export class Whatsapp extends ControlsLayer {
    */
   public async decryptFile(message: Message) {
     const options = makeOptions(useragentOverride);
-    if (!message.clientUrl)
+    const clientUrl =
+      message.clientUrl !== undefined
+        ? message.clientUrl
+        : message.deprecatedMms3Url;
+    if (!clientUrl)
       throw new Error(
         'message is missing critical data needed to download the file.'
       );
