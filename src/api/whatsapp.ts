@@ -167,12 +167,12 @@ export class Whatsapp extends ControlsLayer {
    * @returns Decrypted file buffer (null otherwise)
    */
   public async decryptFile(message: Message) {
-    const options = makeOptions(useragentOverride),
-      clientUrl =
-        message.clientUrl !== undefined
-          ? message.clientUrl
-          : message.deprecatedMms3Url;
-    if (!clientUrl) {
+    const options = makeOptions(useragentOverride);
+    message.clientUrl =
+      message.clientUrl !== undefined
+        ? message.clientUrl
+        : message.deprecatedMms3Url;
+    if (!message.clientUrl) {
       throw new Error(
         'message is missing critical data needed to download the file.'
       );
@@ -189,6 +189,7 @@ export class Whatsapp extends ControlsLayer {
         }
       }
     } catch (error) {
+      console.error(error);
       throw 'Error trying to download the file.';
     }
     const buff = Buffer.from(res.data, 'binary');
