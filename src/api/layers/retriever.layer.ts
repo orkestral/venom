@@ -143,18 +143,23 @@ export class RetrieverLayer extends SenderLayer {
   }
 
   /**
-   * Retrieve all groups
+   * Retrieve all groups new messages
    * @returns array of groups
    */
-  public async getAllGroups(withNewMessagesOnly = false) {
-    if (withNewMessagesOnly) {
-      // prettier-ignore
-      const chats = await this.page.evaluate(() => WAPI.getAllChatsWithNewMsg());
-      return chats.filter((chat) => chat.isGroup);
-    } else {
-      const chats = await this.page.evaluate(() => WAPI.getAllChats());
-      return chats.filter((chat) => chat.isGroup);
-    }
+  public async getChatGroupNewMsg() {
+    // prettier-ignore
+    const chats = await this.page.evaluate(() => WAPI.getAllChatsWithNewMsg());
+    return chats.filter((chat) => chat.kind === 'group');
+  }
+
+  /**
+   * Retrieve all contact new messages
+   * @returns array of groups
+   */
+  public async getChatContactNewMsg() {
+    // prettier-ignore
+    const chats = await this.page.evaluate(() => WAPI.getAllChatsWithNewMsg());
+    return chats.filter((chat) => chat.kind === 'chat');
   }
 
   /**

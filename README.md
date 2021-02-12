@@ -24,7 +24,6 @@
 **Grupo de Suporte do Venom em português do Brasil | R$ 30 Mensais** <br> <br>
 <a target="_blank" href="https://web.whatsapp.com/send?phone=556181590153&text=I%20want%20access%20to%20the%20WhatsApp%20Venom%20support%20group" target="_blank"><img title="whatzapp" height="75" width="300" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/WhatsApp_logo.svg/2000px-WhatsApp_logo.svg.png"></a>
 
-
 ## 🕷🕷 Functions Venom🕷🕷
 
 |                                                            |     |
@@ -569,6 +568,12 @@ await client.setChatState('000000000000@c.us', 0 | 1 | 2);
 ## Retrieving Data
 
 ```javascript
+//Retrieve all contacts new messages
+const ContactNewMsg = await client.getChatContactNewMsg();
+
+//Retrieve all groups new messages
+const GroupNewMsg = await client.getChatGroupNewMsg();
+
 // Returns a list of mute and non-mute users
 // "all" List all mutes
 // "toMute" List all silent chats
