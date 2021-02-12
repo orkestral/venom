@@ -175,7 +175,7 @@ export class Whatsapp extends ControlsLayer {
     if (!clientUrl)
       throw new Error(
         'message is missing critical data needed to download the file.'
-      );	  
+      );
     let haventGottenImageYet = true;
     let res: any;
     try {
