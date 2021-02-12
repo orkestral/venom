@@ -60,6 +60,7 @@ export interface Message {
   notifyName: string;
   from: string;
   to: string;
+  fromMe: boolean;
   author: string;
   self: string;
   ack: number;
@@ -68,10 +69,12 @@ export interface Message {
   star: boolean;
   recvFresh: boolean;
   interactiveAnnotations: any[];
+  caption: string;
+  filename: string;
   clientUrl: string;
   deprecatedMms3Url: string;
-  directPath: string;
   mimetype: string;
+  directPath: string;
   filehash: string;
   uploadhash: string;
   size: number;

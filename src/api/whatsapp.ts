@@ -167,17 +167,18 @@ export class Whatsapp extends ControlsLayer {
    * @returns Decrypted file buffer (null otherwise)
    */
   public async decryptFile(message: Message) {
-    const options = makeOptions(useragentOverride);
-    const clientUrl =
-      message.clientUrl !== undefined
-        ? message.clientUrl
-        : message.deprecatedMms3Url;
-    if (!clientUrl)
+    const options = makeOptions(useragentOverride),
+      clientUrl =
+        message.clientUrl !== undefined
+          ? message.clientUrl
+          : message.deprecatedMms3Url;
+    if (!clientUrl) {
       throw new Error(
         'message is missing critical data needed to download the file.'
       );
-    let haventGottenImageYet = true;
-    let res: any;
+    }
+    let haventGottenImageYet: boolean = true,
+      res: any;
     try {
       while (haventGottenImageYet) {
         res = await axios.get(message.clientUrl.trim(), options);
