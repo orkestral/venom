@@ -568,11 +568,20 @@ await client.setChatState('000000000000@c.us', 0 | 1 | 2);
 ## Retrieving Data
 
 ```javascript
+//Retrieves all grups
+const groups = await client.getAllChatsGroups();
+
+//Retrieves all chats Contacts
+const contacts = await client.getAllChatsContacts();
+
+//Retrieves all chats Transmission list
+const transmission = await client.getAllChatsTransmission();
+
 //Retrieve all contacts new messages
-const ContactNewMsg = await client.getChatContactNewMsg();
+const contactNewMsg = await client.getChatContactNewMsg();
 
 //Retrieve all groups new messages
-const GroupNewMsg = await client.getChatGroupNewMsg();
+const groupNewMsg = await client.getChatGroupNewMsg();
 
 // Returns a list of mute and non-mute users
 // "all" List all mutes

@@ -189,7 +189,6 @@ export class Whatsapp extends ControlsLayer {
         }
       }
     } catch (error) {
-      console.error(error);
       throw 'Error trying to download the file.';
     }
     const buff = Buffer.from(res.data, 'binary');
