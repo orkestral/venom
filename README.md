@@ -26,7 +26,6 @@
 
 ## 🕷🕷 Functions Venom🕷🕷
 
-|                                                            |     |
 | ---------------------------------------------------------- | --- |
 | Automatic QR Refresh                                       | ✔   |
 | Send **text, image, video, audio and docs**                | ✔   |
