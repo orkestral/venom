@@ -34,13 +34,13 @@
 | Send contacts                                              | ✔   |
 | Send stickers                                              | ✔   |
 | Send stickers GIF                                          | ✔   |
-| Send **Status text, Status img, Status video**             | ✔   |
+| Send stories **Text, Img, Video**                          | ✔   |
 | Multiple Sessions                                          | ✔   |
 | Forward Messages                                           | ✔   |
 | Receive message                                            | ✔   |
 | insert user section                                        | ✔   |
 | 📍 Send location!!                                         | ✔   |
-| 🕸🕸 **and much more**                                       | ✔   |
+| 🕸🕸 **and much more**                                      | ✔   |
 
 Documentation at https://orkestral.github.io/venom/index.html
 
