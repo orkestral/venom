@@ -25,7 +25,7 @@
 <a target="_blank" href="https://web.whatsapp.com/send?phone=556181590153&text=I%20want%20access%20to%20the%20WhatsApp%20Venom%20support%20group" target="_blank"><img title="whatzapp" height="75" width="300" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/WhatsApp_logo.svg/2000px-WhatsApp_logo.svg.png"></a>
 
 ## 🕷🕷 Functions Venom🕷🕷
-
+| ---------------------------------------------------------- | --- | 
 | ---------------------------------------------------------- | --- |
 | Automatic QR Refresh                                       | ✔   |
 | Send **text, image, video, audio and docs**                | ✔   |
