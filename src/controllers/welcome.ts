@@ -38,11 +38,18 @@ export async function checkUpdates() {
  */
 async function checkVenomVersion() {
   logger.info('Checking for updates');
+  logger.info(
+    `${chalk.bold.green(
+      'New boot to start the bot see the documentation'
+    )} ➜ ${chalk.underline(
+      'https://github.com/orkestral/venom#getting-started'
+    )}`
+  );
   await latestVersion('venom-bot').then((latest) => {
     if (upToDate(version, latest)) {
       logger.info("You're up to date");
     } else {
-      logger.info('There is a new version available');
+      logger.info(`There is a new version available`);
       logUpdateAvailable(version, latest);
     }
   });
