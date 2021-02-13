@@ -1,3 +1,23 @@
+## [2.2.4](https://github.com/orkestral/venom/compare/v2.2.3...v2.2.4) (2021-02-13)
+
+### Bug Fixes
+
+- client url undefined ([6d1818c](https://github.com/orkestral/venom/commit/6d1818c26b65d9a322372ecc28f9c67d056f2bd6))
+- client url undefined ([cc288b9](https://github.com/orkestral/venom/commit/cc288b942430a876ffa889c523feeecaeeea6c57))
+- Fixed contact thumbmail (close [#523](https://github.com/orkestral/venom/issues/523)) ([2e6e54f](https://github.com/orkestral/venom/commit/2e6e54f759790dc8ea24e5a4ff23d7f1fd9bde03))
+- Fixed sendLocation error: 'includes' of undefined ([cce314a](https://github.com/orkestral/venom/commit/cce314ab87f8c42e9fc8154f9bedce0f100012ae))
+- issues [#585](https://github.com/orkestral/venom/issues/585) ([1794097](https://github.com/orkestral/venom/commit/1794097ac40e8d56f2ee5271eaad4083272b5ada))
+
+### Features
+
+- Added onStreamChange method ([1236dbb](https://github.com/orkestral/venom/commit/1236dbb61395b404229d64915aa8edfb3330f177))
+- callback decryptFile interface ([8e6c0db](https://github.com/orkestral/venom/commit/8e6c0db86d5f8030d5d62920e8e868164ca33748))
+- Get list chats ([acf172d](https://github.com/orkestral/venom/commit/acf172ddc749ca6529f8cb32de29bb4594d802e0))
+- Get new messages chat ([674b1c8](https://github.com/orkestral/venom/commit/674b1c83cd798c0e7c4c2cc9795f478573ae173b))
+- Picthumb ([3d1a42b](https://github.com/orkestral/venom/commit/3d1a42bc7811b04285b4fc1e4bb4ebd3026c68d3))
+- Send Status ([66af91d](https://github.com/orkestral/venom/commit/66af91db3452b93580336d8117bcd30a839bdb81))
+- Send Status: Text, Video, img ([f310e77](https://github.com/orkestral/venom/commit/f310e77f16ebd65a4fd739f2c91c2425df673586))
+
 ## [2.2.3](https://github.com/orkestral/venom/compare/v2.2.2...v2.2.3) (2020-12-30)
 
 ### Bug Fixes
