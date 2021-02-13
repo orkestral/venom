@@ -30,12 +30,12 @@
 | Automatic QR Refresh                                       | ✔   |
 | Send **text, image, video, audio, files**                  | ✔   |
 | Get **contacts, chats, groups, group members, Block List** | ✔   |
-| Send contacts & Multples Contact                           | ✔   |
-| Send Location                                              | ✔   |
-| Send Link Preview                                          | ✔   |
-| Send stickers                                              | ✔   |
-| Send stickers GIF                                          | ✔   |
-| Send stories **text, img, video**                          | ✔   |
+| Send **contacts & Multples Contacts**                      | ✔   |
+| Send **Location**                                          | ✔   |
+| Send **Link Preview**                                      | ✔   |
+| Send **stickers**                                          | ✔   |
+| Send **stickers GIF**                                      | ✔   |
+| Send stories **text, image, video**                        | ✔   |
 | Multiple Sessions                                          | ✔   |
 | Forward Messages                                           | ✔   |
 | Receive message                                            | ✔   |
