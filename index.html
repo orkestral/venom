@@ -3,8 +3,8 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>venom-bot - v2.2.3</title>
-	<meta name="description" content="Documentation for venom-bot - v2.2.3">
+	<title>venom-bot - v2.2.4</title>
+	<meta name="description" content="Documentation for venom-bot - v2.2.4">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="assets/css/main.css">
 	<link rel="stylesheet" href="assets/css/pages.css">
@@ -23,7 +23,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="index.html" class="title">venom-bot - v2.2.3</a>
+					<a href="index.html" class="title">venom-bot - v2.2.4</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -55,7 +55,7 @@
 					<a href="modules.html">Globals</a>
 				</li>
 			</ul>
-			<h1>Project venom-bot - v2.2.3</h1>
+			<h1>Project venom-bot - v2.2.4</h1>
 		</div>
 	</div>
 </header>
@@ -84,10 +84,8 @@
 					<a href="https://orkestral.github.io/venom/pages/Getting%20Started/basic-functions.html">Basic Function</a> •
 					<a href="https://orkestral.github.io/venom">Documentation</a>
 				</p>
-				<p><strong>Donate for Project</strong></p>
-				<p><a target="_blank" href="https://www.paypal.com/donate?hosted_button_id=62BBB32FGRB2A"><img width="227" height="68" src="./media/donate.png" alt="Consulting"></a></p>
-				<p><strong>Request Support Group Access In Whatsapp For $5 Month</strong> <br> <br>
-				<a target="_blank" href="https://web.whatsapp.com/send?phone=556181590153&text=I%20want%20access%20to%20the%20WhatsApp%20Venom%20support%20group" target="_blank"><img title="whatzapp" height="100" width="375" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/WhatsApp_logo.svg/2000px-WhatsApp_logo.svg.png"></a></p>
+				<p><strong>Grupo de Suporte do Venom em português do Brasil | R$ 30 Mensais</strong> <br> <br>
+				<a target="_blank" href="https://web.whatsapp.com/send?phone=556181590153&text=I%20want%20access%20to%20the%20WhatsApp%20Venom%20support%20group" target="_blank"><img title="whatzapp" height="75" width="300" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/WhatsApp_logo.svg/2000px-WhatsApp_logo.svg.png"></a></p>
 				<a href="#🕷🕷-functions-venom🕷🕷" id="🕷🕷-functions-venom🕷🕷" style="color: inherit; text-decoration: none;">
 					<h2>🕷🕷 Functions Venom🕷🕷</h2>
 				</a>
@@ -120,6 +118,10 @@
 						</tr>
 						<tr>
 							<td>Send stickers GIF</td>
+							<td>✔</td>
+						</tr>
+						<tr>
+							<td>Send <strong>Status text, Status img, Status video</strong></td>
 							<td>✔</td>
 						</tr>
 						<tr>
@@ -165,24 +167,46 @@
 
 <span style="color: #001080">venom</span>
 <span style="color: #000000">  .</span><span style="color: #795E26">create</span><span style="color: #000000">()</span>
-<span style="color: #000000">  .</span><span style="color: #795E26">then</span><span style="color: #000000">((</span><span style="color: #001080">client</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> </span><span style="color: #795E26">start</span><span style="color: #000000">(</span><span style="color: #001080">client</span><span style="color: #000000">))</span>
+<span style="color: #000000">  .</span><span style="color: #795E26">then</span><span style="color: #000000">((</span><span style="color: #001080">client</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+
+<span style="color: #000000">  </span><span style="color: #0000FF">let</span><span style="color: #000000"> </span><span style="color: #001080">time</span><span style="color: #000000"> = </span><span style="color: #098658">0</span><span style="color: #000000">;</span>
+<span style="color: #000000">  </span><span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #795E26">onStreamChange</span><span style="color: #000000">((</span><span style="color: #001080">state</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+
+<span style="color: #000000">    </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;Connection status: &#039;</span><span style="color: #000000">, </span><span style="color: #001080">state</span><span style="color: #000000">);</span>
+
+<span style="color: #000000">    </span><span style="color: #795E26">clearTimeout</span><span style="color: #000000">(</span><span style="color: #001080">time</span><span style="color: #000000">);</span>
+<span style="color: #000000">    </span><span style="color: #AF00DB">if</span><span style="color: #000000">(</span><span style="color: #001080">state</span><span style="color: #000000"> === </span><span style="color: #A31515">&#039;CONNECTED&#039;</span><span style="color: #000000">){</span>
+<span style="color: #000000">     </span><span style="color: #795E26">start</span><span style="color: #000000">(</span><span style="color: #001080">client</span><span style="color: #000000">);</span>
+<span style="color: #000000">    }</span>
+<span style="color: #000000">   </span><span style="color: #008000">//  DISCONNECTED when the mobile device is disconnected</span>
+<span style="color: #000000">    </span><span style="color: #AF00DB">if</span><span style="color: #000000"> (</span><span style="color: #001080">state</span><span style="color: #000000"> === </span><span style="color: #A31515">&#039;DISCONNECTED&#039;</span><span style="color: #000000"> || </span><span style="color: #001080">state</span><span style="color: #000000"> === </span><span style="color: #A31515">&#039;SYNCING&#039;</span><span style="color: #000000">) {</span>
+<span style="color: #000000">      </span><span style="color: #001080">time</span><span style="color: #000000"> = </span><span style="color: #795E26">setTimeout</span><span style="color: #000000">(() </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">        </span><span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #795E26">close</span><span style="color: #000000">();</span>
+<span style="color: #000000">       </span><span style="color: #008000">// process.exit(); //optional function if you work with only one session</span>
+<span style="color: #000000">      }, </span><span style="color: #098658">80000</span><span style="color: #000000">);</span>
+<span style="color: #000000">    }</span>
+
+<span style="color: #000000">  })</span>
 <span style="color: #000000">  .</span><span style="color: #795E26">catch</span><span style="color: #000000">((</span><span style="color: #001080">erro</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
-<span style="color: #000000">    </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #001080">erro</span><span style="color: #000000">);</span>
+<span style="color: #000000">    </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;There was an error in the bot&#039;</span><span style="color: #000000">,</span><span style="color: #001080">erro</span><span style="color: #000000">);</span>
 <span style="color: #000000">  });</span>
 
 <span style="color: #0000FF">function</span><span style="color: #000000"> </span><span style="color: #795E26">start</span><span style="color: #000000">(</span><span style="color: #001080">client</span><span style="color: #000000">) {</span>
-<span style="color: #000000">  </span><span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #795E26">onMessage</span><span style="color: #000000">((</span><span style="color: #001080">message</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
-<span style="color: #000000">    </span><span style="color: #AF00DB">if</span><span style="color: #000000"> (</span><span style="color: #001080">message</span><span style="color: #000000">.</span><span style="color: #001080">body</span><span style="color: #000000"> === </span><span style="color: #A31515">&#039;Hi&#039;</span><span style="color: #000000"> &amp;&amp; </span><span style="color: #001080">message</span><span style="color: #000000">.</span><span style="color: #001080">isGroupMsg</span><span style="color: #000000"> === </span><span style="color: #0000FF">false</span><span style="color: #000000">) {</span>
-<span style="color: #000000">      </span><span style="color: #001080">client</span>
-<span style="color: #000000">        .</span><span style="color: #795E26">sendText</span><span style="color: #000000">(</span><span style="color: #001080">message</span><span style="color: #000000">.</span><span style="color: #001080">from</span><span style="color: #000000">, </span><span style="color: #A31515">&#039;Welcome Venom 🕷&#039;</span><span style="color: #000000">)</span>
-<span style="color: #000000">        .</span><span style="color: #795E26">then</span><span style="color: #000000">((</span><span style="color: #001080">result</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
-<span style="color: #000000">          </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;Result: &#039;</span><span style="color: #000000">, </span><span style="color: #001080">result</span><span style="color: #000000">); </span><span style="color: #008000">//return object success</span>
-<span style="color: #000000">        })</span>
-<span style="color: #000000">        .</span><span style="color: #795E26">catch</span><span style="color: #000000">((</span><span style="color: #001080">erro</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
-<span style="color: #000000">          </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">error</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;Error when sending: &#039;</span><span style="color: #000000">, </span><span style="color: #001080">erro</span><span style="color: #000000">); </span><span style="color: #008000">//return object error</span>
-<span style="color: #000000">        });</span>
-<span style="color: #000000">    }</span>
-<span style="color: #000000">  });</span>
+<span style="color: #000000">  </span><span style="color: #0000FF">let</span><span style="color: #000000"> </span><span style="color: #001080">inchat</span><span style="color: #000000"> = </span><span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #795E26">isInsideChat</span><span style="color: #000000">(); </span><span style="color: #008000">//wait until the page is in whatsapp chat</span>
+<span style="color: #000000">  </span><span style="color: #AF00DB">if</span><span style="color: #000000"> (</span><span style="color: #001080">inchat</span><span style="color: #000000">) {</span>
+<span style="color: #000000">    </span><span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #795E26">onMessage</span><span style="color: #000000">((</span><span style="color: #001080">message</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">      </span><span style="color: #AF00DB">if</span><span style="color: #000000"> (</span><span style="color: #001080">message</span><span style="color: #000000">.</span><span style="color: #001080">body</span><span style="color: #000000"> === </span><span style="color: #A31515">&#039;Hi&#039;</span><span style="color: #000000"> &amp;&amp; </span><span style="color: #001080">message</span><span style="color: #000000">.</span><span style="color: #001080">isGroupMsg</span><span style="color: #000000"> === </span><span style="color: #0000FF">false</span><span style="color: #000000">) {</span>
+<span style="color: #000000">        </span><span style="color: #001080">client</span>
+<span style="color: #000000">          .</span><span style="color: #795E26">sendText</span><span style="color: #000000">(</span><span style="color: #001080">message</span><span style="color: #000000">.</span><span style="color: #001080">from</span><span style="color: #000000">, </span><span style="color: #A31515">&#039;Welcome Venom 🕷&#039;</span><span style="color: #000000">)</span>
+<span style="color: #000000">          .</span><span style="color: #795E26">then</span><span style="color: #000000">((</span><span style="color: #001080">result</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">            </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;Result: &#039;</span><span style="color: #000000">, </span><span style="color: #001080">result</span><span style="color: #000000">); </span><span style="color: #008000">//return object success</span>
+<span style="color: #000000">          })</span>
+<span style="color: #000000">          .</span><span style="color: #795E26">catch</span><span style="color: #000000">((</span><span style="color: #001080">erro</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">            </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">error</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;Error when sending: &#039;</span><span style="color: #000000">, </span><span style="color: #001080">erro</span><span style="color: #000000">); </span><span style="color: #008000">//return object error</span>
+<span style="color: #000000">          });</span>
+<span style="color: #000000">      }</span>
+<span style="color: #000000">    });</span>
+<span style="color: #000000">  }</span>
 <span style="color: #000000">}</span>
 </code></pre>
 				<a href="#after-executing-create-function-venom-will-create-an-instance-of-whatsapp-web-if-you-are-not-logged-in-it-will-print-a-qr-code-in-the-terminal-scan-it-with-your-phone-and-you-are-ready-to-go" id="after-executing-create-function-venom-will-create-an-instance-of-whatsapp-web-if-you-are-not-logged-in-it-will-print-a-qr-code-in-the-terminal-scan-it-with-your-phone-and-you-are-ready-to-go" style="color: inherit; text-decoration: none;">
@@ -253,10 +277,27 @@
 <span style="color: #000000">    }</span>
 <span style="color: #000000">  )</span>
 <span style="color: #000000">  .</span><span style="color: #795E26">then</span><span style="color: #000000">((</span><span style="color: #001080">client</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
-<span style="color: #000000">    </span><span style="color: #795E26">start</span><span style="color: #000000">(</span><span style="color: #001080">client</span><span style="color: #000000">);</span>
+
+<span style="color: #000000">  </span><span style="color: #0000FF">let</span><span style="color: #000000"> </span><span style="color: #001080">time</span><span style="color: #000000"> = </span><span style="color: #098658">0</span><span style="color: #000000">;</span>
+<span style="color: #000000">  </span><span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #795E26">onStreamChange</span><span style="color: #000000">((</span><span style="color: #001080">state</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+
+<span style="color: #000000">    </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;Connection status: &#039;</span><span style="color: #000000">, </span><span style="color: #001080">state</span><span style="color: #000000">);</span>
+
+<span style="color: #000000">    </span><span style="color: #795E26">clearTimeout</span><span style="color: #000000">(</span><span style="color: #001080">time</span><span style="color: #000000">);</span>
+<span style="color: #000000">    </span><span style="color: #AF00DB">if</span><span style="color: #000000">(</span><span style="color: #001080">state</span><span style="color: #000000"> === </span><span style="color: #A31515">&#039;CONNECTED&#039;</span><span style="color: #000000">){</span>
+<span style="color: #000000">     </span><span style="color: #795E26">start</span><span style="color: #000000">(</span><span style="color: #001080">client</span><span style="color: #000000">);</span>
+<span style="color: #000000">    }</span>
+<span style="color: #000000">   </span><span style="color: #008000">//  DISCONNECTED when the mobile device is disconnected</span>
+<span style="color: #000000">    </span><span style="color: #AF00DB">if</span><span style="color: #000000"> (</span><span style="color: #001080">state</span><span style="color: #000000"> === </span><span style="color: #A31515">&#039;DISCONNECTED&#039;</span><span style="color: #000000"> || </span><span style="color: #001080">state</span><span style="color: #000000"> === </span><span style="color: #A31515">&#039;SYNCING&#039;</span><span style="color: #000000">) {</span>
+<span style="color: #000000">      </span><span style="color: #001080">time</span><span style="color: #000000"> = </span><span style="color: #795E26">setTimeout</span><span style="color: #000000">(() </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">        </span><span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #795E26">close</span><span style="color: #000000">();</span>
+<span style="color: #000000">       </span><span style="color: #008000">// process.exit(); //optional function if you work with only one session</span>
+<span style="color: #000000">      }, </span><span style="color: #098658">80000</span><span style="color: #000000">);</span>
+<span style="color: #000000">    }</span>
+
 <span style="color: #000000">  })</span>
 <span style="color: #000000">  .</span><span style="color: #795E26">catch</span><span style="color: #000000">((</span><span style="color: #001080">erro</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
-<span style="color: #000000">    </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #001080">erro</span><span style="color: #000000">);</span>
+<span style="color: #000000">    </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;There was an error in the bot&#039;</span><span style="color: #000000">,</span><span style="color: #001080">erro</span><span style="color: #000000">);</span>
 <span style="color: #000000">  });</span>
 </code></pre>
 				<a href="#callback-status-session" id="callback-status-session" style="color: inherit; text-decoration: none;">
@@ -321,10 +362,25 @@
 <span style="color: #000000">    </span><span style="color: #0000FF">undefined</span>
 <span style="color: #000000">  )</span>
 <span style="color: #000000">  .</span><span style="color: #795E26">then</span><span style="color: #000000">((</span><span style="color: #001080">client</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
-<span style="color: #000000">    </span><span style="color: #795E26">start</span><span style="color: #000000">(</span><span style="color: #001080">client</span><span style="color: #000000">);</span>
+<span style="color: #000000">      </span><span style="color: #0000FF">let</span><span style="color: #000000"> </span><span style="color: #001080">time</span><span style="color: #000000"> = </span><span style="color: #098658">0</span><span style="color: #000000">;</span>
+<span style="color: #000000">  </span><span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #795E26">onStreamChange</span><span style="color: #000000">((</span><span style="color: #001080">state</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+
+<span style="color: #000000">    </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;Connection status: &#039;</span><span style="color: #000000">, </span><span style="color: #001080">state</span><span style="color: #000000">);</span>
+
+<span style="color: #000000">    </span><span style="color: #795E26">clearTimeout</span><span style="color: #000000">(</span><span style="color: #001080">time</span><span style="color: #000000">);</span>
+<span style="color: #000000">    </span><span style="color: #AF00DB">if</span><span style="color: #000000">(</span><span style="color: #001080">state</span><span style="color: #000000"> === </span><span style="color: #A31515">&#039;CONNECTED&#039;</span><span style="color: #000000">){</span>
+<span style="color: #000000">     </span><span style="color: #795E26">start</span><span style="color: #000000">(</span><span style="color: #001080">client</span><span style="color: #000000">);</span>
+<span style="color: #000000">    }</span>
+<span style="color: #000000">   </span><span style="color: #008000">//  DISCONNECTED when the mobile device is disconnected</span>
+<span style="color: #000000">    </span><span style="color: #AF00DB">if</span><span style="color: #000000"> (</span><span style="color: #001080">state</span><span style="color: #000000"> === </span><span style="color: #A31515">&#039;DISCONNECTED&#039;</span><span style="color: #000000"> || </span><span style="color: #001080">state</span><span style="color: #000000"> === </span><span style="color: #A31515">&#039;SYNCING&#039;</span><span style="color: #000000">) {</span>
+<span style="color: #000000">      </span><span style="color: #001080">time</span><span style="color: #000000"> = </span><span style="color: #795E26">setTimeout</span><span style="color: #000000">(() </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">        </span><span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #795E26">close</span><span style="color: #000000">();</span>
+<span style="color: #000000">       </span><span style="color: #008000">// process.exit(); //optional function if you work with only one session</span>
+<span style="color: #000000">      }, </span><span style="color: #098658">80000</span><span style="color: #000000">);</span>
+<span style="color: #000000">    }</span>
 <span style="color: #000000">  })</span>
 <span style="color: #000000">  .</span><span style="color: #795E26">catch</span><span style="color: #000000">((</span><span style="color: #001080">erro</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
-<span style="color: #000000">    </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #001080">erro</span><span style="color: #000000">);</span>
+<span style="color: #000000">     </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;There was an error in the bot&#039;</span><span style="color: #000000">, </span><span style="color: #001080">erro</span><span style="color: #000000">);</span>
 <span style="color: #000000">  });</span>
 </code></pre>
 				<a href="#exporting-qr-code" id="exporting-qr-code" style="color: inherit; text-decoration: none;">
@@ -347,7 +403,7 @@
 <span style="color: #000000">        </span><span style="color: #AF00DB">return</span><span style="color: #000000"> </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #267F99">Error</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;Invalid input string&#039;</span><span style="color: #000000">);</span>
 <span style="color: #000000">      }</span>
 <span style="color: #000000">      </span><span style="color: #001080">response</span><span style="color: #000000">.</span><span style="color: #001080">type</span><span style="color: #000000"> = </span><span style="color: #001080">matches</span><span style="color: #000000">[</span><span style="color: #098658">1</span><span style="color: #000000">];</span>
-<span style="color: #000000">      </span><span style="color: #001080">response</span><span style="color: #000000">.</span><span style="color: #001080">data</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #267F99">Buffer</span><span style="color: #000000">.</span><span style="color: #267F99">from</span><span style="color: #000000">(</span><span style="color: #001080">matches</span><span style="color: #000000">[</span><span style="color: #098658">2</span><span style="color: #000000">], </span><span style="color: #A31515">&#039;base64&#039;</span><span style="color: #000000">);</span>
+<span style="color: #000000">      </span><span style="color: #001080">response</span><span style="color: #000000">.</span><span style="color: #001080">data</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #001080">Buffer</span><span style="color: #000000">.</span><span style="color: #795E26">from</span><span style="color: #000000">(</span><span style="color: #001080">matches</span><span style="color: #000000">[</span><span style="color: #098658">2</span><span style="color: #000000">], </span><span style="color: #A31515">&#039;base64&#039;</span><span style="color: #000000">);</span>
 
 <span style="color: #000000">      </span><span style="color: #0000FF">var</span><span style="color: #000000"> </span><span style="color: #001080">imageBuffer</span><span style="color: #000000"> = </span><span style="color: #001080">response</span><span style="color: #000000">;</span>
 <span style="color: #000000">      </span><span style="color: #795E26">require</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;fs&#039;</span><span style="color: #000000">).</span><span style="color: #795E26">writeFile</span><span style="color: #000000">(</span>
@@ -365,10 +421,25 @@
 <span style="color: #000000">    { </span><span style="color: #001080">logQR:</span><span style="color: #000000"> </span><span style="color: #0000FF">false</span><span style="color: #000000"> }</span>
 <span style="color: #000000">  )</span>
 <span style="color: #000000">  .</span><span style="color: #795E26">then</span><span style="color: #000000">((</span><span style="color: #001080">client</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
-<span style="color: #000000">    </span><span style="color: #795E26">start</span><span style="color: #000000">(</span><span style="color: #001080">client</span><span style="color: #000000">);</span>
+<span style="color: #000000">      </span><span style="color: #0000FF">let</span><span style="color: #000000"> </span><span style="color: #001080">time</span><span style="color: #000000"> = </span><span style="color: #098658">0</span><span style="color: #000000">;</span>
+<span style="color: #000000">  </span><span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #795E26">onStreamChange</span><span style="color: #000000">((</span><span style="color: #001080">state</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+
+<span style="color: #000000">    </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;Connection status: &#039;</span><span style="color: #000000">, </span><span style="color: #001080">state</span><span style="color: #000000">);</span>
+
+<span style="color: #000000">    </span><span style="color: #795E26">clearTimeout</span><span style="color: #000000">(</span><span style="color: #001080">time</span><span style="color: #000000">);</span>
+<span style="color: #000000">    </span><span style="color: #AF00DB">if</span><span style="color: #000000">(</span><span style="color: #001080">state</span><span style="color: #000000"> === </span><span style="color: #A31515">&#039;CONNECTED&#039;</span><span style="color: #000000">){</span>
+<span style="color: #000000">     </span><span style="color: #795E26">start</span><span style="color: #000000">(</span><span style="color: #001080">client</span><span style="color: #000000">);</span>
+<span style="color: #000000">    }</span>
+<span style="color: #000000">   </span><span style="color: #008000">//  DISCONNECTED when the mobile device is disconnected</span>
+<span style="color: #000000">    </span><span style="color: #AF00DB">if</span><span style="color: #000000"> (</span><span style="color: #001080">state</span><span style="color: #000000"> === </span><span style="color: #A31515">&#039;DISCONNECTED&#039;</span><span style="color: #000000"> || </span><span style="color: #001080">state</span><span style="color: #000000"> === </span><span style="color: #A31515">&#039;SYNCING&#039;</span><span style="color: #000000">) {</span>
+<span style="color: #000000">      </span><span style="color: #001080">time</span><span style="color: #000000"> = </span><span style="color: #795E26">setTimeout</span><span style="color: #000000">(() </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">        </span><span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #795E26">close</span><span style="color: #000000">();</span>
+<span style="color: #000000">       </span><span style="color: #008000">// process.exit(); //optional function if you work with only one session</span>
+<span style="color: #000000">      }, </span><span style="color: #098658">80000</span><span style="color: #000000">);</span>
+<span style="color: #000000">    }</span>
 <span style="color: #000000">  })</span>
 <span style="color: #000000">  .</span><span style="color: #795E26">catch</span><span style="color: #000000">((</span><span style="color: #001080">erro</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
-<span style="color: #000000">    </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #001080">erro</span><span style="color: #000000">);</span>
+<span style="color: #000000">     </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;There was an error in the bot&#039;</span><span style="color: #000000">, </span><span style="color: #001080">erro</span><span style="color: #000000">);</span>
 <span style="color: #000000">  });</span>
 </code></pre>
 				<a href="#downloading-files" id="downloading-files" style="color: inherit; text-decoration: none;">
@@ -403,7 +474,32 @@
 				<a href="#here-chatid-could-be-ltphonenumbergtcus-or-ltphonenumbergt-ltgroupidgtgus" id="here-chatid-could-be-ltphonenumbergtcus-or-ltphonenumbergt-ltgroupidgtgus" style="color: inherit; text-decoration: none;">
 					<h5>Here, <code>chatId</code> could be <code>&lt;phoneNumber&gt;@c.us</code> or <code>&lt;phoneNumber&gt;-&lt;groupId&gt;@g.us</code></h5>
 				</a>
-				<pre><code class="language-javascript"><span style="color: #008000">// Send contact</span>
+				<pre><code class="language-javascript">
+<span style="color: #008000">//send an image in Status (history)</span>
+<span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #795E26">sendStatusImg</span><span style="color: #000000">(</span><span style="color: #A31515">&quot;https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Alan_Turing_Aged_16_%28cropped%29.jpg/300px-Alan_Turing_Aged_16_%28cropped%29.jpg&quot;</span><span style="color: #000000">, </span><span style="color: #A31515">&quot;test&quot;</span><span style="color: #000000">)</span>
+<span style="color: #000000">    .</span><span style="color: #795E26">then</span><span style="color: #000000">((</span><span style="color: #001080">result</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">     </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;Result image: &#039;</span><span style="color: #000000">, </span><span style="color: #001080">result</span><span style="color: #000000">); </span><span style="color: #008000">//return object success</span>
+<span style="color: #000000">   }).</span><span style="color: #795E26">catch</span><span style="color: #000000">((</span><span style="color: #001080">erro</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">     </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">error</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;Error when sending image: &#039;</span><span style="color: #000000">, </span><span style="color: #001080">erro</span><span style="color: #000000">); </span><span style="color: #008000">//return object error</span>
+<span style="color: #000000">   });</span>
+
+<span style="color: #008000">//send an text in Status (history)</span>
+<span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #795E26">sendStatusText</span><span style="color: #000000">(</span><span style="color: #A31515">&quot;Água mole em pedra dura tanto bate até que fura&quot;</span><span style="color: #000000">).</span><span style="color: #795E26">then</span><span style="color: #000000">((</span><span style="color: #001080">result</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">  </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;Result text&#039;</span><span style="color: #000000">, </span><span style="color: #001080">result</span><span style="color: #000000">); </span><span style="color: #008000">//return object success</span>
+<span style="color: #000000">  })</span>
+<span style="color: #000000">  .</span><span style="color: #795E26">catch</span><span style="color: #000000">((</span><span style="color: #001080">erro</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">    </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">error</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;Error when sending text: &#039;</span><span style="color: #000000">, </span><span style="color: #001080">erro</span><span style="color: #000000">);</span><span style="color: #008000">//return object error</span>
+<span style="color: #000000">  });</span>
+
+<span style="color: #008000">//send an video in Status (history)</span>
+<span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #795E26">sendStatusVideo</span><span style="color: #000000">(</span><span style="color: #A31515">&quot;test.mp4&quot;</span><span style="color: #000000">, </span><span style="color: #A31515">&quot;test&quot;</span><span style="color: #000000">).</span><span style="color: #795E26">then</span><span style="color: #000000">((</span><span style="color: #001080">result</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">  </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;Result video&#039;</span><span style="color: #000000">, </span><span style="color: #001080">result</span><span style="color: #000000">);</span>
+<span style="color: #000000">  })</span>
+<span style="color: #000000">  .</span><span style="color: #795E26">catch</span><span style="color: #000000">((</span><span style="color: #001080">erro</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">    </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">error</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;Error when sending  video: &#039;</span><span style="color: #000000">, </span><span style="color: #001080">erro</span><span style="color: #000000">);</span>
+<span style="color: #000000">  });</span>
+
+<span style="color: #008000">// Send contact</span>
 <span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">client</span>
 <span style="color: #000000">  .</span><span style="color: #795E26">sendContactVcard</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;000000000000@c.us&#039;</span><span style="color: #000000">, </span><span style="color: #A31515">&#039;111111111111@c.us&#039;</span><span style="color: #000000">, </span><span style="color: #A31515">&#039;Name of contact&#039;</span><span style="color: #000000">)</span>
 <span style="color: #000000">  .</span><span style="color: #795E26">then</span><span style="color: #000000">((</span><span style="color: #001080">result</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
@@ -597,7 +693,22 @@
 				<a href="#retrieving-data" id="retrieving-data" style="color: inherit; text-decoration: none;">
 					<h2>Retrieving Data</h2>
 				</a>
-				<pre><code class="language-javascript"><span style="color: #008000">// Returns a list of mute and non-mute users</span>
+				<pre><code class="language-javascript"><span style="color: #008000">//Retrieves all grups</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">groups</span><span style="color: #000000"> = </span><span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #795E26">getAllChatsGroups</span><span style="color: #000000">();</span>
+
+<span style="color: #008000">//Retrieves all chats Contacts</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">contacts</span><span style="color: #000000"> = </span><span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #795E26">getAllChatsContacts</span><span style="color: #000000">();</span>
+
+<span style="color: #008000">//Retrieves all chats Transmission list</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">transmission</span><span style="color: #000000"> = </span><span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #795E26">getAllChatsTransmission</span><span style="color: #000000">();</span>
+
+<span style="color: #008000">//Retrieve all contacts new messages</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">contactNewMsg</span><span style="color: #000000"> = </span><span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #795E26">getChatContactNewMsg</span><span style="color: #000000">();</span>
+
+<span style="color: #008000">//Retrieve all groups new messages</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">groupNewMsg</span><span style="color: #000000"> = </span><span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #795E26">getChatGroupNewMsg</span><span style="color: #000000">();</span>
+
+<span style="color: #008000">// Returns a list of mute and non-mute users</span>
 <span style="color: #008000">// &quot;all&quot; List all mutes</span>
 <span style="color: #008000">// &quot;toMute&quot; List all silent chats</span>
 <span style="color: #008000">// &quot;noMute&quot; List all chats without silence</span>
@@ -879,6 +990,21 @@
 <span style="color: #000000">  </span><span style="color: #AF00DB">if</span><span style="color: #000000"> (</span><span style="color: #A31515">&#039;CONFLICT&#039;</span><span style="color: #000000">.</span><span style="color: #795E26">includes</span><span style="color: #000000">(</span><span style="color: #001080">state</span><span style="color: #000000">)) </span><span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #795E26">useHere</span><span style="color: #000000">();</span>
 <span style="color: #000000">  </span><span style="color: #008000">// detect disconnect on whatsapp</span>
 <span style="color: #000000">  </span><span style="color: #AF00DB">if</span><span style="color: #000000"> (</span><span style="color: #A31515">&#039;UNPAIRED&#039;</span><span style="color: #000000">.</span><span style="color: #795E26">includes</span><span style="color: #000000">(</span><span style="color: #001080">state</span><span style="color: #000000">)) </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;logout&#039;</span><span style="color: #000000">);</span>
+<span style="color: #000000">});</span>
+
+<span style="color: #008000">// DISCONNECTED</span>
+<span style="color: #008000">// SYNCING</span>
+<span style="color: #008000">// RESUMING</span>
+<span style="color: #008000">// CONNECTED</span>
+<span style="color: #0000FF">let</span><span style="color: #000000"> </span><span style="color: #001080">time</span><span style="color: #000000"> = </span><span style="color: #098658">0</span><span style="color: #000000">;</span>
+<span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #795E26">onStreamChange</span><span style="color: #000000">((</span><span style="color: #001080">state</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">  </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;State Connection Stream: &#039;</span><span style="color: #000000"> + </span><span style="color: #001080">state</span><span style="color: #000000">);</span>
+<span style="color: #000000">  </span><span style="color: #795E26">clearTimeout</span><span style="color: #000000">(</span><span style="color: #001080">time</span><span style="color: #000000">);</span>
+<span style="color: #000000">  </span><span style="color: #AF00DB">if</span><span style="color: #000000"> (</span><span style="color: #001080">state</span><span style="color: #000000"> === </span><span style="color: #A31515">&#039;DISCONNECTED&#039;</span><span style="color: #000000"> || </span><span style="color: #001080">state</span><span style="color: #000000"> === </span><span style="color: #A31515">&#039;SYNCING&#039;</span><span style="color: #000000">) {</span>
+<span style="color: #000000">    </span><span style="color: #001080">time</span><span style="color: #000000"> = </span><span style="color: #795E26">setTimeout</span><span style="color: #000000">(() </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">      </span><span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #795E26">close</span><span style="color: #000000">();</span>
+<span style="color: #000000">    }, </span><span style="color: #098658">80000</span><span style="color: #000000">);</span>
+<span style="color: #000000">  }</span>
 <span style="color: #000000">});</span>
 
 <span style="color: #008000">// function to detect incoming call</span>

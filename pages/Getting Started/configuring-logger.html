@@ -3,8 +3,8 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Configuring the logger | venom-bot - v2.2.3</title>
-	<meta name="description" content="Documentation for venom-bot - v2.2.3">
+	<title>Configuring the logger | venom-bot - v2.2.4</title>
+	<meta name="description" content="Documentation for venom-bot - v2.2.4">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../../assets/css/main.css">
 	<link rel="stylesheet" href="../../assets/css/pages.css">
@@ -23,7 +23,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../../index.html" class="title">venom-bot - v2.2.3</a>
+					<a href="../../index.html" class="title">venom-bot - v2.2.4</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -107,8 +107,8 @@
 <span style="color: #000000">    </span><span style="color: #008000">// - Write all logs with level `error` and below to `error.log`</span>
 <span style="color: #000000">    </span><span style="color: #008000">// - Write all logs with level `info` and below to `combined.log`</span>
 <span style="color: #000000">    </span><span style="color: #008000">//</span>
-<span style="color: #000000">    </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #267F99">winston</span><span style="color: #000000">.</span><span style="color: #267F99">transports</span><span style="color: #000000">.</span><span style="color: #267F99">File</span><span style="color: #000000">({ </span><span style="color: #001080">filename:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;error.log&#039;</span><span style="color: #000000">, </span><span style="color: #001080">level:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;error&#039;</span><span style="color: #000000"> }),</span>
-<span style="color: #000000">    </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #267F99">winston</span><span style="color: #000000">.</span><span style="color: #267F99">transports</span><span style="color: #000000">.</span><span style="color: #267F99">File</span><span style="color: #000000">({ </span><span style="color: #001080">filename:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;combined.log&#039;</span><span style="color: #000000"> }),</span>
+<span style="color: #000000">    </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #001080">winston</span><span style="color: #000000">.</span><span style="color: #001080">transports</span><span style="color: #000000">.</span><span style="color: #795E26">File</span><span style="color: #000000">({ </span><span style="color: #001080">filename:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;error.log&#039;</span><span style="color: #000000">, </span><span style="color: #001080">level:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;error&#039;</span><span style="color: #000000"> }),</span>
+<span style="color: #000000">    </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #001080">winston</span><span style="color: #000000">.</span><span style="color: #001080">transports</span><span style="color: #000000">.</span><span style="color: #795E26">File</span><span style="color: #000000">({ </span><span style="color: #001080">filename:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;combined.log&#039;</span><span style="color: #000000"> }),</span>
 <span style="color: #000000">  ],</span>
 <span style="color: #000000">});</span>
 
@@ -144,11 +144,11 @@
 <span style="color: #001080">venom</span><span style="color: #000000">.</span><span style="color: #001080">defaultLogger</span><span style="color: #000000">.</span><span style="color: #795E26">clear</span><span style="color: #000000">(); </span><span style="color: #008000">// Remove all transports</span>
 
 <span style="color: #008000">// Create a file transport</span>
-<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">files</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #267F99">winston</span><span style="color: #000000">.</span><span style="color: #267F99">transports</span><span style="color: #000000">.</span><span style="color: #267F99">File</span><span style="color: #000000">({ </span><span style="color: #001080">filename:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;combined.log&#039;</span><span style="color: #000000"> });</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">files</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #001080">winston</span><span style="color: #000000">.</span><span style="color: #001080">transports</span><span style="color: #000000">.</span><span style="color: #795E26">File</span><span style="color: #000000">({ </span><span style="color: #001080">filename:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;combined.log&#039;</span><span style="color: #000000"> });</span>
 <span style="color: #001080">venom</span><span style="color: #000000">.</span><span style="color: #001080">defaultLogger</span><span style="color: #000000">.</span><span style="color: #795E26">add</span><span style="color: #000000">(</span><span style="color: #001080">files</span><span style="color: #000000">); </span><span style="color: #008000">// Add file transport</span>
 
 <span style="color: #008000">// Optinal: create a custom console with error level</span>
-<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">console</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #267F99">winston</span><span style="color: #000000">.</span><span style="color: #267F99">transports</span><span style="color: #000000">.</span><span style="color: #267F99">Console</span><span style="color: #000000">({ </span><span style="color: #001080">level:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;erro&#039;</span><span style="color: #000000"> });</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">console</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #001080">winston</span><span style="color: #000000">.</span><span style="color: #001080">transports</span><span style="color: #000000">.</span><span style="color: #795E26">Console</span><span style="color: #000000">({ </span><span style="color: #001080">level:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;erro&#039;</span><span style="color: #000000"> });</span>
 <span style="color: #001080">venom</span><span style="color: #000000">.</span><span style="color: #001080">defaultLogger</span><span style="color: #000000">.</span><span style="color: #795E26">add</span><span style="color: #000000">(</span><span style="color: #001080">console</span><span style="color: #000000">); </span><span style="color: #008000">// Add console transport</span>
 
 <span style="color: #008000">// Optinal: Remove the custom transport</span>
