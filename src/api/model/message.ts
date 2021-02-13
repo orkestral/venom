@@ -135,22 +135,22 @@ export interface Message {
 }
 
 export interface Sender {
+  formattedName: string;
   id: string;
-  name: string;
-  shortName: string;
-  pushname: string;
-  type: string;
   isBusiness: boolean;
   isEnterprise: boolean;
-  statusMute: boolean;
-  labels: any[];
-  formattedName: string;
   isMe: boolean;
   isMyContact: boolean;
   isPSA: boolean;
   isUser: boolean;
   isWAContact: boolean;
+  labels: any[];
+  name: string;
   profilePicThumbObj: ProfilePicThumbObj;
+  pushname: string;
+  shortName: string;
+  statusMute: boolean;
+  type: string;
   msgs: null;
 }
 
