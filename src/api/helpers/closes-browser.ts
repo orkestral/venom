@@ -71,7 +71,8 @@ export async function checkingCloses(
         if (mergedOptions.browserWS) {
           browser.disconnect();
           callStatus && callStatus('serverClose');
-        } else {
+        }
+        if (browser['isClose']) {
           browser.close();
           callStatus && callStatus('browserClose');
         }

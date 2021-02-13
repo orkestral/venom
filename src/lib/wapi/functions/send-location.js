@@ -66,6 +66,11 @@ export async function sendLocation(
     );
     var newId = await window.WAPI.getNewMessageId(chatId);
 
+    tempMsg.description = undefined;
+    tempMsg.title = undefined;
+    tempMsg.thumbnail = undefined;
+    tempMsg.matchedText = undefined;
+
     var extend = {
       ack: 0,
       id: newId,
@@ -95,6 +100,7 @@ export async function sendLocation(
     };
 
     Object.assign(tempMsg, extend);
+
     var result =
       (await Promise.all(Store.addAndSendMsgToChat(chat, tempMsg)))[1] || '';
     var m = {
