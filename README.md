@@ -1,4 +1,4 @@
-# 🕷Venom Bot🕸
+# Venom Bot, the more complete javascript library for Whatsapp, 100% Open Source
 
 ![enter image description here](https://s2.click/venom.jpg)
 
