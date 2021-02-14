@@ -52,14 +52,40 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
-export { fileToBase64 } from './file-to-base64';
-export { base64MimeType } from './base64-mimetype';
-export { downloadFileToBase64, MINES } from './download-file';
-export { stickerSelect, resizeImg } from './select-sticker';
-export { scrapeImg } from './scrape-img-qr';
-export { scrapeLogin } from './scrape-login';
-export { scrapeDesconnected } from './scrape-desconnect';
-export { scrapeDeleteToken } from './scrape-deletetoken';
-export { deleteFiles } from './delete-file';
-export { checkingCloses } from './closes-browser';
-export { checkingDesconnected } from './check-desconected';
+import { Whatsapp } from '../../api/whatsapp';
+import { SocketState } from '../../api/model/enum';
+import { CreateConfig, defaultOptions } from '../../config/create-config';
+import { CatchQR, StatusFind } from '../../controllers/initializer';
+import { deleteFiles } from '../helpers/delete-file';
+
+export async function checkingDesconnected(
+  client: Whatsapp,
+  session: string,
+  options: CreateConfig,
+  catchQR: CatchQR,
+  statusFind: StatusFind
+) {
+  const mergedOptions = { ...defaultOptions, ...options };
+  const logger = mergedOptions.logger;
+
+  let waitLoginPromise = null;
+  client.onStateChange(async (state) => {
+    if (state === SocketState.UNPAIRED || state === SocketState.UNPAIRED_IDLE) {
+      logger.info('Session Unpaired', { session });
+      if (statusFind) {
+        statusFind('desconnectedMobile', session);
+      }
+      deleteFiles(mergedOptions, session, logger);
+
+      if (!waitLoginPromise) {
+        waitLoginPromise = client
+          .waitForLogin(catchQR, statusFind)
+          .catch(() => {})
+          .finally(() => {
+            waitLoginPromise = null;
+          });
+      }
+      await waitLoginPromise;
+    }
+  });
+}

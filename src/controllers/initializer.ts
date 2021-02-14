@@ -59,7 +59,11 @@ import { SessionTokenCkeck, saveToken } from './auth';
 import { initWhatsapp, initBrowser } from './browser';
 import { checkUpdates, welcomeScreen } from './welcome';
 import { SocketState } from '../api/model/enum';
-import { deleteFiles, checkingCloses } from '../api/helpers';
+import {
+  deleteFiles,
+  checkingCloses,
+  checkingDesconnected,
+} from '../api/helpers';
 import { tokenSession } from '../config/tokenSession.config';
 
 /**
@@ -243,31 +247,27 @@ export async function create(
           if (!isLogged) {
             throw 'Not Logged';
           }
-
-          let waitLoginPromise = null;
-          client.onStateChange(async (state) => {
-            if (
-              state === SocketState.UNPAIRED ||
-              state === SocketState.UNPAIRED_IDLE
-            ) {
-              logger.info('Session Unpaired', { session });
-              if (statusFind) {
-                statusFind('desconnectedMobile', session);
-              }
-              deleteFiles(mergedOptions, session, logger);
-
-              if (!waitLoginPromise) {
-                waitLoginPromise = client
-                  .waitForLogin(catchQR, statusFind)
-                  .catch(() => {})
-                  .finally(() => {
-                    waitLoginPromise = null;
-                  });
-              }
-              await waitLoginPromise;
+          await checkingDesconnected(
+            client,
+            session,
+            options,
+            catchQR,
+            (result, session) => {
+              statusFind && statusFind(result, session);
             }
-          });
+          );
+          await client.restartService();
         }
+      } else {
+        await checkingDesconnected(
+          client,
+          session,
+          options,
+          catchQR,
+          (result, session) => {
+            statusFind && statusFind(result, session);
+          }
+        );
       }
 
       if (mergedOptions.debug) {
