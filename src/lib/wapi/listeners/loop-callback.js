@@ -52,22 +52,46 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
-export function addOnNewAcks() {
-  window.WAPI.waitNewAcknowledgements = function (callback) {
-    window.WAPI.waitForStore(['Chat', 'Msg'], () => {
-      Store.Msg.on('change:ack', (e) => {
-        if (!WAPI.callbackWile.checkObj(e.ack, e.id._serialized)) {
-          let key = WAPI.callbackWile.getObjKey(e.id._serialized);
-          if (key) {
-            WAPI.callbackWile.get()[key].ack = e.ack;
-            callback(e);
-          } else {
-            WAPI.callbackWile.addObjects(e.ack, e.id._serialized);
-            callback(e);
-          }
-        }
-      });
-    });
-    return true;
-  };
+export class callbackWile {
+  constructor() {
+    this.obj = new Array() || [];
+  }
+  addObjects(ack, serialized) {
+    var checkFilter = this.obj.filter(
+        (order) => order.serialized === serialized
+      ),
+      add = null;
+    if (!checkFilter.length) {
+      add = {
+        ack: ack,
+        serialized: serialized,
+      };
+      this.obj.push(add);
+      return true;
+    }
+    return false;
+  }
+
+  getObjKey(serialized) {
+    for (var i in this.obj) {
+      if (this.obj[i].serialized === serialized) {
+        return i;
+      }
+    }
+    return false;
+  }
+
+  checkObj(ack, serialized) {
+    var checkFilter = this.obj.filter(
+      (order) => order.ack === ack && order.serialized === serialized
+    );
+    if (checkFilter.length) {
+      return true;
+    }
+    return false;
+  }
+
+  get module() {
+    return this.obj;
+  }
 }
