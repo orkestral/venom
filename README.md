@@ -25,7 +25,8 @@
 <a target="_blank" href="https://web.whatsapp.com/send?phone=556181590153&text=I%20want%20access%20to%20the%20WhatsApp%20Venom%20support%20group" target="_blank"><img title="whatzapp" height="75" width="300" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/WhatsApp_logo.svg/2000px-WhatsApp_logo.svg.png"></a>
 
 ## 🕷🕷 Functions Venom🕷🕷
-|                                                            |     | 
+
+|                                                            |     |
 | ---------------------------------------------------------- | --- |
 | Automatic QR Refresh                                       | ✔   |
 | Send **text, image, video, audio, files**                  | ✔   |
@@ -41,7 +42,7 @@
 | Receive message                                            | ✔   |
 | insert user section                                        | ✔   |
 | 📍 Send location!!                                         | ✔   |
-| 🕸🕸 **and much more**                                      | ✔   |
+| 🕸🕸 **and much more**                                       | ✔   |
 
 Documentation at https://orkestral.github.io/venom/index.html
 
@@ -67,27 +68,25 @@ const venom = require('venom-bot');
 venom
   .create()
   .then((client) => {
-
-  let time = 0;
+  let time = 0, started = false;
   client.onStreamChange((state) => {
-
     console.log('Connection status: ', state);
-
     clearTimeout(time);
-    if(state === 'CONNECTED'){
+    if (state === 'CONNECTED' && !started) {
      start(client);
+     started = true;
     }
-   //  DISCONNECTED when the mobile device is disconnected
+    //DISCONNECTED when the mobile device is disconnected
     if (state === 'DISCONNECTED' || state === 'SYNCING') {
       time = setTimeout(() => {
         client.close();
        // process.exit(); //optional function if you work with only one session
       }, 80000);
     }
-
+  });
   })
   .catch((erro) => {
-    console.log('There was an error in the bot',erro);
+    console.log('There was an error in the bot: ',erro);
   });
 
 function start(client) {
