@@ -100,6 +100,7 @@ export async function sendFile(
       let mediaCollection = await WAPI.processFiles(chat, mediaBlob),
         media = mediaCollection.models[0];
       To = await WAPI.getchatId(chat.id);
+      result = (await media.sendToChat(chat, { caption: caption })) || '';
     }
     if (result === 'success' || result === 'OK') {
       var obj = WAPI.scope(To, false, result, null);

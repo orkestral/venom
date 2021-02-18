@@ -59,7 +59,7 @@ export function addOnNewAcks() {
         if (!WAPI.callbackWile.checkObj(e.ack, e.id._serialized)) {
           let key = WAPI.callbackWile.getObjKey(e.id._serialized);
           if (key) {
-            WAPI.callbackWile.get()[key].ack = e.ack;
+            WAPI.callbackWile.module[key].ack = e.ack;
             callback(e);
           } else {
             WAPI.callbackWile.addObjects(e.ack, e.id._serialized);
