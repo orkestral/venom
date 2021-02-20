@@ -553,10 +553,16 @@ if (typeof window.WAPI === 'undefined') {
   };
 
   window.WAPI.logout = async function () {
-    return await window.WAPI.waitForStore(['ws2'], () => {
-      window.Store.ws2.logout();
-      return true;
-    });
+    let error = true,
+      chat = await WAPI.isInsideChat(false),
+      text = undefined;
+    if (Store.ws2.stream === 'CONNECTED' || chat) {
+      error = typeof Store.ws2.logout() === 'undefined' ? false : true;
+    }
+    if (error) {
+      text = 'The browser is closed or the client is not connected!';
+    }
+    return WAPI.scope(undefined, error, undefined, text);
   };
 
   window.WAPI.storePromises = {};
