@@ -185,7 +185,7 @@ export class ControlsLayer extends UILayer {
     );
   }
 
-  public async isInsideChat() {
-    return this.page.evaluate(() => WAPI.isInsideChat());
+  public async isInsideChat(type?: boolean) {
+    return this.page.evaluate((type: boolean) => WAPI.isInsideChat(type), type);
   }
 }

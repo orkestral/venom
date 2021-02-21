@@ -159,7 +159,7 @@ export class RetrieverLayer extends SenderLayer {
    */
   public async getChatGroupNewMsg() {
     return await this.page.evaluate(() => {
-      var chats = WAPI.getAllChatsWithNewMsg(),
+      let chats = WAPI.getAllChatsWithNewMsg(),
         filter = chats.filter((chat) => chat.kind === 'group');
       return WAPI.fixChat(filter);
     });
@@ -171,7 +171,7 @@ export class RetrieverLayer extends SenderLayer {
    */
   public async getChatContactNewMsg() {
     return await this.page.evaluate(() => {
-      var chats = WAPI.getAllChatsWithNewMsg(),
+      let chats = WAPI.getAllChatsWithNewMsg(),
         filter = chats.filter((chat) => chat.kind === 'chat');
       return WAPI.fixChat(filter);
     });
