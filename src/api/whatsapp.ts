@@ -119,10 +119,17 @@ export class Whatsapp extends ControlsLayer {
 
   /**
    * Logout whastapp
-   * @returns boolean
+   * @returns object
    */
   public async logout() {
-    return await this.page.evaluate(() => WAPI.logout());
+    return new Promise(async (resolve, reject) => {
+      const result = await this.page.evaluate(() => WAPI.logout());
+      if (result['erro'] === true) {
+        reject(result);
+      } else {
+        resolve(result);
+      }
+    });
   }
 
   /**

@@ -142,7 +142,7 @@ interface WAPI {
     includeNotifications: boolean
   ) => Message[];
   loadEarlierMessages: (contactId: string) => Message[];
-  logout: () => Promise<boolean>;
+  logout: () => Promise<object>;
   markUnseenMessage: (messageId: string) => boolean;
   onAddedToGroup: (callback: Function) => any;
   onIncomingCall: (callback: Function) => any;
@@ -259,7 +259,7 @@ interface WAPI {
   sendSeen: (to: string) => void;
   _profilePicfunc: (contactId: string) => Promise<object>;
   sendStatusText: (text: string) => Promise<object>;
-  isInsideChat: () => boolean;
+  isInsideChat: (type: boolean) => boolean;
 }
 
 declare global {

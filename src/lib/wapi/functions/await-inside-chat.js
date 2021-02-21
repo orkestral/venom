@@ -53,26 +53,31 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
 
-export async function isInsideChat() {
-  let err;
-  do {
-    try {
-      await new Promise((r) => setTimeout(r, 2000));
-      if (
-        (document.getElementsByClassName('app')[0] &&
-          document.getElementsByClassName('app')[0].attributes &&
-          !!document.getElementsByClassName('app')[0].attributes.tabindex) ||
-        (document.getElementsByClassName('two')[0] &&
-          document.getElementsByClassName('two')[0].attributes &&
-          !!document.getElementsByClassName('two')[0].attributes.tabindex)
-      ) {
-        err = false;
-        return true;
-      } else {
-        throw 1;
+export async function isInsideChat(type = true) {
+  const scope =
+    (document.getElementsByClassName('app')[0] &&
+      document.getElementsByClassName('app')[0].attributes &&
+      !!document.getElementsByClassName('app')[0].attributes.tabindex) ||
+    (document.getElementsByClassName('two')[0] &&
+      document.getElementsByClassName('two')[0].attributes &&
+      !!document.getElementsByClassName('two')[0].attributes.tabindex);
+
+  if (type) {
+    let err;
+    do {
+      try {
+        await new Promise((r) => setTimeout(r, 2000));
+        if (scope) {
+          err = false;
+          return true;
+        } else {
+          throw 1;
+        }
+      } catch (e) {
+        err = true;
       }
-    } catch (e) {
-      err = true;
-    }
-  } while (err);
+    } while (err);
+  } else {
+    return scope ? true : false;
+  }
 }
