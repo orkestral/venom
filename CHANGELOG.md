@@ -1,3 +1,9 @@
+## [2.2.6](https://github.com/orkestral/venom/compare/v2.2.5...v2.2.6) (2021-02-21)
+
+### Bug Fixes
+
+- lint ([538306f](https://github.com/orkestral/venom/commit/538306fd9565c90fe2670a087cf92fa3f72c76ec))
+
 ## [2.2.5](https://github.com/orkestral/venom/compare/v2.2.4...v2.2.5) (2021-02-21)
 
 ### Bug Fixes
