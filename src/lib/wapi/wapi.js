@@ -161,6 +161,7 @@ import {
   generateMediaKey,
   getFileHash,
   arrayBufferToBase64,
+  fixChat,
 } from './helper';
 import {
   addNewMessagesListener,
@@ -221,12 +222,16 @@ if (typeof window.WAPI === 'undefined') {
     lastRead: {},
   };
 
+  //helpers
+  window.WAPI.fixChat = fixChat;
+
   //class
   window.WAPI.callbackWile = new callbackWile();
 
   //others
   window.WAPI.interfaceMute = interfaceMute;
   window.WAPI.isInsideChat = isInsideChat;
+
   //Profile
   window.WAPI.setProfilePic = setProfilePic;
   window.WAPI.getSessionTokenBrowser = getSessionTokenBrowser;

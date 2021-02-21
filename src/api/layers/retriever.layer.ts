@@ -111,7 +111,10 @@ export class RetrieverLayer extends SenderLayer {
    * @returns array of [Chat]
    */
   public async getAllChats() {
-    return await this.page.evaluate(() => WAPI.getAllChats());
+    return await this.page.evaluate(() => {
+      let chats = WAPI.getAllChats();
+      return WAPI.fixChat(chats);
+    });
   }
 
   /**
@@ -119,8 +122,11 @@ export class RetrieverLayer extends SenderLayer {
    * @returns array of [Chat]
    */
   public async getAllChatsGroups() {
-    const chats = await this.page.evaluate(() => WAPI.getAllChats());
-    return chats.filter((chat) => chat.kind === 'group');
+    return await this.page.evaluate(() => {
+      let chats = WAPI.getAllChats(),
+        filter = chats.filter((chat) => chat.kind === 'group');
+      return WAPI.fixChat(filter);
+    });
   }
 
   /**
@@ -128,8 +134,11 @@ export class RetrieverLayer extends SenderLayer {
    * @returns array of [Chat]
    */
   public async getAllChatsContacts() {
-    const chats = await this.page.evaluate(() => WAPI.getAllChats());
-    return chats.filter((chat) => chat.kind === 'chat');
+    return await this.page.evaluate(() => {
+      let chats = WAPI.getAllChats(),
+        filter = chats.filter((chat) => chat.kind === 'chat');
+      return WAPI.fixChat(filter);
+    });
   }
 
   /**
@@ -137,8 +146,35 @@ export class RetrieverLayer extends SenderLayer {
    * @returns array of [Chat]
    */
   public async getAllChatsTransmission() {
-    const chats = await this.page.evaluate(() => WAPI.getAllChats());
-    return chats.filter((chat) => chat.kind === 'broadcast');
+    return await this.page.evaluate(() => {
+      let chats = WAPI.getAllChats(),
+        filter = chats.filter((chat) => chat.kind === 'broadcast');
+      return WAPI.fixChat(filter);
+    });
+  }
+
+  /**
+   * Retrieve all groups new messages
+   * @returns array of groups
+   */
+  public async getChatGroupNewMsg() {
+    return await this.page.evaluate(() => {
+      var chats = WAPI.getAllChatsWithNewMsg(),
+        filter = chats.filter((chat) => chat.kind === 'group');
+      return WAPI.fixChat(filter);
+    });
+  }
+
+  /**
+   * Retrieve all contacts new messages
+   * @returns array of groups
+   */
+  public async getChatContactNewMsg() {
+    return await this.page.evaluate(() => {
+      var chats = WAPI.getAllChatsWithNewMsg(),
+        filter = chats.filter((chat) => chat.kind === 'chat');
+      return WAPI.fixChat(filter);
+    });
   }
 
   /**
@@ -163,26 +199,6 @@ export class RetrieverLayer extends SenderLayer {
         WAPI.getAllChatsWithMessages(withNewMessageOnly),
       withNewMessageOnly
     );
-  }
-
-  /**
-   * Retrieve all groups new messages
-   * @returns array of groups
-   */
-  public async getChatGroupNewMsg() {
-    // prettier-ignore
-    const chats = await this.page.evaluate(() => WAPI.getAllChatsWithNewMsg());
-    return chats.filter((chat) => chat.kind === 'group');
-  }
-
-  /**
-   * Retrieve all contacts new messages
-   * @returns array of groups
-   */
-  public async getChatContactNewMsg() {
-    // prettier-ignore
-    const chats = await this.page.evaluate(() => WAPI.getAllChatsWithNewMsg());
-    return chats.filter((chat) => chat.kind === 'chat');
   }
 
   /**

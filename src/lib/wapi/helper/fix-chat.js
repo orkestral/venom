@@ -45,62 +45,52 @@ MMMN/ /NMm: oNy` :sssmMMMMN. dh-`/mMN. d-/NMMMMMMMMy`m- y/`/dmo..o: yMMMMMMMMMMM
 MMMMN/ /m: +NNy. /yyyNMMMMN. dNNo`.yN- d.oNMMMMMMMMd d- mNh-`.`+mN/ yMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMN/ . +NMMN- oNMMMMMNdN. dMMMd:`/. ds.dNMMMMMMm::M- dMMNy/dMMN/ yMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMN/ +NMMMN- /yyyyyys d. dMMMMNo`  dNy-+ymmmho-+NN- dMMMMMMMMN/ yMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMMMMNyNMMMMN+::::::::::m+/mMMMMMMd: dMMNho///+ymMMN+/mMMMMMMMMNs/hMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+MMMMMMMNyNMMMMN+::::::::::m+/mMMMMMMd: dMMNho///+'ymMMN+/mMMMMMMMMNs/hMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMNMMMMMMMMMMMMMMMMMMMMMMMMMMMMNsmMMMMMMMMMMMMMMNNNNMMNNNMMNNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+MMMMMMMMMMMMMMMMMMMMMMMMMsMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
-import { Contact } from './contact';
-import { GroupMetadata } from './group-metadata';
-import { Id } from './id';
+export async function fixChat(chatData) {
+  if (
+    typeof chatData === 'object' &&
+    Array.isArray(chatData) &&
+    chatData.length
+  ) {
+    const rows = chatData.length,
+      result = chatData;
+    for (let i = 0; i < rows; i++) {
+      result[i].sender =
+        typeof result[i].sender === 'object'
+          ? await result.sender
+          : result.sender;
 
-export interface Chat {
-  archive: boolean;
-  changeNumberNewJid: Id;
-  changeNumberOldJid: Id;
-  contact: Contact;
-  ephemeralDuration: number;
-  ephemeralSettingTimestamp: number;
-  groupMetadata: GroupMetadata;
-  id: Id;
-  isAnnounceGrpRestrict: boolean;
-  isGroup: boolean;
-  isOnline: null | boolean;
-  isReadOnly: boolean;
-  kind: string;
-  lastReceivedKey: LastReceivedKey;
-  lastSeen: null | number | boolean;
-  modifyTag: number;
-  msgs: null;
-  muteExpiration: number;
-  name: string;
-  notSpam: boolean;
-  pendingMsgs: boolean;
-  pin: number;
-  presence: Presence;
-  t: number;
-  unreadCount: number;
-}
+      if (result[i].contact) {
+        result[i].contact =
+          typeof result[i].contact === 'object'
+            ? await result[i].contact
+            : result[i].contact;
+      }
+      if (result[i].chat) {
+        result[i].chat =
+          typeof result[i].chat === 'object'
+            ? await result[i].chat
+            : result[i].chat;
+      }
+      if (result[i].chat && result[i].chat.contact) {
+        result[i].chat.contact =
+          typeof result[i].chat.contact === 'object'
+            ? await result[i].chat.contact
+            : result[i].chat.contact;
+      }
 
-export interface ProfilePicThumbObj {
-  eurl: string;
-  id: Id;
-  img: string;
-  imgFull: string;
-  raw: null;
-  tag: string;
-}
-
-export interface LastReceivedKey {
-  fromMe: boolean;
-  remote: Id;
-  id: string;
-  _serialized: string;
-}
-
-export interface Presence {
-  id: Id;
-  chatstates: any[];
+      if (result[i].hasOwnProperty('msgUnsyncedButtonReplyMsgs')) {
+        result[i].msgUnsyncedButtonReplyMsgs = 'undefined';
+      }
+    }
+    return result;
+  } else {
+    return false;
+  }
 }
