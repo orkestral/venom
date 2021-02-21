@@ -1,3 +1,16 @@
+## [2.2.5](https://github.com/orkestral/venom/compare/v2.2.4...v2.2.5) (2021-02-21)
+
+### Bug Fixes
+
+- file upload functions ([e9cee11](https://github.com/orkestral/venom/commit/e9cee118fac64f25d133e3f62ca0e9ee2451c1b7))
+- function sticker ([c1e40b2](https://github.com/orkestral/venom/commit/c1e40b225f40d22302551d7f673f3818c687ad85))
+- getchats ([c4fade7](https://github.com/orkestral/venom/commit/c4fade7a8b95537a1921c091475465cef4ba519e))
+- incorrect class object -onAck ([1c18017](https://github.com/orkestral/venom/commit/1c18017c9b72e88b3e509b1fec5814929bee58fa))
+- Logged out correctly - logout() ([64daabc](https://github.com/orkestral/venom/commit/64daabc560c7e9d6254936ec023a0130a3bea221))
+- Multiple equal returns in the onack function ([3628734](https://github.com/orkestral/venom/commit/36287341dae4c43468063e19e9bd8c3800852d4f))
+- onMessage return sender and contact ([8902a53](https://github.com/orkestral/venom/commit/8902a53f7357661eec3ba4e0ce4caf43af53a6f4))
+- onStreamChange ([44eab67](https://github.com/orkestral/venom/commit/44eab67d22ee988bb589be2984a2a951a3caa280))
+
 ## [2.2.4](https://github.com/orkestral/venom/compare/v2.2.3...v2.2.4) (2021-02-13)
 
 ### Bug Fixes
