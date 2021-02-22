@@ -68,28 +68,29 @@ const venom = require('venom-bot');
 venom
   .create()
   .then((client) => {
-  let time = 0, started = false;
-  client.onStreamChange((state) => {
-    console.log('Connection status: ', state);
-    clearTimeout(time);
-    if (state === 'CONNECTED' && !started) {
-     start(client);
-     started = true;
-    }
-    //DISCONNECTED when the mobile device is disconnected
-    if (state === 'DISCONNECTED' || state === 'SYNCING') {
-      time = setTimeout(() => {
-        client.close();
-       // process.exit(); //optional function if you work with only one session
-      }, 80000);
-    }
-  });
+    let time = 0,
+      started = false;
+    client.onStreamChange((state) => {
+      console.log('Connection status: ', state);
+      clearTimeout(time);
+      if (state === 'CONNECTED' && !started) {
+        start(client);
+        started = true;
+      }
+      //DISCONNECTED when the mobile device is disconnected
+      if (state === 'DISCONNECTED' || state === 'SYNCING') {
+        time = setTimeout(() => {
+          client.close();
+          // process.exit(); //optional function if you work with only one session
+        }, 80000);
+      }
+    });
   })
   .catch((erro) => {
-    console.log('There was an error in the bot: ',erro);
+    console.log('There was an error in the bot: ', erro);
   });
 
-function start(client) {
+async function start(client) {
   let inchat = await client.isInsideChat(); //wait until the page is in whatsapp chat
   if (inchat) {
     client.onMessage((message) => {
@@ -177,27 +178,26 @@ venom
     }
   )
   .then((client) => {
-
-  let time = 0;
-  client.onStreamChange((state) => {
-
-    console.log('Connection status: ', state);
-
-    clearTimeout(time);
-    if(state === 'CONNECTED'){
-     start(client);
-    }
-   //  DISCONNECTED when the mobile device is disconnected
-    if (state === 'DISCONNECTED' || state === 'SYNCING') {
-      time = setTimeout(() => {
-        client.close();
-       // process.exit(); //optional function if you work with only one session
-      }, 80000);
-    }
-
+    let time = 0,
+      started = false;
+    client.onStreamChange((state) => {
+      console.log('Connection status: ', state);
+      clearTimeout(time);
+      if (state === 'CONNECTED' && !started) {
+        start(client);
+        started = true;
+      }
+      //DISCONNECTED when the mobile device is disconnected
+      if (state === 'DISCONNECTED' || state === 'SYNCING') {
+        time = setTimeout(() => {
+          client.close();
+          // process.exit(); //optional function if you work with only one session
+        }, 80000);
+      }
+    });
   })
   .catch((erro) => {
-    console.log('There was an error in the bot',erro);
+    console.log('There was an error in the bot', erro);
   });
 ```
 
@@ -293,25 +293,26 @@ venom
     { logQR: false }
   )
   .then((client) => {
-      let time = 0;
-  client.onStreamChange((state) => {
-
-    console.log('Connection status: ', state);
-
-    clearTimeout(time);
-    if(state === 'CONNECTED'){
-     start(client);
-    }
-   //  DISCONNECTED when the mobile device is disconnected
-    if (state === 'DISCONNECTED' || state === 'SYNCING') {
-      time = setTimeout(() => {
-        client.close();
-       // process.exit(); //optional function if you work with only one session
-      }, 80000);
-    }
+    let time = 0,
+      started = false;
+    client.onStreamChange((state) => {
+      console.log('Connection status: ', state);
+      clearTimeout(time);
+      if (state === 'CONNECTED' && !started) {
+        start(client);
+        started = true;
+      }
+      //DISCONNECTED when the mobile device is disconnected
+      if (state === 'DISCONNECTED' || state === 'SYNCING') {
+        time = setTimeout(() => {
+          client.close();
+          // process.exit(); //optional function if you work with only one session
+        }, 80000);
+      }
+    });
   })
   .catch((erro) => {
-     console.log('There was an error in the bot', erro);
+    console.log('There was an error in the bot', erro);
   });
 ```
 
