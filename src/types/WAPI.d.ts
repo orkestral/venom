@@ -95,6 +95,7 @@ interface WAPI {
     skipMyMessages: boolean
   ) => any;
   getAllChats: () => Chat[];
+  fixChat: (chats: Chat[]) => Promise<Chat[] | Boolean>;
   getAllChatsWithMessages: (withNewMessageOnly?: boolean) => Chat[];
   getAllChatsWithNewMsg: () => Chat[];
   getAllContacts: () => Contact[];

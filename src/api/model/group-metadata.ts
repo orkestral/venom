@@ -55,8 +55,15 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 import { Id } from '.';
 
 export interface GroupMetadata {
-  id: Id;
+  announce: boolean;
   creation: number;
+  desc: string;
+  descId: string;
+  desOwner: Id;
+  descTime: number;
+  ephemeralDuration: number;
+  id: Id;
+  noFrequentlyForwarded: boolean;
   owner: {
     server: string;
     user: string;
@@ -64,4 +71,6 @@ export interface GroupMetadata {
   };
   participants: any[];
   pendingParticipants: any[];
+  restrict: boolean;
+  support: boolean;
 }
