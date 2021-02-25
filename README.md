@@ -21,11 +21,7 @@
   <a href="https://orkestral.github.io/venom">Documentation</a>
 </p>
 
-**Donate for Project**
-
-<a target="_blank" href="https://www.paypal.com/donate?hosted_button_id=62BBB32FGRB2A"><img width="227" height="68" src="./media/donate.png" alt="Consulting"></a>
-
-**Request Support Group Access In Whatsapp For \$5 Month** <br> <br>
+**Request Support Group Access In Whatsapp** <br> <br>
 <a target="_blank" href="https://web.whatsapp.com/send?phone=556181590153&text=I%20want%20access%20to%20the%20WhatsApp%20Venom%20support%20group" target="_blank"><img title="whatzapp" height="100" width="375" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/WhatsApp_logo.svg/2000px-WhatsApp_logo.svg.png"></a>
 
 ## 🕷🕷 Functions Venom🕷🕷
