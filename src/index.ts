@@ -1,3 +1,4 @@
+import { tokenSession } from './config/tokenSession.config';
 /*
 NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
@@ -71,4 +72,4 @@ export {
   CreateOptions,
   StatusFind,
 } from './controllers/initializer';
-export { defaultLogger } from './utils/logger';
+

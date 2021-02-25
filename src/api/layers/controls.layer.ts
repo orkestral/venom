@@ -184,8 +184,4 @@ export class ControlsLayer extends UILayer {
       { chatId, option }
     );
   }
-
-  public async isInsideChat(type?: boolean) {
-    return this.page.evaluate((type: boolean) => WAPI.isInsideChat(type), type);
-  }
 }

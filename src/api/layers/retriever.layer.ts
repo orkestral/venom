@@ -107,74 +107,15 @@ export class RetrieverLayer extends SenderLayer {
   }
 
   /**
-   * Retrieves all chats, grups, contacts, transmission list
+   * Retrieves all chats
    * @returns array of [Chat]
    */
-  public async getAllChats() {
-    return await this.page.evaluate(() => {
-      let chats = WAPI.getAllChats();
-      return WAPI.fixChat(chats);
-    });
-  }
-
-  /**
-   * Retrieves all grups
-   * @returns array of [Chat]
-   */
-  public async getAllChatsGroups() {
-    return await this.page.evaluate(() => {
-      let chats = WAPI.getAllChats(),
-        filter = chats.filter((chat) => chat.kind === 'group');
-      return WAPI.fixChat(filter);
-    });
-  }
-
-  /**
-   * Retrieves all chats Contacts
-   * @returns array of [Chat]
-   */
-  public async getAllChatsContacts() {
-    return await this.page.evaluate(() => {
-      let chats = WAPI.getAllChats(),
-        filter = chats.filter((chat) => chat.kind === 'chat');
-      return WAPI.fixChat(filter);
-    });
-  }
-
-  /**
-   * Retrieves all chats Transmission list
-   * @returns array of [Chat]
-   */
-  public async getAllChatsTransmission() {
-    return await this.page.evaluate(() => {
-      let chats = WAPI.getAllChats(),
-        filter = chats.filter((chat) => chat.kind === 'broadcast');
-      return WAPI.fixChat(filter);
-    });
-  }
-
-  /**
-   * Retrieve all groups new messages
-   * @returns array of groups
-   */
-  public async getChatGroupNewMsg() {
-    return await this.page.evaluate(() => {
-      let chats = WAPI.getAllChatsWithNewMsg(),
-        filter = chats.filter((chat) => chat.kind === 'group');
-      return WAPI.fixChat(filter);
-    });
-  }
-
-  /**
-   * Retrieve all contacts new messages
-   * @returns array of groups
-   */
-  public async getChatContactNewMsg() {
-    return await this.page.evaluate(() => {
-      let chats = WAPI.getAllChatsWithNewMsg(),
-        filter = chats.filter((chat) => chat.kind === 'chat');
-      return WAPI.fixChat(filter);
-    });
+  public async getAllChats(withNewMessageOnly = false) {
+    if (withNewMessageOnly) {
+      return this.page.evaluate(() => WAPI.getAllChatsWithNewMsg());
+    } else {
+      return this.page.evaluate(() => WAPI.getAllChats());
+    }
   }
 
   /**
@@ -199,6 +140,26 @@ export class RetrieverLayer extends SenderLayer {
         WAPI.getAllChatsWithMessages(withNewMessageOnly),
       withNewMessageOnly
     );
+  }
+
+  /**
+   * Retrieve all groups new messages
+   * @returns array of groups
+   */
+  public async getChatGroupNewMsg() {
+    // prettier-ignore
+    const chats = await this.page.evaluate(() => WAPI.getAllChatsWithNewMsg());
+    return chats.filter((chat) => chat.kind === 'group');
+  }
+
+  /**
+   * Retrieve all contact new messages
+   * @returns array of groups
+   */
+  public async getChatContactNewMsg() {
+    // prettier-ignore
+    const chats = await this.page.evaluate(() => WAPI.getAllChatsWithNewMsg());
+    return chats.filter((chat) => chat.kind === 'chat');
   }
 
   /**
@@ -249,7 +210,10 @@ export class RetrieverLayer extends SenderLayer {
    * @returns url of the chat picture or undefined if there is no picture for the chat.
    */
   public async getProfilePicFromServer(chatId: string) {
-    return this.page.evaluate((chatId) => WAPI._profilePicfunc(chatId), chatId);
+    return this.page.evaluate(
+      (chatId) => WAPI.getProfilePicFromServer(chatId),
+      chatId
+    );
   }
 
   /**

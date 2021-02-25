@@ -52,10 +52,6 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
-
-import { Logger } from 'winston';
-import { defaultLogger } from '../utils/logger';
-
 // Server config
 export interface CreateConfig {
   /** folder name when saving tokens
@@ -104,6 +100,11 @@ export interface CreateConfig {
    */
   logQR?: boolean;
   /**
+   * Will disable Spinnies animation, useful for containers (docker) for a better log
+   * @default false
+   */
+  disableSpins?: boolean;
+  /**
    * Will disable the welcoming message which appears in the beginning
    * @default false
    */
@@ -128,11 +129,6 @@ export interface CreateConfig {
    * @default false
    */
   waitForLogin?: boolean;
-  /**
-   * Wait for in chat to return a instance of {@link Whatsapp}
-   * @default false
-   */
-  logger?: Logger;
 }
 export const defaultOptions: CreateConfig = {
   folderNameToken: 'tokens',
@@ -145,10 +141,10 @@ export const defaultOptions: CreateConfig = {
   browserWS: '',
   browserArgs: [''],
   puppeteerOptions: {},
+  disableSpins: false,
   disableWelcome: false,
   updatesLog: true,
   autoClose: 60000,
   createPathFileToken: true,
   waitForLogin: true,
-  logger: defaultLogger,
 };

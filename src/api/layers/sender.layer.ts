@@ -52,8 +52,6 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
-
-import { type } from 'os';
 import * as path from 'path';
 import { Page } from 'puppeteer';
 import { CreateConfig } from '../../config/create-config';
@@ -155,103 +153,6 @@ export class SenderLayer extends ListenerLayer {
   }
 
   /**
-   * Sends video status
-   * @param filePath File path or http link
-   * @param caption Text video
-   */
-  public async sendStatusVideo(
-    filePath: string,
-    caption?: string
-  ): Promise<SendFileResult> {
-    return new Promise(async (resolve, reject) => {
-      let base64 = await downloadFileToBase64(filePath, ['video/mp4']);
-
-      let to = undefined,
-        filename = undefined,
-        type = 'sendStatusVideo',
-        status = true;
-
-      if (!base64) {
-        base64 = await fileToBase64(filePath);
-      }
-
-      if (!base64) {
-        const obj = {
-          erro: true,
-          to: to,
-          text: 'No such file or directory, open "' + filePath + '"',
-        };
-        return reject(obj);
-      }
-
-      if (!filename) {
-        filename = path.basename(filePath);
-      }
-
-      let mimeType = base64MimeType(base64);
-
-      if (!mimeType) {
-        const obj = {
-          erro: true,
-          to: to,
-          text: 'Invalid base64!',
-        };
-        return reject(obj);
-      }
-
-      if (!mimeType.includes('video')) {
-        const obj = {
-          erro: true,
-          to: to,
-          text: 'Not an video, allowed formats mp4',
-        };
-        return reject(obj);
-      }
-
-      filename = filenameFromMimeType(filename, mimeType);
-
-      const result = await this.page.evaluate(
-        ({ to, base64, filename, caption, type, status }) => {
-          return WAPI.sendFile(base64, to, filename, caption, type, status);
-        },
-        { to, base64, filename, caption, type, status }
-      );
-      if (result['erro'] == true) {
-        reject(result);
-      } else {
-        resolve(result);
-      }
-    });
-  }
-
-  /**
-   * Sends image status
-   * @param filePath File path or http link
-   * @param text
-   */
-  public async sendStatusImg(
-    filePath: string,
-    text?: string
-  ): Promise<SendFileResult> {
-    return new Promise(async (resolve, reject) => {
-      return await this.sendImage(
-        null,
-        filePath,
-        null,
-        text,
-        'sendImgStatus',
-        true
-      )
-        .then((r) => {
-          resolve(r);
-        })
-        .catch((r) => {
-          reject(r);
-        });
-    });
-  }
-
-  /**
    * Sends image message
    * @param to Chat id
    * @param filePath File path or http link
@@ -262,9 +163,7 @@ export class SenderLayer extends ListenerLayer {
     to: string,
     filePath: string,
     filename?: string,
-    caption?: string,
-    type?: string,
-    status?: boolean
+    caption?: string
   ): Promise<SendFileResult> {
     return new Promise(async (resolve, reject) => {
       let base64 = await downloadFileToBase64(filePath, [
@@ -292,11 +191,7 @@ export class SenderLayer extends ListenerLayer {
         filename = path.basename(filePath);
       }
 
-      if (!status) {
-        type = 'sendImage';
-      }
-
-      this.sendImageFromBase64(to, base64, filename, caption, type, status)
+      this.sendImageFromBase64(to, base64, filename, caption)
         .then(resolve)
         .catch(reject);
     });
@@ -313,9 +208,7 @@ export class SenderLayer extends ListenerLayer {
     to: string,
     base64: string,
     filename: string,
-    caption?: string,
-    type?: string,
-    status?: boolean
+    caption?: string
   ): Promise<SendFileResult> {
     return new Promise(async (resolve, reject) => {
       let mimeType = base64MimeType(base64);
@@ -341,10 +234,10 @@ export class SenderLayer extends ListenerLayer {
       filename = filenameFromMimeType(filename, mimeType);
 
       const result = await this.page.evaluate(
-        ({ to, base64, filename, caption, type, status }) => {
-          return WAPI.sendImage(base64, to, filename, caption, type, status);
+        ({ to, base64, filename, caption }) => {
+          return WAPI.sendImage(base64, to, filename, caption);
         },
-        { to, base64, filename, caption, type, status }
+        { to, base64, filename, caption }
       );
       if (result['erro'] == true) {
         reject(result);
@@ -433,6 +326,50 @@ export class SenderLayer extends ListenerLayer {
       },
       { to, base64, filename, caption }
     );
+  }
+
+  /**
+   * Sends file
+   * base64 parameter should have mime type already defined
+   * @param to Chat id
+   * @param base64 base64 data
+   */
+  public async sendVoice(
+    to: string,
+    filePath: string,
+  ){
+      let base64 = await downloadFileToBase64(filePath, [
+        'audio/mpeg',
+      ]);
+
+      if (!base64) {
+        base64 = await fileToBase64(filePath);
+      }
+
+      if (!base64) {
+        const obj = {
+          erro: true,
+          to: to,
+          text: 'No such file or directory, open "' + filePath + '"',
+        };
+        return obj;
+      }
+    
+
+      path.basename(filePath);
+
+      let filename = '';
+
+      let caption = '';
+      
+      return this.page.evaluate(
+        ({ to, base64, filename, caption }) => {
+          WAPI.sendPtt(base64, to, filename, caption)
+        },
+        { to, base64, filename, caption }
+      );
+
+    
   }
 
   /**

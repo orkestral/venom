@@ -64,16 +64,7 @@ export function addNewMessagesListener() {
  */
 function waitNewMessages(rmCallbackAfterUse = true, done) {
   window.WAPI._newMessagesCallbacks.push({
-    callback: async (data) => {
-      let result = data[0];
-      result.sender =
-        typeof result.sender === 'object' ? await result.sender : result.sender;
-      result.chat.contact =
-        typeof result.chat.contact === 'object'
-          ? await result.chat.contact
-          : result.chat.contact;
-      done && done(data);
-    },
+    callback: done,
     rmAfterUse: rmCallbackAfterUse,
   });
   return true;

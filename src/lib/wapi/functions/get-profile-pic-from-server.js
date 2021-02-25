@@ -52,36 +52,6 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
-import { Browser } from 'puppeteer';
-import { CreateConfig } from '../../config/create-config';
-
-export async function checkingCloses(
-  browser: Browser,
-  mergedOptions: CreateConfig,
-  callStatus: (e: string) => void
-) {
-  let err: boolean;
-  do {
-    try {
-      await new Promise((r) => setTimeout(r, 2000));
-      if (
-        browser['isClose'] ||
-        (mergedOptions.browserWS && !browser.isConnected())
-      ) {
-        if (mergedOptions.browserWS) {
-          browser.disconnect();
-          callStatus && callStatus('serverClose');
-        }
-        if (browser['isClose']) {
-          browser.close();
-          callStatus && callStatus('browserClose');
-        }
-        err = false;
-      } else {
-        throw 1;
-      }
-    } catch (e) {
-      err = true;
-    }
-  } while (err);
+export function getProfilePicFromServer(id) {
+  return Store.WapQuery.profilePicFind(id).then((x) => x.eurl);
 }

@@ -66,13 +66,21 @@ import {
   retrieveQR,
 } from '../../controllers/auth';
 import { sleep } from '../../utils/sleep';
-import { defaultLogger, LogLevel } from '../../utils/logger';
-import { Logger } from 'winston';
+import { getSpinnies } from '../../utils/spinnies';
+import * as Spinnies from 'spinnies';
 
 export class HostLayer {
   readonly session: string;
   readonly options: CreateConfig;
-  readonly logger: Logger;
+
+  protected spinnies: Spinnies = getSpinnies();
+  protected spinStatus = {
+    apiInject: '',
+    autoCloseRemain: 0,
+    previousText: '',
+    previousStatus: null,
+    state: '',
+  };
 
   protected autoCloseInterval = null;
   protected statusFind?: (statusGet: string, session: string) => void = null;
@@ -81,52 +89,68 @@ export class HostLayer {
     this.session = session;
     this.options = { ...defaultOptions, ...options };
 
-    this.logger = this.options.logger || defaultLogger;
-
     this.page.on('load', () => {
-      this.log('verbose', 'Page loaded', { type: 'page' });
       this.initialize();
     });
     this.page.on('close', () => {
       this.cancelAutoClose();
-      this.log('error', 'Page Closed', { type: 'page' });
+      this.spin('Page Closed', 'fail');
     });
-    this.log('info', 'Initializing...');
+    this.spin('Initializing...', 'spinning');
     this.initialize();
   }
 
-  protected log(level: LogLevel, message: string, meta: object = {}) {
-    this.logger.log({
-      level,
-      message,
-      session: this.session,
-      type: 'client',
-      ...meta,
-    });
+  protected spin(text?: string, status?: Spinnies.SpinnerStatus) {
+    const name = `session-${this.session}`;
+
+    text = text || this.spinStatus.previousText;
+    this.spinStatus.previousText = text;
+
+    status =
+      status || (this.spinStatus.previousStatus as Spinnies.SpinnerStatus);
+    this.spinStatus.previousStatus = status;
+
+    let fullText = `[instance:: ${this.session}`;
+    if (this.spinStatus.state) {
+      fullText += `,${this.spinStatus.state}`;
+    }
+    fullText += `]: ${text}`;
+
+    let prevText = '';
+
+    try {
+      prevText = this.spinnies.pick(name).text;
+    } catch (error) {
+      this.spinnies.add(name, { text: fullText, status });
+      prevText = fullText;
+    }
+    if (prevText !== fullText) {
+      this.spinnies.update(name, {
+        text: fullText,
+        status,
+      });
+    }
   }
 
   protected async initialize() {
-    this.log('verbose', 'Injecting wapi.js');
+    this.spinStatus.apiInject = 'injecting';
+    this.spin();
     await injectApi(this.page)
       .then(() => {
-        this.log('verbose', 'wapi.js injected');
+        this.spinStatus.apiInject = 'injected';
       })
       .catch(() => {
-        this.log('verbose', 'wapi.js failed');
+        this.spinStatus.apiInject = 'failed';
       });
+    this.spin();
   }
 
   protected tryAutoClose() {
-    if (this.autoCloseInterval) {
-      this.cancelAutoClose();
-    }
-
     if (
       this.options.autoClose > 0 &&
       !this.autoCloseInterval &&
       !this.page.isClosed()
     ) {
-      this.log('info', 'Closing the page');
       this.statusFind && this.statusFind('autocloseCalled', this.session);
       try {
         this.page.close();
@@ -136,20 +160,17 @@ export class HostLayer {
 
   protected startAutoClose() {
     if (this.options.autoClose > 0 && !this.autoCloseInterval) {
-      const seconds = Math.round(this.options.autoClose / 1000);
-      this.log('info', `Auto close configured to ${seconds}s`);
-
-      let remain = seconds;
+      let remain = this.options.autoClose;
       this.autoCloseInterval = setInterval(() => {
         if (this.page.isClosed()) {
           this.cancelAutoClose();
           return;
         }
-        remain -= 1;
-        if (remain % 10 === 0 || remain <= 5) {
-          this.log('http', `Auto close remain: ${remain}s`);
-        }
+        remain -= 1000;
+        this.spinStatus.autoCloseRemain = Math.round(remain / 1000);
+        this.spin();
         if (remain <= 0) {
+          this.cancelAutoClose();
           this.tryAutoClose();
         }
       }, 1000);
@@ -159,6 +180,7 @@ export class HostLayer {
   protected cancelAutoClose() {
     clearInterval(this.autoCloseInterval);
     this.autoCloseInterval = null;
+    this.spin();
   }
 
   public async getQrCode() {
@@ -188,7 +210,6 @@ export class HostLayer {
       if (!needsScan) {
         break;
       }
-
       const result = await this.getQrCode();
       if (!result?.urlCode) {
         break;
@@ -204,13 +225,9 @@ export class HostLayer {
         }
 
         if (this.options.logQR) {
-          this.log(
-            'info',
-            `Waiting for QRCode Scan (Attempt ${attempt})...:\n${qr}`,
-            { code: urlCode }
-          );
+          this.spin(`Waiting for QRCode Scan (Attempt ${attempt})...:\n${qr}`);
         } else {
-          this.log('verbose', `Waiting for QRCode Scan: Attempt ${attempt}`);
+          this.spin(`Waiting for QRCode Scan: Attempt ${attempt}`);
         }
 
         if (catchQR) {
@@ -242,73 +259,75 @@ export class HostLayer {
   ) {
     this.statusFind = statusFind;
 
-    this.log('http', 'Waiting page load');
+    this.spin('Waiting page load', 'spinning');
 
     await this.page
-      .waitForFunction(`!document.querySelector('#initial_startup')`)
+    .waitForFunction(`!document.querySelector('#initial_startup')`)
       .catch(() => {});
 
-    this.log('http', 'Checking is logged...');
+    this.spin('Checking is logged...');
     let authenticated = await isAuthenticated(this.page).catch(() => null);
-
     this.startAutoClose();
-
     if (authenticated === false) {
-      this.log('http', 'Waiting for QRCode Scan...');
+      this.spin('Waiting for QRCode Scan...');
       statusFind && statusFind('notLogged', this.session);
       await this.waitForQrCodeScan(catchQR);
 
-      this.log('http', 'Checking QRCode status...');
+      this.spin('Checking QRCode status...');
       // Wait for interface update
       await sleep(200);
       authenticated = await isAuthenticated(this.page).catch(() => null);
 
       if (authenticated === null) {
-        this.log('warn', 'Failed to authenticate');
+        this.spin('Failed to authenticate');
         statusFind && statusFind('qrReadError', this.session);
       } else if (authenticated) {
-        this.log('http', 'QRCode Success');
+        this.spin('QRCode Success');
         statusFind && statusFind('qrReadSuccess', this.session);
       } else {
-        this.log('warn', 'QRCode Fail');
+        this.spin('QRCode Fail', 'fail');
         statusFind && statusFind('qrReadFail', this.session);
+        this.cancelAutoClose();
         this.tryAutoClose();
         throw 'Failed to read the QRCode';
       }
     } else if (authenticated === true) {
-      this.log('http', 'Authenticated');
+      this.spin('Authenticated');
       statusFind && statusFind('isLogged', this.session);
     }
 
     if (authenticated === true) {
-      // Reinicia o contador do autoclose
-      this.cancelAutoClose();
-      this.startAutoClose();
+       // Reinicia o contador do autoclose
+       this.cancelAutoClose();
+       this.startAutoClose();
       // Wait for interface update
       await sleep(200);
-      this.log('http', 'Checking phone is connected...');
+      this.spin('Checking phone is connected...');
       const inChat = await this.waitForInChat();
 
       if (!inChat) {
-        this.log('warn', 'Phone not connected');
+        this.spin('Phone not connected', 'fail');
         statusFind && statusFind('phoneNotConnected', this.session);
+        this.cancelAutoClose();
         this.tryAutoClose();
         throw 'Phone not connected';
       }
       this.cancelAutoClose();
-      this.log('http', 'Connected');
+      this.spin('Connected', 'succeed');
       statusFind && statusFind('inChat', this.session);
       return true;
     }
 
     if (authenticated === false) {
+      this.cancelAutoClose();
       this.tryAutoClose();
-      this.log('warn', 'Not logged');
+      this.spin('Not logged', 'fail');
       throw 'Not logged';
     }
 
+    this.cancelAutoClose();
     this.tryAutoClose();
-    this.log('error', 'Unknow error');
+    this.spin('Unknow error', 'fail');
     throw 'Unknow error';
   }
 

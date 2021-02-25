@@ -54,7 +54,6 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
 import * as ChromeLauncher from 'chrome-launcher';
 import * as path from 'path';
-import axios from 'axios';
 import { Browser, Page } from 'puppeteer';
 import puppeteer from 'puppeteer-extra';
 import { CreateConfig } from '../config/create-config';
@@ -104,7 +103,13 @@ export async function injectApi(page: Page) {
   if (injected) {
     return;
   }
+  
+  await page.waitForSelector('*[data-icon=chat]')
 
+  // await page.evaluate(() => {
+  //   if (document.querySelector('*[data-icon=chat]') !== null) { return true } else { return false }
+  // });
+ 
   await page.addScriptTag({
     path: require.resolve(path.join(__dirname, '../lib/wapi', 'wapi.js')),
   });
@@ -150,18 +155,41 @@ export async function initBrowser(
 
   let browser = null;
   if (options.browserWS && options.browserWS != '') {
-    const transport = await getTransport(options.browserWS);
-    browser = await puppeteer.connect({ transport });
-  } else {
-    browser = await puppeteer.launch({
-      headless: options.headless,
-      devtools: options.devtools,
-      args: options.browserArgs
-        ? options.browserArgs
-        : [...puppeteerConfig.chromiumArgs],
-      ...options.puppeteerOptions,
-      ...extras,
+    const transport = await WebSocketTransport.create(
+      options.browserWS,
+      10000
+    ).catch(() => {
+      browser = 'connect';
     });
+    if (transport) {
+      await puppeteer
+        .connect({
+          transport: transport,
+        })
+        .then((e) => {
+          browser = e;
+        })
+        .catch(() => {
+          browser = 'connect';
+        });
+    }
+  } else {
+    await puppeteer
+      .launch({
+        headless: options.headless,
+        devtools: options.devtools,
+        args: options.browserArgs
+          ? options.browserArgs
+          : [...puppeteerConfig.chromiumArgs],
+        ...options.puppeteerOptions,
+        ...extras,
+      })
+      .then((e) => {
+        browser = e;
+      })
+      .catch(() => {
+        browser = 'launch';
+      });
   }
 
   return browser;
@@ -189,25 +217,4 @@ function getChrome() {
   } catch (error) {
     return undefined;
   }
-}
-
-async function getTransport(browserWS: string) {
-  let error = null;
-  try {
-    return await WebSocketTransport.create(browserWS, 10000);
-  } catch (e) {
-    error = e;
-  }
-
-  // Automatic get the endpoint
-  try {
-    const endpointURL =
-      browserWS.replace(/ws(s)?:/, 'http$1:') + '/json/version';
-    const data = await axios.get(endpointURL).then((r) => r.data);
-
-    return await WebSocketTransport.create(data.webSocketDebuggerUrl, 10000);
-  } catch (e) {}
-
-  // Throw first error
-  throw error;
 }

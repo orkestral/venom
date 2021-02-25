@@ -45,52 +45,20 @@ MMMN/ /NMm: oNy` :sssmMMMMN. dh-`/mMN. d-/NMMMMMMMMy`m- y/`/dmo..o: yMMMMMMMMMMM
 MMMMN/ /m: +NNy. /yyyNMMMMN. dNNo`.yN- d.oNMMMMMMMMd d- mNh-`.`+mN/ yMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMN/ . +NMMN- oNMMMMMNdN. dMMMd:`/. ds.dNMMMMMMm::M- dMMNy/dMMN/ yMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMN/ +NMMMN- /yyyyyys d. dMMMMNo`  dNy-+ymmmho-+NN- dMMMMMMMMN/ yMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMMMMNyNMMMMN+::::::::::m+/mMMMMMMd: dMMNho///+'ymMMN+/mMMMMMMMMNs/hMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+MMMMMMMNyNMMMMN+::::::::::m+/mMMMMMMd: dMMNho///+ymMMN+/mMMMMMMMMNs/hMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMNMMMMMMMMMMMMMMMMMMMMMMMMMMMMNsmMMMMMMMMMMMMMMNNNNMMNNNMMNNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMMMMMMMMMMMMMMMMMMMMMMsMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
-export async function fixChat(chatData) {
-  if (
-    typeof chatData === 'object' &&
-    Array.isArray(chatData) &&
-    chatData.length
-  ) {
-    const rows = chatData.length,
-      result = chatData;
-    for (let i = 0; i < rows; i++) {
-      result[i].sender =
-        typeof result[i].sender === 'object'
-          ? await result.sender
-          : result.sender;
+import * as Spinnies from 'spinnies';
 
-      if (result[i].contact) {
-        result[i].contact =
-          typeof result[i].contact === 'object'
-            ? await result[i].contact
-            : result[i].contact;
-      }
-      if (result[i].chat) {
-        result[i].chat =
-          typeof result[i].chat === 'object'
-            ? await result[i].chat
-            : result[i].chat;
-      }
-      if (result[i].chat && result[i].chat.contact) {
-        result[i].chat.contact =
-          typeof result[i].chat.contact === 'object'
-            ? await result[i].chat.contact
-            : result[i].chat.contact;
-      }
+let spinnies: Spinnies = null;
 
-      if (result[i].hasOwnProperty('msgUnsyncedButtonReplyMsgs')) {
-        result[i].msgUnsyncedButtonReplyMsgs = 'undefined';
-      }
-    }
-    return result;
-  } else {
-    return false;
+export function getSpinnies(options?: Spinnies.Options): Spinnies {
+  if (!spinnies) {
+    spinnies = new Spinnies(options);
   }
+  return spinnies;
 }

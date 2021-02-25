@@ -57,7 +57,7 @@ import { Page } from 'puppeteer';
 import { CreateConfig } from '../../config/create-config';
 import { ExposedFn } from '../helpers/exposed.enum';
 import { Ack, Chat, LiveLocation, Message, ParticipantEvent } from '../model';
-import { SocketState, SocketStream } from '../model/enum';
+import { SocketState } from '../model/enum';
 import { InterfaceMode } from '../model/enum/interface-mode';
 import { InterfaceState } from '../model/enum/interface-state';
 import { ProfileLayer } from './profile.layer';
@@ -67,7 +67,6 @@ declare global {
     onMessage: any;
     onAnyMessage: any;
     onStateChange: any;
-    onStreamChange: any;
     onIncomingCall: any;
     onAck: any;
   }
@@ -80,7 +79,8 @@ export class ListenerLayer extends ProfileLayer {
     super(page, session, options);
 
     this.listenerEmitter.on(ExposedFn.onInterfaceChange, (state) => {
-      this.log('http', `Current state: ${state.mode} (${state.displayInfo})`);
+      this.spinStatus.state = `${state.mode} (${state.displayInfo})`;
+      this.spin();
     });
   }
 
@@ -99,7 +99,6 @@ export class ListenerLayer extends ProfileLayer {
         .catch(() => false);
 
       if (!has) {
-        this.log('debug', `Exposing ${func} function`);
         await this.page
           .exposeFunction(func, (...args) =>
             this.listenerEmitter.emit(func, ...args)
@@ -117,10 +116,6 @@ export class ListenerLayer extends ProfileLayer {
         if (!window['onStateChange'].exposed) {
           window.WAPI.onStateChange(window['onStateChange']);
           window['onStateChange'].exposed = true;
-        }
-        if (!window['onStreamChange'].exposed) {
-          window.WAPI.onStreamChange(window['onStreamChange']);
-          window['onStreamChange'].exposed = true;
         }
         if (!window['onAddedToGroup'].exposed) {
           window.WAPI.onAddedToGroup(window['onAddedToGroup']);
@@ -143,9 +138,8 @@ export class ListenerLayer extends ProfileLayer {
    * @returns Observable stream of messages
    */
   public async onMessage(fn: (message: Message) => void) {
-    this.listenerEmitter.on(ExposedFn.OnMessage, (state: Message) => {
-      fn(state);
-    });
+    this.listenerEmitter.on(ExposedFn.OnMessage, fn);
+
     return {
       dispose: () => {
         this.listenerEmitter.off(ExposedFn.OnMessage, fn);
@@ -159,9 +153,8 @@ export class ListenerLayer extends ProfileLayer {
    * @fires Message
    */
   public async onAnyMessage(fn: (message: Message) => void) {
-    this.listenerEmitter.on(ExposedFn.OnAnyMessage, (state: Message) => {
-      fn(state);
-    });
+    this.listenerEmitter.on(ExposedFn.OnAnyMessage, fn);
+
     return {
       dispose: () => {
         this.listenerEmitter.off(ExposedFn.OnAnyMessage, fn);
@@ -170,30 +163,15 @@ export class ListenerLayer extends ProfileLayer {
   }
 
   /**
-   * @event Listens List of mobile states
-   * @returns Observable status flow
+   * @event Listens to messages received
+   * @returns Observable stream of messages
    */
   public async onStateChange(fn: (state: SocketState) => void) {
-    this.listenerEmitter.on(ExposedFn.onStateChange, (state: SocketState) => {
-      fn(state);
-    });
+    this.listenerEmitter.on(ExposedFn.onStateChange, fn);
+
     return {
       dispose: () => {
         this.listenerEmitter.off(ExposedFn.onStateChange, fn);
-      },
-    };
-  }
-
-  /**
-   * @returns Returns the current state of the connection
-   */
-  public async onStreamChange(fn: (state: SocketStream) => void) {
-    this.listenerEmitter.on(ExposedFn.onStreamChange, (state: SocketStream) => {
-      fn(state);
-    });
-    return {
-      dispose: () => {
-        this.listenerEmitter.off(ExposedFn.onStreamChange, fn);
       },
     };
   }
@@ -206,6 +184,7 @@ export class ListenerLayer extends ProfileLayer {
     fn: (state: { displayInfo: InterfaceState; mode: InterfaceMode }) => void
   ) {
     this.listenerEmitter.on(ExposedFn.onInterfaceChange, fn);
+
     return {
       dispose: () => {
         this.listenerEmitter.off(ExposedFn.onInterfaceChange, fn);
@@ -213,14 +192,14 @@ export class ListenerLayer extends ProfileLayer {
     };
   }
 
+
   /**
    * @event Listens to messages acknowledgement Changes
    * @returns Observable stream of messages
    */
   public async onAck(fn: (ack: Ack) => void) {
-    this.listenerEmitter.on(ExposedFn.onAck, (state: Ack) => {
-      fn(state);
-    });
+    this.listenerEmitter.on(ExposedFn.onAck, fn);
+
     return {
       dispose: () => {
         this.listenerEmitter.off(ExposedFn.onAck, fn);
@@ -288,9 +267,8 @@ export class ListenerLayer extends ProfileLayer {
    * @returns Observable stream of Chats
    */
   public async onAddedToGroup(fn: (chat: Chat) => any) {
-    this.listenerEmitter.on('onAddedToGroup', (state: Chat) => {
-      fn(state);
-    });
+    this.listenerEmitter.on('onAddedToGroup', fn);
+
     return {
       dispose: () => {
         this.listenerEmitter.off('onAddedToGroup', fn);
@@ -303,9 +281,8 @@ export class ListenerLayer extends ProfileLayer {
    * @returns Observable stream of messages
    */
   public async onIncomingCall(fn: (call: any) => any) {
-    this.listenerEmitter.on('onIncomingCall', (state: any) => {
-      fn(state);
-    });
+    this.listenerEmitter.on('onIncomingCall', fn);
+
     return {
       dispose: () => {
         this.listenerEmitter.off('onIncomingCall', fn);

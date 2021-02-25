@@ -58,19 +58,14 @@ export async function sendSticker(sticker, chatId, metadata, type) {
   if (!chat.erro) {
     var stick = new window.Store.Sticker.default.modelClass();
 
-    stick.__x_deprecatedMms3Url = sticker.clientUrl;
-    stick.__x_encFilehash = sticker.encFilehash;
+    stick.__x_clientUrl = sticker.clientUrl;
     stick.__x_filehash = sticker.filehash;
     stick.__x_id = sticker.filehash;
     stick.__x_uploadhash = sticker.uploadhash;
     stick.__x_mediaKey = sticker.mediaKey;
-    stick.__x_size = sticker.mediaBlob.size;
     stick.__x_initialized = false;
     stick.__x_mediaData.mediaStage = 'INIT';
-    stick.__X_mediaKeyTimestamp = sticker.mediaKeyTimestamp;
-
     stick.mimetype = 'image/webp';
-    stick.__x_directPath = sticker.directPath;
     stick.height = metadata && metadata.height ? metadata.height : 512;
     stick.width = metadata && metadata.width ? metadata.width : 512;
 

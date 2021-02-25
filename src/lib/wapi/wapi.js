@@ -95,6 +95,7 @@ import {
   getNewId,
   getNewMessageId,
   getNumberProfile,
+  getProfilePicFromServer,
   getStatus,
   getUnreadMessages,
   getUnreadMessagesInChat,
@@ -153,15 +154,12 @@ import {
   getListMute,
   interfaceMute,
   downloadMedia,
-  isInsideChat,
-  sendStatusText,
 } from './functions';
 import {
   base64ToFile,
   generateMediaKey,
   getFileHash,
   arrayBufferToBase64,
-  fixChat,
 } from './helper';
 import {
   addNewMessagesListener,
@@ -170,10 +168,8 @@ import {
   addOnNewAcks,
   addOnParticipantsChange,
   addOnStateChange,
-  addOnStreamChange,
   allNewMessagesListener,
   initNewMessagesListener,
-  callbackWile,
 } from './listeners';
 import {
   _serializeChatObj,
@@ -182,7 +178,6 @@ import {
   _serializeNumberStatusObj,
   _serializeProfilePicThumb,
   _serializeRawObj,
-  _profilePicfunc,
 } from './serializers';
 import { getStore } from './store/get-store';
 
@@ -191,18 +186,19 @@ window['webpackJsonp'] = window['webpackJsonp'] || [];
 if (typeof window.Store === 'undefined') {
   window.Store = {};
   var loadParasite = function () {
-    function injectParasite() {
-      const parasite = `parasite${Date.now()}`;
-      window['webpackJsonp'].push([
-        [parasite],
-        {
-          [parasite]: (x, y, z) => getStore(z),
-        },
-        [[parasite]],
-      ]);
-    }
+    
 
-    injectParasite();
+    function injectParasite() {
+      const parasite = `parasite${Date.now()}`
+      // webpackJsonp([], { [parasite]: (x, y, z) => getStore(z) }, [parasite]);
+      if (typeof webpackJsonp === 'function') webpackJsonp([], {[parasite]: (x, y, z) => getStore(z)}, [parasite]); 
+      else webpackChunkbuild.push([[parasite], {}, function (o, e, t) {let modules = []; for (let idx in o.m) {modules.push(o(idx));}	getStore(modules);}]);
+  }
+    // Initialize
+    setTimeout(() => {
+      injectParasite();
+    }, 2000);
+   
 
     setInterval(() => {
       try {
@@ -221,17 +217,8 @@ if (typeof window.WAPI === 'undefined') {
   window.WAPI = {
     lastRead: {},
   };
-
-  //helpers
-  window.WAPI.fixChat = fixChat;
-
-  //class
-  window.WAPI.callbackWile = new callbackWile();
-
   //others
   window.WAPI.interfaceMute = interfaceMute;
-  window.WAPI.isInsideChat = isInsideChat;
-
   //Profile
   window.WAPI.setProfilePic = setProfilePic;
   window.WAPI.getSessionTokenBrowser = getSessionTokenBrowser;
@@ -253,7 +240,6 @@ if (typeof window.WAPI === 'undefined') {
   window.WAPI._serializeMessageObj = _serializeMessageObj;
   window.WAPI._serializeNumberStatusObj = _serializeNumberStatusObj;
   window.WAPI._serializeProfilePicThumb = _serializeProfilePicThumb;
-  window.WAPI._profilePicfunc = _profilePicfunc;
 
   // Group Functions
   window.WAPI.createGroup = createGroup;
@@ -340,6 +326,7 @@ if (typeof window.WAPI === 'undefined') {
   window.WAPI.loadAndGetAllMessagesInChat = loadAndGetAllMessagesInChat;
   window.WAPI.getUnreadMessages = getUnreadMessages;
   window.WAPI.getCommonGroups = getCommonGroups;
+  window.WAPI.getProfilePicFromServer = getProfilePicFromServer;
   window.WAPI.downloadFile = downloadFile;
   window.WAPI.downloadMedia = downloadMedia;
   window.WAPI.getNumberProfile = getNumberProfile;
@@ -361,7 +348,6 @@ if (typeof window.WAPI === 'undefined') {
   window.WAPI.restartService = restartService;
   window.WAPI.killServiceWorker = killServiceWorker;
   window.WAPI.sendMute = sendMute;
-  window.WAPI.sendStatusText = sendStatusText;
 
   // Listeners initialization
   window.WAPI._newMessagesQueue = [];
@@ -529,7 +515,7 @@ if (typeof window.WAPI === 'undefined') {
     return true;
   };
 
-  /**
+   /**
    * Registers a callback to be called when the interface change
    * @param callback - function - Callback function to be called upon interface change. returns a call object.
    * @returns {boolean}
@@ -558,18 +544,11 @@ if (typeof window.WAPI === 'undefined') {
   };
 
   window.WAPI.logout = async function () {
-    let error = true,
-      chat = await WAPI.isInsideChat(false),
-      text = undefined;
-    if (Store.ws2.stream === 'CONNECTED' || chat) {
-      error = typeof Store.ws2.logout() === 'undefined' ? false : true;
-    }
-    if (error) {
-      text = 'The browser is closed or the client is not connected!';
-    }
-    return WAPI.scope(undefined, error, undefined, text);
+    return await window.WAPI.waitForStore(['ws2'], () => {
+      window.Store.ws2.logout();
+      return true;
+    });
   };
-
   window.WAPI.storePromises = {};
   window.WAPI.waitForStore = async function (stores, callback) {
     if (!Array.isArray(stores)) {
@@ -597,7 +576,6 @@ if (typeof window.WAPI === 'undefined') {
       }
       return window.WAPI.storePromises[s];
     });
-
     const all = Promise.all(promises);
 
     if (typeof callback === 'function') {
@@ -607,7 +585,6 @@ if (typeof window.WAPI === 'undefined') {
     return await all;
   };
 
-  addOnStreamChange();
   addOnStateChange();
   initNewMessagesListener();
   addNewMessagesListener();
