@@ -105,7 +105,7 @@
     "latest-version": "^5.1.0",
     "mime-types": "^2.1.27",
     "ora": "^5.1.0",
-    "puppeteer": "^5.5.0",
+    "puppeteer": "^7.1.0",
     "puppeteer-extra": "^3.1.9",
     "puppeteer-extra-plugin-stealth": "^2.6.2",
     "qrcode-terminal": "^0.12.0",
