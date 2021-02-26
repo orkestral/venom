@@ -154,7 +154,7 @@ export const defaultOptions: CreateConfig = {
   disableSpins: false,
   disableWelcome: false,
   updatesLog: true,
-  autoClose: 60000,
+  autoClose: 120000,
   createPathFileToken: true,
   waitForLogin: true,
 };
