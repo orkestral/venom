@@ -1,11 +1,23 @@
+## [3.0.1](https://github.com/orkestral/venom/compare/v2.2.6...v3.0.1) (2021-02-26)
+
+### Bug Fixes
+
+- sendText, onMessage, onck ([e04586f](https://github.com/orkestral/venom/commit/e04586f7f43d5d3dd5426709a1469eb2c41398a4))
+
 # [3.0.0](https://github.com/orkestral/venom/compare/v2.2.6...v3.0.0) (2021-02-25)
 
 ### Bug Fixes
+
 ### Fix Whatsapp update
+
 ### New Initializer
+
 ### Add SendVoice
+
 ### Speed Improvements
+
 ### Memory loss improvements
+
 ### Resource Balancing
 
 ## [2.2.6](https://github.com/orkestral/venom/compare/v2.2.5...v2.2.6) (2021-02-21)
