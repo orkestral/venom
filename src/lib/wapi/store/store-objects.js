@@ -61,8 +61,17 @@ export const storeObjects = [
         ? module.default
         : null,
   },
-  { id: "MediaCollection", conditions: (module) => (module.default && module.default.prototype && (module.default.prototype.processFiles !== undefined||module.default.prototype.processAttachments !== undefined)) ? module.default : null },
-  { id: "MediaProcess", conditions: (module) => (module.BLOB) ? module : null },
+  {
+    id: 'MediaCollection',
+    conditions: (module) =>
+      module.default &&
+      module.default.prototype &&
+      (module.default.prototype.processFiles !== undefined ||
+        module.default.prototype.processAttachments !== undefined)
+        ? module.default
+        : null,
+  },
+  { id: 'MediaProcess', conditions: (module) => (module.BLOB ? module : null) },
   {
     id: 'ChatUtil',
     conditions: (module) => (module.sendClear ? module : null),
@@ -174,7 +183,16 @@ export const storeObjects = [
         ? module
         : null,
   },
-  { id: "MsgKey", conditions: (module) => (module.default&&module.default.toString&&module.default.toString().includes('MsgKey error: obj is null/undefined')) ? module.default : null },
+  {
+    id: 'MsgKey',
+    conditions: (module) =>
+      module.default &&
+      module.default.toString &&
+      typeof module.default.toString === 'function' &&
+      module.default.toString().includes('MsgKey error: obj is null/undefined')
+        ? module.default
+        : null,
+  },
   {
     id: 'Parser',
     conditions: (module) =>
