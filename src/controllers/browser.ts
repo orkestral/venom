@@ -54,7 +54,7 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
 import * as ChromeLauncher from 'chrome-launcher';
 import * as path from 'path';
-import { Browser, Page } from 'puppeteer';
+import { Browser, BrowserContext, Page } from 'puppeteer';
 import puppeteer from 'puppeteer-extra';
 import { CreateConfig } from '../config/create-config';
 import { puppeteerConfig } from '../config/puppeteer.config';
@@ -67,26 +67,20 @@ import { tokenSession } from '../config/tokenSession.config';
 export async function initWhatsapp(
   session: string,
   options: CreateConfig,
-  browser: any,
+  page: Page,
   token?: tokenSession
 ) {
-  const waPage = await getWhatsappPage(browser);
-  if (waPage != null) {
-    // Auth with token
-    await auth_InjectToken(waPage, session, options, token);
+  await auth_InjectToken(page, session, options, token);
 
-    await waPage.setUserAgent(useragentOverride);
+  await page.setUserAgent(useragentOverride);
 
-    const timeout = 2 * 1000;
-    await Promise.race([
-      waPage.goto(puppeteerConfig.whatsappUrl, { timeout }).catch(() => {}),
-      waPage.waitForSelector('body', { timeout }).catch(() => {}),
-    ]);
+  const timeout = 2 * 1000;
+  await Promise.race([
+    page.goto(puppeteerConfig.whatsappUrl, { timeout }).catch(() => {}),
+    page.waitForSelector('body', { timeout }).catch(() => {}),
+  ]);
 
-    return waPage;
-  } else {
-    return false;
-  }
+  return page;
 }
 
 export async function injectApi(page: Page) {
@@ -103,13 +97,13 @@ export async function injectApi(page: Page) {
   if (injected) {
     return;
   }
-  
-  await page.waitForSelector('*[data-icon=chat]')
+
+  await page.waitForSelector('*[data-icon=chat]');
 
   // await page.evaluate(() => {
   //   if (document.querySelector('*[data-icon=chat]') !== null) { return true } else { return false }
   // });
- 
+
   await page.addScriptTag({
     path: require.resolve(path.join(__dirname, '../lib/wapi', 'wapi.js')),
   });
@@ -139,7 +133,7 @@ export async function initBrowser(
   session: string,
   options: CreateConfig,
   extras = {}
-): Promise<Browser | string> {
+): Promise<Browser> {
   if (options.useChrome) {
     const chromePath = getChrome();
     if (chromePath) {
@@ -195,16 +189,16 @@ export async function initBrowser(
   return browser;
 }
 
-async function getWhatsappPage(browser: Browser): Promise<Page> {
-  let pages = null;
-  await browser
-    .pages()
-    .then((e) => {
-      console.assert(e.length > 0);
-      pages = e[0];
-    })
-    .catch(() => {});
-  return pages;
+export async function getWhatsappPage(
+  browser: Browser | BrowserContext
+): Promise<Page> {
+  const pages = await browser.pages();
+
+  if (pages.length) {
+    return pages[0];
+  }
+
+  return await browser.newPage();
 }
 
 /**

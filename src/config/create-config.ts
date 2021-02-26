@@ -52,6 +52,8 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
+import { Browser, BrowserContext, LaunchOptions, Page } from 'puppeteer';
+
 // Server config
 export interface CreateConfig {
   /** folder name when saving tokens
@@ -93,7 +95,15 @@ export interface CreateConfig {
   /**
    * Will be passed to puppeteer.launch
    */
-  puppeteerOptions?: { [key: string]: string };
+  puppeteerOptions?: LaunchOptions;
+  /**
+   * Pass a external browser instance, can be used with electron
+   */
+  browser?: Browser | BrowserContext;
+  /**
+   * Pass a external page instance, can be used with electron
+   */
+  page?: Page;
   /**
    * Logs QR automatically in terminal
    * @default true

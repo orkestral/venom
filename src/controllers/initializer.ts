@@ -56,12 +56,13 @@ import { readFileSync } from 'fs';
 import { Whatsapp } from '../api/whatsapp';
 import { CreateConfig, defaultOptions } from '../config/create-config';
 import { SessionTokenCkeck, saveToken } from './auth';
-import { initWhatsapp, initBrowser } from './browser';
+import { initWhatsapp, initBrowser, getWhatsappPage } from './browser';
 import { checkUpdates, welcomeScreen } from './welcome';
 import { getSpinnies } from '../utils/spinnies';
 import { SocketState } from '../api/model/enum';
 import { deleteFiles } from '../api/helpers';
 import { tokenSession } from '../config/tokenSession.config';
+import { Browser } from 'puppeteer';
 
 /**
  * A callback will be received, informing the status of the qrcode
@@ -155,23 +156,30 @@ export async function create(
     text: 'Loading Venom 3.0 ...',
   });
 
-  const browser = await initBrowser(session, mergedOptions);
+  let browser = mergedOptions.browser;
+  let page = mergedOptions.page;
 
-  if (browser === 'connect') {
-    spinnies.fail(`browser-${session}`, {
-      text: `Error when try to connect ${mergedOptions.browserWS}`,
+  if (!browser && page) {
+    // Get browser from page
+    browser = page.browser();
+  } else if (!browser && !page) {
+    // Initialize new browser
+    // logger.info('Initializing browser...', { session, type: 'browser' });
+    browser = await initBrowser(session, mergedOptions).catch((e) => {
+      if (mergedOptions.browserWS && mergedOptions.browserWS != '') {
+        spinnies.update(`browser-${session}`, {
+          text: `Error when try to connect ${mergedOptions.browserWS}`,
+        });
+      } else {
+        spinnies.update(`browser-${session}`, {
+          text: `Error no open browser`,
+        });
+      }
+      spinnies.update(`browser-${session}`, {
+        text: e.message,
+      });
+      throw e;
     });
-    throw `Error when try to connect ${mergedOptions.browserWS}`;
-  }
-
-  if (browser === 'launch') {
-    spinnies.fail(`browser-${session}`, {
-      text: `Error no open browser`,
-    });
-    throw `Error no open browser`;
-  }
-
-  if (typeof browser === 'object') {
     spinnies.update(`browser-${session}`, {
       text: 'checking headless...',
     });
@@ -185,92 +193,97 @@ export async function create(
         text: 'headless option is disabled, browser visible',
       });
     }
+  }
 
-    if (!mergedOptions.browserWS) {
-      browser['_process'].once('close', () => {
-        browser['isClose'] = true;
+  if (!mergedOptions.browserWS && browser['_process']) {
+    browser['_process'].once('close', () => {
+      browser['isClose'] = true;
+    });
+  }
+
+  (browser as Browser).on('targetdestroyed', async (target: any) => {
+    if (
+      typeof (browser as Browser).isConnected === 'function' &&
+      !(browser as Browser).isConnected()
+    ) {
+      return;
+    }
+    const pages = await browser.pages();
+    if (!pages.length) {
+      browser.close().catch(() => null);
+    }
+  });
+
+  (browser as Browser).on('disconnected', () => {
+    if (mergedOptions.browserWS) {
+      statusFind && statusFind('serverClose', session);
+    } else {
+      statusFind && statusFind('browserClose', session);
+    }
+  });
+
+  if (SessionTokenCkeck(browserSessionToken)) {
+    browserToken = browserSessionToken;
+  }
+
+  if (!page) {
+    // Initialize a page
+    page = await getWhatsappPage(browser);
+  }
+  // Initialize whatsapp
+  await initWhatsapp(session, mergedOptions, page, browserToken);
+
+  if (page) {
+    const client = new Whatsapp(page, session, mergedOptions);
+
+    if (mergedOptions.createPathFileToken) {
+      client.onStateChange((state) => {
+        if (state === SocketState.CONNECTED) {
+          setTimeout(() => {
+            saveToken(page, session, mergedOptions).catch((e) => {
+              spinnies.update(`browser-${session}`, {
+                text: e,
+              });
+            });
+          }, 1000);
+        }
       });
     }
 
-    browser.on('targetdestroyed', async () => {
-      if (!browser.isConnected()) {
-        return;
+    if (mergedOptions.waitForLogin) {
+      const isLogged = await client.waitForLogin(catchQR, statusFind);
+      if (!isLogged) {
+        throw 'Not Logged';
       }
-      const pages = await browser.pages();
-      if (!pages.length) {
-        browser.close();
-      }
-    });
-
-    browser.on('disconnected', () => {
-      if (mergedOptions.browserWS) {
-        statusFind && statusFind('serverClose', session);
-      } else {
-        statusFind && statusFind('browserClose', session);
-      }
-    });
-
-    if (SessionTokenCkeck(browserSessionToken)) {
-      browserToken = browserSessionToken;
-    }
-
-    const waPage = await initWhatsapp(
-      session,
-      mergedOptions,
-      browser,
-      browserToken
-    );
-
-    if (waPage) {
-      const client = new Whatsapp(waPage, session, mergedOptions);
-
-      if (mergedOptions.createPathFileToken) {
-        client.onStateChange((state) => {
-          if (state === SocketState.CONNECTED) {
-            setTimeout(() => {
-              saveToken(waPage, session, mergedOptions).catch((e) => {
-                console.log(e);
+      let waitLoginPromise = null;
+      client.onStateChange(async (state) => {
+        if (
+          state === SocketState.UNPAIRED ||
+          state === SocketState.UNPAIRED_IDLE
+        ) {
+          if (statusFind) {
+            statusFind('desconnectedMobile', session);
+          }
+          deleteFiles(mergedOptions, session, spinnies);
+          if (!waitLoginPromise) {
+            waitLoginPromise = client
+              .waitForLogin(catchQR, statusFind)
+              .catch(() => {})
+              .finally(() => {
+                waitLoginPromise = null;
               });
-            }, 1000);
           }
-        });
-      }
-
-      if (mergedOptions.waitForLogin) {
-        const isLogged = await client.waitForLogin(catchQR, statusFind);
-        if (!isLogged) {
-          throw 'Not Logged';
+          await waitLoginPromise;
         }
-        let waitLoginPromise = null;
-        client.onStateChange(async (state) => {
-          if (
-            state === SocketState.UNPAIRED ||
-            state === SocketState.UNPAIRED_IDLE
-          ) {
-            if (statusFind) {
-              statusFind('desconnectedMobile', session);
-            }
-            deleteFiles(mergedOptions, session, spinnies);
-            if (!waitLoginPromise) {
-              waitLoginPromise = client
-                .waitForLogin(catchQR, statusFind)
-                .catch(() => {})
-                .finally(() => {
-                  waitLoginPromise = null;
-                });
-            }
-            await waitLoginPromise;
-          }
-        });
-      }
-
-      if (mergedOptions.debug) {
-        const debugURL = `http://localhost:${readFileSync(
-          `./${session}/DevToolsActivePort`
-        ).slice(0, -54)}`;
-        console.log(`\nDebug: \x1b[34m${debugURL}\x1b[0m`);
-      }
-      return client;
+      });
     }
+
+    if (mergedOptions.debug) {
+      const debugURL = `http://localhost:${readFileSync(
+        `./${session}/DevToolsActivePort`
+      ).slice(0, -54)}`;
+      console.log(`\nDebug: \x1b[34m${debugURL}\x1b[0m`);
+    }
+    return client;
   }
 }
