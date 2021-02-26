@@ -48,7 +48,7 @@ module.exports = {
         Debug: true,
         Store: true,
         WAPI: true,
-        webpackJsonp: true,
+        webpackChunkbuild: true,
         WWebJS: true,
       },
       rules: {
@@ -56,6 +56,7 @@ module.exports = {
         '@typescript-eslint/no-array-constructor': 'off',
         'no-prototype-builtins': 'off',
         'no-redeclare': 'off',
+        'no-console': 0,
       },
     },
     {

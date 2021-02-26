@@ -61,6 +61,7 @@ import { SocketState } from '../model/enum';
 import { InterfaceMode } from '../model/enum/interface-mode';
 import { InterfaceState } from '../model/enum/interface-state';
 import { ProfileLayer } from './profile.layer';
+import { callbackWile } from '../helpers';
 
 declare global {
   interface Window {
@@ -71,7 +72,7 @@ declare global {
     onAck: any;
   }
 }
-
+const call = new callbackWile();
 export class ListenerLayer extends ProfileLayer {
   private listenerEmitter = new EventEmitter();
 
@@ -129,6 +130,10 @@ export class ListenerLayer extends ProfileLayer {
           window.WAPI.onInterfaceChange(window['onInterfaceChange']);
           window['onInterfaceChange'].exposed = true;
         }
+        if (!window['onMessage'].exposed) {
+          window.WAPI.onMessage(window['onMessage']);
+          window['onMessage'].exposed = true;
+        }
       })
       .catch(() => {});
   }
@@ -138,11 +143,17 @@ export class ListenerLayer extends ProfileLayer {
    * @returns Observable stream of messages
    */
   public async onMessage(fn: (message: Message) => void) {
-    this.listenerEmitter.on(ExposedFn.OnMessage, fn);
-
+    this.listenerEmitter.on(ExposedFn.OnMessage, (state: Message) => {
+      if (!call.checkObj(state.from, state.id)) {
+        call.addObjects(state.from, state.id);
+        fn(state);
+      }
+    });
     return {
       dispose: () => {
-        this.listenerEmitter.off(ExposedFn.OnMessage, fn);
+        this.listenerEmitter.off(ExposedFn.OnMessage, (state: Message) => {
+          fn(state);
+        });
       },
     };
   }
@@ -191,7 +202,6 @@ export class ListenerLayer extends ProfileLayer {
       },
     };
   }
-
 
   /**
    * @event Listens to messages acknowledgement Changes

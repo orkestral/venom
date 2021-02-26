@@ -61,3 +61,4 @@ export { scrapeLogin } from './scrape-login';
 export { scrapeDesconnected } from './scrape-desconnect';
 export { scrapeDeleteToken } from './scrape-deletetoken';
 export { deleteFiles } from './delete-file';
+export { callbackWile } from './callback-wile';

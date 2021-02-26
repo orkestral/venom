@@ -170,6 +170,7 @@ import {
   addOnStateChange,
   allNewMessagesListener,
   initNewMessagesListener,
+  callbackWile,
 } from './listeners';
 import {
   _serializeChatObj,
@@ -181,29 +182,32 @@ import {
 } from './serializers';
 import { getStore } from './store/get-store';
 
-window['webpackJsonp'] = window['webpackJsonp'] || [];
+window['webpackChunkbuild'] = window['webpackChunkbuild'] || [];
 
 if (typeof window.Store === 'undefined') {
   window.Store = {};
   var loadParasite = function () {
-    
-
     function injectParasite() {
-      const parasite = `parasite${Date.now()}`
-      // webpackJsonp([], { [parasite]: (x, y, z) => getStore(z) }, [parasite]);
-      if (typeof webpackJsonp === 'function') webpackJsonp([], {[parasite]: (x, y, z) => getStore(z)}, [parasite]); 
-      else webpackChunkbuild.push([[parasite], {}, function (o, e, t) {let modules = []; for (let idx in o.m) {modules.push(o(idx));}	getStore(modules);}]);
-  }
-    // Initialize
-    setTimeout(() => {
-      injectParasite();
-    }, 2000);
-   
+      const parasite = `parasite${Date.now()}`;
+      window['webpackChunkbuild'].push([
+        [parasite],
+        {},
+        function (o) {
+          let modules = [];
+          for (let idx in o.m) {
+            modules.push(o(idx));
+          }
+          getStore(modules);
+        },
+      ]);
+    }
+
+    injectParasite();
 
     setInterval(() => {
       try {
-        const last = window['webpackJsonp'].length - 1;
-        if (!/^parasite/.test(window['webpackJsonp'][last][0][0])) {
+        const last = window['webpackChunkbuild'].length - 1;
+        if (!/^parasite/.test(window['webpackChunkbuild'][last][0][0])) {
           injectParasite();
         }
       } catch (e) {}
@@ -217,6 +221,10 @@ if (typeof window.WAPI === 'undefined') {
   window.WAPI = {
     lastRead: {},
   };
+
+  //class
+  window.WAPI.callbackWileOnck = new callbackWile();
+
   //others
   window.WAPI.interfaceMute = interfaceMute;
   //Profile
@@ -515,7 +523,7 @@ if (typeof window.WAPI === 'undefined') {
     return true;
   };
 
-   /**
+  /**
    * Registers a callback to be called when the interface change
    * @param callback - function - Callback function to be called upon interface change. returns a call object.
    * @returns {boolean}

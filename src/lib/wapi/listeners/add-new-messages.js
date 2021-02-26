@@ -64,7 +64,9 @@ export function addNewMessagesListener() {
  */
 function waitNewMessages(rmCallbackAfterUse = true, done) {
   window.WAPI._newMessagesCallbacks.push({
-    callback: done,
+    callback: (e) => {
+      done(e);
+    },
     rmAfterUse: rmCallbackAfterUse,
   });
   return true;

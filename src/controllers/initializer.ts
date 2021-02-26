@@ -270,7 +270,6 @@ export async function create(
         ).slice(0, -54)}`;
         console.log(`\nDebug: \x1b[34m${debugURL}\x1b[0m`);
       }
-
       return client;
     }
   }

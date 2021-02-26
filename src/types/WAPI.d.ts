@@ -85,7 +85,7 @@ interface WAPI {
     contactId: string,
     messageId: string[] | string,
     onlyLocal: boolean
-    ) => Promise<boolean>;
+  ) => Promise<boolean>;
   demoteParticipant: (groupId: string, contactId: string | string[]) => void;
   downloadFile: (data: string) => Promise<string | boolean>;
   downloadMedia: (messageId: string) => Promise<string>;
@@ -147,6 +147,7 @@ interface WAPI {
   onAddedToGroup: (callback: Function) => any;
   onIncomingCall: (callback: Function) => any;
   onInterfaceChange: (callback: Function) => void;
+  onMessage: (callback: Function) => void;
   onLiveLocation: (chatId: string, callback: Function) => any;
   onParticipantsChanged: (groupId: string, callback: Function) => any;
   onStateChange: (callback: Function) => void;

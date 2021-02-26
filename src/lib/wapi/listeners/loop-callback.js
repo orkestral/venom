@@ -1,5 +1,3 @@
-const { storeObjects } = require('./store-objects');
-
 /*
 NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
@@ -54,35 +52,47 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
-export function getStore(modules) {
-  let foundCount = 0;
-  let neededObjects = storeObjects;
-  for (let idx in modules) {
-    if (typeof modules[idx] === 'object' && modules[idx] !== null) {
-      neededObjects.forEach((needObj) => {
-        if (!needObj.conditions || needObj.foundedModule) return;
-        let neededModule = needObj.conditions(modules[idx]);
-        if (neededModule !== null) {
-          foundCount++;
-          needObj.foundedModule = neededModule;
-        }
-      });
-      if (foundCount == neededObjects.length) {
-        break;
-      }
-    }
+export class callbackWile {
+  constructor() {
+    this.obj = new Array() || [];
   }
 
-  let neededStore = neededObjects.find((needObj) => needObj.id === 'Store');
-  window.Store = neededStore.foundedModule ? neededStore.foundedModule : {};
-  neededObjects.splice(neededObjects.indexOf(neededStore), 1);
-  neededObjects.forEach((needObj) => {
-    if (needObj.foundedModule) {
-      window.Store[needObj.id] = needObj.foundedModule;
+  addObjects(ids, serializeds) {
+    let checkFilter = this.obj.filter(
+      (order) => order.serialized === serializeds
+    );
+    let add = null;
+    if (!checkFilter.length) {
+      add = {
+        id: ids,
+        serialized: serializeds,
+      };
+      this.obj.push(add);
+      return true;
     }
-  });
-  window.Store.Chat.modelClass.prototype.sendMessage = function (e) {
-    window.Store.SendTextMsgToChat(this, ...arguments);
-  };
-  return window.Store;
+    return false;
+  }
+
+  getObjKey(serialized) {
+    for (var i in this.obj) {
+      if (this.obj[i].serialized === serialized) {
+        return i;
+      }
+    }
+    return false;
+  }
+
+  checkObj(id, serialized) {
+    let checkFilter = this.obj.filter(
+      (order) => order.id === id && order.serialized === serialized
+    );
+    if (checkFilter.length) {
+      return true;
+    }
+    return false;
+  }
+
+  get module() {
+    return this.obj;
+  }
 }
