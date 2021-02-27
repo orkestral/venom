@@ -473,6 +473,9 @@ await client.setChatState('000000000000@c.us', 0 | 1 | 2);
 ## Retrieving Data
 
 ```javascript
+//Retrieves all chats Transmission list
+const transmission = await client.getAllChatsTransmission();
+
 // Returns a list of mute and non-mute users
 // "all" List all mutes
 // "toMute" List all silent chats

@@ -193,6 +193,18 @@ export class RetrieverLayer extends SenderLayer {
   }
 
   /**
+   * Retrieves all chats Transmission list
+   * @returns array of [Chat]
+   */
+  public async getAllChatsTransmission() {
+    return await this.page.evaluate(() => {
+      let chats = WAPI.getAllChats(),
+        filter = chats.filter((chat) => chat.kind === 'broadcast');
+      return filter;
+    });
+  }
+
+  /**
    * Retrieves chat object of given contact id
    * @param contactId
    * @returns contact detial as promise
