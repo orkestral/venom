@@ -52,11 +52,12 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
-export const getAllContacts = function (done) {
-  const contacts = window.Store.Contact.map((contact) =>
+export const getAllContacts = function () {
+  const allContacts = window.Store.Contact.map((contact) =>
     WAPI._serializeContactObj(contact)
   );
 
-  if (done !== undefined) done(contacts);
-  return contacts;
+  return allContacts.filter((result) => {
+    return result.isUser === true;
+  });
 };
