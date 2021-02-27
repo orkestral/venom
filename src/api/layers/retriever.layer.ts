@@ -129,6 +129,18 @@ export class RetrieverLayer extends SenderLayer {
   }
 
   /**
+   * Retrieves all chats Contacts
+   * @returns array of [Chat]
+   */
+  public async getAllChatsContacts() {
+    return await this.page.evaluate(() => {
+      let chats = WAPI.getAllChats(),
+        filter = chats.filter((chat) => chat.kind === 'chat');
+      return filter;
+    });
+  }
+
+  /**
    * Checks if a number is a valid WA number
    * @param contactId, you need to include the @c.us at the end.
    * @returns contact detial as promise
@@ -150,16 +162,6 @@ export class RetrieverLayer extends SenderLayer {
         WAPI.getAllChatsWithMessages(withNewMessageOnly),
       withNewMessageOnly
     );
-  }
-
-  /**
-   * Retrieve all groups new messages
-   * @returns array of groups
-   */
-  public async getChatGroupNewMsg() {
-    // prettier-ignore
-    const chats = await this.page.evaluate(() => WAPI.getAllChatsWithNewMsg());
-    return chats.filter((chat) => chat.kind === 'group');
   }
 
   /**

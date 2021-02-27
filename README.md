@@ -473,8 +473,29 @@ await client.setChatState('000000000000@c.us', 0 | 1 | 2);
 ## Retrieving Data
 
 ```javascript
+// Retrieve all chats
+const chats = await client.getAllChats();
+
+//Retrieves all chats new messages
+const chatsAllNew = getAllChatsNewMsg();
+
+//Retrieves all chats Contacts
+const contacts = await client.getAllChatsContacts();
+
+//Retrieve all contacts new messages
+const contactNewMsg = await client.getChatContactNewMsg();
+
+// Retrieve all groups
+const chats = await client.getAllChatsGroups();
+
+//Retrieve all groups new messages
+const groupNewMsg = await client.getChatGroupNewMsg();
+
 //Retrieves all chats Transmission list
 const transmission = await client.getAllChatsTransmission();
+
+// Retrieve contacts
+const contacts = await client.getAllContacts();
 
 // Returns a list of mute and non-mute users
 // "all" List all mutes
@@ -488,9 +509,6 @@ const browserSessionToken = await client.getSessionTokenBrowser();
 
 // Calls your list of blocked contacts (returns an array)
 const getBlockList = await client.getBlockList();
-
-// Retrieve contacts
-const contacts = await client.getAllContacts();
 
 // Retrieve messages in chat
 const Messages = await client.getAllMessagesInChat('000000000000@c.us');
@@ -511,18 +529,6 @@ const user = await client.getNumberProfile('000000000000@c.us');
 
 // Retrieve all unread message
 const messages = await client.getAllUnreadMessages();
-
-// Retrieve all chats
-const chats = await client.getAllChats();
-
-//Retrieves all chats new messages
-const chatsAllNew = getAllChatsNewMsg();
-
-// Retrieve all groups
-const chats = await client.getAllChatsGroups();
-
-//Retrieve all groups new messages
-const groupNewMsg = await client.getChatGroupNewMsg();
 
 // Retrieve profile fic (as url)
 const url = await client.getProfilePicFromServer('000000000000@c.us');
