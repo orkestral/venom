@@ -60,7 +60,7 @@ import {
   blockContact,
   unblockContact,
   getBlockList,
-  clearChat,
+  clearChatMessages,
   createGroup,
   deleteConversation,
   deleteMessages,
@@ -268,7 +268,7 @@ if (typeof window.WAPI === 'undefined') {
   window.WAPI.sendSeen = sendSeen;
   window.WAPI.deleteConversation = deleteConversation;
   window.WAPI.deleteMessages = deleteMessages;
-  window.WAPI.clearChat = clearChat;
+  window.WAPI.clearChatMessages = clearChatMessages;
   window.WAPI.sendImage = sendImage;
   window.WAPI.sendPtt = sendPtt;
   window.WAPI.sendFile = sendFile;

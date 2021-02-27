@@ -53,7 +53,7 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
 export { areAllMessagesLoaded } from './are-all-messages-loaded';
-export { clearChat } from './clear-chat';
+export { clearChatMessages } from './clear-chat';
 export { createGroup } from './create-group';
 export { deleteConversation } from './delete-conversation';
 export { deleteMessages } from './delete-messages';
