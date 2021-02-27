@@ -3,8 +3,8 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>CreateOptions | venom-bot - v3.0.1</title>
-	<meta name="description" content="Documentation for venom-bot - v3.0.1">
+	<title>CreateOptions | venom-bot - v3.0.5</title>
+	<meta name="description" content="Documentation for venom-bot - v3.0.5">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
 	<link rel="stylesheet" href="../assets/css/pages.css">
@@ -23,7 +23,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../index.html" class="title">venom-bot - v3.0.1</a>
+					<a href="../index.html" class="title">venom-bot - v3.0.5</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -86,6 +86,7 @@
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="createoptions.html#autoclose" class="tsd-kind-icon">auto<wbr>Close</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="createoptions.html#browser" class="tsd-kind-icon">browser</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="createoptions.html#browserargs" class="tsd-kind-icon">browser<wbr>Args</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="createoptions.html#browsersessiontoken" class="tsd-kind-icon">browser<wbr>Session<wbr>Token</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="createoptions.html#browserws" class="tsd-kind-icon">browserWS</a></li>
@@ -99,6 +100,7 @@
 								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="createoptions.html#headless" class="tsd-kind-icon">headless</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="createoptions.html#logqr" class="tsd-kind-icon">logQR</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="createoptions.html#mkdirfoldertoken" class="tsd-kind-icon">mkdir<wbr>Folder<wbr>Token</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="createoptions.html#page" class="tsd-kind-icon">page</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="createoptions.html#puppeteeroptions" class="tsd-kind-icon">puppeteer<wbr>Options</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="createoptions.html#session" class="tsd-kind-icon">session</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="createoptions.html#statusfind" class="tsd-kind-icon">status<wbr>Find</a></li>
@@ -128,6 +130,19 @@
 							<dd><p>60000</p>
 							</dd>
 						</dl>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
+					<a name="browser" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> browser</h3>
+					<div class="tsd-signature tsd-kind-icon">browser<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Browser</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">BrowserContext</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="createconfig.html">CreateConfig</a>.<a href="createconfig.html#browser">browser</a></p>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Pass a external browser instance, can be used with electron</p>
+						</div>
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
@@ -338,9 +353,22 @@
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
+					<a name="page" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> page</h3>
+					<div class="tsd-signature tsd-kind-icon">page<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Page</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="createconfig.html">CreateConfig</a>.<a href="createconfig.html#page">page</a></p>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Pass a external page instance, can be used with electron</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
 					<a name="puppeteeroptions" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> puppeteer<wbr>Options</h3>
-					<div class="tsd-signature tsd-kind-icon">puppeteer<wbr>Options<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{}</span></div>
+					<div class="tsd-signature tsd-kind-icon">puppeteer<wbr>Options<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">LaunchOptions</span></div>
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="createconfig.html">CreateConfig</a>.<a href="createconfig.html#puppeteeroptions">puppeteerOptions</a></p>
 					</aside>
@@ -348,14 +376,6 @@
 						<div class="lead">
 							<p>Will be passed to puppeteer.launch</p>
 						</div>
-					</div>
-					<div class="tsd-type-declaration">
-						<h4>Type declaration</h4>
-						<ul class="tsd-parameters">
-							<li class="tsd-parameter-index-signature">
-								<h5><span class="tsd-signature-symbol">[</span>key: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">]: </span><span class="tsd-signature-type">string</span></h5>
-							</li>
-						</ul>
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
@@ -511,6 +531,9 @@
 								<a href="createoptions.html#autoclose" class="tsd-kind-icon">auto<wbr>Close</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
+								<a href="createoptions.html#browser" class="tsd-kind-icon">browser</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
 								<a href="createoptions.html#browserargs" class="tsd-kind-icon">browser<wbr>Args</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
@@ -548,6 +571,9 @@
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
 								<a href="createoptions.html#mkdirfoldertoken" class="tsd-kind-icon">mkdir<wbr>Folder<wbr>Token</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
+								<a href="createoptions.html#page" class="tsd-kind-icon">page</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
 								<a href="createoptions.html#puppeteeroptions" class="tsd-kind-icon">puppeteer<wbr>Options</a>
