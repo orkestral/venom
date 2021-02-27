@@ -1,3 +1,9 @@
+## [3.0.5](https://github.com/orkestral/venom/compare/3.0.4...3.0.5) (2021-02-27)
+
+### Bug Fixes
+
+- getAllGroups return ([7673f1e](https://github.com/orkestral/venom/commit/7673f1e7ed4c11e6622fd53c2bbce7bf55c08d7c))
+
 ## [3.0.1](https://github.com/orkestral/venom/compare/v2.2.6...v3.0.1) (2021-02-26)
 
 ### Bug Fixes
