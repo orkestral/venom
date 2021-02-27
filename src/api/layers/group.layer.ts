@@ -63,6 +63,21 @@ export class GroupLayer extends RetrieverLayer {
   }
 
   /**
+   * Retrieve all groups
+   * @returns array of groups
+   */
+  public async getAllGroups(withNewMessagesOnly = false) {
+    if (withNewMessagesOnly) {
+      // prettier-ignore
+      const chats = await this.page.evaluate(() => WAPI.getAllChatsWithNewMsg());
+      return chats.filter((chat) => chat.isGroup);
+    } else {
+      const chats = await this.page.evaluate(() => WAPI.getAllChats());
+      return chats.filter((chat) => chat.isGroup);
+    }
+  }
+
+  /**
    * Removes the host device from the group
    * @param groupId group id
    */
