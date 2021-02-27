@@ -513,7 +513,7 @@ const messages = await client.getAllUnreadMessages();
 const chats = await client.getAllChats();
 
 // Retrieve all groups
-const chats = await client.getAllGroups();
+const chats = await client.getAllChatsGroups();
 
 // Retrieve profile fic (as url)
 const url = await client.getProfilePicFromServer('000000000000@c.us');

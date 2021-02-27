@@ -66,7 +66,7 @@ export class GroupLayer extends RetrieverLayer {
    * Retrieve all groups
    * @returns array of groups
    */
-  public async getAllGroups(withNewMessagesOnly = false) {
+  public async getAllChatsGroups(withNewMessagesOnly = false) {
     if (withNewMessagesOnly) {
       // prettier-ignore
       const chats = await this.page.evaluate(() => WAPI.getAllChatsWithNewMsg());
