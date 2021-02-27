@@ -727,7 +727,7 @@ await client.getTheme();
 await client.deleteChat('000000000000@c.us');
 
 // Clear chat messages
-await client.clearChat('000000000000@c.us');
+await client.clearChatMessages('000000000000@c.us');
 
 // Archive and unarchive chat messages with true or false
 await client.archiveChat(chatId, true);
