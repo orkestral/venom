@@ -57,31 +57,31 @@ import { GroupMetadata } from './group-metadata';
 import { Id } from './id';
 
 export interface Chat {
-  id: Id;
-  pendingMsgs: boolean;
-  lastReceivedKey: LastReceivedKey;
-  t: number;
-  unreadCount: number;
   archive: boolean;
+  changeNumberNewJid: Id;
+  changeNumberOldJid: Id;
+  contact: Contact;
+  ephemeralDuration: number;
+  ephemeralSettingTimestamp: number;
+  groupMetadata: GroupMetadata;
+  id: Id;
+  isAnnounceGrpRestrict: boolean;
+  isGroup: boolean;
+  isOnline: null | boolean;
   isReadOnly: boolean;
+  kind: string;
+  lastReceivedKey: LastReceivedKey;
+  lastSeen: null | number | boolean;
+  modifyTag: number;
+  msgs: null;
   muteExpiration: number;
   name: string;
   notSpam: boolean;
+  pendingMsgs: boolean;
   pin: number;
-  msgs: null;
-  kind: string;
-  isGroup: boolean;
-  contact: Contact;
-  groupMetadata: GroupMetadata;
   presence: Presence;
-  /**
-   * @deprecated This is unreliable. Use the method {@link Whatsapp.getChatIsOnline} instead.
-   */
-  isOnline: null | boolean;
-  /**
-   * @deprecated This is unreliable. Use the method {@link Whatsapp.getLastSeen} instead.
-   */
-  lastSeen: null | number | boolean;
+  t: number;
+  unreadCount: number;
 }
 
 export interface ProfilePicThumbObj {
