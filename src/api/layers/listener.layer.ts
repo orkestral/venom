@@ -72,7 +72,8 @@ declare global {
     onAck: any;
   }
 }
-const call = new callbackWile();
+const callonMessage = new callbackWile();
+const callOnack = new callbackWile();
 export class ListenerLayer extends ProfileLayer {
   private listenerEmitter = new EventEmitter();
 
@@ -134,6 +135,10 @@ export class ListenerLayer extends ProfileLayer {
           window.WAPI.onMessage(window['onMessage']);
           window['onMessage'].exposed = true;
         }
+        if (!window['onAck'].exposed) {
+          window.WAPI.onMessage(window['onAck']);
+          window['onAck'].exposed = true;
+        }
       })
       .catch(() => {});
   }
@@ -144,15 +149,18 @@ export class ListenerLayer extends ProfileLayer {
    */
   public async onMessage(fn: (message: Message) => void) {
     this.listenerEmitter.on(ExposedFn.OnMessage, (state: Message) => {
-      if (!call.checkObj(state.from, state.id)) {
-        call.addObjects(state.from, state.id);
+      if (!callonMessage.checkObj(state.from, state.id)) {
+        callonMessage.addObjects(state.from, state.id);
         fn(state);
       }
     });
     return {
       dispose: () => {
         this.listenerEmitter.off(ExposedFn.OnMessage, (state: Message) => {
-          fn(state);
+          if (!callonMessage.checkObj(state.from, state.id)) {
+            callonMessage.addObjects(state.from, state.id);
+            fn(state);
+          }
         });
       },
     };
@@ -208,11 +216,33 @@ export class ListenerLayer extends ProfileLayer {
    * @returns Observable stream of messages
    */
   public async onAck(fn: (ack: Ack) => void) {
-    this.listenerEmitter.on(ExposedFn.onAck, fn);
+    this.listenerEmitter.on(ExposedFn.onAck, (e: Ack) => {
+      if (!callOnack.checkObj(e.ack, e.id._serialized)) {
+        let key = callOnack.getObjKey(e.id._serialized);
+        if (key) {
+          callOnack.module[key].id = e.ack;
+          fn(e);
+        } else {
+          callOnack.addObjects(e.ack, e.id._serialized);
+          fn(e);
+        }
+      }
+    });
 
     return {
       dispose: () => {
-        this.listenerEmitter.off(ExposedFn.onAck, fn);
+        this.listenerEmitter.off(ExposedFn.onAck, (e: Ack) => {
+          if (!callOnack.checkObj(e.ack, e.id._serialized)) {
+            let key = callOnack.getObjKey(e.id._serialized);
+            if (key) {
+              callOnack.module[key].id = e.ack;
+              fn(e);
+            } else {
+              callOnack.addObjects(e.ack, e.id._serialized);
+              fn(e);
+            }
+          }
+        });
       },
     };
   }

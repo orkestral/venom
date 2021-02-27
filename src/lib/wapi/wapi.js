@@ -170,7 +170,6 @@ import {
   addOnStateChange,
   allNewMessagesListener,
   initNewMessagesListener,
-  callbackWile,
 } from './listeners';
 import {
   _serializeChatObj,
@@ -221,9 +220,6 @@ if (typeof window.WAPI === 'undefined') {
   window.WAPI = {
     lastRead: {},
   };
-
-  //class
-  window.WAPI.callbackWileOnck = new callbackWile();
 
   //others
   window.WAPI.interfaceMute = interfaceMute;

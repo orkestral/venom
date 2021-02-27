@@ -56,16 +56,7 @@ export function addOnNewAcks() {
   window.WAPI.waitNewAcknowledgements = function (callback) {
     window.WAPI.waitForStore(['Chat', 'Msg'], () => {
       Store.Msg.on('change:ack', (e) => {
-        if (!WAPI.callbackWileOnck.checkObj(e.ack, e.id._serialized)) {
-          let key = WAPI.callbackWileOnck.getObjKey(e.id._serialized);
-          if (key) {
-            WAPI.callbackWileOnck.module[key].id = e.ack;
-            callback(e);
-          } else {
-            WAPI.callbackWileOnck.addObjects(e.ack, e.id._serialized);
-            callback(e);
-          }
-        }
+        callback(e);
       });
     });
     return true;
