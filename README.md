@@ -512,6 +512,9 @@ const messages = await client.getAllUnreadMessages();
 // Retrieve all chats
 const chats = await client.getAllChats();
 
+//Retrieves all chats new messages
+const chatsAllNew = getAllChatsNewMsg();
+
 // Retrieve all groups
 const chats = await client.getAllChatsGroups();
 

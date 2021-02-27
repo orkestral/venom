@@ -110,12 +110,22 @@ export class RetrieverLayer extends SenderLayer {
    * Retrieves all chats
    * @returns array of [Chat]
    */
-  public async getAllChats(withNewMessageOnly = false) {
-    if (withNewMessageOnly) {
-      return this.page.evaluate(() => WAPI.getAllChatsWithNewMsg());
-    } else {
-      return this.page.evaluate(() => WAPI.getAllChats());
-    }
+  public async getAllChats() {
+    return await this.page.evaluate(() => {
+      let chats = WAPI.getAllChats();
+      return chats;
+    });
+  }
+
+  /**
+   * Retrieves all chats new messages
+   * @returns array of [Chat]
+   */
+  public async getAllChatsNewMsg() {
+    return await this.page.evaluate(() => {
+      let chats = WAPI.getAllChatsWithNewMsg();
+      return chats;
+    });
   }
 
   /**
