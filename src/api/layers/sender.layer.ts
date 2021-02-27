@@ -334,42 +334,34 @@ export class SenderLayer extends ListenerLayer {
    * @param to Chat id
    * @param base64 base64 data
    */
-  public async sendVoice(
-    to: string,
-    filePath: string,
-  ){
-      let base64 = await downloadFileToBase64(filePath, [
-        'audio/mpeg',
-      ]);
+  public async sendVoice(to: string, filePath: string) {
+    let base64 = await downloadFileToBase64(filePath, ['audio/mpeg']);
 
-      if (!base64) {
-        base64 = await fileToBase64(filePath);
-      }
+    if (!base64) {
+      base64 = await fileToBase64(filePath);
+    }
 
-      if (!base64) {
-        const obj = {
-          erro: true,
-          to: to,
-          text: 'No such file or directory, open "' + filePath + '"',
-        };
-        return obj;
-      }
-    
+    if (!base64) {
+      const obj = {
+        erro: true,
+        to: to,
+        text: 'No such file or directory, open "' + filePath + '"',
+      };
+      return obj;
+    }
 
-      path.basename(filePath);
+    path.basename(filePath);
 
-      let filename = '';
+    let filename = '';
 
-      let caption = '';
-      
-      return this.page.evaluate(
-        ({ to, base64, filename, caption }) => {
-          WAPI.sendPtt(base64, to, filename, caption)
-        },
-        { to, base64, filename, caption }
-      );
+    let caption = '';
 
-    
+    return this.page.evaluate(
+      ({ to, base64, filename, caption }) => {
+        WAPI.sendPtt(base64, to, filename, caption);
+      },
+      { to, base64, filename, caption }
+    );
   }
 
   /**

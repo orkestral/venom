@@ -262,7 +262,7 @@ export class HostLayer {
     this.spin('Waiting page load', 'spinning');
 
     await this.page
-    .waitForFunction(`!document.querySelector('#initial_startup')`)
+      .waitForFunction(`!document.querySelector('#initial_startup')`)
       .catch(() => {});
 
     this.spin('Checking is logged...');
@@ -297,9 +297,9 @@ export class HostLayer {
     }
 
     if (authenticated === true) {
-       // Reinicia o contador do autoclose
-       this.cancelAutoClose();
-       this.startAutoClose();
+      // Reinicia o contador do autoclose
+      this.cancelAutoClose();
+      this.startAutoClose();
       // Wait for interface update
       await sleep(200);
       this.spin('Checking phone is connected...');

@@ -2,7 +2,7 @@ import * as boxen from 'boxen';
 import * as chalk from 'chalk';
 import latestVersion from 'latest-version';
 import * as Spinnies from 'spinnies';
-import {yo} from 'yoo-hoo';
+import { yo } from 'yoo-hoo';
 import { upToDate } from '../utils/semver';
 const { version } = require('../../package.json');
 
@@ -15,8 +15,8 @@ export function welcomeScreen() {
     return;
   }
   welcomeShown = true;
-   yo('VENOM', { color: 'cyan'});
-   console.log("\n\n")
+  yo('VENOM', { color: 'cyan' });
+  console.log('\n\n');
 }
 
 export async function checkUpdates(spinnies: Spinnies) {
@@ -55,9 +55,9 @@ async function checkVenomVersion(spinnies: Spinnies) {
 function logUpdateAvailable(current: string, latest: string) {
   // prettier-ignore
   const newVersionLog =
-      `There is a new version of ${chalk.bold(`Venom`)} ${chalk.gray(current)} ➜  ${chalk.bold.green(latest)}\n` +
-      `Update your package by running:\n\n` +
-      `${chalk.bold('\>')} ${chalk.blueBright('npm update venom-bot')}`;
+    `There is a new version of ${chalk.bold(`Venom`)} ${chalk.gray(current)} ➜  ${chalk.bold.green(latest)}\n` +
+    `Update your package by running:\n\n` +
+    `${chalk.bold('\>')} ${chalk.blueBright('npm update venom-bot')}`;
 
   console.log(boxen(newVersionLog, { padding: 1 }));
   console.log(
