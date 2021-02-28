@@ -54,8 +54,8 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
 export function getAllMessagesInChat(
   id,
-  includeMe,
-  includeNotifications,
+  includeMe = true,
+  includeNotifications = true,
   done
 ) {
   const chat = WAPI.getChat(id);
