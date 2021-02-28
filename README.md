@@ -511,6 +511,10 @@ const browserSessionToken = await client.getSessionTokenBrowser();
 const getBlockList = await client.getBlockList();
 
 // Retrieve messages in chat
+//chatID chat id
+//includeMe will be by default true, if you do not want to pass false
+//includeNotifications will be by default true, if you do not want to pass false
+//const Messages = await client.getAllMessagesInChat(chatID, includeMe, includeNotifications)
 const Messages = await client.getAllMessagesInChat('000000000000@c.us');
 
 // Retrieve more chat message
