@@ -108,18 +108,14 @@ export class SenderLayer extends ListenerLayer {
    * @param to chat id: xxxxx@us.c
    * @param content text message
    */
-  public async sendText(to: string, content: string): Promise<Message> {
+  public async sendText(to: string, content: string) {
     return new Promise(async (resolve, reject) => {
-      const messageId: string = await this.page.evaluate(
+      const result = await this.page.evaluate(
         ({ to, content }) => {
           return WAPI.sendMessage(to, content);
         },
         { to, content }
       );
-      const result = (await this.page.evaluate(
-        (messageId: any) => WAPI.getMessageById(messageId),
-        messageId
-      )) as Message;
       if (result['erro'] == true) {
         reject(result);
       } else {
@@ -544,11 +540,21 @@ export class SenderLayer extends ListenerLayer {
     messages: string | string[],
     skipMyMessages: boolean
   ) {
-    return this.page.evaluate(
-      ({ to, messages, skipMyMessages }) =>
-        WAPI.forwardMessages(to, messages, skipMyMessages),
-      { to, messages, skipMyMessages }
-    );
+    return new Promise(async (resolve, reject) => {
+      const result = await this.page.evaluate(
+        ({ to, messages, skipMyMessages }) => {
+          return WAPI.forwardMessages(to, messages, skipMyMessages).catch(
+            (e) => e
+          );
+        },
+        { to, messages, skipMyMessages }
+      );
+      if (typeof result['erro'] !== 'undefined' && result['erro'] == true) {
+        reject(result);
+      } else {
+        resolve(result);
+      }
+    });
   }
 
   /**
