@@ -93,7 +93,7 @@ interface WAPI {
     to: string,
     messages: string | string[],
     skipMyMessages: boolean
-  ) => any;
+  ) => Promise<object>;
   getAllChats: () => Chat[];
   getAllChatsWithMessages: (withNewMessageOnly?: boolean) => Chat[];
   getAllChatsWithNewMsg: () => Chat[];
@@ -214,7 +214,7 @@ interface WAPI {
     longitude: string,
     title: string
   ) => Promise<object>;
-  sendMessage: (to: string, content: string) => Promise<string>;
+  sendMessage: (to: string, content: string) => Promise<Object>;
   sendMessageMentioned: (...args: any) => any;
   sendMessageOptions: (
     chat: any,

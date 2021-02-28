@@ -63,18 +63,22 @@ export function scope(id, erro, status, text = null) {
   return e;
 }
 export async function getchatId(chatId) {
-  var to = await WAPI.getChatById(chatId),
-    objTo = to.lastReceivedKey,
-    extend = {
-      formattedName: to.contact.formattedName,
-      isBusiness: to.contact.isBusiness,
-      isMyContact: to.contact.isMyContact,
-      verifiedName: to.contact.verifiedName,
-      pushname: to.contact.pushname,
-      isOnline: to.isOnline,
-    };
-  Object.assign(objTo, extend);
-  return objTo;
+  var to = await WAPI.getChatById(chatId);
+  if (to) {
+    var objTo = to.lastReceivedKey,
+      extend = {
+        formattedName: to.contact.formattedName,
+        isBusiness: to.contact.isBusiness,
+        isMyContact: to.contact.isMyContact,
+        verifiedName: to.contact.verifiedName,
+        pushname: to.contact.pushname,
+        isOnline: to.isOnline,
+      };
+    Object.assign(objTo, extend);
+    return objTo;
+  } else {
+    return undefined;
+  }
 }
 
 export async function sendExist(chatId, returnChat = true, Send = true) {

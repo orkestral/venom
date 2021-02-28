@@ -404,6 +404,17 @@ await client
     console.error('Error when sending: ', erro); //return object error
   });
 
+// Forwards messages
+await client.forwardMessages(
+  '000000000000@c.us',
+  ['false_000000000000@c.us_B70847EE89E22D20FB86ECA0C1B11609','false_000000000000@c.us_B70847EE89E22D20FB86ECA0C1B11777']
+).then((result) => {
+    console.log('Result: ', result); //return object success
+})
+.catch((erro) => {
+    console.error('Error when sending: ', erro); //return object error
+});
+
 // Send @tagged message
 await client.sendMentioned(
   '000000000000@c.us',
@@ -450,12 +461,8 @@ await client.sendVideoAsGif(
   'Gif image file'
 );
 
-// Forwards messages
-await client.forwardMessages(
-  '000000000000@c.us',
-  [message.id.toString()],
-  true
-);
+
+
 
 // Send seen ✔️✔️
 await client.sendSeen('000000000000@c.us');

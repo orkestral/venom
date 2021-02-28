@@ -125,8 +125,11 @@ export async function create(
 ): Promise<Whatsapp> {
   let session = 'session';
 
-  if (typeof sessionOrOption === 'string') {
-    session = sessionOrOption;
+  if (
+    typeof sessionOrOption === 'string' &&
+    sessionOrOption.replace(/\s/g, '').length
+  ) {
+    session = sessionOrOption.replace(/\s/g, '');
   } else if (typeof sessionOrOption === 'object') {
     session = sessionOrOption.session;
     catchQR = sessionOrOption.catchQR || catchQR;
@@ -153,7 +156,7 @@ export async function create(
 
   // Initialize whatsapp
   spinnies.add(`browser-${session}`, {
-    text: 'Loading Venom 3.0 ...',
+    text: 'Loading Venom ...',
   });
 
   let browser = mergedOptions.browser;

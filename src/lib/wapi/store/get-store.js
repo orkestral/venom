@@ -81,6 +81,9 @@ export function getStore(modules) {
       window.Store[needObj.id] = needObj.foundedModule;
     }
   });
+  window.Store.sendMessage = function (e) {
+    return window.Store.SendTextMsgToChat(this, ...arguments);
+  };
   window.Store.Chat.modelClass.prototype.sendMessage = function (e) {
     window.Store.SendTextMsgToChat(this, ...arguments);
   };
