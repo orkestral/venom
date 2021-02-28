@@ -1,3 +1,22 @@
+## [3.0.6](https://github.com/orkestral/venom/compare/v3.0.5...v3.0.6) (2021-02-28)
+
+### Bug Fixes
+
+- clearChatMessages ([4c10248](https://github.com/orkestral/venom/commit/4c102488fdd9a3e85ca93ef7f9b04baeaaa973ab))
+- forwardMessages ([3570b9e](https://github.com/orkestral/venom/commit/3570b9ebf0edd8ed404fb96ac74c7ae65d2a8b08))
+- forwardMessages return ([4b3511b](https://github.com/orkestral/venom/commit/4b3511bf4dfba7b15d38424cbc6de58307662259))
+- getAllChatsGroups ([06e641c](https://github.com/orkestral/venom/commit/06e641ca37160f6d2c1a7816af38caa27f5b7394))
+- getAllContacts ([9cd653e](https://github.com/orkestral/venom/commit/9cd653e01db2fad54201c0f1c611749d23286b99))
+- lint ([29aa079](https://github.com/orkestral/venom/commit/29aa07959ad32402366f97e4867532d057304f3c))
+- sendText ([dbea75d](https://github.com/orkestral/venom/commit/dbea75de8a9a7c1f4baadc12bf8caa57e05ae48c))
+
+### Features
+
+- getAllChatsNewMsg ([b703462](https://github.com/orkestral/venom/commit/b703462225e680707d1a976c80c250af33510b04))
+- getAllChatsTransmission ([6461f1f](https://github.com/orkestral/venom/commit/6461f1fff18b765a53f36e4d6e16c57c886974ce))
+- getChatGroupNewMsg ([04f2200](https://github.com/orkestral/venom/commit/04f2200af27fb1f0fab4487b6b017c6937b9bc3d))
+- return object forwardMessages and sendText ([ee40497](https://github.com/orkestral/venom/commit/ee404970ecad12f704e1b21363c87f84292b69b8))
+
 ## [3.0.5](https://github.com/orkestral/venom/compare/3.0.4...3.0.5) (2021-02-27)
 
 ### Bug Fixes
