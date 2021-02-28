@@ -53,8 +53,11 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
 export async function sendMessage(to, content) {
-  var chat = Store.Chat.get(to);
-  if (chat) {
+  const chat = !Store.Chat.get(to)
+    ? await WAPI.sendExist(to)
+    : await Store.Chat.get(to);
+  const m = { type: 'sendtext', text: content };
+  if (chat && chat.status != 404) {
     const newMsgId = await window.WAPI.getNewMessageId(chat.id);
     const fromwWid = await window.Store.Conn.wid;
     const message = {
@@ -69,26 +72,20 @@ export async function sendMessage(to, content) {
       isNewMsg: !0,
       type: 'chat',
     };
-
-    await window.Store.addAndSendMsgToChat(chat, message);
-
-    return newMsgId._serialized;
-  } else {
-    chat = await WAPI.sendExist(to);
-    const message = content;
-    if (!chat.erro) {
-      const result = await chat.sendMessage(message);
-      if (result === 'success' || result === 'OK') {
-        return chat.lastReceivedKey._serialized;
-      } else {
-        const m = { type: 'sendtext', text: message };
-        const To = await WAPI.getchatId(chat.id);
-        const obj = WAPI.scope(To, true, result, null);
-        Object.assign(obj, m);
-        return obj;
-      }
+    var result = (
+      await Promise.all(window.Store.addAndSendMsgToChat(chat, message))
+    )[1];
+    let To = await WAPI.getchatId(chat.id);
+    if (result === 'success' || result === 'OK') {
+      let obj = WAPI.scope(To, false, result, content);
+      Object.assign(obj, m);
+      return obj;
     } else {
-      return chat;
+      let obj = WAPI.scope(To, true, result, content);
+      Object.assign(obj, m);
+      return obj;
     }
+  } else {
+    return chat;
   }
 }
