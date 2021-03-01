@@ -56,7 +56,7 @@ import { readFileSync } from 'fs';
 import { Whatsapp } from '../api/whatsapp';
 import { CreateConfig, defaultOptions } from '../config/create-config';
 import { SessionTokenCkeck, saveToken } from './auth';
-import { initWhatsapp, initBrowser, getWhatsappPage } from './browser';
+import { initWhatsapp, initBrowser } from './browser';
 import { checkUpdates, welcomeScreen } from './welcome';
 import { getSpinnies } from '../utils/spinnies';
 import { SocketState } from '../api/model/enum';
@@ -155,7 +155,7 @@ export async function create(
 
   // Initialize whatsapp
   if (mergedOptions.browserWS) {
-    spinnies.succeed(`browser-${session}`, {
+    spinnies.add(`browser-${session}`, {
       text: `Waiting... checking the wss server...`,
     });
   } else {
