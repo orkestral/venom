@@ -25,7 +25,7 @@
 
 <a href="https://medium.com/venom-bot" title="Venom in Medium">**Access @Venom Posts In Medium**</a>
 
-<br> <br> <br> <br> <br> <br>
+<br> <br> <br> <br>
 
 ## Request Support Free Group Access In Whatsapp
 
