@@ -200,9 +200,8 @@ export class RetrieverLayer extends SenderLayer {
    */
   public async getAllChatsTransmission() {
     return await this.page.evaluate(() => {
-      let chats = WAPI.getAllChats(),
-        filter = chats.filter((chat) => chat.kind === 'broadcast');
-      return filter;
+      let chats = WAPI.getAllChats();
+      return chats.filter((chat) => chat.kind === 'broadcast');
     });
   }
 
