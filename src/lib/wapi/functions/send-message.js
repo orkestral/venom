@@ -52,10 +52,28 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
+async function isInsideTo(to) {
+  let err;
+  do {
+    try {
+      await new Promise((r) => setTimeout(r, 2000));
+      let chatTo = await WAPI.getchatId(to);
+      if (typeof chatTo !== 'undefined') {
+        err = false;
+        return chatTo;
+      } else {
+        throw 1;
+      }
+    } catch (e) {
+      err = true;
+    }
+  } while (err);
+}
 export async function sendMessage(to, content) {
-  const chat = !Store.Chat.get(to)
-    ? await WAPI.sendExist(to)
-    : await Store.Chat.get(to);
+  if (typeof content != 'string' || content.length === 0) {
+    return WAPI.scope(to, true, 404, 'It is necessary to write a text!');
+  }
+  const chat = await WAPI.sendExist(to);
   const m = { type: 'sendtext', text: content };
   if (chat && chat.status != 404) {
     const newMsgId = await window.WAPI.getNewMessageId(chat.id);
@@ -75,7 +93,7 @@ export async function sendMessage(to, content) {
     var result = (
       await Promise.all(window.Store.addAndSendMsgToChat(chat, message))
     )[1];
-    let To = await WAPI.getchatId(chat.id);
+    let To = await isInsideTo(chat.id);
     if (result === 'success' || result === 'OK') {
       let obj = WAPI.scope(To, false, result, content);
       Object.assign(obj, m);
