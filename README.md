@@ -22,7 +22,7 @@
 </p>
 
 ## Medium Posts
-<img height="100" src="https://miro.medium.com/max/1002/1*s986xIGqhfsN8U--09_AdA.png"> </img>
+<img height="100" src="https://miro.medium.com/max/1002/1*s986xIGqhfsN8U--09_AdA.png"> </img> <br>
 <a href="https://medium.com/venom-bot" title="Venom in Medium">**Access @Venom Posts In Medium**</a>
 
 <br> <br>
