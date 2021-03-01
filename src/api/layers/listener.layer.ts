@@ -80,10 +80,10 @@ export class ListenerLayer extends ProfileLayer {
   constructor(public page: Page, session?: string, options?: CreateConfig) {
     super(page, session, options);
 
-    this.listenerEmitter.on(ExposedFn.onInterfaceChange, (state) => {
-      this.spinStatus.state = `${state.mode} (${state.displayInfo})`;
-      this.spin();
-    });
+    // this.listenerEmitter.on(ExposedFn.onInterfaceChange, (state) => {
+    //   this.spinStatus.state = `${state.mode} (${state.displayInfo})`;
+    //   this.spin();
+    // });
   }
 
   protected async initialize() {

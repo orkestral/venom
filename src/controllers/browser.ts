@@ -61,29 +61,52 @@ import { puppeteerConfig } from '../config/puppeteer.config';
 import StealthPlugin = require('puppeteer-extra-plugin-stealth');
 import { auth_InjectToken } from './auth';
 import { useragentOverride } from '../config/WAuserAgente';
-import { WebSocketTransport } from './websocket';
 import { tokenSession } from '../config/tokenSession.config';
+import { from } from 'rxjs';
 
 export async function initWhatsapp(
   session: string,
   options: CreateConfig,
-  page: Page,
+  browser: Browser,
   token?: tokenSession
-) {
-  await auth_InjectToken(page, session, options, token);
+): Promise<Page> {
+  const waPage: Page = await getWhatsappPage(browser);
+  if (waPage != null) {
+    // Auth with token
+    await auth_InjectToken(waPage, session, options, token);
+    await waPage.setUserAgent(useragentOverride);
 
-  await page.setUserAgent(useragentOverride);
-
-  const timeout = 2 * 1000;
-  await Promise.race([
-    page.goto(puppeteerConfig.whatsappUrl, { timeout }).catch(() => {}),
-    page.waitForSelector('body', { timeout }).catch(() => {}),
-  ]);
-
-  return page;
+    const timeout = 2 * 1000;
+    await Promise.race([
+      waPage.goto(puppeteerConfig.whatsappUrl, { timeout }).catch(() => {}),
+      waPage.waitForSelector('body', { timeout }).catch(() => {}),
+    ]);
+    return waPage;
+  }
 }
+export const isInsideChat = (page: Page) => {
+  return from(
+    page
+      .waitForFunction(
+        `
+        (document.getElementsByClassName('app')[0] &&
+        document.getElementsByClassName('app')[0].attributes &&
+        !!document.getElementsByClassName('app')[0].attributes.tabindex) || 
+        (document.getElementsByClassName('two')[0] && 
+        document.getElementsByClassName('two')[0].attributes && 
+        !!document.getElementsByClassName('two')[0].attributes.tabindex)
+        `,
+        {
+          timeout: 0,
+        }
+      )
+      .then(() => true)
+      .catch(() => false)
+  );
+};
 
 export async function injectApi(page: Page) {
+  await isInsideChat(page).toPromise();
   const injected = await page
     .evaluate(() => {
       // @ts-ignore
@@ -97,11 +120,6 @@ export async function injectApi(page: Page) {
   if (injected) {
     return;
   }
-
-  await page.waitForSelector('#pane-side', {
-    visible: true,
-    timeout: 180000,
-  });
 
   await page.addScriptTag({
     path: require.resolve(path.join(__dirname, '../lib/wapi', 'wapi.js')),
@@ -132,7 +150,7 @@ export async function initBrowser(
   session: string,
   options: CreateConfig,
   extras = {}
-): Promise<Browser> {
+): Promise<Browser | string> {
   if (options.useChrome) {
     const chromePath = getChrome();
     if (chromePath) {
@@ -148,24 +166,16 @@ export async function initBrowser(
 
   let browser = null;
   if (options.browserWS && options.browserWS != '') {
-    const transport = await WebSocketTransport.create(
-      options.browserWS,
-      10000
-    ).catch(() => {
-      browser = 'connect';
-    });
-    if (transport) {
-      await puppeteer
-        .connect({
-          transport: transport,
-        })
-        .then((e) => {
-          browser = e;
-        })
-        .catch(() => {
-          browser = 'connect';
-        });
-    }
+    await puppeteer
+      .connect({
+        browserWSEndpoint: options.browserWS,
+      })
+      .then((e) => {
+        browser = e;
+      })
+      .catch(() => {
+        browser = 'connect';
+      });
   } else {
     await puppeteer
       .launch({
@@ -184,7 +194,6 @@ export async function initBrowser(
         browser = 'launch';
       });
   }
-
   return browser;
 }
 

@@ -52,14 +52,39 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
-export { fileToBase64 } from './file-to-base64';
-export { base64MimeType } from './base64-mimetype';
-export { downloadFileToBase64, MINES } from './download-file';
-export { stickerSelect, resizeImg } from './select-sticker';
-export { scrapeImg } from './scrape-img-qr';
-export { scrapeLogin } from './scrape-login';
-export { scrapeDesconnected } from './scrape-desconnect';
-export { scrapeDeleteToken } from './scrape-deletetoken';
-export { deleteFiles } from './delete-file';
-export { callbackWile } from './callback-wile';
-export { checkingCloses } from './closes-browser';
+import { type } from 'os';
+import { Browser } from 'puppeteer';
+import { CreateConfig } from '../../config/create-config';
+
+export async function checkingCloses(
+  browser: Browser | string,
+  mergedOptions: CreateConfig,
+  callStatus: (e: string) => void
+) {
+  if (typeof browser !== 'string') {
+    let err: boolean;
+    do {
+      try {
+        await new Promise((r) => setTimeout(r, 2000));
+        if (
+          browser['isClose'] ||
+          (mergedOptions.browserWS && !browser.isConnected())
+        ) {
+          if (mergedOptions.browserWS) {
+            browser.disconnect();
+            callStatus && callStatus('serverClose');
+          }
+          if (browser['isClose']) {
+            browser.close();
+            callStatus && callStatus('browserClose');
+          }
+          err = false;
+        } else {
+          throw 1;
+        }
+      } catch (e) {
+        err = true;
+      }
+    } while (err);
+  }
+}

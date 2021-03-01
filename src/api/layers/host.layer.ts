@@ -110,10 +110,10 @@ export class HostLayer {
       status || (this.spinStatus.previousStatus as Spinnies.SpinnerStatus);
     this.spinStatus.previousStatus = status;
 
-    let fullText = `[instance:: ${this.session}`;
-    if (this.spinStatus.state) {
-      fullText += `,${this.spinStatus.state}`;
-    }
+    let fullText = `[instance: ${this.session}`;
+    // if (this.spinStatus.state) {
+    //   fullText += `, ${this.spinStatus.state}`;
+    // }
     fullText += `]: ${text}`;
 
     let prevText = '';
@@ -134,7 +134,6 @@ export class HostLayer {
 
   protected async initialize() {
     this.spinStatus.apiInject = 'injecting';
-    this.spin();
     await injectApi(this.page)
       .then(() => {
         this.spinStatus.apiInject = 'injected';
@@ -142,7 +141,6 @@ export class HostLayer {
       .catch(() => {
         this.spinStatus.apiInject = 'failed';
       });
-    this.spin();
   }
 
   protected tryAutoClose() {
@@ -153,7 +151,7 @@ export class HostLayer {
     ) {
       this.statusFind && this.statusFind('autocloseCalled', this.session);
       try {
-        this.page.close();
+        this.page.close().catch(() => {});
       } catch (error) {}
     }
   }
@@ -168,7 +166,6 @@ export class HostLayer {
         }
         remain -= 1000;
         this.spinStatus.autoCloseRemain = Math.round(remain / 1000);
-        this.spin();
         if (remain <= 0) {
           this.cancelAutoClose();
           this.tryAutoClose();
@@ -180,7 +177,6 @@ export class HostLayer {
   protected cancelAutoClose() {
     clearInterval(this.autoCloseInterval);
     this.autoCloseInterval = null;
-    this.spin();
   }
 
   public async getQrCode() {
@@ -225,7 +221,7 @@ export class HostLayer {
         }
 
         if (this.options.logQR) {
-          this.spin(`Waiting for QRCode Scan (Attempt ${attempt})...:\n${qr}`);
+          this.spin(`\n` + qr);
         } else {
           this.spin(`Waiting for QRCode Scan: Attempt ${attempt}`);
         }
@@ -328,7 +324,6 @@ export class HostLayer {
     this.cancelAutoClose();
     this.tryAutoClose();
     this.spin('Unknow error', 'fail');
-    throw 'Unknow error';
   }
 
   /**

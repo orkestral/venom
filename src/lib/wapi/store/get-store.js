@@ -76,16 +76,23 @@ export function getStore(modules) {
   let neededStore = neededObjects.find((needObj) => needObj.id === 'Store');
   window.Store = neededStore.foundedModule ? neededStore.foundedModule : {};
   neededObjects.splice(neededObjects.indexOf(neededStore), 1);
+
   neededObjects.forEach((needObj) => {
     if (needObj.foundedModule) {
       window.Store[needObj.id] = needObj.foundedModule;
     }
   });
+
   window.Store.sendMessage = function (e) {
     return window.Store.SendTextMsgToChat(this, ...arguments);
   };
   window.Store.Chat.modelClass.prototype.sendMessage = function (e) {
     window.Store.SendTextMsgToChat(this, ...arguments);
   };
+
+  if (window.Store.MediaCollection)
+    window.Store.MediaCollection.prototype.processFiles =
+      window.Store.MediaCollection.prototype.processFiles ||
+      window.Store.MediaCollection.prototype.processAttachments;
   return window.Store;
 }

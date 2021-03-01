@@ -201,8 +201,6 @@ if (typeof window.Store === 'undefined') {
       ]);
     }
 
-    injectParasite();
-
     setInterval(() => {
       try {
         const last = window['webpackChunkbuild'].length - 1;
