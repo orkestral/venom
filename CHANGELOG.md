@@ -1,3 +1,19 @@
+## [3.0.7](https://github.com/orkestral/venom/compare/v3.0.6...v3.0.7) (2021-03-01)
+
+
+### Bug Fixes
+
+* spinnies ([e10be38](https://github.com/orkestral/venom/commit/e10be389b3f1b578446f0d07d2ee050a721f4600))
+* Undefined or null to object sendMessage ([1b34977](https://github.com/orkestral/venom/commit/1b3497789c3853c2254a85ce2f1c4c483e2ba54c))
+* wapi ([003a5b2](https://github.com/orkestral/venom/commit/003a5b2a85064b000081a0ac8f2e9534933de476))
+
+
+### Features
+
+* Error results sendExist () ([488a5e1](https://github.com/orkestral/venom/commit/488a5e193b4069a47e1658e071163415f03c3924))
+
+
+
 ## [3.0.6](https://github.com/orkestral/venom/compare/v3.0.5...v3.0.6) (2021-02-28)
 
 ### Bug Fixes
