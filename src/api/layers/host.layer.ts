@@ -221,7 +221,7 @@ export class HostLayer {
         }
 
         if (this.options.logQR) {
-          this.spin(`\n` + qr);
+          console.log(qr);
         } else {
           this.spin(`Waiting for QRCode Scan: Attempt ${attempt}`);
         }
