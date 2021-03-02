@@ -34,16 +34,16 @@
 
 |                                                            |     |
 | ---------------------------------------------------------- | --- |
-| Automatic QR Refresh                                       | ✔   |
-| Send **text, image, video, audio and docs**                | ✔   |
-| Get **contacts, chats, groups, group members, Block List** | ✔   |
-| Send contacts                                              | ✔   |
+| 🚻 Automatic QR Refresh                                       | ✔   |
+| 📁 Send **text, image, video, audio and docs**                | ✔   |
+| 👥 Get **contacts, chats, groups, group members, Block List** | ✔   |
+| 📞 Send contacts                                              | ✔   |
 | Send stickers                                              | ✔   |
 | Send stickers GIF                                          | ✔   |
 | Multiple Sessions                                          | ✔   |
-| Forward Messages                                           | ✔   |
-| Receive message                                            | ✔   |
-| insert user section                                        | ✔   |
+| ⏩ Forward Messages                                           | ✔   |
+| 📥 Receive message                                            | ✔   |
+| 👤 insert user section                                        | ✔   |
 | 📍 Send location!!                                         | ✔   |
 | 🕸🕸 **and much more**                                       | ✔   |
 
