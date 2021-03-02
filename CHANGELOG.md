@@ -1,3 +1,18 @@
+## [3.0.8](https://github.com/orkestral/venom/compare/v3.0.7...v3.0.8) (2021-03-02)
+
+
+### Bug Fixes
+
+* qrcode ([691c3af](https://github.com/orkestral/venom/commit/691c3af5def47cbd0dc9cc3ff3f504c38fe6f789))
+* sendContactVcard ([448b686](https://github.com/orkestral/venom/commit/448b686384cc212a0d153165be31156de11ae568))
+
+
+### Features
+
+* return sendLinkPreview ([11f3c34](https://github.com/orkestral/venom/commit/11f3c34205dcdf8a4267d0e963d651a9f8170913))
+
+
+
 ## [3.0.7](https://github.com/orkestral/venom/compare/v3.0.6...v3.0.7) (2021-03-01)
 
 
