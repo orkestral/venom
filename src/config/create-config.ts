@@ -52,9 +52,7 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
-
-import { Logger } from 'winston';
-import { defaultLogger } from '../utils/logger';
+import { Browser, BrowserContext, LaunchOptions, Page } from 'puppeteer';
 
 // Server config
 export interface CreateConfig {
@@ -97,12 +95,25 @@ export interface CreateConfig {
   /**
    * Will be passed to puppeteer.launch
    */
-  puppeteerOptions?: { [key: string]: string };
+  puppeteerOptions?: LaunchOptions;
+  /**
+   * Pass a external browser instance, can be used with electron
+   */
+  browser?: Browser | BrowserContext;
+  /**
+   * Pass a external page instance, can be used with electron
+   */
+  page?: Page;
   /**
    * Logs QR automatically in terminal
    * @default true
    */
   logQR?: boolean;
+  /**
+   * Will disable Spinnies animation, useful for containers (docker) for a better log
+   * @default false
+   */
+  disableSpins?: boolean;
   /**
    * Will disable the welcoming message which appears in the beginning
    * @default false
@@ -128,11 +139,6 @@ export interface CreateConfig {
    * @default false
    */
   waitForLogin?: boolean;
-  /**
-   * Wait for in chat to return a instance of {@link Whatsapp}
-   * @default false
-   */
-  logger?: Logger;
 }
 export const defaultOptions: CreateConfig = {
   folderNameToken: 'tokens',
@@ -145,10 +151,10 @@ export const defaultOptions: CreateConfig = {
   browserWS: '',
   browserArgs: [''],
   puppeteerOptions: {},
+  disableSpins: false,
   disableWelcome: false,
   updatesLog: true,
-  autoClose: 60000,
+  autoClose: 120000,
   createPathFileToken: true,
   waitForLogin: true,
-  logger: defaultLogger,
 };

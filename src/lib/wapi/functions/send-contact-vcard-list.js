@@ -86,7 +86,7 @@ export async function sendContactVcardList(chatId, contacts) {
     var vcard = cont.map(async (e) => {
       return await window.Store.Vcard.vcardFromContactModel(e);
     });
-    var newId = window.WAPI.getNewMessageId(chatId);
+    var newId = await window.WAPI.getNewMessageId(chatId);
     var Vcards = await Promise.all(vcard);
     var extend = {
       ack: 0,

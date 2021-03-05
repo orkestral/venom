@@ -52,31 +52,16 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
-export async function getMessageById(id, done, serialize = true) {
-  //Parse message ID
-
-  if (typeof id === 'object' && id._serialized) {
-    id = id._serialized;
-  }
-
-  if (typeof id !== 'string') {
-    return false;
-  }
-
-  const key = window.Store.MsgKey.fromString(id);
-
-  if (!key) {
-    return false;
-  }
-
+export async function getMessageById(key, done, serialize = true) {
   // Check message is loaded in store
   let msg = window.Store.Msg.get(key);
+  let erro = { erro: true };
 
   if (!msg) {
     // Get chat of message
     const chat = window.Store.Chat.get(key.remote);
     if (!chat) {
-      return false;
+      return erro;
     }
 
     //If not message not found, load latest messages of chat
@@ -98,10 +83,10 @@ export async function getMessageById(id, done, serialize = true) {
   }
 
   if (!msg) {
-    return false;
+    return erro;
   }
 
-  let result = false;
+  let result = erro;
 
   if (serialize) {
     try {

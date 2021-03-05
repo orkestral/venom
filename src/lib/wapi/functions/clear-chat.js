@@ -52,6 +52,11 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
-export async function clearChat(id) {
-  return await Store.ChatUtil.sendClear(Store.Chat.get(id), true);
+export async function clearChatMessages(chatId) {
+  const chat = await Store.Chat.get(chatId);
+  if (chat) {
+    return await Store.ChatUtil.sendClear(chat, chat.lastReceivedKey, true);
+  } else {
+    return false;
+  }
 }

@@ -84,5 +84,5 @@ export enum InterfaceState {
   /**
    * When the whatsapp web couldn't connect to smartphone.
    */
-  TIMEOUT = 'TIMEOUT',
+  WITHOUT_INTERNET = 'WITHOUT INTERNET',
 }

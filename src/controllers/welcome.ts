@@ -1,7 +1,8 @@
 import * as boxen from 'boxen';
 import * as chalk from 'chalk';
 import latestVersion from 'latest-version';
-import { defaultLogger as logger } from '../utils/logger';
+import * as Spinnies from 'spinnies';
+import { yo } from 'yoo-hoo';
 import { upToDate } from '../utils/semver';
 const { version } = require('../../package.json');
 
@@ -14,42 +15,33 @@ export function welcomeScreen() {
     return;
   }
   welcomeShown = true;
-  logger.info(`
-      ▄▄░          ▄ ▄▄▄▄▄▄▄▄▄▄▄▄▄ ██         ▄▄       ▄▄▄▄      ░
-      ░██▄        ██ ███▀▀▀▀▀▀▀▀█▌ ███▌       ██▄  ▄▄█▀▀▀▀▀▀█▄   ▓█▄           ▄█░
-       ░██▄     ░██▀ ███           ██▀██▄     ██▄ ▄█░        ▀█▄ ▓███▄      ░████░
-         ██▌   ▄██░ ▄███▄▄▄▄       ██  ▓██▄   ██▄▐█           ▐█ ▓█▌▀██▄  ▄███░██░
-          ██▌ ▄██░  ▀███▀▀▀▀       ██   ▐██▌  ██▄▐█           ▐█░▓█▌  ▀█████░  ██░
-           ▓████     ███           ██     ▀██▄██▄ █▌          ██ ▓█▌    ▀█░    ██░
-            ▀██      ███        █▌ ██       ▀███▄  ▀█▄     ▄▄█▀  ▓█▌           ██░
-             ▀       ▀███████████▌ ██        ░██▄    ▀▀███▀▀░    ▀█▌           ▓█░`);
+  yo('VENOM', { color: 'cyan' });
+  console.log('\n\n');
 }
 
-export async function checkUpdates() {
+export async function checkUpdates(spinnies: Spinnies) {
   // Check for updates if needed
   if (!updatesChecked) {
     updatesChecked = true;
-    await checkVenomVersion();
+    spinnies.add('venom-version-spinner', {
+      text: 'Checking for updates',
+    });
+    await checkVenomVersion(spinnies);
   }
 }
 
 /**
  * Checs for a new versoin of venom and logs
  */
-async function checkVenomVersion() {
-  logger.info('Checking for updates');
-  logger.info(
-    `${chalk.bold.green(
-      'New boot to start the bot see the documentation'
-    )} ➜ ${chalk.underline(
-      'https://github.com/orkestral/venom#getting-started'
-    )}`
-  );
+async function checkVenomVersion(spinnies: Spinnies) {
+  spinnies.update('venom-version-spinner', { text: 'Checking for updates...' });
   await latestVersion('venom-bot').then((latest) => {
     if (upToDate(version, latest)) {
-      logger.info("You're up to date");
+      spinnies.succeed('venom-version-spinner', { text: "You're up to date" });
     } else {
-      logger.info(`There is a new version available`);
+      spinnies.succeed('venom-version-spinner', {
+        text: 'There is a new version available',
+      });
       logUpdateAvailable(version, latest);
     }
   });
@@ -63,12 +55,12 @@ async function checkVenomVersion() {
 function logUpdateAvailable(current: string, latest: string) {
   // prettier-ignore
   const newVersionLog =
-      `There is a new version of ${chalk.bold(`Venom`)} ${chalk.gray(current)} ➜  ${chalk.bold.green(latest)}\n` +
-      `Update your package by running:\n\n` +
-      `${chalk.bold('\>')} ${chalk.blueBright('npm update venom-bot')}`;
+    `There is a new version of ${chalk.bold(`Venom`)} ${chalk.gray(current)} ➜  ${chalk.bold.green(latest)}\n` +
+    `Update your package by running:\n\n` +
+    `${chalk.bold('\>')} ${chalk.blueBright('npm update venom-bot')}`;
 
-  logger.info(boxen(newVersionLog, { padding: 1 }));
-  logger.info(
+  console.log(boxen(newVersionLog, { padding: 1 }));
+  console.log(
     `For more info visit: ${chalk.underline(
       'https://github.com/orkestral/venom/blob/master/Update.md'
     )}\n`

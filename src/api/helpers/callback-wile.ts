@@ -52,28 +52,30 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
+import { AckType } from '../../api/model/enum/ack-type';
 export class callbackWile {
+  obj: Object;
   constructor() {
-    this.obj = new Array() || [];
+    this.obj = [];
   }
-  addObjects(ack, serialized) {
-    var checkFilter = this.obj.filter(
-        (order) => order.serialized === serialized
-      ),
-      add = null;
+  addObjects(ids: AckType | String, serializeds: string) {
+    let checkFilter = this.obj['filter'](
+      (order: any) => order.serialized === serializeds
+    );
+    let add = null;
     if (!checkFilter.length) {
       add = {
-        ack: ack,
-        serialized: serialized,
+        id: ids,
+        serialized: serializeds,
       };
-      this.obj.push(add);
+      this.obj['push'](add);
       return true;
     }
     return false;
   }
 
-  getObjKey(serialized) {
-    for (var i in this.obj) {
+  getObjKey(serialized: string) {
+    for (let i in this.obj) {
       if (this.obj[i].serialized === serialized) {
         return i;
       }
@@ -81,9 +83,9 @@ export class callbackWile {
     return false;
   }
 
-  checkObj(ack, serialized) {
-    var checkFilter = this.obj.filter(
-      (order) => order.ack === ack && order.serialized === serialized
+  checkObj(id: AckType | String, serialized: string) {
+    let checkFilter = this.obj['filter'](
+      (order: any) => order.id === id && order.serialized === serialized
     );
     if (checkFilter.length) {
       return true;

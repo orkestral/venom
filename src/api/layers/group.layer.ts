@@ -63,6 +63,28 @@ export class GroupLayer extends RetrieverLayer {
   }
 
   /**
+   * Retrieve all groups
+   * @returns array of groups
+   */
+  public async getAllChatsGroups() {
+    return await this.page.evaluate(() => {
+      let chats = WAPI.getAllChats();
+      return chats.filter((chat) => chat.kind === 'group');
+    });
+  }
+
+  /**
+   * Retrieve all groups new messages
+   * @returns array of groups
+   */
+  public async getChatGroupNewMsg() {
+    return await this.page.evaluate(() => {
+      let chats = WAPI.getAllChatsWithNewMsg();
+      return chats.filter((chat) => chat.kind === 'group');
+    });
+  }
+
+  /**
    * Removes the host device from the group
    * @param groupId group id
    */

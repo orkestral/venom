@@ -54,28 +54,26 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
 import * as ChromeLauncher from 'chrome-launcher';
 import * as path from 'path';
-import axios from 'axios';
-import { Browser, Page } from 'puppeteer';
+import { Browser, BrowserContext, Page } from 'puppeteer';
 import puppeteer from 'puppeteer-extra';
 import { CreateConfig } from '../config/create-config';
 import { puppeteerConfig } from '../config/puppeteer.config';
 import StealthPlugin = require('puppeteer-extra-plugin-stealth');
 import { auth_InjectToken } from './auth';
 import { useragentOverride } from '../config/WAuserAgente';
-import { WebSocketTransport } from './websocket';
 import { tokenSession } from '../config/tokenSession.config';
+import { from } from 'rxjs';
 
 export async function initWhatsapp(
   session: string,
   options: CreateConfig,
-  browser: any,
+  browser: Browser,
   token?: tokenSession
-) {
-  const waPage = await getWhatsappPage(browser);
+): Promise<Page> {
+  const waPage: Page = await getWhatsappPage(browser);
   if (waPage != null) {
     // Auth with token
     await auth_InjectToken(waPage, session, options, token);
-
     await waPage.setUserAgent(useragentOverride);
 
     const timeout = 2 * 1000;
@@ -83,14 +81,32 @@ export async function initWhatsapp(
       waPage.goto(puppeteerConfig.whatsappUrl, { timeout }).catch(() => {}),
       waPage.waitForSelector('body', { timeout }).catch(() => {}),
     ]);
-
     return waPage;
-  } else {
-    return false;
   }
 }
+export const isInsideChat = (page: Page) => {
+  return from(
+    page
+      .waitForFunction(
+        `
+        (document.getElementsByClassName('app')[0] &&
+        document.getElementsByClassName('app')[0].attributes &&
+        !!document.getElementsByClassName('app')[0].attributes.tabindex) || 
+        (document.getElementsByClassName('two')[0] && 
+        document.getElementsByClassName('two')[0].attributes && 
+        !!document.getElementsByClassName('two')[0].attributes.tabindex)
+        `,
+        {
+          timeout: 0,
+        }
+      )
+      .then(() => true)
+      .catch(() => false)
+  );
+};
 
 export async function injectApi(page: Page) {
+  await isInsideChat(page).toPromise();
   const injected = await page
     .evaluate(() => {
       // @ts-ignore
@@ -150,33 +166,47 @@ export async function initBrowser(
 
   let browser = null;
   if (options.browserWS && options.browserWS != '') {
-    const transport = await getTransport(options.browserWS);
-    browser = await puppeteer.connect({ transport });
+    await puppeteer
+      .connect({
+        browserWSEndpoint: options.browserWS,
+      })
+      .then((e) => {
+        browser = e;
+      })
+      .catch(() => {
+        browser = 'connect';
+      });
   } else {
-    browser = await puppeteer.launch({
-      headless: options.headless,
-      devtools: options.devtools,
-      args: options.browserArgs
-        ? options.browserArgs
-        : [...puppeteerConfig.chromiumArgs],
-      ...options.puppeteerOptions,
-      ...extras,
-    });
+    await puppeteer
+      .launch({
+        headless: options.headless,
+        devtools: options.devtools,
+        args: options.browserArgs
+          ? options.browserArgs
+          : [...puppeteerConfig.chromiumArgs],
+        ...options.puppeteerOptions,
+        ...extras,
+      })
+      .then((e) => {
+        browser = e;
+      })
+      .catch(() => {
+        browser = 'launch';
+      });
   }
-
   return browser;
 }
 
-async function getWhatsappPage(browser: Browser): Promise<Page> {
-  let pages = null;
-  await browser
-    .pages()
-    .then((e) => {
-      console.assert(e.length > 0);
-      pages = e[0];
-    })
-    .catch(() => {});
-  return pages;
+export async function getWhatsappPage(
+  browser: Browser | BrowserContext
+): Promise<Page> {
+  const pages = await browser.pages();
+
+  if (pages.length) {
+    return pages[0];
+  }
+
+  return await browser.newPage();
 }
 
 /**
@@ -189,25 +219,4 @@ function getChrome() {
   } catch (error) {
     return undefined;
   }
-}
-
-async function getTransport(browserWS: string) {
-  let error = null;
-  try {
-    return await WebSocketTransport.create(browserWS, 10000);
-  } catch (e) {
-    error = e;
-  }
-
-  // Automatic get the endpoint
-  try {
-    const endpointURL =
-      browserWS.replace(/ws(s)?:/, 'http$1:') + '/json/version';
-    const data = await axios.get(endpointURL).then((r) => r.data);
-
-    return await WebSocketTransport.create(data.webSocketDebuggerUrl, 10000);
-  } catch (e) {}
-
-  // Throw first error
-  throw error;
 }

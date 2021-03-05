@@ -90,23 +90,6 @@ export class ProfileLayer extends HostLayer {
   }
 
   /**
-   * Send status text
-   * @param text The text for the status
-   */
-  public async sendStatusText(text: string) {
-    return new Promise(async (resolve, reject) => {
-      const result = await this.page.evaluate((text) => {
-        return WAPI.sendStatusText(text);
-      }, text);
-      if (result['erro'] == true) {
-        reject(result);
-      } else {
-        resolve(result);
-      }
-    });
-  }
-
-  /**
    * Change the theme
    * @param string types "dark" or "light"
    */

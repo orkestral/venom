@@ -52,43 +52,13 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
-export async function sendStatusText(text) {
-  if (typeof text != 'string') {
-    return WAPI.scope(
-      undefined,
-      true,
-      null,
-      'incorrect parameter, insert an string.'
-    );
+import * as Spinnies from 'spinnies';
+
+let spinnies: Spinnies = null;
+
+export function getSpinnies(options?: Spinnies.Options): Spinnies {
+  if (!spinnies) {
+    spinnies = new Spinnies(options);
   }
-
-  if (text.length > 700) {
-    return WAPI.scope(undefined, true, null, 'Use a maximum of 700 characters');
-  }
-
-  var send = atob('c3RhdHVzQGJyb2FkY2FzdA=='),
-    a = new window.Store.UserConstructor(send, {
-      intentionallyUsePrivateConstructor: !0,
-    });
-
-  let result = await window.Store.Chat.find(a).then(async function (e) {
-    e.sendMessage = e.sendMessage
-      ? e.sendMessage
-      : function () {
-          return window.Store.sendMessage.apply(this, arguments);
-        };
-    var r = await e.sendMessage(text);
-    return r;
-  });
-
-  const er = result != 'success' || result != 'OK' ? false : true,
-    m = {
-      type: 'sendStatusText',
-      text: text,
-    },
-    obj = WAPI.scope(undefined, er, result, null);
-
-  Object.assign(obj, m);
-
-  return obj;
+  return spinnies;
 }

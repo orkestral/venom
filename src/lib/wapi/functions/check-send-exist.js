@@ -63,21 +63,81 @@ export function scope(id, erro, status, text = null) {
   return e;
 }
 export async function getchatId(chatId) {
-  var to = await WAPI.getChatById(chatId),
-    objTo = to.lastReceivedKey,
-    extend = {
-      formattedName: to.contact.formattedName,
-      isBusiness: to.contact.isBusiness,
-      isMyContact: to.contact.isMyContact,
-      verifiedName: to.contact.verifiedName,
-      pushname: to.contact.pushname,
-      isOnline: to.isOnline,
-    };
-  Object.assign(objTo, extend);
-  return objTo;
+  var to = await WAPI.getChatById(chatId);
+  if (to) {
+    var objTo = to.lastReceivedKey,
+      extend = {
+        formattedName: to.contact.formattedName,
+        isBusiness: to.contact.isBusiness,
+        isMyContact: to.contact.isMyContact,
+        verifiedName: to.contact.verifiedName,
+        pushname: to.contact.pushname,
+        isOnline: to.isOnline,
+      };
+    Object.assign(objTo, extend);
+    return objTo;
+  } else {
+    return undefined;
+  }
 }
 
 export async function sendExist(chatId, returnChat = true, Send = true) {
+  if (typeof chatId === 'string') {
+    const contact = '@c.us';
+    const broadcast = '@broadcast';
+    const grup = '@g.us';
+    if (
+      contact !== chatId.substr(-contact.length, contact.length) &&
+      broadcast !== chatId.substr(-broadcast.length, broadcast.length) &&
+      grup !== chatId.substr(-grup.length, grup.length)
+    ) {
+      return scope(
+        chatId,
+        true,
+        404,
+        'The chat number must contain the parameters @c.us, @broadcast or @g.us. At the end of the number!'
+      );
+    }
+    if (
+      contact === chatId.substr(-contact.length, contact.length) &&
+      (chatId.match(/(@c.us)/g).length > 1 ||
+        !chatId.match(/^(\d+(\d)*@c.us)$/g))
+    ) {
+      return scope(
+        chatId,
+        true,
+        404,
+        'incorrect parameters! Use as an example: 000000000000@c.us'
+      );
+    }
+
+    if (
+      broadcast === chatId.substr(-broadcast.length, broadcast.length) &&
+      (chatId.match(/(@broadcast)/g).length > 1 ||
+        !chatId.match(/^(\d+(\d)*@broadcast)$/g))
+    ) {
+      return scope(
+        chatId,
+        true,
+        404,
+        'incorrect parameters! Use as an example: 0000000000@broadcast'
+      );
+    }
+
+    if (
+      grup === chatId.substr(-grup.length, grup.length) &&
+      (chatId.match(/(@g.us)/g).length > 1 ||
+        !chatId.match(/^\d+(-)+(\d)*@g.us$/g))
+    ) {
+      return scope(
+        chatId,
+        true,
+        404,
+        'incorrect parameters! Use as an example: 00000000-000000@g.us'
+      );
+    }
+  }
+
   // Check chat exists (group is always a chat)
   let chat = await window.WAPI.getChat(chatId);
 

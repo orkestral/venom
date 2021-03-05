@@ -52,36 +52,39 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
+import { type } from 'os';
 import { Browser } from 'puppeteer';
 import { CreateConfig } from '../../config/create-config';
 
 export async function checkingCloses(
-  browser: Browser,
+  browser: Browser | string,
   mergedOptions: CreateConfig,
   callStatus: (e: string) => void
 ) {
-  let err: boolean;
-  do {
-    try {
-      await new Promise((r) => setTimeout(r, 2000));
-      if (
-        browser['isClose'] ||
-        (mergedOptions.browserWS && !browser.isConnected())
-      ) {
-        if (mergedOptions.browserWS) {
-          browser.disconnect();
-          callStatus && callStatus('serverClose');
+  if (typeof browser !== 'string') {
+    let err: boolean;
+    do {
+      try {
+        await new Promise((r) => setTimeout(r, 2000));
+        if (
+          browser['isClose'] ||
+          (mergedOptions.browserWS && !browser.isConnected())
+        ) {
+          if (mergedOptions.browserWS) {
+            browser.disconnect();
+            callStatus && callStatus('serverClose');
+          }
+          if (browser['isClose']) {
+            browser.close();
+            callStatus && callStatus('browserClose');
+          }
+          err = false;
+        } else {
+          throw 1;
         }
-        if (browser['isClose']) {
-          browser.close();
-          callStatus && callStatus('browserClose');
-        }
-        err = false;
-      } else {
-        throw 1;
+      } catch (e) {
+        err = true;
       }
-    } catch (e) {
-      err = true;
-    }
-  } while (err);
+    } while (err);
+  }
 }

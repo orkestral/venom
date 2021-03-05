@@ -129,7 +129,7 @@ export class Whatsapp extends ControlsLayer {
    * Closes page and browser
    * @internal
    */
-  public async close(type: string = 'closeProject') {
+  public async close() {
     const closing = async (waPage: {
       browser: () => any;
       isClosed: () => any;
@@ -146,7 +146,7 @@ export class Whatsapp extends ControlsLayer {
     try {
       await closing(this.page);
     } catch (error) {}
-    return { type: type };
+    return true;
   }
 
   /**
@@ -189,6 +189,7 @@ export class Whatsapp extends ControlsLayer {
         }
       }
     } catch (error) {
+      console.error(error);
       throw 'Error trying to download the file.';
     }
     const buff = Buffer.from(res.data, 'binary');

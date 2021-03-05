@@ -1,4 +1,4 @@
-# Venom the more complete javascript library for Whatsapp, 100% Open Source
+# 🕷Venom Bot🕸
 
 ![enter image description here](https://s2.click/venom.jpg)
 
@@ -21,26 +21,29 @@
   <a href="https://orkestral.github.io/venom">Documentation</a>
 </p>
 
-**Grupo de Suporte do Venom em português do Brasil | R$ 30 Mensais** <br> <br>
-<a target="_blank" href="https://web.whatsapp.com/send?phone=556181590153&text=I%20want%20access%20to%20the%20WhatsApp%20Venom%20support%20group" target="_blank"><img title="whatzapp" height="75" width="300" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/WhatsApp_logo.svg/2000px-WhatsApp_logo.svg.png"></a>
+## Medium Posts
+<img height="100" src="https://miro.medium.com/max/1002/1*s986xIGqhfsN8U--09_AdA.png"> </img> <br>
+<a href="https://medium.com/venom-bot" title="Venom in Medium">**Access @Venom Posts In Medium**</a>
+
+<br> <br>
+## Request Support Free Group Access In Whatsapp
+
+<a target="_blank" href="https://web.whatsapp.com/send?phone=556181590153&text=I%20want%20access%20to%20the%20WhatsApp%20Venom%20support%20group" target="_blank"><img title="whatzapp" height="100" width="375" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/WhatsApp_logo.svg/2000px-WhatsApp_logo.svg.png"></a>
 
 ## 🕷🕷 Functions Venom🕷🕷
 
 |                                                            |     |
 | ---------------------------------------------------------- | --- |
-| Automatic QR Refresh                                       | ✔   |
-| Send **text, image, video, audio, files**                  | ✔   |
-| Get **contacts, chats, groups, group members, Block List** | ✔   |
-| Send **contacts & Multples Contacts**                      | ✔   |
-| Send **Location**                                          | ✔   |
-| Send **Link Preview**                                      | ✔   |
-| Send **stickers**                                          | ✔   |
-| Send **stickers GIF**                                      | ✔   |
-| Send stories **text, image, video**                        | ✔   |
+| 🚻 Automatic QR Refresh                                       | ✔   |
+| 📁 Send **text, image, video, audio and docs**                | ✔   |
+| 👥 Get **contacts, chats, groups, group members, Block List** | ✔   |
+| 📞 Send contacts                                              | ✔   |
+| Send stickers                                              | ✔   |
+| Send stickers GIF                                          | ✔   |
 | Multiple Sessions                                          | ✔   |
-| Forward Messages                                           | ✔   |
-| Receive message                                            | ✔   |
-| insert user section                                        | ✔   |
+| ⏩ Forward Messages                                           | ✔   |
+| 📥 Receive message                                            | ✔   |
+| 👤 insert user section                                        | ✔   |
 | 📍 Send location!!                                         | ✔   |
 | 🕸🕸 **and much more**                                       | ✔   |
 
@@ -67,44 +70,24 @@ const venom = require('venom-bot');
 
 venom
   .create()
-  .then((client) => {
-  let time = 0, started = false;
-  client.onStreamChange((state) => {
-    console.log('Connection status: ', state);
-    clearTimeout(time);
-    if (state === 'CONNECTED' && !started) {
-     start(client);
-     started = true;
-    }
-    //DISCONNECTED when the mobile device is disconnected
-    if (state === 'DISCONNECTED' || state === 'SYNCING') {
-      time = setTimeout(() => {
-        client.close();
-       // process.exit(); //optional function if you work with only one session
-      }, 80000);
-    }
-  });
-  })
+  .then((client) => start(client))
   .catch((erro) => {
-    console.log('There was an error in the bot: ',erro);
+    console.log(erro);
   });
 
 function start(client) {
-  let inchat = await client.isInsideChat(); //wait until the page is in whatsapp chat
-  if (inchat) {
-    client.onMessage((message) => {
-      if (message.body === 'Hi' && message.isGroupMsg === false) {
-        client
-          .sendText(message.from, 'Welcome Venom 🕷')
-          .then((result) => {
-            console.log('Result: ', result); //return object success
-          })
-          .catch((erro) => {
-            console.error('Error when sending: ', erro); //return object error
-          });
-      }
-    });
-  }
+  client.onMessage((message) => {
+    if (message.body === 'Hi' && message.isGroupMsg === false) {
+      client
+        .sendText(message.from, 'Welcome Venom 🕷')
+        .then((result) => {
+          console.log('Result: ', result); //return object success
+        })
+        .catch((erro) => {
+          console.error('Error when sending: ', erro); //return object error
+        });
+    }
+  });
 }
 ```
 
@@ -167,7 +150,7 @@ venom
       createPathFileToken: false, //creates a folder when inserting an object in the client's browser, to work it is necessary to pass the parameters in the function create browserSessionToken
     },
     // BrowserSessionToken
-    // To receive the client's token use the function await client.getSessionTokenBrowser()
+    // To receive the client's token use the function await clinet.getSessionTokenBrowser()
     {
       WABrowserId: '"UnXjH....."',
       WASecretBundle:
@@ -182,27 +165,10 @@ venom
     }
   )
   .then((client) => {
-
-  let time = 0;
-  client.onStreamChange((state) => {
-
-    console.log('Connection status: ', state);
-
-    clearTimeout(time);
-    if(state === 'CONNECTED'){
-     start(client);
-    }
-   //  DISCONNECTED when the mobile device is disconnected
-    if (state === 'DISCONNECTED' || state === 'SYNCING') {
-      time = setTimeout(() => {
-        client.close();
-       // process.exit(); //optional function if you work with only one session
-      }, 80000);
-    }
-
+    start(client);
   })
   .catch((erro) => {
-    console.log('There was an error in the bot',erro);
+    console.log(erro);
   });
 ```
 
@@ -237,25 +203,10 @@ venom
     undefined
   )
   .then((client) => {
-      let time = 0;
-  client.onStreamChange((state) => {
-
-    console.log('Connection status: ', state);
-
-    clearTimeout(time);
-    if(state === 'CONNECTED'){
-     start(client);
-    }
-   //  DISCONNECTED when the mobile device is disconnected
-    if (state === 'DISCONNECTED' || state === 'SYNCING') {
-      time = setTimeout(() => {
-        client.close();
-       // process.exit(); //optional function if you work with only one session
-      }, 80000);
-    }
+    start(client);
   })
   .catch((erro) => {
-     console.log('There was an error in the bot', erro);
+    console.log(erro);
   });
 ```
 
@@ -298,25 +249,10 @@ venom
     { logQR: false }
   )
   .then((client) => {
-      let time = 0;
-  client.onStreamChange((state) => {
-
-    console.log('Connection status: ', state);
-
-    clearTimeout(time);
-    if(state === 'CONNECTED'){
-     start(client);
-    }
-   //  DISCONNECTED when the mobile device is disconnected
-    if (state === 'DISCONNECTED' || state === 'SYNCING') {
-      time = setTimeout(() => {
-        client.close();
-       // process.exit(); //optional function if you work with only one session
-      }, 80000);
-    }
+    start(client);
   })
   .catch((erro) => {
-     console.log('There was an error in the bot', erro);
+    console.log(erro);
   });
 ```
 
@@ -353,31 +289,6 @@ available can be found in [here](/src/api/layers) and
 ##### Here, `chatId` could be `<phoneNumber>@c.us` or `<phoneNumber>-<groupId>@g.us`
 
 ```javascript
-
-//send an image in Status (history)
-await client.sendStatusImg("https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Alan_Turing_Aged_16_%28cropped%29.jpg/300px-Alan_Turing_Aged_16_%28cropped%29.jpg", "test")
-    .then((result) => {
-     console.log('Result image: ', result); //return object success
-   }).catch((erro) => {
-     console.error('Error when sending image: ', erro); //return object error
-   });
-
-//send an text in Status (history)
-await client.sendStatusText("Água mole em pedra dura tanto bate até que fura").then((result) => {
-  console.log('Result text', result); //return object success
-  })
-  .catch((erro) => {
-    console.error('Error when sending text: ', erro);//return object error
-  });
-
-//send an video in Status (history)
-await client.sendStatusVideo("test.mp4", "test").then((result) => {
-  console.log('Result video', result);
-  })
-  .catch((erro) => {
-    console.error('Error when sending  video: ', erro);
-  });
-
 // Send contact
 await client
   .sendContactVcard('000000000000@c.us', '111111111111@c.us', 'Name of contact')
@@ -504,6 +415,17 @@ await client
     console.error('Error when sending: ', erro); //return object error
   });
 
+// Forwards messages
+await client.forwardMessages(
+  '000000000000@c.us',
+  ['false_000000000000@c.us_B70847EE89E22D20FB86ECA0C1B11609','false_000000000000@c.us_B70847EE89E22D20FB86ECA0C1B11777']
+).then((result) => {
+    console.log('Result: ', result); //return object success
+})
+.catch((erro) => {
+    console.error('Error when sending: ', erro); //return object error
+});
+
 // Send @tagged message
 await client.sendMentioned(
   '000000000000@c.us',
@@ -550,12 +472,8 @@ await client.sendVideoAsGif(
   'Gif image file'
 );
 
-// Forwards messages
-await client.forwardMessages(
-  '000000000000@c.us',
-  [message.id.toString()],
-  true
-);
+
+
 
 // Send seen ✔️✔️
 await client.sendSeen('000000000000@c.us');
@@ -573,20 +491,29 @@ await client.setChatState('000000000000@c.us', 0 | 1 | 2);
 ## Retrieving Data
 
 ```javascript
-//Retrieves all grups
-const groups = await client.getAllChatsGroups();
+// Retrieve all chats
+const chats = await client.getAllChats();
+
+//Retrieves all chats new messages
+const chatsAllNew = getAllChatsNewMsg();
 
 //Retrieves all chats Contacts
 const contacts = await client.getAllChatsContacts();
 
-//Retrieves all chats Transmission list
-const transmission = await client.getAllChatsTransmission();
-
 //Retrieve all contacts new messages
 const contactNewMsg = await client.getChatContactNewMsg();
 
+// Retrieve all groups
+const chats = await client.getAllChatsGroups();
+
 //Retrieve all groups new messages
 const groupNewMsg = await client.getChatGroupNewMsg();
+
+//Retrieves all chats Transmission list
+const transmission = await client.getAllChatsTransmission();
+
+// Retrieve contacts
+const contacts = await client.getAllContacts();
 
 // Returns a list of mute and non-mute users
 // "all" List all mutes
@@ -601,10 +528,11 @@ const browserSessionToken = await client.getSessionTokenBrowser();
 // Calls your list of blocked contacts (returns an array)
 const getBlockList = await client.getBlockList();
 
-// Retrieve contacts
-const contacts = await client.getAllContacts();
-
 // Retrieve messages in chat
+//chatID chat id
+//includeMe will be by default true, if you do not want to pass false
+//includeNotifications will be by default true, if you do not want to pass false
+//const Messages = await client.getAllMessagesInChat(chatID, includeMe, includeNotifications)
 const Messages = await client.getAllMessagesInChat('000000000000@c.us');
 
 // Retrieve more chat message
@@ -623,12 +551,6 @@ const user = await client.getNumberProfile('000000000000@c.us');
 
 // Retrieve all unread message
 const messages = await client.getAllUnreadMessages();
-
-// Retrieve all chats
-const chats = await client.getAllChats();
-
-// Retrieve all groups
-const chats = await client.getAllGroups();
 
 // Retrieve profile fic (as url)
 const url = await client.getProfilePicFromServer('000000000000@c.us');
@@ -827,7 +749,7 @@ await client.getTheme();
 await client.deleteChat('000000000000@c.us');
 
 // Clear chat messages
-await client.clearChat('000000000000@c.us');
+await client.clearChatMessages('000000000000@c.us');
 
 // Archive and unarchive chat messages with true or false
 await client.archiveChat(chatId, true);
@@ -876,21 +798,6 @@ client.onStateChange((state) => {
   if ('CONFLICT'.includes(state)) client.useHere();
   // detect disconnect on whatsapp
   if ('UNPAIRED'.includes(state)) console.log('logout');
-});
-
-// DISCONNECTED
-// SYNCING
-// RESUMING
-// CONNECTED
-let time = 0;
-client.onStreamChange((state) => {
-  console.log('State Connection Stream: ' + state);
-  clearTimeout(time);
-  if (state === 'DISCONNECTED' || state === 'SYNCING') {
-    time = setTimeout(() => {
-      client.close();
-    }, 80000);
-  }
 });
 
 // function to detect incoming call

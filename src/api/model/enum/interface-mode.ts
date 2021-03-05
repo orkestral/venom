@@ -60,7 +60,7 @@ export enum InterfaceMode {
   /**
    * Chat page.
    */
-  MAIN = 'MAIN',
+  MAIN = 'CONNECTION',
   /**
    * Loading page, waiting data from smartphone.
    */

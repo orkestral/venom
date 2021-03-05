@@ -75,7 +75,7 @@ interface WAPI {
   arrayBufferToBase64: (buffer: ArrayBuffer) => string;
   blockContact: (messageId: string) => boolean;
   checkNumberStatus: (contactId: string) => Promise<WhatsappProfile>;
-  clearChat: (chatId: string) => void;
+  clearChatMessages: (chatId: string) => void;
   createGroup: (
     groupName: string,
     contactId: string | string[]
@@ -93,7 +93,7 @@ interface WAPI {
     to: string,
     messages: string | string[],
     skipMyMessages: boolean
-  ) => any;
+  ) => Promise<object>;
   getAllChats: () => Chat[];
   getAllChatsWithMessages: (withNewMessageOnly?: boolean) => Chat[];
   getAllChatsWithNewMsg: () => Chat[];
@@ -121,6 +121,7 @@ interface WAPI {
   getListMute: (type?: string) => object;
   getMessageById: (messageId: string) => Promise<Message>;
   getNumberProfile: (contactId: string) => WhatsappProfile;
+  getProfilePicFromServer: (chatId: string) => string;
   getSessionTokenBrowser: (removePath?: boolean) => tokenSession;
   getStatus: (contactId: string) => ContactStatus;
   getTheme: () => string;
@@ -146,10 +147,10 @@ interface WAPI {
   onAddedToGroup: (callback: Function) => any;
   onIncomingCall: (callback: Function) => any;
   onInterfaceChange: (callback: Function) => void;
+  onMessage: (callback: Function) => void;
   onLiveLocation: (chatId: string, callback: Function) => any;
   onParticipantsChanged: (groupId: string, callback: Function) => any;
   onStateChange: (callback: Function) => void;
-  onStreamChange: (callback: Function) => void;
   openChat: (chatId: string) => boolean;
   openChatAt: (
     chatId: string,
@@ -176,16 +177,13 @@ interface WAPI {
     to: string,
     filename: string,
     caption: string,
-    type?: string,
-    status?: boolean
+    type?: string
   ) => Promise<SendFileResult>;
   sendImage: (
     imgBase64: string,
     to: string,
     filename: string,
-    caption?: string,
-    type?: string,
-    status?: boolean
+    caption?: string
   ) => Promise<SendFileResult>;
   sendImageAsSticker: (
     webpBase64: string,
@@ -216,7 +214,7 @@ interface WAPI {
     longitude: string,
     title: string
   ) => Promise<object>;
-  sendMessage: (to: string, content: string) => Promise<string>;
+  sendMessage: (to: string, content: string) => Promise<Object>;
   sendMessageMentioned: (...args: any) => any;
   sendMessageOptions: (
     chat: any,
@@ -256,9 +254,6 @@ interface WAPI {
   waitNewAcknowledgements: (callback: Function) => void;
   waitNewMessages: (rmCallback: boolean, callback: Function) => void;
   sendSeen: (to: string) => void;
-  _profilePicfunc: (contactId: string) => Promise<object>;
-  sendStatusText: (text: string) => Promise<object>;
-  isInsideChat: () => boolean;
 }
 
 declare global {

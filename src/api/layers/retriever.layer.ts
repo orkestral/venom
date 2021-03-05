@@ -107,20 +107,25 @@ export class RetrieverLayer extends SenderLayer {
   }
 
   /**
-   * Retrieves all chats, grups, contacts, transmission list
+   * Retrieves all chats
    * @returns array of [Chat]
    */
   public async getAllChats() {
-    return await this.page.evaluate(() => WAPI.getAllChats());
+    return await this.page.evaluate(() => {
+      let chats = WAPI.getAllChats();
+      return chats;
+    });
   }
 
   /**
-   * Retrieves all grups
+   * Retrieves all chats new messages
    * @returns array of [Chat]
    */
-  public async getAllChatsGroups() {
-    const chats = await this.page.evaluate(() => WAPI.getAllChats());
-    return chats.filter((chat) => chat.kind === 'group');
+  public async getAllChatsNewMsg() {
+    return await this.page.evaluate(() => {
+      let chats = WAPI.getAllChatsWithNewMsg();
+      return chats;
+    });
   }
 
   /**
@@ -128,17 +133,11 @@ export class RetrieverLayer extends SenderLayer {
    * @returns array of [Chat]
    */
   public async getAllChatsContacts() {
-    const chats = await this.page.evaluate(() => WAPI.getAllChats());
-    return chats.filter((chat) => chat.kind === 'chat');
-  }
-
-  /**
-   * Retrieves all chats Transmission list
-   * @returns array of [Chat]
-   */
-  public async getAllChatsTransmission() {
-    const chats = await this.page.evaluate(() => WAPI.getAllChats());
-    return chats.filter((chat) => chat.kind === 'broadcast');
+    return await this.page.evaluate(() => {
+      let chats = WAPI.getAllChats(),
+        filter = chats.filter((chat) => chat.kind === 'chat');
+      return filter;
+    });
   }
 
   /**
@@ -166,17 +165,7 @@ export class RetrieverLayer extends SenderLayer {
   }
 
   /**
-   * Retrieve all groups new messages
-   * @returns array of groups
-   */
-  public async getChatGroupNewMsg() {
-    // prettier-ignore
-    const chats = await this.page.evaluate(() => WAPI.getAllChatsWithNewMsg());
-    return chats.filter((chat) => chat.kind === 'group');
-  }
-
-  /**
-   * Retrieve all contacts new messages
+   * Retrieve all contact new messages
    * @returns array of groups
    */
   public async getChatContactNewMsg() {
@@ -203,6 +192,17 @@ export class RetrieverLayer extends SenderLayer {
    */
   public async getAllContacts() {
     return await this.page.evaluate(() => WAPI.getAllContacts());
+  }
+
+  /**
+   * Retrieves all chats Transmission list
+   * @returns array of [Chat]
+   */
+  public async getAllChatsTransmission() {
+    return await this.page.evaluate(() => {
+      let chats = WAPI.getAllChats();
+      return chats.filter((chat) => chat.kind === 'broadcast');
+    });
   }
 
   /**
@@ -233,7 +233,10 @@ export class RetrieverLayer extends SenderLayer {
    * @returns url of the chat picture or undefined if there is no picture for the chat.
    */
   public async getProfilePicFromServer(chatId: string) {
-    return this.page.evaluate((chatId) => WAPI._profilePicfunc(chatId), chatId);
+    return this.page.evaluate(
+      (chatId) => WAPI.getProfilePicFromServer(chatId),
+      chatId
+    );
   }
 
   /**

@@ -127,6 +127,7 @@ export const isInsideChat = async (waPage: puppeteer.Page) => {
   if (typeof status !== 'string') {
     return null;
   }
+
   return status === 'CONNECTED';
 };
 

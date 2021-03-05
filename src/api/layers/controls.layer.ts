@@ -150,8 +150,11 @@ export class ControlsLayer extends UILayer {
    * @param chatId
    * @returns boolean
    */
-  public async clearChat(chatId: string) {
-    return this.page.evaluate((chatId) => WAPI.clearChat(chatId), chatId);
+  public async clearChatMessages(chatId: string) {
+    return this.page.evaluate(
+      (chatId) => WAPI.clearChatMessages(chatId),
+      chatId
+    );
   }
 
   /**
@@ -183,9 +186,5 @@ export class ControlsLayer extends UILayer {
       ({ chatId, option }) => WAPI.setMessagesAdminsOnly(chatId, option),
       { chatId, option }
     );
-  }
-
-  public async isInsideChat() {
-    return this.page.evaluate(() => WAPI.isInsideChat());
   }
 }

@@ -81,10 +81,31 @@ export async function sendLinkPreview(chatId, url, text) {
   var chat = await WAPI.sendExist(chatId);
   if (!chat.erro) {
     const linkPreview = await Store.WapQuery.queryLinkPreview(url);
-    var result =
-      (await chat.sendMessage(text.includes(url) ? text : `${url}\n${text}`, {
-        linkPreview,
-      })) || '';
+    const newMsgId = await window.WAPI.getNewMessageId(chat.id);
+    const fromwWid = await window.Store.Conn.wid;
+    const message = {
+      id: newMsgId,
+      ack: 0,
+      body: `${url}\n${text}`,
+      from: fromwWid,
+      to: chat.id,
+      local: !0,
+      self: 'out',
+      t: parseInt(new Date().getTime() / 1000),
+      isNewMsg: !0,
+      type: 'chat',
+      subtype: 'url',
+      canonicalUrl: linkPreview.canonicalUrl,
+      description: linkPreview.description,
+      doNotPlayInline: linkPreview.doNotPlayInline,
+      matchedText: linkPreview.matchedText,
+      preview: linkPreview.preview,
+      thumbnail: linkPreview.thumbnail,
+      title: linkPreview.title,
+    };
+    var result = (
+      await Promise.all(window.Store.addAndSendMsgToChat(chat, message))
+    )[1];
     var m = { type: 'LinkPreview', url: url, text: text },
       To = await WAPI.getchatId(chat.id);
     if (result === 'success' || result === 'OK') {

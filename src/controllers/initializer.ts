@@ -58,12 +58,9 @@ import { CreateConfig, defaultOptions } from '../config/create-config';
 import { SessionTokenCkeck, saveToken } from './auth';
 import { initWhatsapp, initBrowser } from './browser';
 import { checkUpdates, welcomeScreen } from './welcome';
+import { getSpinnies } from '../utils/spinnies';
 import { SocketState } from '../api/model/enum';
-import {
-  deleteFiles,
-  checkingCloses,
-  checkingDesconnected,
-} from '../api/helpers';
+import { deleteFiles, checkingCloses } from '../api/helpers';
 import { tokenSession } from '../config/tokenSession.config';
 import { Browser, Page } from 'puppeteer';
 
@@ -156,62 +153,79 @@ export async function create(
     browserInstance = sessionOrOption.browserInstance || browserInstance;
     options = sessionOrOption;
   }
-
   let browserToken: any;
 
-  const mergedOptions = { ...defaultOptions, ...options };
+  const spinnies = getSpinnies({
+    disableSpins: options ? options.disableSpins : false,
+  });
 
-  const logger = mergedOptions.logger;
+  const mergedOptions = { ...defaultOptions, ...options };
 
   if (!mergedOptions.disableWelcome) {
     welcomeScreen();
   }
 
   if (mergedOptions.updatesLog) {
-    await checkUpdates();
+    await checkUpdates(spinnies);
   }
 
   // Initialize whatsapp
-  logger.info('Initializing browser...', { session, type: 'browser' });
-
-  const browser = await initBrowser(session, mergedOptions).catch((e) => {
-    if (mergedOptions.browserWS && mergedOptions.browserWS != '') {
-      logger.error(`Error when try to connect ${mergedOptions.browserWS}`, {
-        session,
-        type: 'browser',
-      });
-    } else {
-      logger.error(`Error no open browser`, {
-        session,
-        type: 'browser',
-      });
-    }
-    logger.error(e.message, {
-      session,
-      type: 'browser',
+  if (mergedOptions.browserWS) {
+    spinnies.add(`browser-${session}`, {
+      text: `Waiting... checking the wss server...`,
     });
-    throw e;
-  });
+  } else {
+    spinnies.add(`browser-${session}`, {
+      text: 'Waiting... checking the browser...',
+    });
+  }
 
-  if (typeof browser === 'object') {
-    logger.http('checking headless...', {
-      session,
-      type: 'browser',
+  const browser = await initBrowser(session, mergedOptions);
+
+  // Erro of connect wss
+  if (typeof browser === 'string' && browser === 'connect') {
+    spinnies.fail(`browser-${session}`, {
+      text: `Error when try to connect ${mergedOptions.browserWS}`,
+    });
+    throw `Error when try to connect ${mergedOptions.browserWS}`;
+  }
+
+  // Erro open browser
+  if (typeof browser === 'string' && browser === 'launch') {
+    spinnies.fail(`browser-${session}`, {
+      text: `Error no open browser....`,
+    });
+    throw `Error no open browser....`;
+  }
+
+  if (mergedOptions.browserWS) {
+    spinnies.succeed(`browser-${session}`, {
+      text: `Has been properly connected to the wss server`,
+    });
+  } else {
+    spinnies.succeed(`browser-${session}`, {
+      text: `Browser successfully opened`,
+    });
+  }
+
+  if (!mergedOptions.browserWS) {
+    spinnies.add(`browser-${session}`, {
+      text: 'checking headless...',
     });
 
     if (mergedOptions.headless) {
-      logger.http('headless option is active, browser hidden', {
-        session,
-        type: 'browser',
+      spinnies.succeed(`browser-${session}`, {
+        text: 'headless option is active, browser hidden',
       });
     } else {
-      logger.http('headless option is disabled, browser visible', {
-        session,
-        type: 'browser',
+      spinnies.succeed(`browser-${session}`, {
+        text: 'headless option is disabled, browser visible',
       });
     }
+  }
 
-    if (!mergedOptions.browserWS) {
+  if (typeof browser === 'object') {
+    if (!mergedOptions.browserWS && browser['_process']) {
       browser['_process'].once('close', () => {
         browser['isClose'] = true;
       });
@@ -225,76 +239,64 @@ export async function create(
       browserToken = browserSessionToken;
     }
 
-    const waPage = await initWhatsapp(
+    // Initialize whatsapp
+    const page = await initWhatsapp(
       session,
       mergedOptions,
       browser,
       browserToken
     );
 
-    if (waPage) {
-      browserInstance && browserInstance(browser, waPage);
-
-      const client = new Whatsapp(waPage, session, mergedOptions);
+    if (page) {
+      const client = new Whatsapp(page, session, mergedOptions);
       if (mergedOptions.createPathFileToken) {
         client.onStateChange((state) => {
           if (state === SocketState.CONNECTED) {
             setTimeout(() => {
-              saveToken(waPage, session, mergedOptions).catch((e) => {
-                logger.error(e, { session });
+              saveToken(page, session, mergedOptions).catch((e) => {
+                spinnies.update(`browser-${session}`, {
+                  text: e,
+                });
               });
             }, 1000);
           }
         });
       }
 
-      let LocalLogin = JSON.parse(
-        await waPage.evaluate(() => {
-          return JSON.stringify(window.localStorage);
-        })
-      );
-
-      let CheckLogin =
-        LocalLogin.WASecretBundle && LocalLogin.WAToken1 && LocalLogin.WAToken2
-          ? true
-          : false;
-
-      if (!CheckLogin) {
-        if (mergedOptions.waitForLogin) {
-          const isLogged = await client.waitForLogin(catchQR, statusFind);
-          if (!isLogged) {
-            throw 'Not Logged';
-          }
-          await checkingDesconnected(
-            client,
-            session,
-            options,
-            catchQR,
-            (result, session) => {
-              statusFind && statusFind(result, session);
-            }
-          );
-          await client.restartService();
+      if (mergedOptions.waitForLogin) {
+        const isLogged = await client.waitForLogin(catchQR, statusFind);
+        if (!isLogged) {
+          throw 'Not Logged';
         }
-      } else {
-        await checkingDesconnected(
-          client,
-          session,
-          options,
-          catchQR,
-          (result, session) => {
-            statusFind && statusFind(result, session);
+        let waitLoginPromise = null;
+        client.onStateChange(async (state) => {
+          if (
+            state === SocketState.UNPAIRED ||
+            state === SocketState.UNPAIRED_IDLE
+          ) {
+            if (statusFind) {
+              statusFind('desconnectedMobile', session);
+            }
+            deleteFiles(mergedOptions, session, spinnies);
+            if (!waitLoginPromise) {
+              waitLoginPromise = client
+                .waitForLogin(catchQR, statusFind)
+                .catch(() => {})
+                .finally(() => {
+                  waitLoginPromise = null;
+                });
+            }
+            await waitLoginPromise;
           }
-        );
+        });
       }
 
       if (mergedOptions.debug) {
         const debugURL = `http://localhost:${readFileSync(
           `./${session}/DevToolsActivePort`
         ).slice(0, -54)}`;
-        logger.info(`\nDebug: \x1b[34m${debugURL}\x1b[0m`);
+        console.log(`\nDebug: \x1b[34m${debugURL}\x1b[0m`);
       }
-
       return client;
     }
   }

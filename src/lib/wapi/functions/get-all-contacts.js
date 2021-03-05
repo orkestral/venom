@@ -52,11 +52,12 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
-export const getAllContacts = async function () {
-  let contacts = await Promise.all(
-    window.Store.Contact.map(async (contact) => {
-      return await WAPI._serializeContactObj(contact);
-    })
+export const getAllContacts = function () {
+  const allContacts = window.Store.Contact.map((contact) =>
+    WAPI._serializeContactObj(contact)
   );
-  return contacts;
+
+  return allContacts.filter((result) => {
+    return result.isUser === true;
+  });
 };

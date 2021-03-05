@@ -60,7 +60,7 @@ import {
   blockContact,
   unblockContact,
   getBlockList,
-  clearChat,
+  clearChatMessages,
   createGroup,
   deleteConversation,
   deleteMessages,
@@ -95,6 +95,7 @@ import {
   getNewId,
   getNewMessageId,
   getNumberProfile,
+  getProfilePicFromServer,
   getStatus,
   getUnreadMessages,
   getUnreadMessagesInChat,
@@ -153,8 +154,6 @@ import {
   getListMute,
   interfaceMute,
   downloadMedia,
-  isInsideChat,
-  sendStatusText,
 } from './functions';
 import {
   base64ToFile,
@@ -169,10 +168,8 @@ import {
   addOnNewAcks,
   addOnParticipantsChange,
   addOnStateChange,
-  addOnStreamChange,
   allNewMessagesListener,
   initNewMessagesListener,
-  callbackWile,
 } from './listeners';
 import {
   _serializeChatObj,
@@ -181,32 +178,33 @@ import {
   _serializeNumberStatusObj,
   _serializeProfilePicThumb,
   _serializeRawObj,
-  _profilePicfunc,
 } from './serializers';
 import { getStore } from './store/get-store';
 
-window['webpackJsonp'] = window['webpackJsonp'] || [];
+window['webpackChunkbuild'] = window['webpackChunkbuild'] || [];
 
 if (typeof window.Store === 'undefined') {
   window.Store = {};
   var loadParasite = function () {
     function injectParasite() {
       const parasite = `parasite${Date.now()}`;
-      window['webpackJsonp'].push([
+      window['webpackChunkbuild'].push([
         [parasite],
-        {
-          [parasite]: (x, y, z) => getStore(z),
+        {},
+        function (o) {
+          let modules = [];
+          for (let idx in o.m) {
+            modules.push(o(idx));
+          }
+          getStore(modules);
         },
-        [[parasite]],
       ]);
     }
 
-    injectParasite();
-
     setInterval(() => {
       try {
-        const last = window['webpackJsonp'].length - 1;
-        if (!/^parasite/.test(window['webpackJsonp'][last][0][0])) {
+        const last = window['webpackChunkbuild'].length - 1;
+        if (!/^parasite/.test(window['webpackChunkbuild'][last][0][0])) {
           injectParasite();
         }
       } catch (e) {}
@@ -221,12 +219,8 @@ if (typeof window.WAPI === 'undefined') {
     lastRead: {},
   };
 
-  //class
-  window.WAPI.callbackWile = new callbackWile();
-
   //others
   window.WAPI.interfaceMute = interfaceMute;
-  window.WAPI.isInsideChat = isInsideChat;
   //Profile
   window.WAPI.setProfilePic = setProfilePic;
   window.WAPI.getSessionTokenBrowser = getSessionTokenBrowser;
@@ -248,7 +242,6 @@ if (typeof window.WAPI === 'undefined') {
   window.WAPI._serializeMessageObj = _serializeMessageObj;
   window.WAPI._serializeNumberStatusObj = _serializeNumberStatusObj;
   window.WAPI._serializeProfilePicThumb = _serializeProfilePicThumb;
-  window.WAPI._profilePicfunc = _profilePicfunc;
 
   // Group Functions
   window.WAPI.createGroup = createGroup;
@@ -273,7 +266,7 @@ if (typeof window.WAPI === 'undefined') {
   window.WAPI.sendSeen = sendSeen;
   window.WAPI.deleteConversation = deleteConversation;
   window.WAPI.deleteMessages = deleteMessages;
-  window.WAPI.clearChat = clearChat;
+  window.WAPI.clearChatMessages = clearChatMessages;
   window.WAPI.sendImage = sendImage;
   window.WAPI.sendPtt = sendPtt;
   window.WAPI.sendFile = sendFile;
@@ -335,6 +328,7 @@ if (typeof window.WAPI === 'undefined') {
   window.WAPI.loadAndGetAllMessagesInChat = loadAndGetAllMessagesInChat;
   window.WAPI.getUnreadMessages = getUnreadMessages;
   window.WAPI.getCommonGroups = getCommonGroups;
+  window.WAPI.getProfilePicFromServer = getProfilePicFromServer;
   window.WAPI.downloadFile = downloadFile;
   window.WAPI.downloadMedia = downloadMedia;
   window.WAPI.getNumberProfile = getNumberProfile;
@@ -356,7 +350,6 @@ if (typeof window.WAPI === 'undefined') {
   window.WAPI.restartService = restartService;
   window.WAPI.killServiceWorker = killServiceWorker;
   window.WAPI.sendMute = sendMute;
-  window.WAPI.sendStatusText = sendStatusText;
 
   // Listeners initialization
   window.WAPI._newMessagesQueue = [];
@@ -558,7 +551,6 @@ if (typeof window.WAPI === 'undefined') {
       return true;
     });
   };
-
   window.WAPI.storePromises = {};
   window.WAPI.waitForStore = async function (stores, callback) {
     if (!Array.isArray(stores)) {
@@ -586,7 +578,6 @@ if (typeof window.WAPI === 'undefined') {
       }
       return window.WAPI.storePromises[s];
     });
-
     const all = Promise.all(promises);
 
     if (typeof callback === 'function') {
@@ -596,7 +587,6 @@ if (typeof window.WAPI === 'undefined') {
     return await all;
   };
 
-  addOnStreamChange();
   addOnStateChange();
   initNewMessagesListener();
   addNewMessagesListener();

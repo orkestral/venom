@@ -1,3 +1,100 @@
+## [3.0.8](https://github.com/orkestral/venom/compare/v3.0.7...v3.0.8) (2021-03-02)
+
+
+### Bug Fixes
+
+* qrcode ([691c3af](https://github.com/orkestral/venom/commit/691c3af5def47cbd0dc9cc3ff3f504c38fe6f789))
+* sendContactVcard ([448b686](https://github.com/orkestral/venom/commit/448b686384cc212a0d153165be31156de11ae568))
+
+
+### Features
+
+* return sendLinkPreview ([11f3c34](https://github.com/orkestral/venom/commit/11f3c34205dcdf8a4267d0e963d651a9f8170913))
+
+
+
+## [3.0.7](https://github.com/orkestral/venom/compare/v3.0.6...v3.0.7) (2021-03-01)
+
+
+### Bug Fixes
+
+* spinnies ([e10be38](https://github.com/orkestral/venom/commit/e10be389b3f1b578446f0d07d2ee050a721f4600))
+* Undefined or null to object sendMessage ([1b34977](https://github.com/orkestral/venom/commit/1b3497789c3853c2254a85ce2f1c4c483e2ba54c))
+* wapi ([003a5b2](https://github.com/orkestral/venom/commit/003a5b2a85064b000081a0ac8f2e9534933de476))
+
+
+### Features
+
+* Error results sendExist () ([488a5e1](https://github.com/orkestral/venom/commit/488a5e193b4069a47e1658e071163415f03c3924))
+
+
+
+## [3.0.6](https://github.com/orkestral/venom/compare/v3.0.5...v3.0.6) (2021-02-28)
+
+### Bug Fixes
+
+- clearChatMessages ([4c10248](https://github.com/orkestral/venom/commit/4c102488fdd9a3e85ca93ef7f9b04baeaaa973ab))
+- forwardMessages ([3570b9e](https://github.com/orkestral/venom/commit/3570b9ebf0edd8ed404fb96ac74c7ae65d2a8b08))
+- forwardMessages return ([4b3511b](https://github.com/orkestral/venom/commit/4b3511bf4dfba7b15d38424cbc6de58307662259))
+- getAllChatsGroups ([06e641c](https://github.com/orkestral/venom/commit/06e641ca37160f6d2c1a7816af38caa27f5b7394))
+- getAllContacts ([9cd653e](https://github.com/orkestral/venom/commit/9cd653e01db2fad54201c0f1c611749d23286b99))
+- lint ([29aa079](https://github.com/orkestral/venom/commit/29aa07959ad32402366f97e4867532d057304f3c))
+- sendText ([dbea75d](https://github.com/orkestral/venom/commit/dbea75de8a9a7c1f4baadc12bf8caa57e05ae48c))
+
+### Features
+
+- getAllChatsNewMsg ([b703462](https://github.com/orkestral/venom/commit/b703462225e680707d1a976c80c250af33510b04))
+- getAllChatsTransmission ([6461f1f](https://github.com/orkestral/venom/commit/6461f1fff18b765a53f36e4d6e16c57c886974ce))
+- getChatGroupNewMsg ([04f2200](https://github.com/orkestral/venom/commit/04f2200af27fb1f0fab4487b6b017c6937b9bc3d))
+- return object forwardMessages and sendText ([ee40497](https://github.com/orkestral/venom/commit/ee404970ecad12f704e1b21363c87f84292b69b8))
+
+## [3.0.5](https://github.com/orkestral/venom/compare/3.0.4...3.0.5) (2021-02-27)
+
+### Bug Fixes
+
+- getAllGroups return ([7673f1e](https://github.com/orkestral/venom/commit/7673f1e7ed4c11e6622fd53c2bbce7bf55c08d7c))
+
+## [3.0.1](https://github.com/orkestral/venom/compare/v2.2.6...v3.0.1) (2021-02-26)
+
+### Bug Fixes
+
+- sendText, onMessage, onck ([e04586f](https://github.com/orkestral/venom/commit/e04586f7f43d5d3dd5426709a1469eb2c41398a4))
+
+# [3.0.0](https://github.com/orkestral/venom/compare/v2.2.6...v3.0.0) (2021-02-25)
+
+### Bug Fixes
+
+### Fix Whatsapp update
+
+### New Initializer
+
+### Add SendVoice
+
+### Speed Improvements
+
+### Memory loss improvements
+
+### Resource Balancing
+
+## [2.2.6](https://github.com/orkestral/venom/compare/v2.2.5...v2.2.6) (2021-02-21)
+
+### Bug Fixes
+
+- lint ([538306f](https://github.com/orkestral/venom/commit/538306fd9565c90fe2670a087cf92fa3f72c76ec))
+
+## [2.2.5](https://github.com/orkestral/venom/compare/v2.2.4...v2.2.5) (2021-02-21)
+
+### Bug Fixes
+
+- file upload functions ([e9cee11](https://github.com/orkestral/venom/commit/e9cee118fac64f25d133e3f62ca0e9ee2451c1b7))
+- function sticker ([c1e40b2](https://github.com/orkestral/venom/commit/c1e40b225f40d22302551d7f673f3818c687ad85))
+- getchats ([c4fade7](https://github.com/orkestral/venom/commit/c4fade7a8b95537a1921c091475465cef4ba519e))
+- incorrect class object -onAck ([1c18017](https://github.com/orkestral/venom/commit/1c18017c9b72e88b3e509b1fec5814929bee58fa))
+- Logged out correctly - logout() ([64daabc](https://github.com/orkestral/venom/commit/64daabc560c7e9d6254936ec023a0130a3bea221))
+- Multiple equal returns in the onack function ([3628734](https://github.com/orkestral/venom/commit/36287341dae4c43468063e19e9bd8c3800852d4f))
+- onMessage return sender and contact ([8902a53](https://github.com/orkestral/venom/commit/8902a53f7357661eec3ba4e0ce4caf43af53a6f4))
+- onStreamChange ([44eab67](https://github.com/orkestral/venom/commit/44eab67d22ee988bb589be2984a2a951a3caa280))
+
 ## [2.2.4](https://github.com/orkestral/venom/compare/v2.2.3...v2.2.4) (2021-02-13)
 
 ### Bug Fixes

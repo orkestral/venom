@@ -54,23 +54,72 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
 import { getMessageById } from './get-message-by-id';
 
-export async function forwardMessages(to, messages, skipMyMessages) {
+export async function forwardMessages(chatId, messages, skipMyMessages) {
+  var chat = await WAPI.sendExist(chatId);
+
   if (!Array.isArray(messages)) {
     messages = [messages];
   }
-  const toForward = (
+
+  var toForward = (
     await Promise.all(
       messages.map(async (msg) => {
-        if (typeof msg === 'string') {
-          return await getMessageById(msg, null, false);
-        } else {
-          return await getMessageById(msg.id, null, false);
-        }
+        return await getMessageById(msg, null, false);
       })
     )
   ).filter((msg) => (skipMyMessages ? !msg.__x_isSentByMe : true));
 
-  // const userId = new window.Store.UserConstructor(to);
-  const conversation = window.Store.Chat.get(to);
-  return conversation.forwardMessages(toForward);
+  var m = { type: 'forwardMessages' };
+
+  return new Promise(async (resolve, reject) => {
+    if (chat.id) {
+      var To = await WAPI.getchatId(chat.id);
+      await Promise.each(toForward, async (e) => {
+        if (typeof e.erro !== 'undefined' && e.erro === true) {
+          var obj = WAPI.scope(To, true, null, 'message not found');
+          Object.assign(obj, m);
+          reject(obj);
+          return;
+        }
+
+        let newId = await window.WAPI.getNewMessageId(chat.id);
+        let tempMsg = await Object.create(
+          chat.msgs.filter((msg) => msg.__x_isSentByMe)
+        )[0];
+        const fromwWid = await window.Store.Conn.wid;
+        let toFor = await Object.assign(e);
+        let extend = {
+          id: newId,
+          ack: 0,
+          from: fromwWid,
+          to: chat.id,
+          local: !0,
+          self: 'out',
+          t: parseInt(new Date().getTime() / 1000),
+          isNewMsg: !0,
+          isForwarded: true,
+          forwardingScore: 1,
+          multicast: true,
+          __x_isSentByMe: true,
+        };
+
+        Object.assign(tempMsg, toFor);
+        Object.assign(tempMsg, extend);
+
+        return await Store.addAndSendMsgToChat(chat, tempMsg);
+      })
+        .then(async () => {
+          var obj = WAPI.scope(To, false, 200, null);
+          Object.assign(obj, m);
+          resolve(obj);
+        })
+        .catch(() => {
+          var obj = WAPI.scope(To, true, 404, null);
+          Object.assign(obj, m);
+          reject(obj);
+        });
+    } else {
+      reject(chat);
+    }
+  });
 }

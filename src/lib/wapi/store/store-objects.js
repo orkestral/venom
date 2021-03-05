@@ -52,6 +52,7 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
+
 export const storeObjects = [
   {
     id: 'Store',
@@ -70,10 +71,7 @@ export const storeObjects = [
         ? module.default
         : null,
   },
-  {
-    id: 'MediaProcess',
-    conditions: (module) => (module.BLOB ? module : null),
-  },
+  { id: 'MediaProcess', conditions: (module) => (module.BLOB ? module : null) },
   {
     id: 'ChatUtil',
     conditions: (module) => (module.sendClear ? module : null),
@@ -189,6 +187,8 @@ export const storeObjects = [
     id: 'MsgKey',
     conditions: (module) =>
       module.default &&
+      module.default.toString &&
+      typeof module.default.toString === 'function' &&
       module.default.toString().includes('MsgKey error: obj is null/undefined')
         ? module.default
         : null,
@@ -413,12 +413,5 @@ export const storeObjects = [
     id: 'BlobCache',
     conditions: (module) =>
       module.default && module.default.getOrCreateURL ? module.default : null,
-  },
-  {
-    id: 'ProfilePic',
-    conditions: (module) =>
-      module.ProfilePicThumbCollection && module.default
-        ? module.default
-        : null,
   },
 ];

@@ -56,7 +56,7 @@ export async function sendContactVcard(chatId, contact, name) {
   var chat = await WAPI.sendExist(chatId);
   var cont = await WAPI.sendExist(contact);
   if (chat.id && cont.id) {
-    var newId = window.WAPI.getNewMessageId(chat.id);
+    var newId = await window.WAPI.getNewMessageId(chat.id);
     var tempMsg = Object.create(
       Store.Msg.models.filter((msg) => msg.__x_isSentByMe && !msg.quotedMsg)[0]
     );
