@@ -81,33 +81,32 @@ export async function forwardMessages(chatId, messages, skipMyMessages) {
           reject(obj);
           return;
         }
-        let conversation = await window.Store.Chat.get(chatId);
+
         let newId = await window.WAPI.getNewMessageId(chat.id);
         let tempMsg = await Object.create(
           chat.msgs.filter((msg) => msg.__x_isSentByMe)
         )[0];
+        const fromwWid = await window.Store.Conn.wid;
         let toFor = await Object.assign(e);
         let extend = {
           id: newId,
-          from: Store.Me.wid,
-          t: parseInt(new Date().getTime() / 1000),
-          to: chat.__x_contact.__x_id,
           ack: 0,
-          participant: void 0,
+          from: fromwWid,
+          to: chat.id,
           local: !0,
           self: 'out',
+          t: parseInt(new Date().getTime() / 1000),
           isNewMsg: !0,
-          star: !1,
-          isForwarded: toFor.isForwarded || !toFor.isSentByMe,
-          forwardedFromWeb: !0,
-          forwardingScore: 21,
-          multicast: false,
+          isForwarded: true,
+          forwardingScore: 1,
+          multicast: true,
+          __x_isSentByMe: true,
         };
 
         Object.assign(tempMsg, toFor);
         Object.assign(tempMsg, extend);
 
-        return await Store.addAndSendMsgToChat(conversation, tempMsg);
+        return await Store.addAndSendMsgToChat(chat, tempMsg);
       })
         .then(async () => {
           var obj = WAPI.scope(To, false, 200, null);
