@@ -94,6 +94,7 @@ export async function sendLinkPreview(chatId, url, text) {
       t: parseInt(new Date().getTime() / 1000),
       isNewMsg: !0,
       type: 'chat',
+      subtype: 'url',
       canonicalUrl: linkPreview.canonicalUrl,
       description: linkPreview.description,
       doNotPlayInline: linkPreview.doNotPlayInline,
