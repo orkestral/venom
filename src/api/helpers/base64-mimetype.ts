@@ -65,3 +65,4 @@ export function base64MimeType(encoded: string) {
 
   return result;
 }
+let t = null;
