@@ -71,6 +71,9 @@ import {
 } from '../model';
 import { ChatState } from '../model/enum';
 import { ListenerLayer } from './listener.layer';
+import { Scope } from './layers-interface';
+
+let obj: Scope;
 
 export class SenderLayer extends ListenerLayer {
   constructor(public page: Page, session?: string, options?: CreateConfig) {
@@ -303,61 +306,52 @@ export class SenderLayer extends ListenerLayer {
   }
 
   /**
-   * Sends file
-   * base64 parameter should have mime type already defined
+   * Send audio file
    * @param to Chat id
-   * @param base64 base64 data
-   * @param filename
-   * @param caption
-   */
-  public async sendPttFromBase64(
-    to: string,
-    base64: string,
-    filename: string,
-    caption?: string
-  ) {
-    return this.page.evaluate(
-      ({ to, base64, filename, caption }) => {
-        WAPI.sendPtt(base64, to, filename, caption);
-      },
-      { to, base64, filename, caption }
-    );
-  }
-
-  /**
-   * Sends file
-   * base64 parameter should have mime type already defined
-   * @param to Chat id
-   * @param base64 base64 data
+   * @param filePath Path file
    */
   public async sendVoice(to: string, filePath: string) {
-    let base64 = await downloadFileToBase64(filePath, ['audio/mpeg']);
+    return new Promise(async (resolve, reject) => {
+      let base64: string | false = await downloadFileToBase64(filePath, [
+        'audio/mpeg',
+      ]);
 
-    if (!base64) {
-      base64 = await fileToBase64(filePath);
-    }
+      if (!base64) {
+        base64 = await fileToBase64(filePath);
+      }
 
-    if (!base64) {
-      const obj = {
-        erro: true,
-        to: to,
-        text: 'No such file or directory, open "' + filePath + '"',
-      };
-      return obj;
-    }
+      if (!base64) {
+        obj = {
+          erro: true,
+          to: to,
+          text: 'No such file or directory, open "' + filePath + '"',
+        };
+        return reject(obj);
+      }
 
-    path.basename(filePath);
+      const mimeInfo: any = base64MimeType(base64);
 
-    let filename = '';
-
-    let caption = '';
-
-    return this.page.evaluate(
-      ({ to, base64, filename, caption }) => {
-        WAPI.sendPtt(base64, to, filename, caption);
-      },
-      { to, base64, filename, caption }
-    );
+      if (!mimeInfo || mimeInfo.includes('audio/mpeg')) {
+        const result: any = await this.page.evaluate(
+          ({ to, base64 }) => {
+            return WAPI.sendPtt(base64, to);
+          },
+          { to, base64 }
+        );
+        if (result['erro'] == true) {
+          reject(result);
+        } else {
+          resolve(result);
+        }
+      } else {
+        obj = {
+          erro: true,
+          to: to,
+          text: 'Use the MP3 format to be able to send an audio!',
+        };
+        return reject(obj);
+      }
+    });
   }
 
   /**
@@ -378,7 +372,7 @@ export class SenderLayer extends ListenerLayer {
       let mimeType = base64MimeType(base64);
 
       if (!mimeType) {
-        const obj = {
+        obj = {
           erro: true,
           to: to,
           text: 'Invalid base64!',
@@ -624,14 +618,17 @@ export class SenderLayer extends ListenerLayer {
       'image/jpeg',
       'image/webp',
     ]);
+
     if (!b64) {
       b64 = await fileToBase64(path);
     }
+
     if (b64) {
       const buff = Buffer.from(
         b64.replace(/^data:image\/(png|jpe?g|webp|gif);base64,/, ''),
         'base64'
       );
+
       const mimeInfo = base64MimeType(b64);
 
       if (!mimeInfo || mimeInfo.includes('image')) {

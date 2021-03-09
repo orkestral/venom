@@ -229,12 +229,7 @@ interface WAPI {
     chatId: string
   ) => void;
   sendMute: (id: string, time: number, type: string) => Promise<object>;
-  sendPtt: (
-    base64: string,
-    to: string,
-    filename: string,
-    caption: string
-  ) => any;
+  sendPtt: (base64: string, to: string) => any;
   sendVideoAsGif: (
     base64: string,
     to: string,

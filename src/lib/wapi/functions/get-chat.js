@@ -57,7 +57,13 @@ export function getChat(id) {
     return false;
   }
   id = typeof id == 'string' ? id : id._serialized;
-  const found = Store.Chat.get(id);
+  let found = Store.Chat.get(id);
+  if (!found) {
+    const ConstructChat = new window.Store.UserConstructor(id, {
+      intentionallyUsePrivateConstructor: !0,
+    });
+    found = Store.Chat.find(ConstructChat) || false;
+  }
   if (found) {
     found.sendMessage = found.sendMessage
       ? found.sendMessage
