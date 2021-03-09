@@ -306,6 +306,46 @@ export class SenderLayer extends ListenerLayer {
   }
 
   /**
+   * Send audio base64
+   * @param to Chat id
+   * @param base64 base64 data
+   */
+  public async sendVoiceBase64(to: string, base64: string) {
+    return new Promise(async (resolve, reject) => {
+      const mimeType: any = base64MimeType(base64);
+
+      if (!mimeType) {
+        obj = {
+          erro: true,
+          to: to,
+          text: 'Invalid base64!',
+        };
+        return reject(obj);
+      }
+      if (!mimeType || mimeType.includes('audio/mpeg')) {
+        const result = await this.page.evaluate(
+          ({ to, base64 }) => {
+            return WAPI.sendPtt(base64, to);
+          },
+          { to, base64 }
+        );
+        if (result['erro'] == true) {
+          reject(result);
+        } else {
+          resolve(result);
+        }
+      } else {
+        obj = {
+          erro: true,
+          to: to,
+          text: 'Use the MP3 format to be able to send an audio!',
+        };
+        return reject(obj);
+      }
+    });
+  }
+
+  /**
    * Send audio file
    * @param to Chat id
    * @param filePath Path file
