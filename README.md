@@ -284,6 +284,24 @@ available can be found in [here](/src/api/layers) and
 ##### Here, `chatId` could be `<phoneNumber>@c.us` or `<phoneNumber>-<groupId>@g.us`
 
 ```javascript
+
+// Send audio file MP3
+await client.sendVoice('000000000000@c.us', './audio.mp3').then((result) => {
+    console.log('Result: ', result); //return object success
+  })
+  .catch((erro) => {
+    console.error('Error when sending: ', erro); //return object error
+  });
+
+// Send audio file base64
+await client.sendVoiceBase64('000000000000@c.us', base64MP3)
+  .then((result) => {
+    console.log('Result: ', result); //return object success
+  })
+  .catch((erro) => {
+    console.error('Error when sending: ', erro); //return object error
+  });
+
 // Send contact
 await client
   .sendContactVcard('000000000000@c.us', '111111111111@c.us', 'Name of contact')
