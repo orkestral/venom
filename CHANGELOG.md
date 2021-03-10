@@ -1,3 +1,20 @@
+## [3.0.9](https://github.com/orkestral/venom/compare/v3.0.8...v3.0.9) (2021-03-10)
+
+
+### Bug Fixes
+
+* Cannot read property '__x_id' of undefined ([bc83c78](https://github.com/orkestral/venom/commit/bc83c78e9b5401c1e5eebbc6749ef78960e5c493))
+* forwardMessages ([0c0e14d](https://github.com/orkestral/venom/commit/0c0e14d8f3d329b0ee4a600041f9b07dd5cfbfe3))
+* return parameters sendVoice ([a7b6813](https://github.com/orkestral/venom/commit/a7b681311e7fe52df69e650c285c1e0c53873116))
+* sendLinkPreview ([d5d1145](https://github.com/orkestral/venom/commit/d5d11458bda0256f9d090d7acc012c381a90a368))
+
+
+### Features
+
+* sendVoiceBase64 ([677c36e](https://github.com/orkestral/venom/commit/677c36e3d74e7ba80ad392c71c9d29246e4f9324))
+
+
+
 ## [3.0.8](https://github.com/orkestral/venom/compare/v3.0.7...v3.0.8) (2021-03-02)
 
 
