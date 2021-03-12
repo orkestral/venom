@@ -138,20 +138,16 @@ export async function sendExist(chatId, returnChat = true, Send = true) {
     }
   }
 
-  // Check chat exists (group is always a chat)
+  let ck = await window.WAPI.checkNumberStatus(chatId);
+
+  if (!ck.numberExists) {
+    return scope(chatId, true, ck.status, 'The number does not exist');
+  }
+
   let chat = await window.WAPI.getChat(chatId);
 
-  // Check if contact number exists
   if (!chat && !chatId.includes('@g')) {
-    let ck = await window.WAPI.checkNumberStatus(chatId);
-
-    if (!ck.numberExists) {
-      return scope(chatId, true, ck.status, 'The number does not exist');
-    }
-
-    // Load chat ID for non contact
     await window.Store.Chat.find(ck.id);
-
     chatId = ck.id._serialized;
     chat = await window.WAPI.getChat(chatId);
   }
