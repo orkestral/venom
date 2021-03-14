@@ -71,13 +71,53 @@ import {
 } from '../model';
 import { ChatState } from '../model/enum';
 import { ListenerLayer } from './listener.layer';
-import { Scope } from './layers-interface';
+import { Scope, checkValuesSender } from '../helpers/layers-interface';
 
 let obj: Scope;
 
 export class SenderLayer extends ListenerLayer {
   constructor(public page: Page, session?: string, options?: CreateConfig) {
     super(page, session, options);
+  }
+
+  /**
+   * Sends a text message to given chat
+   * @param to chat id: xxxxx@us.c or
+   * @param content text message
+   */
+  public async sendText(to: string, content: string): Promise<Object> {
+    return new Promise(async (resolve, reject) => {
+      const typeFunction = 'sendText';
+      const check = [
+        {
+          param: 'to',
+          type: 'string',
+          value: to,
+          function: typeFunction,
+        },
+        {
+          param: 'content',
+          type: 'string',
+          value: content,
+          function: typeFunction,
+        },
+      ];
+      const validating = checkValuesSender(check);
+      if (typeof validating === 'object') {
+        return reject(validating);
+      }
+      const result = await this.page.evaluate(
+        ({ to, content }) => {
+          return WAPI.sendMessage(to, content);
+        },
+        { to, content }
+      );
+      if (result['erro'] == true) {
+        return reject(result);
+      } else {
+        return resolve(result);
+      }
+    });
   }
 
   /**
@@ -97,27 +137,6 @@ export class SenderLayer extends ListenerLayer {
           return WAPI.sendLinkPreview(chatId, url, title);
         },
         { chatId, url, title }
-      );
-      if (result['erro'] == true) {
-        reject(result);
-      } else {
-        resolve(result);
-      }
-    });
-  }
-
-  /**
-   * Sends a text message to given chat
-   * @param to chat id: xxxxx@us.c
-   * @param content text message
-   */
-  public async sendText(to: string, content: string) {
-    return new Promise(async (resolve, reject) => {
-      const result = await this.page.evaluate(
-        ({ to, content }) => {
-          return WAPI.sendMessage(to, content);
-        },
-        { to, content }
       );
       if (result['erro'] == true) {
         reject(result);
