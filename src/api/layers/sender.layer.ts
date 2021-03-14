@@ -82,22 +82,23 @@ export class SenderLayer extends ListenerLayer {
 
   /**
    * Sends a text message to given chat
-   * @param to chat id: xxxxx@us.c or
+   * @param to chat id: xxxxx@us.c
    * @param content text message
    */
   public async sendText(to: string, content: string): Promise<Object> {
     return new Promise(async (resolve, reject) => {
       const typeFunction = 'sendText';
+      const type = 'string';
       const check = [
         {
           param: 'to',
-          type: 'string',
+          type: type,
           value: to,
           function: typeFunction,
         },
         {
           param: 'content',
-          type: 'string',
+          type: type,
           value: content,
           function: typeFunction,
         },
@@ -122,7 +123,7 @@ export class SenderLayer extends ListenerLayer {
 
   /**
    * Automatically sends a link with the auto generated link preview. You can also add a custom message to be added.
-   * @param chatId
+   * @param chatId chat id: xxxxx@us.c
    * @param url string A link, for example for youtube. e.g https://www.youtube.com/watch?v=Zi_XLOBDo_Y&list=RDEMe12_MlgO8mGFdeeftZ2nOQ&start_radio=1
    * @param title custom text as the message body, this includes the link or will be attached after the link
    */
@@ -130,8 +131,34 @@ export class SenderLayer extends ListenerLayer {
     chatId: string,
     url: string,
     title: string
-  ): Promise<SendLinkResult> {
+  ): Promise<object> {
     return new Promise(async (resolve, reject) => {
+      const typeFunction = 'sendLinkPreview';
+      const type = 'string';
+      const check = [
+        {
+          param: 'chatId',
+          type: type,
+          value: chatId,
+          function: typeFunction,
+        },
+        {
+          param: 'url',
+          type: type,
+          value: url,
+          function: typeFunction,
+        },
+        {
+          param: 'title',
+          type: type,
+          value: title,
+          function: typeFunction,
+        },
+      ];
+      const validating = checkValuesSender(check);
+      if (typeof validating === 'object') {
+        return reject(validating);
+      }
       const result = await this.page.evaluate(
         ({ chatId, url, title }) => {
           return WAPI.sendLinkPreview(chatId, url, title);
@@ -139,9 +166,9 @@ export class SenderLayer extends ListenerLayer {
         { chatId, url, title }
       );
       if (result['erro'] == true) {
-        reject(result);
+        return reject(result);
       } else {
-        resolve(result);
+        return resolve(result);
       }
     });
   }
