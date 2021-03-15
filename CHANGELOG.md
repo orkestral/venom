@@ -1,3 +1,19 @@
+## [3.0.10](https://github.com/orkestral/venom/compare/v3.0.9...v3.0.10) (2021-03-15)
+
+
+### Bug Fixes
+
+* Error when checking number! ([39d0f17](https://github.com/orkestral/venom/commit/39d0f1711a98b949ef70a79d8c682a0d2c81f39a))
+
+
+### Features
+
+* check values sendLinkPreview - ts ([55e7ac6](https://github.com/orkestral/venom/commit/55e7ac699be51271cb3c61197032d37a6e6bab47))
+* check values sendText - ts ([dd3eb0c](https://github.com/orkestral/venom/commit/dd3eb0c40071100871345f7b325e0e021d8c5521))
+* Create checkValues ([319230f](https://github.com/orkestral/venom/commit/319230fd248ebbc957a0309eed1649c577366065))
+
+
+
 ## [3.0.9](https://github.com/orkestral/venom/compare/v3.0.8...v3.0.9) (2021-03-10)
 
 
