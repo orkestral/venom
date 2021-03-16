@@ -144,7 +144,7 @@ export async function sendExist(chatId, returnChat = true, Send = true) {
     return scope(chatId, true, ck.status, 'The number does not exist');
   }
 
-  let chat = await window.WAPI.getChat(chatId);
+  let chat = await window.WAPI.getChat(ck.id._serialized);
 
   if (!chat && !chatId.includes('@g')) {
     await window.Store.Chat.find(ck.id);
@@ -153,7 +153,7 @@ export async function sendExist(chatId, returnChat = true, Send = true) {
   }
 
   if (!chat) {
-    return scope(chatId, true, 404);
+    return scope(ck.id._serialized, true, 404);
   }
   if (Send) {
     await window.Store.SendSeen(chat, false);
@@ -161,5 +161,5 @@ export async function sendExist(chatId, returnChat = true, Send = true) {
   if (returnChat) {
     return chat;
   }
-  return scope(chatId, false, 200);
+  return scope(ck.id._serialized, false, 200);
 }
