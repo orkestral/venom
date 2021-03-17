@@ -148,7 +148,6 @@ export async function sendExist(chatId, returnChat = true, Send = true) {
         }
     }
     
-    console.log(chat);
     if (!ck.numberExists && !chat.t && chat.isUser) {
       return WAPI.scope(chatId, true, ck.status, 'The number does not exist');
     }
