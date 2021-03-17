@@ -100,7 +100,7 @@ export async function sendExist(chatId, returnChat = true, Send = true) {
     }
     if (
       contact === chatId.substr(-contact.length, contact.length) &&
-      (chatId.match(/(@c.us)/g) && chatId.match(/(@c.us)/g).length > 1 ||
+      ((chatId.match(/(@c.us)/g) && chatId.match(/(@c.us)/g).length > 1) ||
         !chatId.match(/^(\d+(\d)*@c.us)$/g))
     ) {
       return WAPI.scope(
@@ -113,7 +113,8 @@ export async function sendExist(chatId, returnChat = true, Send = true) {
 
     if (
       broadcast === chatId.substr(-broadcast.length, broadcast.length) &&
-      (chatId.match(/(@broadcast)/g) && chatId.match(/(@broadcast)/g).length > 1 ||
+      ((chatId.match(/(@broadcast)/g) &&
+        chatId.match(/(@broadcast)/g).length > 1) ||
         !chatId.match(/^(\d+(\d)*@broadcast)$/g))
     ) {
       return WAPI.scope(
@@ -126,7 +127,7 @@ export async function sendExist(chatId, returnChat = true, Send = true) {
 
     if (
       grup === chatId.substr(-grup.length, grup.length) &&
-      (chatId.match(/(@g.us)/g) && chatId.match(/(@g.us)/g).length > 1 ||
+      ((chatId.match(/(@g.us)/g) && chatId.match(/(@g.us)/g).length > 1) ||
         !chatId.match(/^\d+(-)+(\d)*@g.us$/g))
     ) {
       return WAPI.scope(
@@ -136,41 +137,51 @@ export async function sendExist(chatId, returnChat = true, Send = true) {
         'incorrect parameters! Use as an example: 00000000-000000@g.us'
       );
     }
-  } 
+  }
 
-    let ck = await window.WAPI.checkNumberStatus(chatId),
-      chat = await window.WAPI.getChat(ck.id._serialized);
+  let ck = await window.WAPI.checkNumberStatus(chatId),
+    chat = await window.WAPI.getChat(ck.id._serialized);
 
-    if (!chat) {
-       const storeChat = await window.Store.Chat.find(chatId);
-        if (storeChat) {
-          chat = await window.WAPI.getChat(storeChat.id._serialized);
-        }
+  if (!chat) {
+    const storeChat = await window.Store.Chat.find(chatId);
+    if (storeChat) {
+      chat = await window.WAPI.getChat(storeChat.id._serialized);
     }
-    
-    if (!ck.numberExists && !chat.t && chat.isUser) {
-      return WAPI.scope(chatId, true, ck.status, 'The number does not exist');
-    }
+  }
 
-    if (!ck.numberExists && !chat.t && chat.isGroup) {
-      return WAPI.scope(chatId, true, ck.status, 'The group number does not exist on your chat list, or it does not exist at all!');
-    }
+  if (!ck.numberExists && !chat.t && chat.isUser) {
+    return WAPI.scope(chatId, true, ck.status, 'The number does not exist');
+  }
 
-    if (!ck.numberExists && !chat.t && chat.isBroadcast) {
-      return WAPI.scope(chatId, true, ck.status, 'The transmission list number does not exist on your chat list, or it does not exist at all!');
-    }
+  if (!ck.numberExists && !chat.t && chat.isGroup) {
+    return WAPI.scope(
+      chatId,
+      true,
+      ck.status,
+      'The group number does not exist on your chat list, or it does not exist at all!'
+    );
+  }
 
-    if (!chat) {
-      return WAPI.scope(ck.id._serialized, true, 404);
-    }
+  if (!ck.numberExists && !chat.t && chat.isBroadcast) {
+    return WAPI.scope(
+      chatId,
+      true,
+      ck.status,
+      'The transmission list number does not exist on your chat list, or it does not exist at all!'
+    );
+  }
 
-    if (Send) {
-      await window.Store.SendSeen(chat, false);
-    }
+  if (!chat) {
+    return WAPI.scope(ck.id._serialized, true, 404);
+  }
 
-    if (returnChat) {
-      return chat;
-    }
+  if (Send) {
+    await window.Store.SendSeen(chat, false);
+  }
 
-    return WAPI.scope(ck.id._serialized, false, 200);
+  if (returnChat) {
+    return chat;
+  }
+
+  return WAPI.scope(ck.id._serialized, false, 200);
 }
