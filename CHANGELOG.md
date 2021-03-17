@@ -1,3 +1,19 @@
+## [3.0.11](https://github.com/orkestral/venom/compare/v3.0.10...v3.0.11) (2021-03-17)
+
+
+### Bug Fixes
+
+* lint ([39a1b61](https://github.com/orkestral/venom/commit/39a1b611d6604511c8d4703c1e05672d8bceff0c))
+* Return the correct number! ([7ecc5b0](https://github.com/orkestral/venom/commit/7ecc5b0d307edb3107a3bc1b129dd3b152a4d909))
+* send group and transmission ([80c4cd2](https://github.com/orkestral/venom/commit/80c4cd2abb555130dc7aec6e848ca03181486af6))
+
+
+### Features
+
+* check values sendImageFromBase64 - ts ([f44dc08](https://github.com/orkestral/venom/commit/f44dc083bdf6cdc11f45430ed4e0463b98841a01))
+
+
+
 ## [3.0.10](https://github.com/orkestral/venom/compare/v3.0.9...v3.0.10) (2021-03-15)
 
 
