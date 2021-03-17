@@ -95,12 +95,14 @@ export class SenderLayer extends ListenerLayer {
           type: type,
           value: to,
           function: typeFunction,
+          isUser: true,
         },
         {
           param: 'content',
           type: type,
           value: content,
           function: typeFunction,
+          isUser: true,
         },
       ];
       const validating = checkValuesSender(check);
@@ -141,18 +143,21 @@ export class SenderLayer extends ListenerLayer {
           type: type,
           value: chatId,
           function: typeFunction,
+          isUser: true,
         },
         {
           param: 'url',
           type: type,
           value: url,
           function: typeFunction,
+          isUser: true,
         },
         {
           param: 'title',
           type: type,
           value: title,
           function: typeFunction,
+          isUser: false,
         },
       ];
       const validating = checkValuesSender(check);
@@ -173,6 +178,87 @@ export class SenderLayer extends ListenerLayer {
     });
   }
 
+    /**
+   * Sends image message
+   * @param to Chat id
+   * @param base64 File path, http link or base64Encoded
+   * @param filename
+   * @param caption
+   */
+     public async sendImageFromBase64(
+      to: string,
+      base64: string,
+      filename?: string,
+      caption?: string
+    ): Promise<SendFileResult> {
+      return new Promise(async (resolve, reject) => {
+        const typeFunction = 'sendImageFromBase64';
+        const type = 'string';
+        const check = [
+          {
+            param: 'to',
+            type: type,
+            value: to,
+            function: typeFunction,
+            isUser: true,
+          },
+          {
+            param: 'base64',
+            type: type,
+            value: base64,
+            function: typeFunction,
+            isUser: true,
+          },
+          {
+            param: 'filename',
+            type: type,
+            value: filename,
+            function: typeFunction,
+            isUser: false,
+          },
+        ];
+        const validating = checkValuesSender(check);
+        if (typeof validating === 'object') {
+          return reject(validating);
+        }
+
+        let mimeType = base64MimeType(base64);
+  
+        if (!mimeType) {
+          const obj = {
+            erro: true,
+            to: to,
+            text: 'Invalid base64!',
+          };
+          return reject(obj);
+        }
+  
+        if (!mimeType.includes('image')) {
+          const obj = {
+            erro: true,
+            to: to,
+            text: 'Not an image, allowed formats png, jpeg and webp',
+          };
+          return reject(obj);
+        }
+  
+        filename = filenameFromMimeType(filename, mimeType);
+  
+        const result = await this.page.evaluate(
+          ({ to, base64, filename, caption }) => {
+            return WAPI.sendImage(base64, to, filename, caption);
+          },
+          { to, base64, filename, caption }
+        );
+        if (result['erro'] == true) {
+          reject(result);
+        } else {
+          resolve(result);
+        }
+      });
+    }
+
+    
   public async sendMessageOptions(
     chat: any,
     content: any,
@@ -242,55 +328,6 @@ export class SenderLayer extends ListenerLayer {
     });
   }
 
-  /**
-   * Sends image message
-   * @param to Chat id
-   * @param base64 File path, http link or base64Encoded
-   * @param filename
-   * @param caption
-   */
-  public async sendImageFromBase64(
-    to: string,
-    base64: string,
-    filename: string,
-    caption?: string
-  ): Promise<SendFileResult> {
-    return new Promise(async (resolve, reject) => {
-      let mimeType = base64MimeType(base64);
-
-      if (!mimeType) {
-        const obj = {
-          erro: true,
-          to: to,
-          text: 'Invalid base64!',
-        };
-        return reject(obj);
-      }
-
-      if (!mimeType.includes('image')) {
-        const obj = {
-          erro: true,
-          to: to,
-          text: 'Not an image, allowed formats png, jpeg and webp',
-        };
-        return reject(obj);
-      }
-
-      filename = filenameFromMimeType(filename, mimeType);
-
-      const result = await this.page.evaluate(
-        ({ to, base64, filename, caption }) => {
-          return WAPI.sendImage(base64, to, filename, caption);
-        },
-        { to, base64, filename, caption }
-      );
-      if (result['erro'] == true) {
-        reject(result);
-      } else {
-        resolve(result);
-      }
-    });
-  }
 
   /**
    * Sends message with thumbnail

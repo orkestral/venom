@@ -13,7 +13,7 @@ export function checkValuesSender(data: any) {
       let result =
         data[i].type && data[i].value && infoType(data[i].value, data[i].type)
           ? true
-          : false;
+          : !data[i].value && data[i].isUser === false ? true : false;
       if (!result) {
         return {
           erro: true,
