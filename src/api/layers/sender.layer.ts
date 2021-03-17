@@ -179,10 +179,10 @@ export class SenderLayer extends ListenerLayer {
   }
 
     /**
-   * Sends image message
+   * Sends image message base64
    * @param to Chat id
    * @param base64 File path, http link or base64Encoded
-   * @param filename
+   * @param filename 
    * @param caption
    */
      public async sendImageFromBase64(
@@ -225,7 +225,7 @@ export class SenderLayer extends ListenerLayer {
         let mimeType = base64MimeType(base64);
   
         if (!mimeType) {
-          const obj = {
+          obj = {
             erro: true,
             to: to,
             text: 'Invalid base64!',
@@ -251,13 +251,12 @@ export class SenderLayer extends ListenerLayer {
           { to, base64, filename, caption }
         );
         if (result['erro'] == true) {
-          reject(result);
+          return reject(result);
         } else {
-          resolve(result);
+          return resolve(result);
         }
       });
     }
-
     
   public async sendMessageOptions(
     chat: any,

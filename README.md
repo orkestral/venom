@@ -374,6 +374,16 @@ await client
     console.error('Error when sending: ', erro); //return object error
   });
 
+  
+// Send image file base64
+await client.sendImageFromBase64('000000000000@c.us', base64Image, "name file")
+  .then((result) => {
+    console.log('Result: ', result); //return object success
+  })
+  .catch((erro) => {
+    console.error('Error when sending: ', erro); //return object error
+  });
+
 // Send file (venom will take care of mime types, just need the path)
 // you can also upload an image using a valid HTTP protocol
 await client
@@ -484,8 +494,6 @@ await client.sendVideoAsGif(
   'video.gif',
   'Gif image file'
 );
-
-
 
 
 // Send seen ✔️✔️
