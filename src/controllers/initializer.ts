@@ -62,6 +62,7 @@ import { getSpinnies } from '../utils/spinnies';
 import { SocketState } from '../api/model/enum';
 import { deleteFiles, checkingCloses } from '../api/helpers';
 import { tokenSession } from '../config/tokenSession.config';
+import { Browser, Page } from 'puppeteer';
 
 /**
  * A callback will be received, informing the status of the qrcode
@@ -77,6 +78,14 @@ export type CatchQR = (
  * A callback will be received, informing the customer's status
  */
 export type StatusFind = (statusGet: string, session: string) => void;
+
+/**
+ * A callback will be received, informing user about browser and page instance
+ */
+export type BrowserInstance = (
+  browser: string | Browser,
+  waPage: false | Page
+) => void;
 
 export interface CreateOptions extends CreateConfig {
   /**
@@ -95,6 +104,10 @@ export interface CreateOptions extends CreateConfig {
    * Pass the session token information you can receive this token with the await client.getSessionTokenBrowser () function
    */
   browserSessionToken?: tokenSession;
+  /**
+   * A callback will be received, informing user about browser and page instance
+   */
+  browserInstance?: BrowserInstance;
 }
 
 /**
@@ -112,7 +125,8 @@ export async function create(
   catchQR?: CatchQR,
   statusFind?: StatusFind,
   options?: CreateConfig,
-  browserSessionToken?: tokenSession
+  browserSessionToken?: tokenSession,
+  browserInstance?: BrowserInstance
 ): Promise<Whatsapp>;
 
 export async function create(
@@ -120,7 +134,8 @@ export async function create(
   catchQR?: CatchQR,
   statusFind?: StatusFind,
   options?: CreateConfig,
-  browserSessionToken?: tokenSession
+  browserSessionToken?: tokenSession,
+  browserInstance?: BrowserInstance
 ): Promise<Whatsapp> {
   let session = 'session';
 
@@ -135,6 +150,7 @@ export async function create(
     statusFind = sessionOrOption.statusFind || statusFind;
     browserSessionToken =
       sessionOrOption.browserSessionToken || browserSessionToken;
+    browserInstance = sessionOrOption.browserInstance || browserInstance;
     options = sessionOrOption;
   }
   let browserToken: any;
