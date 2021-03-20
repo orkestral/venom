@@ -63,12 +63,7 @@ import {
   stickerSelect,
 } from '../helpers';
 import { filenameFromMimeType } from '../helpers/filename-from-mimetype';
-import {
-  Message,
-  SendFileResult,
-  SendLinkResult,
-  SendStickerResult,
-} from '../model';
+import { Message, SendFileResult, SendStickerResult } from '../model';
 import { ChatState } from '../model/enum';
 import { ListenerLayer } from './listener.layer';
 import { Scope, checkValuesSender } from '../helpers/layers-interface';

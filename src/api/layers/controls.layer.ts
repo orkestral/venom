@@ -55,6 +55,9 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 import { Page } from 'puppeteer';
 import { CreateConfig } from '../../config/create-config';
 import { UILayer } from './ui.layer';
+import { Scope, checkValuesSender } from '../helpers/layers-interface';
+
+let obj: Scope;
 
 export class ControlsLayer extends UILayer {
   constructor(public page: Page, session?: string, options?: CreateConfig) {
@@ -165,14 +168,43 @@ export class ControlsLayer extends UILayer {
    */
   public async deleteMessage(
     chatId: string,
-    messageId: string[] | string,
-    onlyLocal = false
-  ) {
-    return await this.page.evaluate(
-      ({ contactId, messageId, onlyLocal }) =>
-        WAPI.deleteMessages(contactId, messageId, onlyLocal),
-      { contactId: chatId, messageId, onlyLocal }
-    );
+    messageId: string[]
+  ): Promise<Object> {
+    return new Promise(async (resolve, reject) => {
+      const typeFunction = 'deleteMessage';
+      const type = 'string';
+      const check = [
+        {
+          param: 'chatId',
+          type: type,
+          value: chatId,
+          function: typeFunction,
+          isUser: true,
+        },
+        {
+          param: 'messageId',
+          type: 'object',
+          value: messageId,
+          function: typeFunction,
+          isUser: true,
+        },
+      ];
+
+      const validating = checkValuesSender(check);
+      if (typeof validating === 'object') {
+        return reject(validating);
+      }
+      const result = await this.page.evaluate(
+        ({ chatId, messageId }) => WAPI.deleteMessages(chatId, messageId),
+        { chatId, messageId }
+      );
+
+      if (result['erro'] == true) {
+        return reject(result);
+      } else {
+        return resolve(result);
+      }
+    });
   }
 
   /**

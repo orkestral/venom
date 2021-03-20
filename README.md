@@ -781,7 +781,13 @@ await client.clearChatMessages('000000000000@c.us');
 await client.archiveChat(chatId, true);
 
 // Delete message (last parameter: delete only locally)
-await client.deleteMessage('000000000000@c.us', message.id.toString(), false);
+await client.deleteMessage('000000000000@c.us', ['false_000000000000@c.us_B70847EE89E22D20FB86ECA0C1B11609','false_000000000000@c.us_B70847EE89E22D20FB86ECA0C1B11777'],)
+.then((result) => {
+    console.log('Result: ', result); //return object success
+})
+.catch((erro) => {
+    console.error('Error when sending: ', erro); //return object error
+});
 
 // Mark chat as not seen (returns true if it works)
 await client.markUnseenMessage('000000000000@c.us');
