@@ -76,7 +76,7 @@
     "commitizen": "^4.2.2",
     "concurrently": "^5.1.0",
     "conventional-changelog-cli": "^2.1.1",
-    "copy-webpack-plugin": "^8.0.0",
+    "copy-webpack-plugin": "^8.1.0",
     "cz-conventional-changelog": "^3.3.0",
     "eslint": "^7.22.0",
     "eslint-config-prettier": "^6.14.0",
