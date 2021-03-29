@@ -465,16 +465,12 @@ await client.sendMentioned(
 await client.reply(
   '000000000000@c.us',
   'This is a reply!',
-  message.id.toString()
-);
-
-// Reply to a message with mention
-await client.reply(
-  '000000000000@c.us',
-  'Hello @5218113130740 and @5218243160777! This is a reply with mention!',
-  message.id.toString(),
-  ['5218113130740', '5218243160777']
-);
+  'true_551937311025@c.us_7C22WHCB6DKYHJKQIEN9'
+).then((result) => {
+    console.log('Result: ', result); //return object success
+}).catch((erro) => {
+    console.error('Error when sending: ', erro); //return object error
+});
 
 // Send message with options
 await client.
