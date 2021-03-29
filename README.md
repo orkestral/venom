@@ -496,6 +496,13 @@ await client.sendVideoAsGif(
   'Gif image file'
 );
 
+//checks and returns whether a message and a reply
+// exemple: 
+// await client.onMessage(async (message) => {
+//     console.log(await client.returnReply(message)); // replicated message
+//     console.log(message.body ); //customer message
+//   })
+checkReply = await client.returnReply(messagem);
 
 // Send seen ✔️✔️
 await client.sendSeen('000000000000@c.us');
