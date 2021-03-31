@@ -361,18 +361,44 @@ export class SenderLayer extends ListenerLayer {
     to: string,
     content: string,
     quotedMsg: string
-  ): Promise<Message> {
+  ): Promise<Message | object> {
     return new Promise(async (resolve, reject) => {
-      const messageId: string = await this.page.evaluate(
+      const typeFunction = 'reply';
+      const type = 'string';
+      const check = [
+        {
+          param: 'to',
+          type: type,
+          value: to,
+          function: typeFunction,
+          isUser: true,
+        },
+        {
+          param: 'content',
+          type: type,
+          value: content,
+          function: typeFunction,
+          isUser: true,
+        },
+        {
+          param: 'quotedMsg',
+          type: type,
+          value: quotedMsg,
+          function: typeFunction,
+          isUser: false,
+        },
+      ];
+      const validating = checkValuesSender(check);
+      if (typeof validating === 'object') {
+        return reject(validating);
+      }
+      const result: object = await this.page.evaluate(
         ({ to, content, quotedMsg }) => {
           return WAPI.reply(to, content, quotedMsg);
         },
         { to, content, quotedMsg }
       );
-      const result = (await this.page.evaluate(
-        (messageId: any) => WAPI.getMessageById(messageId),
-        messageId
-      )) as Message;
+
       if (result['erro'] == true) {
         reject(result);
       } else {

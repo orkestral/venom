@@ -159,7 +159,7 @@ interface WAPI {
   ) => Promise<object>;
   promoteParticipant: (groupId: string, contactId: string | string[]) => void;
   removeParticipant: (groupId: string, contactId: string | string[]) => void;
-  reply: (to: string, content: string, quotedMsg: string) => Promise<string>;
+  reply: (to: string, content: string, quotedMsg: string) => Promise<object>;
   restartService: () => boolean;
   sendChatstate: (chatState: string, chatId: string) => void;
   sendContactVcard: (
@@ -245,6 +245,7 @@ interface WAPI {
   waitNewAcknowledgements: (callback: Function) => void;
   waitNewMessages: (rmCallback: boolean, callback: Function) => void;
   sendSeen: (to: string) => void;
+  returnReply: (message: object) => object;
 }
 
 declare global {
