@@ -88,7 +88,7 @@
     "pretty-quick": "^3.1.0",
     "release-it": "^14.5.0",
     "shx": "^0.3.3",
-    "ts-loader": "^8.0.18",
+    "ts-loader": "^8.1.0",
     "typedoc": "^0.20.34",
     "typedoc-plugin-pages": "^1.1.0",
     "typescript": "^4.2.3",
