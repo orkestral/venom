@@ -52,8 +52,6 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
-import { getMessageById } from './get-message-by-id';
-
 export async function forwardMessages(chatId, messages, skipMyMessages) {
   var chat = await WAPI.sendExist(chatId);
 
@@ -64,7 +62,7 @@ export async function forwardMessages(chatId, messages, skipMyMessages) {
   var toForward = (
     await Promise.all(
       messages.map(async (msg) => {
-        return await getMessageById(msg, null, false);
+        return await WAPI.getMessageById(msg, null, false);
       })
     )
   ).filter((msg) => (skipMyMessages ? !msg.__x_isSentByMe : true));

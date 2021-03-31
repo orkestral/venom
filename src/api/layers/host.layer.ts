@@ -61,7 +61,7 @@ import { scrapeImg } from '../helpers';
 import {
   asciiQr,
   isAuthenticated,
-  isInsideChat,
+  isInsideChats,
   needsToScan,
   retrieveQR,
 } from '../../controllers/auth';
@@ -235,11 +235,11 @@ export class HostLayer {
   }
 
   public async waitForInChat() {
-    let inChat = await isInsideChat(this.page);
+    let inChat = await isInsideChats(this.page);
 
     while (inChat === false) {
       await sleep(200);
-      inChat = await isInsideChat(this.page);
+      inChat = await isInsideChats(this.page);
     }
     return inChat;
   }
@@ -262,8 +262,17 @@ export class HostLayer {
       .catch(() => {});
 
     this.spin('Checking is logged...');
+
     let authenticated = await isAuthenticated(this.page).catch(() => null);
+
+    if (typeof authenticated === 'object') {
+      this.spin(`Error http: ${authenticated.type}`, 'fail');
+      this.page.close();
+      throw `Error http: ${authenticated.type}`;
+    }
+
     this.startAutoClose();
+
     if (authenticated === false) {
       this.spin('Waiting for QRCode Scan...');
       statusFind && statusFind('notLogged', this.session);

@@ -62,6 +62,19 @@ export class UILayer extends GroupLayer {
   }
 
   /**
+   * checks and returns whether a message and a reply
+   * @param messages
+   */
+  public async returnReply(messages: any) {
+    return await this.page.evaluate(
+      ({ messages }) => WAPI.returnReply(messages),
+      {
+        messages,
+      }
+    );
+  }
+
+  /**
    * Opens given chat at last message (bottom)
    * Will fire natural workflow events of whatsapp web
    * @param chatId
