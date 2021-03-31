@@ -52,7 +52,6 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
-import { getMessageById } from './get-message-by-id';
 
 /**
  * Send message with options
@@ -74,7 +73,7 @@ export async function sendMessageOptions(chatId, content, options = {}) {
 
   let quotedMsgOptions = {};
   if (options.quotedMessageId) {
-    let quotedMessage = await getMessageById(
+    let quotedMessage = await WAPI.getMessageById(
       options.quotedMessageId,
       null,
       false
