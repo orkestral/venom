@@ -52,49 +52,45 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
-import { Page } from 'puppeteer';
-import { CreateConfig } from '../../config/create-config';
-import { GroupLayer } from './group.layer';
-
-export class UILayer extends GroupLayer {
-  constructor(public page: Page, session?: string, options?: CreateConfig) {
-    super(page, session, options);
-  }
-
-  /**
-   * checks and returns whether a message and a reply
-   * @param messages
-   */
-  public async returnReply(messages: any) {
-    return await this.page.evaluate(
-      ({ messages }) => WAPI.returnReply(messages),
-      {
-        messages,
-      }
+export async function checkIdMessage(chatId, idMesagem) {
+  if (typeof chatId != 'string') {
+    return WAPI.scope(
+      null,
+      true,
+      404,
+      'enter the chatId variable as an string'
     );
   }
-
-  /**
-   * Opens given chat at last message (bottom)
-   * Will fire natural workflow events of whatsapp web
-   * @param chatId
-   */
-  public async openChat(chatId: string) {
-    return this.page.evaluate(
-      (chatId: string) => WAPI.openChat(chatId),
-      chatId
+  if (typeof idMesagem != 'string') {
+    return WAPI.scope(
+      null,
+      true,
+      404,
+      'enter the idMesagem variable as an string'
     );
   }
-
-  /**
-   * Opens chat at given message position
-   * @param chatId Chat id
-   * @param messageId Message id (For example: '06D3AB3D0EEB9D077A3F9A3EFF4DD030')
-   */
-  public async openChatAt(chatId: string, messageId: string) {
-    return this.page.evaluate(
-      (chatId: string) => WAPI.openChatAt(chatId, messageId),
-      chatId
-    );
+  const chat = await WAPI.sendExist(chatId);
+  if (chat && chat.status != 404) {
+    let ft = await WAPI.loadAndGetAllMessagesInChat(chatId, true);
+    let fil = ft.filter((e) => e.id === idMesagem && e.body === undefined);
+    let check = ft.filter((e) => e.id === idMesagem);
+    if (!check.length) {
+      return WAPI.scope(chat, true, 404, `The id ${idMesagem} does not exist!`);
+    }
+    if (fil.length) {
+      return WAPI.scope(
+        chat,
+        true,
+        404,
+        `The message with id ${idMesagem} has already been deleted`
+      );
+    }
+    const To = chat.id;
+    const m = { type: 'checkIdMessage' };
+    let obj = WAPI.scope(To, false, 'OK', '');
+    Object.assign(obj, m);
+    return obj;
+  } else {
+    return chat;
   }
 }
