@@ -1,3 +1,23 @@
+## [3.0.12](https://github.com/orkestral/venom/compare/v3.0.11...v3.0.12) (2021-03-31)
+
+
+### Bug Fixes
+
+* error undefined ([eb2b9af](https://github.com/orkestral/venom/commit/eb2b9afa0a867a48dda30caae8120b52dbe194fb))
+* token ([b75c51a](https://github.com/orkestral/venom/commit/b75c51ad6f8d0f40a2cb31e11b45bfab308bb7c9))
+
+
+### Features
+
+* add BrowserInstance callback on create function ([fe96807](https://github.com/orkestral/venom/commit/fe96807b2d69e25032839f05a2814fd892338c0f))
+* check deleteMessage ([c525c71](https://github.com/orkestral/venom/commit/c525c71de5cacff1bcf4974c4243a1b1e86d4713))
+* checkIdMessage and returnReply function ([e3a307d](https://github.com/orkestral/venom/commit/e3a307d451a62719aa20dd139761b97f0374b71f))
+* ERROR 429 ([074dc28](https://github.com/orkestral/venom/commit/074dc281838a5ddb41d84740a7b8fae52bd93370))
+* refactored the reply function ([d74f96b](https://github.com/orkestral/venom/commit/d74f96b4b0654d29503d6edaa6bca507db50ebf0))
+* retrunReply ([6ae385e](https://github.com/orkestral/venom/commit/6ae385e63d44d82f63ca512937d212d42cf399ac))
+
+
+
 ## [3.0.11](https://github.com/orkestral/venom/compare/v3.0.10...v3.0.11) (2021-03-17)
 
 
