@@ -74,26 +74,9 @@ export async function deleteMessages(chatId, messageArray) {
     }
 
     for (let i in messageArray) {
-      let ft = await WAPI.loadAndGetAllMessagesInChat(chatId, true);
-      let fil = ft.filter(
-        (e) => e.id === messageArray[i] && e.body === undefined
-      );
-      let check = ft.filter((e) => e.id === messageArray[i]);
-      if (!check.length) {
-        return WAPI.scope(
-          chat,
-          true,
-          404,
-          `The id ${messageArray[i]} does not exist!`
-        );
-      }
-      if (fil.length) {
-        return WAPI.scope(
-          chat,
-          true,
-          404,
-          `The message with id ${messageArray[i]} has already been deleted`
-        );
+      let checkID = await WAPI.checkIdMessag(chatId, messageArray[i]);
+      if (checkID.erro == true) {
+        return checkID;
       }
     }
 

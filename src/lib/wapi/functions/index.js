@@ -149,3 +149,5 @@ export { getSessionTokenBrowser } from './get-session-token';
 export { sendMute } from './send-mute';
 export { getListMute, interfaceMute } from './get-list-mute';
 export { downloadMedia } from './download-media';
+export { checkIdMessage } from './check-id-messagem';
+export { returnReply } from './return-reply';

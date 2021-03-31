@@ -154,6 +154,8 @@ import {
   getListMute,
   interfaceMute,
   downloadMedia,
+  checkIdMessage,
+  returnReply,
 } from './functions';
 import {
   base64ToFile,
@@ -221,6 +223,9 @@ if (typeof window.WAPI === 'undefined') {
 
   //others
   window.WAPI.interfaceMute = interfaceMute;
+  window.WAPI.checkIdMessage = checkIdMessage;
+  window.WAPI.returnReply = returnReply;
+
   //Profile
   window.WAPI.setProfilePic = setProfilePic;
   window.WAPI.getSessionTokenBrowser = getSessionTokenBrowser;

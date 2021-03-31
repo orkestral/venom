@@ -60,13 +60,18 @@ import { existsSync, readFileSync } from 'fs';
 import { CreateConfig } from '../config/create-config';
 import { ScrapQrcode } from '../api/model/qrcode';
 import { tokenSession } from '../config/tokenSession.config';
+import { puppeteerConfig } from '../config/puppeteer.config';
 
 export const getInterfaceStatus = async (
   waPage: puppeteer.Page
-): Promise<string | null> => {
+): Promise<string | null | boolean> => {
   return await waPage
     .waitForFunction(
       () => {
+        const erroHTTP = document.querySelector('.error-code');
+        if (erroHTTP && erroHTTP[0].innerText.includes('HTTP ERROR 429')) {
+          return { type: erroHTTP[0].innerText };
+        }
         const elLoginWrapper = document.querySelector(
           'body > div > div > .landing-wrapper'
         );
@@ -79,11 +84,17 @@ export const getInterfaceStatus = async (
           window['Store'] &&
           window['Store'].Stream &&
           window['Store'].Stream.displayInfo;
+
         if (['PAIRING', 'RESUMING', 'SYNCING'].includes(streamStatus)) {
           return 'PAIRING';
         }
-        const elChat = document.querySelector('.app,.two') as HTMLDivElement;
-        if (elChat && elChat.attributes && elChat.tabIndex) {
+
+        const app = document.querySelector('.app') as HTMLDivElement;
+        const two = document.querySelector('.two') as HTMLDivElement;
+        if (
+          (app && app.attributes && app.tabIndex) ||
+          (two && two.attributes && two.tabIndex)
+        ) {
           return 'CONNECTED';
         }
         return false;
@@ -94,9 +105,11 @@ export const getInterfaceStatus = async (
       }
     )
     .then(async (element) => {
-      return await element.evaluate((a) => a);
+      return await element.evaluate((a) => {
+        return a;
+      });
     })
-    .catch(() => null);
+    .catch((e) => e);
 };
 
 /**
@@ -106,10 +119,12 @@ export const getInterfaceStatus = async (
  */
 export const isAuthenticated = async (waPage: puppeteer.Page) => {
   const status = await getInterfaceStatus(waPage);
+  if (typeof status === 'object') {
+    return status;
+  }
   if (typeof status !== 'string') {
     return null;
   }
-
   return ['CONNECTED', 'PAIRING'].includes(status);
 };
 
@@ -122,7 +137,7 @@ export const needsToScan = async (waPage: puppeteer.Page) => {
   return status === 'UNPAIRED';
 };
 
-export const isInsideChat = async (waPage: puppeteer.Page) => {
+export const isInsideChats = async (waPage: puppeteer.Page) => {
   const status = await getInterfaceStatus(waPage);
   if (typeof status !== 'string') {
     return null;
@@ -221,7 +236,7 @@ export async function auth_InjectToken(
   }
 
   //Auth with token ->start<-
-  return await page.evaluateOnNewDocument((session) => {
+  await page.evaluate((session) => {
     localStorage.clear();
     Object.keys(session).forEach((key) => {
       localStorage.setItem(key, session[key]);
