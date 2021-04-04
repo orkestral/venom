@@ -173,6 +173,7 @@ import {
   addOnStateChange,
   allNewMessagesListener,
   initNewMessagesListener,
+  addOnStreamChange,
 } from './listeners';
 import {
   _serializeChatObj,
@@ -185,37 +186,37 @@ import {
 import { getStore } from './store/get-store';
 
 window['webpackChunkbuild'] = window['webpackChunkbuild'] || [];
-
-if (typeof window.Store === 'undefined') {
-  window.Store = {};
-  var loadParasite = function () {
-    function injectParasite() {
-      const parasite = `parasite${Date.now()}`;
-      window['webpackChunkbuild'].push([
-        [parasite],
-        {},
-        function (o) {
-          let modules = [];
-          for (let idx in o.m) {
-            modules.push(o(idx));
-          }
-          getStore(modules);
-        },
-      ]);
-    }
-
-    setInterval(() => {
-      try {
-        const last = window['webpackChunkbuild'].length - 1;
-        if (!/^parasite/.test(window['webpackChunkbuild'][last][0][0])) {
-          injectParasite();
+window.Store = {};
+var loadParasite = function () {
+  function injectParasite() {
+    const parasite = `parasite`;
+    window['webpackChunkbuild'].push([
+      [parasite],
+      {},
+      async function (o) {
+        let modules = [];
+        for (let idx in o.m) {
+          modules.push(o(idx));
         }
-      } catch (e) {}
-    }, 100);
-  };
-
-  loadParasite();
-}
+        getStore(modules);
+      },
+    ]);
+  }
+  setInterval(() => {
+    try {
+      const last = window['webpackChunkbuild'].length - 1;
+      if (
+        !/^parasite/.test(window['webpackChunkbuild'][last][0][0]) &&
+        (document.querySelectorAll('#app .two').length ||
+          document.querySelector('canvas') ||
+          document.querySelectorAll('#startup').length == 0)
+      ) {
+        injectParasite();
+      }
+    } catch (e) {}
+  }, 100);
+};
+loadParasite();
 
 if (typeof window.WAPI === 'undefined') {
   window.WAPI = {

@@ -89,12 +89,8 @@ export const getInterfaceStatus = async (
           return 'PAIRING';
         }
 
-        const app = document.querySelector('.app') as HTMLDivElement;
-        const two = document.querySelector('.two') as HTMLDivElement;
-        if (
-          (app && app.attributes && app.tabIndex) ||
-          (two && two.attributes && two.tabIndex)
-        ) {
+        const chat = document.querySelector('.app, .two') as HTMLDivElement;
+        if (chat && chat.attributes && chat.tabIndex) {
           return 'CONNECTED';
         }
         return false;

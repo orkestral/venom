@@ -89,15 +89,8 @@ export class HostLayer {
     this.session = session;
     this.options = { ...defaultOptions, ...options };
 
-    this.page.on('load', () => {
-      this.initialize();
-    });
-    this.page.on('close', () => {
-      this.cancelAutoClose();
-      this.spin('Page Closed', 'fail');
-    });
-    this.spin('Initializing...', 'spinning');
-    this.initialize();
+    // this.spin('Initializing...', 'spinning');
+    //this._initialize(this.page);
   }
 
   protected spin(text?: string, status?: Spinnies.SpinnerStatus) {
@@ -131,10 +124,9 @@ export class HostLayer {
       });
     }
   }
-
-  protected async initialize() {
+  public async _initialize(page: Page) {
     this.spinStatus.apiInject = 'injecting';
-    await injectApi(this.page)
+    await injectApi(page)
       .then(() => {
         this.spinStatus.apiInject = 'injected';
       })
@@ -285,7 +277,7 @@ export class HostLayer {
 
       if (authenticated === null) {
         this.spin('Failed to authenticate');
-        statusFind && statusFind('qrReadError', this.session);
+        statusFind && statusFind('qrReadFail', this.session);
       } else if (authenticated) {
         this.spin('QRCode Success');
         statusFind && statusFind('qrReadSuccess', this.session);
@@ -319,7 +311,7 @@ export class HostLayer {
       }
       this.cancelAutoClose();
       this.spin('Connected', 'succeed');
-      statusFind && statusFind('inChat', this.session);
+      //   statusFind && statusFind('inChat', this.session);
       return true;
     }
 

@@ -57,7 +57,7 @@ import { Page } from 'puppeteer';
 import { CreateConfig } from '../../config/create-config';
 import { ExposedFn } from '../helpers/exposed.enum';
 import { Ack, Chat, LiveLocation, Message, ParticipantEvent } from '../model';
-import { SocketState } from '../model/enum';
+import { SocketState, SocketStream } from '../model/enum';
 import { InterfaceMode } from '../model/enum/interface-mode';
 import { InterfaceState } from '../model/enum/interface-state';
 import { ProfileLayer } from './profile.layer';
@@ -81,15 +81,23 @@ export class ListenerLayer extends ProfileLayer {
   constructor(public page: Page, session?: string, options?: CreateConfig) {
     super(page, session, options);
 
-    // this.listenerEmitter.on(ExposedFn.onInterfaceChange, (state) => {
-    //   this.spinStatus.state = `${state.mode} (${state.displayInfo})`;
-    //   this.spin();
-    // });
+    this.page.on('load', async () => {
+      try {
+        await page.waitForSelector('canvas, #app .two, #startup', {
+          visible: true,
+        });
+      } catch {}
+      await this._initialize(this.page);
+      await this.initialize();
+    });
+
+    this.page.on('close', () => {
+      this.cancelAutoClose();
+      this.spin('Page Closed', 'fail');
+    });
   }
 
-  protected async initialize() {
-    await super.initialize();
-
+  public async initialize() {
     const functions = [
       ...Object.values(ExposedFn),
       'onAddedToGroup',
