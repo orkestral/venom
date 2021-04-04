@@ -174,19 +174,23 @@ venom
 
 ## Callback Status Session
 
-Gets the return if the session is `isLogged` or `notLogged` or `browserClose` or `qrReadSuccess` or `qrReadFail` or `autocloseCalled` or `desconnectedMobile` or `deleteToken` or `Create session wss return "serverClose" case server for close`
+Gets the return if the session is `isLogged` or `notLogged` or `browserClose` or `qrReadSuccess` or `qrReadFail` or `autocloseCalled` or `desconnectedMobile` or `deleteToken` or `chatsAvailable` or `deviceNotConnected` or `serverWssNotConnected` or `noOpenBrowser` or `Create session wss return "serverClose" case server for close`
 
 | Status               | Condition                                                                                                                                                      |
 | -------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `isLogged`           | When the user is already logged in to the browser                                                                                                              |
-| `notLogged`          | When the user is not connected to the browser, it is necessary to scan the QR code through the cell phone in the option WhatsApp Web                           |
-| `browserClose`       | If the browser is closed this parameter is returned                                                                                                            |
-| `qrReadSuccess`      | If the user is not logged in, the QR code is passed on the terminal a callback is returned. After the correct reading by cell phone this parameter is returned |
-| `qrReadFail`         | If the browser stops when the QR code scan is in progress, this parameter is returned                                                                          |
-| `autocloseCalled`    | The browser was closed using the autoClose command                                                                                                             |
-| `desconnectedMobile` | Client has desconnected in to mobile                                                                                                                           |
-| `serverClose`        | Client has desconnected in to wss                                                                                                                              |
-| `deleteToken`        | If you pass true within the function `client.getSessionTokenBrowser(true)`                                                                                     |
+| `isLogged`             | When the user is already logged in to the browser                                                                                                              |
+| `notLogged`            | When the user is not connected to the browser, it is necessary to scan the QR code through the cell phone in the option WhatsApp Web                           |
+| `browserClose`         | If the browser is closed this parameter is returned                                                                                                            |
+| `qrReadSuccess`        | If the user is not logged in, the QR code is passed on the terminal a callback is returned. After the correct reading by cell phone this parameter is returned |
+| `qrReadFail`           | If the browser stops when the QR code scan is in progress, this parameter is returned                                                                          |
+| `autocloseCalled`      | The browser was closed using the autoClose command                                                                                                             |
+| `desconnectedMobile`   | Client has desconnected in to mobile                                                                                                                           |
+| `serverClose`          | Client has desconnected in to wss                                                                                                                              |
+| `deleteToken`          | If you pass true within the function `client.getSessionTokenBrowser(true)`                                                                                     |
+| `chatsAvailable`       | When Venom is connected to the chat list |
+| `deviceNotConnected`   | Chat not available because the phone is disconnected `(Trying to connect to the phone)` |
+| `serverWssNotConnected`| The address wss was not found! |
+| `noOpenBrowser`        | It was not found in the browser, or some command is missing in args | 
 
 ```javascript
 const venom = require('venom-bot');
@@ -849,6 +853,7 @@ client.onStreamChange((state) => {
     }, 80000);
   }
 });
+
 // function to detect incoming call
 client.onIncomingCall(async (call) => {
   console.log(call);
