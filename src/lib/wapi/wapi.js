@@ -225,6 +225,7 @@ if (typeof window.WAPI === 'undefined') {
   window.WAPI.interfaceMute = interfaceMute;
   window.WAPI.checkIdMessage = checkIdMessage;
   window.WAPI.returnReply = returnReply;
+  window.WAPI.getStore = getStore;
 
   //Profile
   window.WAPI.setProfilePic = setProfilePic;
