@@ -835,6 +835,20 @@ client.onStateChange((state) => {
   if ('UNPAIRED'.includes(state)) console.log('logout');
 });
 
+// DISCONNECTED
+// SYNCING
+// RESUMING
+// CONNECTED
+let time = 0;
+client.onStreamChange((state) => {
+  console.log('State Connection Stream: ' + state);
+  clearTimeout(time);
+  if (state === 'DISCONNECTED' || state === 'SYNCING') {
+    time = setTimeout(() => {
+      client.close();
+    }, 80000);
+  }
+});
 // function to detect incoming call
 client.onIncomingCall(async (call) => {
   console.log(call);

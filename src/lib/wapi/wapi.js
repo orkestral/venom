@@ -592,6 +592,7 @@ if (typeof window.WAPI === 'undefined') {
     return await all;
   };
 
+  addOnStreamChange();
   addOnStateChange();
   initNewMessagesListener();
   addNewMessagesListener();

@@ -246,6 +246,7 @@ interface WAPI {
   waitNewMessages: (rmCallback: boolean, callback: Function) => void;
   sendSeen: (to: string) => void;
   returnReply: (message: object) => object;
+  onStreamChange: (callback: Function) => void;
 }
 
 declare global {

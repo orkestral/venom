@@ -71,3 +71,9 @@ export enum SocketState {
   RESUMING = 'RESUMING',
   SYNCING = 'SYNCING',
 }
+export enum SocketStream {
+  CONNECTED = 'CONNECTED',
+  DISCONNECTED = 'DISCONNECTED',
+  RESUMING = 'RESUMING',
+  SYNCING = 'SYNCING',
+}
