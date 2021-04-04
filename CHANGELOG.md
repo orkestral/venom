@@ -1,3 +1,18 @@
+## [3.0.13](https://github.com/orkestral/venom/compare/v3.0.12...v3.0.13) (2021-04-04)
+
+
+### Features
+
+* addOnStreamChange ([7ab8d10](https://github.com/orkestral/venom/commit/7ab8d1067b058889c3d38a4fa1b58fe2d6409efb))
+* checkFileJson ([9602b78](https://github.com/orkestral/venom/commit/9602b7881bbe3f268659787829307412be504307))
+* injectParasite intro ([9f7fe6e](https://github.com/orkestral/venom/commit/9f7fe6e81597bf5102a241de052b1da5e00fc320))
+* listener onStreamChange ([5a5a819](https://github.com/orkestral/venom/commit/5a5a8192e57e7b81aadd87cb808d6af01f759525))
+* new return statusFind ([d8b6cee](https://github.com/orkestral/venom/commit/d8b6ceea1817c1c16127300123a3b8c59e86bc2b))
+* SocketStream ([0683a20](https://github.com/orkestral/venom/commit/0683a20c2661d95b03bbf791733dbcd2447873f5))
+* WAPI logout ([b309586](https://github.com/orkestral/venom/commit/b30958609520bd049558a2dc62c7e0107c35217f))
+
+
+
 ## [3.0.12](https://github.com/orkestral/venom/compare/v3.0.11...v3.0.12) (2021-03-31)
 
 
