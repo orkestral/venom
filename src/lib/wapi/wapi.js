@@ -156,6 +156,7 @@ import {
   downloadMedia,
   checkIdMessage,
   returnReply,
+  logout,
 } from './functions';
 import {
   base64ToFile,
@@ -551,12 +552,7 @@ if (typeof window.WAPI === 'undefined') {
     return true;
   };
 
-  window.WAPI.logout = async function () {
-    return await window.WAPI.waitForStore(['ws2'], () => {
-      window.Store.ws2.logout();
-      return true;
-    });
-  };
+  window.WAPI.logout = logout;
   window.WAPI.storePromises = {};
   window.WAPI.waitForStore = async function (stores, callback) {
     if (!Array.isArray(stores)) {
