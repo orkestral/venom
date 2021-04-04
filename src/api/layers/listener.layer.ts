@@ -70,6 +70,7 @@ declare global {
     onStateChange: any;
     onIncomingCall: any;
     onAck: any;
+    onStreamChange: any;
   }
 }
 const callonMessage = new callbackWile();
@@ -119,6 +120,10 @@ export class ListenerLayer extends ProfileLayer {
           window.WAPI.onStateChange(window['onStateChange']);
           window['onStateChange'].exposed = true;
         }
+        if (!window['onStreamChange'].exposed) {
+          window.WAPI.onStreamChange(window['onStreamChange']);
+          window['onStreamChange'].exposed = true;
+        }
         if (!window['onAddedToGroup'].exposed) {
           window.WAPI.onAddedToGroup(window['onAddedToGroup']);
           window['onAddedToGroup'].exposed = true;
@@ -141,6 +146,20 @@ export class ListenerLayer extends ProfileLayer {
         }
       })
       .catch(() => {});
+  }
+
+  /**
+   * @returns Returns the current state of the connection
+   */
+  public async onStreamChange(fn: (state: SocketStream) => void) {
+    this.listenerEmitter.on(ExposedFn.onStreamChange, (state: SocketStream) => {
+      fn(state);
+    });
+    return {
+      dispose: () => {
+        this.listenerEmitter.off(ExposedFn.onStreamChange, fn);
+      },
+    };
   }
 
   /**
