@@ -62,7 +62,6 @@ import StealthPlugin = require('puppeteer-extra-plugin-stealth');
 import { auth_InjectToken } from './auth';
 import { useragentOverride } from '../config/WAuserAgente';
 import { tokenSession } from '../config/tokenSession.config';
-import { from } from 'rxjs';
 
 export async function initWhatsapp(
   session: string,
@@ -83,29 +82,8 @@ export async function initWhatsapp(
     return waPage;
   }
 }
-export const isInsideChat = (page: Page) => {
-  return from(
-    page
-      .waitForFunction(
-        `
-        (document.getElementsByClassName('app')[0] &&
-        document.getElementsByClassName('app')[0].attributes &&
-        !!document.getElementsByClassName('app')[0].attributes.tabindex) || 
-        (document.getElementsByClassName('two')[0] && 
-        document.getElementsByClassName('two')[0].attributes && 
-        !!document.getElementsByClassName('two')[0].attributes.tabindex)
-        `,
-        {
-          timeout: 0,
-        }
-      )
-      .then(() => true)
-      .catch(() => false)
-  );
-};
 
 export async function injectApi(page: Page) {
-  await isInsideChat(page).toPromise();
   const injected = await page
     .evaluate(() => {
       // @ts-ignore
