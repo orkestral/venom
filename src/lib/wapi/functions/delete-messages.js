@@ -102,9 +102,9 @@ export async function deleteMessages(chatId, messageArray) {
       ),
     ];
 
-    const result = (await Promise.all(jobs))[0][0];
+    const result = (await Promise.all(jobs))[1];
 
-    if (result === 'success' || result === 'OK') {
+    if (result >= 0) {
       let obj = WAPI.scope(To, false, result, '');
       Object.assign(obj, m);
       return obj;
