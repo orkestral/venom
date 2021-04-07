@@ -55,7 +55,7 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 export async function loadAndGetAllMessagesInChat(
   id,
   includeMe,
-  includeNotifications,
+  includeNotifications
 ) {
   return WAPI.loadAllEarlierMessages(id).then(() => {
     const chat = WAPI.getChat(id);
