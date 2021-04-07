@@ -74,7 +74,7 @@ export async function deleteMessages(chatId, messageArray) {
     }
 
     for (let i in messageArray) {
-      let checkID = await WAPI.checkIdMessag(chatId, messageArray[i]);
+      let checkID = await WAPI.checkIdMessage(chatId, messageArray[i]);
       if (checkID.erro == true) {
         return checkID;
       }
