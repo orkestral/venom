@@ -268,9 +268,9 @@ export async function create(
             }
           });
           if (
-              (onQR === true || 
-              stateStream === SocketStream.DISCONNECTED) && 
-              checkFileJson(mergedOptions, session)) {
+              (onQR·===·true·||·stateStream·===·SocketStream.DISCONNECTED)·&&
+              checkFileJson(mergedOptions, session)
+            ) {
             if (statusFind) {
               statusFind('desconnectedMobile', session);
             }
