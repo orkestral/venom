@@ -267,7 +267,7 @@ export async function create(
               return false;
             }
           });
-          if (onQR === true && checkFileJson(mergedOptions, session)) {
+          if (onQR === true || (stateStream === enum_1.SocketStream.DISCONNECTED) && checkFileJson(mergedOptions, session)) {
             if (statusFind) {
               statusFind('desconnectedMobile', session);
             }
