@@ -71,19 +71,9 @@ export async function checkIdMessage(chatId, idMesagem) {
   }
   const chat = await WAPI.sendExist(chatId);
   if (chat && chat.status != 404) {
-    let ft = await WAPI.loadAndGetAllMessagesInChat(chatId, true);
-    let fil = ft.filter((e) => e.id === idMesagem && e.body === undefined);
-    let check = ft.filter((e) => e.id === idMesagem);
-    if (!check.length) {
+    const getIdMessage = await window.Store.Msg.get(idMesagem);
+    if (!getIdMessage) {
       return WAPI.scope(chat, true, 404, `The id ${idMesagem} does not exist!`);
-    }
-    if (fil.length) {
-      return WAPI.scope(
-        chat,
-        true,
-        404,
-        `The message with id ${idMesagem} has already been deleted`
-      );
     }
     const To = chat.id;
     const m = { type: 'checkIdMessage' };
