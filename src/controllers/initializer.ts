@@ -279,7 +279,7 @@ export async function create(
       client.onStateChange((state) => {
         if (state === SocketState.PAIRING) {
           const device = page.evaluate(() => {
-            if (document.querySelectorAll('#startup')) {
+            if (document.querySelectorAll('#startup').length) {
               return true;
             } else {
               return false;
