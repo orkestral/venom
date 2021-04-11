@@ -238,6 +238,8 @@ export async function create(
 
     checkingCloses(browser, mergedOptions, (result) => {
       statusFind && statusFind(result, session);
+    }).catch(() => {
+      throw 'The client has been closed';
     });
 
     if (SessionTokenCkeck(browserSessionToken)) {

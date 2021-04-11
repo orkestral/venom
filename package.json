@@ -71,7 +71,7 @@
     "@types/puppeteer": "^5.4.1",
     "@types/sharp": "^0.27.3",
     "@types/ws": "^7.4.1",
-    "@typescript-eslint/eslint-plugin": "^4.20.0",
+    "@typescript-eslint/eslint-plugin": "^4.21.0",
     "@typescript-eslint/parser": "^4.21.0",
     "commitizen": "^4.2.2",
     "concurrently": "^5.1.0",
@@ -109,7 +109,7 @@
     "puppeteer-extra": "^3.1.18",
     "puppeteer-extra-plugin-stealth": "^2.7.6",
     "qrcode-terminal": "^0.12.0",
-    "sharp": "^0.28.0",
+    "sharp": "^0.28.1",
     "spinnies": "^0.5.1",
     "tree-kill": "^1.2.2",
     "yoo-hoo": "^1.2.0"
