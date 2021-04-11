@@ -244,104 +244,115 @@ export async function create(
       browserToken = browserSessionToken;
     }
 
+    spinnies.add(`whatzapp-${session}`, {
+      text: 'Checking page...',
+    });
+
     // Initialize whatsapp
-    const page = await initWhatsapp(
+    const page: false | Page = await initWhatsapp(
       session,
       mergedOptions,
       browser,
       browserToken
     );
 
-    if (page) {
-      const client = new Whatsapp(page, session, mergedOptions);
-
-      client.onStreamChange(async (stateStream) => {
-        if (stateStream === SocketStream.CONNECTED) {
-          statusFind && statusFind('chatsAvailable', session);
-        }
-        if (stateStream === SocketStream.DISCONNECTED) {
-          let onQR: boolean = await page.evaluate(() => {
-            if (
-              document.querySelector('canvas') &&
-              document.querySelectorAll('#startup').length == 0
-            ) {
-              return true;
-            } else {
-              return false;
-            }
-          });
-          if (onQR === true && checkFileJson(mergedOptions, session)) {
-            if (statusFind) {
-              statusFind('desconnectedMobile', session);
-            }
-            deleteFiles(mergedOptions, session, spinnies);
-          }
-        }
+    if (page === false) {
+      spinnies.fail(`whatzapp-${session}`, {
+        text: 'Error accessing the page: "https://web.whatsapp.com"',
       });
+      throw 'Error when trying to access the page: "https://web.whatsapp.com"';
+    }
 
-      client.onStateChange((state) => {
-        if (state === SocketState.PAIRING) {
-          const device = page.evaluate(() => {
-            if (document.querySelectorAll('#startup').length) {
-              return true;
-            } else {
-              return false;
-            }
-          });
-          if (device) {
-            if (statusFind) {
-              statusFind('deviceNotConnected', session);
-            }
-          }
-        }
-        if (mergedOptions.createPathFileToken) {
-          if (state === SocketState.CONNECTED) {
-            setTimeout(() => {
-              saveToken(page, session, mergedOptions).catch((e) => {
-                spinnies.update(`browser-${session}`, {
-                  text: e,
-                });
-              });
-            }, 1000);
-          }
-        }
-      });
+    spinnies.succeed(`whatzapp-${session}`, {
+      text: 'Page successfully accessed',
+    });
 
-      if (mergedOptions.waitForLogin) {
-        const isLogged = await client.waitForLogin(catchQR, statusFind);
-        if (!isLogged) {
-          throw 'Not Logged';
-        }
+    const client = new Whatsapp(page, session, mergedOptions);
 
-        let waitLoginPromise = null;
-        client.onStateChange(async (state) => {
+    client.onStreamChange(async (stateStream) => {
+      if (stateStream === SocketStream.CONNECTED) {
+        statusFind && statusFind('chatsAvailable', session);
+      }
+      if (stateStream === SocketStream.DISCONNECTED) {
+        let onQR: boolean = await page.evaluate(() => {
           if (
-            state === SocketState.UNPAIRED ||
-            state === SocketState.UNPAIRED_IDLE
+            document.querySelector('canvas') &&
+            document.querySelectorAll('#startup').length == 0
           ) {
-            if (!waitLoginPromise) {
-              waitLoginPromise = client
-                .waitForLogin(catchQR, statusFind)
-                .catch(() => {})
-                .finally(() => {
-                  waitLoginPromise = null;
-                });
-            }
-            await waitLoginPromise;
+            return true;
+          } else {
+            return false;
           }
         });
+        if (onQR === true && checkFileJson(mergedOptions, session)) {
+          if (statusFind) {
+            statusFind('desconnectedMobile', session);
+          }
+          deleteFiles(mergedOptions, session, spinnies);
+        }
+      }
+    });
+
+    client.onStateChange((state) => {
+      if (state === SocketState.PAIRING) {
+        const device = page.evaluate(() => {
+          if (document.querySelectorAll('#startup').length) {
+            return true;
+          } else {
+            return false;
+          }
+        });
+        if (device) {
+          if (statusFind) {
+            statusFind('deviceNotConnected', session);
+          }
+        }
+      }
+      if (mergedOptions.createPathFileToken) {
+        if (state === SocketState.CONNECTED) {
+          setTimeout(() => {
+            saveToken(page, session, mergedOptions).catch((e) => {
+              spinnies.update(`browser-${session}`, {
+                text: e,
+              });
+            });
+          }, 1000);
+        }
+      }
+    });
+
+    if (mergedOptions.waitForLogin) {
+      const isLogged = await client.waitForLogin(catchQR, statusFind);
+      if (!isLogged) {
+        throw 'Not Logged';
       }
 
-      if (mergedOptions.debug) {
-        const debugURL = `http://localhost:${readFileSync(
-          `./${session}/DevToolsActivePort`
-        ).slice(0, -54)}`;
-        console.log(`\nDebug: \x1b[34m${debugURL}\x1b[0m`);
-      }
-      await page
-        .waitForSelector('#app .two', { visible: true })
-        .catch(() => {});
-      return client;
+      let waitLoginPromise = null;
+      client.onStateChange(async (state) => {
+        if (
+          state === SocketState.UNPAIRED ||
+          state === SocketState.UNPAIRED_IDLE
+        ) {
+          if (!waitLoginPromise) {
+            waitLoginPromise = client
+              .waitForLogin(catchQR, statusFind)
+              .catch(() => {})
+              .finally(() => {
+                waitLoginPromise = null;
+              });
+          }
+          await waitLoginPromise;
+        }
+      });
     }
+
+    if (mergedOptions.debug) {
+      const debugURL = `http://localhost:${readFileSync(
+        `./${session}/DevToolsActivePort`
+      ).slice(0, -54)}`;
+      console.log(`\nDebug: \x1b[34m${debugURL}\x1b[0m`);
+    }
+    await page.waitForSelector('#app .two', { visible: true }).catch(() => {});
+    return client;
   }
 }

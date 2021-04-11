@@ -68,15 +68,18 @@ export async function initWhatsapp(
   options: CreateConfig,
   browser: Browser,
   token?: tokenSession
-): Promise<Page> {
+): Promise<false | Page> {
   const waPage: Page = await getWhatsappPage(browser);
   if (waPage != null) {
     await waPage.setUserAgent(useragentOverride);
-    const timeout = 2 * 1000;
-    await Promise.race([
-      waPage.goto(puppeteerConfig.whatsappUrl, { timeout }).catch(() => {}),
-      waPage.waitForSelector('body', { timeout }).catch(() => {}),
-    ]);
+    try {
+      await waPage.goto(puppeteerConfig.whatsappUrl, {
+        waitUntil: 'networkidle0',
+      });
+    } catch {
+      waPage.close();
+      return false;
+    }
     // Auth with token
     await auth_InjectToken(waPage, session, options, token);
     return waPage;
