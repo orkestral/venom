@@ -1,3 +1,25 @@
+## [3.0.14](https://github.com/orkestral/venom/compare/v3.0.13...v3.0.14) (2021-04-11)
+
+
+### Bug Fixes
+
+* close and inject ([20e2f74](https://github.com/orkestral/venom/commit/20e2f74f5438e9305a27420dbd56ad16fbdda953))
+* error checkIdMessag not function ([31c3041](https://github.com/orkestral/venom/commit/31c304104fe1707b2dfbae72827690a40b7a5a70))
+* lint ([e39d709](https://github.com/orkestral/venom/commit/e39d7098a888ee8ccfe076eb50a789cf0da4e719))
+* object returns correct deleteMessages ([e99edfd](https://github.com/orkestral/venom/commit/e99edfda9083e21e1c77f7bf12aa985054c90f56))
+* remove delay checkIdMessage ([e63ca37](https://github.com/orkestral/venom/commit/e63ca37f6e08e7b6cf2fbe99c6e14a1ff6f08acf))
+* statusFind deviceNotConnected ([46d39f4](https://github.com/orkestral/venom/commit/46d39f4c0d3395503f102cbd9992b6ae17def396))
+* update Agent ([60458e5](https://github.com/orkestral/venom/commit/60458e559d999eebe4ab4794d91fbaf9e3f01c06))
+
+
+### Features
+
+* add Args ([01f4a53](https://github.com/orkestral/venom/commit/01f4a53223ec51ab1b473540566211f0d6c0aaa2))
+* Check npmjs page ([2591f52](https://github.com/orkestral/venom/commit/2591f52c47821a2747f77035c69707e80e7f0557))
+* check site access ([b822fce](https://github.com/orkestral/venom/commit/b822fce7f7150786376e2b64af20df51408b625c))
+
+
+
 ## [3.0.13](https://github.com/orkestral/venom/compare/v3.0.12...v3.0.13) (2021-04-04)
 
 
