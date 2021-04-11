@@ -71,18 +71,21 @@ export async function initWhatsapp(
 ): Promise<false | Page> {
   const waPage: Page = await getWhatsappPage(browser);
   if (waPage != null) {
-    await waPage.setUserAgent(useragentOverride);
     try {
+      await waPage.setUserAgent(useragentOverride);
       await waPage.goto(puppeteerConfig.whatsappUrl, {
-        waitUntil: 'networkidle0',
+        waitUntil: 'domcontentloaded',
       });
+      // Auth with token
+      await auth_InjectToken(waPage, session, options, token);
+      await waPage.evaluate(() => {
+        window.location.reload();
+      });
+      return waPage;
     } catch {
-      waPage.close();
+      waPage.close().catch(() => {});
       return false;
     }
-    // Auth with token
-    await auth_InjectToken(waPage, session, options, token);
-    return waPage;
   }
 }
 

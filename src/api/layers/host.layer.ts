@@ -257,7 +257,7 @@ export class HostLayer {
 
     let authenticated = await isAuthenticated(this.page).catch(() => null);
 
-    if (typeof authenticated === 'object') {
+    if (typeof authenticated === 'object' && authenticated.type) {
       this.spin(`Error http: ${authenticated.type}`, 'fail');
       this.page.close();
       throw `Error http: ${authenticated.type}`;

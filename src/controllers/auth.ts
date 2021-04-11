@@ -60,7 +60,6 @@ import { existsSync, readFileSync } from 'fs';
 import { CreateConfig } from '../config/create-config';
 import { ScrapQrcode } from '../api/model/qrcode';
 import { tokenSession } from '../config/tokenSession.config';
-import { puppeteerConfig } from '../config/puppeteer.config';
 
 export const getInterfaceStatus = async (
   waPage: puppeteer.Page
