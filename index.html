@@ -3,8 +3,8 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>venom-bot - v3.0.13</title>
-	<meta name="description" content="Documentation for venom-bot - v3.0.13">
+	<title>venom-bot - v3.0.14</title>
+	<meta name="description" content="Documentation for venom-bot - v3.0.14">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="assets/css/main.css">
 	<link rel="stylesheet" href="assets/css/pages.css">
@@ -23,7 +23,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="index.html" class="title">venom-bot - v3.0.13</a>
+					<a href="index.html" class="title">venom-bot - v3.0.14</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -55,7 +55,7 @@
 					<a href="modules.html">Globals</a>
 				</li>
 			</ul>
-			<h1>Project venom-bot - v3.0.13</h1>
+			<h1>Project venom-bot - v3.0.14</h1>
 		</div>
 	</div>
 </header>
@@ -226,7 +226,7 @@
 <span style="color: #000000">    },</span>
 <span style="color: #000000">    </span><span style="color: #008000">// statusFind</span>
 <span style="color: #000000">    (</span><span style="color: #001080">statusSession</span><span style="color: #000000">, </span><span style="color: #001080">session</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
-<span style="color: #000000">      </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;Status Session: &#039;</span><span style="color: #000000">, </span><span style="color: #001080">statusSession</span><span style="color: #000000">); </span><span style="color: #008000">//return isLogged || notLogged || browserClose || qrReadSuccess || qrReadFail || autocloseCalled || desconnectedMobile || deleteToken</span>
+<span style="color: #000000">      </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;Status Session: &#039;</span><span style="color: #000000">, </span><span style="color: #001080">statusSession</span><span style="color: #000000">); </span><span style="color: #008000">//return isLogged || notLogged || browserClose || qrReadSuccess || qrReadFail || autocloseCalled || desconnectedMobile || deleteToken || chatsAvailable || deviceNotConnected || serverWssNotConnected || noOpenBrowser</span>
 <span style="color: #000000">      </span><span style="color: #008000">//Create session wss return &quot;serverClose&quot; case server for close</span>
 <span style="color: #000000">      </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;Session name: &#039;</span><span style="color: #000000">, </span><span style="color: #001080">session</span><span style="color: #000000">);</span>
 <span style="color: #000000">    },</span>
@@ -341,7 +341,7 @@
 <span style="color: #000000">    </span><span style="color: #0000FF">undefined</span><span style="color: #000000">,</span>
 <span style="color: #000000">    (</span><span style="color: #001080">statusSession</span><span style="color: #000000">, </span><span style="color: #001080">session</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
 <span style="color: #000000">      </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;Status Session: &#039;</span><span style="color: #000000">, </span><span style="color: #001080">statusSession</span><span style="color: #000000">);</span>
-<span style="color: #000000">      </span><span style="color: #008000">//return isLogged || notLogged || browserClose || qrReadSuccess || qrReadFail || autocloseCalled || desconnectedMobile || deleteToken</span>
+<span style="color: #000000">      </span><span style="color: #008000">//return isLogged || notLogged || browserClose || qrReadSuccess || qrReadFail || autocloseCalled || desconnectedMobile || deleteToken || chatsAvailable || deviceNotConnected || serverWssNotConnected || noOpenBrowser</span>
 <span style="color: #000000">      </span><span style="color: #008000">//Create session wss return &quot;serverClose&quot; case server for close</span>
 <span style="color: #000000">      </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;Session name: &#039;</span><span style="color: #000000">, </span><span style="color: #001080">session</span><span style="color: #000000">);</span>
 <span style="color: #000000">    },</span>
