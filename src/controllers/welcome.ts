@@ -26,7 +26,7 @@ export async function checkUpdates(spinnies: Spinnies) {
     spinnies.add('venom-version-spinner', {
       text: 'Checking for updates',
     });
-    await checkVenomVersion(spinnies);
+    return await checkVenomVersion(spinnies);
   }
 }
 
@@ -35,16 +35,25 @@ export async function checkUpdates(spinnies: Spinnies) {
  */
 async function checkVenomVersion(spinnies: Spinnies) {
   spinnies.update('venom-version-spinner', { text: 'Checking for updates...' });
-  await latestVersion('venom-bot').then((latest) => {
-    if (upToDate(version, latest)) {
-      spinnies.succeed('venom-version-spinner', { text: "You're up to date" });
-    } else {
-      spinnies.succeed('venom-version-spinner', {
-        text: 'There is a new version available',
-      });
-      logUpdateAvailable(version, latest);
-    }
-  });
+  try {
+    await latestVersion('venom-bot').then((latest) => {
+      if (upToDate(version, latest)) {
+        spinnies.succeed('venom-version-spinner', {
+          text: "You're up to date",
+        });
+      } else {
+        spinnies.succeed('venom-version-spinner', {
+          text: 'There is a new version available',
+        });
+        logUpdateAvailable(version, latest);
+      }
+    });
+  } catch {
+    spinnies.fail('venom-version-spinner', {
+      text: 'Unable to access: "https://www.npmjs.com", check your internet',
+    });
+    return false;
+  }
 }
 
 /**

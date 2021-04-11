@@ -166,7 +166,10 @@ export async function create(
   }
 
   if (mergedOptions.updatesLog) {
-    await checkUpdates(spinnies);
+    const ver = await checkUpdates(spinnies);
+    if (ver === false) {
+      throw `Unable to access: "https://www.npmjs.com", check your internet`;
+    }
   }
 
   // Initialize whatsapp
