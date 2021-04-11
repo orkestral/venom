@@ -61,30 +61,32 @@ export async function checkingCloses(
   mergedOptions: CreateConfig,
   callStatus: (e: string) => void
 ) {
-  if (typeof browser !== 'string') {
-    let err: boolean;
-    do {
-      try {
-        await new Promise((r) => setTimeout(r, 2000));
-        if (
-          browser['isClose'] ||
-          (mergedOptions.browserWS && !browser.isConnected())
-        ) {
-          if (mergedOptions.browserWS) {
-            browser.disconnect();
-            callStatus && callStatus('serverClose');
+  new Promise(async (resolve, reject) => {
+    if (typeof browser !== 'string') {
+      let err: boolean;
+      do {
+        try {
+          await new Promise((r) => setTimeout(r, 2000));
+          if (
+            browser['isClose'] ||
+            (mergedOptions.browserWS && !browser.isConnected())
+          ) {
+            if (mergedOptions.browserWS) {
+              browser.disconnect();
+              callStatus && callStatus('serverClose');
+            }
+            if (browser['isClose']) {
+              browser.close().catch((e) => reject(e));
+              callStatus && callStatus('browserClose');
+            }
+            err = false;
+          } else {
+            throw 1;
           }
-          if (browser['isClose']) {
-            browser.close();
-            callStatus && callStatus('browserClose');
-          }
-          err = false;
-        } else {
-          throw 1;
+        } catch (e) {
+          err = true;
         }
-      } catch (e) {
-        err = true;
-      }
-    } while (err);
-  }
+      } while (err);
+    }
+  });
 }

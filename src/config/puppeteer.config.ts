@@ -90,6 +90,8 @@ const puppeteerConfig = {
     '--disable-app-list-dismiss-on-blur',
     '--disable-accelerated-video-decode',
     '--disable-dev-shm-usage',
+    '--disable-gl-drawing-for-tests',
+    '--incognito',
   ],
 };
 
