@@ -59,13 +59,17 @@ export async function sendLocation(
   location = null
 ) {
   var chat = await WAPI.sendExist(chatId);
-
   if (!chat.erro) {
+    let To = chat;
     var tempMsg = await Object.create(
       Store.Msg.models.filter((msg) => msg.__x_isSentByMe && !msg.quotedMsg)[0]
     );
-    var newId = await window.WAPI.getNewMessageId(chatId);
-
+    var newMsgId = await window.WAPI.getNewMessageId(chatId);
+    let inChat = await WAPI.getchatId(chatId).catch(() => {});
+    if (inChat) {
+      chat.lastReceivedKey._serialized = inChat._serialized;
+      chat.lastReceivedKey.id = inChat.id;
+    }
     tempMsg.description = undefined;
     tempMsg.title = undefined;
     tempMsg.thumbnail = undefined;
@@ -73,7 +77,7 @@ export async function sendLocation(
 
     var extend = {
       ack: 0,
-      id: newId,
+      id: newMsgId,
       local: !0,
       self: 'out',
       t: parseInt(new Date().getTime() / 1000),
@@ -109,14 +113,13 @@ export async function sendLocation(
         title: location,
         type: 'location',
       },
-      obj,
-      To = await WAPI.getchatId(chat.id);
+      obj;
     if (result == 'success' || result == 'OK') {
-      obj = WAPI.scope(To, false, result, null);
+      obj = WAPI.scope(newMsgId, false, result, null);
       Object.assign(obj, m);
       return obj;
     } else {
-      obj = WAPI.scope(To, true, result, null);
+      obj = WAPI.scope(newMsgId, true, result, null);
       Object.assign(obj, m);
       return obj;
     }

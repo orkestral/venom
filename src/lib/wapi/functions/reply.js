@@ -79,7 +79,7 @@ export async function reply(chatId, content, quotedMessageId) {
   }
   const chat = await WAPI.sendExist(chatId);
   if (chat && chat.status != 404) {
-    const To = chat.id;
+    let To = chat.id;
     const m = { type: 'deleteMessages' };
     let quotedMsgOptions = {};
 
@@ -113,6 +113,11 @@ export async function reply(chatId, content, quotedMessageId) {
     }
 
     const newMsgId = await window.WAPI.getNewMessageId(chat.id);
+    let inChat = await WAPI.getchatId(chatId).catch(() => {});
+    if (inChat) {
+      chat.lastReceivedKey._serialized = inChat._serialized;
+      chat.lastReceivedKey.id = inChat.id;
+    }
     const fromwWid = await window.Store.Conn.wid;
 
     const message = {
@@ -134,11 +139,11 @@ export async function reply(chatId, content, quotedMessageId) {
     )[1];
 
     if (result === 'success' || result === 'OK') {
-      let obj = WAPI.scope(To, false, result, '');
+      let obj = WAPI.scope(newMsgId, false, result, '');
       Object.assign(obj, m);
       return obj;
     } else {
-      let obj = WAPI.scope(To, true, result, '');
+      let obj = WAPI.scope(newMsgId, true, result, '');
       Object.assign(obj, m);
       return obj;
     }

@@ -82,6 +82,12 @@ export async function sendLinkPreview(chatId, url, text) {
   if (!chat.erro) {
     const linkPreview = await Store.WapQuery.queryLinkPreview(url);
     const newMsgId = await window.WAPI.getNewMessageId(chat.id);
+    let inChat = await WAPI.getchatId(chatId).catch(() => {});
+    if (inChat) {
+      chat.lastReceivedKey._serialized = inChat._serialized;
+      chat.lastReceivedKey.id = inChat.id;
+    }
+
     const fromwWid = await window.Store.Conn.wid;
     const message = {
       id: newMsgId,
@@ -106,14 +112,13 @@ export async function sendLinkPreview(chatId, url, text) {
     var result = (
       await Promise.all(window.Store.addAndSendMsgToChat(chat, message))
     )[1];
-    var m = { type: 'LinkPreview', url: url, text: text },
-      To = await WAPI.getchatId(chat.id);
+    var m = { type: 'LinkPreview', url: url, text: text };
     if (result === 'success' || result === 'OK') {
-      var obj = WAPI.scope(To, false, result, null);
+      var obj = WAPI.scope(newMsgId, false, result, null);
       Object.assign(obj, m);
       return obj;
     } else {
-      var obj = WAPI.scope(To, true, result, null);
+      var obj = WAPI.scope(newMsgId, true, result, null);
       Object.assign(obj, m);
       return obj;
     }

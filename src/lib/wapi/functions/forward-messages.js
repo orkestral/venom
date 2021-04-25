@@ -71,23 +71,27 @@ export async function forwardMessages(chatId, messages, skipMyMessages) {
 
   return new Promise(async (resolve, reject) => {
     if (chat.id) {
-      var To = await WAPI.getchatId(chat.id);
+      let newMsgId = await window.WAPI.getNewMessageId(chat.id);
+      let inChat = await WAPI.getchatId(chatId).catch(() => {});
+      if (inChat) {
+        chat.lastReceivedKey._serialized = inChat._serialized;
+        chat.lastReceivedKey.id = inChat.id;
+      }
       await Promise.each(toForward, async (e) => {
         if (typeof e.erro !== 'undefined' && e.erro === true) {
-          var obj = WAPI.scope(To, true, null, 'message not found');
+          var obj = WAPI.scope(chatId, true, null, 'message not found');
           Object.assign(obj, m);
           reject(obj);
           return;
         }
 
-        let newId = await window.WAPI.getNewMessageId(chat.id);
         let tempMsg = await Object.create(
           chat.msgs.filter((msg) => msg.__x_isSentByMe)
         )[0];
         const fromwWid = await window.Store.Conn.wid;
         let toFor = await Object.assign(e);
         let extend = {
-          id: newId,
+          id: newMsgId,
           ack: 0,
           from: fromwWid,
           to: chat.id,
@@ -103,16 +107,15 @@ export async function forwardMessages(chatId, messages, skipMyMessages) {
 
         Object.assign(tempMsg, toFor);
         Object.assign(tempMsg, extend);
-
         return await Store.addAndSendMsgToChat(chat, tempMsg);
       })
         .then(async () => {
-          var obj = WAPI.scope(To, false, 200, null);
+          var obj = WAPI.scope(newMsgId, false, 200, null);
           Object.assign(obj, m);
           resolve(obj);
         })
         .catch(() => {
-          var obj = WAPI.scope(To, true, 404, null);
+          var obj = WAPI.scope(newMsgId, true, 404, null);
           Object.assign(obj, m);
           reject(obj);
         });

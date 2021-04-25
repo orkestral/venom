@@ -86,14 +86,20 @@ export async function sendContactVcardList(chatId, contacts) {
     var vcard = cont.map(async (e) => {
       return await window.Store.Vcard.vcardFromContactModel(e);
     });
-    var newId = await window.WAPI.getNewMessageId(chatId);
+
+    var newMsgId = await window.WAPI.getNewMessageId(chatId);
+    let inChat = await WAPI.getchatId(chatId).catch(() => {});
+    if (inChat) {
+      chat.lastReceivedKey._serialized = inChat._serialized;
+      chat.lastReceivedKey.id = inChat.id;
+    }
     var Vcards = await Promise.all(vcard);
     var extend = {
+      id: newMsgId,
       ack: 0,
       from: chatId,
       local: !0,
       self: 'out',
-      id: newId,
       t: parseInt(new Date().getTime() / 1000),
       to: chatId,
       type: 'multi_vcard',
@@ -103,14 +109,13 @@ export async function sendContactVcardList(chatId, contacts) {
     Object.assign(tempMsg, extend);
     var result =
       (await Promise.all(Store.addAndSendMsgToChat(chat, tempMsg)))[1] || '';
-    var m = { from: contacts, type: 'multi_vcard' },
-      To = await WAPI.getchatId(chat.id);
+    var m = { from: contacts, type: 'multi_vcard' };
     if (result === 'success' || result === 'OK') {
-      var obj = WAPI.scope(To, false, result, null);
+      var obj = WAPI.scope(newMsgId, false, result, null);
       Object.assign(obj, m);
       return obj;
     } else {
-      var obj = WAPI.scope(To, true, result, null);
+      var obj = WAPI.scope(newMsgId, true, result, null);
       Object.assign(obj, m);
       return obj;
     }

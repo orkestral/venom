@@ -52,32 +52,27 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
-async function isInsideTo(to) {
-  let err;
-  do {
-    try {
-      await new Promise((r) => setTimeout(r, 2000));
-      let chatTo = await WAPI.getchatId(to);
-      if (typeof chatTo !== 'undefined') {
-        err = false;
-        return chatTo;
-      } else {
-        throw 1;
-      }
-    } catch (e) {
-      err = true;
-    }
-  } while (err);
-}
+
 export async function sendMessage(to, content) {
   if (typeof content != 'string' || content.length === 0) {
-    return WAPI.scope(to, true, 404, 'It is necessary to write a text!');
+    return WAPI.scope(
+      undefined,
+      true,
+      null,
+      'It is necessary to write a text!'
+    );
   }
-  const chat = await WAPI.sendExist(to);
-  const m = { type: 'sendtext', text: content };
+  let chat = await WAPI.sendExist(to);
+
   if (chat && chat.status != 404) {
+    const m = { type: 'sendText', text: content };
     const newMsgId = await window.WAPI.getNewMessageId(chat.id);
     const fromwWid = await window.Store.Conn.wid;
+    let inChat = await WAPI.getchatId(to).catch(() => {});
+    if (inChat) {
+      chat.lastReceivedKey._serialized = inChat._serialized;
+      chat.lastReceivedKey.id = inChat.id;
+    }
     const message = {
       id: newMsgId,
       ack: 0,
@@ -88,18 +83,19 @@ export async function sendMessage(to, content) {
       self: 'out',
       t: parseInt(new Date().getTime() / 1000),
       isNewMsg: !0,
+      invis: true,
       type: 'chat',
     };
     var result = (
       await Promise.all(window.Store.addAndSendMsgToChat(chat, message))
     )[1];
-    let To = await isInsideTo(chat.id);
+
     if (result === 'success' || result === 'OK') {
-      let obj = WAPI.scope(To, false, result, content);
+      let obj = WAPI.scope(newMsgId, false, result, content);
       Object.assign(obj, m);
       return obj;
     } else {
-      let obj = WAPI.scope(To, true, result, content);
+      let obj = WAPI.scope(newMsgId, true, result, content);
       Object.assign(obj, m);
       return obj;
     }
