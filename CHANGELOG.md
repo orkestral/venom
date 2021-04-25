@@ -1,3 +1,17 @@
+## [3.0.15](https://github.com/orkestral/venom/compare/v3.0.14...v3.0.15) (2021-04-25)
+
+
+### Bug Fixes
+
+* id double ([bf5181f](https://github.com/orkestral/venom/commit/bf5181f611701465022449c735ec2c092e07f2c5))
+
+
+### Features
+
+* files ([de02822](https://github.com/orkestral/venom/commit/de02822582716c0a7438e8a267abe3110e66864c))
+
+
+
 ## [3.0.14](https://github.com/orkestral/venom/compare/v3.0.13...v3.0.14) (2021-04-11)
 
 
