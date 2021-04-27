@@ -131,7 +131,7 @@ export class Whatsapp extends ControlsLayer {
    */
   public async close() {
     try {
-      if (!this.page.isClosed()){
+      if (!this.page.isClosed()) {
         await this.page.close();
         return true;
       }
