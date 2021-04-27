@@ -130,23 +130,14 @@ export class Whatsapp extends ControlsLayer {
    * @internal
    */
   public async close() {
-    const closing = async (waPage: {
-      browser: () => any;
-      isClosed: () => any;
-      close: () => any;
-    }) => {
-      if (waPage) {
-        const browser = await waPage.browser();
-        const pid = browser.process() ? browser?.process().pid : null;
-        if (!waPage.isClosed()) await waPage.close();
-        if (browser) await browser.close();
-        if (pid) treekill(pid, 'SIGKILL');
-      }
-    };
     try {
-      await closing(this.page);
-    } catch (error) {}
-    return true;
+      if (!this.page.isClosed()){
+        await this.page.close();
+        return true;
+      }
+    } catch (e) {
+      return false;
+    }
   }
 
   /**
