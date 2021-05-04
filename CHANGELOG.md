@@ -1,3 +1,22 @@
+## [3.0.16](https://github.com/orkestral/venom/compare/v3.0.15...v3.0.16) (2021-05-04)
+
+
+### Bug Fixes
+
+* browserInstance callback ([8132418](https://github.com/orkestral/venom/commit/8132418c208e7efd2006cd76be9028e8a2031aaa))
+* Close error multi sessions ([68505e0](https://github.com/orkestral/venom/commit/68505e0af2c152531ebb8989129564359e360ae9))
+* delete file ([dca4152](https://github.com/orkestral/venom/commit/dca415282fac3a8fa35bff067d45e2c2a8b1c921))
+* directory permissions ([08724ea](https://github.com/orkestral/venom/commit/08724ea49228a3ad37ee4742afa988a0bc2924d1))
+* lint ([f922428](https://github.com/orkestral/venom/commit/f922428ebc58432c71ec8fb7800fe7c69ceca309))
+* lint ([d89aa5a](https://github.com/orkestral/venom/commit/d89aa5a0c29e0cfd9d5c2e9585b205f860453d7f))
+
+
+### Features
+
+* add args defaultOptions ([cc75244](https://github.com/orkestral/venom/commit/cc752442d03afd67cee02b7d50c6796081e98df9))
+
+
+
 ## [3.0.15](https://github.com/orkestral/venom/compare/v3.0.14...v3.0.15) (2021-04-25)
 
 
