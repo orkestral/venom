@@ -745,7 +745,7 @@ export class SenderLayer extends ListenerLayer {
 
   /**
    * Generates sticker from given image and sends it (Send Image As Sticker)
-   * @param path image path imageBase64 A valid png, jpg and webp image is required. You can also send via http/https (http://www.website.com/img.gif)
+   * @param path image path imageBase64 A valid png, jpg and webp image is required. You can also send via http/https or row base64 (http://www.website.com/img.gif)
    * @param to chatId '000000000000@c.us'
    */
   public async sendImageAsSticker(
@@ -762,6 +762,10 @@ export class SenderLayer extends ListenerLayer {
 
     if (!b64) {
       b64 = await fileToBase64(path);
+    }
+
+    if (!b64) { //accept path as base64 directly
+      b64 = path;
     }
 
     if (b64) {
