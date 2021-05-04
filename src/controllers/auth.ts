@@ -281,6 +281,8 @@ export async function saveToken(
       path.join(folder, `${session}.data.json`),
       JSON.stringify(token)
     );
+    fs.chmodSync(folder, '777');
+    fs.chmodSync(folder + '/' + session + '.data.json', '777');
   } catch (error) {
     throw 'Failed to save token...';
   }
