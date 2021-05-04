@@ -258,6 +258,10 @@ export async function create(
       browserToken
     );
 
+    if (browserInstance) {
+      browserInstance(browser, page);
+    }
+
     if (page === false) {
       spinnies.fail(`whatzapp-${session}`, {
         text: 'Error accessing the page: "https://web.whatsapp.com"',
