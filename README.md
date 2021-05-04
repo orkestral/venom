@@ -111,6 +111,9 @@ venom.create('support').then((supportClient) => {...});
 
 Venom `create()` method third parameter can have the following optional parameters:
 
+If you are using the `Linux` server do not forget to pass the args `--user-agent`
+[Original parameters in browserArgs](https://github.com/orkestral/venom/blob/master/src/config/puppeteer.config.ts)
+
 ```javascript
 const venom = require('venom-bot');
 
@@ -141,7 +144,7 @@ venom
       debug: false, // Opens a debug session
       logQR: true, // Logs QR automatically in terminal
       browserWS: '', // If u want to use browserWSEndpoint
-      browserArgs: [''], // Parameters to be added into the chrome browser instance
+      browserArgs: [''], //Original parameters  ---Parameters to be added into the chrome browser instance
       puppeteerOptions: {}, // Will be passed to puppeteer.launch
       disableSpins: true, // Will disable Spinnies animation, useful for containers (docker) for a better log
       disableWelcome: true, // Will disable the welcoming message which appears in the beginning
