@@ -3,8 +3,8 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>venom-bot - v3.0.15</title>
-	<meta name="description" content="Documentation for venom-bot - v3.0.15">
+	<title>venom-bot - v3.0.16</title>
+	<meta name="description" content="Documentation for venom-bot - v3.0.16">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="assets/css/main.css">
 	<link rel="stylesheet" href="assets/css/pages.css">
@@ -23,7 +23,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="index.html" class="title">venom-bot - v3.0.15</a>
+					<a href="index.html" class="title">venom-bot - v3.0.16</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -55,7 +55,7 @@
 					<a href="modules.html">Globals</a>
 				</li>
 			</ul>
-			<h1>Project venom-bot - v3.0.15</h1>
+			<h1>Project venom-bot - v3.0.16</h1>
 		</div>
 	</div>
 </header>
@@ -211,6 +211,8 @@
 					<h2>Optional create parameters</h2>
 				</a>
 				<p>Venom <code>create()</code> method third parameter can have the following optional parameters:</p>
+				<p>If you are using the <code>Linux</code> server do not forget to pass the args <code>--user-agent</code>
+				<a href="https://github.com/orkestral/venom/blob/master/src/config/puppeteer.config.ts">Original parameters in browserArgs</a></p>
 				<pre><code class="language-javascript"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">venom</span><span style="color: #000000"> = </span><span style="color: #795E26">require</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;venom-bot&#039;</span><span style="color: #000000">);</span>
 
 <span style="color: #001080">venom</span>
@@ -240,7 +242,7 @@
 <span style="color: #000000">      </span><span style="color: #001080">debug:</span><span style="color: #000000"> </span><span style="color: #0000FF">false</span><span style="color: #000000">, </span><span style="color: #008000">// Opens a debug session</span>
 <span style="color: #000000">      </span><span style="color: #001080">logQR:</span><span style="color: #000000"> </span><span style="color: #0000FF">true</span><span style="color: #000000">, </span><span style="color: #008000">// Logs QR automatically in terminal</span>
 <span style="color: #000000">      </span><span style="color: #001080">browserWS:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;&#039;</span><span style="color: #000000">, </span><span style="color: #008000">// If u want to use browserWSEndpoint</span>
-<span style="color: #000000">      </span><span style="color: #001080">browserArgs:</span><span style="color: #000000"> [</span><span style="color: #A31515">&#039;&#039;</span><span style="color: #000000">], </span><span style="color: #008000">// Parameters to be added into the chrome browser instance</span>
+<span style="color: #000000">      </span><span style="color: #001080">browserArgs:</span><span style="color: #000000"> [</span><span style="color: #A31515">&#039;&#039;</span><span style="color: #000000">], </span><span style="color: #008000">//Original parameters  ---Parameters to be added into the chrome browser instance</span>
 <span style="color: #000000">      </span><span style="color: #001080">puppeteerOptions:</span><span style="color: #000000"> {}, </span><span style="color: #008000">// Will be passed to puppeteer.launch</span>
 <span style="color: #000000">      </span><span style="color: #001080">disableSpins:</span><span style="color: #000000"> </span><span style="color: #0000FF">true</span><span style="color: #000000">, </span><span style="color: #008000">// Will disable Spinnies animation, useful for containers (docker) for a better log</span>
 <span style="color: #000000">      </span><span style="color: #001080">disableWelcome:</span><span style="color: #000000"> </span><span style="color: #0000FF">true</span><span style="color: #000000">, </span><span style="color: #008000">// Will disable the welcoming message which appears in the beginning</span>
