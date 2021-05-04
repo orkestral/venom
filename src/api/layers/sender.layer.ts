@@ -764,7 +764,8 @@ export class SenderLayer extends ListenerLayer {
       b64 = await fileToBase64(path);
     }
 
-    if (!b64) { //accept path as base64 directly
+    if (!b64) {
+      //accept path as base64 directly
       b64 = path;
     }
 
