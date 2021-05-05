@@ -34,7 +34,7 @@
 **Venom is maintained by Brazilians**
 
 ## Venom group on Telegram
-<a target="_blank" href="https://t.me/joinchat/G8wxNXidWBo1ZDYx" target="_blank"><img title="whatzapp" height="100" width="375" src="(https://user-images.githubusercontent.com/66584466/117182238-7d1d8980-adac-11eb-9a70-e32f90c3d4e5.png"></a>
+<a target="_blank" href="https://t.me/joinchat/G8wxNXidWBo1ZDYx" target="_blank"><img title="Telegram" height="100" width="375" src="https://user-images.githubusercontent.com/66584466/117182238-7d1d8980-adac-11eb-9a70-e32f90c3d4e5.png"></a>
 
 ## 🕷🕷 Functions Venom🕷🕷
 
