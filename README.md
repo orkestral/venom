@@ -582,9 +582,6 @@ const status = await client.getStatus('000000000000@c.us');
 // Retrieve user profile
 const user = await client.getNumberProfile('000000000000@c.us');
 
-// Retrieve all unread message
-const messages = await client.getAllUnreadMessages();
-
 // Retrieve profile fic (as url)
 const url = await client.getProfilePicFromServer('000000000000@c.us');
 

@@ -76,7 +76,6 @@ import {
   getAllGroupMetadata,
   getAllGroups,
   getAllMessagesInChat,
-  getAllNewMessages,
   getAllUnreadMessages,
   getBatteryLevel,
   getChat,
@@ -98,7 +97,6 @@ import {
   getProfilePicFromServer,
   getStatus,
   getUnreadMessages,
-  getUnreadMessagesInChat,
   hasUndreadMessages,
   isConnected,
   isLoggedIn,
@@ -157,6 +155,8 @@ import {
   checkIdMessage,
   returnReply,
   logout,
+  setPresenceOnline,
+  setPresenceOffline,
 } from './functions';
 import {
   base64ToFile,
@@ -174,6 +174,9 @@ import {
   allNewMessagesListener,
   initNewMessagesListener,
   addOnStreamChange,
+  addonFilePicThumb,
+  addonUnreadMessage,
+  addonChatState,
 } from './listeners';
 import {
   _serializeChatObj,
@@ -263,6 +266,8 @@ if (typeof window.WAPI === 'undefined') {
   window.WAPI.promoteParticipant = promoteParticipant;
   window.WAPI.demoteParticipant = demoteParticipant;
   window.WAPI.joinGroup = joinGroup;
+  window.WAPI.setPresenceOnline = setPresenceOnline;
+  window.WAPI.setPresenceOffline = setPresenceOffline;
 
   // Chatting functions
   window.WAPI.sendChatstate = sendChatstate;
@@ -313,7 +318,6 @@ if (typeof window.WAPI === 'undefined') {
   window.WAPI.haveNewMsg = hasUndreadMessages;
   window.WAPI.getAllChatsWithNewMsg = getAllChatsWithNewMessages;
   window.WAPI.getAllChatIds = getAllChatIds;
-  window.WAPI.getAllNewMessages = getAllNewMessages;
   window.WAPI.getAllUnreadMessages = getAllUnreadMessages;
   window.WAPI.getAllChatsWithMessages = getAllChatsWithMessages;
   window.WAPI.getAllGroups = getAllGroups;
@@ -322,7 +326,6 @@ if (typeof window.WAPI === 'undefined') {
   window.WAPI.getChatByName = getChatByName;
   window.WAPI.getNewId = getNewId;
   window.WAPI.getChatById = getChatById;
-  window.WAPI.getUnreadMessagesInChat = getUnreadMessagesInChat;
   window.WAPI.loadEarlierMessages = loadChatEarlierMessages;
   window.WAPI.loadAllEarlierMessages = loadAllEarlierMessages;
   window.WAPI.asyncLoadAllEarlierMessages = asyncLoadAllEarlierMessages;
@@ -589,6 +592,10 @@ if (typeof window.WAPI === 'undefined') {
 
     return await all;
   };
+
+  addonUnreadMessage();
+  addonFilePicThumb();
+  addonChatState();
 
   addOnStreamChange();
   addOnStateChange();

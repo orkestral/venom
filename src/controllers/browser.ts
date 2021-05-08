@@ -76,6 +76,7 @@ export async function initWhatsapp(
       await waPage.goto(puppeteerConfig.whatsappUrl, {
         waitUntil: 'domcontentloaded',
       });
+      //console.log(await browser.userAgent());
       // Auth with token
       await auth_InjectToken(waPage, session, options, token);
       await waPage.evaluate(() => {

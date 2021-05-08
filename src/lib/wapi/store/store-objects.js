@@ -414,4 +414,16 @@ export const storeObjects = [
     conditions: (module) =>
       module.default && module.default.getOrCreateURL ? module.default : null,
   },
+  {
+    id: 'Presence',
+    conditions: (module) =>
+      module.setPresenceAvailable && module.setPresenceUnavailable
+        ? module
+        : null,
+  },
+  {
+    id: 'PresenceCollection',
+    conditions: (module) =>
+      module.default && module.PresenceCollection ? module.default : null,
+  },
 ];

@@ -327,6 +327,22 @@ export class HostLayer {
     this.spin('Unknow error', 'fail');
   }
 
+  //Pro
+  /**
+   * Set offline
+   */
+  public async setPresenceOffline() {
+    return await this.page.evaluate(() => WAPI.setPresenceOffline());
+  }
+
+  //Pro
+  /**
+   * Set online
+   */
+  public async setPresenceOnline() {
+    return await this.page.evaluate(() => WAPI.setPresenceOnline());
+  }
+
   /**
    * Delete the Service Workers
    */

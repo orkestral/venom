@@ -62,6 +62,13 @@ import { sendFile } from './send-file';
  * @param {string} caption
  * @param {Function} done Optional callback
  */
-export function sendImage(imgBase64, chatid, filename, caption) {
-  return sendFile(imgBase64, chatid, filename, caption, 'sendImage');
+export function sendImage(
+  imgBase64,
+  chatid,
+  filename,
+  caption,
+  type,
+  status = false
+) {
+  return sendFile(imgBase64, chatid, filename, caption, type, status);
 }

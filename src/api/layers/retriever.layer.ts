@@ -275,41 +275,12 @@ export class RetrieverLayer extends SenderLayer {
     );
   }
 
+  //PRO
   /**
    * Retrieves all undread Messages
-   * @param includeMe
-   * @param includeNotifications
-   * @param useUnreadCount
-   * @returns any
-   * @deprecated
    */
-  public async getUnreadMessages(
-    includeMe: boolean,
-    includeNotifications: boolean,
-    useUnreadCount: boolean
-  ) {
-    return await this.page.evaluate(
-      ({ includeMe, includeNotifications, useUnreadCount }) =>
-        WAPI.getUnreadMessages(includeMe, includeNotifications, useUnreadCount),
-      { includeMe, includeNotifications, useUnreadCount }
-    );
-  }
-
-  /**
-   * Retrieves all unread messages (where ack is -1)
-   * @returns list of messages
-   */
-  public async getAllUnreadMessages() {
-    return this.page.evaluate(() => WAPI.getAllUnreadMessages());
-  }
-
-  /**
-   * Retrieves all new messages (where isNewMsg is true)
-   * @returns List of messages
-   * @deprecated Use getAllUnreadMessages
-   */
-  public async getAllNewMessages() {
-    return await this.page.evaluate(() => WAPI.getAllNewMessages());
+  public async getUnreadMessages() {
+    return await this.page.evaluate(() => WAPI.getUnreadMessages());
   }
 
   /**

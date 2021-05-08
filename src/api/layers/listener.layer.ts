@@ -56,7 +56,15 @@ import { EventEmitter } from 'events';
 import { Page } from 'puppeteer';
 import { CreateConfig } from '../../config/create-config';
 import { ExposedFn } from '../helpers/exposed.enum';
-import { Ack, Chat, LiveLocation, Message, ParticipantEvent } from '../model';
+import {
+  Ack,
+  Chat,
+  LiveLocation,
+  Message,
+  ParticipantEvent,
+  PicTumb,
+  ChatStatus,
+} from '../model';
 import { SocketState, SocketStream } from '../model/enum';
 import { InterfaceMode } from '../model/enum/interface-mode';
 import { InterfaceState } from '../model/enum/interface-state';
@@ -71,6 +79,9 @@ declare global {
     onIncomingCall: any;
     onAck: any;
     onStreamChange: any;
+    onFilePicThumb: any;
+    onChatState: any;
+    onUnreadMessage: any;
   }
 }
 const callonMessage = new callbackWile();
@@ -120,6 +131,19 @@ export class ListenerLayer extends ProfileLayer {
 
     await this.page
       .evaluate(() => {
+        if (!window['onUnreadMessage'].exposed) {
+          window.WAPI.onUnreadMessage(window['onUnreadMessage']);
+          window['onUnreadMessage'].exposed = true;
+        }
+        if (!window['onChatState'].exposed) {
+          window.WAPI.onChatState(window['onChatState']);
+          window['onChatState'].exposed = true;
+        }
+        if (!window['onFilePicThumb'].exposed) {
+          window.WAPI.onFilePicThumb(window['onFilePicThumb']);
+          window['onFilePicThumb'].exposed = true;
+        }
+
         if (!window['onAnyMessage'].exposed) {
           window.WAPI.allNewMessagesListener(window['onAnyMessage']);
           window['onAnyMessage'].exposed = true;
@@ -132,18 +156,6 @@ export class ListenerLayer extends ProfileLayer {
           window.WAPI.onStreamChange(window['onStreamChange']);
           window['onStreamChange'].exposed = true;
         }
-        if (!window['onAddedToGroup'].exposed) {
-          window.WAPI.onAddedToGroup(window['onAddedToGroup']);
-          window['onAddedToGroup'].exposed = true;
-        }
-        if (!window['onIncomingCall'].exposed) {
-          window.WAPI.onIncomingCall(window['onIncomingCall']);
-          window['onIncomingCall'].exposed = true;
-        }
-        if (!window['onInterfaceChange'].exposed) {
-          window.WAPI.onInterfaceChange(window['onInterfaceChange']);
-          window['onInterfaceChange'].exposed = true;
-        }
         if (!window['onMessage'].exposed) {
           window.WAPI.onMessage(window['onMessage']);
           window['onMessage'].exposed = true;
@@ -152,10 +164,61 @@ export class ListenerLayer extends ProfileLayer {
           window.WAPI.onMessage(window['onAck']);
           window['onAck'].exposed = true;
         }
+        if (!window['onIncomingCall'].exposed) {
+          window.WAPI.onIncomingCall(window['onIncomingCall']);
+          window['onIncomingCall'].exposed = true;
+        }
+        if (!window['onAddedToGroup'].exposed) {
+          window.WAPI.onAddedToGroup(window['onAddedToGroup']);
+          window['onAddedToGroup'].exposed = true;
+        }
+        if (!window['onInterfaceChange'].exposed) {
+          window.WAPI.onInterfaceChange(window['onInterfaceChange']);
+          window['onInterfaceChange'].exposed = true;
+        }
       })
       .catch(() => {});
   }
 
+  ////////////////////////////////////////PRO
+  /**
+   * @returns Returns new UnreadMessage
+   */
+  public async onUnreadMessage(fn: (unread: Message) => void) {
+    this.listenerEmitter.on(ExposedFn.onUnreadMessage, fn);
+    return {
+      dispose: () => {
+        this.listenerEmitter.off(ExposedFn.onUnreadMessage, fn);
+      },
+    };
+  }
+
+  /**
+   * @returns Returns new PicThumb
+   */
+  public async onFilePicThumb(fn: (pic: PicTumb) => void) {
+    this.listenerEmitter.on(ExposedFn.onFilePicThumb, fn);
+    return {
+      dispose: () => {
+        this.listenerEmitter.off(ExposedFn.onFilePicThumb, fn);
+      },
+    };
+  }
+
+  /**
+   * @returns Returns chat state
+   */
+  public async onChatState(fn: (state: ChatStatus) => void) {
+    this.listenerEmitter.on(ExposedFn.onChatState, (state: ChatStatus) => {
+      fn(state);
+    });
+    return {
+      dispose: () => {
+        this.listenerEmitter.off(ExposedFn.onChatState, fn);
+      },
+    };
+  }
+  ////////////////////////////////////////////////////
   /**
    * @returns Returns the current state of the connection
    */

@@ -53,9 +53,9 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
 import path = require('path');
-import { unlinkSync, existsSync } from 'fs';
+import { existsSync, unlink } from 'fs';
 import * as Spinnies from 'spinnies';
-export function deleteFiles(
+export async function deleteFiles(
   mergedOptions: any,
   Session: String,
   spinnies: Spinnies
@@ -69,16 +69,16 @@ export function deleteFiles(
     `${Session}.data.json`
   );
   if (existsSync(pathTokens)) {
-    try {
-      unlinkSync(pathTokens);
+    unlink(pathTokens, (err) => {
+      if (err) {
+        spinnies.fail(`removeFile`, {
+          text: `Not removed file: ${pathTokens}`,
+        });
+      }
       spinnies.succeed(`removeFile`, {
         text: `Removed file: ${pathTokens}`,
       });
-    } catch (err) {
-      spinnies.fail(`removeFile`, {
-        text: `Not removed file: ${pathTokens}`,
-      });
-    }
+    });
   } else {
     spinnies.fail(`removeFile`, { text: `Not Files: ${pathTokens}` });
   }

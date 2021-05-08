@@ -53,6 +53,7 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
 import { Browser, BrowserContext, LaunchOptions, Page } from 'puppeteer';
+import { puppeteerConfig } from './puppeteer.config';
 
 // Server config
 export interface CreateConfig {
@@ -91,7 +92,7 @@ export interface CreateConfig {
   /**
    * Parameters to be added into the chrome browser instance
    */
-  browserArgs?: string[];
+  browserArgs?: any;
   /**
    * Will be passed to puppeteer.launch
    */
@@ -149,7 +150,7 @@ export const defaultOptions: CreateConfig = {
   debug: false,
   logQR: true,
   browserWS: '',
-  browserArgs: [''],
+  browserArgs: puppeteerConfig.chromiumArgs,
   puppeteerOptions: {},
   disableSpins: false,
   disableWelcome: false,

@@ -65,4 +65,6 @@ export { LiveLocation } from './live-location';
 export { ContactStatus } from './contact-status';
 export { GroupCreation } from './group-creation';
 export { WhatsappProfile } from './whatsapp-profile';
+export { PicTumb } from './pic-thumb';
+export { ChatStatus } from './chat-status';
 export * from './result';

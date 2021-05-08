@@ -52,16 +52,23 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
-export enum ExposedFn {
-  OnMessage = 'onMessage',
-  OnAnyMessage = 'onAnyMessage',
-  onAck = 'onAck',
-  onParticipantsChanged = 'onParticipantsChanged',
-  onStateChange = 'onStateChange',
-  onIncomingCall = 'onIncomingCall',
-  onInterfaceChange = 'onInterfaceChange',
-  onStreamChange = 'onStreamChange',
-  onFilePicThumb = 'onFilePicThumb',
-  onChatState = 'onChatState',
-  onUnreadMessage = 'onUnreadMessage',
+export function addonUnreadMessage() {
+  window.WAPI.onUnreadMessage = function (callback) {
+    window.WAPI.waitForStore(['Chat'], () => {
+      Store.Chat.on('change:unreadCount', (e) => {
+        if (e.unreadCount > 0) {
+          let arr = [];
+          let t = e.msgs._models.slice(-e.unreadCount);
+          for (let r in t) {
+            let message = WAPI.processMessageObj(t[r], true, true);
+            if (message) {
+              arr.push(message);
+            }
+          }
+          callback(arr);
+        }
+      });
+    });
+    return true;
+  };
 }

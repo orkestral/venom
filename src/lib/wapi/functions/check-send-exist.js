@@ -113,9 +113,9 @@ export async function sendExist(chatId, returnChat = true, Send = true) {
 
     if (
       broadcast === chatId.substr(-broadcast.length, broadcast.length) &&
-      ((chatId.match(/(@broadcast)/g) &&
-        chatId.match(/(@broadcast)/g).length > 1) ||
-        !chatId.match(/^(\d+(\d)*@broadcast)$/g))
+      (chatId.match(/(@broadcast)/g).length > 1 ||
+        (!chatId.match(/^(\d+(\d)*@broadcast)$/g) &&
+          !chatId.match(/^(status@broadcast)$/g)))
     ) {
       return WAPI.scope(
         chatId,
@@ -162,7 +162,12 @@ export async function sendExist(chatId, returnChat = true, Send = true) {
     );
   }
 
-  if (!ck.numberExists && !chat.t && chat.isBroadcast) {
+  if (
+    !ck.numberExists &&
+    !chat.t &&
+    chat.id.user != 'status' &&
+    chat.isBroadcast
+  ) {
     return WAPI.scope(
       chatId,
       true,

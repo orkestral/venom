@@ -59,7 +59,6 @@ import {
   base64MimeType,
   downloadFileToBase64,
   fileToBase64,
-  MINES,
   stickerSelect,
 } from '../helpers';
 import { filenameFromMimeType } from '../helpers/filename-from-mimetype';
@@ -73,6 +72,187 @@ let obj: Scope;
 export class SenderLayer extends ListenerLayer {
   constructor(public page: Page, session?: string, options?: CreateConfig) {
     super(page, session, options);
+  }
+
+  //*PRO_
+  /**
+   * Send status text
+   * @param text The text for the status
+   */
+  public async sendStatusText(text: string) {
+    return new Promise(async (resolve, reject) => {
+      const typeFunction = 'sendText';
+      const type = 'string';
+      const check = [
+        {
+          param: 'text',
+          type: type,
+          value: text,
+          function: typeFunction,
+          isUser: true,
+        },
+      ];
+      const validating = checkValuesSender(check);
+      if (typeof validating === 'object') {
+        return reject(validating);
+      }
+      const to = 'status@broadcast';
+      const result = await this.page.evaluate(
+        ({ to, text }) => {
+          return WAPI.sendMessage(to, text, true);
+        },
+        { to, text }
+      );
+
+      if (result['erro'] == true) {
+        return reject(result);
+      } else {
+        return resolve(result);
+      }
+    });
+  }
+
+  //*PRO_
+  /**
+   * @param filePath path, http link or base64Encoded
+   * @param filename
+   */
+  public async sendImageStatus(
+    filePath: string,
+    description?: string
+  ): Promise<SendFileResult> {
+    return new Promise(async (resolve, reject) => {
+      let base64 = await downloadFileToBase64(filePath, [
+        'image/gif',
+        'image/png',
+        'image/jpg',
+        'image/jpeg',
+        'image/webp',
+      ]);
+
+      if (!base64) {
+        base64 = await fileToBase64(filePath);
+      }
+
+      if (!base64) {
+        const obj = {
+          erro: true,
+          to: 'status',
+          text: 'No such file or directory, open "' + filePath + '"',
+        };
+        return reject(obj);
+      }
+
+      let filename = path.basename(filePath);
+      let mimeType = base64MimeType(base64);
+
+      if (!mimeType) {
+        obj = {
+          erro: true,
+          to: 'status',
+          text: 'Invalid base64!',
+        };
+        return reject(obj);
+      }
+
+      if (!mimeType.includes('image')) {
+        const obj = {
+          erro: true,
+          to: 'status',
+          text: 'Not an image, allowed formats gif, png, jpg, jpeg and webp',
+        };
+        return reject(obj);
+      }
+      const to = 'status@broadcast';
+      filename = filenameFromMimeType(filename, mimeType);
+
+      const result = await this.page.evaluate(
+        ({ to, base64, filename, description }) => {
+          return WAPI.sendImage(
+            base64,
+            to,
+            filename,
+            description,
+            'sendImageStatus'
+          );
+        },
+        { to, base64, filename, description }
+      );
+
+      if (result['erro'] == true) {
+        return reject(result);
+      } else {
+        return resolve(result);
+      }
+    });
+  }
+
+  /**
+   * Sends file from path
+   * @param filePath File path
+   * @param caption
+   */
+  public async sendVideoStatus(filePath: string, description?: string) {
+    return new Promise(async (resolve, reject) => {
+      let base64 = await downloadFileToBase64(filePath, ['video/mp4']),
+        obj: { erro: boolean; to: string; text: string };
+
+      if (!base64) {
+        base64 = await fileToBase64(filePath);
+      }
+
+      if (!base64) {
+        obj = {
+          erro: true,
+          to: 'status',
+          text: 'No such file or directory, open "' + filePath + '"',
+        };
+        return reject(obj);
+      }
+
+      let filename = path.basename(filePath);
+
+      let mimeType = base64MimeType(base64);
+
+      if (!mimeType) {
+        obj = {
+          erro: true,
+          to: 'status',
+          text: 'Invalid base64!',
+        };
+        return reject(obj);
+      }
+
+      if (!mimeType.includes('video')) {
+        const obj = {
+          erro: true,
+          to: 'status',
+          text: 'Not an video, allowed format mp4',
+        };
+        return reject(obj);
+      }
+
+      filename = filenameFromMimeType(filename, mimeType);
+      const to = 'status@broadcast';
+      const result = await this.page.evaluate(
+        ({ to, base64, filename, description }) => {
+          return WAPI.sendFile(
+            base64,
+            to,
+            filename,
+            description,
+            'sendVideoStatus',
+            true
+          );
+        },
+        { to, base64, filename, description }
+      );
+      if (result['erro'] == true) {
+        reject(result);
+      } else {
+        resolve(result);
+      }
+    });
   }
 
   /**
@@ -184,7 +364,8 @@ export class SenderLayer extends ListenerLayer {
     to: string,
     base64: string,
     filename?: string,
-    caption?: string
+    caption?: string,
+    status?: boolean
   ): Promise<SendFileResult> {
     return new Promise(async (resolve, reject) => {
       const typeFunction = 'sendImageFromBase64';
@@ -212,6 +393,7 @@ export class SenderLayer extends ListenerLayer {
           isUser: false,
         },
       ];
+
       const validating = checkValuesSender(check);
       if (typeof validating === 'object') {
         return reject(validating);
@@ -232,7 +414,7 @@ export class SenderLayer extends ListenerLayer {
         const obj = {
           erro: true,
           to: to,
-          text: 'Not an image, allowed formats png, jpeg and webp',
+          text: 'Not an image, allowed formats gif, png, jpg, jpeg and webp',
         };
         return reject(obj);
       }
@@ -240,11 +422,12 @@ export class SenderLayer extends ListenerLayer {
       filename = filenameFromMimeType(filename, mimeType);
 
       const result = await this.page.evaluate(
-        ({ to, base64, filename, caption }) => {
-          return WAPI.sendImage(base64, to, filename, caption);
+        ({ to, base64, filename, caption, status }) => {
+          return WAPI.sendImage(base64, to, filename, caption, status);
         },
-        { to, base64, filename, caption }
+        { to, base64, filename, caption, status }
       );
+
       if (result['erro'] == true) {
         return reject(result);
       } else {
@@ -316,9 +499,40 @@ export class SenderLayer extends ListenerLayer {
         filename = path.basename(filePath);
       }
 
-      this.sendImageFromBase64(to, base64, filename, caption)
-        .then(resolve)
-        .catch(reject);
+      let mimeType = base64MimeType(base64);
+
+      if (!mimeType) {
+        obj = {
+          erro: true,
+          to: to,
+          text: 'Invalid base64!',
+        };
+        return reject(obj);
+      }
+
+      if (!mimeType.includes('image')) {
+        const obj = {
+          erro: true,
+          to: to,
+          text: 'Not an image, allowed formats gif, png, jpg, jpeg and webp',
+        };
+        return reject(obj);
+      }
+
+      filename = filenameFromMimeType(filename, mimeType);
+
+      const result = await this.page.evaluate(
+        ({ to, base64, filename, caption }) => {
+          return WAPI.sendImage(base64, to, filename, caption, 'sendImage');
+        },
+        { to, base64, filename, caption }
+      );
+
+      if (result['erro'] == true) {
+        return reject(result);
+      } else {
+        return resolve(result);
+      }
     });
   }
 
@@ -553,7 +767,7 @@ export class SenderLayer extends ListenerLayer {
     caption?: string
   ) {
     return new Promise(async (resolve, reject) => {
-      let base64 = await downloadFileToBase64(filePath, MINES()),
+      let base64 = await downloadFileToBase64(filePath),
         obj: { erro: boolean; to: string; text: string };
 
       if (!base64) {
@@ -573,9 +787,30 @@ export class SenderLayer extends ListenerLayer {
         filename = path.basename(filePath);
       }
 
-      this.sendFileFromBase64(to, base64, filename, caption)
-        .then(resolve)
-        .catch(reject);
+      let mimeType = base64MimeType(base64);
+
+      if (!mimeType) {
+        obj = {
+          erro: true,
+          to: to,
+          text: 'Invalid base64!',
+        };
+        return reject(obj);
+      }
+
+      filename = filenameFromMimeType(filename, mimeType);
+
+      const result = await this.page.evaluate(
+        ({ to, base64, filename, caption }) => {
+          return WAPI.sendFile(base64, to, filename, caption, 'sendFile');
+        },
+        { to, base64, filename, caption }
+      );
+      if (result['erro'] == true) {
+        reject(result);
+      } else {
+        resolve(result);
+      }
     });
   }
 

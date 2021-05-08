@@ -52,16 +52,7 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
-export enum ExposedFn {
-  OnMessage = 'onMessage',
-  OnAnyMessage = 'onAnyMessage',
-  onAck = 'onAck',
-  onParticipantsChanged = 'onParticipantsChanged',
-  onStateChange = 'onStateChange',
-  onIncomingCall = 'onIncomingCall',
-  onInterfaceChange = 'onInterfaceChange',
-  onStreamChange = 'onStreamChange',
-  onFilePicThumb = 'onFilePicThumb',
-  onChatState = 'onChatState',
-  onUnreadMessage = 'onUnreadMessage',
+export async function setPresenceOnline() {
+  await Store.Presence.setPresenceAvailable();
+  return true;
 }

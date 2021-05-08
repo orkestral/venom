@@ -99,7 +99,6 @@ interface WAPI {
     includeMe: boolean,
     includeNotifications: boolean
   ) => Message[];
-  getAllNewMessages: () => Message[];
   getAllUnreadMessages: () => PartialMessage[];
   getBatteryLevel: () => number;
   getBlockList: () => Contact[];
@@ -121,16 +120,14 @@ interface WAPI {
   getSessionTokenBrowser: (removePath?: boolean) => tokenSession;
   getStatus: (contactId: string) => ContactStatus;
   getTheme: () => string;
-  getUnreadMessages: (
-    includeMe: boolean,
-    includeNotifications: boolean,
-    useUnreadCount: boolean
-  ) => any;
+  getUnreadMessages: () => any;
   getWAVersion: () => string;
   isConnected: () => boolean;
   isLoggedIn: () => boolean;
   joinGroup: (groupId: string) => Promise<string | boolean>;
   killServiceWorker: () => boolean;
+  setPresenceOffline: () => boolean;
+  setPresenceOnline: () => boolean;
   leaveGroup: (groupId: string) => any;
   loadAndGetAllMessagesInChat: (
     chatId: string,
@@ -173,13 +170,15 @@ interface WAPI {
     to: string,
     filename: string,
     caption: string,
-    type?: string
+    type?: string,
+    status?: boolean
   ) => Promise<SendFileResult>;
   sendImage: (
     imgBase64: string,
     to: string,
     filename: string,
-    caption?: string
+    caption?: string,
+    status?: string
   ) => Promise<SendFileResult>;
   sendImageAsSticker: (
     webpBase64: string,
@@ -210,7 +209,11 @@ interface WAPI {
     longitude: string,
     title: string
   ) => Promise<object>;
-  sendMessage: (to: string, content: string) => Promise<Object>;
+  sendMessage: (
+    to: string,
+    content: string,
+    status?: boolean
+  ) => Promise<Object>;
   sendMessageMentioned: (...args: any) => any;
   sendMessageOptions: (
     chat: any,
@@ -247,6 +250,9 @@ interface WAPI {
   sendSeen: (to: string) => void;
   returnReply: (message: object) => object;
   onStreamChange: (callback: Function) => void;
+  onFilePicThumb: (callback: Function) => void;
+  onChatState: (callback: Function) => void;
+  onUnreadMessage: (callback: Function) => void;
 }
 
 declare global {
