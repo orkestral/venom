@@ -74,7 +74,7 @@
     "@typescript-eslint/eslint-plugin": "^4.22.1",
     "@typescript-eslint/parser": "^4.22.0",
     "commitizen": "^4.2.4",
-    "concurrently": "^6.0.2",
+    "concurrently": "^6.1.0",
     "conventional-changelog-cli": "^2.1.1",
     "copy-webpack-plugin": "^8.1.1",
     "cz-conventional-changelog": "^3.3.0",
