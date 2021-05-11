@@ -70,7 +70,7 @@
     "@types/node": "^15.0.2",
     "@types/puppeteer": "^5.4.1",
     "@types/sharp": "^0.28.0",
-    "@types/ws": "^7.4.2",
+    "@types/ws": "^7.4.4",
     "@typescript-eslint/eslint-plugin": "^4.22.1",
     "@typescript-eslint/parser": "^4.22.0",
     "commitizen": "^4.2.4",
