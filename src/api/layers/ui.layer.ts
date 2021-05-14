@@ -52,13 +52,18 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
-import { Page } from 'puppeteer';
+import { Page, Browser } from 'puppeteer';
 import { CreateConfig } from '../../config/create-config';
 import { GroupLayer } from './group.layer';
 
 export class UILayer extends GroupLayer {
-  constructor(public page: Page, session?: string, options?: CreateConfig) {
-    super(page, session, options);
+  constructor(
+    public browser: Browser,
+    public page: Page,
+    session?: string,
+    options?: CreateConfig
+  ) {
+    super(browser, page, session, options);
   }
 
   /**

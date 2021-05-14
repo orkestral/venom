@@ -85,6 +85,7 @@ export async function initWhatsapp(
       return waPage;
     } catch {
       waPage.close().catch(() => {});
+      browser.close().catch(() => {});
       return false;
     }
   }

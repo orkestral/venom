@@ -52,12 +52,12 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
-import { Page } from 'puppeteer';
+import { Browser, Page } from 'puppeteer';
 import { ControlsLayer } from './controls.layer';
 
 export class BusinessLayer extends ControlsLayer {
-  constructor(page: Page) {
-    super(page);
+  constructor(public page: Page, public browser: Browser) {
+    super(browser, page);
   }
 
   /**

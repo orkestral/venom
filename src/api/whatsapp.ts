@@ -52,7 +52,7 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
-import { Page } from 'puppeteer';
+import { Page, Browser } from 'puppeteer';
 import { ControlsLayer } from './layers/controls.layer';
 import { Message } from './model';
 import { magix, timeout, makeOptions } from './helpers/decrypt';
@@ -62,8 +62,13 @@ import axios from 'axios';
 import treekill = require('tree-kill');
 
 export class Whatsapp extends ControlsLayer {
-  constructor(public page: Page, session?: string, options?: CreateConfig) {
-    super(page, session, options);
+  constructor(
+    public browser: Browser,
+    public page: Page,
+    session?: string,
+    options?: CreateConfig
+  ) {
+    super(browser, page, session, options);
   }
 
   /**
@@ -130,23 +135,15 @@ export class Whatsapp extends ControlsLayer {
    * @internal
    */
   public async close() {
-    const closing = async (waPage: {
-      browser: () => any;
-      isClosed: () => any;
-      close: () => any;
-    }) => {
-      if (waPage) {
-        const browser = await waPage.browser();
-        const pid = browser.process() ? browser?.process().pid : null;
-        if (!waPage.isClosed()) await waPage.close();
-        if (browser) await browser.close();
-        if (pid) treekill(pid, 'SIGKILL');
-      }
-    };
     try {
-      await closing(this.page);
-    } catch (error) {}
-    return true;
+      if (!this.page.isClosed()) {
+        await this.page.close();
+        await this.browser.close();
+        return true;
+      }
+    } catch (e) {
+      return false;
+    }
   }
 
   /**

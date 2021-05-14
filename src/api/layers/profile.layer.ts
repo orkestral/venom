@@ -52,7 +52,7 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
-import { Page } from 'puppeteer';
+import { Page, Browser } from 'puppeteer';
 import { HostLayer } from './host.layer';
 import {
   base64MimeType,
@@ -63,8 +63,13 @@ import {
 import { CreateConfig } from '../../config/create-config';
 
 export class ProfileLayer extends HostLayer {
-  constructor(public page: Page, session?: string, options?: CreateConfig) {
-    super(page, session, options);
+  constructor(
+    public browser: Browser,
+    public page: Page,
+    session?: string,
+    options?: CreateConfig
+  ) {
+    super(browser, page, session, options);
   }
 
   /**

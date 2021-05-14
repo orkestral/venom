@@ -14,8 +14,9 @@ export function welcomeScreen() {
   if (welcomeShown) {
     return;
   }
+
   welcomeShown = true;
-  yo('VENOM', { color: 'cyan' });
+  yo('SNAKE-PRO', { color: 'cyan' });
   console.log('\n\n');
 }
 

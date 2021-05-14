@@ -52,15 +52,20 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
-import { Page } from 'puppeteer';
+import { Page, Browser } from 'puppeteer';
 import { CreateConfig } from '../../config/create-config';
 import { tokenSession } from '../../config/tokenSession.config';
 import { WhatsappProfile } from '../model';
 import { SenderLayer } from './sender.layer';
 
 export class RetrieverLayer extends SenderLayer {
-  constructor(public page: Page, session?: string, options?: CreateConfig) {
-    super(page, session, options);
+  constructor(
+    public browser: Browser,
+    public page: Page,
+    session?: string,
+    options?: CreateConfig
+  ) {
+    super(browser, page, session, options);
   }
 
   /**

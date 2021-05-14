@@ -273,7 +273,7 @@ export async function create(
       text: 'Page successfully accessed',
     });
 
-    const client = new Whatsapp(page, session, mergedOptions);
+    const client = new Whatsapp(browser, page, session, mergedOptions);
 
     client.onStreamChange(async (stateStream) => {
       if (stateStream === SocketStream.CONNECTED) {

@@ -53,7 +53,7 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
 import * as path from 'path';
-import { Page } from 'puppeteer';
+import { Page, Browser } from 'puppeteer';
 import { CreateConfig } from '../../config/create-config';
 import {
   base64MimeType,
@@ -70,8 +70,13 @@ import { Scope, checkValuesSender } from '../helpers/layers-interface';
 let obj: Scope;
 
 export class SenderLayer extends ListenerLayer {
-  constructor(public page: Page, session?: string, options?: CreateConfig) {
-    super(page, session, options);
+  constructor(
+    public browser: Browser,
+    public page: Page,
+    session?: string,
+    options?: CreateConfig
+  ) {
+    super(browser, page, session, options);
   }
 
   //*PRO_

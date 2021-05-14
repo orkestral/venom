@@ -52,7 +52,7 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
-import { Page } from 'puppeteer';
+import { Page, Browser } from 'puppeteer';
 import { CreateConfig, defaultOptions } from '../../config/create-config';
 import { SocketState } from '../model/enum';
 import { injectApi } from '../../controllers/browser';
@@ -85,7 +85,12 @@ export class HostLayer {
   protected autoCloseInterval = null;
   protected statusFind?: (statusGet: string, session: string) => void = null;
 
-  constructor(public page: Page, session?: string, options?: CreateConfig) {
+  constructor(
+    public browser: Browser,
+    public page: Page,
+    session?: string,
+    options?: CreateConfig
+  ) {
     this.session = session;
     this.options = { ...defaultOptions, ...options };
 
@@ -142,9 +147,8 @@ export class HostLayer {
       !this.page.isClosed()
     ) {
       this.statusFind && this.statusFind('autocloseCalled', this.session);
-      try {
-        this.page.close().catch(() => {});
-      } catch (error) {}
+      this.page.close().catch(() => {});
+      this.browser.close().catch(() => {});
     }
   }
 
@@ -260,6 +264,7 @@ export class HostLayer {
     if (typeof authenticated === 'object' && authenticated.type) {
       this.spin(`Error http: ${authenticated.type}`, 'fail');
       this.page.close();
+      this.browser.close();
       throw `Error http: ${authenticated.type}`;
     }
 

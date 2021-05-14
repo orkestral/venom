@@ -53,7 +53,7 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
 import { EventEmitter } from 'events';
-import { Page } from 'puppeteer';
+import { Page, Browser } from 'puppeteer';
 import { CreateConfig } from '../../config/create-config';
 import { ExposedFn } from '../helpers/exposed.enum';
 import {
@@ -89,8 +89,13 @@ const callOnack = new callbackWile();
 export class ListenerLayer extends ProfileLayer {
   private listenerEmitter = new EventEmitter();
 
-  constructor(public page: Page, session?: string, options?: CreateConfig) {
-    super(page, session, options);
+  constructor(
+    public browser: Browser,
+    public page: Page,
+    session?: string,
+    options?: CreateConfig
+  ) {
+    super(browser, page, session, options);
 
     this.page.on('load', async () => {
       try {
