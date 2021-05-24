@@ -187,7 +187,7 @@ import { getStore } from './store/get-store';
 
 window['webpackChunkbuild'] = window['webpackChunkbuild'] || [];
 window.Store = {};
-var loadParasite = function () {
+(function () {
   function injectParasite() {
     const parasite = `parasite`;
     window['webpackChunkbuild'].push([
@@ -202,7 +202,7 @@ var loadParasite = function () {
       },
     ]);
   }
-  setInterval(() => {
+ 
     try {
       const last = window['webpackChunkbuild'].length - 1;
       if (
@@ -214,9 +214,9 @@ var loadParasite = function () {
         injectParasite();
       }
     } catch (e) {}
-  }, 100);
-};
-loadParasite();
+  
+})()
+
 
 if (typeof window.WAPI === 'undefined') {
   window.WAPI = {
