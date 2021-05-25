@@ -61,7 +61,7 @@ export async function scrapeImg(page: Page): Promise<ScrapQrcode | undefined> {
       const selectorImg = document.querySelector('canvas');
       const selectorUrl = selectorImg.closest('[data-ref]');
       //const buttonReload = selectorUrl.querySelector('[role="button"]') as HTMLButtonElement;
-      const buttonReload = selectorUrl.querySelector('[data-testid="refresh-large"]') as HTMLButtonElement;
+      const buttonReload = selectorUrl.querySelector('button');
       if (buttonReload != null) {
         buttonReload.click();
         return true;
