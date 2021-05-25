@@ -15,7 +15,7 @@ export function welcomeScreen() {
     return;
   }
   welcomeShown = true;
-  yo('VENOM', { color: 'cyan' });
+  yo('VENOM', { color: 'rainbow' });
   console.log('\n\n');
 }
 
