@@ -202,21 +202,19 @@ window.Store = {};
       },
     ]);
   }
- 
-    try {
-      const last = window['webpackChunkbuild'].length - 1;
-      if (
-        !/^parasite/.test(window['webpackChunkbuild'][last][0][0]) &&
-        (document.querySelectorAll('#app .two').length ||
-          document.querySelector('canvas') ||
-          document.querySelectorAll('#startup').length == 0)
-      ) {
-        injectParasite();
-      }
-    } catch (e) {}
-  
-})()
 
+  try {
+    const last = window['webpackChunkbuild'].length - 1;
+    if (
+      !/^parasite/.test(window['webpackChunkbuild'][last][0][0]) &&
+      (document.querySelectorAll('#app .two').length ||
+        document.querySelector('canvas') ||
+        document.querySelectorAll('#startup').length == 0)
+    ) {
+      injectParasite();
+    }
+  } catch (e) {}
+})();
 
 if (typeof window.WAPI === 'undefined') {
   window.WAPI = {
