@@ -57,14 +57,10 @@ export async function getGroupInviteLink(chatId) {
   if (!chat.isGroup) return '';
   let code = '';
 
-  if(chat.groupMetadata && chat.groupMetadata.inviteCode){
-
+  if (chat.groupMetadata && chat.groupMetadata.inviteCode) {
     code = chat.groupMetadata.inviteCode;
-
-  }else{
-
+  } else {
     code = await Store.GroupInvite.sendQueryGroupInviteCode(chat.id);
-
   }
 
   return `https://chat.whatsapp.com/${code}`;
