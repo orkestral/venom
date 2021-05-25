@@ -53,67 +53,51 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
 
-export async function deleteMessages(chatId, messageArray) {
-  if (typeof chatId != 'string') {
-    return WAPI.scope(
-      null,
-      true,
-      404,
-      'enter the chatid variable as an string'
-    );
+export async function deleteMessages(chatId, array, only, done) {
+  const userId = new Store.WidFactory.createWid(chatId);
+
+  if (!WAPI.getChat(userId)) {
+    if (done !== undefined) {
+      done(false);
+    }
+    return false;
   }
-  const chat = await WAPI.sendExist(chatId);
-  if (chat && chat.status != 404) {
-    if (!Array.isArray(messageArray)) {
-      return WAPI.scope(
-        chat,
-        true,
-        404,
-        'enter the message identification variable as an array'
-      );
-    }
 
-    for (let i in messageArray) {
-      let checkID = await WAPI.checkIdMessage(chatId, messageArray[i]);
-      if (checkID.erro == true) {
-        return checkID;
-      }
-    }
+  if (!Array.isArray(array)) {
+    array = [array];
+  }
 
-    let messagesToDelete = (
-      await Promise.all(
-        messageArray.map(
-          async (msgId) => await WAPI.getMessageById(msgId, null, false)
-        )
+  let deleteAsMessages = (
+    await Promise.all(
+      array.map(async (msgId) =>
+        typeof msgId == 'string'
+          ? await WAPI.getMessageById(msgId, null, false)
+          : msgId
       )
-    ).filter((x) => x);
-
-    const To = chat.id;
-    const m = { type: 'deleteMessages' };
-
-    let jobs = [
-      chat.sendRevokeMsgs(
-        messagesToDelete.filter((msg) => msg.isSentByMe),
-        chat
-      ),
-      chat.sendDeleteMsgs(
-        messagesToDelete.filter((msg) => !msg.isSentByMe),
-        chat
-      ),
-    ];
-
-    const result = (await Promise.all(jobs))[1];
-
-    if (result >= 0) {
-      let obj = WAPI.scope(To, false, result, '');
-      Object.assign(obj, m);
-      return obj;
-    } else {
-      let obj = WAPI.scope(To, true, result, '');
-      Object.assign(obj, m);
-      return obj;
+    )
+  ).filter((x) => x);
+  if (deleteAsMessages.length == 0) return true;
+  let jobs = only
+    ? [
+        WAPI.getChat(userId).sendDeleteMsgs(
+          deleteAsMessages,
+          WAPI.getChat(userId)
+        ),
+      ]
+    : [
+        WAPI.getChat(userId).sendRevokeMsgs(
+          deleteAsMessages.filter((msg) => msg.isSentByMe),
+          WAPI.getChat(userId)
+        ),
+        WAPI.getChat(userId).sendDeleteMsgs(
+          deleteAsMessages.filter((msg) => !msg.isSentByMe),
+          WAPI.getChat(userId)
+        ),
+      ];
+  return Promise.all(jobs).then((_) => {
+    if (done !== undefined) {
+      done(true);
     }
-  } else {
-    return chat;
-  }
+    return true;
+  });
 }

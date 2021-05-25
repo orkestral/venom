@@ -164,47 +164,18 @@ export class ControlsLayer extends UILayer {
    * Deletes message of given message id
    * @param chatId The chat id from which to delete the message.
    * @param messageId The specific message id of the message to be deleted
-   * @param onlyLocal If it should only delete locally (message remains on the other recipienct's phone). Defaults to false.
+   * @param only If it should only delete locally (message remains on the other recipienct's phone). Defaults to false.
    */
   public async deleteMessage(
     chatId: string,
-    messageId: string[]
-  ): Promise<Object> {
-    return new Promise(async (resolve, reject) => {
-      const typeFunction = 'deleteMessage';
-      const type = 'string';
-      const check = [
-        {
-          param: 'chatId',
-          type: type,
-          value: chatId,
-          function: typeFunction,
-          isUser: true,
-        },
-        {
-          param: 'messageId',
-          type: 'object',
-          value: messageId,
-          function: typeFunction,
-          isUser: true,
-        },
-      ];
-
-      const validating = checkValuesSender(check);
-      if (typeof validating === 'object') {
-        return reject(validating);
-      }
-      const result = await this.page.evaluate(
-        ({ chatId, messageId }) => WAPI.deleteMessages(chatId, messageId),
-        { chatId, messageId }
-      );
-
-      if (result['erro'] == true) {
-        return reject(result);
-      } else {
-        return resolve(result);
-      }
-    });
+    messageId: string[] | string,
+    only = false
+  ) {
+    return await this.page.evaluate(
+      ({ contactId, messageId, only }) =>
+        WAPI.deleteMessages(contactId, messageId, only),
+      { contactId: chatId, messageId, only }
+    );
   }
 
   /**
