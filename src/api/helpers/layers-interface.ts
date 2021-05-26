@@ -1,7 +1,11 @@
 export interface Scope {
+  // #region Properties (3)
+
   erro: boolean;
-  to: string;
   text: string;
+  to: string;
+
+  // #endregion Properties (3)
 }
 
 function infoType(data: string, type: string) {

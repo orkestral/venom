@@ -54,11 +54,31 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
 import { AckType } from '../../api/model/enum/ack-type';
 export class callbackWile {
-  obj: Object;
+  // #region Properties (1)
+
+  public obj: Object;
+
+  // #endregion Properties (1)
+
+  // #region Constructors (1)
+
   constructor() {
     this.obj = [];
   }
-  addObjects(ids: AckType | String, serializeds: string) {
+
+  // #endregion Constructors (1)
+
+  // #region Public Accessors (1)
+
+  public get module() {
+    return this.obj;
+  }
+
+  // #endregion Public Accessors (1)
+
+  // #region Public Methods (3)
+
+  public addObjects(ids: AckType | String, serializeds: string) {
     let checkFilter = this.obj['filter'](
       (order: any) => order.serialized === serializeds
     );
@@ -74,16 +94,7 @@ export class callbackWile {
     return false;
   }
 
-  getObjKey(serialized: string) {
-    for (let i in this.obj) {
-      if (this.obj[i].serialized === serialized) {
-        return i;
-      }
-    }
-    return false;
-  }
-
-  checkObj(id: AckType | String, serialized: string) {
+  public checkObj(id: AckType | String, serialized: string) {
     let checkFilter = this.obj['filter'](
       (order: any) => order.id === id && order.serialized === serialized
     );
@@ -93,7 +104,14 @@ export class callbackWile {
     return false;
   }
 
-  get module() {
-    return this.obj;
+  public getObjKey(serialized: string) {
+    for (let i in this.obj) {
+      if (this.obj[i].serialized === serialized) {
+        return i;
+      }
+    }
+    return false;
   }
+
+  // #endregion Public Methods (3)
 }

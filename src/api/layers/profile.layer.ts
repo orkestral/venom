@@ -63,9 +63,15 @@ import {
 import { CreateConfig } from '../../config/create-config';
 
 export class ProfileLayer extends HostLayer {
+  // #region Constructors (1)
+
   constructor(public page: Page, session?: string, options?: CreateConfig) {
     super(page, session, options);
   }
+
+  // #endregion Constructors (1)
+
+  // #region Public Methods (5)
 
   /**
    * @param contactsId Example: 0000@c.us | [000@c.us, 1111@c.us]
@@ -90,23 +96,15 @@ export class ProfileLayer extends HostLayer {
   }
 
   /**
-   * Change the theme
-   * @param string types "dark" or "light"
+   * Sets current user profile name
+   * @param name
    */
-  public setTheme(type: string) {
-    return this.page.evaluate((type) => WAPI.setTheme(type), type);
-  }
-
-  /**
-   * Sets current user profile status
-   * @param status
-   */
-  public async setProfileStatus(status: string) {
-    return await this.page.evaluate(
-      ({ status }) => {
-        WAPI.setMyStatus(status);
+  public async setProfileName(name: string) {
+    return this.page.evaluate(
+      ({ name }) => {
+        WAPI.setMyName(name);
       },
-      { status }
+      { name }
     );
   }
 
@@ -152,15 +150,25 @@ export class ProfileLayer extends HostLayer {
   }
 
   /**
-   * Sets current user profile name
-   * @param name
+   * Sets current user profile status
+   * @param status
    */
-  public async setProfileName(name: string) {
-    return this.page.evaluate(
-      ({ name }) => {
-        WAPI.setMyName(name);
+  public async setProfileStatus(status: string) {
+    return await this.page.evaluate(
+      ({ status }) => {
+        WAPI.setMyStatus(status);
       },
-      { name }
+      { status }
     );
   }
+
+  /**
+   * Change the theme
+   * @param string types "dark" or "light"
+   */
+  public setTheme(type: string) {
+    return this.page.evaluate((type) => WAPI.setTheme(type), type);
+  }
+
+  // #endregion Public Methods (5)
 }

@@ -67,7 +67,9 @@ export async function deleteMessages(chatId, array, only, done) {
     array = [array];
   }
 
-  let deleteAsMessages = (
+  let deleteAsMessages;
+
+  deleteAsMessages = (
     await Promise.all(
       array.map(async (msgId) =>
         typeof msgId == 'string'
@@ -76,6 +78,7 @@ export async function deleteMessages(chatId, array, only, done) {
       )
     )
   ).filter((x) => x);
+
   if (deleteAsMessages.length == 0) return true;
   let jobs = only
     ? [

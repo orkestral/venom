@@ -56,7 +56,11 @@ import { Id } from './id';
 import { GroupChangeEvent } from './enum';
 
 export interface ParticipantEvent {
-  by: Id;
+  // #region Properties (3)
+
   action: GroupChangeEvent;
+  by: Id;
   who: [Id];
+
+  // #endregion Properties (3)
 }

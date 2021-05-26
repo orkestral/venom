@@ -55,7 +55,11 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 import { Page } from 'puppeteer';
 declare global {
   interface Window {
+    // #region Properties (1)
+
     Store: any;
+
+    // #endregion Properties (1)
   }
 }
 export async function scrapeDesconnected(page: Page): Promise<boolean> {

@@ -62,68 +62,27 @@ import axios from 'axios';
 import treekill = require('tree-kill');
 
 export class Whatsapp extends ControlsLayer {
+  // #region Constructors (1)
+
   constructor(public page: Page, session?: string, options?: CreateConfig) {
     super(page, session, options);
   }
 
-  /**
-   * Decrypts message file
-   * @param data Message object
-   * @returns Decrypted file buffer (null otherwise)
-   */
-  public async downloadFile(data: string) {
-    return await this.page.evaluate((data) => WAPI.downloadFile(data), data);
-  }
+  // #endregion Constructors (1)
 
-  /**
-   * Download and returns the media content in base64 format
-   * @param messageId Message ou id
-   * @returns Base64 of media
-   */
-  public async downloadMedia(messageId: string | Message): Promise<string> {
-    if (typeof messageId !== 'string') {
-      messageId = messageId.id;
-    }
-
-    const result = await this.page.evaluate(
-      (messageId) =>
-        WAPI.downloadMedia(messageId).catch((e) => ({
-          __error: e,
-        })),
-      messageId
-    );
-
-    if (typeof result === 'object' && result.__error) {
-      throw result.__error;
-    }
-    return result as string;
-  }
+  // #region Public Accessors (1)
 
   /**
    * Get the puppeteer page instance
    * @returns The Whatsapp page
    */
-  get waPage(): Page {
+  public get waPage(): Page {
     return this.page;
   }
 
-  /**
-   * Clicks on 'use here' button (When it get unlaunched)
-   * This method tracks the class of the button
-   * Whatsapp web might change this class name over the time
-   * Dont rely on this method
-   */
-  public async useHere() {
-    return await this.page.evaluate(() => WAPI.takeOver());
-  }
+  // #endregion Public Accessors (1)
 
-  /**
-   * Logout whastapp
-   * @returns boolean
-   */
-  public async logout() {
-    return await this.page.evaluate(() => WAPI.logout());
-  }
+  // #region Public Methods (7)
 
   /**
    * Closes page and browser
@@ -138,18 +97,6 @@ export class Whatsapp extends ControlsLayer {
     } catch (e) {
       return false;
     }
-  }
-
-  /**
-   * Get message by id
-   * @param messageId string
-   * @returns Message object
-   */
-  public async getMessageById(messageId: string) {
-    return (await this.page.evaluate(
-      (messageId: any) => WAPI.getMessageById(messageId),
-      messageId
-    )) as Message;
   }
 
   /**
@@ -186,4 +133,69 @@ export class Whatsapp extends ControlsLayer {
     const buff = Buffer.from(res.data, 'binary');
     return magix(buff, message.mediaKey, message.type, message.size);
   }
+
+  /**
+   * Decrypts message file
+   * @param data Message object
+   * @returns Decrypted file buffer (null otherwise)
+   */
+  public async downloadFile(data: string) {
+    return await this.page.evaluate((data) => WAPI.downloadFile(data), data);
+  }
+
+  /**
+   * Download and returns the media content in base64 format
+   * @param messageId Message ou id
+   * @returns Base64 of media
+   */
+  public async downloadMedia(messageId: string | Message): Promise<string> {
+    if (typeof messageId !== 'string') {
+      messageId = messageId.id;
+    }
+
+    const result = await this.page.evaluate(
+      (messageId) =>
+        WAPI.downloadMedia(messageId).catch((e) => ({
+          __error: e,
+        })),
+      messageId
+    );
+
+    if (typeof result === 'object' && result.__error) {
+      throw result.__error;
+    }
+    return result as string;
+  }
+
+  /**
+   * Get message by id
+   * @param messageId string
+   * @returns Message object
+   */
+  public async getMessageById(messageId: string) {
+    return (await this.page.evaluate(
+      (messageId: any) => WAPI.getMessageById(messageId),
+      messageId
+    )) as Message;
+  }
+
+  /**
+   * Logout whastapp
+   * @returns boolean
+   */
+  public async logout() {
+    return await this.page.evaluate(() => WAPI.logout());
+  }
+
+  /**
+   * Clicks on 'use here' button (When it get unlaunched)
+   * This method tracks the class of the button
+   * Whatsapp web might change this class name over the time
+   * Dont rely on this method
+   */
+  public async useHere() {
+    return await this.page.evaluate(() => WAPI.takeOver());
+  }
+
+  // #endregion Public Methods (7)
 }

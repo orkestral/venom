@@ -53,17 +53,20 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
 import { readFileSync } from 'fs';
+
+import { Browser, Page } from 'puppeteer';
+
+import { deleteFiles, checkingCloses } from '../api/helpers';
 import { Whatsapp } from '../api/whatsapp';
 import { CreateConfig, defaultOptions } from '../config/create-config';
+import { tokenSession } from '../config/tokenSession.config';
+import { getSpinnies } from '../utils/spinnies';
+import { checkFileJson } from '../api/helpers/check-token-file';
+import { SocketState, SocketStream } from '../api/model/enum';
+
 import { SessionTokenCkeck, saveToken } from './auth';
 import { initWhatsapp, initBrowser } from './browser';
-import { checkUpdates, welcomeScreen } from './welcome';
-import { getSpinnies } from '../utils/spinnies';
-import { SocketState, SocketStream } from '../api/model/enum';
-import { deleteFiles, checkingCloses } from '../api/helpers';
-import { tokenSession } from '../config/tokenSession.config';
-import { Browser, Page } from 'puppeteer';
-import { checkFileJson } from '../api/helpers/check-token-file';
+import Welcome, { checkUpdates } from './welcome';
 /**
  * A callback will be received, informing the status of the qrcode
  */
@@ -162,7 +165,7 @@ export async function create(
   const mergedOptions = { ...defaultOptions, ...options };
 
   if (!mergedOptions.disableWelcome) {
-    welcomeScreen();
+    Welcome();
   }
 
   if (mergedOptions.updatesLog) {

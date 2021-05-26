@@ -69,6 +69,8 @@ import {
 import { tokenSession } from '../config/tokenSession.config';
 
 interface WAPI {
+  // #region Properties (98)
+
   addParticipant: (groupId: string, contactId: string | string[]) => boolean;
   allNewMessagesListener: (callback: Function) => void;
   archiveChat: (chatId: string, option: boolean) => boolean;
@@ -111,13 +113,13 @@ interface WAPI {
   getChat: (contactId: string) => Chat;
   getChatById: (contactId: string) => Chat;
   getChatIsOnline: (chatId: string) => Promise<boolean>;
-  getLastSeen: (chatId: string) => Promise<number | boolean>;
   getContact: (contactId: string) => Contact;
   getGroupAdmins: (groupId: string) => Contact[];
   getGroupInfoFromInviteLink: (inviteCode: string) => Promise<string | boolean>;
   getGroupInviteLink: (chatId: string) => Promise<string>;
   getGroupParticipantIDs: (groupId: string) => Id[];
   getHost: () => HostDevice;
+  getLastSeen: (chatId: string) => Promise<number | boolean>;
   getListMute: (type?: string) => object;
   getMessageById: (messageId: string) => Promise<Message>;
   getNumberProfile: (contactId: string) => WhatsappProfile;
@@ -147,10 +149,11 @@ interface WAPI {
   onAddedToGroup: (callback: Function) => any;
   onIncomingCall: (callback: Function) => any;
   onInterfaceChange: (callback: Function) => void;
-  onMessage: (callback: Function) => void;
   onLiveLocation: (chatId: string, callback: Function) => any;
+  onMessage: (callback: Function) => void;
   onParticipantsChanged: (groupId: string, callback: Function) => any;
   onStateChange: (callback: Function) => void;
+  onStreamChange: (callback: Function) => void;
   openChat: (chatId: string) => boolean;
   openChatAt: (
     chatId: string,
@@ -165,6 +168,7 @@ interface WAPI {
   removeParticipant: (groupId: string, contactId: string | string[]) => void;
   reply: (to: string, content: string, quotedMsg: string) => Promise<object>;
   restartService: () => boolean;
+  returnReply: (message: object) => object;
   sendChatstate: (chatState: string, chatId: string) => void;
   sendContactVcard: (
     to: string,
@@ -230,6 +234,7 @@ interface WAPI {
   ) => void;
   sendMute: (id: string, time: number, type: string) => Promise<object>;
   sendPtt: (base64: string, to: string) => any;
+  sendSeen: (to: string) => void;
   sendVideoAsGif: (
     base64: string,
     to: string,
@@ -248,14 +253,17 @@ interface WAPI {
   waitForStore: (store: string | string[], callback?: Function) => Promise<any>;
   waitNewAcknowledgements: (callback: Function) => void;
   waitNewMessages: (rmCallback: boolean, callback: Function) => void;
-  sendSeen: (to: string) => void;
-  returnReply: (message: object) => object;
-  onStreamChange: (callback: Function) => void;
+
+  // #endregion Properties (98)
 }
 
 declare global {
   interface Window {
+    // #region Properties (1)
+
     WAPI: WAPI;
+
+    // #endregion Properties (1)
   }
   const WAPI: WAPI;
 }

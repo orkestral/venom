@@ -1,42 +1,56 @@
 import * as boxen from 'boxen';
+
 import * as chalk from 'chalk';
+
 import latestVersion from 'latest-version';
+
 import * as Spinnies from 'spinnies';
+
 import { yo } from 'yoo-hoo';
+
 import { upToDate } from '../utils/semver';
+
 const { version } = require('../../package.json');
 
 // Global
 let welcomeShown = false;
 let updatesChecked = false;
 
-export function welcomeScreen() {
+export default function Welcome(): void {
   if (welcomeShown) {
     return;
   }
-  welcomeShown = true;
+  WelcomeStart();
   yo('VENOM', { color: 'rainbow' });
   console.log('\n\n');
+
+  function WelcomeStart() {
+    welcomeShown = true;
+  }
 }
 
-export async function checkUpdates(spinnies: Spinnies) {
+export async function checkUpdates(spinnies: Spinnies): Promise<boolean> {
   // Check for updates if needed
   if (!updatesChecked) {
-    updatesChecked = true;
+    UpdateObservable();
     spinnies.add('venom-version-spinner', {
       text: 'Checking for updates',
     });
     return await checkVenomVersion(spinnies);
+  }
+
+  function UpdateObservable() {
+    updatesChecked = true;
   }
 }
 
 /**
  * Checs for a new versoin of venom and logs
  */
-async function checkVenomVersion(spinnies: Spinnies) {
+async function checkVenomVersion(spinnies: Spinnies): Promise<boolean> {
   spinnies.update('venom-version-spinner', { text: 'Checking for updates...' });
   try {
-    await latestVersion('venom-bot').then((latest) => {
+    await latestVersion('venom-bot').then((latest): void => {
       if (upToDate(version, latest)) {
         spinnies.succeed('venom-version-spinner', {
           text: "You're up to date",
@@ -45,7 +59,7 @@ async function checkVenomVersion(spinnies: Spinnies) {
         spinnies.succeed('venom-version-spinner', {
           text: 'There is a new version available',
         });
-        logUpdateAvailable(version, latest);
+        logUpdateAvailable({ current: version, latest });
       }
     });
   } catch {
@@ -61,7 +75,13 @@ async function checkVenomVersion(spinnies: Spinnies) {
  * @param current
  * @param latest
  */
-function logUpdateAvailable(current: string, latest: string) {
+function logUpdateAvailable({
+  current,
+  latest,
+}: {
+  current: string;
+  latest: string;
+}): void {
   // prettier-ignore
   const newVersionLog =
     `There is a new version of ${chalk.bold(`Venom`)} ${chalk.gray(current)} ➜  ${chalk.bold.green(latest)}\n` +
