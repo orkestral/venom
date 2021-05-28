@@ -235,7 +235,7 @@ export class HostLayer {
       if (authenticated === null) {
         this.spin('Failed to authenticate');
         statusFind && statusFind('qrReadFail', this.session);
-      } else if (authenticated) {
+      } else if (authenticated === true) {
         this.spin('QRCode Success');
         statusFind && statusFind('qrReadSuccess', this.session);
       } else {
