@@ -112,6 +112,7 @@ interface WAPI {
   getGroupAdmins: (groupId: string) => Contact[];
   getGroupInfoFromInviteLink: (inviteCode: string) => Promise<string | boolean>;
   getGroupInviteLink: (chatId: string) => Promise<string>;
+  revokeGroupInviteLink: (chatId: string) => Promise<boolean>;
   getGroupParticipantIDs: (groupId: string) => Id[];
   getHost: () => HostDevice;
   getListMute: (type?: string) => object;
