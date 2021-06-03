@@ -61,14 +61,6 @@ export async function checkIdMessage(chatId, idMesagem) {
       'enter the chatId variable as an string'
     );
   }
-  if (typeof idMesagem != 'string') {
-    return WAPI.scope(
-      null,
-      true,
-      404,
-      'enter the idMesagem variable as an string'
-    );
-  }
   const chat = await WAPI.sendExist(chatId);
   if (chat && chat.status != 404) {
     const getIdMessage = await window.Store.Msg.get(idMesagem);
