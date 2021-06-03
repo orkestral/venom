@@ -275,7 +275,7 @@ export class HostLayer {
       await sleep(200);
       authenticated = await isAuthenticated(this.page).catch(() => null);
 
-      if (authenticated === null) {
+      if (authenticated === null || JSON.stringify(authenticated) === '{}') {
         this.spin('Failed to authenticate');
         statusFind && statusFind('qrReadFail', this.session);
       } else if (authenticated) {
