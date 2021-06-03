@@ -53,15 +53,11 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
 export interface GroupCreation {
-  // #region Properties (3)
-
+  status: number;
   gid: {
     server: string;
     user: string;
     _serialized: string;
   };
   participants: { [key: string]: any[] }[];
-  status: number;
-
-  // #endregion Properties (3)
 }

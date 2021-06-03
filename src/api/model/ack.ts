@@ -56,28 +56,24 @@ import { Id } from './id';
 import { AckType } from './enum';
 
 export interface Ack {
-  // #region Properties (20)
-
-  ack: AckType;
-  body: string;
-  ephemeralStartTimestamp: number;
-  from: string;
   id: Id;
+  body: string;
+  type: string;
+  t: number;
+  subtype: any;
+  notifyName: string;
+  from: string;
+  to: string;
+  self: string;
+  ack: AckType;
   invis: boolean;
-  isForwarded: boolean;
   isNewMsg: boolean;
-  labels: any[];
+  star: boolean;
+  loc: string;
   lat: number;
   lng: number;
-  loc: string;
   mentionedJidList: any[];
-  notifyName: string;
-  self: string;
-  star: boolean;
-  subtype: any;
-  t: number;
-  to: string;
-  type: string;
-
-  // #endregion Properties (20)
+  isForwarded: boolean;
+  labels: any[];
+  ephemeralStartTimestamp: number;
 }

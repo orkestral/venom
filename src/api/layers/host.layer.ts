@@ -70,9 +70,10 @@ import { getSpinnies } from '../../utils/spinnies';
 import * as Spinnies from 'spinnies';
 
 export class HostLayer {
-  // #region Properties (6)
+  readonly session: string;
+  readonly options: CreateConfig;
 
-  protected autoCloseInterval = null;
+  protected spinnies: Spinnies = getSpinnies();
   protected spinStatus = {
     apiInject: '',
     autoCloseRemain: 0,
@@ -80,15 +81,9 @@ export class HostLayer {
     previousStatus: null,
     state: '',
   };
-  protected spinnies: Spinnies = getSpinnies();
+
+  protected autoCloseInterval = null;
   protected statusFind?: (statusGet: string, session: string) => void = null;
-
-  public readonly options: CreateConfig;
-  public readonly session: string;
-
-  // #endregion Properties (6)
-
-  // #region Constructors (1)
 
   constructor(public page: Page, session?: string, options?: CreateConfig) {
     this.session = session;
@@ -98,10 +93,37 @@ export class HostLayer {
     //this._initialize(this.page);
   }
 
-  // #endregion Constructors (1)
+  protected spin(text?: string, status?: Spinnies.SpinnerStatus) {
+    const name = `session-${this.session}`;
 
-  // #region Public Methods (13)
+    text = text || this.spinStatus.previousText;
+    this.spinStatus.previousText = text;
 
+    status =
+      status || (this.spinStatus.previousStatus as Spinnies.SpinnerStatus);
+    this.spinStatus.previousStatus = status;
+
+    let fullText = `[instance: ${this.session}`;
+    // if (this.spinStatus.state) {
+    //   fullText += `, ${this.spinStatus.state}`;
+    // }
+    fullText += `]: ${text}`;
+
+    let prevText = '';
+
+    try {
+      prevText = this.spinnies.pick(name).text;
+    } catch (error) {
+      this.spinnies.add(name, { text: fullText, status });
+      prevText = fullText;
+    }
+    if (prevText !== fullText) {
+      this.spinnies.update(name, {
+        text: fullText,
+        status,
+      });
+    }
+  }
   public async _initialize(page: Page) {
     this.spinStatus.apiInject = 'injecting';
     await injectApi(page)
@@ -113,28 +135,40 @@ export class HostLayer {
       });
   }
 
-  /**
-   * Retrieves Battery Level
-   */
-  public async getBatteryLevel() {
-    return await this.page.evaluate(() => WAPI.getBatteryLevel());
+  protected tryAutoClose() {
+    if (
+      this.options.autoClose > 0 &&
+      !this.autoCloseInterval &&
+      !this.page.isClosed()
+    ) {
+      this.statusFind && this.statusFind('autocloseCalled', this.session);
+      try {
+        this.page.close().catch(() => {});
+      } catch (error) {}
+    }
   }
 
-  /**
-   * Retrieves the connecction state
-   */
-  public async getConnectionState(): Promise<SocketState> {
-    return await this.page.evaluate(() => {
-      //@ts-ignore
-      return Store.State.default.state;
-    });
+  protected startAutoClose() {
+    if (this.options.autoClose > 0 && !this.autoCloseInterval) {
+      let remain = this.options.autoClose;
+      this.autoCloseInterval = setInterval(() => {
+        if (this.page.isClosed()) {
+          this.cancelAutoClose();
+          return;
+        }
+        remain -= 1000;
+        this.spinStatus.autoCloseRemain = Math.round(remain / 1000);
+        if (remain <= 0) {
+          this.cancelAutoClose();
+          this.tryAutoClose();
+        }
+      }, 1000);
+    }
   }
 
-  /**
-   * @returns Current host device details
-   */
-  public async getHostDevice() {
-    return await this.page.evaluate(() => WAPI.getHost());
+  protected cancelAutoClose() {
+    clearInterval(this.autoCloseInterval);
+    this.autoCloseInterval = null;
   }
 
   public async getQrCode() {
@@ -148,39 +182,48 @@ export class HostLayer {
     return qrResult;
   }
 
-  /**
-   * Retrieves WA version
-   */
-  public async getWAVersion() {
-    return await this.page.evaluate(() => WAPI.getWAVersion());
-  }
+  public async waitForQrCodeScan(
+    catchQR?: (
+      qrCode: string,
+      asciiQR: string,
+      attempt: number,
+      urlCode?: string
+    ) => void
+  ) {
+    let urlCode = null;
+    let attempt = 0;
 
-  /**
-   * Retrieves if the phone is online. Please note that this may not be real time.
-   */
-  public async isConnected() {
-    return await this.page.evaluate(() => WAPI.isConnected());
-  }
+    while (true) {
+      let needsScan = await needsToScan(this.page).catch(() => null);
+      if (!needsScan) {
+        break;
+      }
+      const result = await this.getQrCode();
+      if (!result?.urlCode) {
+        break;
+      }
+      if (urlCode !== result.urlCode) {
+        urlCode = result.urlCode;
+        attempt++;
 
-  /**
-   * Retrieves if the phone is online. Please note that this may not be real time.
-   */
-  public async isLoggedIn() {
-    return await this.page.evaluate(() => WAPI.isLoggedIn());
-  }
+        let qr = '';
 
-  /**
-   * Delete the Service Workers
-   */
-  public async killServiceWorker() {
-    return await this.page.evaluate(() => WAPI.killServiceWorker());
-  }
+        if (this.options.logQR || catchQR) {
+          qr = await asciiQr(urlCode);
+        }
 
-  /**
-   * Load the service again
-   */
-  public async restartService() {
-    return await this.page.evaluate(() => WAPI.restartService());
+        if (this.options.logQR) {
+          console.log(qr);
+        } else {
+          this.spin(`Waiting for QRCode Scan: Attempt ${attempt}`);
+        }
+
+        if (catchQR) {
+          catchQR(result.base64Image, qr, attempt, result.urlCode);
+        }
+      }
+      await sleep(200);
+    }
   }
 
   public async waitForInChat() {
@@ -235,7 +278,7 @@ export class HostLayer {
       if (authenticated === null) {
         this.spin('Failed to authenticate');
         statusFind && statusFind('qrReadFail', this.session);
-      } else if (authenticated === true) {
+      } else if (authenticated) {
         this.spin('QRCode Success');
         statusFind && statusFind('qrReadSuccess', this.session);
       } else {
@@ -284,121 +327,62 @@ export class HostLayer {
     this.spin('Unknow error', 'fail');
   }
 
-  public async waitForQrCodeScan(
-    catchQR?: (
-      qrCode: string,
-      asciiQR: string,
-      attempt: number,
-      urlCode?: string
-    ) => void
-  ) {
-    let urlCode = null;
-    let attempt = 0;
-
-    while (true) {
-      let needsScan = await needsToScan(this.page).catch(() => null);
-      if (!needsScan) {
-        break;
-      }
-      const result = await this.getQrCode();
-      if (!result?.urlCode) {
-        break;
-      }
-      if (urlCode !== result.urlCode) {
-        urlCode = result.urlCode;
-        attempt++;
-
-        let qr = '';
-
-        if (this.options.logQR || catchQR) {
-          qr = await asciiQr(urlCode);
-        }
-
-        if (this.options.logQR) {
-          console.log(qr);
-        } else {
-          this.spin(`Waiting for QRCode Scan: Attempt ${attempt}`);
-        }
-
-        if (catchQR) {
-          catchQR(result.base64Image, qr, attempt, result.urlCode);
-        }
-      }
-      await sleep(200);
-    }
+  /**
+   * Delete the Service Workers
+   */
+  public async killServiceWorker() {
+    return await this.page.evaluate(() => WAPI.killServiceWorker());
   }
 
-  // #endregion Public Methods (13)
-
-  // #region Protected Methods (4)
-
-  protected cancelAutoClose() {
-    clearInterval(this.autoCloseInterval);
-    this.autoCloseInterval = null;
+  /**
+   * Load the service again
+   */
+  public async restartService() {
+    return await this.page.evaluate(() => WAPI.restartService());
   }
 
-  protected spin(text?: string, status?: Spinnies.SpinnerStatus) {
-    const name = `session-${this.session}`;
-
-    text = text || this.spinStatus.previousText;
-    this.spinStatus.previousText = text;
-
-    status =
-      status || (this.spinStatus.previousStatus as Spinnies.SpinnerStatus);
-    this.spinStatus.previousStatus = status;
-
-    let fullText = `[instance: ${this.session}`;
-    // if (this.spinStatus.state) {
-    //   fullText += `, ${this.spinStatus.state}`;
-    // }
-    fullText += `]: ${text}`;
-
-    let prevText = '';
-
-    try {
-      prevText = this.spinnies.pick(name).text;
-    } catch (error) {
-      this.spinnies.add(name, { text: fullText, status });
-      prevText = fullText;
-    }
-    if (prevText !== fullText) {
-      this.spinnies.update(name, {
-        text: fullText,
-        status,
-      });
-    }
+  /**
+   * @returns Current host device details
+   */
+  public async getHostDevice() {
+    return await this.page.evaluate(() => WAPI.getHost());
   }
 
-  protected startAutoClose() {
-    if (this.options.autoClose > 0 && !this.autoCloseInterval) {
-      let remain = this.options.autoClose;
-      this.autoCloseInterval = setInterval(() => {
-        if (this.page.isClosed()) {
-          this.cancelAutoClose();
-          return;
-        }
-        remain -= 1000;
-        this.spinStatus.autoCloseRemain = Math.round(remain / 1000);
-        if (remain <= 0) {
-          this.cancelAutoClose();
-          this.tryAutoClose();
-        }
-      }, 1000);
-    }
+  /**
+   * Retrieves WA version
+   */
+  public async getWAVersion() {
+    return await this.page.evaluate(() => WAPI.getWAVersion());
   }
 
-  protected tryAutoClose() {
-    if (
-      this.options.autoClose > 0 &&
-      !this.autoCloseInterval &&
-      !this.page.isClosed()
-    ) {
-      this.statusFind && this.statusFind('autocloseCalled', this.session);
-      try {
-        this.page.close().catch(() => {});
-      } catch (error) {}
-    }
+  /**
+   * Retrieves the connecction state
+   */
+  public async getConnectionState(): Promise<SocketState> {
+    return await this.page.evaluate(() => {
+      //@ts-ignore
+      return Store.State.default.state;
+    });
   }
 
-  // #endregion Protected Methods (4)
+  /**
+   * Retrieves if the phone is online. Please note that this may not be real time.
+   */
+  public async isConnected() {
+    return await this.page.evaluate(() => WAPI.isConnected());
+  }
+
+  /**
+   * Retrieves if the phone is online. Please note that this may not be real time.
+   */
+  public async isLoggedIn() {
+    return await this.page.evaluate(() => WAPI.isLoggedIn());
+  }
+
+  /**
+   * Retrieves Battery Level
+   */
+  public async getBatteryLevel() {
+    return await this.page.evaluate(() => WAPI.getBatteryLevel());
+  }
 }

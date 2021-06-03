@@ -54,14 +54,10 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
 
 export interface tokenSession {
-  // #region Properties (4)
-
   WABrowserId: string;
-  WASecretBundle: string;
   WAToken1: string;
   WAToken2: string;
-
-  // #endregion Properties (4)
+  WASecretBundle: string;
 }
 
 export const defaultTokenSession: tokenSession = {

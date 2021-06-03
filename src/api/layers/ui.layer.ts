@@ -57,15 +57,22 @@ import { CreateConfig } from '../../config/create-config';
 import { GroupLayer } from './group.layer';
 
 export class UILayer extends GroupLayer {
-  // #region Constructors (1)
-
   constructor(public page: Page, session?: string, options?: CreateConfig) {
     super(page, session, options);
   }
 
-  // #endregion Constructors (1)
-
-  // #region Public Methods (3)
+  /**
+   * checks and returns whether a message and a reply
+   * @param messages
+   */
+  public async returnReply(messages: any) {
+    return await this.page.evaluate(
+      ({ messages }) => WAPI.returnReply(messages),
+      {
+        messages,
+      }
+    );
+  }
 
   /**
    * Opens given chat at last message (bottom)
@@ -90,19 +97,4 @@ export class UILayer extends GroupLayer {
       chatId
     );
   }
-
-  /**
-   * checks and returns whether a message and a reply
-   * @param messages
-   */
-  public async returnReply(messages: any) {
-    return await this.page.evaluate(
-      ({ messages }) => WAPI.returnReply(messages),
-      {
-        messages,
-      }
-    );
-  }
-
-  // #endregion Public Methods (3)
 }

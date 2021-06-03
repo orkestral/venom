@@ -78,7 +78,7 @@ export const storeObjects = [
   },
   {
     id: 'GroupInvite',
-    conditions: (module) => (module.sendQueryGroupInviteCode ? module : null),
+    conditions: (module) => (module.queryGroupInviteCode ? module : null),
   },
   {
     id: 'Wap',
@@ -110,9 +110,9 @@ export const storeObjects = [
   {
     id: 'WapQuery',
     conditions: (module) =>
-      module.default &&
-      module.default.queryExist &&
-      module.default.getCapabilities
+      module.queryExist
+        ? module
+        : module.default && module.default.queryExist
         ? module.default
         : null,
   },

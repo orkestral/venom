@@ -53,35 +53,26 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
 import { Page } from 'puppeteer';
-
-import { Scope, checkValuesSender } from '../helpers/layers-interface';
 import { CreateConfig } from '../../config/create-config';
-
 import { UILayer } from './ui.layer';
+import { Scope, checkValuesSender } from '../helpers/layers-interface';
 
 let obj: Scope;
 
 export class ControlsLayer extends UILayer {
-  // #region Constructors (1)
-
   constructor(public page: Page, session?: string, options?: CreateConfig) {
     super(page, session, options);
   }
 
-  // #endregion Constructors (1)
-
-  // #region Public Methods (9)
-
   /**
-   * Archive and unarchive chat messages with true or false
-   * @param chatId {string} id '000000000000@c.us'
-   * @param option {boolean} true or false
+   * Unblock contact
+   * @param contactId {string} id '000000000000@c.us'
    * @returns boolean
    */
-  public async archiveChat(chatId: string, option: boolean) {
+  public async unblockContact(contactId: string) {
     return this.page.evaluate(
-      ({ chatId, option }) => WAPI.archiveChat(chatId, option),
-      { chatId, option }
+      (contactId) => WAPI.unblockContact(contactId),
+      contactId
     );
   }
 
@@ -98,14 +89,14 @@ export class ControlsLayer extends UILayer {
   }
 
   /**
-   * Deletes all messages of given chat
-   * @param chatId
+   * puts the chat as unread
+   * @param contactId {string} id '000000000000@c.us'
    * @returns boolean
    */
-  public async clearChatMessages(chatId: string) {
+  public async markUnseenMessage(contactId: string) {
     return this.page.evaluate(
-      (chatId) => WAPI.clearChatMessages(chatId),
-      chatId
+      (contactId) => WAPI.markUnseenMessage(contactId),
+      contactId
     );
   }
 
@@ -122,32 +113,15 @@ export class ControlsLayer extends UILayer {
   }
 
   /**
-   * Deletes message of given message id
-   * @param chatId The chat id from which to delete the message.
-   * @param messageId The specific message id of the message to be deleted
-   * @param only If it should only delete locally (message remains on the other recipienct's phone). Defaults to false.
-   */
-  public async deleteMessage(
-    chatId: string,
-    messageId: string[] | string,
-    only = false
-  ) {
-    return await this.page.evaluate(
-      ({ contactId, messageId, only }) =>
-        WAPI.deleteMessages(contactId, messageId, only),
-      { contactId: chatId, messageId, only }
-    );
-  }
-
-  /**
-   * puts the chat as unread
-   * @param contactId {string} id '000000000000@c.us'
+   * Archive and unarchive chat messages with true or false
+   * @param chatId {string} id '000000000000@c.us'
+   * @param option {boolean} true or false
    * @returns boolean
    */
-  public async markUnseenMessage(contactId: string) {
+  public async archiveChat(chatId: string, option: boolean) {
     return this.page.evaluate(
-      (contactId) => WAPI.markUnseenMessage(contactId),
-      contactId
+      ({ chatId, option }) => WAPI.archiveChat(chatId, option),
+      { chatId, option }
     );
   }
 
@@ -175,6 +149,65 @@ export class ControlsLayer extends UILayer {
   }
 
   /**
+   * Deletes all messages of given chat
+   * @param chatId
+   * @returns boolean
+   */
+  public async clearChatMessages(chatId: string) {
+    return this.page.evaluate(
+      (chatId) => WAPI.clearChatMessages(chatId),
+      chatId
+    );
+  }
+
+  /**
+   * Deletes message of given message id
+   * @param chatId The chat id from which to delete the message.
+   * @param messageId The specific message id of the message to be deleted
+   * @param onlyLocal If it should only delete locally (message remains on the other recipienct's phone). Defaults to false.
+   */
+  public async deleteMessage(
+    chatId: string,
+    messageId: string[]
+  ): Promise<Object> {
+    return new Promise(async (resolve, reject) => {
+      const typeFunction = 'deleteMessage';
+      const type = 'string';
+      const check = [
+        {
+          param: 'chatId',
+          type: type,
+          value: chatId,
+          function: typeFunction,
+          isUser: true,
+        },
+        {
+          param: 'messageId',
+          type: 'object',
+          value: messageId,
+          function: typeFunction,
+          isUser: true,
+        },
+      ];
+
+      const validating = checkValuesSender(check);
+      if (typeof validating === 'object') {
+        return reject(validating);
+      }
+      const result = await this.page.evaluate(
+        ({ chatId, messageId }) => WAPI.deleteMessages(chatId, messageId),
+        { chatId, messageId }
+      );
+
+      if (result['erro'] == true) {
+        return reject(result);
+      } else {
+        return resolve(result);
+      }
+    });
+  }
+
+  /**
    * Archive and unarchive chat messages with true or false
    * @param chatId {string} id '000000000000@c.us'
    * @param option {boolean} true or false
@@ -186,18 +219,4 @@ export class ControlsLayer extends UILayer {
       { chatId, option }
     );
   }
-
-  /**
-   * Unblock contact
-   * @param contactId {string} id '000000000000@c.us'
-   * @returns boolean
-   */
-  public async unblockContact(contactId: string) {
-    return this.page.evaluate(
-      (contactId) => WAPI.unblockContact(contactId),
-      contactId
-    );
-  }
-
-  // #endregion Public Methods (9)
 }

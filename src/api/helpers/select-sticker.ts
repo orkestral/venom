@@ -55,15 +55,11 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 import * as sharp from 'sharp';
 
 interface selectOutput {
-  // #region Properties (2)
-
+  webpBase64: string;
   metadata: {
     width?: number;
     height?: number;
   };
-  webpBase64: string;
-
-  // #endregion Properties (2)
 }
 
 export async function stickerSelect(_B: Buffer, _t: number) {
@@ -104,12 +100,8 @@ export async function stickerSelect(_B: Buffer, _t: number) {
 }
 
 interface CreateSize {
-  // #region Properties (2)
-
-  height?: number;
   width?: number;
-
-  // #endregion Properties (2)
+  height?: number;
 }
 export async function resizeImg(buff: Buffer, size: CreateSize) {
   const _ins = await sharp(buff, { failOnError: false })

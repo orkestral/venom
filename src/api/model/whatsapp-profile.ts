@@ -55,13 +55,9 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 import { Id } from './id';
 
 export interface WhatsappProfile {
-  // #region Properties (5)
-
-  canReceiveMessage: boolean;
   id: Id;
-  isBusiness: boolean;
-  numberExists: boolean;
   status: number;
-
-  // #endregion Properties (5)
+  isBusiness: boolean;
+  canReceiveMessage: boolean;
+  numberExists: boolean;
 }

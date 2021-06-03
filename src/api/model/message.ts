@@ -53,13 +53,47 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
 export interface Message {
-  // #region Properties (47)
-
-  ack: number;
-  author: string;
+  id: string;
   body: string;
-  broadcast: boolean;
+  type: string;
+  t: number;
+  notifyName: string;
+  from: string;
+  to: string;
+  fromMe: boolean;
+  author: string;
+  self: string;
+  ack: number;
+  invis: boolean;
+  isNewMsg: boolean;
+  star: boolean;
+  recvFresh: boolean;
+  interactiveAnnotations: any[];
   caption: string;
+  filename: string;
+  clientUrl: string;
+  deprecatedMms3Url: string;
+  mimetype: string;
+  directPath: string;
+  filehash: string;
+  uploadhash: string;
+  size: number;
+  mediaKey: string;
+  mediaKeyTimestamp: number;
+  width: number;
+  height: number;
+  broadcast: boolean;
+  mentionedJidList: any[];
+  isForwarded: boolean;
+  labels: any[];
+  sender: Sender;
+  timestamp: number;
+  content: string;
+  isGroupMsg: boolean;
+  isMMS: boolean;
+  isMedia: boolean;
+  isNotification: boolean;
+  isPSA: boolean;
   chat: {
     id: string;
     pendingMsgs: boolean;
@@ -87,123 +121,65 @@ export interface Message {
      */
     lastSeen: null | number | boolean;
   };
-  chatId: string;
-  clientUrl: string;
-  content: string;
-  deprecatedMms3Url: string;
-  directPath: string;
-  filehash: string;
-  filename: string;
-  from: string;
-  fromMe: boolean;
-  height: number;
-  id: string;
-  interactiveAnnotations: any[];
-  invis: boolean;
-  isForwarded: boolean;
-  isGroupMsg: boolean;
-  isMMS: boolean;
-  isMedia: boolean;
-  isNewMsg: boolean;
-  isNotification: boolean;
   /**
    * @deprecated This is unreliable. Use the method {@link Whatsapp.getChatIsOnline} instead.
    */
   isOnline: null | boolean;
-  isPSA: boolean;
-  labels: any[];
   /**
    * @deprecated This is unreliable. Use the method {@link Whatsapp.getLastSeen} instead.
    */
   lastSeen: null | number | boolean;
-  mediaData: MediaData;
-  mediaKey: string;
-  mediaKeyTimestamp: number;
-  mentionedJidList: any[];
-  mimetype: string;
-  notifyName: string;
+  chatId: string;
   quotedMsgObj: null;
-  recvFresh: boolean;
-  self: string;
-  sender: Sender;
-  size: number;
-  star: boolean;
-  t: number;
-  timestamp: number;
-  to: string;
-  type: string;
-  uploadhash: string;
-  width: number;
-
-  // #endregion Properties (47)
+  mediaData: MediaData;
 }
 
 export interface Sender {
-  // #region Properties (17)
-
-  formattedName: string;
   id: string;
+  name: string;
+  shortName: string;
+  pushname: string;
+  type: string;
   isBusiness: boolean;
   isEnterprise: boolean;
+  statusMute: boolean;
+  labels: any[];
+  formattedName: string;
   isMe: boolean;
   isMyContact: boolean;
   isPSA: boolean;
   isUser: boolean;
   isWAContact: boolean;
-  labels: any[];
-  msgs: null;
-  name: string;
   profilePicThumbObj: ProfilePicThumbObj;
-  pushname: string;
-  shortName: string;
-  statusMute: boolean;
-  type: string;
-
-  // #endregion Properties (17)
+  msgs: null;
 }
 
 export interface ProfilePicThumbObj {
-  // #region Properties (6)
-
   eurl: string;
   id: string;
   img: string;
   imgFull: string;
   raw: null;
   tag: string;
-
-  // #endregion Properties (6)
 }
 
 export interface LastReceivedKey {
-  // #region Properties (4)
-
-  _serialized: string;
   fromMe: boolean;
-  id: string;
   remote: string;
-
-  // #endregion Properties (4)
+  id: string;
+  _serialized: string;
 }
 
 export interface Presence {
-  // #region Properties (2)
-
-  chatstates: any[];
   id: string;
-
-  // #endregion Properties (2)
+  chatstates: any[];
 }
 
 export interface MediaData {
-  // #region Properties (6)
-
-  _listeningToSwSupport: boolean;
-  _swStreamingSupported: boolean;
-  animatedAsNewMsg: boolean;
-  animationDuration: number;
-  mediaStage: string;
   type: string;
-
-  // #endregion Properties (6)
+  mediaStage: string;
+  animationDuration: number;
+  animatedAsNewMsg: boolean;
+  _swStreamingSupported: boolean;
+  _listeningToSwSupport: boolean;
 }

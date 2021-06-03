@@ -55,11 +55,7 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 import { Page } from 'puppeteer';
 declare global {
   interface Window {
-    // #region Properties (1)
-
     pathSession: any;
-
-    // #endregion Properties (1)
   }
 }
 export async function scrapeDeleteToken(page: Page): Promise<boolean> {

@@ -56,15 +56,9 @@ import { Page } from 'puppeteer';
 import { ControlsLayer } from './controls.layer';
 
 export class BusinessLayer extends ControlsLayer {
-  // #region Constructors (1)
-
   constructor(page: Page) {
     super(page);
   }
-
-  // #endregion Constructors (1)
-
-  // #region Public Methods (2)
 
   /**
    * Querys product catalog
@@ -101,6 +95,4 @@ export class BusinessLayer extends ControlsLayer {
       { to, base64, businessId, caption, productId }
     );
   }
-
-  // #endregion Public Methods (2)
 }

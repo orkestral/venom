@@ -62,76 +62,8 @@ import axios from 'axios';
 import treekill = require('tree-kill');
 
 export class Whatsapp extends ControlsLayer {
-  // #region Constructors (1)
-
   constructor(public page: Page, session?: string, options?: CreateConfig) {
     super(page, session, options);
-  }
-
-  // #endregion Constructors (1)
-
-  // #region Public Accessors (1)
-
-  /**
-   * Get the puppeteer page instance
-   * @returns The Whatsapp page
-   */
-  public get waPage(): Page {
-    return this.page;
-  }
-
-  // #endregion Public Accessors (1)
-
-  // #region Public Methods (7)
-
-  /**
-   * Closes page and browser
-   * @internal
-   */
-  public async close() {
-    try {
-      if (!this.page.isClosed()) {
-        await this.page.close();
-        return true;
-      }
-    } catch (e) {
-      return false;
-    }
-  }
-
-  /**
-   * Decrypts message file
-   * @param message Message object
-   * @returns Decrypted file buffer (null otherwise)
-   */
-  public async decryptFile(message: Message) {
-    const options = makeOptions(useragentOverride);
-    message.clientUrl =
-      message.clientUrl !== undefined
-        ? message.clientUrl
-        : message.deprecatedMms3Url;
-    if (!message.clientUrl) {
-      throw new Error(
-        'message is missing critical data needed to download the file.'
-      );
-    }
-    let haventGottenImageYet: boolean = true,
-      res: any;
-    try {
-      while (haventGottenImageYet) {
-        res = await axios.get(message.clientUrl.trim(), options);
-        if (res.status == 200) {
-          haventGottenImageYet = false;
-        } else {
-          await timeout(2000);
-        }
-      }
-    } catch (error) {
-      console.error(error);
-      throw 'Error trying to download the file.';
-    }
-    const buff = Buffer.from(res.data, 'binary');
-    return magix(buff, message.mediaKey, message.type, message.size);
   }
 
   /**
@@ -168,23 +100,11 @@ export class Whatsapp extends ControlsLayer {
   }
 
   /**
-   * Get message by id
-   * @param messageId string
-   * @returns Message object
+   * Get the puppeteer page instance
+   * @returns The Whatsapp page
    */
-  public async getMessageById(messageId: string) {
-    return (await this.page.evaluate(
-      (messageId: any) => WAPI.getMessageById(messageId),
-      messageId
-    )) as Message;
-  }
-
-  /**
-   * Logout whastapp
-   * @returns boolean
-   */
-  public async logout() {
-    return await this.page.evaluate(() => WAPI.logout());
+  get waPage(): Page {
+    return this.page;
   }
 
   /**
@@ -197,5 +117,73 @@ export class Whatsapp extends ControlsLayer {
     return await this.page.evaluate(() => WAPI.takeOver());
   }
 
-  // #endregion Public Methods (7)
+  /**
+   * Logout whastapp
+   * @returns boolean
+   */
+  public async logout() {
+    return await this.page.evaluate(() => WAPI.logout());
+  }
+
+  /**
+   * Closes page and browser
+   * @internal
+   */
+  public async close() {
+    try {
+      if (!this.page.isClosed()) {
+        await this.page.close();
+        return true;
+      }
+    } catch (e) {
+      return false;
+    }
+  }
+
+  /**
+   * Get message by id
+   * @param messageId string
+   * @returns Message object
+   */
+  public async getMessageById(messageId: string) {
+    return (await this.page.evaluate(
+      (messageId: any) => WAPI.getMessageById(messageId),
+      messageId
+    )) as Message;
+  }
+
+  /**
+   * Decrypts message file
+   * @param message Message object
+   * @returns Decrypted file buffer (null otherwise)
+   */
+  public async decryptFile(message: Message) {
+    const options = makeOptions(useragentOverride);
+    message.clientUrl =
+      message.clientUrl !== undefined
+        ? message.clientUrl
+        : message.deprecatedMms3Url;
+    if (!message.clientUrl) {
+      throw new Error(
+        'message is missing critical data needed to download the file.'
+      );
+    }
+    let haventGottenImageYet: boolean = true,
+      res: any;
+    try {
+      while (haventGottenImageYet) {
+        res = await axios.get(message.clientUrl.trim(), options);
+        if (res.status == 200) {
+          haventGottenImageYet = false;
+        } else {
+          await timeout(2000);
+        }
+      }
+    } catch (error) {
+      console.error(error);
+      throw 'Error trying to download the file.';
+    }
+    const buff = Buffer.from(res.data, 'binary');
+    return magix(buff, message.mediaKey, message.type, message.size);
+  }
 }

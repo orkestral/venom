@@ -53,34 +53,26 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
 export interface PartialMessage {
-  // #region Properties (15)
-
-  ack: number;
-  body: string;
-  broadcast: boolean;
-  from: string;
   id: ID;
+  body: string;
+  type: string;
+  t: number;
+  notifyName: string;
+  from: string;
+  to: string;
+  self: string;
+  ack: number;
   invis: boolean;
+  star: boolean;
+  broadcast: boolean;
+  mentionedJidList: any[];
   isForwarded: boolean;
   labels: any[];
-  mentionedJidList: any[];
-  notifyName: string;
-  self: string;
-  star: boolean;
-  t: number;
-  to: string;
-  type: string;
-
-  // #endregion Properties (15)
 }
 
 interface ID {
-  // #region Properties (4)
-
-  _serialized: string;
   fromMe: boolean;
-  id: string;
   remote: string;
-
-  // #endregion Properties (4)
+  id: string;
+  _serialized: string;
 }

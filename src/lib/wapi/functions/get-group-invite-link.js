@@ -53,15 +53,8 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
 export async function getGroupInviteLink(chatId) {
-  let chat = Store.Chat.get(chatId);
+  var chat = Store.Chat.get(chatId);
   if (!chat.isGroup) return '';
-  let code = '';
-
-  if (chat.groupMetadata && chat.groupMetadata.inviteCode) {
-    code = chat.groupMetadata.inviteCode;
-  } else {
-    code = await Store.GroupInvite.sendQueryGroupInviteCode(chat.id);
-  }
-
-  return `https://chat.whatsapp.com/${code}`;
+  await Store.GroupInvite.queryGroupInviteCode(chat);
+  return `https://chat.whatsapp.com/${chat.inviteCode}`;
 }

@@ -55,8 +55,6 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 import { Id } from './id';
 
 export interface Contact {
-  // #region Properties (25)
-
   formattedName: string;
   id: Id;
   isBusiness: boolean;
@@ -64,19 +62,11 @@ export interface Contact {
   isHighLevelVerified: any;
   isMe: boolean;
   isMyContact: boolean;
-  /**
-   * @deprecated This is unreliable. Use the method {@link Whatsapp.getChatIsOnline} instead.
-   */
-  isOnline: null | boolean;
   isPSA: boolean;
   isUser: boolean;
   isVerified: any;
   isWAContact: boolean;
   labels: any[];
-  /**
-   * @deprecated This is unreliable. Use the method {@link Whatsapp.getLastSeen} instead.
-   */
-  lastSeen: null | number | boolean;
   msgs: any;
   name: string;
   plaintextDisabled: boolean;
@@ -95,6 +85,12 @@ export interface Contact {
   type: string;
   verifiedLevel: any;
   verifiedName: any;
-
-  // #endregion Properties (25)
+  /**
+   * @deprecated This is unreliable. Use the method {@link Whatsapp.getChatIsOnline} instead.
+   */
+  isOnline: null | boolean;
+  /**
+   * @deprecated This is unreliable. Use the method {@link Whatsapp.getLastSeen} instead.
+   */
+  lastSeen: null | number | boolean;
 }

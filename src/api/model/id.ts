@@ -53,14 +53,10 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
 export interface Id {
-  // #region Properties (6)
-
-  _serialized: string;
-  fromMe: boolean;
-  id: string;
-  remote: string;
   server: string;
   user: string;
-
-  // #endregion Properties (6)
+  _serialized: string;
+  fromMe: boolean;
+  remote: string;
+  id: string;
 }

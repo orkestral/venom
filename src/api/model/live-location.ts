@@ -53,15 +53,11 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
 export interface LiveLocation {
-  // #region Properties (7)
-
-  accuracy: number;
-  degrees: any;
   id: string;
-  lastUpdated: number;
   lat: number;
   lng: number;
   speed: number;
-
-  // #endregion Properties (7)
+  lastUpdated: number;
+  accuracy: number;
+  degrees: any;
 }

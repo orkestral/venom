@@ -56,12 +56,7 @@ import { LastReceivedKey } from './chat';
 import { HostDevice } from './host-device';
 
 export interface ScopeResult {
-  // #region Properties (5)
-
-  erro?: boolean;
   me: HostDevice;
-  status?: number | string;
-  text?: string | null;
   to: LastReceivedKey & {
     formattedName: string;
     isBusiness: boolean;
@@ -70,35 +65,24 @@ export interface ScopeResult {
     pushname?: string;
     isOnline?: boolean;
   };
-
-  // #endregion Properties (5)
+  erro?: boolean;
+  text?: string | null;
+  status?: number | string;
 }
 
 export interface SendFileResult extends ScopeResult {
-  // #region Properties (4)
-
-  filename: string;
-  mimeType?: string;
-  text?: string;
   type: string;
-
-  // #endregion Properties (4)
+  filename: string;
+  text?: string;
+  mimeType?: string;
 }
 
 export interface SendStickerResult extends ScopeResult {
-  // #region Properties (1)
-
   type: string;
-
-  // #endregion Properties (1)
 }
 
 export interface SendLinkResult extends ScopeResult {
-  // #region Properties (3)
-
-  text: string;
   type: string;
   url: string;
-
-  // #endregion Properties (3)
+  text: string;
 }
