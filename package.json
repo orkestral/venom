@@ -71,7 +71,7 @@
     "@types/puppeteer": "^5.4.1",
     "@types/sharp": "^0.28.0",
     "@types/ws": "^7.4.2",
-    "@typescript-eslint/eslint-plugin": "^4.22.0",
+    "@typescript-eslint/eslint-plugin": "^4.26.0",
     "@typescript-eslint/parser": "^4.22.0",
     "commitizen": "^4.2.2",
     "concurrently": "^6.0.2",
