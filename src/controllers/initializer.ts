@@ -359,6 +359,21 @@ export async function create(
       console.log(`\nDebug: \x1b[34m${debugURL}\x1b[0m`);
     }
     await page.waitForSelector('#app .two', { visible: true }).catch(() => {});
+    await page.waitForFunction(
+      () => {
+        if (
+          window.Store &&
+          window.Store.WidFactory &&
+          window.Store.WidFactory.createWid
+        ) {
+          return true;
+        }
+      },
+      {
+        timeout: 0,
+        polling: 100,
+      }
+    );
     return client;
   }
 }
