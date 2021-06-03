@@ -58,11 +58,7 @@ import { ScrapQrcode } from '../model/qrcode';
 export async function scrapeImg(page: Page): Promise<ScrapQrcode | undefined> {
   let click = await page
     .evaluate(() => {
-      const selectorImg = document.querySelector('canvas');
-      const selectorUrl = selectorImg.closest('[data-ref]');
-      const buttonReload = selectorUrl.querySelector(
-        '[role="button"]'
-      ) as HTMLButtonElement;
+      const buttonReload = document.querySelector('button');
       if (buttonReload != null) {
         buttonReload.click();
         return true;
