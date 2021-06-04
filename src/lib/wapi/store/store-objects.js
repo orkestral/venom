@@ -114,8 +114,9 @@ export const storeObjects = [
     id: 'WapQuery',
     conditions: (module) =>
       module.default &&
-      module.default.contactFindQuery &&
-      module.default.queryExist
+      //module.default.contactFindQuery &&
+      module.default.queryExist &&
+      module.default.getCapabilities
         ? module.default
         : null,
   },
