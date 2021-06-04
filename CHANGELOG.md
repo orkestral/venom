@@ -1,3 +1,17 @@
+## [3.0.18](https://github.com/orkestral/venom/compare/v3.0.17...v3.0.18) (2021-06-04)
+
+
+### Bug Fixes
+
+* Button Reload ([ae20c9f](https://github.com/orkestral/venom/commit/ae20c9f5b13a113e56e3201b9e830bd7775a1c20))
+* deleteMessages ([da56acb](https://github.com/orkestral/venom/commit/da56acb08e3b966176059418a8eeb24034997a26))
+* queryExist ([1e5e2a6](https://github.com/orkestral/venom/commit/1e5e2a67f5f4b92537946da2aeb58f208dce59f6))
+* RevokeGroup and getGroupInviteLink ([55e1310](https://github.com/orkestral/venom/commit/55e1310ab1cc3b202b0b30222c27d925bdae1913))
+* statusFind ([ef9dc78](https://github.com/orkestral/venom/commit/ef9dc78af8592ac75089ad43d0098020218990af))
+* WidFactory ([c2a51e7](https://github.com/orkestral/venom/commit/c2a51e7aa0c00dc499bb5aeeba318d0c70e73232))
+
+
+
 ## [3.0.16](https://github.com/orkestral/venom/compare/v3.0.15...v3.0.16) (2021-05-04)
 
 
