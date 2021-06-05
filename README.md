@@ -27,7 +27,7 @@
 <br> <br>
 ## Follow us Instagram
 
-<a target="_blank" href="https://www.instagram.com/orkestral.inc" target="_blank"><img title="instagram" height="150" width="375" src="https://www.shropshirebreakfast.co.uk/wp-content/uploads/2017/09/72-722799_instagram-button-follow-us-on-instagram-logo-png.jpg"></a>
+<a target="_blank" href="https://www.instagram.com/orkestral.inc" target="_blank"><img title="instagram" height="120" width="375" src="https://www.shropshirebreakfast.co.uk/wp-content/uploads/2017/09/72-722799_instagram-button-follow-us-on-instagram-logo-png.jpg"></a>
 
 <br>
 ## Request Support Free Group Access In Whatsapp
