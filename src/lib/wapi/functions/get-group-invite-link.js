@@ -55,6 +55,6 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 export async function getGroupInviteLink(chatId) {
   var chat = Store.Chat.get(chatId);
   if (!chat.isGroup) return '';
-  const code = Store.GroupInvite.sendQueryGroupInviteCode(chat.id);
+  const code = await Store.GroupInvite.sendQueryGroupInviteCode(chat.id);
   return `https://chat.whatsapp.com/${code}`;
 }
