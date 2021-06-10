@@ -99,3 +99,4 @@ export { logout } from './logout';
 export { setPresenceOnline } from './set-presence-online';
 export { setPresenceOffline } from './set-presence-offline';
 export { archiveChat } from './archive-chat';
+export { setNewMessageId } from './set-new-message';

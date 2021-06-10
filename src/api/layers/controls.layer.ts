@@ -22,7 +22,7 @@ export class ControlsLayer extends UILayer {
    */
   public async unblockContact(contactId: string) {
     return this.page.evaluate(
-      (contactId) => WAPI.unblockContact(contactId),
+      (contactId: string) => WAPI.unblockContact(contactId),
       contactId
     );
   }
@@ -34,7 +34,7 @@ export class ControlsLayer extends UILayer {
    */
   public async blockContact(contactId: string) {
     return this.page.evaluate(
-      (contactId) => WAPI.blockContact(contactId),
+      (contactId: string) => WAPI.blockContact(contactId),
       contactId
     );
   }
@@ -46,7 +46,7 @@ export class ControlsLayer extends UILayer {
    */
   public async markUnseenMessage(contactId: string) {
     return this.page.evaluate(
-      (contactId) => WAPI.markUnseenMessage(contactId),
+      (contactId: string) => WAPI.markUnseenMessage(contactId),
       contactId
     );
   }

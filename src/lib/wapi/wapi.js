@@ -104,6 +104,7 @@ import {
   setPresenceOnline,
   setPresenceOffline,
   archiveChat,
+  setNewMessageId,
 } from './functions';
 import {
   base64ToFile,
@@ -178,6 +179,7 @@ if (typeof window.WAPI === 'undefined') {
   window.WAPI.checkIdMessage = checkIdMessage;
   window.WAPI.returnReply = returnReply;
   window.WAPI.getStore = getStore;
+  window.WAPI.setNewMessageId = setNewMessageId;
 
   //Profile
   window.WAPI.setProfilePic = setProfilePic;

@@ -160,7 +160,7 @@ interface WAPI {
     to: string,
     content: string,
     status?: boolean,
-    idMessage?: string
+    passId?: Object
   ) => Promise<Object>;
   sendMessageMentioned: (...args: any) => any;
   sendMessageOptions: (

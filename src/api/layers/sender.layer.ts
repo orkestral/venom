@@ -211,11 +211,12 @@ export class SenderLayer extends ListenerLayer {
    * @param to chat id: xxxxx@us.c
    * @param content text message
    * @param idMessage add id message
+   * @param passId new id
    */
   public async sendText(
     to: string,
     content: string,
-    idMessage?: string
+    passId?: any
   ): Promise<Object> {
     return new Promise(async (resolve, reject) => {
       const typeFunction = 'sendText';
@@ -241,10 +242,10 @@ export class SenderLayer extends ListenerLayer {
         return reject(validating);
       }
       const result = await this.page.evaluate(
-        ({ to, content }) => {
-          return WAPI.sendMessage(to, content, undefined, idMessage);
+        ({ to, content, passId }) => {
+          return WAPI.sendMessage(to, content, undefined, passId);
         },
-        { to, content }
+        { to, content, passId }
       );
       if (result['erro'] == true) {
         return reject(result);

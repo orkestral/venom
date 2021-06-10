@@ -1,4 +1,4 @@
-export async function sendMessage(to, content, status = false, newMsgId) {
+export async function sendMessage(to, content, status = false, passId) {
   if (status && content.length > 700) {
     return WAPI.scope(undefined, true, null, 'Use a maximum of 700 characters');
   }
@@ -21,9 +21,9 @@ export async function sendMessage(to, content, status = false, newMsgId) {
   if (chat && chat.status != 404) {
     const t = status != false ? 'sendStatusText' : 'sendText';
     const m = { type: t, text: content };
-    if (!newMsgId) {
-      newMsgId = await window.WAPI.getNewMessageId(chat.id);
-    }
+    const newMsgId = !passId
+      ? await window.WAPI.getNewMessageId(chat.id)
+      : await window.WAPI.setNewMessageId(passId);
     const fromwWid = await window.Store.Conn.wid;
     let inChat = await WAPI.getchatId(to).catch(() => {});
     if (inChat) {

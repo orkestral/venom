@@ -231,7 +231,7 @@ export class RetrieverLayer extends SenderLayer {
    */
   public async loadEarlierMessages(contactId: string) {
     return this.page.evaluate(
-      (contactId) => WAPI.loadEarlierMessages(contactId),
+      (contactId: string) => WAPI.loadEarlierMessages(contactId),
       contactId
     );
   }
@@ -242,7 +242,7 @@ export class RetrieverLayer extends SenderLayer {
    */
   public async getStatus(contactId: string) {
     return this.page.evaluate(
-      (contactId) => WAPI.getStatus(contactId),
+      (contactId: string) => WAPI.getStatus(contactId),
       contactId
     );
   }
