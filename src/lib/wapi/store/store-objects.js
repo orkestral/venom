@@ -418,4 +418,8 @@ export const storeObjects = [
     conditions: (module) =>
       module.default && module.default.getOrCreateURL ? module.default : null,
   },
+  {
+    id: 'infoGroup',
+    conditions: (module) => (module.queryGroupInviteInfo ? module : null),
+  },
 ];
