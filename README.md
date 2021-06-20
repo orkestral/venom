@@ -25,11 +25,6 @@
 <img height="100" src="https://miro.medium.com/max/1002/1*s986xIGqhfsN8U--09_AdA.png"> </img> <br>
 <a href="https://medium.com/venom-bot" title="Venom in Medium">**Access @Venom Posts In Medium**</a>
 <br> <br>
-## Follow us Instagram
-
-<a target="_blank" href="https://www.instagram.com/orkestral.inc" target="_blank"><img title="instagram" height="120" width="375" src="https://www.shropshirebreakfast.co.uk/wp-content/uploads/2017/09/72-722799_instagram-button-follow-us-on-instagram-logo-png.jpg"></a>
-
-<br>
 
 ## We have a complete commercial API, start your project with 50%
 
