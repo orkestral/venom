@@ -603,6 +603,13 @@ const chat = await client.checkNumberStatus('000000000000@c.us');
 ```javascript
 // groupId or chatId: leaveGroup 52123123-323235@g.us
 
+//change group description
+await client.setGroupDescription('00000000-000000@g.us', 'group description').then((result) => {
+    console.log('Result: ', result); //return object success
+}).catch((erro) => {
+    console.error('Error when sending: ', erro); //return object error
+});
+
 // Leave group
 await client.leaveGroup('00000000-000000@g.us');
 

@@ -157,6 +157,7 @@ import {
   checkIdMessage,
   returnReply,
   logout,
+  setGroupDescription,
 } from './functions';
 import {
   base64ToFile,
@@ -263,6 +264,7 @@ if (typeof window.WAPI === 'undefined') {
   window.WAPI.promoteParticipant = promoteParticipant;
   window.WAPI.demoteParticipant = demoteParticipant;
   window.WAPI.joinGroup = joinGroup;
+  window.WAPI.setGroupDescription = setGroupDescription;
 
   // Chatting functions
   window.WAPI.sendChatstate = sendChatstate;

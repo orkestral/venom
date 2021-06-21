@@ -152,3 +152,4 @@ export { downloadMedia } from './download-media';
 export { checkIdMessage } from './check-id-messagem';
 export { returnReply } from './return-reply';
 export { logout } from './logout';
+export { setGroupDescription } from './set-group-description';

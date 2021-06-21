@@ -56,10 +56,62 @@ import { Page } from 'puppeteer';
 import { CreateConfig } from '../../config/create-config';
 import { Id } from '../model';
 import { RetrieverLayer } from './retriever.layer';
+import { Scope, checkValuesSender } from '../helpers/layers-interface';
+
+let obj: Scope;
 
 export class GroupLayer extends RetrieverLayer {
   constructor(public page: Page, session?: string, options?: CreateConfig) {
     super(page, session, options);
+  }
+
+  /**
+   * Parameters to change group description
+   * @param {string} groupId group number
+   * @param {string} description group description
+   */
+  public async setGroupDescription(
+    groupId: string,
+    description: string
+  ): Promise<Object> {
+    return new Promise(async (resolve, reject) => {
+      const typeFunction = 'setGroupDescription';
+      const type = 'string';
+      const check = [
+        {
+          param: 'groupId',
+          type: type,
+          value: groupId,
+          function: typeFunction,
+          isUser: true,
+        },
+        {
+          param: 'description',
+          type: type,
+          value: description,
+          function: typeFunction,
+          isUser: true,
+        },
+      ];
+
+      const validating = checkValuesSender(check);
+      if (typeof validating === 'object') {
+        return reject(validating);
+      }
+
+      const result = await this.page.evaluate(
+        ({ groupId, description }) => {
+          return WAPI.setGroupDescription(groupId, description);
+        },
+        { groupId, description }
+      );
+
+      if (result['erro'] == true) {
+        return reject(result);
+      } else {
+        return resolve(result);
+      }
+    });
   }
 
   /**

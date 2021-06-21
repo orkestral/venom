@@ -248,6 +248,7 @@ interface WAPI {
   sendSeen: (to: string) => void;
   returnReply: (message: object) => object;
   onStreamChange: (callback: Function) => void;
+  setGroupDescription: (groupId: string, description: string) => object;
 }
 
 declare global {
