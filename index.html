@@ -3,8 +3,8 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>venom-bot - v3.0.18</title>
-	<meta name="description" content="Documentation for venom-bot - v3.0.18">
+	<title>venom-bot - v3.0.19</title>
+	<meta name="description" content="Documentation for venom-bot - v3.0.19">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="assets/css/main.css">
 	<link rel="stylesheet" href="assets/css/pages.css">
@@ -23,7 +23,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="index.html" class="title">venom-bot - v3.0.18</a>
+					<a href="index.html" class="title">venom-bot - v3.0.19</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -55,7 +55,7 @@
 					<a href="modules.html">Globals</a>
 				</li>
 			</ul>
-			<h1>Project venom-bot - v3.0.18</h1>
+			<h1>Project venom-bot - v3.0.19</h1>
 		</div>
 	</div>
 </header>
@@ -88,12 +88,16 @@
 					<h2>Medium Posts</h2>
 				</a>
 				<p><img height="100" src="https://miro.medium.com/max/1002/1*s986xIGqhfsN8U--09_AdA.png"> </img> <br>
-				<a href="https://medium.com/venom-bot" title="Venom in Medium"><strong>Access @Venom Posts In Medium</strong></a></p>
-				<p><br> <br></p>
-				<a href="#request-support-free-group-access-in-whatsapp" id="request-support-free-group-access-in-whatsapp" style="color: inherit; text-decoration: none;">
-					<h2>Request Support Free Group Access In Whatsapp</h2>
+					<a href="https://medium.com/venom-bot" title="Venom in Medium"><strong>Access @Venom Posts In Medium</strong></a>
+				<br> <br></p>
+				<a href="#need-help-talk-to-our-support" id="need-help-talk-to-our-support" style="color: inherit; text-decoration: none;">
+					<h2>Need help? Talk to our support!</h2>
 				</a>
-				<p><a target="_blank" href="https://web.whatsapp.com/send?phone=556181590153&text=I%20want%20access%20to%20the%20WhatsApp%20Venom%20support%20group" target="_blank"><img title="whatzapp" height="100" width="375" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/WhatsApp_logo.svg/2000px-WhatsApp_logo.svg.png"></a></p>
+				<p><a target="_blank" href="https://web.whatsapp.com/send?phone=557599951550&text=Can%20you%20help%20me?" target="_blank"><img title="whatzapp" height="100" width="375" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/WhatsApp_logo.svg/2000px-WhatsApp_logo.svg.png"></a></p>
+				<a href="#we-have-a-complete-commercial-api-start-your-project-with-50" id="we-have-a-complete-commercial-api-start-your-project-with-50" style="color: inherit; text-decoration: none;">
+					<h2>We have a complete commercial API, start your project with 50%</h2>
+				</a>
+				<p><a target="_blank" href="https://web.whatsapp.com/send?phone=556181590153&text=I%20want%20access%20to%20API%20Venom" target="_blank"><img title="whatzapp" height="100" width="375" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/WhatsApp_logo.svg/2000px-WhatsApp_logo.svg.png"></a></p>
 				<a href="#🕷🕷-functions-venom🕷🕷" id="🕷🕷-functions-venom🕷🕷" style="color: inherit; text-decoration: none;">
 					<h2>🕷🕷 Functions Venom🕷🕷</h2>
 				</a>
@@ -736,6 +740,13 @@
 					<h2>Group Functions</h2>
 				</a>
 				<pre><code class="language-javascript"><span style="color: #008000">// groupId or chatId: leaveGroup 52123123-323235@g.us</span>
+
+<span style="color: #008000">//change group description</span>
+<span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #795E26">setGroupDescription</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;00000000-000000@g.us&#039;</span><span style="color: #000000">, </span><span style="color: #A31515">&#039;group description&#039;</span><span style="color: #000000">).</span><span style="color: #795E26">then</span><span style="color: #000000">((</span><span style="color: #001080">result</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">    </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;Result: &#039;</span><span style="color: #000000">, </span><span style="color: #001080">result</span><span style="color: #000000">); </span><span style="color: #008000">//return object success</span>
+<span style="color: #000000">}).</span><span style="color: #795E26">catch</span><span style="color: #000000">((</span><span style="color: #001080">erro</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">    </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">error</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;Error when sending: &#039;</span><span style="color: #000000">, </span><span style="color: #001080">erro</span><span style="color: #000000">); </span><span style="color: #008000">//return object error</span>
+<span style="color: #000000">});</span>
 
 <span style="color: #008000">// Leave group</span>
 <span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #795E26">leaveGroup</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;00000000-000000@g.us&#039;</span><span style="color: #000000">);</span>
