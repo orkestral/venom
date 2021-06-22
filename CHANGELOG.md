@@ -1,3 +1,22 @@
+## [3.0.19](https://github.com/orkestral/venom/compare/v3.0.18...v3.0.19) (2021-06-22)
+
+
+### Bug Fixes
+
+* getGroupInviteLink (await) ([7040168](https://github.com/orkestral/venom/commit/70401688b0104af74610ac5f40d5ef123a5888b1))
+* queryGroupInviteInfo ([48e1086](https://github.com/orkestral/venom/commit/48e10863eb2fecf4b405ade38c4bb1a00e2bb3ed))
+* revokeGroupInviteLink (export) ([07947c3](https://github.com/orkestral/venom/commit/07947c326fc42c457b21cdbd74cab8f76726bc1b))
+* sendContactVcard ([e47ff16](https://github.com/orkestral/venom/commit/e47ff16c44e0b0025a653b347df667d8bcabca82))
+* typescript ([5e345a9](https://github.com/orkestral/venom/commit/5e345a941ece883d9875578035da5aabd9faadee))
+
+
+### Features
+
+* Change group description ([c635644](https://github.com/orkestral/venom/commit/c6356445b12eeae77306efc000202f6f353e0839))
+* Support ([190be33](https://github.com/orkestral/venom/commit/190be33cecca2b7a528c991bd879c5b6269b7faf))
+
+
+
 ## [3.0.18](https://github.com/orkestral/venom/compare/v3.0.17...v3.0.18) (2021-06-04)
 
 
