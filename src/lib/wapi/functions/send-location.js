@@ -58,56 +58,37 @@ export async function sendLocation(
   longitude,
   location = null
 ) {
-  var chat = await WAPI.sendExist(chatId);
+  const chat = await WAPI.sendExist(chatId);
+
   if (!chat.erro) {
-    let To = chat;
-    var tempMsg = await Object.create(
-      Store.Msg.models.filter((msg) => msg.__x_isSentByMe && !msg.quotedMsg)[0]
-    );
-    var newMsgId = await window.WAPI.getNewMessageId(chatId);
-    let inChat = await WAPI.getchatId(chatId).catch(() => {});
+    const newMsgId = await window.WAPI.getNewMessageId(chatId);
+    const inChat = await WAPI.getchatId(chatId).catch(() => {});
+    const fromwWid = await window.Store.Conn.wid;
+
     if (inChat) {
       chat.lastReceivedKey._serialized = inChat._serialized;
       chat.lastReceivedKey.id = inChat.id;
     }
-    tempMsg.description = undefined;
-    tempMsg.title = undefined;
-    tempMsg.thumbnail = undefined;
-    tempMsg.matchedText = undefined;
 
-    var extend = {
+    const message = {
       ack: 0,
       id: newMsgId,
       local: !0,
-      self: 'out',
+      self: 'in',
       t: parseInt(new Date().getTime() / 1000),
       to: chatId,
+      from: fromwWid,
       isNewMsg: !0,
       type: 'location',
       lat: latitude,
       lng: longitude,
       loc: location,
-      clientUrl: undefined,
-      directPath: undefined,
-      filehash: undefined,
-      uploadhash: undefined,
-      mediaKey: undefined,
-      isQuotedMsgAvailable: false,
-      invis: false,
-      mediaKeyTimestamp: undefined,
-      mimetype: undefined,
-      height: undefined,
-      width: undefined,
-      ephemeralStartTimestamp: undefined,
-      body: undefined,
-      mediaData: undefined,
     };
 
-    Object.assign(tempMsg, extend);
+    const result =
+      (await Promise.all(Store.addAndSendMsgToChat(chat, message)))[1] || '';
 
-    var result =
-      (await Promise.all(Store.addAndSendMsgToChat(chat, tempMsg)))[1] || '';
-    var m = {
+    let m = {
         latitude: latitude,
         longitude: longitude,
         title: location,
