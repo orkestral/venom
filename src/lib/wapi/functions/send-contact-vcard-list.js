@@ -124,7 +124,6 @@ export async function sendContactVcardList(chatId, contacts) {
       type: 'multi_vcard',
       vcardList: Vcards,
       isNewMsg: !0,
-      vcardFormattedName: ' 2 contatos',
     };
 
     var result =
