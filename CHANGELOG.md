@@ -1,3 +1,13 @@
+## [3.0.20](https://github.com/orkestral/venom/compare/v3.0.19...v3.0.20) (2021-06-24)
+
+
+### Bug Fixes
+
+* send-loacation ([92446ea](https://github.com/orkestral/venom/commit/92446ea447deafe88b363f5e6294b9ee95274512))
+* sendContactVcardList ([e6518cc](https://github.com/orkestral/venom/commit/e6518cc7e98031a8a62fe0606b08b8a26245dd70))
+
+
+
 ## [3.0.19](https://github.com/orkestral/venom/compare/v3.0.18...v3.0.19) (2021-06-22)
 
 
