@@ -388,4 +388,8 @@ export const storeObjects = [
     id: 'GroupDesc',
     conditions: (module) => (module.setGroupDesc ? module : null),
   },
+  {
+    id: 'infoGroup',
+    conditions: (module) => (module.queryGroupInviteInfo ? module : null),
+  },
 ];
