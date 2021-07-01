@@ -88,6 +88,13 @@ export async function sendExist(chatId, returnChat = true, Send = true) {
   let ck = await window.WAPI.checkNumberStatus(chatId),
     chat = await window.WAPI.getChat(ck.id._serialized);
 
+  if (ck.numberExists && chat === undefined) {
+    var idUser = new window.Store.UserConstructor(chatId, {
+      intentionallyUsePrivateConstructor: true,
+    });
+    chat = await Store.Chat.find(idUser);
+  }
+
   if (!chat) {
     const storeChat = await window.Store.Chat.find(chatId);
     if (storeChat) {
