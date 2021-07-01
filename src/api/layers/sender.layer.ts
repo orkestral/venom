@@ -582,8 +582,9 @@ export class SenderLayer extends ListenerLayer {
    * Send audio base64
    * @param to Chat id
    * @param base64 base64 data
+   * @param passId new id
    */
-  public async sendVoiceBase64(to: string, base64: string) {
+  public async sendVoiceBase64(to: string, base64: string, passId?: any) {
     return new Promise(async (resolve, reject) => {
       const mimeType: any = base64MimeType(base64);
 
@@ -597,10 +598,10 @@ export class SenderLayer extends ListenerLayer {
       }
       if (!mimeType || mimeType.includes('audio/mpeg')) {
         const result = await this.page.evaluate(
-          ({ to, base64 }) => {
-            return WAPI.sendPtt(base64, to);
+          ({ to, base64, passId }) => {
+            return WAPI.sendPtt(base64, to, passId);
           },
-          { to, base64 }
+          { to, base64, passId }
         );
         if (result['erro'] == true) {
           reject(result);

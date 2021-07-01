@@ -19,9 +19,11 @@ export async function deleteMessages(chatId, messageArray) {
     }
 
     for (let i in messageArray) {
-      let checkID = await WAPI.checkIdMessage(chatId, messageArray[i]);
-      if (checkID.erro == true) {
-        return checkID;
+      if (typeof messageArray[i] === 'string') {
+        let checkID = await WAPI.checkIdMessage(chatId, messageArray[i]);
+        if (checkID.erro == true) {
+          return checkID;
+        }
       }
     }
 
@@ -38,11 +40,11 @@ export async function deleteMessages(chatId, messageArray) {
 
     let jobs = [
       chat.sendRevokeMsgs(
-        messagesToDelete.filter((msg) => msg.isSentByMe),
+        messagesToDelete.filter((msg) => msg.fromMe),
         chat
       ),
       chat.sendDeleteMsgs(
-        messagesToDelete.filter((msg) => !msg.isSentByMe),
+        messagesToDelete.filter((msg) => !msg.fromMe),
         chat
       ),
     ];

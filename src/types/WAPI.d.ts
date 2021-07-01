@@ -57,6 +57,7 @@ interface WAPI {
   getGroupAdmins: (groupId: string) => Contact[];
   getGroupInfoFromInviteLink: (inviteCode: string) => Promise<string | boolean>;
   getGroupInviteLink: (chatId: string) => Promise<string>;
+  revokeGroupInviteLink: (chatId: string) => Promise<boolean>;
   getGroupParticipantIDs: (groupId: string) => Id[];
   getHost: () => HostDevice;
   getListMute: (type?: string) => object;
@@ -176,7 +177,7 @@ interface WAPI {
     chatId: string
   ) => void;
   sendMute: (id: string, time: number, type: string) => Promise<object>;
-  sendPtt: (base64: string, to: string) => any;
+  sendPtt: (base64: string, to: string, passId?: any) => any;
   sendVideoAsGif: (
     base64: string,
     to: string,

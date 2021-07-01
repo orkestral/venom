@@ -23,7 +23,10 @@ export const storeObjects = [
   },
   {
     id: 'GroupInvite',
-    conditions: (module) => (module.queryGroupInviteCode ? module : null),
+    conditions: (module) =>
+      module.sendQueryGroupInviteCode && module.sendRevokeGroupInviteCode
+        ? module
+        : null,
   },
   {
     id: 'Wap',
@@ -375,5 +378,10 @@ export const storeObjects = [
     id: 'chatOptions',
     conditions: (module) =>
       module.default && module.default.archiveChat ? module.default : null,
+  },
+  {
+    id: 'blob',
+    conditions: (module) =>
+      module.default && module.default.createFromData ? module : null,
   },
 ];
