@@ -202,6 +202,7 @@ interface WAPI {
   onFilePicThumb: (callback: Function) => void;
   onChatState: (callback: Function) => void;
   onUnreadMessage: (callback: Function) => void;
+  setGroupDescription: (groupId: string, description: string) => object;
 }
 
 declare global {

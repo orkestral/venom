@@ -384,4 +384,8 @@ export const storeObjects = [
     conditions: (module) =>
       module.default && module.default.createFromData ? module : null,
   },
+  {
+    id: 'GroupDesc',
+    conditions: (module) => (module.setGroupDesc ? module : null),
+  },
 ];

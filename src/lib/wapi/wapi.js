@@ -105,6 +105,7 @@ import {
   setPresenceOffline,
   archiveChat,
   setNewMessageId,
+  setGroupDescription,
 } from './functions';
 import {
   base64ToFile,
@@ -216,6 +217,7 @@ if (typeof window.WAPI === 'undefined') {
   window.WAPI.promoteParticipant = promoteParticipant;
   window.WAPI.demoteParticipant = demoteParticipant;
   window.WAPI.joinGroup = joinGroup;
+  window.WAPI.setGroupDescription = setGroupDescription;
   window.WAPI.setPresenceOnline = setPresenceOnline;
   window.WAPI.setPresenceOffline = setPresenceOffline;
 
