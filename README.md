@@ -22,8 +22,7 @@
 
 ## Buy Venom Commercial API (Adquira a API Comercial do Venom)
 Api venom with complete documentation, all venom calls in business version and VDM api manager separating each instance in containers, ready for rest calls
-<a target="_blank" href="https://web.whatsapp.com/send?phone=556181590153&text=I%20want%20access%20to%20API%20Venom" target="_blank"><img title="whatzapp" height="100" width="375" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/WhatsApp_logo.svg/2000px-WhatsApp_logo.svg.png"></a>
-
+<br> <br>
 |                                                            |     |
 | ---------------------------------------------------------- | --- |
 | Venom Docker Manager - Manager of API in Containers                                   | ✔   |
@@ -32,6 +31,11 @@ Api venom with complete documentation, all venom calls in business version and V
 | Code is yours                                  | ✔   |
 | No monthly fee                                 | ✔   |
 | Automatic Installer                                 | ✔   |
+
+## Whatsapp to buy API, Paid Support or Consulting (Whatsapp para adquirir API, Suporte Pago ou Consultoria)
+<a target="_blank" href="https://web.whatsapp.com/send?phone=556181590153&text=I%20want%20access%20to%20API%20Venom" target="_blank"><img title="whatzapp" height="100" width="375" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/WhatsApp_logo.svg/2000px-WhatsApp_logo.svg.png"></a>
+
+
 
 ## Venom group support free on Telegram
 <a target="_blank" href="https://t.me/joinchat/G8wxNXidWBo1ZDYx" target="_blank"><img title="Telegram" height="100" width="375" src="https://user-images.githubusercontent.com/66584466/117182238-7d1d8980-adac-11eb-9a70-e32f90c3d4e5.png"></a>
