@@ -21,18 +21,13 @@
   <a href="https://orkestral.github.io/venom">Documentation</a>
 </p>
 
-## Medium Posts
-<img height="100" src="https://miro.medium.com/max/1002/1*s986xIGqhfsN8U--09_AdA.png"> </img> <br>
-<a href="https://medium.com/venom-bot" title="Venom in Medium">**Access @Venom Posts In Medium**</a>
-<br> <br>
-
-## Need help? Talk to our support!
-
-<a target="_blank" href="https://web.whatsapp.com/send?phone=557599951550&text=Can%20you%20help%20me?" target="_blank"><img title="whatzapp" height="100" width="375" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/WhatsApp_logo.svg/2000px-WhatsApp_logo.svg.png"></a>
 
 ## We have a complete commercial API, start your project with 50%
 
 <a target="_blank" href="https://web.whatsapp.com/send?phone=556181590153&text=I%20want%20access%20to%20API%20Venom" target="_blank"><img title="whatzapp" height="100" width="375" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/WhatsApp_logo.svg/2000px-WhatsApp_logo.svg.png"></a>
+
+## Venom group on Telegram
+<a target="_blank" href="https://t.me/joinchat/G8wxNXidWBo1ZDYx" target="_blank"><img title="Telegram" height="100" width="375" src="https://user-images.githubusercontent.com/66584466/117182238-7d1d8980-adac-11eb-9a70-e32f90c3d4e5.png"></a>
 
 ## 🕷🕷 Functions Venom🕷🕷
 
