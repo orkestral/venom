@@ -55,11 +55,21 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 const path = require('path');
 
 module.exports = {
-  entry: './wapi.js',
-  // mode: 'development',
-  // devtool: 'source-map',
+  entry: './middleware.ts',
+  module: {
+    rules: [
+      {
+        test: /\.tsx?$/,
+        use: 'ts-loader',
+        exclude: /node_modules/
+      }
+    ]
+  },
+  resolve: {
+    extensions: ['.tsx', '.ts', '.js']
+  },
   output: {
-    path: path.resolve(__dirname, '../../../dist/lib/wapi'),
-    filename: 'wapi.js'
+    filename: 'middleware.js',
+    path: path.resolve(__dirname, '../../../dist/lib/middleware')
   }
 };
