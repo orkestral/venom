@@ -1,3 +1,13 @@
+## [3.0.21](https://github.com/orkestral/venom/compare/v3.0.20...v3.0.21) (2021-07-09)
+
+
+### Bug Fixes
+
+* chat not exist ([082a80a](https://github.com/orkestral/venom/commit/082a80aecb493972b198186fa802c328573a6932))
+* Parcial fix webpack ([4dce474](https://github.com/orkestral/venom/commit/4dce4748308c7f5a0b4d2dfed88ddf856382f082))
+
+
+
 ## [3.0.20](https://github.com/orkestral/venom/compare/v3.0.19...v3.0.20) (2021-06-24)
 
 
