@@ -1031,7 +1031,33 @@ export class SenderLayer extends ListenerLayer {
    * @param chatId chat id: xxxxx@us.c
    */
   public async sendSeen(chatId: string) {
-    return this.page.evaluate((chatId) => WAPI.sendSeen(chatId), chatId);
+    return new Promise(async (resolve, reject) => {
+      const typeFunction = 'markUnseenMessage';
+      const type = 'string';
+      const check = [
+        {
+          param: 'chatId',
+          type: type,
+          value: chatId,
+          function: typeFunction,
+          isUser: true,
+        },
+      ];
+      const validating = checkValuesSender(check);
+      if (typeof validating === 'object') {
+        return reject(validating);
+      }
+      const result = await this.page.evaluate(
+        (chatId) => WAPI.sendSeen(chatId),
+        chatId
+      );
+
+      if (result['erro'] == true) {
+        return reject(result);
+      } else {
+        return resolve(result);
+      }
+    });
   }
 
   /**

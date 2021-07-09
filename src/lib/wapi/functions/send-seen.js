@@ -1,11 +1,15 @@
 export async function sendSeen(id, done) {
-  if (!id) return false;
-  var chat = window.WAPI.getChat(id);
-  if (chat !== undefined) {
-    await Store.ReadSeen.sendSeen(chat, false);
-    done && done(true);
+  const chat = await WAPI.sendExist(id);
+  if (!chat.erro) {
+    await Store.ReadSeen.markUnread(chat, false)
+      .then(() => {
+        return WAPI.scope(undefined, false, 'OK', null);
+      })
+      .catch(() => {
+        return WAPI.scope(undefined, true, 'Error', null);
+      });
     return true;
+  } else {
+    return false;
   }
-  done && done(false);
-  return false;
 }

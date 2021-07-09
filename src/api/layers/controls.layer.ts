@@ -45,10 +45,34 @@ export class ControlsLayer extends UILayer {
    * @returns boolean
    */
   public async markUnseenMessage(contactId: string) {
-    return this.page.evaluate(
-      (contactId: string) => WAPI.markUnseenMessage(contactId),
-      contactId
-    );
+    return new Promise(async (resolve, reject) => {
+      const typeFunction = 'markUnseenMessage';
+      const type = 'string';
+      const check = [
+        {
+          param: 'contactId',
+          type: type,
+          value: contactId,
+          function: typeFunction,
+          isUser: true,
+        },
+      ];
+
+      const validating = checkValuesSender(check);
+      if (typeof validating === 'object') {
+        return reject(validating);
+      }
+      const result = await this.page.evaluate(
+        (contactId: string) => WAPI.markUnseenMessage(contactId),
+        contactId
+      );
+
+      if (result['erro'] == true) {
+        return reject(result);
+      } else {
+        return resolve(result);
+      }
+    });
   }
 
   /**
