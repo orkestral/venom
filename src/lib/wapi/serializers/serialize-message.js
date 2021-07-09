@@ -100,6 +100,6 @@ export const _serializeMessageObj = (obj) => {
     lastSeen: _chat.lastSeen,
     quotedMsgObj: WAPI._serializeMessageObj(obj['_quotedMsgObj']),
     mediaData: window.WAPI._serializeRawObj(obj['mediaData']),
-    reply: (body) => window.WAPI.reply(_chat.id._serialized, body, obj),
+    reply: (body) => window.WAPI.reply(_chat.id._serialized, body, obj)
   });
 };

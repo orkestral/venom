@@ -131,7 +131,7 @@ export async function reply(chatId, content, quotedMessageId) {
       t: parseInt(new Date().getTime() / 1000),
       isNewMsg: !0,
       type: 'chat',
-      ...quotedMsgOptions,
+      ...quotedMsgOptions
     };
 
     const result = (

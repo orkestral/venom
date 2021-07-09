@@ -82,7 +82,7 @@ export async function sendLocation(
       type: 'location',
       lat: latitude,
       lng: longitude,
-      loc: location,
+      loc: location
     };
 
     const result =
@@ -92,7 +92,7 @@ export async function sendLocation(
         latitude: latitude,
         longitude: longitude,
         title: location,
-        type: 'location',
+        type: 'location'
       },
       obj;
     if (result == 'success' || result == 'OK') {

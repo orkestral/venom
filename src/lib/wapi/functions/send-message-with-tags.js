@@ -79,7 +79,7 @@ export async function sendMessageWithTags(to, body) {
     type: 'chat',
     body,
     quotedMsg: null,
-    mentionedJidList,
+    mentionedJidList
   };
 
   Object.assign(tempMsg, extend);

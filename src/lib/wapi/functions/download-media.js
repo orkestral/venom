@@ -59,14 +59,14 @@ export async function downloadMedia(messageId) {
     throw {
       error: true,
       code: 'message_not_found',
-      message: 'Message not found',
+      message: 'Message not found'
     };
   }
   if (!msg.mediaData) {
     throw {
       error: true,
       code: 'message_not_contains_media',
-      message: 'Message not contains media',
+      message: 'Message not contains media'
     };
   }
 
@@ -91,7 +91,7 @@ export async function downloadMedia(messageId) {
     throw {
       error: true,
       code: 'media_not_found',
-      message: 'Media not found',
+      message: 'Media not found'
     };
   }
 

@@ -70,13 +70,13 @@ export function sendMessageWithThumb(
     description: description,
     matchedText: url,
     title: title,
-    thumbnail: thumb,
+    thumbnail: thumb
   };
   chatSend.sendMessage(url, {
     linkPreview: linkPreview,
     mentionedJidList: [],
     quotedMsg: null,
-    quotedMsgAdminGroupJid: null,
+    quotedMsgAdminGroupJid: null
   });
   if (done !== undefined) done(true);
   return true;

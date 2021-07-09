@@ -57,7 +57,7 @@ export async function processFiles(chat, blobs) {
     blobs = [blobs];
   }
   const mediaCollection = new Store.MediaCollection({
-    chatParticipantCount: chat.getParticipantCount(),
+    chatParticipantCount: chat.getParticipantCount()
   });
 
   await mediaCollection.processAttachments(
@@ -65,7 +65,7 @@ export async function processFiles(chat, blobs) {
       ? blobs
       : blobs.map((blob) => {
           return {
-            file: blob,
+            file: blob
           };
         }),
     chat,

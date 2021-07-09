@@ -102,7 +102,7 @@ export async function forwardMessages(chatId, messages, skipMyMessages) {
           isForwarded: true,
           forwardingScore: 1,
           multicast: true,
-          __x_isSentByMe: true,
+          __x_isSentByMe: true
         };
 
         Object.assign(tempMsg, toFor);

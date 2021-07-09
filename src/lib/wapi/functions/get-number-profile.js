@@ -68,7 +68,7 @@ export async function getNumberProfile(id, done) {
       done(
         window.WAPI._serializeNumberStatusObj({
           status: e,
-          jid: id,
+          jid: id
         })
       );
     }

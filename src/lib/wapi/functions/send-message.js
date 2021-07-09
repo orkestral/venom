@@ -84,7 +84,7 @@ export async function sendMessage(to, content) {
       t: parseInt(new Date().getTime() / 1000),
       isNewMsg: !0,
       invis: true,
-      type: 'chat',
+      type: 'chat'
     };
     var result = (
       await Promise.all(window.Store.addAndSendMsgToChat(chat, message))

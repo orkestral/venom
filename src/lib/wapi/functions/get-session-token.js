@@ -60,7 +60,7 @@ export async function getSessionTokenBrowser() {
       WABrowserId,
       WASecretBundle,
       WAToken1,
-      WAToken2,
+      WAToken2
     };
   }
 }

@@ -69,10 +69,10 @@ export async function getListMute(type = 'all') {
         {
           total: toMute.length + noMute.length,
           amountToMute: toMute.length,
-          amountnoMute: noMute.length,
+          amountnoMute: noMute.length
         },
         toMute,
-        noMute,
+        noMute
       ];
       break;
     case 'toMute':

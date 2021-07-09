@@ -123,7 +123,7 @@ export async function sendContactVcardList(chatId, contacts) {
       to: chatId,
       type: 'multi_vcard',
       vcardList: Vcards,
-      isNewMsg: !0,
+      isNewMsg: !0
     };
 
     var result =

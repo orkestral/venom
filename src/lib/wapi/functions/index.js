@@ -96,7 +96,7 @@ export { isLoggedIn } from './is-logged-in';
 export { leaveGroup } from './leave-group';
 export {
   asyncLoadAllEarlierMessages,
-  loadAllEarlierMessages,
+  loadAllEarlierMessages
 } from './load-all-earlier-chat-messages';
 export { loadAndGetAllMessagesInChat } from './load-and-get-all-messages-in-chat';
 export { loadChatEarlierMessages } from './load-earlier-chat-messages';

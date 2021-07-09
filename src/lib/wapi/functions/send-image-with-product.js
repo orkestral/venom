@@ -78,7 +78,7 @@ export function sendImageWithProduct(
       const temp = {
         productMsgOptions: {
           businessOwnerJid: product.catalogWid.toString({
-            legacy: !0,
+            legacy: !0
           }),
           productId: product.id.toString(),
           url: product.url,
@@ -87,9 +87,9 @@ export function sendImageWithProduct(
           description: product.description,
           currencyCode: product.currency,
           priceAmount1000: product.priceAmount1000,
-          type: 'product',
+          type: 'product'
         },
-        caption,
+        caption
       };
 
       var idUser = new Store.WidFactory.createWid(chatid);

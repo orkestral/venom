@@ -77,7 +77,7 @@ window.WAPI.sendPaymentRequest = async function (
     noteMessage,
     expiryTimestamp: parseInt(
       new Date(new Date().setDate(new Date().getDate() + 1)).getTime() / 1000
-    ),
+    )
   };
   Object.assign(tempMsg, extend);
   await Store.addAndSendMsgToChat(chat, tempMsg);

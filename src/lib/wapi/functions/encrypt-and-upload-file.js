@@ -63,7 +63,7 @@ export async function encryptAndUploadFile(type, blob) {
     blob,
     type,
     signal,
-    mediaKey,
+    mediaKey
   });
   return {
     ...encrypted,
@@ -71,6 +71,6 @@ export async function encryptAndUploadFile(type, blob) {
     filehash,
     id: filehash,
     uploadhash: encrypted.encFilehash,
-    mediaBlob: blob,
+    mediaBlob: blob
   };
 }

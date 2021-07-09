@@ -74,7 +74,7 @@ export async function sendSticker(sticker, chatId, metadata, type) {
     var result =
       (await stick.sendToChat(chat, {
         stickerIsFirstParty: false,
-        stickerSendOrigin: 6,
+        stickerSendOrigin: 6
       })) || '';
     var m = { type: type },
       obj,

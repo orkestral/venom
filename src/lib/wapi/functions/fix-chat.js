@@ -63,7 +63,7 @@ export async function pinChat(chatId, type = true, notExist = false) {
   if (!chat.erro) {
     var m = {
         type: 'pinChat',
-        typefix: typeFix,
+        typefix: typeFix
       },
       To = await WAPI.getchatId(chat.id);
     await Store.pinChat

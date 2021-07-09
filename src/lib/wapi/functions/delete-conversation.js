@@ -54,7 +54,7 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
 export function deleteConversation(chatId, done) {
   let userId = new window.Store.UserConstructor(chatId, {
-    intentionallyUsePrivateConstructor: true,
+    intentionallyUsePrivateConstructor: true
   });
   let conversation = WAPI.getChat(userId);
 

@@ -101,7 +101,7 @@ export async function deleteMessages(chatId, messageArray) {
       chat.sendDeleteMsgs(
         messagesToDelete.filter((msg) => !msg.fromMe),
         chat
-      ),
+      )
     ];
 
     const result = (await Promise.all(jobs))[1];

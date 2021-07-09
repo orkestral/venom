@@ -78,7 +78,7 @@ export async function sendContactVcard(chatId, contact, name) {
       isNewMsg: true,
       t: parseInt(new Date().getTime() / 1000),
       to: chat.id,
-      type: 'vcard',
+      type: 'vcard'
     };
 
     const result = (

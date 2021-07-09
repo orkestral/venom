@@ -60,7 +60,7 @@ export function getChat(id) {
   let found = Store.Chat.get(id);
   if (!found) {
     const ConstructChat = new window.Store.UserConstructor(id, {
-      intentionallyUsePrivateConstructor: !0,
+      intentionallyUsePrivateConstructor: !0
     });
     found = Store.Chat.find(ConstructChat) || false;
   }

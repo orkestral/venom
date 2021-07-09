@@ -58,7 +58,7 @@ export function scope(id, erro, status, text = null) {
     to: id,
     erro: erro,
     text: text,
-    status: status,
+    status: status
   };
   return e;
 }
@@ -72,7 +72,7 @@ export async function getchatId(chatId) {
         isMyContact: to.contact.isMyContact,
         verifiedName: to.contact.verifiedName,
         pushname: to.contact.pushname,
-        isOnline: to.isOnline,
+        isOnline: to.isOnline
       };
     Object.assign(objTo, extend);
     return objTo;
@@ -144,7 +144,7 @@ export async function sendExist(chatId, returnChat = true, Send = true) {
 
   if (ck.numberExists && chat === undefined) {
     var idUser = new window.Store.UserConstructor(chatId, {
-      intentionallyUsePrivateConstructor: true,
+      intentionallyUsePrivateConstructor: true
     });
     chat = await Store.Chat.find(idUser);
   }

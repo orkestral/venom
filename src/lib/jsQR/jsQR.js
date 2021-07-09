@@ -56,13 +56,14 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
   'object' == typeof exports && 'object' == typeof module
     ? (module.exports = e())
     : 'function' == typeof define && define.amd
-      ? define([], e)
-      : 'object' == typeof exports
-        ? (exports.jsQR = e())
-        : (o.jsQR = e());
+    ? define([], e)
+    : 'object' == typeof exports
+    ? (exports.jsQR = e())
+    : (o.jsQR = e());
 })('undefined' != typeof self ? self : this, function () {
   return ((c = {}),
-    (t.m = r = [
+  (t.m = r =
+    [
       function (o, e, r) {
         'use strict';
         Object.defineProperty(e, '__esModule', { value: !0 });
@@ -70,23 +71,23 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
           ((c.createEmpty = function (o, e) {
             return new c(new Uint8ClampedArray(o * e), o);
           }),
-            (c.prototype.get = function (o, e) {
-              return !(
-                o < 0 ||
-                o >= this.width ||
-                e < 0 ||
-                e >= this.height ||
-                !this.data[e * this.width + o]
-              );
-            }),
-            (c.prototype.set = function (o, e, r) {
-              this.data[e * this.width + o] = r ? 1 : 0;
-            }),
-            (c.prototype.setRegion = function (o, e, r, t, c) {
-              for (var s = e; s < e + t; s++)
-                for (var a = o; a < o + r; a++) this.set(a, s, !!c);
-            }),
-            c);
+          (c.prototype.get = function (o, e) {
+            return !(
+              o < 0 ||
+              o >= this.width ||
+              e < 0 ||
+              e >= this.height ||
+              !this.data[e * this.width + o]
+            );
+          }),
+          (c.prototype.set = function (o, e, r) {
+            this.data[e * this.width + o] = r ? 1 : 0;
+          }),
+          (c.prototype.setRegion = function (o, e, r, t, c) {
+            for (var s = e; s < e + t; s++)
+              for (var a = o; a < o + r; a++) this.set(a, s, !!c);
+          }),
+          c);
         function c(o, e) {
           (this.width = e), (this.height = o.length / e), (this.data = o);
         }
@@ -104,27 +105,27 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
             return 0 === o || 0 === e
               ? 0
               : this.expTable[
-              (this.logTable[o] + this.logTable[e]) % (this.size - 1)
-              ];
+                  (this.logTable[o] + this.logTable[e]) % (this.size - 1)
+                ];
           }),
-            (c.prototype.inverse = function (o) {
-              if (0 === o) throw new Error("Can't invert 0");
-              return this.expTable[this.size - this.logTable[o] - 1];
-            }),
-            (c.prototype.buildMonomial = function (o, e) {
-              if (o < 0) throw new Error('Invalid monomial degree less than 0');
-              if (0 === e) return this.zero;
-              var r = new Uint8ClampedArray(o + 1);
-              return (r[0] = e), new s.default(this, r);
-            }),
-            (c.prototype.log = function (o) {
-              if (0 === o) throw new Error("Can't take log(0)");
-              return this.logTable[o];
-            }),
-            (c.prototype.exp = function (o) {
-              return this.expTable[o];
-            }),
-            c);
+          (c.prototype.inverse = function (o) {
+            if (0 === o) throw new Error("Can't invert 0");
+            return this.expTable[this.size - this.logTable[o] - 1];
+          }),
+          (c.prototype.buildMonomial = function (o, e) {
+            if (o < 0) throw new Error('Invalid monomial degree less than 0');
+            if (0 === e) return this.zero;
+            var r = new Uint8ClampedArray(o + 1);
+            return (r[0] = e), new s.default(this, r);
+          }),
+          (c.prototype.log = function (o) {
+            if (0 === o) throw new Error("Can't take log(0)");
+            return this.logTable[o];
+          }),
+          (c.prototype.exp = function (o) {
+            return this.expTable[o];
+          }),
+          c);
         function c(o, e, r) {
           (this.primitive = o),
             (this.size = e),
@@ -134,8 +135,9 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
           for (var t = 1, c = 0; c < this.size; c++)
             (this.expTable[c] = t),
               (t *= 2) >= this.size &&
-              (t = (t ^ this.primitive) & (this.size - 1));
-          for (c = 0; c < this.size - 1; c++) this.logTable[this.expTable[c]] = c;
+                (t = (t ^ this.primitive) & (this.size - 1));
+          for (c = 0; c < this.size - 1; c++)
+            this.logTable[this.expTable[c]] = c;
           (this.zero = new s.default(this, Uint8ClampedArray.from([0]))),
             (this.one = new s.default(this, Uint8ClampedArray.from([1])));
         }
@@ -149,102 +151,102 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
             ((i.prototype.degree = function () {
               return this.coefficients.length - 1;
             }),
-              (i.prototype.isZero = function () {
-                return 0 === this.coefficients[0];
-              }),
-              (i.prototype.getCoefficient = function (o) {
-                return this.coefficients[this.coefficients.length - 1 - o];
-              }),
-              (i.prototype.addOrSubtract = function (o) {
-                if (this.isZero()) return o;
-                if (o.isZero()) return this;
-                var e = this.coefficients,
-                  r = o.coefficients;
-                e.length > r.length && ((e = (t = [r, e])[0]), (r = t[1]));
-                for (
-                  var t,
+            (i.prototype.isZero = function () {
+              return 0 === this.coefficients[0];
+            }),
+            (i.prototype.getCoefficient = function (o) {
+              return this.coefficients[this.coefficients.length - 1 - o];
+            }),
+            (i.prototype.addOrSubtract = function (o) {
+              if (this.isZero()) return o;
+              if (o.isZero()) return this;
+              var e = this.coefficients,
+                r = o.coefficients;
+              e.length > r.length && ((e = (t = [r, e])[0]), (r = t[1]));
+              for (
+                var t,
                   c = new Uint8ClampedArray(r.length),
                   s = r.length - e.length,
                   a = 0;
-                  a < s;
-                  a++
-                )
-                  c[a] = r[a];
-                for (a = s; a < r.length; a++)
-                  c[a] = l.addOrSubtractGF(e[a - s], r[a]);
-                return new i(this.field, c);
-              }),
-              (i.prototype.multiply = function (o) {
-                if (0 === o) return this.field.zero;
-                if (1 === o) return this;
-                for (
-                  var e = this.coefficients.length,
+                a < s;
+                a++
+              )
+                c[a] = r[a];
+              for (a = s; a < r.length; a++)
+                c[a] = l.addOrSubtractGF(e[a - s], r[a]);
+              return new i(this.field, c);
+            }),
+            (i.prototype.multiply = function (o) {
+              if (0 === o) return this.field.zero;
+              if (1 === o) return this;
+              for (
+                var e = this.coefficients.length,
                   r = new Uint8ClampedArray(e),
                   t = 0;
-                  t < e;
-                  t++
-                )
-                  r[t] = this.field.multiply(this.coefficients[t], o);
-                return new i(this.field, r);
-              }),
-              (i.prototype.multiplyPoly = function (o) {
-                if (this.isZero() || o.isZero()) return this.field.zero;
-                for (
-                  var e = this.coefficients,
+                t < e;
+                t++
+              )
+                r[t] = this.field.multiply(this.coefficients[t], o);
+              return new i(this.field, r);
+            }),
+            (i.prototype.multiplyPoly = function (o) {
+              if (this.isZero() || o.isZero()) return this.field.zero;
+              for (
+                var e = this.coefficients,
                   r = e.length,
                   t = o.coefficients,
                   c = t.length,
                   s = new Uint8ClampedArray(r + c - 1),
                   a = 0;
-                  a < r;
-                  a++
-                )
-                  for (var d = e[a], n = 0; n < c; n++)
-                    s[a + n] = l.addOrSubtractGF(
-                      s[a + n],
-                      this.field.multiply(d, t[n])
-                    );
-                return new i(this.field, s);
-              }),
-              (i.prototype.multiplyByMonomial = function (o, e) {
-                if (o < 0) throw new Error('Invalid degree less than 0');
-                if (0 === e) return this.field.zero;
-                for (
-                  var r = this.coefficients.length,
+                a < r;
+                a++
+              )
+                for (var d = e[a], n = 0; n < c; n++)
+                  s[a + n] = l.addOrSubtractGF(
+                    s[a + n],
+                    this.field.multiply(d, t[n])
+                  );
+              return new i(this.field, s);
+            }),
+            (i.prototype.multiplyByMonomial = function (o, e) {
+              if (o < 0) throw new Error('Invalid degree less than 0');
+              if (0 === e) return this.field.zero;
+              for (
+                var r = this.coefficients.length,
                   t = new Uint8ClampedArray(r + o),
                   c = 0;
-                  c < r;
-                  c++
-                )
-                  t[c] = this.field.multiply(this.coefficients[c], e);
-                return new i(this.field, t);
-              }),
-              (i.prototype.evaluateAt = function (o) {
-                var e = 0;
-                if (0 === o) return this.getCoefficient(0);
-                var r = this.coefficients.length;
-                if (1 === o)
-                  return (
-                    this.coefficients.forEach(function (o) {
-                      e = l.addOrSubtractGF(e, o);
-                    }),
-                    e
-                  );
-                e = this.coefficients[0];
-                for (var t = 1; t < r; t++)
-                  e = l.addOrSubtractGF(
-                    this.field.multiply(o, e),
-                    this.coefficients[t]
-                  );
-                return e;
-              }),
-              i);
+                c < r;
+                c++
+              )
+                t[c] = this.field.multiply(this.coefficients[c], e);
+              return new i(this.field, t);
+            }),
+            (i.prototype.evaluateAt = function (o) {
+              var e = 0;
+              if (0 === o) return this.getCoefficient(0);
+              var r = this.coefficients.length;
+              if (1 === o)
+                return (
+                  this.coefficients.forEach(function (o) {
+                    e = l.addOrSubtractGF(e, o);
+                  }),
+                  e
+                );
+              e = this.coefficients[0];
+              for (var t = 1; t < r; t++)
+                e = l.addOrSubtractGF(
+                  this.field.multiply(o, e),
+                  this.coefficients[t]
+                );
+              return e;
+            }),
+            i);
         function i(o, e) {
           if (0 === e.length) throw new Error('No coefficients.');
           this.field = o;
           var r = e.length;
           if (1 < r && 0 === e[0]) {
-            for (var t = 1; t < r && 0 === e[t];) t++;
+            for (var t = 1; t < r && 0 === e[t]; ) t++;
             if (t === r) this.coefficients = o.zero.coefficients;
             else {
               this.coefficients = new Uint8ClampedArray(r - t);
@@ -269,20 +271,23 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
             t = c.decode(r.matrix);
           return t
             ? {
-              binaryData: t.bytes,
-              data: t.text,
-              chunks: t.chunks,
-              location: {
-                topRightCorner: r.mappingFunction(e.dimension, 0),
-                topLeftCorner: r.mappingFunction(0, 0),
-                bottomRightCorner: r.mappingFunction(e.dimension, e.dimension),
-                bottomLeftCorner: r.mappingFunction(0, e.dimension),
-                topRightFinderPattern: e.topRight,
-                topLeftFinderPattern: e.topLeft,
-                bottomLeftFinderPattern: e.bottomLeft,
-                bottomRightAlignmentPattern: e.alignmentPattern,
-              },
-            }
+                binaryData: t.bytes,
+                data: t.text,
+                chunks: t.chunks,
+                location: {
+                  topRightCorner: r.mappingFunction(e.dimension, 0),
+                  topLeftCorner: r.mappingFunction(0, 0),
+                  bottomRightCorner: r.mappingFunction(
+                    e.dimension,
+                    e.dimension
+                  ),
+                  bottomLeftCorner: r.mappingFunction(0, e.dimension),
+                  topRightFinderPattern: e.topRight,
+                  topLeftFinderPattern: e.topLeft,
+                  bottomLeftFinderPattern: e.bottomLeft,
+                  bottomRightAlignmentPattern: e.alignmentPattern
+                }
+              }
             : null;
         }
         var u = { inversionAttempts: 'attemptBoth' };
@@ -293,8 +298,8 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
             c[o] = t[o] || c[o];
           });
           var s =
-            'attemptBoth' === c.inversionAttempts ||
-            'invertFirst' === c.inversionAttempts,
+              'attemptBoth' === c.inversionAttempts ||
+              'invertFirst' === c.inversionAttempts,
             a =
               'onlyInvert' === c.inversionAttempts ||
               'invertFirst' === c.inversionAttempts,
@@ -304,9 +309,9 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
             i = k(a ? l : n);
           return (
             i ||
-            ('attemptBoth' !== c.inversionAttempts &&
-              'invertFirst' !== c.inversionAttempts) ||
-            (i = k(a ? n : l)),
+              ('attemptBoth' !== c.inversionAttempts &&
+                'invertFirst' !== c.inversionAttempts) ||
+              (i = k(a ? n : l)),
             i
           );
         }
@@ -323,10 +328,10 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
           ((t.prototype.get = function (o, e) {
             return this.data[e * this.width + o];
           }),
-            (t.prototype.set = function (o, e, r) {
-              this.data[e * this.width + o] = r;
-            }),
-            t);
+          (t.prototype.set = function (o, e, r) {
+            this.data[e * this.width + o] = r;
+          }),
+          t);
         function t(o, e) {
           (this.width = o), (this.data = new Uint8ClampedArray(o * e));
         }
@@ -342,9 +347,9 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
             }
           for (
             var i = Math.ceil(e / 8),
-            B = Math.ceil(r / 8),
-            k = new z(i, B),
-            u = 0;
+              B = Math.ceil(r / 8),
+              k = new z(i, B),
+              u = 0;
             u < B;
             u++
           )
@@ -360,7 +365,9 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
               var v = m / Math.pow(8, 2);
               if (w - f <= 24 && ((v = f / 2), 0 < u && 0 < C)) {
                 var h =
-                  (k.get(C, u - 1) + 2 * k.get(C - 1, u) + k.get(C - 1, u - 1)) /
+                  (k.get(C, u - 1) +
+                    2 * k.get(C - 1, u) +
+                    k.get(C - 1, u - 1)) /
                   4;
                 f < h && (v = h);
               }
@@ -395,46 +402,139 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
           u = r(9),
           C = r(10);
         function m(o, e) {
-          for (var r = o ^ e, t = 0; r;) t++, (r &= r - 1);
+          for (var r = o ^ e, t = 0; r; ) t++, (r &= r - 1);
           return t;
         }
         function w(o, e) {
           return (e << 1) | o;
         }
         var P = [
-          { bits: 21522, formatInfo: { errorCorrectionLevel: 1, dataMask: 0 } },
-          { bits: 20773, formatInfo: { errorCorrectionLevel: 1, dataMask: 1 } },
-          { bits: 24188, formatInfo: { errorCorrectionLevel: 1, dataMask: 2 } },
-          { bits: 23371, formatInfo: { errorCorrectionLevel: 1, dataMask: 3 } },
-          { bits: 17913, formatInfo: { errorCorrectionLevel: 1, dataMask: 4 } },
-          { bits: 16590, formatInfo: { errorCorrectionLevel: 1, dataMask: 5 } },
-          { bits: 20375, formatInfo: { errorCorrectionLevel: 1, dataMask: 6 } },
-          { bits: 19104, formatInfo: { errorCorrectionLevel: 1, dataMask: 7 } },
-          { bits: 30660, formatInfo: { errorCorrectionLevel: 0, dataMask: 0 } },
-          { bits: 29427, formatInfo: { errorCorrectionLevel: 0, dataMask: 1 } },
-          { bits: 32170, formatInfo: { errorCorrectionLevel: 0, dataMask: 2 } },
-          { bits: 30877, formatInfo: { errorCorrectionLevel: 0, dataMask: 3 } },
-          { bits: 26159, formatInfo: { errorCorrectionLevel: 0, dataMask: 4 } },
-          { bits: 25368, formatInfo: { errorCorrectionLevel: 0, dataMask: 5 } },
-          { bits: 27713, formatInfo: { errorCorrectionLevel: 0, dataMask: 6 } },
-          { bits: 26998, formatInfo: { errorCorrectionLevel: 0, dataMask: 7 } },
-          { bits: 5769, formatInfo: { errorCorrectionLevel: 3, dataMask: 0 } },
-          { bits: 5054, formatInfo: { errorCorrectionLevel: 3, dataMask: 1 } },
-          { bits: 7399, formatInfo: { errorCorrectionLevel: 3, dataMask: 2 } },
-          { bits: 6608, formatInfo: { errorCorrectionLevel: 3, dataMask: 3 } },
-          { bits: 1890, formatInfo: { errorCorrectionLevel: 3, dataMask: 4 } },
-          { bits: 597, formatInfo: { errorCorrectionLevel: 3, dataMask: 5 } },
-          { bits: 3340, formatInfo: { errorCorrectionLevel: 3, dataMask: 6 } },
-          { bits: 2107, formatInfo: { errorCorrectionLevel: 3, dataMask: 7 } },
-          { bits: 13663, formatInfo: { errorCorrectionLevel: 2, dataMask: 0 } },
-          { bits: 12392, formatInfo: { errorCorrectionLevel: 2, dataMask: 1 } },
-          { bits: 16177, formatInfo: { errorCorrectionLevel: 2, dataMask: 2 } },
-          { bits: 14854, formatInfo: { errorCorrectionLevel: 2, dataMask: 3 } },
-          { bits: 9396, formatInfo: { errorCorrectionLevel: 2, dataMask: 4 } },
-          { bits: 8579, formatInfo: { errorCorrectionLevel: 2, dataMask: 5 } },
-          { bits: 11994, formatInfo: { errorCorrectionLevel: 2, dataMask: 6 } },
-          { bits: 11245, formatInfo: { errorCorrectionLevel: 2, dataMask: 7 } },
-        ],
+            {
+              bits: 21522,
+              formatInfo: { errorCorrectionLevel: 1, dataMask: 0 }
+            },
+            {
+              bits: 20773,
+              formatInfo: { errorCorrectionLevel: 1, dataMask: 1 }
+            },
+            {
+              bits: 24188,
+              formatInfo: { errorCorrectionLevel: 1, dataMask: 2 }
+            },
+            {
+              bits: 23371,
+              formatInfo: { errorCorrectionLevel: 1, dataMask: 3 }
+            },
+            {
+              bits: 17913,
+              formatInfo: { errorCorrectionLevel: 1, dataMask: 4 }
+            },
+            {
+              bits: 16590,
+              formatInfo: { errorCorrectionLevel: 1, dataMask: 5 }
+            },
+            {
+              bits: 20375,
+              formatInfo: { errorCorrectionLevel: 1, dataMask: 6 }
+            },
+            {
+              bits: 19104,
+              formatInfo: { errorCorrectionLevel: 1, dataMask: 7 }
+            },
+            {
+              bits: 30660,
+              formatInfo: { errorCorrectionLevel: 0, dataMask: 0 }
+            },
+            {
+              bits: 29427,
+              formatInfo: { errorCorrectionLevel: 0, dataMask: 1 }
+            },
+            {
+              bits: 32170,
+              formatInfo: { errorCorrectionLevel: 0, dataMask: 2 }
+            },
+            {
+              bits: 30877,
+              formatInfo: { errorCorrectionLevel: 0, dataMask: 3 }
+            },
+            {
+              bits: 26159,
+              formatInfo: { errorCorrectionLevel: 0, dataMask: 4 }
+            },
+            {
+              bits: 25368,
+              formatInfo: { errorCorrectionLevel: 0, dataMask: 5 }
+            },
+            {
+              bits: 27713,
+              formatInfo: { errorCorrectionLevel: 0, dataMask: 6 }
+            },
+            {
+              bits: 26998,
+              formatInfo: { errorCorrectionLevel: 0, dataMask: 7 }
+            },
+            {
+              bits: 5769,
+              formatInfo: { errorCorrectionLevel: 3, dataMask: 0 }
+            },
+            {
+              bits: 5054,
+              formatInfo: { errorCorrectionLevel: 3, dataMask: 1 }
+            },
+            {
+              bits: 7399,
+              formatInfo: { errorCorrectionLevel: 3, dataMask: 2 }
+            },
+            {
+              bits: 6608,
+              formatInfo: { errorCorrectionLevel: 3, dataMask: 3 }
+            },
+            {
+              bits: 1890,
+              formatInfo: { errorCorrectionLevel: 3, dataMask: 4 }
+            },
+            { bits: 597, formatInfo: { errorCorrectionLevel: 3, dataMask: 5 } },
+            {
+              bits: 3340,
+              formatInfo: { errorCorrectionLevel: 3, dataMask: 6 }
+            },
+            {
+              bits: 2107,
+              formatInfo: { errorCorrectionLevel: 3, dataMask: 7 }
+            },
+            {
+              bits: 13663,
+              formatInfo: { errorCorrectionLevel: 2, dataMask: 0 }
+            },
+            {
+              bits: 12392,
+              formatInfo: { errorCorrectionLevel: 2, dataMask: 1 }
+            },
+            {
+              bits: 16177,
+              formatInfo: { errorCorrectionLevel: 2, dataMask: 2 }
+            },
+            {
+              bits: 14854,
+              formatInfo: { errorCorrectionLevel: 2, dataMask: 3 }
+            },
+            {
+              bits: 9396,
+              formatInfo: { errorCorrectionLevel: 2, dataMask: 4 }
+            },
+            {
+              bits: 8579,
+              formatInfo: { errorCorrectionLevel: 2, dataMask: 5 }
+            },
+            {
+              bits: 11994,
+              formatInfo: { errorCorrectionLevel: 2, dataMask: 6 }
+            },
+            {
+              bits: 11245,
+              formatInfo: { errorCorrectionLevel: 2, dataMask: 7 }
+            }
+          ],
           v = [
             function (o) {
               return (o.y + o.x) % 2 == 0;
@@ -459,44 +559,48 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
             },
             function (o) {
               return (((o.y + o.x) % 2) + ((o.y * o.x) % 3)) % 2 == 0;
-            },
+            }
           ];
         function h(o, e, r) {
           for (
             var t = v[r.dataMask],
-            c = o.height,
-            s = (function (o) {
-              var e = 17 + 4 * o.versionNumber,
-                r = f.BitMatrix.createEmpty(e, e);
-              r.setRegion(0, 0, 9, 9, !0),
-                r.setRegion(e - 8, 0, 8, 9, !0),
-                r.setRegion(0, e - 8, 9, 8, !0);
-              for (var t = 0, c = o.alignmentPatternCenters; t < c.length; t++)
+              c = o.height,
+              s = (function (o) {
+                var e = 17 + 4 * o.versionNumber,
+                  r = f.BitMatrix.createEmpty(e, e);
+                r.setRegion(0, 0, 9, 9, !0),
+                  r.setRegion(e - 8, 0, 8, 9, !0),
+                  r.setRegion(0, e - 8, 9, 8, !0);
                 for (
-                  var s = c[t], a = 0, d = o.alignmentPatternCenters;
-                  a < d.length;
-                  a++
-                ) {
-                  var n = d[a];
-                  (6 === s && 6 === n) ||
-                    (6 === s && n === e - 7) ||
-                    (s === e - 7 && 6 === n) ||
-                    r.setRegion(s - 2, n - 2, 5, 5, !0);
-                }
-              return (
-                r.setRegion(6, 9, 1, e - 17, !0),
-                r.setRegion(9, 6, e - 17, 1, !0),
-                6 < o.versionNumber &&
-                (r.setRegion(e - 11, 0, 3, 6, !0),
-                  r.setRegion(0, e - 11, 6, 3, !0)),
-                r
-              );
-            })(e),
-            a = [],
-            d = 0,
-            n = 0,
-            l = !0,
-            i = c - 1;
+                  var t = 0, c = o.alignmentPatternCenters;
+                  t < c.length;
+                  t++
+                )
+                  for (
+                    var s = c[t], a = 0, d = o.alignmentPatternCenters;
+                    a < d.length;
+                    a++
+                  ) {
+                    var n = d[a];
+                    (6 === s && 6 === n) ||
+                      (6 === s && n === e - 7) ||
+                      (s === e - 7 && 6 === n) ||
+                      r.setRegion(s - 2, n - 2, 5, 5, !0);
+                  }
+                return (
+                  r.setRegion(6, 9, 1, e - 17, !0),
+                  r.setRegion(9, 6, e - 17, 1, !0),
+                  6 < o.versionNumber &&
+                    (r.setRegion(e - 11, 0, 3, 6, !0),
+                    r.setRegion(0, e - 11, 6, 3, !0)),
+                  r
+                );
+              })(e),
+              a = [],
+              d = 0,
+              n = 0,
+              l = !0,
+              i = c - 1;
             0 < i;
             i -= 2
           ) {
@@ -565,11 +669,11 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
                 for (var e = 0; e < o.numBlocks; e++)
                   c.push({
                     numDataCodewords: o.dataCodewordsPerBlock,
-                    codewords: [],
+                    codewords: []
                   }),
                     (s += o.dataCodewordsPerBlock + t.ecCodewordsPerBlock);
               }),
-                o.length < s)
+              o.length < s)
             )
               return null;
             o = o.slice(0, s);
@@ -582,7 +686,7 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
                 B = t.ecBlocks[1].numBlocks;
               for (d = 0; d < B; d++) c[i + d].codewords.push(o.shift());
             }
-            for (; 0 < o.length;)
+            for (; 0 < o.length; )
               for (var k = 0, u = c; k < u.length; k++) {
                 u[k].codewords.push(o.shift());
               }
@@ -591,17 +695,20 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
           if (!t) return null;
           for (
             var c = t.reduce(function (o, e) {
-              return o + e.numDataCodewords;
-            }, 0),
-            s = new Uint8ClampedArray(c),
-            a = 0,
-            d = 0,
-            n = t;
+                return o + e.numDataCodewords;
+              }, 0),
+              s = new Uint8ClampedArray(c),
+              a = 0,
+              d = 0,
+              n = t;
             d < n.length;
             d++
           ) {
             var l = n[d],
-              i = u.decode(l.codewords, l.codewords.length - l.numDataCodewords);
+              i = u.decode(
+                l.codewords,
+                l.codewords.length - l.numDataCodewords
+              );
             if (!i) return null;
             for (var B = 0; B < l.numDataCodewords; B++) s[a++] = i[B];
           }
@@ -715,7 +822,7 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
           '-',
           '.',
           '/',
-          ':',
+          ':'
         ];
         function P(o, e) {
           for (
@@ -753,7 +860,7 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
                 })
                 .join('')
             );
-          } catch (o) { }
+          } catch (o) {}
           return { bytes: r, text: t };
         }
         function h(o, e) {
@@ -773,12 +880,12 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
         e.decode = function (o, e) {
           for (
             var r,
-            t,
-            c,
-            s,
-            a = new f.BitStream(o),
-            d = e <= 9 ? 0 : e <= 26 ? 1 : 2,
-            n = { text: '', bytes: [], chunks: [] };
+              t,
+              c,
+              s,
+              a = new f.BitStream(o),
+              d = e <= 9 ? 0 : e <= 26 ? 1 : 2,
+              n = { text: '', bytes: [], chunks: [] };
             4 <= a.available();
 
           ) {
@@ -786,12 +893,21 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
             if (l === m.Terminator) return n;
             if (l === m.ECI)
               0 === a.readBits(1)
-                ? n.chunks.push({ type: C.ECI, assignmentNumber: a.readBits(7) })
+                ? n.chunks.push({
+                    type: C.ECI,
+                    assignmentNumber: a.readBits(7)
+                  })
                 : 0 === a.readBits(1)
-                  ? n.chunks.push({ type: C.ECI, assignmentNumber: a.readBits(14) })
-                  : 0 === a.readBits(1)
-                    ? n.chunks.push({ type: C.ECI, assignmentNumber: a.readBits(21) })
-                    : n.chunks.push({ type: C.ECI, assignmentNumber: -1 });
+                ? n.chunks.push({
+                    type: C.ECI,
+                    assignmentNumber: a.readBits(14)
+                  })
+                : 0 === a.readBits(1)
+                ? n.chunks.push({
+                    type: C.ECI,
+                    assignmentNumber: a.readBits(21)
+                  })
+                : n.chunks.push({ type: C.ECI, assignmentNumber: -1 });
             else if (l === m.Numeric) {
               var i = w(a, d);
               (n.text += i.text),
@@ -831,10 +947,11 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
               (e = (this.bytes[this.byteOffset] & c) >> s),
                 (o -= t),
                 (this.bitOffset += t),
-                8 === this.bitOffset && ((this.bitOffset = 0), this.byteOffset++);
+                8 === this.bitOffset &&
+                  ((this.bitOffset = 0), this.byteOffset++);
             }
             if (0 < o) {
-              for (; 8 <= o;)
+              for (; 8 <= o; )
                 (e = (e << 8) | (255 & this.bytes[this.byteOffset])),
                   this.byteOffset++,
                   (o -= 8);
@@ -846,10 +963,10 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
             }
             return e;
           }),
-            (c.prototype.available = function () {
-              return 8 * (this.bytes.length - this.byteOffset) - this.bitOffset;
-            }),
-            c);
+          (c.prototype.available = function () {
+            return 8 * (this.bytes.length - this.byteOffset) - this.bitOffset;
+          }),
+          c);
         function c(o) {
           (this.byteOffset = 0), (this.bitOffset = 0), (this.bytes = o);
         }
@@ -7895,7 +8012,7 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
             60065: 36953,
             60066: 29796,
             60067: 20956,
-            60068: 29081,
+            60068: 29081
           });
       },
       function (o, e, r) {
@@ -7908,10 +8025,10 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
           r.set(o);
           for (
             var t = new m.default(285, 256, 0),
-            c = new f.default(t, r),
-            s = new Uint8ClampedArray(e),
-            a = !1,
-            d = 0;
+              c = new f.default(t, r),
+              s = new Uint8ClampedArray(e),
+              a = !1,
+              d = 0;
             d < e;
             d++
           ) {
@@ -7933,8 +8050,8 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
                 s = n;
                 for (
                   var i = o.zero,
-                  B = c.getCoefficient(c.degree()),
-                  k = o.inverse(B);
+                    B = c.getCoefficient(c.degree()),
+                    k = o.inverse(B);
                   s.degree() >= c.degree() && !s.isZero();
 
                 ) {
@@ -7945,7 +8062,7 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
                 }
                 if (
                   ((d = i.multiplyPoly(a).addOrSubtract(l)),
-                    s.degree() >= c.degree())
+                  s.degree() >= c.degree())
                 )
                   return null;
               }
@@ -7966,19 +8083,19 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
           if (null == B) return null;
           for (
             var k = (function (o, e, r) {
-              for (var t = r.length, c = new Array(t), s = 0; s < t; s++) {
-                for (var a = o.inverse(r[s]), d = 1, n = 0; n < t; n++)
-                  s !== n &&
-                    (d = o.multiply(
-                      d,
-                      m.addOrSubtractGF(1, o.multiply(r[n], a))
-                    ));
-                (c[s] = o.multiply(e.evaluateAt(a), o.inverse(d))),
-                  0 !== o.generatorBase && (c[s] = o.multiply(c[s], a));
-              }
-              return c;
-            })(t, i[1], B),
-            u = 0;
+                for (var t = r.length, c = new Array(t), s = 0; s < t; s++) {
+                  for (var a = o.inverse(r[s]), d = 1, n = 0; n < t; n++)
+                    s !== n &&
+                      (d = o.multiply(
+                        d,
+                        m.addOrSubtractGF(1, o.multiply(r[n], a))
+                      ));
+                  (c[s] = o.multiply(e.evaluateAt(a), o.inverse(d))),
+                    0 !== o.generatorBase && (c[s] = o.multiply(c[s], a));
+                }
+                return c;
+              })(t, i[1], B),
+              u = 0;
             u < B.length;
             u++
           ) {
@@ -8000,21 +8117,21 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
               errorCorrectionLevels: [
                 {
                   ecCodewordsPerBlock: 7,
-                  ecBlocks: [{ numBlocks: 1, dataCodewordsPerBlock: 19 }],
+                  ecBlocks: [{ numBlocks: 1, dataCodewordsPerBlock: 19 }]
                 },
                 {
                   ecCodewordsPerBlock: 10,
-                  ecBlocks: [{ numBlocks: 1, dataCodewordsPerBlock: 16 }],
+                  ecBlocks: [{ numBlocks: 1, dataCodewordsPerBlock: 16 }]
                 },
                 {
                   ecCodewordsPerBlock: 13,
-                  ecBlocks: [{ numBlocks: 1, dataCodewordsPerBlock: 13 }],
+                  ecBlocks: [{ numBlocks: 1, dataCodewordsPerBlock: 13 }]
                 },
                 {
                   ecCodewordsPerBlock: 17,
-                  ecBlocks: [{ numBlocks: 1, dataCodewordsPerBlock: 9 }],
-                },
-              ],
+                  ecBlocks: [{ numBlocks: 1, dataCodewordsPerBlock: 9 }]
+                }
+              ]
             },
             {
               infoBits: null,
@@ -8023,21 +8140,21 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
               errorCorrectionLevels: [
                 {
                   ecCodewordsPerBlock: 10,
-                  ecBlocks: [{ numBlocks: 1, dataCodewordsPerBlock: 34 }],
+                  ecBlocks: [{ numBlocks: 1, dataCodewordsPerBlock: 34 }]
                 },
                 {
                   ecCodewordsPerBlock: 16,
-                  ecBlocks: [{ numBlocks: 1, dataCodewordsPerBlock: 28 }],
+                  ecBlocks: [{ numBlocks: 1, dataCodewordsPerBlock: 28 }]
                 },
                 {
                   ecCodewordsPerBlock: 22,
-                  ecBlocks: [{ numBlocks: 1, dataCodewordsPerBlock: 22 }],
+                  ecBlocks: [{ numBlocks: 1, dataCodewordsPerBlock: 22 }]
                 },
                 {
                   ecCodewordsPerBlock: 28,
-                  ecBlocks: [{ numBlocks: 1, dataCodewordsPerBlock: 16 }],
-                },
-              ],
+                  ecBlocks: [{ numBlocks: 1, dataCodewordsPerBlock: 16 }]
+                }
+              ]
             },
             {
               infoBits: null,
@@ -8046,21 +8163,21 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
               errorCorrectionLevels: [
                 {
                   ecCodewordsPerBlock: 15,
-                  ecBlocks: [{ numBlocks: 1, dataCodewordsPerBlock: 55 }],
+                  ecBlocks: [{ numBlocks: 1, dataCodewordsPerBlock: 55 }]
                 },
                 {
                   ecCodewordsPerBlock: 26,
-                  ecBlocks: [{ numBlocks: 1, dataCodewordsPerBlock: 44 }],
+                  ecBlocks: [{ numBlocks: 1, dataCodewordsPerBlock: 44 }]
                 },
                 {
                   ecCodewordsPerBlock: 18,
-                  ecBlocks: [{ numBlocks: 2, dataCodewordsPerBlock: 17 }],
+                  ecBlocks: [{ numBlocks: 2, dataCodewordsPerBlock: 17 }]
                 },
                 {
                   ecCodewordsPerBlock: 22,
-                  ecBlocks: [{ numBlocks: 2, dataCodewordsPerBlock: 13 }],
-                },
-              ],
+                  ecBlocks: [{ numBlocks: 2, dataCodewordsPerBlock: 13 }]
+                }
+              ]
             },
             {
               infoBits: null,
@@ -8069,21 +8186,21 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
               errorCorrectionLevels: [
                 {
                   ecCodewordsPerBlock: 20,
-                  ecBlocks: [{ numBlocks: 1, dataCodewordsPerBlock: 80 }],
+                  ecBlocks: [{ numBlocks: 1, dataCodewordsPerBlock: 80 }]
                 },
                 {
                   ecCodewordsPerBlock: 18,
-                  ecBlocks: [{ numBlocks: 2, dataCodewordsPerBlock: 32 }],
+                  ecBlocks: [{ numBlocks: 2, dataCodewordsPerBlock: 32 }]
                 },
                 {
                   ecCodewordsPerBlock: 26,
-                  ecBlocks: [{ numBlocks: 2, dataCodewordsPerBlock: 24 }],
+                  ecBlocks: [{ numBlocks: 2, dataCodewordsPerBlock: 24 }]
                 },
                 {
                   ecCodewordsPerBlock: 16,
-                  ecBlocks: [{ numBlocks: 4, dataCodewordsPerBlock: 9 }],
-                },
-              ],
+                  ecBlocks: [{ numBlocks: 4, dataCodewordsPerBlock: 9 }]
+                }
+              ]
             },
             {
               infoBits: null,
@@ -8092,27 +8209,27 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
               errorCorrectionLevels: [
                 {
                   ecCodewordsPerBlock: 26,
-                  ecBlocks: [{ numBlocks: 1, dataCodewordsPerBlock: 108 }],
+                  ecBlocks: [{ numBlocks: 1, dataCodewordsPerBlock: 108 }]
                 },
                 {
                   ecCodewordsPerBlock: 24,
-                  ecBlocks: [{ numBlocks: 2, dataCodewordsPerBlock: 43 }],
+                  ecBlocks: [{ numBlocks: 2, dataCodewordsPerBlock: 43 }]
                 },
                 {
                   ecCodewordsPerBlock: 18,
                   ecBlocks: [
                     { numBlocks: 2, dataCodewordsPerBlock: 15 },
-                    { numBlocks: 2, dataCodewordsPerBlock: 16 },
-                  ],
+                    { numBlocks: 2, dataCodewordsPerBlock: 16 }
+                  ]
                 },
                 {
                   ecCodewordsPerBlock: 22,
                   ecBlocks: [
                     { numBlocks: 2, dataCodewordsPerBlock: 11 },
-                    { numBlocks: 2, dataCodewordsPerBlock: 12 },
-                  ],
-                },
-              ],
+                    { numBlocks: 2, dataCodewordsPerBlock: 12 }
+                  ]
+                }
+              ]
             },
             {
               infoBits: null,
@@ -8121,21 +8238,21 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
               errorCorrectionLevels: [
                 {
                   ecCodewordsPerBlock: 18,
-                  ecBlocks: [{ numBlocks: 2, dataCodewordsPerBlock: 68 }],
+                  ecBlocks: [{ numBlocks: 2, dataCodewordsPerBlock: 68 }]
                 },
                 {
                   ecCodewordsPerBlock: 16,
-                  ecBlocks: [{ numBlocks: 4, dataCodewordsPerBlock: 27 }],
+                  ecBlocks: [{ numBlocks: 4, dataCodewordsPerBlock: 27 }]
                 },
                 {
                   ecCodewordsPerBlock: 24,
-                  ecBlocks: [{ numBlocks: 4, dataCodewordsPerBlock: 19 }],
+                  ecBlocks: [{ numBlocks: 4, dataCodewordsPerBlock: 19 }]
                 },
                 {
                   ecCodewordsPerBlock: 28,
-                  ecBlocks: [{ numBlocks: 4, dataCodewordsPerBlock: 15 }],
-                },
-              ],
+                  ecBlocks: [{ numBlocks: 4, dataCodewordsPerBlock: 15 }]
+                }
+              ]
             },
             {
               infoBits: 31892,
@@ -8144,27 +8261,27 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
               errorCorrectionLevels: [
                 {
                   ecCodewordsPerBlock: 20,
-                  ecBlocks: [{ numBlocks: 2, dataCodewordsPerBlock: 78 }],
+                  ecBlocks: [{ numBlocks: 2, dataCodewordsPerBlock: 78 }]
                 },
                 {
                   ecCodewordsPerBlock: 18,
-                  ecBlocks: [{ numBlocks: 4, dataCodewordsPerBlock: 31 }],
+                  ecBlocks: [{ numBlocks: 4, dataCodewordsPerBlock: 31 }]
                 },
                 {
                   ecCodewordsPerBlock: 18,
                   ecBlocks: [
                     { numBlocks: 2, dataCodewordsPerBlock: 14 },
-                    { numBlocks: 4, dataCodewordsPerBlock: 15 },
-                  ],
+                    { numBlocks: 4, dataCodewordsPerBlock: 15 }
+                  ]
                 },
                 {
                   ecCodewordsPerBlock: 26,
                   ecBlocks: [
                     { numBlocks: 4, dataCodewordsPerBlock: 13 },
-                    { numBlocks: 1, dataCodewordsPerBlock: 14 },
-                  ],
-                },
-              ],
+                    { numBlocks: 1, dataCodewordsPerBlock: 14 }
+                  ]
+                }
+              ]
             },
             {
               infoBits: 34236,
@@ -8173,30 +8290,30 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
               errorCorrectionLevels: [
                 {
                   ecCodewordsPerBlock: 24,
-                  ecBlocks: [{ numBlocks: 2, dataCodewordsPerBlock: 97 }],
+                  ecBlocks: [{ numBlocks: 2, dataCodewordsPerBlock: 97 }]
                 },
                 {
                   ecCodewordsPerBlock: 22,
                   ecBlocks: [
                     { numBlocks: 2, dataCodewordsPerBlock: 38 },
-                    { numBlocks: 2, dataCodewordsPerBlock: 39 },
-                  ],
+                    { numBlocks: 2, dataCodewordsPerBlock: 39 }
+                  ]
                 },
                 {
                   ecCodewordsPerBlock: 22,
                   ecBlocks: [
                     { numBlocks: 4, dataCodewordsPerBlock: 18 },
-                    { numBlocks: 2, dataCodewordsPerBlock: 19 },
-                  ],
+                    { numBlocks: 2, dataCodewordsPerBlock: 19 }
+                  ]
                 },
                 {
                   ecCodewordsPerBlock: 26,
                   ecBlocks: [
                     { numBlocks: 4, dataCodewordsPerBlock: 14 },
-                    { numBlocks: 2, dataCodewordsPerBlock: 15 },
-                  ],
-                },
-              ],
+                    { numBlocks: 2, dataCodewordsPerBlock: 15 }
+                  ]
+                }
+              ]
             },
             {
               infoBits: 39577,
@@ -8205,30 +8322,30 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
               errorCorrectionLevels: [
                 {
                   ecCodewordsPerBlock: 30,
-                  ecBlocks: [{ numBlocks: 2, dataCodewordsPerBlock: 116 }],
+                  ecBlocks: [{ numBlocks: 2, dataCodewordsPerBlock: 116 }]
                 },
                 {
                   ecCodewordsPerBlock: 22,
                   ecBlocks: [
                     { numBlocks: 3, dataCodewordsPerBlock: 36 },
-                    { numBlocks: 2, dataCodewordsPerBlock: 37 },
-                  ],
+                    { numBlocks: 2, dataCodewordsPerBlock: 37 }
+                  ]
                 },
                 {
                   ecCodewordsPerBlock: 20,
                   ecBlocks: [
                     { numBlocks: 4, dataCodewordsPerBlock: 16 },
-                    { numBlocks: 4, dataCodewordsPerBlock: 17 },
-                  ],
+                    { numBlocks: 4, dataCodewordsPerBlock: 17 }
+                  ]
                 },
                 {
                   ecCodewordsPerBlock: 24,
                   ecBlocks: [
                     { numBlocks: 4, dataCodewordsPerBlock: 12 },
-                    { numBlocks: 4, dataCodewordsPerBlock: 13 },
-                  ],
-                },
-              ],
+                    { numBlocks: 4, dataCodewordsPerBlock: 13 }
+                  ]
+                }
+              ]
             },
             {
               infoBits: 42195,
@@ -8239,31 +8356,31 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
                   ecCodewordsPerBlock: 18,
                   ecBlocks: [
                     { numBlocks: 2, dataCodewordsPerBlock: 68 },
-                    { numBlocks: 2, dataCodewordsPerBlock: 69 },
-                  ],
+                    { numBlocks: 2, dataCodewordsPerBlock: 69 }
+                  ]
                 },
                 {
                   ecCodewordsPerBlock: 26,
                   ecBlocks: [
                     { numBlocks: 4, dataCodewordsPerBlock: 43 },
-                    { numBlocks: 1, dataCodewordsPerBlock: 44 },
-                  ],
+                    { numBlocks: 1, dataCodewordsPerBlock: 44 }
+                  ]
                 },
                 {
                   ecCodewordsPerBlock: 24,
                   ecBlocks: [
                     { numBlocks: 6, dataCodewordsPerBlock: 19 },
-                    { numBlocks: 2, dataCodewordsPerBlock: 20 },
-                  ],
+                    { numBlocks: 2, dataCodewordsPerBlock: 20 }
+                  ]
                 },
                 {
                   ecCodewordsPerBlock: 28,
                   ecBlocks: [
                     { numBlocks: 6, dataCodewordsPerBlock: 15 },
-                    { numBlocks: 2, dataCodewordsPerBlock: 16 },
-                  ],
-                },
-              ],
+                    { numBlocks: 2, dataCodewordsPerBlock: 16 }
+                  ]
+                }
+              ]
             },
             {
               infoBits: 48118,
@@ -8272,30 +8389,30 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
               errorCorrectionLevels: [
                 {
                   ecCodewordsPerBlock: 20,
-                  ecBlocks: [{ numBlocks: 4, dataCodewordsPerBlock: 81 }],
+                  ecBlocks: [{ numBlocks: 4, dataCodewordsPerBlock: 81 }]
                 },
                 {
                   ecCodewordsPerBlock: 30,
                   ecBlocks: [
                     { numBlocks: 1, dataCodewordsPerBlock: 50 },
-                    { numBlocks: 4, dataCodewordsPerBlock: 51 },
-                  ],
+                    { numBlocks: 4, dataCodewordsPerBlock: 51 }
+                  ]
                 },
                 {
                   ecCodewordsPerBlock: 28,
                   ecBlocks: [
                     { numBlocks: 4, dataCodewordsPerBlock: 22 },
-                    { numBlocks: 4, dataCodewordsPerBlock: 23 },
-                  ],
+                    { numBlocks: 4, dataCodewordsPerBlock: 23 }
+                  ]
                 },
                 {
                   ecCodewordsPerBlock: 24,
                   ecBlocks: [
                     { numBlocks: 3, dataCodewordsPerBlock: 12 },
-                    { numBlocks: 8, dataCodewordsPerBlock: 13 },
-                  ],
-                },
-              ],
+                    { numBlocks: 8, dataCodewordsPerBlock: 13 }
+                  ]
+                }
+              ]
             },
             {
               infoBits: 51042,
@@ -8306,31 +8423,31 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
                   ecCodewordsPerBlock: 24,
                   ecBlocks: [
                     { numBlocks: 2, dataCodewordsPerBlock: 92 },
-                    { numBlocks: 2, dataCodewordsPerBlock: 93 },
-                  ],
+                    { numBlocks: 2, dataCodewordsPerBlock: 93 }
+                  ]
                 },
                 {
                   ecCodewordsPerBlock: 22,
                   ecBlocks: [
                     { numBlocks: 6, dataCodewordsPerBlock: 36 },
-                    { numBlocks: 2, dataCodewordsPerBlock: 37 },
-                  ],
+                    { numBlocks: 2, dataCodewordsPerBlock: 37 }
+                  ]
                 },
                 {
                   ecCodewordsPerBlock: 26,
                   ecBlocks: [
                     { numBlocks: 4, dataCodewordsPerBlock: 20 },
-                    { numBlocks: 6, dataCodewordsPerBlock: 21 },
-                  ],
+                    { numBlocks: 6, dataCodewordsPerBlock: 21 }
+                  ]
                 },
                 {
                   ecCodewordsPerBlock: 28,
                   ecBlocks: [
                     { numBlocks: 7, dataCodewordsPerBlock: 14 },
-                    { numBlocks: 4, dataCodewordsPerBlock: 15 },
-                  ],
-                },
-              ],
+                    { numBlocks: 4, dataCodewordsPerBlock: 15 }
+                  ]
+                }
+              ]
             },
             {
               infoBits: 55367,
@@ -8339,30 +8456,30 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
               errorCorrectionLevels: [
                 {
                   ecCodewordsPerBlock: 26,
-                  ecBlocks: [{ numBlocks: 4, dataCodewordsPerBlock: 107 }],
+                  ecBlocks: [{ numBlocks: 4, dataCodewordsPerBlock: 107 }]
                 },
                 {
                   ecCodewordsPerBlock: 22,
                   ecBlocks: [
                     { numBlocks: 8, dataCodewordsPerBlock: 37 },
-                    { numBlocks: 1, dataCodewordsPerBlock: 38 },
-                  ],
+                    { numBlocks: 1, dataCodewordsPerBlock: 38 }
+                  ]
                 },
                 {
                   ecCodewordsPerBlock: 24,
                   ecBlocks: [
                     { numBlocks: 8, dataCodewordsPerBlock: 20 },
-                    { numBlocks: 4, dataCodewordsPerBlock: 21 },
-                  ],
+                    { numBlocks: 4, dataCodewordsPerBlock: 21 }
+                  ]
                 },
                 {
                   ecCodewordsPerBlock: 22,
                   ecBlocks: [
                     { numBlocks: 12, dataCodewordsPerBlock: 11 },
-                    { numBlocks: 4, dataCodewordsPerBlock: 12 },
-                  ],
-                },
-              ],
+                    { numBlocks: 4, dataCodewordsPerBlock: 12 }
+                  ]
+                }
+              ]
             },
             {
               infoBits: 58893,
@@ -8373,31 +8490,31 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
                   ecCodewordsPerBlock: 30,
                   ecBlocks: [
                     { numBlocks: 3, dataCodewordsPerBlock: 115 },
-                    { numBlocks: 1, dataCodewordsPerBlock: 116 },
-                  ],
+                    { numBlocks: 1, dataCodewordsPerBlock: 116 }
+                  ]
                 },
                 {
                   ecCodewordsPerBlock: 24,
                   ecBlocks: [
                     { numBlocks: 4, dataCodewordsPerBlock: 40 },
-                    { numBlocks: 5, dataCodewordsPerBlock: 41 },
-                  ],
+                    { numBlocks: 5, dataCodewordsPerBlock: 41 }
+                  ]
                 },
                 {
                   ecCodewordsPerBlock: 20,
                   ecBlocks: [
                     { numBlocks: 11, dataCodewordsPerBlock: 16 },
-                    { numBlocks: 5, dataCodewordsPerBlock: 17 },
-                  ],
+                    { numBlocks: 5, dataCodewordsPerBlock: 17 }
+                  ]
                 },
                 {
                   ecCodewordsPerBlock: 24,
                   ecBlocks: [
                     { numBlocks: 11, dataCodewordsPerBlock: 12 },
-                    { numBlocks: 5, dataCodewordsPerBlock: 13 },
-                  ],
-                },
-              ],
+                    { numBlocks: 5, dataCodewordsPerBlock: 13 }
+                  ]
+                }
+              ]
             },
             {
               infoBits: 63784,
@@ -8408,31 +8525,31 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
                   ecCodewordsPerBlock: 22,
                   ecBlocks: [
                     { numBlocks: 5, dataCodewordsPerBlock: 87 },
-                    { numBlocks: 1, dataCodewordsPerBlock: 88 },
-                  ],
+                    { numBlocks: 1, dataCodewordsPerBlock: 88 }
+                  ]
                 },
                 {
                   ecCodewordsPerBlock: 24,
                   ecBlocks: [
                     { numBlocks: 5, dataCodewordsPerBlock: 41 },
-                    { numBlocks: 5, dataCodewordsPerBlock: 42 },
-                  ],
+                    { numBlocks: 5, dataCodewordsPerBlock: 42 }
+                  ]
                 },
                 {
                   ecCodewordsPerBlock: 30,
                   ecBlocks: [
                     { numBlocks: 5, dataCodewordsPerBlock: 24 },
-                    { numBlocks: 7, dataCodewordsPerBlock: 25 },
-                  ],
+                    { numBlocks: 7, dataCodewordsPerBlock: 25 }
+                  ]
                 },
                 {
                   ecCodewordsPerBlock: 24,
                   ecBlocks: [
                     { numBlocks: 11, dataCodewordsPerBlock: 12 },
-                    { numBlocks: 7, dataCodewordsPerBlock: 13 },
-                  ],
-                },
-              ],
+                    { numBlocks: 7, dataCodewordsPerBlock: 13 }
+                  ]
+                }
+              ]
             },
             {
               infoBits: 68472,
@@ -8443,31 +8560,31 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
                   ecCodewordsPerBlock: 24,
                   ecBlocks: [
                     { numBlocks: 5, dataCodewordsPerBlock: 98 },
-                    { numBlocks: 1, dataCodewordsPerBlock: 99 },
-                  ],
+                    { numBlocks: 1, dataCodewordsPerBlock: 99 }
+                  ]
                 },
                 {
                   ecCodewordsPerBlock: 28,
                   ecBlocks: [
                     { numBlocks: 7, dataCodewordsPerBlock: 45 },
-                    { numBlocks: 3, dataCodewordsPerBlock: 46 },
-                  ],
+                    { numBlocks: 3, dataCodewordsPerBlock: 46 }
+                  ]
                 },
                 {
                   ecCodewordsPerBlock: 24,
                   ecBlocks: [
                     { numBlocks: 15, dataCodewordsPerBlock: 19 },
-                    { numBlocks: 2, dataCodewordsPerBlock: 20 },
-                  ],
+                    { numBlocks: 2, dataCodewordsPerBlock: 20 }
+                  ]
                 },
                 {
                   ecCodewordsPerBlock: 30,
                   ecBlocks: [
                     { numBlocks: 3, dataCodewordsPerBlock: 15 },
-                    { numBlocks: 13, dataCodewordsPerBlock: 16 },
-                  ],
-                },
-              ],
+                    { numBlocks: 13, dataCodewordsPerBlock: 16 }
+                  ]
+                }
+              ]
             },
             {
               infoBits: 70749,
@@ -8478,31 +8595,31 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
                   ecCodewordsPerBlock: 28,
                   ecBlocks: [
                     { numBlocks: 1, dataCodewordsPerBlock: 107 },
-                    { numBlocks: 5, dataCodewordsPerBlock: 108 },
-                  ],
+                    { numBlocks: 5, dataCodewordsPerBlock: 108 }
+                  ]
                 },
                 {
                   ecCodewordsPerBlock: 28,
                   ecBlocks: [
                     { numBlocks: 10, dataCodewordsPerBlock: 46 },
-                    { numBlocks: 1, dataCodewordsPerBlock: 47 },
-                  ],
+                    { numBlocks: 1, dataCodewordsPerBlock: 47 }
+                  ]
                 },
                 {
                   ecCodewordsPerBlock: 28,
                   ecBlocks: [
                     { numBlocks: 1, dataCodewordsPerBlock: 22 },
-                    { numBlocks: 15, dataCodewordsPerBlock: 23 },
-                  ],
+                    { numBlocks: 15, dataCodewordsPerBlock: 23 }
+                  ]
                 },
                 {
                   ecCodewordsPerBlock: 28,
                   ecBlocks: [
                     { numBlocks: 2, dataCodewordsPerBlock: 14 },
-                    { numBlocks: 17, dataCodewordsPerBlock: 15 },
-                  ],
-                },
-              ],
+                    { numBlocks: 17, dataCodewordsPerBlock: 15 }
+                  ]
+                }
+              ]
             },
             {
               infoBits: 76311,
@@ -8513,31 +8630,31 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
                   ecCodewordsPerBlock: 30,
                   ecBlocks: [
                     { numBlocks: 5, dataCodewordsPerBlock: 120 },
-                    { numBlocks: 1, dataCodewordsPerBlock: 121 },
-                  ],
+                    { numBlocks: 1, dataCodewordsPerBlock: 121 }
+                  ]
                 },
                 {
                   ecCodewordsPerBlock: 26,
                   ecBlocks: [
                     { numBlocks: 9, dataCodewordsPerBlock: 43 },
-                    { numBlocks: 4, dataCodewordsPerBlock: 44 },
-                  ],
+                    { numBlocks: 4, dataCodewordsPerBlock: 44 }
+                  ]
                 },
                 {
                   ecCodewordsPerBlock: 28,
                   ecBlocks: [
                     { numBlocks: 17, dataCodewordsPerBlock: 22 },
-                    { numBlocks: 1, dataCodewordsPerBlock: 23 },
-                  ],
+                    { numBlocks: 1, dataCodewordsPerBlock: 23 }
+                  ]
                 },
                 {
                   ecCodewordsPerBlock: 28,
                   ecBlocks: [
                     { numBlocks: 2, dataCodewordsPerBlock: 14 },
-                    { numBlocks: 19, dataCodewordsPerBlock: 15 },
-                  ],
-                },
-              ],
+                    { numBlocks: 19, dataCodewordsPerBlock: 15 }
+                  ]
+                }
+              ]
             },
             {
               infoBits: 79154,
@@ -8548,31 +8665,31 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
                   ecCodewordsPerBlock: 28,
                   ecBlocks: [
                     { numBlocks: 3, dataCodewordsPerBlock: 113 },
-                    { numBlocks: 4, dataCodewordsPerBlock: 114 },
-                  ],
+                    { numBlocks: 4, dataCodewordsPerBlock: 114 }
+                  ]
                 },
                 {
                   ecCodewordsPerBlock: 26,
                   ecBlocks: [
                     { numBlocks: 3, dataCodewordsPerBlock: 44 },
-                    { numBlocks: 11, dataCodewordsPerBlock: 45 },
-                  ],
+                    { numBlocks: 11, dataCodewordsPerBlock: 45 }
+                  ]
                 },
                 {
                   ecCodewordsPerBlock: 26,
                   ecBlocks: [
                     { numBlocks: 17, dataCodewordsPerBlock: 21 },
-                    { numBlocks: 4, dataCodewordsPerBlock: 22 },
-                  ],
+                    { numBlocks: 4, dataCodewordsPerBlock: 22 }
+                  ]
                 },
                 {
                   ecCodewordsPerBlock: 26,
                   ecBlocks: [
                     { numBlocks: 9, dataCodewordsPerBlock: 13 },
-                    { numBlocks: 16, dataCodewordsPerBlock: 14 },
-                  ],
-                },
-              ],
+                    { numBlocks: 16, dataCodewordsPerBlock: 14 }
+                  ]
+                }
+              ]
             },
             {
               infoBits: 84390,
@@ -8583,31 +8700,31 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
                   ecCodewordsPerBlock: 28,
                   ecBlocks: [
                     { numBlocks: 3, dataCodewordsPerBlock: 107 },
-                    { numBlocks: 5, dataCodewordsPerBlock: 108 },
-                  ],
+                    { numBlocks: 5, dataCodewordsPerBlock: 108 }
+                  ]
                 },
                 {
                   ecCodewordsPerBlock: 26,
                   ecBlocks: [
                     { numBlocks: 3, dataCodewordsPerBlock: 41 },
-                    { numBlocks: 13, dataCodewordsPerBlock: 42 },
-                  ],
+                    { numBlocks: 13, dataCodewordsPerBlock: 42 }
+                  ]
                 },
                 {
                   ecCodewordsPerBlock: 30,
                   ecBlocks: [
                     { numBlocks: 15, dataCodewordsPerBlock: 24 },
-                    { numBlocks: 5, dataCodewordsPerBlock: 25 },
-                  ],
+                    { numBlocks: 5, dataCodewordsPerBlock: 25 }
+                  ]
                 },
                 {
                   ecCodewordsPerBlock: 28,
                   ecBlocks: [
                     { numBlocks: 15, dataCodewordsPerBlock: 15 },
-                    { numBlocks: 10, dataCodewordsPerBlock: 16 },
-                  ],
-                },
-              ],
+                    { numBlocks: 10, dataCodewordsPerBlock: 16 }
+                  ]
+                }
+              ]
             },
             {
               infoBits: 87683,
@@ -8618,28 +8735,28 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
                   ecCodewordsPerBlock: 28,
                   ecBlocks: [
                     { numBlocks: 4, dataCodewordsPerBlock: 116 },
-                    { numBlocks: 4, dataCodewordsPerBlock: 117 },
-                  ],
+                    { numBlocks: 4, dataCodewordsPerBlock: 117 }
+                  ]
                 },
                 {
                   ecCodewordsPerBlock: 26,
-                  ecBlocks: [{ numBlocks: 17, dataCodewordsPerBlock: 42 }],
+                  ecBlocks: [{ numBlocks: 17, dataCodewordsPerBlock: 42 }]
                 },
                 {
                   ecCodewordsPerBlock: 28,
                   ecBlocks: [
                     { numBlocks: 17, dataCodewordsPerBlock: 22 },
-                    { numBlocks: 6, dataCodewordsPerBlock: 23 },
-                  ],
+                    { numBlocks: 6, dataCodewordsPerBlock: 23 }
+                  ]
                 },
                 {
                   ecCodewordsPerBlock: 30,
                   ecBlocks: [
                     { numBlocks: 19, dataCodewordsPerBlock: 16 },
-                    { numBlocks: 6, dataCodewordsPerBlock: 17 },
-                  ],
-                },
-              ],
+                    { numBlocks: 6, dataCodewordsPerBlock: 17 }
+                  ]
+                }
+              ]
             },
             {
               infoBits: 92361,
@@ -8650,25 +8767,25 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
                   ecCodewordsPerBlock: 28,
                   ecBlocks: [
                     { numBlocks: 2, dataCodewordsPerBlock: 111 },
-                    { numBlocks: 7, dataCodewordsPerBlock: 112 },
-                  ],
+                    { numBlocks: 7, dataCodewordsPerBlock: 112 }
+                  ]
                 },
                 {
                   ecCodewordsPerBlock: 28,
-                  ecBlocks: [{ numBlocks: 17, dataCodewordsPerBlock: 46 }],
+                  ecBlocks: [{ numBlocks: 17, dataCodewordsPerBlock: 46 }]
                 },
                 {
                   ecCodewordsPerBlock: 30,
                   ecBlocks: [
                     { numBlocks: 7, dataCodewordsPerBlock: 24 },
-                    { numBlocks: 16, dataCodewordsPerBlock: 25 },
-                  ],
+                    { numBlocks: 16, dataCodewordsPerBlock: 25 }
+                  ]
                 },
                 {
                   ecCodewordsPerBlock: 24,
-                  ecBlocks: [{ numBlocks: 34, dataCodewordsPerBlock: 13 }],
-                },
-              ],
+                  ecBlocks: [{ numBlocks: 34, dataCodewordsPerBlock: 13 }]
+                }
+              ]
             },
             {
               infoBits: 96236,
@@ -8679,31 +8796,31 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
                   ecCodewordsPerBlock: 30,
                   ecBlocks: [
                     { numBlocks: 4, dataCodewordsPerBlock: 121 },
-                    { numBlocks: 5, dataCodewordsPerBlock: 122 },
-                  ],
+                    { numBlocks: 5, dataCodewordsPerBlock: 122 }
+                  ]
                 },
                 {
                   ecCodewordsPerBlock: 28,
                   ecBlocks: [
                     { numBlocks: 4, dataCodewordsPerBlock: 47 },
-                    { numBlocks: 14, dataCodewordsPerBlock: 48 },
-                  ],
+                    { numBlocks: 14, dataCodewordsPerBlock: 48 }
+                  ]
                 },
                 {
                   ecCodewordsPerBlock: 30,
                   ecBlocks: [
                     { numBlocks: 11, dataCodewordsPerBlock: 24 },
-                    { numBlocks: 14, dataCodewordsPerBlock: 25 },
-                  ],
+                    { numBlocks: 14, dataCodewordsPerBlock: 25 }
+                  ]
                 },
                 {
                   ecCodewordsPerBlock: 30,
                   ecBlocks: [
                     { numBlocks: 16, dataCodewordsPerBlock: 15 },
-                    { numBlocks: 14, dataCodewordsPerBlock: 16 },
-                  ],
-                },
-              ],
+                    { numBlocks: 14, dataCodewordsPerBlock: 16 }
+                  ]
+                }
+              ]
             },
             {
               infoBits: 102084,
@@ -8714,31 +8831,31 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
                   ecCodewordsPerBlock: 30,
                   ecBlocks: [
                     { numBlocks: 6, dataCodewordsPerBlock: 117 },
-                    { numBlocks: 4, dataCodewordsPerBlock: 118 },
-                  ],
+                    { numBlocks: 4, dataCodewordsPerBlock: 118 }
+                  ]
                 },
                 {
                   ecCodewordsPerBlock: 28,
                   ecBlocks: [
                     { numBlocks: 6, dataCodewordsPerBlock: 45 },
-                    { numBlocks: 14, dataCodewordsPerBlock: 46 },
-                  ],
+                    { numBlocks: 14, dataCodewordsPerBlock: 46 }
+                  ]
                 },
                 {
                   ecCodewordsPerBlock: 30,
                   ecBlocks: [
                     { numBlocks: 11, dataCodewordsPerBlock: 24 },
-                    { numBlocks: 16, dataCodewordsPerBlock: 25 },
-                  ],
+                    { numBlocks: 16, dataCodewordsPerBlock: 25 }
+                  ]
                 },
                 {
                   ecCodewordsPerBlock: 30,
                   ecBlocks: [
                     { numBlocks: 30, dataCodewordsPerBlock: 16 },
-                    { numBlocks: 2, dataCodewordsPerBlock: 17 },
-                  ],
-                },
-              ],
+                    { numBlocks: 2, dataCodewordsPerBlock: 17 }
+                  ]
+                }
+              ]
             },
             {
               infoBits: 102881,
@@ -8749,31 +8866,31 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
                   ecCodewordsPerBlock: 26,
                   ecBlocks: [
                     { numBlocks: 8, dataCodewordsPerBlock: 106 },
-                    { numBlocks: 4, dataCodewordsPerBlock: 107 },
-                  ],
+                    { numBlocks: 4, dataCodewordsPerBlock: 107 }
+                  ]
                 },
                 {
                   ecCodewordsPerBlock: 28,
                   ecBlocks: [
                     { numBlocks: 8, dataCodewordsPerBlock: 47 },
-                    { numBlocks: 13, dataCodewordsPerBlock: 48 },
-                  ],
+                    { numBlocks: 13, dataCodewordsPerBlock: 48 }
+                  ]
                 },
                 {
                   ecCodewordsPerBlock: 30,
                   ecBlocks: [
                     { numBlocks: 7, dataCodewordsPerBlock: 24 },
-                    { numBlocks: 22, dataCodewordsPerBlock: 25 },
-                  ],
+                    { numBlocks: 22, dataCodewordsPerBlock: 25 }
+                  ]
                 },
                 {
                   ecCodewordsPerBlock: 30,
                   ecBlocks: [
                     { numBlocks: 22, dataCodewordsPerBlock: 15 },
-                    { numBlocks: 13, dataCodewordsPerBlock: 16 },
-                  ],
-                },
-              ],
+                    { numBlocks: 13, dataCodewordsPerBlock: 16 }
+                  ]
+                }
+              ]
             },
             {
               infoBits: 110507,
@@ -8784,31 +8901,31 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
                   ecCodewordsPerBlock: 28,
                   ecBlocks: [
                     { numBlocks: 10, dataCodewordsPerBlock: 114 },
-                    { numBlocks: 2, dataCodewordsPerBlock: 115 },
-                  ],
+                    { numBlocks: 2, dataCodewordsPerBlock: 115 }
+                  ]
                 },
                 {
                   ecCodewordsPerBlock: 28,
                   ecBlocks: [
                     { numBlocks: 19, dataCodewordsPerBlock: 46 },
-                    { numBlocks: 4, dataCodewordsPerBlock: 47 },
-                  ],
+                    { numBlocks: 4, dataCodewordsPerBlock: 47 }
+                  ]
                 },
                 {
                   ecCodewordsPerBlock: 28,
                   ecBlocks: [
                     { numBlocks: 28, dataCodewordsPerBlock: 22 },
-                    { numBlocks: 6, dataCodewordsPerBlock: 23 },
-                  ],
+                    { numBlocks: 6, dataCodewordsPerBlock: 23 }
+                  ]
                 },
                 {
                   ecCodewordsPerBlock: 30,
                   ecBlocks: [
                     { numBlocks: 33, dataCodewordsPerBlock: 16 },
-                    { numBlocks: 4, dataCodewordsPerBlock: 17 },
-                  ],
-                },
-              ],
+                    { numBlocks: 4, dataCodewordsPerBlock: 17 }
+                  ]
+                }
+              ]
             },
             {
               infoBits: 110734,
@@ -8819,31 +8936,31 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
                   ecCodewordsPerBlock: 30,
                   ecBlocks: [
                     { numBlocks: 8, dataCodewordsPerBlock: 122 },
-                    { numBlocks: 4, dataCodewordsPerBlock: 123 },
-                  ],
+                    { numBlocks: 4, dataCodewordsPerBlock: 123 }
+                  ]
                 },
                 {
                   ecCodewordsPerBlock: 28,
                   ecBlocks: [
                     { numBlocks: 22, dataCodewordsPerBlock: 45 },
-                    { numBlocks: 3, dataCodewordsPerBlock: 46 },
-                  ],
+                    { numBlocks: 3, dataCodewordsPerBlock: 46 }
+                  ]
                 },
                 {
                   ecCodewordsPerBlock: 30,
                   ecBlocks: [
                     { numBlocks: 8, dataCodewordsPerBlock: 23 },
-                    { numBlocks: 26, dataCodewordsPerBlock: 24 },
-                  ],
+                    { numBlocks: 26, dataCodewordsPerBlock: 24 }
+                  ]
                 },
                 {
                   ecCodewordsPerBlock: 30,
                   ecBlocks: [
                     { numBlocks: 12, dataCodewordsPerBlock: 15 },
-                    { numBlocks: 28, dataCodewordsPerBlock: 16 },
-                  ],
-                },
-              ],
+                    { numBlocks: 28, dataCodewordsPerBlock: 16 }
+                  ]
+                }
+              ]
             },
             {
               infoBits: 117786,
@@ -8854,31 +8971,31 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
                   ecCodewordsPerBlock: 30,
                   ecBlocks: [
                     { numBlocks: 3, dataCodewordsPerBlock: 117 },
-                    { numBlocks: 10, dataCodewordsPerBlock: 118 },
-                  ],
+                    { numBlocks: 10, dataCodewordsPerBlock: 118 }
+                  ]
                 },
                 {
                   ecCodewordsPerBlock: 28,
                   ecBlocks: [
                     { numBlocks: 3, dataCodewordsPerBlock: 45 },
-                    { numBlocks: 23, dataCodewordsPerBlock: 46 },
-                  ],
+                    { numBlocks: 23, dataCodewordsPerBlock: 46 }
+                  ]
                 },
                 {
                   ecCodewordsPerBlock: 30,
                   ecBlocks: [
                     { numBlocks: 4, dataCodewordsPerBlock: 24 },
-                    { numBlocks: 31, dataCodewordsPerBlock: 25 },
-                  ],
+                    { numBlocks: 31, dataCodewordsPerBlock: 25 }
+                  ]
                 },
                 {
                   ecCodewordsPerBlock: 30,
                   ecBlocks: [
                     { numBlocks: 11, dataCodewordsPerBlock: 15 },
-                    { numBlocks: 31, dataCodewordsPerBlock: 16 },
-                  ],
-                },
-              ],
+                    { numBlocks: 31, dataCodewordsPerBlock: 16 }
+                  ]
+                }
+              ]
             },
             {
               infoBits: 119615,
@@ -8889,31 +9006,31 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
                   ecCodewordsPerBlock: 30,
                   ecBlocks: [
                     { numBlocks: 7, dataCodewordsPerBlock: 116 },
-                    { numBlocks: 7, dataCodewordsPerBlock: 117 },
-                  ],
+                    { numBlocks: 7, dataCodewordsPerBlock: 117 }
+                  ]
                 },
                 {
                   ecCodewordsPerBlock: 28,
                   ecBlocks: [
                     { numBlocks: 21, dataCodewordsPerBlock: 45 },
-                    { numBlocks: 7, dataCodewordsPerBlock: 46 },
-                  ],
+                    { numBlocks: 7, dataCodewordsPerBlock: 46 }
+                  ]
                 },
                 {
                   ecCodewordsPerBlock: 30,
                   ecBlocks: [
                     { numBlocks: 1, dataCodewordsPerBlock: 23 },
-                    { numBlocks: 37, dataCodewordsPerBlock: 24 },
-                  ],
+                    { numBlocks: 37, dataCodewordsPerBlock: 24 }
+                  ]
                 },
                 {
                   ecCodewordsPerBlock: 30,
                   ecBlocks: [
                     { numBlocks: 19, dataCodewordsPerBlock: 15 },
-                    { numBlocks: 26, dataCodewordsPerBlock: 16 },
-                  ],
-                },
-              ],
+                    { numBlocks: 26, dataCodewordsPerBlock: 16 }
+                  ]
+                }
+              ]
             },
             {
               infoBits: 126325,
@@ -8924,31 +9041,31 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
                   ecCodewordsPerBlock: 30,
                   ecBlocks: [
                     { numBlocks: 5, dataCodewordsPerBlock: 115 },
-                    { numBlocks: 10, dataCodewordsPerBlock: 116 },
-                  ],
+                    { numBlocks: 10, dataCodewordsPerBlock: 116 }
+                  ]
                 },
                 {
                   ecCodewordsPerBlock: 28,
                   ecBlocks: [
                     { numBlocks: 19, dataCodewordsPerBlock: 47 },
-                    { numBlocks: 10, dataCodewordsPerBlock: 48 },
-                  ],
+                    { numBlocks: 10, dataCodewordsPerBlock: 48 }
+                  ]
                 },
                 {
                   ecCodewordsPerBlock: 30,
                   ecBlocks: [
                     { numBlocks: 15, dataCodewordsPerBlock: 24 },
-                    { numBlocks: 25, dataCodewordsPerBlock: 25 },
-                  ],
+                    { numBlocks: 25, dataCodewordsPerBlock: 25 }
+                  ]
                 },
                 {
                   ecCodewordsPerBlock: 30,
                   ecBlocks: [
                     { numBlocks: 23, dataCodewordsPerBlock: 15 },
-                    { numBlocks: 25, dataCodewordsPerBlock: 16 },
-                  ],
-                },
-              ],
+                    { numBlocks: 25, dataCodewordsPerBlock: 16 }
+                  ]
+                }
+              ]
             },
             {
               infoBits: 127568,
@@ -8959,31 +9076,31 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
                   ecCodewordsPerBlock: 30,
                   ecBlocks: [
                     { numBlocks: 13, dataCodewordsPerBlock: 115 },
-                    { numBlocks: 3, dataCodewordsPerBlock: 116 },
-                  ],
+                    { numBlocks: 3, dataCodewordsPerBlock: 116 }
+                  ]
                 },
                 {
                   ecCodewordsPerBlock: 28,
                   ecBlocks: [
                     { numBlocks: 2, dataCodewordsPerBlock: 46 },
-                    { numBlocks: 29, dataCodewordsPerBlock: 47 },
-                  ],
+                    { numBlocks: 29, dataCodewordsPerBlock: 47 }
+                  ]
                 },
                 {
                   ecCodewordsPerBlock: 30,
                   ecBlocks: [
                     { numBlocks: 42, dataCodewordsPerBlock: 24 },
-                    { numBlocks: 1, dataCodewordsPerBlock: 25 },
-                  ],
+                    { numBlocks: 1, dataCodewordsPerBlock: 25 }
+                  ]
                 },
                 {
                   ecCodewordsPerBlock: 30,
                   ecBlocks: [
                     { numBlocks: 23, dataCodewordsPerBlock: 15 },
-                    { numBlocks: 28, dataCodewordsPerBlock: 16 },
-                  ],
-                },
-              ],
+                    { numBlocks: 28, dataCodewordsPerBlock: 16 }
+                  ]
+                }
+              ]
             },
             {
               infoBits: 133589,
@@ -8992,30 +9109,30 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
               errorCorrectionLevels: [
                 {
                   ecCodewordsPerBlock: 30,
-                  ecBlocks: [{ numBlocks: 17, dataCodewordsPerBlock: 115 }],
+                  ecBlocks: [{ numBlocks: 17, dataCodewordsPerBlock: 115 }]
                 },
                 {
                   ecCodewordsPerBlock: 28,
                   ecBlocks: [
                     { numBlocks: 10, dataCodewordsPerBlock: 46 },
-                    { numBlocks: 23, dataCodewordsPerBlock: 47 },
-                  ],
+                    { numBlocks: 23, dataCodewordsPerBlock: 47 }
+                  ]
                 },
                 {
                   ecCodewordsPerBlock: 30,
                   ecBlocks: [
                     { numBlocks: 10, dataCodewordsPerBlock: 24 },
-                    { numBlocks: 35, dataCodewordsPerBlock: 25 },
-                  ],
+                    { numBlocks: 35, dataCodewordsPerBlock: 25 }
+                  ]
                 },
                 {
                   ecCodewordsPerBlock: 30,
                   ecBlocks: [
                     { numBlocks: 19, dataCodewordsPerBlock: 15 },
-                    { numBlocks: 35, dataCodewordsPerBlock: 16 },
-                  ],
-                },
-              ],
+                    { numBlocks: 35, dataCodewordsPerBlock: 16 }
+                  ]
+                }
+              ]
             },
             {
               infoBits: 136944,
@@ -9026,31 +9143,31 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
                   ecCodewordsPerBlock: 30,
                   ecBlocks: [
                     { numBlocks: 17, dataCodewordsPerBlock: 115 },
-                    { numBlocks: 1, dataCodewordsPerBlock: 116 },
-                  ],
+                    { numBlocks: 1, dataCodewordsPerBlock: 116 }
+                  ]
                 },
                 {
                   ecCodewordsPerBlock: 28,
                   ecBlocks: [
                     { numBlocks: 14, dataCodewordsPerBlock: 46 },
-                    { numBlocks: 21, dataCodewordsPerBlock: 47 },
-                  ],
+                    { numBlocks: 21, dataCodewordsPerBlock: 47 }
+                  ]
                 },
                 {
                   ecCodewordsPerBlock: 30,
                   ecBlocks: [
                     { numBlocks: 29, dataCodewordsPerBlock: 24 },
-                    { numBlocks: 19, dataCodewordsPerBlock: 25 },
-                  ],
+                    { numBlocks: 19, dataCodewordsPerBlock: 25 }
+                  ]
                 },
                 {
                   ecCodewordsPerBlock: 30,
                   ecBlocks: [
                     { numBlocks: 11, dataCodewordsPerBlock: 15 },
-                    { numBlocks: 46, dataCodewordsPerBlock: 16 },
-                  ],
-                },
-              ],
+                    { numBlocks: 46, dataCodewordsPerBlock: 16 }
+                  ]
+                }
+              ]
             },
             {
               infoBits: 141498,
@@ -9061,31 +9178,31 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
                   ecCodewordsPerBlock: 30,
                   ecBlocks: [
                     { numBlocks: 13, dataCodewordsPerBlock: 115 },
-                    { numBlocks: 6, dataCodewordsPerBlock: 116 },
-                  ],
+                    { numBlocks: 6, dataCodewordsPerBlock: 116 }
+                  ]
                 },
                 {
                   ecCodewordsPerBlock: 28,
                   ecBlocks: [
                     { numBlocks: 14, dataCodewordsPerBlock: 46 },
-                    { numBlocks: 23, dataCodewordsPerBlock: 47 },
-                  ],
+                    { numBlocks: 23, dataCodewordsPerBlock: 47 }
+                  ]
                 },
                 {
                   ecCodewordsPerBlock: 30,
                   ecBlocks: [
                     { numBlocks: 44, dataCodewordsPerBlock: 24 },
-                    { numBlocks: 7, dataCodewordsPerBlock: 25 },
-                  ],
+                    { numBlocks: 7, dataCodewordsPerBlock: 25 }
+                  ]
                 },
                 {
                   ecCodewordsPerBlock: 30,
                   ecBlocks: [
                     { numBlocks: 59, dataCodewordsPerBlock: 16 },
-                    { numBlocks: 1, dataCodewordsPerBlock: 17 },
-                  ],
-                },
-              ],
+                    { numBlocks: 1, dataCodewordsPerBlock: 17 }
+                  ]
+                }
+              ]
             },
             {
               infoBits: 145311,
@@ -9096,31 +9213,31 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
                   ecCodewordsPerBlock: 30,
                   ecBlocks: [
                     { numBlocks: 12, dataCodewordsPerBlock: 121 },
-                    { numBlocks: 7, dataCodewordsPerBlock: 122 },
-                  ],
+                    { numBlocks: 7, dataCodewordsPerBlock: 122 }
+                  ]
                 },
                 {
                   ecCodewordsPerBlock: 28,
                   ecBlocks: [
                     { numBlocks: 12, dataCodewordsPerBlock: 47 },
-                    { numBlocks: 26, dataCodewordsPerBlock: 48 },
-                  ],
+                    { numBlocks: 26, dataCodewordsPerBlock: 48 }
+                  ]
                 },
                 {
                   ecCodewordsPerBlock: 30,
                   ecBlocks: [
                     { numBlocks: 39, dataCodewordsPerBlock: 24 },
-                    { numBlocks: 14, dataCodewordsPerBlock: 25 },
-                  ],
+                    { numBlocks: 14, dataCodewordsPerBlock: 25 }
+                  ]
                 },
                 {
                   ecCodewordsPerBlock: 30,
                   ecBlocks: [
                     { numBlocks: 22, dataCodewordsPerBlock: 15 },
-                    { numBlocks: 41, dataCodewordsPerBlock: 16 },
-                  ],
-                },
-              ],
+                    { numBlocks: 41, dataCodewordsPerBlock: 16 }
+                  ]
+                }
+              ]
             },
             {
               infoBits: 150283,
@@ -9131,31 +9248,31 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
                   ecCodewordsPerBlock: 30,
                   ecBlocks: [
                     { numBlocks: 6, dataCodewordsPerBlock: 121 },
-                    { numBlocks: 14, dataCodewordsPerBlock: 122 },
-                  ],
+                    { numBlocks: 14, dataCodewordsPerBlock: 122 }
+                  ]
                 },
                 {
                   ecCodewordsPerBlock: 28,
                   ecBlocks: [
                     { numBlocks: 6, dataCodewordsPerBlock: 47 },
-                    { numBlocks: 34, dataCodewordsPerBlock: 48 },
-                  ],
+                    { numBlocks: 34, dataCodewordsPerBlock: 48 }
+                  ]
                 },
                 {
                   ecCodewordsPerBlock: 30,
                   ecBlocks: [
                     { numBlocks: 46, dataCodewordsPerBlock: 24 },
-                    { numBlocks: 10, dataCodewordsPerBlock: 25 },
-                  ],
+                    { numBlocks: 10, dataCodewordsPerBlock: 25 }
+                  ]
                 },
                 {
                   ecCodewordsPerBlock: 30,
                   ecBlocks: [
                     { numBlocks: 2, dataCodewordsPerBlock: 15 },
-                    { numBlocks: 64, dataCodewordsPerBlock: 16 },
-                  ],
-                },
-              ],
+                    { numBlocks: 64, dataCodewordsPerBlock: 16 }
+                  ]
+                }
+              ]
             },
             {
               infoBits: 152622,
@@ -9166,31 +9283,31 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
                   ecCodewordsPerBlock: 30,
                   ecBlocks: [
                     { numBlocks: 17, dataCodewordsPerBlock: 122 },
-                    { numBlocks: 4, dataCodewordsPerBlock: 123 },
-                  ],
+                    { numBlocks: 4, dataCodewordsPerBlock: 123 }
+                  ]
                 },
                 {
                   ecCodewordsPerBlock: 28,
                   ecBlocks: [
                     { numBlocks: 29, dataCodewordsPerBlock: 46 },
-                    { numBlocks: 14, dataCodewordsPerBlock: 47 },
-                  ],
+                    { numBlocks: 14, dataCodewordsPerBlock: 47 }
+                  ]
                 },
                 {
                   ecCodewordsPerBlock: 30,
                   ecBlocks: [
                     { numBlocks: 49, dataCodewordsPerBlock: 24 },
-                    { numBlocks: 10, dataCodewordsPerBlock: 25 },
-                  ],
+                    { numBlocks: 10, dataCodewordsPerBlock: 25 }
+                  ]
                 },
                 {
                   ecCodewordsPerBlock: 30,
                   ecBlocks: [
                     { numBlocks: 24, dataCodewordsPerBlock: 15 },
-                    { numBlocks: 46, dataCodewordsPerBlock: 16 },
-                  ],
-                },
-              ],
+                    { numBlocks: 46, dataCodewordsPerBlock: 16 }
+                  ]
+                }
+              ]
             },
             {
               infoBits: 158308,
@@ -9201,31 +9318,31 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
                   ecCodewordsPerBlock: 30,
                   ecBlocks: [
                     { numBlocks: 4, dataCodewordsPerBlock: 122 },
-                    { numBlocks: 18, dataCodewordsPerBlock: 123 },
-                  ],
+                    { numBlocks: 18, dataCodewordsPerBlock: 123 }
+                  ]
                 },
                 {
                   ecCodewordsPerBlock: 28,
                   ecBlocks: [
                     { numBlocks: 13, dataCodewordsPerBlock: 46 },
-                    { numBlocks: 32, dataCodewordsPerBlock: 47 },
-                  ],
+                    { numBlocks: 32, dataCodewordsPerBlock: 47 }
+                  ]
                 },
                 {
                   ecCodewordsPerBlock: 30,
                   ecBlocks: [
                     { numBlocks: 48, dataCodewordsPerBlock: 24 },
-                    { numBlocks: 14, dataCodewordsPerBlock: 25 },
-                  ],
+                    { numBlocks: 14, dataCodewordsPerBlock: 25 }
+                  ]
                 },
                 {
                   ecCodewordsPerBlock: 30,
                   ecBlocks: [
                     { numBlocks: 42, dataCodewordsPerBlock: 15 },
-                    { numBlocks: 32, dataCodewordsPerBlock: 16 },
-                  ],
-                },
-              ],
+                    { numBlocks: 32, dataCodewordsPerBlock: 16 }
+                  ]
+                }
+              ]
             },
             {
               infoBits: 161089,
@@ -9236,31 +9353,31 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
                   ecCodewordsPerBlock: 30,
                   ecBlocks: [
                     { numBlocks: 20, dataCodewordsPerBlock: 117 },
-                    { numBlocks: 4, dataCodewordsPerBlock: 118 },
-                  ],
+                    { numBlocks: 4, dataCodewordsPerBlock: 118 }
+                  ]
                 },
                 {
                   ecCodewordsPerBlock: 28,
                   ecBlocks: [
                     { numBlocks: 40, dataCodewordsPerBlock: 47 },
-                    { numBlocks: 7, dataCodewordsPerBlock: 48 },
-                  ],
+                    { numBlocks: 7, dataCodewordsPerBlock: 48 }
+                  ]
                 },
                 {
                   ecCodewordsPerBlock: 30,
                   ecBlocks: [
                     { numBlocks: 43, dataCodewordsPerBlock: 24 },
-                    { numBlocks: 22, dataCodewordsPerBlock: 25 },
-                  ],
+                    { numBlocks: 22, dataCodewordsPerBlock: 25 }
+                  ]
                 },
                 {
                   ecCodewordsPerBlock: 30,
                   ecBlocks: [
                     { numBlocks: 10, dataCodewordsPerBlock: 15 },
-                    { numBlocks: 67, dataCodewordsPerBlock: 16 },
-                  ],
-                },
-              ],
+                    { numBlocks: 67, dataCodewordsPerBlock: 16 }
+                  ]
+                }
+              ]
             },
             {
               infoBits: 167017,
@@ -9271,32 +9388,32 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
                   ecCodewordsPerBlock: 30,
                   ecBlocks: [
                     { numBlocks: 19, dataCodewordsPerBlock: 118 },
-                    { numBlocks: 6, dataCodewordsPerBlock: 119 },
-                  ],
+                    { numBlocks: 6, dataCodewordsPerBlock: 119 }
+                  ]
                 },
                 {
                   ecCodewordsPerBlock: 28,
                   ecBlocks: [
                     { numBlocks: 18, dataCodewordsPerBlock: 47 },
-                    { numBlocks: 31, dataCodewordsPerBlock: 48 },
-                  ],
+                    { numBlocks: 31, dataCodewordsPerBlock: 48 }
+                  ]
                 },
                 {
                   ecCodewordsPerBlock: 30,
                   ecBlocks: [
                     { numBlocks: 34, dataCodewordsPerBlock: 24 },
-                    { numBlocks: 34, dataCodewordsPerBlock: 25 },
-                  ],
+                    { numBlocks: 34, dataCodewordsPerBlock: 25 }
+                  ]
                 },
                 {
                   ecCodewordsPerBlock: 30,
                   ecBlocks: [
                     { numBlocks: 20, dataCodewordsPerBlock: 15 },
-                    { numBlocks: 61, dataCodewordsPerBlock: 16 },
-                  ],
-                },
-              ],
-            },
+                    { numBlocks: 61, dataCodewordsPerBlock: 16 }
+                  ]
+                }
+              ]
+            }
           ]);
       },
       function (o, e, r) {
@@ -9316,7 +9433,7 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
               a23: 0,
               a31: o.x,
               a32: o.y,
-              a33: 1,
+              a33: 1
             };
           var a = e.x - r.x,
             d = t.x - r.x,
@@ -9334,57 +9451,57 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
             a23: k,
             a31: o.x,
             a32: o.y,
-            a33: 1,
+            a33: 1
           };
         }
         e.extract = function (o, e) {
           for (
             var r,
-            t,
-            c,
-            s,
-            a,
-            d,
-            n,
-            l =
-              ((r = { x: 3.5, y: 3.5 }),
+              t,
+              c,
+              s,
+              a,
+              d,
+              n,
+              l =
+                ((r = { x: 3.5, y: 3.5 }),
                 (t = { x: e.dimension - 3.5, y: 3.5 }),
                 (c = { x: e.dimension - 6.5, y: e.dimension - 6.5 }),
                 (s = { x: 3.5, y: e.dimension - 3.5 }),
-              {
-                a11: (a = P(r, t, c, s)).a22 * a.a33 - a.a23 * a.a32,
-                a12: a.a13 * a.a32 - a.a12 * a.a33,
-                a13: a.a12 * a.a23 - a.a13 * a.a22,
-                a21: a.a23 * a.a31 - a.a21 * a.a33,
-                a22: a.a11 * a.a33 - a.a13 * a.a31,
-                a23: a.a13 * a.a21 - a.a11 * a.a23,
-                a31: a.a21 * a.a32 - a.a22 * a.a31,
-                a32: a.a12 * a.a31 - a.a11 * a.a32,
-                a33: a.a11 * a.a22 - a.a12 * a.a21,
-              }),
-            i = P(e.topLeft, e.topRight, e.alignmentPattern, e.bottomLeft),
-            B =
-              ((n = l),
-              {
-                a11: (d = i).a11 * n.a11 + d.a21 * n.a12 + d.a31 * n.a13,
-                a12: d.a12 * n.a11 + d.a22 * n.a12 + d.a32 * n.a13,
-                a13: d.a13 * n.a11 + d.a23 * n.a12 + d.a33 * n.a13,
-                a21: d.a11 * n.a21 + d.a21 * n.a22 + d.a31 * n.a23,
-                a22: d.a12 * n.a21 + d.a22 * n.a22 + d.a32 * n.a23,
-                a23: d.a13 * n.a21 + d.a23 * n.a22 + d.a33 * n.a23,
-                a31: d.a11 * n.a31 + d.a21 * n.a32 + d.a31 * n.a33,
-                a32: d.a12 * n.a31 + d.a22 * n.a32 + d.a32 * n.a33,
-                a33: d.a13 * n.a31 + d.a23 * n.a32 + d.a33 * n.a33,
-              }),
-            k = w.BitMatrix.createEmpty(e.dimension, e.dimension),
-            u = function (o, e) {
-              var r = B.a13 * o + B.a23 * e + B.a33;
-              return {
-                x: (B.a11 * o + B.a21 * e + B.a31) / r,
-                y: (B.a12 * o + B.a22 * e + B.a32) / r,
-              };
-            },
-            C = 0;
+                {
+                  a11: (a = P(r, t, c, s)).a22 * a.a33 - a.a23 * a.a32,
+                  a12: a.a13 * a.a32 - a.a12 * a.a33,
+                  a13: a.a12 * a.a23 - a.a13 * a.a22,
+                  a21: a.a23 * a.a31 - a.a21 * a.a33,
+                  a22: a.a11 * a.a33 - a.a13 * a.a31,
+                  a23: a.a13 * a.a21 - a.a11 * a.a23,
+                  a31: a.a21 * a.a32 - a.a22 * a.a31,
+                  a32: a.a12 * a.a31 - a.a11 * a.a32,
+                  a33: a.a11 * a.a22 - a.a12 * a.a21
+                }),
+              i = P(e.topLeft, e.topRight, e.alignmentPattern, e.bottomLeft),
+              B =
+                ((n = l),
+                {
+                  a11: (d = i).a11 * n.a11 + d.a21 * n.a12 + d.a31 * n.a13,
+                  a12: d.a12 * n.a11 + d.a22 * n.a12 + d.a32 * n.a13,
+                  a13: d.a13 * n.a11 + d.a23 * n.a12 + d.a33 * n.a13,
+                  a21: d.a11 * n.a21 + d.a21 * n.a22 + d.a31 * n.a23,
+                  a22: d.a12 * n.a21 + d.a22 * n.a22 + d.a32 * n.a23,
+                  a23: d.a13 * n.a21 + d.a23 * n.a22 + d.a33 * n.a23,
+                  a31: d.a11 * n.a31 + d.a21 * n.a32 + d.a31 * n.a33,
+                  a32: d.a12 * n.a31 + d.a22 * n.a32 + d.a32 * n.a33,
+                  a33: d.a13 * n.a31 + d.a23 * n.a32 + d.a33 * n.a33
+                }),
+              k = w.BitMatrix.createEmpty(e.dimension, e.dimension),
+              u = function (o, e) {
+                var r = B.a13 * o + B.a23 * e + B.a33;
+                return {
+                  x: (B.a11 * o + B.a21 * e + B.a31) / r,
+                  y: (B.a12 * o + B.a22 * e + B.a32) / r
+                };
+              },
+              C = 0;
             C < e.dimension;
             C++
           )
@@ -9424,13 +9541,13 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
               Math.floor(e.y));
           for (
             var i = Math.abs(a - c),
-            B = Math.abs(d - s),
-            k = Math.floor(-i / 2),
-            u = c < a ? 1 : -1,
-            C = s < d ? 1 : -1,
-            m = !0,
-            f = c,
-            w = s;
+              B = Math.abs(d - s),
+              k = Math.floor(-i / 2),
+              u = c < a ? 1 : -1,
+              C = s < d ? 1 : -1,
+              m = !0,
+              f = c,
+              w = s;
             f !== a + u;
             f += u
           ) {
@@ -9475,7 +9592,10 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
               c = _(o, { x: o.x, y: -1 }, r, e.length),
               s = _(
                 o,
-                { x: Math.max(0, o.x - o.y) - 1, y: Math.max(0, o.y - o.x) - 1 },
+                {
+                  x: Math.max(0, o.x - o.y) - 1,
+                  y: Math.max(0, o.y - o.x) - 1
+                },
                 r,
                 e.length
               ),
@@ -9483,7 +9603,7 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
                 o,
                 {
                   x: Math.min(r.width, o.x + o.y) + 1,
-                  y: Math.min(r.height, o.y + o.x) + 1,
+                  y: Math.min(r.height, o.y + o.x) + 1
                 },
                 r,
                 e.length
@@ -9494,12 +9614,15 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
               i = u(a, e),
               B = Math.sqrt(
                 d.error * d.error +
-                n.error * n.error +
-                l.error * l.error +
-                i.error * i.error
+                  n.error * n.error +
+                  l.error * l.error +
+                  i.error * i.error
               ),
               k =
-                (d.averageSize + n.averageSize + l.averageSize + i.averageSize) /
+                (d.averageSize +
+                  n.averageSize +
+                  l.averageSize +
+                  i.averageSize) /
                 4;
             return (
               B +
@@ -9507,7 +9630,7 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
                 Math.pow(n.averageSize - k, 2) +
                 Math.pow(l.averageSize - k, 2) +
                 Math.pow(i.averageSize - k, 2)) /
-              k
+                k
             );
           } catch (o) {
             return 1 / 0;
@@ -9516,97 +9639,99 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
         e.locate = function (f) {
           for (
             var r = [],
-            w = [],
-            t = [],
-            P = [],
-            o = function (k) {
-              for (
-                var u = 0,
-                C = !1,
-                m = [0, 0, 0, 0, 0],
-                o = function (o) {
-                  var e = f.get(o, k);
-                  if (e === C) u++;
-                  else {
-                    (m = [m[1], m[2], m[3], m[4], u]), (u = 1), (C = e);
-                    var r = j(m) / 7,
-                      t =
-                        Math.abs(m[0] - r) < r &&
-                        Math.abs(m[1] - r) < r &&
-                        Math.abs(m[2] - 3 * r) < 3 * r &&
-                        Math.abs(m[3] - r) < r &&
-                        Math.abs(m[4] - r) < r &&
-                        !e,
-                      c = j(m.slice(-3)) / 3,
-                      s =
-                        Math.abs(m[2] - c) < c &&
-                        Math.abs(m[3] - c) < c &&
-                        Math.abs(m[4] - c) < c &&
-                        e;
-                    if (t) {
-                      var a = o - m[3] - m[4],
-                        d = a - m[2],
-                        n = { startX: d, endX: a, y: k };
-                      0 <
-                        (l = w.filter(function (o) {
-                          return (
-                            (d >= o.bottom.startX && d <= o.bottom.endX) ||
-                            (a >= o.bottom.startX && d <= o.bottom.endX) ||
-                            (d <= o.bottom.startX &&
-                              a >= o.bottom.endX &&
-                              m[2] / (o.bottom.endX - o.bottom.startX) < 1.5 &&
-                              0.5 < m[2] / (o.bottom.endX - o.bottom.startX))
-                          );
-                        })).length
-                        ? (l[0].bottom = n)
-                        : w.push({ top: n, bottom: n });
-                    }
-                    if (s) {
-                      var l,
-                        i = o - m[4],
-                        B = i - m[3];
-                      n = { startX: B, y: k, endX: i };
-                      0 <
-                        (l = P.filter(function (o) {
-                          return (
-                            (B >= o.bottom.startX && B <= o.bottom.endX) ||
-                            (i >= o.bottom.startX && B <= o.bottom.endX) ||
-                            (B <= o.bottom.startX &&
-                              i >= o.bottom.endX &&
-                              m[2] / (o.bottom.endX - o.bottom.startX) < 1.5 &&
-                              0.5 < m[2] / (o.bottom.endX - o.bottom.startX))
-                          );
-                        })).length
-                        ? (l[0].bottom = n)
-                        : P.push({ top: n, bottom: n });
-                    }
-                  }
-                },
-                e = -1;
-                e <= f.width;
-                e++
-              )
-                o(e);
-              r.push.apply(
-                r,
-                w.filter(function (o) {
-                  return o.bottom.y !== k && 2 <= o.bottom.y - o.top.y;
-                })
-              ),
-                (w = w.filter(function (o) {
-                  return o.bottom.y === k;
-                })),
-                t.push.apply(
-                  t,
-                  P.filter(function (o) {
-                    return o.bottom.y !== k;
+              w = [],
+              t = [],
+              P = [],
+              o = function (k) {
+                for (
+                  var u = 0,
+                    C = !1,
+                    m = [0, 0, 0, 0, 0],
+                    o = function (o) {
+                      var e = f.get(o, k);
+                      if (e === C) u++;
+                      else {
+                        (m = [m[1], m[2], m[3], m[4], u]), (u = 1), (C = e);
+                        var r = j(m) / 7,
+                          t =
+                            Math.abs(m[0] - r) < r &&
+                            Math.abs(m[1] - r) < r &&
+                            Math.abs(m[2] - 3 * r) < 3 * r &&
+                            Math.abs(m[3] - r) < r &&
+                            Math.abs(m[4] - r) < r &&
+                            !e,
+                          c = j(m.slice(-3)) / 3,
+                          s =
+                            Math.abs(m[2] - c) < c &&
+                            Math.abs(m[3] - c) < c &&
+                            Math.abs(m[4] - c) < c &&
+                            e;
+                        if (t) {
+                          var a = o - m[3] - m[4],
+                            d = a - m[2],
+                            n = { startX: d, endX: a, y: k };
+                          0 <
+                          (l = w.filter(function (o) {
+                            return (
+                              (d >= o.bottom.startX && d <= o.bottom.endX) ||
+                              (a >= o.bottom.startX && d <= o.bottom.endX) ||
+                              (d <= o.bottom.startX &&
+                                a >= o.bottom.endX &&
+                                m[2] / (o.bottom.endX - o.bottom.startX) <
+                                  1.5 &&
+                                0.5 < m[2] / (o.bottom.endX - o.bottom.startX))
+                            );
+                          })).length
+                            ? (l[0].bottom = n)
+                            : w.push({ top: n, bottom: n });
+                        }
+                        if (s) {
+                          var l,
+                            i = o - m[4],
+                            B = i - m[3];
+                          n = { startX: B, y: k, endX: i };
+                          0 <
+                          (l = P.filter(function (o) {
+                            return (
+                              (B >= o.bottom.startX && B <= o.bottom.endX) ||
+                              (i >= o.bottom.startX && B <= o.bottom.endX) ||
+                              (B <= o.bottom.startX &&
+                                i >= o.bottom.endX &&
+                                m[2] / (o.bottom.endX - o.bottom.startX) <
+                                  1.5 &&
+                                0.5 < m[2] / (o.bottom.endX - o.bottom.startX))
+                            );
+                          })).length
+                            ? (l[0].bottom = n)
+                            : P.push({ top: n, bottom: n });
+                        }
+                      }
+                    },
+                    e = -1;
+                  e <= f.width;
+                  e++
+                )
+                  o(e);
+                r.push.apply(
+                  r,
+                  w.filter(function (o) {
+                    return o.bottom.y !== k && 2 <= o.bottom.y - o.top.y;
                   })
                 ),
-                (P = P.filter(function (o) {
-                  return o.bottom.y === k;
-                }));
-            },
-            e = 0;
+                  (w = w.filter(function (o) {
+                    return o.bottom.y === k;
+                  })),
+                  t.push.apply(
+                    t,
+                    P.filter(function (o) {
+                      return o.bottom.y !== k;
+                    })
+                  ),
+                  (P = P.filter(function (o) {
+                    return o.bottom.y === k;
+                  }));
+              },
+              e = 0;
             e <= f.height;
             e++
           )
@@ -9624,15 +9749,18 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
             })
             .map(function (o) {
               var e =
-                (o.top.startX + o.top.endX + o.bottom.startX + o.bottom.endX) /
-                4,
+                  (o.top.startX +
+                    o.top.endX +
+                    o.bottom.startX +
+                    o.bottom.endX) /
+                  4,
                 r = (o.top.y + o.bottom.y + 1) / 2;
               if (f.get(Math.round(e), Math.round(r))) {
                 var t = [
-                  o.top.endX - o.top.startX,
-                  o.bottom.endX - o.bottom.startX,
-                  o.bottom.y - o.top.y + 1,
-                ],
+                    o.top.endX - o.top.startX,
+                    o.bottom.endX - o.bottom.startX,
+                    o.bottom.y - o.top.y + 1
+                  ],
                   c = j(t) / t.length;
                 return {
                   score: R(
@@ -9642,7 +9770,7 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
                   ),
                   x: e,
                   y: r,
-                  size: c,
+                  size: c
                 };
               }
             })
@@ -9663,7 +9791,7 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
                     x: o.x,
                     y: o.y,
                     score: o.score + Math.pow(o.size - e.size, 2) / e.size,
-                    size: o.size,
+                    size: o.size
                   };
                 })
                 .sort(function (o, e) {
@@ -9697,22 +9825,22 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
             b,
             y =
               ((s = c[0].points[0]),
-                (a = c[0].points[1]),
-                (d = c[0].points[2]),
-                (m = E(s, a)),
-                (v = E(a, d)),
-                (h = E(s, d)),
-                ((i =
-                  m <= v && h <= v
-                    ? ((n = (B = [a, s, d])[0]), (l = B[1]), B[2])
-                    : v <= h && m <= h
-                      ? ((n = (k = [s, a, d])[0]), (l = k[1]), k[2])
-                      : ((n = (u = [s, d, a])[0]), (l = u[1]), u[2])).x -
-                  l.x) *
+              (a = c[0].points[1]),
+              (d = c[0].points[2]),
+              (m = E(s, a)),
+              (v = E(a, d)),
+              (h = E(s, d)),
+              ((i =
+                m <= v && h <= v
+                  ? ((n = (B = [a, s, d])[0]), (l = B[1]), B[2])
+                  : v <= h && m <= h
+                  ? ((n = (k = [s, a, d])[0]), (l = k[1]), k[2])
+                  : ((n = (u = [s, d, a])[0]), (l = u[1]), u[2])).x -
+                l.x) *
                 (n.y - l.y) -
                 (i.y - l.y) * (n.x - l.x) <
                 0 && ((n = (C = [i, n])[0]), (i = C[1])),
-                { bottomLeft: n, topLeft: l, topRight: i }),
+              { bottomLeft: n, topLeft: l, topRight: i }),
             g = y.topRight,
             x = y.topLeft,
             M = y.bottomLeft;
@@ -9750,17 +9878,17 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
             X = t
               .map(function (o) {
                 var e =
-                  (o.top.startX +
-                    o.top.endX +
-                    o.bottom.startX +
-                    o.bottom.endX) /
-                  4,
+                    (o.top.startX +
+                      o.top.endX +
+                      o.bottom.startX +
+                      o.bottom.endX) /
+                    4,
                   r = (o.top.y + o.bottom.y + 1) / 2;
                 if (f.get(Math.floor(e), Math.floor(r))) {
                   var t = [
                     o.top.endX - o.top.startX,
                     o.bottom.endX - o.bottom.startX,
-                    o.bottom.y - o.top.y + 1,
+                    o.bottom.y - o.top.y + 1
                   ];
                   j(t);
                   return {
@@ -9768,7 +9896,7 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
                     y: r,
                     score:
                       R({ x: Math.floor(e), y: Math.floor(r) }, [1, 1, 1], f) +
-                      E({ x: e, y: r }, S),
+                      E({ x: e, y: r }, S)
                   };
                 }
               })
@@ -9784,32 +9912,32 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
             bottomLeft: { x: M.x, y: M.y },
             dimension: p,
             topLeft: { x: x.x, y: x.y },
-            topRight: { x: g.x, y: g.y },
+            topRight: { x: g.x, y: g.y }
           };
         };
-      },
+      }
     ]),
-    (t.c = c),
-    (t.d = function (o, e, r) {
-      t.o(o, e) ||
-        Object.defineProperty(o, e, { configurable: !1, enumerable: !0, get: r });
-    }),
-    (t.n = function (o) {
-      var e =
-        o && o.__esModule
-          ? function () {
+  (t.c = c),
+  (t.d = function (o, e, r) {
+    t.o(o, e) ||
+      Object.defineProperty(o, e, { configurable: !1, enumerable: !0, get: r });
+  }),
+  (t.n = function (o) {
+    var e =
+      o && o.__esModule
+        ? function () {
             return o.default;
           }
-          : function () {
+        : function () {
             return o;
           };
-      return t.d(e, 'a', e), e;
-    }),
-    (t.o = function (o, e) {
-      return Object.prototype.hasOwnProperty.call(o, e);
-    }),
-    (t.p = ''),
-    t((t.s = 3))).default;
+    return t.d(e, 'a', e), e;
+  }),
+  (t.o = function (o, e) {
+    return Object.prototype.hasOwnProperty.call(o, e);
+  }),
+  (t.p = ''),
+  t((t.s = 3))).default;
   function t(o) {
     if (c[o]) return c[o].exports;
     var e = (c[o] = { i: o, l: !1, exports: {} });

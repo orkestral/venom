@@ -71,7 +71,7 @@ export async function openChatAt(chatId, messageId) {
   const args = {
     collection: chat.msgs,
     msg: atMessage,
-    isUnreadDivider: false,
+    isUnreadDivider: false
   };
   const result = await Store.Cmd.default._openChat(chat, args);
   return result;

@@ -72,7 +72,7 @@ export function addOnParticipantsChange() {
         'remove',
         'leave',
         'promote',
-        'demote',
+        'demote'
       ];
       const chat = window.Store.Chat.get(groupId);
       //attach all group Participants to the events object as 'add'
@@ -82,7 +82,7 @@ export function addOnParticipantsChange() {
         metadata.participants.forEach((participant) => {
           groupParticpiantsEvents[groupId][participant.id.toString()] = {
             subtype: 'add',
-            from: metadata.owner,
+            from: metadata.owner
           };
         });
       }
@@ -113,7 +113,7 @@ export function addOnParticipantsChange() {
               } else {
                 groupParticpiantsEvents[groupId][rec] = {
                   subtype,
-                  from,
+                  from
                 };
                 //fire the callback
                 // // previewMessage.from.toString()
@@ -122,7 +122,7 @@ export function addOnParticipantsChange() {
                 callback({
                   by: from.toString(),
                   action: subtype,
-                  who: recipients,
+                  who: recipients
                 });
                 chat.off('all', this);
                 i = 0;
