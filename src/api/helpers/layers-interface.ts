@@ -22,7 +22,7 @@ export function checkValuesSender(data: any) {
             erro: true,
             param: data[i].param,
             function: data[i].function,
-            text: `Invalid parameter in ${data[i].param}! Pass a variable of type ${data[i].type}!`,
+            text: `Invalid parameter in ${data[i].param}! Pass a variable of type ${data[i].type}!`
           };
         }
       }

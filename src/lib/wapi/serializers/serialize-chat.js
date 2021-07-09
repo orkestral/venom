@@ -83,6 +83,6 @@ export const _serializeChatObj = (obj) => {
       obj.previewMessage &&
       obj.previewMessage.__x_ephemeralStartTimestamp
         ? obj.previewMessage.__x_ephemeralStartTimestamp * 1000
-        : null,
+        : null
   });
 };

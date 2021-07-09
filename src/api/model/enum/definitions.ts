@@ -206,7 +206,7 @@ const defs = {
     GALLERY: 'GALLERY',
     REPLY_STAGE: 'REPLY_STAGE',
     QUOTED_MSG: 'QUOTED_MSG',
-    CONTACT_CARD: 'CONTACT_CARD',
+    CONTACT_CARD: 'CONTACT_CARD'
   },
   SEND_LOGS_MAX_EMAIL_LENGTH: 320,
   SEND_LOGS_MAX_SUBJECT_LENGTH: 50,
@@ -226,26 +226,26 @@ const defs = {
     SENT: 1,
     RECEIVED: 2,
     READ: 3,
-    PLAYED: 4,
+    PLAYED: 4
   },
   ACK_STRING: {
     SENDER: 'sender',
     DELIVERY: 'delivery',
     READ: 'read',
     PLAYED: 'played',
-    INACTIVE: 'inactive',
+    INACTIVE: 'inactive'
   },
   RETRY: {
     VALIDATE_OLD_SESSION: 2,
-    MAX_RETRY: 5,
+    MAX_RETRY: 5
   },
   KEY_BUNDLE_TYPE: '',
   EDIT_ATTR: {
-    REVOKE: 7,
+    REVOKE: 7
   },
   DEVICE: {
     PRIMARY_DEVICE: 0,
-    PRIMARY_VERSION: -1,
+    PRIMARY_VERSION: -1
   },
   BATTERY_LOW_THRESHOLD_1: 15,
   BATTERY_LOW_THRESHOLD_2: 5,
@@ -263,13 +263,13 @@ const defs = {
     PROXYBLOCK: 'PROXYBLOCK',
     TOS_BLOCK: 'TOS_BLOCK',
     SMB_TOS_BLOCK: 'SMB_TOS_BLOCK',
-    DEPRECATED_VERSION: 'DEPRECATED_VERSION',
+    DEPRECATED_VERSION: 'DEPRECATED_VERSION'
   },
   SOCKET_STREAM: {
     DISCONNECTED: 'DISCONNECTED',
     SYNCING: 'SYNCING',
     RESUMING: 'RESUMING',
-    CONNECTED: 'CONNECTED',
+    CONNECTED: 'CONNECTED'
   },
   COLLECTION_HAS_SYNCED: 'collection_has_synced',
   NEW_MSG_SENT: 'new_msg_sent',
@@ -314,7 +314,7 @@ const defs = {
     '#7e90a3',
     '#55626f',
     '#243640',
-    '#162127',
+    '#162127'
   ],
   DEFAULT_CHAT_WALLPAPER: 'default_chat_wallpaper',
   INVERT_TRANSPARENT: {
@@ -355,7 +355,7 @@ const defs = {
     '#7e90a3': !0,
     '#55626f': !0,
     '#243640': !0,
-    '#162127': !0,
+    '#162127': !0
   },
   L10N_PRIORITY: {
     SAVED: 6,
@@ -363,14 +363,14 @@ const defs = {
     PREVIOUS: 4,
     URL: 3,
     BROWSER: 2,
-    DEFAULT: 1,
+    DEFAULT: 1
   },
   RENDER_CURSOR: {
     RECENT_AT_TOP: 'recent_at_top',
     RECENT_AT_BOTTOM: 'recent_at_bottom',
     CONVERSATION: 'conversation',
     GROUP_CONVERSATION: 'group_conversation',
-    STARRED_DRAWER: 'starred_drawer',
+    STARRED_DRAWER: 'starred_drawer'
   },
   SECURITY_LINK: 'https://www.whatsapp.com/security/',
   SMB_TOS_LEARN_MORE_LINK:
@@ -382,7 +382,7 @@ const defs = {
   VISIBILITY: {
     ABOVE: 'above',
     VISIBLE: 'visible',
-    BELOW: 'below',
+    BELOW: 'below'
   },
   VIDEO_STREAM_URL: '/stream/video',
   SPELL_CHECK_SKIP_WORDS: {
@@ -416,7 +416,7 @@ const defs = {
       'Shouldn',
       'Wasn',
       'Weren',
-      'Wouldn',
+      'Wouldn'
     ]),
     en_gb: new Set([
       'ain',
@@ -448,7 +448,7 @@ const defs = {
       'Shouldn',
       'Wasn',
       'Weren',
-      'Wouldn',
+      'Wouldn'
     ]),
     en: new Set([
       'ain',
@@ -480,24 +480,24 @@ const defs = {
       'Shouldn',
       'Wasn',
       'Weren',
-      'Wouldn',
-    ]),
+      'Wouldn'
+    ])
   },
   GROUP_INVITE_LINK_URL: 'https://chat.whatsapp.com/',
   GROUP_SETTING_TYPE: {
     ANNOUNCEMENT: 'announcement',
     RESTRICT: 'restrict',
     NO_FREQUENTLY_FORWARDED: 'no_frequently_forwarded',
-    EPHEMERAL: 'ephemeral',
+    EPHEMERAL: 'ephemeral'
   },
   GROUP_SETTING_TO_METADATA: {
     announcement: 'announce',
     restrict: 'restrict',
     no_frequently_forwarded: 'noFrequentlyForwarded',
-    ephemeral: 'ephemeralDuration',
+    ephemeral: 'ephemeralDuration'
   },
   L10N: {
-    DEFAULT: 'en',
+    DEFAULT: 'en'
   },
   EMOJI: {
     BUCKET_SIZE: 25,
@@ -509,7 +509,7 @@ const defs = {
       TRAVEL_PLACES: 'TRAVEL_PLACES',
       OBJECTS: 'OBJECTS',
       SYMBOLS: 'SYMBOLS',
-      FLAGS: 'FLAGS',
+      FLAGS: 'FLAGS'
     },
     CATEGORY_MAPPING: {
       'Smileys & People': 'SMILEYS_PEOPLE',
@@ -519,7 +519,7 @@ const defs = {
       'Travel & Places': 'TRAVEL_PLACES',
       Objects: 'OBJECTS',
       Symbols: 'SYMBOLS',
-      Flags: 'FLAGS',
+      Flags: 'FLAGS'
     },
     ORDERED_CATEGORY_IDS: [
       'SMILEYS_PEOPLE',
@@ -529,16 +529,16 @@ const defs = {
       'TRAVEL_PLACES',
       'OBJECTS',
       'SYMBOLS',
-      'FLAGS',
+      'FLAGS'
     ],
     EMOJI_TYPE: {
       APPLE: 'APPLE',
-      WHATSAPP: 'WHATSAPP',
+      WHATSAPP: 'WHATSAPP'
     },
     LARGE_EMOJI_BASE_PATH: '/img',
     LARGE_EMOJI_ELECTRON_BASE_PATH: 'img',
     EMOJI_SPRITES_BASE_PATH: '/img',
-    EMOJI_SPRITES_ELECTRON_BASE_PATH: 'img',
+    EMOJI_SPRITES_ELECTRON_BASE_PATH: 'img'
   },
   MSG_TYPE: {
     NOTIFICATION: 'notification',
@@ -568,29 +568,29 @@ const defs = {
     STICKER: 'sticker',
     DOCUMENT: 'document',
     PRODUCT: 'product',
-    UNKNOWN: 'unknown',
+    UNKNOWN: 'unknown'
   },
   TEMPLATE_SUBTYPE: {
     IMAGE: 'image',
     VIDEO: 'video',
     LOCATION: 'location',
     DOCUMENT: 'document',
-    TEXT: 'text',
+    TEXT: 'text'
   },
   TEMPLATE_BUTTON_SUBTYPE: {
     QUICK_REPLY: 'quick_reply',
     CALL: 'call',
-    URL: 'url',
+    URL: 'url'
   },
   NATIVE_PREF: {
     LAST_SAVED_LOCATION: 'lastSavedLocation',
-    CONTENT_SETTINGS: 'contentSettings',
+    CONTENT_SETTINGS: 'contentSettings'
   },
   TOUCHBAR_MAX_EMOJIS: 8,
   VERIFIED_LEVEL: {
     UNKNOWN: 0,
     LOW: 1,
-    HIGH: 2,
+    HIGH: 2
   },
   HOSTNAME: {
     YOUTUBE: 'www.youtube.com',
@@ -599,16 +599,16 @@ const defs = {
     STREAMABLE: 'streamable.com',
     FACEBOOK: 'www.facebook.com',
     FBWATCH: 'fbwat.ch',
-    LASSOVIDEOS: 'lassovideos.com',
+    LASSOVIDEOS: 'lassovideos.com'
   },
   WHATSAPP_ORIGIN: 'https://whatsapp.com',
   SMB_SEARCH_FILTERS: {
     UNREAD: 'unread',
     GROUP: 'group',
-    BROADCAST: 'broadcast',
+    BROADCAST: 'broadcast'
   },
   SMB_LABELS: {
-    MAX_LABEL_LENGTH: 100,
+    MAX_LABEL_LENGTH: 100
   },
   PRODUCT_INQUIRY_TYPE: 'product_inquiry',
   PRODUCT_LIST_ITEM_HEIGHT: 96,
@@ -620,7 +620,7 @@ const defs = {
     ONE_DAY: 86400,
     ONE_WEEK: 604800,
     ONE_MONTH: 2592e3,
-    ONE_YEAR: 31536e3,
+    ONE_YEAR: 31536e3
   },
   TAB_ORDERS: {
     COMPOSE_BOX_INPUT: 1,
@@ -632,12 +632,12 @@ const defs = {
     CHAT_IMAGE_GALLERY: 4,
     CHAT_SEARCH_MSG_LIST: 4,
     PANEL_SEARCH_INPUT: 5,
-    COMPOSE_BOX_MENU_BUTTON: 5,
+    COMPOSE_BOX_MENU_BUTTON: 5
   },
   SPEEDY_RESUME_MAX_CHATS: 5e3,
   MEDIA_VIEWER: {
     ANIMATION_DURATION: 500,
     CLOSE_ANIMATION_DURATION: 200,
-    ZOOM_IN_FACTOR: 2,
-  },
+    ZOOM_IN_FACTOR: 2
+  }
 };

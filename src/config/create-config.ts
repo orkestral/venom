@@ -157,5 +157,5 @@ export const defaultOptions: CreateConfig = {
   updatesLog: true,
   autoClose: 120000,
   createPathFileToken: true,
-  waitForLogin: true,
+  waitForLogin: true
 };

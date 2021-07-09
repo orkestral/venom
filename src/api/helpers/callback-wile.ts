@@ -66,7 +66,7 @@ export class callbackWile {
     if (!checkFilter.length) {
       add = {
         id: ids,
-        serialized: serializeds,
+        serialized: serializeds
       };
       this.obj['push'](add);
       return true;

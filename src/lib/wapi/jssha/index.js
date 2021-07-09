@@ -120,7 +120,7 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
               a[4].a,
               a[4].b,
               a[5].a,
-              a[5].b,
+              a[5].b
             ];
           else if ('SHA-512' === e)
             b = [
@@ -139,7 +139,7 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
               a[6].a,
               a[6].b,
               a[7].a,
-              a[7].b,
+              a[7].b
             ];
           else throw Error('Unexpected error in SHA-2 implementation');
           return b;
@@ -403,9 +403,10 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
         c += 1
       )
         8 * g + 6 * c <= b
-          ? (h += 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'.charAt(
-              (p >>> (6 * (3 - c))) & 63
-            ))
+          ? (h +=
+              'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'.charAt(
+                (p >>> (6 * (3 - c))) & 63
+              ))
           : (h += k.b64Pad);
     return h;
   }
@@ -583,9 +584,10 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
           for (p = 0; p < b.length; p += 4) {
             q = b.substr(p, 4);
             for (f = n = 0; f < q.length; f += 1)
-              (m = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'.indexOf(
-                q.charAt(f)
-              )),
+              (m =
+                'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'.indexOf(
+                  q.charAt(f)
+                )),
                 (n |= m << (18 - 6 * f));
             for (f = 0; f < q.length - 1; f += 1) {
               r = c + u;
@@ -821,24 +823,12 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
     else if (0 === e.lastIndexOf('SHA-', 0))
       switch (
         ((b = [
-          3238371032,
-          914150663,
-          812702999,
-          4144912697,
-          4290775857,
-          1750603025,
-          1694076839,
-          3204075428,
+          3238371032, 914150663, 812702999, 4144912697, 4290775857, 1750603025,
+          1694076839, 3204075428
         ]),
         (d = [
-          1779033703,
-          3144134277,
-          1013904242,
-          2773480762,
-          1359893119,
-          2600822924,
-          528734635,
-          1541459225,
+          1779033703, 3144134277, 1013904242, 2773480762, 1359893119,
+          2600822924, 528734635, 1541459225
         ]),
         e)
       ) {
@@ -856,7 +846,7 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
             new a(1731405415, b[4]),
             new a(41048885895, b[5]),
             new a(3675008525, b[6]),
-            new a(1203062813, b[7]),
+            new a(1203062813, b[7])
           ];
           break;
         case 'SHA-512':
@@ -868,7 +858,7 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
             new a(d[4], 2917565137),
             new a(d[5], 725511199),
             new a(d[6], 4215389547),
-            new a(d[7], 327033209),
+            new a(d[7], 327033209)
           ];
           break;
         default:
@@ -881,7 +871,7 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
           new a(0, 0),
           new a(0, 0),
           new a(0, 0),
-          new a(0, 0),
+          new a(0, 0)
         ];
     else throw Error('No SHA variants supported');
     return b;
@@ -1067,70 +1057,17 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
   }
   var c, X, Y, Z;
   c = [
-    1116352408,
-    1899447441,
-    3049323471,
-    3921009573,
-    961987163,
-    1508970993,
-    2453635748,
-    2870763221,
-    3624381080,
-    310598401,
-    607225278,
-    1426881987,
-    1925078388,
-    2162078206,
-    2614888103,
-    3248222580,
-    3835390401,
-    4022224774,
-    264347078,
-    604807628,
-    770255983,
-    1249150122,
-    1555081692,
-    1996064986,
-    2554220882,
-    2821834349,
-    2952996808,
-    3210313671,
-    3336571891,
-    3584528711,
-    113926993,
-    338241895,
-    666307205,
-    773529912,
-    1294757372,
-    1396182291,
-    1695183700,
-    1986661051,
-    2177026350,
-    2456956037,
-    2730485921,
-    2820302411,
-    3259730800,
-    3345764771,
-    3516065817,
-    3600352804,
-    4094571909,
-    275423344,
-    430227734,
-    506948616,
-    659060556,
-    883997877,
-    958139571,
-    1322822218,
-    1537002063,
-    1747873779,
-    1955562222,
-    2024104815,
-    2227730452,
-    2361852424,
-    2428436474,
-    2756734187,
-    3204031479,
-    3329325298,
+    1116352408, 1899447441, 3049323471, 3921009573, 961987163, 1508970993,
+    2453635748, 2870763221, 3624381080, 310598401, 607225278, 1426881987,
+    1925078388, 2162078206, 2614888103, 3248222580, 3835390401, 4022224774,
+    264347078, 604807628, 770255983, 1249150122, 1555081692, 1996064986,
+    2554220882, 2821834349, 2952996808, 3210313671, 3336571891, 3584528711,
+    113926993, 338241895, 666307205, 773529912, 1294757372, 1396182291,
+    1695183700, 1986661051, 2177026350, 2456956037, 2730485921, 2820302411,
+    3259730800, 3345764771, 3516065817, 3600352804, 4094571909, 275423344,
+    430227734, 506948616, 659060556, 883997877, 958139571, 1322822218,
+    1537002063, 1747873779, 1955562222, 2024104815, 2227730452, 2361852424,
+    2428436474, 2756734187, 3204031479, 3329325298
   ];
   X = [
     new a(c[0], 3609767458),
@@ -1212,7 +1149,7 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
     new a(1288033470, 3409855158),
     new a(1501505948, 4234509866),
     new a(1607167915, 987167468),
-    new a(1816402316, 1246189591),
+    new a(1816402316, 1246189591)
   ];
   Z = [
     new a(0, 1),
@@ -1238,14 +1175,14 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
     new a(2147483648, 2147516545),
     new a(2147483648, 32896),
     new a(0, 2147483649),
-    new a(2147483648, 2147516424),
+    new a(2147483648, 2147516424)
   ];
   Y = [
     [0, 36, 3, 41, 18],
     [1, 44, 10, 45, 2],
     [62, 6, 43, 15, 61],
     [28, 55, 25, 21, 56],
-    [27, 20, 39, 8, 14],
+    [27, 20, 39, 8, 14]
   ];
   'function' === typeof define && define.amd
     ? define(function () {

@@ -66,6 +66,6 @@ export function base64ToFile(base64, filename) {
   }
 
   return new File([u8arr], filename, {
-    type: mime,
+    type: mime
   });
 }

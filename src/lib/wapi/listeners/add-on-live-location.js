@@ -69,7 +69,7 @@ export function addOnLiveLocation() {
               accuracy,
               degrees,
               speed,
-              lastUpdated,
+              lastUpdated
             };
             // console.log('newloc',l)
             callback(l);

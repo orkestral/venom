@@ -156,7 +156,7 @@ export async function create(
   let browserToken: any;
 
   const spinnies = getSpinnies({
-    disableSpins: options ? options.disableSpins : false,
+    disableSpins: options ? options.disableSpins : false
   });
 
   const mergedOptions = { ...defaultOptions, ...options };
@@ -175,11 +175,11 @@ export async function create(
   // Initialize whatsapp
   if (mergedOptions.browserWS) {
     spinnies.add(`browser-${session}`, {
-      text: `Waiting... checking the wss server...`,
+      text: `Waiting... checking the wss server...`
     });
   } else {
     spinnies.add(`browser-${session}`, {
-      text: 'Waiting... checking the browser...',
+      text: 'Waiting... checking the browser...'
     });
   }
 
@@ -188,7 +188,7 @@ export async function create(
   // Erro of connect wss
   if (typeof browser === 'string' && browser === 'connect') {
     spinnies.fail(`browser-${session}`, {
-      text: `Error when try to connect ${mergedOptions.browserWS}`,
+      text: `Error when try to connect ${mergedOptions.browserWS}`
     });
     statusFind && statusFind('serverWssNotConnected', this.session);
     throw `Error when try to connect ${mergedOptions.browserWS}`;
@@ -197,7 +197,7 @@ export async function create(
   // Erro open browser
   if (typeof browser === 'string' && browser === 'launch') {
     spinnies.fail(`browser-${session}`, {
-      text: `Error no open browser....`,
+      text: `Error no open browser....`
     });
     statusFind && statusFind('noOpenBrowser', this.session);
     throw `Error no open browser....`;
@@ -205,26 +205,26 @@ export async function create(
 
   if (mergedOptions.browserWS) {
     spinnies.succeed(`browser-${session}`, {
-      text: `Has been properly connected to the wss server`,
+      text: `Has been properly connected to the wss server`
     });
   } else {
     spinnies.succeed(`browser-${session}`, {
-      text: `Browser successfully opened`,
+      text: `Browser successfully opened`
     });
   }
 
   if (!mergedOptions.browserWS) {
     spinnies.add(`browser-${session}`, {
-      text: 'checking headless...',
+      text: 'checking headless...'
     });
 
     if (mergedOptions.headless) {
       spinnies.succeed(`browser-${session}`, {
-        text: 'headless option is active, browser hidden',
+        text: 'headless option is active, browser hidden'
       });
     } else {
       spinnies.succeed(`browser-${session}`, {
-        text: 'headless option is disabled, browser visible',
+        text: 'headless option is disabled, browser visible'
       });
     }
   }
@@ -247,7 +247,7 @@ export async function create(
     }
 
     spinnies.add(`whatzapp-${session}`, {
-      text: 'Checking page...',
+      text: 'Checking page...'
     });
 
     // Initialize whatsapp
@@ -264,13 +264,13 @@ export async function create(
 
     if (page === false) {
       spinnies.fail(`whatzapp-${session}`, {
-        text: 'Error accessing the page: "https://web.whatsapp.com"',
+        text: 'Error accessing the page: "https://web.whatsapp.com"'
       });
       throw 'Error when trying to access the page: "https://web.whatsapp.com"';
     }
 
     spinnies.succeed(`whatzapp-${session}`, {
-      text: 'Page successfully accessed',
+      text: 'Page successfully accessed'
     });
 
     const client = new Whatsapp(page, session, mergedOptions);
@@ -319,7 +319,7 @@ export async function create(
           setTimeout(() => {
             saveToken(page, session, mergedOptions).catch((e) => {
               spinnies.update(`browser-${session}`, {
-                text: e,
+                text: e
               });
             });
           }, 1000);
@@ -371,7 +371,7 @@ export async function create(
       },
       {
         timeout: 0,
-        polling: 100,
+        polling: 100
       }
     );
     return client;

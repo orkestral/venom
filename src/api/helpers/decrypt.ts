@@ -64,8 +64,8 @@ export const makeOptions = (useragentOverride: string) => ({
     DNT: 1,
     'Upgrade-Insecure-Requests': 1,
     origin: 'https://web.whatsapp.com/',
-    referer: 'https://web.whatsapp.com/',
-  },
+    referer: 'https://web.whatsapp.com/'
+  }
 });
 
 export const timeout = (ms: number) =>
@@ -76,7 +76,7 @@ export const mediaTypes = {
   AUDIO: 'Audio',
   PTT: 'Audio',
   DOCUMENT: 'Document',
-  STICKER: 'Image',
+  STICKER: 'Image'
 };
 
 const processUA = (userAgent: string) => {
@@ -103,7 +103,7 @@ export const magix = (
   const mediaKeyExpanded = hkdf(mediaKeyBytes, expandedSize, {
     salt,
     info,
-    hash,
+    hash
   });
   const iv = mediaKeyExpanded.slice(0, 16);
   const cipherKey = mediaKeyExpanded.slice(16, 48);

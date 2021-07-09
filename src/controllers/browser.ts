@@ -74,7 +74,7 @@ export async function initWhatsapp(
     try {
       await waPage.setUserAgent(useragentOverride);
       await waPage.goto(puppeteerConfig.whatsappUrl, {
-        waitUntil: 'domcontentloaded',
+        waitUntil: 'domcontentloaded'
       });
       // Auth with token
       await auth_InjectToken(waPage, session, options, token);
@@ -105,13 +105,13 @@ export async function injectApi(page: Page) {
   }
 
   await page.addScriptTag({
-    path: require.resolve(path.join(__dirname, '../lib/wapi', 'wapi.js')),
+    path: require.resolve(path.join(__dirname, '../lib/wapi', 'wapi.js'))
   });
 
   await page.addScriptTag({
     path: require.resolve(
       path.join(__dirname, '../lib/middleware', 'middleware.js')
-    ),
+    )
   });
 
   // Make sure WAPI is initialized
@@ -151,7 +151,7 @@ export async function initBrowser(
   if (options.browserWS && options.browserWS != '') {
     await puppeteer
       .connect({
-        browserWSEndpoint: options.browserWS,
+        browserWSEndpoint: options.browserWS
       })
       .then((e) => {
         browser = e;
@@ -168,7 +168,7 @@ export async function initBrowser(
           ? options.browserArgs
           : [...puppeteerConfig.chromiumArgs],
         ...options.puppeteerOptions,
-        ...extras,
+        ...extras
       })
       .then((e) => {
         browser = e;

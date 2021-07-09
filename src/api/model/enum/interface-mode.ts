@@ -88,5 +88,5 @@ export enum InterfaceMode {
   /**
    * Deprecated page.
    */
-  DEPRECATED_VERSION = 'DEPRECATED_VERSION',
+  DEPRECATED_VERSION = 'DEPRECATED_VERSION'
 }

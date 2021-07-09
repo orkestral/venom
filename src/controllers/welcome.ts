@@ -24,7 +24,7 @@ export async function checkUpdates(spinnies: Spinnies) {
   if (!updatesChecked) {
     updatesChecked = true;
     spinnies.add('venom-version-spinner', {
-      text: 'Checking for updates',
+      text: 'Checking for updates'
     });
     return await checkVenomVersion(spinnies);
   }
@@ -39,18 +39,18 @@ async function checkVenomVersion(spinnies: Spinnies) {
     await latestVersion('venom-bot').then((latest) => {
       if (upToDate(version, latest)) {
         spinnies.succeed('venom-version-spinner', {
-          text: "You're up to date",
+          text: "You're up to date"
         });
       } else {
         spinnies.succeed('venom-version-spinner', {
-          text: 'There is a new version available',
+          text: 'There is a new version available'
         });
         logUpdateAvailable(version, latest);
       }
     });
   } catch {
     spinnies.fail('venom-version-spinner', {
-      text: 'Unable to access: "https://www.npmjs.com", check your internet',
+      text: 'Unable to access: "https://www.npmjs.com", check your internet'
     });
     return false;
   }

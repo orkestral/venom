@@ -79,7 +79,7 @@ export async function scrapeImg(page: Page): Promise<ScrapQrcode | undefined> {
       if (selectorImg != null && selectorUrl != null) {
         let data = {
           base64Image: selectorImg.toDataURL(),
-          urlCode: selectorUrl.getAttribute('data-ref'),
+          urlCode: selectorUrl.getAttribute('data-ref')
         };
         return data;
       } else {

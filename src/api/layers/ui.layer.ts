@@ -69,7 +69,7 @@ export class UILayer extends GroupLayer {
     return await this.page.evaluate(
       ({ messages }) => WAPI.returnReply(messages),
       {
-        messages,
+        messages
       }
     );
   }

@@ -157,13 +157,13 @@ import {
   checkIdMessage,
   returnReply,
   logout,
-  setGroupDescription,
+  setGroupDescription
 } from './functions';
 import {
   base64ToFile,
   generateMediaKey,
   getFileHash,
-  arrayBufferToBase64,
+  arrayBufferToBase64
 } from './helper';
 import {
   addNewMessagesListener,
@@ -174,7 +174,7 @@ import {
   addOnStateChange,
   allNewMessagesListener,
   initNewMessagesListener,
-  addOnStreamChange,
+  addOnStreamChange
 } from './listeners';
 import {
   _serializeChatObj,
@@ -182,16 +182,17 @@ import {
   _serializeMessageObj,
   _serializeNumberStatusObj,
   _serializeProfilePicThumb,
-  _serializeRawObj,
+  _serializeRawObj
 } from './serializers';
 import { getStore } from './store/get-store';
 
-window['webpackChunkbuild'] = window['webpackChunkbuild'] || window['webpackChunkwhatsapp_web_client'] || [];
+window['webpackChunkwhatsapp_web_client'] =
+  window['webpackChunkwhatsapp_web_client'] || [];
 window.Store = {};
 var loadParasite = function () {
   function injectParasite() {
     const parasite = `parasite`;
-    window['webpackChunkbuild'].push([
+    window['webpackChunkwhatsapp_web_client'].push([
       [parasite],
       {},
       async function (o) {
@@ -200,14 +201,16 @@ var loadParasite = function () {
           modules.push(o(idx));
         }
         getStore(modules);
-      },
+      }
     ]);
   }
   setInterval(() => {
     try {
-      const last = window['webpackChunkbuild'].length - 1;
+      const last = window['webpackChunkwhatsapp_web_client'].length - 1;
       if (
-        !/^parasite/.test(window['webpackChunkbuild'][last][0][0]) &&
+        !/^parasite/.test(
+          window['webpackChunkwhatsapp_web_client'][last][0][0]
+        ) &&
         (document.querySelectorAll('#app .two').length ||
           document.querySelector('canvas') ||
           document.querySelectorAll('#startup').length == 0)
@@ -221,7 +224,7 @@ loadParasite();
 
 if (typeof window.WAPI === 'undefined') {
   window.WAPI = {
-    lastRead: {},
+    lastRead: {}
   };
 
   //others
@@ -397,7 +400,7 @@ if (typeof window.WAPI === 'undefined') {
       linkPreview: null,
       mentionedJidList: users.map((u) => u.id),
       quotedMsg: null,
-      quotedMsgAdminGroupJid: null,
+      quotedMsgAdminGroupJid: null
     });
   };
 
@@ -435,7 +438,7 @@ if (typeof window.WAPI === 'undefined') {
     if (!axios || !url) return false;
     const ab = (
       await axios.get(url, {
-        responseType: 'arraybuffer',
+        responseType: 'arraybuffer'
       })
     ).data;
     return btoa(
@@ -457,7 +460,7 @@ if (typeof window.WAPI === 'undefined') {
         id: obj.jid,
         status: obj.status,
         isBusiness: obj.biz === true,
-        canReceiveMessage: obj.status === 200,
+        canReceiveMessage: obj.status === 200
       }
     );
   };
@@ -472,7 +475,7 @@ if (typeof window.WAPI === 'undefined') {
     } catch (e) {
       return window.WAPI._serializeNumberStatusObj({
         status: e,
-        jid: new window.Store.WidFactory.createWid(id),
+        jid: new window.Store.WidFactory.createWid(id)
       });
     }
   };
@@ -537,7 +540,7 @@ if (typeof window.WAPI === 'undefined') {
       const getData = () => ({
         displayInfo: window.Store.Stream.displayInfo,
         mode: window.Store.Stream.mode,
-        info: window.Store.Stream.info,
+        info: window.Store.Stream.info
       });
       callback(getData());
       window.Store.Stream.on(

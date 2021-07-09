@@ -78,7 +78,7 @@ window.WAPI.sendButtons = async function (chatId) {
     isQuotedMsgAvailable: false,
     shouldEnableHsm: true,
     __x_hasTemplateButtons: true,
-    invis: true,
+    invis: true
   };
 
   Object.assign(tempMsg, extend);
@@ -89,28 +89,28 @@ window.WAPI.sendButtons = async function (chatId) {
         quickReplyButton: new Store.Builders.HydratedQuickReplyButton({
           displayText: 'test',
           id: '{"eventName":"inform"}',
-          quickReplyButton: true,
+          quickReplyButton: true
         }),
-        index: 0,
+        index: 0
       }),
       new Store.Builders.HydratedTemplateButton({
         callButton: new Store.Builders.HydratedCallButton({
           displayText: 'test call',
-          phoneNumber: '4477777777777',
+          phoneNumber: '4477777777777'
         }),
-        index: 1,
+        index: 1
       }),
       new Store.Builders.HydratedTemplateButton({
         urlButton: new Store.Builders.HydratedURLButton({
           displayText: 'test url',
-          url: 'https://google.com',
+          url: 'https://google.com'
         }),
-        index: 2,
-      }),
+        index: 2
+      })
     ],
     hydratedContentText: 'hellllloooowww',
     hydratedFooterText: 'asdasd',
-    hydratedTitleText: 'asdasd232',
+    hydratedTitleText: 'asdasd232'
   });
 
   Store.Parser.parseTemplateMessage(t2, btns);
@@ -133,7 +133,7 @@ window.WAPI.sendButtons = async function (chatId) {
     formattedShortNameWithNonBreakingSpaces: 'Button test',
     formattedShortName: 'Button test',
     formattedName: 'Button test',
-    formattedUser: 'Button test',
+    formattedUser: 'Button test'
   };
   tempMsg.body = t2.body;
   tempMsg.to = tempMsg.from;
@@ -165,7 +165,7 @@ window.WAPI.sendButtons = async function (chatId) {
       var k = Store.createMessageKey({
         ...e,
         to: idUser,
-        id: e.__x_id,
+        id: e.__x_id
       });
       console.log('key', k);
       var wm = new Store.WebMessageInfo({
@@ -173,8 +173,8 @@ window.WAPI.sendButtons = async function (chatId) {
           // conversation:'okhellowhi',
           templateMessage: new Store.Builders.TemplateMessage({
             hydratedFourRowTemplate: btns,
-            hydratedTemplate: btns,
-          }),
+            hydratedTemplate: btns
+          })
         }),
         key: k,
         messageTimestamp: e.t,
@@ -182,11 +182,11 @@ window.WAPI.sendButtons = async function (chatId) {
         url: undefined,
         urlNumber: undefined,
         clearMedia: undefined,
-        ephemeralDuration: undefined,
+        ephemeralDuration: undefined
       });
       console.log('wm', wm);
       var action = s.actionNode('relay', [
-        ['message', null, Store.WebMessageInfo.encode(wm).readBuffer()],
+        ['message', null, Store.WebMessageInfo.encode(wm).readBuffer()]
       ]);
       console.log('action', action);
       var a = e.id.id;
@@ -211,16 +211,16 @@ window.WAPI.sendButtons = async function (chatId) {
               var t = Store.Msg.get(e.id);
               console.log('in resend', _);
               return 'protocol' === e.type || (t && t.id.equals(e.id));
-            },
+            }
           },
           {
             debugString: ['action', 'message', e.type, e.subtype, a].join(),
             debugObj: {
               xml: action,
-              pb: wm,
+              pb: wm
             },
             metricName: 'MESSAGE',
-            ackRequest: !1,
+            ackRequest: !1
           }
         );
       });
@@ -263,7 +263,7 @@ window.WAPI.sendButtons2 = async function (chatId) {
     isQuotedMsgAvailable: false,
     shouldEnableHsm: true,
     __x_hasTemplateButtons: true,
-    invis: false,
+    invis: false
   };
 
   Object.assign(tempMsg, extend);
@@ -274,35 +274,35 @@ window.WAPI.sendButtons2 = async function (chatId) {
         quickReplyButton: new Store.Builders.HydratedQuickReplyButton({
           displayText: 'test',
           id: '{"eventName":"inform"}',
-          quickReplyButton: true,
+          quickReplyButton: true
         }),
-        index: 0,
+        index: 0
       }),
       new Store.Builders.HydratedTemplateButton({
         callButton: new Store.Builders.HydratedCallButton({
           displayText: 'test call',
-          phoneNumber: '4477777777777',
+          phoneNumber: '4477777777777'
         }),
-        index: 1,
+        index: 1
       }),
       new Store.Builders.HydratedTemplateButton({
         callButton: new Store.Builders.HydratedCallButton({
           displayText: 'test call',
-          phoneNumber: '4477777777777',
+          phoneNumber: '4477777777777'
         }),
-        index: 2,
+        index: 2
       }),
       new Store.Builders.HydratedTemplateButton({
         urlButton: new Store.Builders.HydratedURLButton({
           displayText: 'test url',
-          url: 'https://google.com',
+          url: 'https://google.com'
         }),
-        index: 3,
-      }),
+        index: 3
+      })
     ],
     hydratedContentText: 'hellllloooowww',
     hydratedFooterText: 'asdasd',
-    hydratedTitleText: 'asdasd232',
+    hydratedTitleText: 'asdasd232'
   });
 
   Store.Parser.parseTemplateMessage(t2, btns);
@@ -337,7 +337,7 @@ window.WAPI.sendButtons2 = async function (chatId) {
       var k = Store.createMessageKey({
         ...e,
         to: idUser,
-        id: e.__x_id,
+        id: e.__x_id
       });
       console.log('key', k);
       var wm = new Store.WebMessageInfo({
@@ -346,15 +346,15 @@ window.WAPI.sendButtons2 = async function (chatId) {
           // conversation:'okhellowhi',
           templateMessage: new Store.Builders.TemplateMessage({
             hydratedFourRowTemplate: btns,
-            hydratedTemplate: btns,
-          }),
+            hydratedTemplate: btns
+          })
         }),
         key: k,
-        messageTimestamp: e.t,
+        messageTimestamp: e.t
       });
       console.log('wm', wm);
       var action = s.actionNode('relay', [
-        ['message', null, Store.WebMessageInfo.encode(wm).readBuffer()],
+        ['message', null, Store.WebMessageInfo.encode(wm).readBuffer()]
       ]);
       console.log('action', action);
       var a = e.id.id;
@@ -373,16 +373,16 @@ window.WAPI.sendButtons2 = async function (chatId) {
             resendGuard: function (_) {
               var t = Store.Msg.get(e.id);
               return 'protocol' === e.type || (t && t.id.equals(e.id));
-            },
+            }
           },
           {
             debugString: ['action', 'message', 'chat', 'null', a].join(),
             debugObj: {
               xml: action,
-              pb: wm,
+              pb: wm
             },
             metricName: 'MESSAGE',
-            ackRequest: !1,
+            ackRequest: !1
           }
         );
       });

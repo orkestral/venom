@@ -83,15 +83,15 @@ export class GroupLayer extends RetrieverLayer {
           type: type,
           value: groupId,
           function: typeFunction,
-          isUser: true,
+          isUser: true
         },
         {
           param: 'description',
           type: type,
           value: description,
           function: typeFunction,
-          isUser: true,
-        },
+          isUser: true
+        }
       ];
 
       const validating = checkValuesSender(check);

@@ -188,9 +188,9 @@ declare module 'spinnies' {
     /**
      * Stops the spinners and sets the non-succeeded and non-failed ones to the provided status.
      */
-    stopAll: (
-      status?: Spinnies.StopAllStatus
-    ) => { [name: string]: Spinnies.SpinnerOptions };
+    stopAll: (status?: Spinnies.StopAllStatus) => {
+      [name: string]: Spinnies.SpinnerOptions;
+    };
 
     /**
      * @returns false if all spinners have succeeded, failed or have been stopped

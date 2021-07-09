@@ -92,8 +92,8 @@ export async function stickerSelect(_B: Buffer, _t: number) {
     webpBase64: (await _w.toBuffer()).toString('base64'),
     metadata: {
       width: metadata.width,
-      height: metadata.pageHeight,
-    },
+      height: metadata.pageHeight
+    }
   };
 
   return obj;

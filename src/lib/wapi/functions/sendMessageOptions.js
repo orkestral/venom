@@ -96,7 +96,7 @@ export async function sendMessageOptions(chatId, content, options = {}) {
       type: 'location',
       loc: options.location.description,
       lat: options.location.latitude,
-      lng: options.location.longitude,
+      lng: options.location.longitude
     };
     delete options.location;
   }
@@ -107,7 +107,7 @@ export async function sendMessageOptions(chatId, content, options = {}) {
     vcardOptions = {
       body: window.Store.VCard.vcardFromContactModel(contact).vcard,
       type: 'vcard',
-      vcardFormattedName: contact.formattedName,
+      vcardFormattedName: contact.formattedName
     };
     delete options.contactCard;
   } else if (options.contactCardList) {
@@ -120,7 +120,7 @@ export async function sendMessageOptions(chatId, content, options = {}) {
     vcardOptions = {
       type: 'multi_vcard',
       vcardList: vcards,
-      body: undefined,
+      body: undefined
     };
     delete options.contactCardList;
   } else if (
@@ -136,7 +136,7 @@ export async function sendMessageOptions(chatId, content, options = {}) {
           type: 'vcard',
           vcardFormattedName: await window.Store.VCard.vcardGetNameFromParsed(
             parsed
-          ),
+          )
         };
       }
     } catch (_) {
@@ -173,7 +173,7 @@ export async function sendMessageOptions(chatId, content, options = {}) {
     ...locationOptions,
     ...attOptions,
     ...quotedMsgOptions,
-    ...vcardOptions,
+    ...vcardOptions
   };
 
   await window.Store.addAndSendMsgToChat(chat, message);

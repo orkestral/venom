@@ -64,7 +64,7 @@ export enum MessageType {
   CONTACT_CARD = 'vcard',
   CONTACT_CARD_MULTI = 'multi_vcard',
   REVOKED = 'revoked',
-  UNKNOWN = 'unknown',
+  UNKNOWN = 'unknown'
 }
 
 export enum MediaType {
@@ -73,5 +73,5 @@ export enum MediaType {
   AUDIO = 'Audio',
   PTT = 'Audio',
   DOCUMENT = 'Document',
-  STICKER = 'Image',
+  STICKER = 'Image'
 }

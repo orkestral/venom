@@ -70,7 +70,7 @@ export async function downloadFileToBase64(
 
   try {
     const response = await axios.get(_path, {
-      responseType: 'arraybuffer',
+      responseType: 'arraybuffer'
     });
 
     const mimeType = response.headers['content-type'];

@@ -96,7 +96,7 @@ export const getInterfaceStatus = async (
       },
       {
         timeout: 0,
-        polling: 100,
+        polling: 100
       }
     )
     .then(async (element) => {
@@ -170,7 +170,7 @@ export async function retrieveQR(
   }
 
   await page.addScriptTag({
-    path: require.resolve(path.join(__dirname, '../lib/jsQR', 'jsQR.js')),
+    path: require.resolve(path.join(__dirname, '../lib/jsQR', 'jsQR.js'))
   });
 
   return await page
@@ -252,7 +252,7 @@ export async function saveToken(
           WABrowserId: window.localStorage.getItem('WABrowserId'),
           WASecretBundle: window.localStorage.getItem('WASecretBundle'),
           WAToken1: window.localStorage.getItem('WAToken1'),
-          WAToken2: window.localStorage.getItem('WAToken2'),
+          WAToken2: window.localStorage.getItem('WAToken2')
         };
       }
       return undefined;

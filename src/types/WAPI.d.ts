@@ -64,7 +64,7 @@ import {
   SendFileResult,
   SendLinkResult,
   SendStickerResult,
-  WhatsappProfile,
+  WhatsappProfile
 } from '../api/model';
 import { tokenSession } from '../config/tokenSession.config';
 

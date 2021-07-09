@@ -64,5 +64,5 @@ export const defaultTokenSession: tokenSession = {
   WABrowserId: '',
   WASecretBundle: '',
   WAToken1: '',
-  WAToken2: '',
+  WAToken2: ''
 };

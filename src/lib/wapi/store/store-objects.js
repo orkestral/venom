@@ -59,7 +59,7 @@ export const storeObjects = [
     conditions: (module) =>
       module.default && module.default.Chat && module.default.Msg
         ? module.default
-        : null,
+        : null
   },
   {
     id: 'MediaCollection',
@@ -69,46 +69,46 @@ export const storeObjects = [
       (module.default.prototype.processFiles !== undefined ||
         module.default.prototype.processAttachments !== undefined)
         ? module.default
-        : null,
+        : null
   },
   { id: 'MediaProcess', conditions: (module) => (module.BLOB ? module : null) },
   {
     id: 'ChatUtil',
-    conditions: (module) => (module.sendClear ? module : null),
+    conditions: (module) => (module.sendClear ? module : null)
   },
   {
     id: 'GroupInvite',
     conditions: (module) =>
       module.sendQueryGroupInviteCode && module.sendRevokeGroupInviteCode
         ? module
-        : null,
+        : null
   },
   {
     id: 'Wap',
-    conditions: (module) => (module.createGroup ? module : null),
+    conditions: (module) => (module.createGroup ? module : null)
   },
   {
     id: 'ServiceWorker',
     conditions: (module) =>
-      module.default && module.default.killServiceWorker ? module : null,
+      module.default && module.default.killServiceWorker ? module : null
   },
   {
     id: 'State',
-    conditions: (module) => (module.STATE && module.STREAM ? module : null),
+    conditions: (module) => (module.STATE && module.STREAM ? module : null)
   },
   {
     id: 'WapDelete',
     conditions: (module) =>
       module.sendConversationDelete && module.sendConversationDelete.length == 2
         ? module
-        : null,
+        : null
   },
   {
     id: 'Conn',
     conditions: (module) =>
       module.default && module.default.ref && module.default.refTTL
         ? module.default
-        : null,
+        : null
   },
   {
     id: 'WapQuery',
@@ -118,11 +118,11 @@ export const storeObjects = [
       module.default.queryExist &&
       module.default.getCapabilities
         ? module.default
-        : null,
+        : null
   },
   {
     id: 'CryptoLib',
-    conditions: (module) => (module.decryptE2EMedia ? module : null),
+    conditions: (module) => (module.decryptE2EMedia ? module : null)
   },
   {
     id: 'OpenChat',
@@ -131,7 +131,7 @@ export const storeObjects = [
       module.default.prototype &&
       module.default.prototype.openChat
         ? module.default
-        : null,
+        : null
   },
   {
     id: 'UserConstructor',
@@ -141,42 +141,41 @@ export const storeObjects = [
       module.default.prototype.isServer &&
       module.default.prototype.isUser
         ? module.default
-        : null,
+        : null
   },
   {
     id: 'SendTextMsgToChat',
     conditions: (module) =>
-      module.sendTextMsgToChat ? module.sendTextMsgToChat : null,
+      module.sendTextMsgToChat ? module.sendTextMsgToChat : null
   },
   {
     id: 'SendSeen',
-    conditions: (module) => (module.sendSeen ? module.sendSeen : null),
+    conditions: (module) => (module.sendSeen ? module.sendSeen : null)
   },
   {
     id: 'Archive',
-    conditions: (module) => (module.setArchive ? module : null),
+    conditions: (module) => (module.setArchive ? module : null)
   },
   {
     id: 'pinChat',
-    conditions: (module) => (module.setPin ? module : null),
+    conditions: (module) => (module.setPin ? module : null)
   },
   {
     id: 'sendDelete',
-    conditions: (module) => (module.sendDelete ? module.sendDelete : null),
+    conditions: (module) => (module.sendDelete ? module.sendDelete : null)
   },
   {
     id: 'addAndSendMsgToChat',
     conditions: (module) =>
-      module.addAndSendMsgToChat ? module.addAndSendMsgToChat : null,
+      module.addAndSendMsgToChat ? module.addAndSendMsgToChat : null
   },
   {
     id: 'sendMsgToChat',
-    conditions: (module) =>
-      module.sendMsgToChat ? module.sendMsgToChat : null,
+    conditions: (module) => (module.sendMsgToChat ? module.sendMsgToChat : null)
   },
   {
     id: 'Catalog',
-    conditions: (module) => (module.Catalog ? module.Catalog : null),
+    conditions: (module) => (module.Catalog ? module.Catalog : null)
   },
   {
     id: 'Perfil',
@@ -185,7 +184,7 @@ export const storeObjects = [
       module.setPushname &&
       !module.getComposeContents
         ? module
-        : null,
+        : null
   },
   {
     id: 'MsgKey',
@@ -195,37 +194,37 @@ export const storeObjects = [
       typeof module.default.toString === 'function' &&
       module.default.toString().includes('MsgKey error: obj is null/undefined')
         ? module.default
-        : null,
+        : null
   },
   {
     id: 'Parser',
     conditions: (module) =>
-      module.convertToTextWithoutSpecialEmojis ? module.default : null,
+      module.convertToTextWithoutSpecialEmojis ? module.default : null
   },
   {
     id: 'Builders',
     conditions: (module) =>
-      module.TemplateMessage && module.HydratedFourRowTemplate ? module : null,
+      module.TemplateMessage && module.HydratedFourRowTemplate ? module : null
   },
   {
     id: 'Me',
     conditions: (module) =>
-      module.PLATFORMS && module.Conn ? module.default : null,
+      module.PLATFORMS && module.Conn ? module.default : null
   },
   {
     id: 'CallUtils',
     conditions: (module) =>
-      module.sendCallEnd && module.parseCall ? module : null,
+      module.sendCallEnd && module.parseCall ? module : null
   },
   {
     id: 'Identity',
     conditions: (module) =>
-      module.queryIdentity && module.updateIdentity ? module : null,
+      module.queryIdentity && module.updateIdentity ? module : null
   },
   {
     id: 'MyStatus',
     conditions: (module) =>
-      module.getStatus && module.setMyStatus ? module : null,
+      module.getStatus && module.setMyStatus ? module : null
   },
   {
     id: 'ChatStates',
@@ -234,36 +233,34 @@ export const storeObjects = [
       module.sendChatStateRecording &&
       module.sendChatStateComposing
         ? module
-        : null,
+        : null
   },
   {
     id: 'GroupActions',
     conditions: (module) =>
-      module.sendExitGroup && module.localExitGroup ? module : null,
+      module.sendExitGroup && module.localExitGroup ? module : null
   },
   {
     id: 'Features',
     conditions: (module) =>
-      module.FEATURE_CHANGE_EVENT && module.features ? module : null,
+      module.FEATURE_CHANGE_EVENT && module.features ? module : null
   },
   {
     id: 'MessageUtils',
     conditions: (module) =>
-      module.storeMessages && module.appendMessage ? module : null,
+      module.storeMessages && module.appendMessage ? module : null
   },
   {
     id: 'WebMessageInfo',
     conditions: (module) =>
-      module.WebMessageInfo && module.WebFeatures
-        ? module.WebMessageInfo
-        : null,
+      module.WebMessageInfo && module.WebFeatures ? module.WebMessageInfo : null
   },
   {
     id: 'createMessageKey',
     conditions: (module) =>
       module.createMessageKey && module.createDeviceSentMessage
         ? module.createMessageKey
-        : null,
+        : null
   },
   {
     id: 'Participants',
@@ -273,21 +270,21 @@ export const storeObjects = [
       module.promoteParticipants &&
       module.demoteParticipants
         ? module
-        : null,
+        : null
   },
   {
     id: 'WidFactory',
     conditions: (module) =>
       module.isWidlike && module.createWid && module.createWidFromWidLike
         ? module
-        : null,
+        : null
   },
   {
     id: 'Base',
     conditions: (module) =>
       module.setSubProtocol && module.binSend && module.actionNode
         ? module
-        : null,
+        : null
   },
   {
     id: 'Base2',
@@ -297,7 +294,7 @@ export const storeObjects = [
       module.binSend &&
       module.subscribeLiveLocation
         ? module
-        : null,
+        : null
   },
   {
     id: 'Versions',
@@ -307,73 +304,72 @@ export const storeObjects = [
       module.default['16'] &&
       module.default['17']
         ? module
-        : null,
+        : null
   },
   {
     id: 'Sticker',
     conditions: (module) =>
-      module.StickerCollection && module.default ? module : null,
+      module.StickerCollection && module.default ? module : null
   },
   {
     id: 'MediaObject',
     conditions: (module) =>
       module.getOrCreateMediaObject && module.disassociateMediaFromStickerPack
         ? module
-        : null,
+        : null
   },
   {
     id: 'MediaUpload',
     conditions: (module) =>
-      module.default && module.default.mediaUpload ? module.default : null,
+      module.default && module.default.mediaUpload ? module.default : null
   },
   {
     id: 'UploadUtils',
     conditions: (module) =>
-      module.default && module.default.encryptAndUpload ? module.default : null,
+      module.default && module.default.encryptAndUpload ? module.default : null
   },
   {
     id: 'Cmd',
     conditions: (module) =>
-      module.default && module.default.openChatFromUnread ? module : null,
+      module.default && module.default.openChatFromUnread ? module : null
   },
   {
     id: 'ReadSeen',
-    conditions: (module) => (module.sendSeen ? module : null),
+    conditions: (module) => (module.sendSeen ? module : null)
   },
   {
     id: 'Block',
     conditions: (module) =>
-      module.blockContact && module.unblockContact ? module : null,
+      module.blockContact && module.unblockContact ? module : null
   },
   {
     id: 'BlockList',
-    conditions: (module) => (module.BlocklistCollection ? module : null),
+    conditions: (module) => (module.BlocklistCollection ? module : null)
   },
   {
     id: 'Theme',
-    conditions: (module) =>
-      module.getTheme && module.setTheme ? module : null,
+    conditions: (module) => (module.getTheme && module.setTheme ? module : null)
   },
   {
     id: 'Vcard',
-    conditions: (module) => (module.vcardFromContactModel ? module : null),
+    conditions: (module) => (module.vcardFromContactModel ? module : null)
   },
   {
     id: 'Profile',
     conditions: (module) =>
-      module.sendSetPicture && module.requestDeletePicture ? module : null,
+      module.sendSetPicture && module.requestDeletePicture ? module : null
   },
   {
     id: 'SendMute',
-    conditions: (module) => (module.sendConversationMute ? module : null),
+    conditions: (module) => (module.sendConversationMute ? module : null)
   },
   {
     id: 'Validators',
-    conditions: (module) => (module.findLinks ? module : null),
+    conditions: (module) => (module.findLinks ? module : null)
   },
   {
     id: 'Wap2',
-    conditions: (module) => (module.Wap ? module : null),
+    conditions: (module) => (module.Wap ? module : null)
   },
   {
     id: 'genId',
@@ -382,48 +378,44 @@ export const storeObjects = [
       typeof module.default === 'function' &&
       module.default.toString().match(/crypto/)
         ? module
-        : null,
+        : null
   },
   {
     id: 'GroupMetadata',
     conditions: (module) =>
-      module.default && module.default.handlePendingInvite ? module : null,
+      module.default && module.default.handlePendingInvite ? module : null
   },
   {
     id: 'i10n',
     conditions: (module) =>
-      module.default && module.default.downloadAppLocale
-        ? module.default
-        : null,
+      module.default && module.default.downloadAppLocale ? module.default : null
   },
   {
     id: 'NetworkStatus',
     conditions: (module) =>
-      module.default && module.default._logOnlineOffline
-        ? module.default
-        : null,
+      module.default && module.default._logOnlineOffline ? module.default : null
   },
   {
     id: 'Stream',
     conditions: (module) =>
-      module.default && module.default.unobscure ? module.default : null,
+      module.default && module.default.unobscure ? module.default : null
   },
   {
     id: 'ws2',
     conditions: (module) =>
-      module.default && module.default.destroyStorage ? module.default : null,
+      module.default && module.default.destroyStorage ? module.default : null
   },
   {
     id: 'BlobCache',
     conditions: (module) =>
-      module.default && module.default.getOrCreateURL ? module.default : null,
+      module.default && module.default.getOrCreateURL ? module.default : null
   },
   {
     id: 'infoGroup',
-    conditions: (module) => (module.queryGroupInviteInfo ? module : null),
+    conditions: (module) => (module.queryGroupInviteInfo ? module : null)
   },
   {
     id: 'GroupDesc',
-    conditions: (module) => (module.setGroupDesc ? module : null),
-  },
+    conditions: (module) => (module.setGroupDesc ? module : null)
+  }
 ];

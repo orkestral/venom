@@ -74,6 +74,6 @@ export const _serializeContactObj = (obj) => {
       ? WAPI._serializeProfilePicThumb(obj.profilePicThumb)
       : {},
     statusMute: obj.statusMute,
-    msgs: null,
+    msgs: null
   });
 };

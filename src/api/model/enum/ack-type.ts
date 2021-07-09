@@ -64,5 +64,5 @@ export enum AckType {
   SENT = 1,
   RECEIVED = 2,
   READ = 3,
-  PLAYED = 4,
+  PLAYED = 4
 }

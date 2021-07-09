@@ -67,7 +67,7 @@ function waitNewMessages(rmCallbackAfterUse = true, done) {
     callback: (e) => {
       done(e);
     },
-    rmAfterUse: rmCallbackAfterUse,
+    rmAfterUse: rmCallbackAfterUse
   });
   return true;
 }

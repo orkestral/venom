@@ -72,11 +72,11 @@ export async function deleteFiles(
     unlink(pathTokens, (err) => {
       if (err) {
         spinnies.fail(`removeFile`, {
-          text: `Not removed file: ${pathTokens}`,
+          text: `Not removed file: ${pathTokens}`
         });
       }
       spinnies.succeed(`removeFile`, {
-        text: `Removed file: ${pathTokens}`,
+        text: `Removed file: ${pathTokens}`
       });
     });
   } else {

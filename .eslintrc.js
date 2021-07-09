@@ -48,7 +48,7 @@ module.exports = {
         Debug: true,
         Store: true,
         WAPI: true,
-        webpackChunkbuild: true,
+        webpackChunkwhatsapp_web_client: true,
         WWebJS: true,
       },
       rules: {

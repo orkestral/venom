@@ -55,7 +55,7 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 enum ExposedFn {
   OnMessage = 'onMessage',
   OnAck = 'onAck',
-  OnParticipantsChanged = 'onParticipantsChanged',
+  OnParticipantsChanged = 'onParticipantsChanged'
 }
 
 /**

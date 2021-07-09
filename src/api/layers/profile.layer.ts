@@ -58,7 +58,7 @@ import {
   base64MimeType,
   fileToBase64,
   downloadFileToBase64,
-  resizeImg,
+  resizeImg
 } from '../helpers';
 import { CreateConfig } from '../../config/create-config';
 
@@ -120,7 +120,7 @@ export class ProfileLayer extends HostLayer {
       'image/png',
       'image/jpg',
       'image/jpeg',
-      'image/webp',
+      'image/webp'
     ]);
     if (!b64) {
       b64 = await fileToBase64(path);
@@ -141,7 +141,7 @@ export class ProfileLayer extends HostLayer {
           ({ obj, to }) => WAPI.setProfilePic(obj, to),
           {
             obj,
-            to,
+            to
           }
         );
       } else {

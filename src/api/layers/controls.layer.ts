@@ -179,15 +179,15 @@ export class ControlsLayer extends UILayer {
           type: type,
           value: chatId,
           function: typeFunction,
-          isUser: true,
+          isUser: true
         },
         {
           param: 'messageId',
           type: 'object',
           value: messageId,
           function: typeFunction,
-          isUser: true,
-        },
+          isUser: true
+        }
       ];
 
       const validating = checkValuesSender(check);

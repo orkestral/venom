@@ -84,7 +84,7 @@ export class ListenerLayer extends ProfileLayer {
     this.page.on('load', async () => {
       try {
         await page.waitForSelector('canvas, #app .two, #startup', {
-          visible: true,
+          visible: true
         });
       } catch {}
       await this._initialize(this.page);
@@ -101,7 +101,7 @@ export class ListenerLayer extends ProfileLayer {
     const functions = [
       ...Object.values(ExposedFn),
       'onAddedToGroup',
-      'onIncomingCall',
+      'onIncomingCall'
     ];
 
     for (const func of functions) {
@@ -166,7 +166,7 @@ export class ListenerLayer extends ProfileLayer {
     return {
       dispose: () => {
         this.listenerEmitter.off(ExposedFn.onStreamChange, fn);
-      },
+      }
     };
   }
 
@@ -189,7 +189,7 @@ export class ListenerLayer extends ProfileLayer {
             fn(state);
           }
         });
-      },
+      }
     };
   }
 
@@ -204,7 +204,7 @@ export class ListenerLayer extends ProfileLayer {
     return {
       dispose: () => {
         this.listenerEmitter.off(ExposedFn.OnAnyMessage, fn);
-      },
+      }
     };
   }
 
@@ -218,7 +218,7 @@ export class ListenerLayer extends ProfileLayer {
     return {
       dispose: () => {
         this.listenerEmitter.off(ExposedFn.onStateChange, fn);
-      },
+      }
     };
   }
 
@@ -234,7 +234,7 @@ export class ListenerLayer extends ProfileLayer {
     return {
       dispose: () => {
         this.listenerEmitter.off(ExposedFn.onInterfaceChange, fn);
-      },
+      }
     };
   }
 
@@ -270,7 +270,7 @@ export class ListenerLayer extends ProfileLayer {
             }
           }
         });
-      },
+      }
     };
   }
 
@@ -339,7 +339,7 @@ export class ListenerLayer extends ProfileLayer {
     return {
       dispose: () => {
         this.listenerEmitter.off('onAddedToGroup', fn);
-      },
+      }
     };
   }
 
@@ -353,7 +353,7 @@ export class ListenerLayer extends ProfileLayer {
     return {
       dispose: () => {
         this.listenerEmitter.off('onIncomingCall', fn);
-      },
+      }
     };
   }
 }

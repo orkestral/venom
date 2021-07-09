@@ -63,7 +63,7 @@ import {
   isAuthenticated,
   isInsideChats,
   needsToScan,
-  retrieveQR,
+  retrieveQR
 } from '../../controllers/auth';
 import { sleep } from '../../utils/sleep';
 import { getSpinnies } from '../../utils/spinnies';
@@ -79,7 +79,7 @@ export class HostLayer {
     autoCloseRemain: 0,
     previousText: '',
     previousStatus: null,
-    state: '',
+    state: ''
   };
 
   protected autoCloseInterval = null;
@@ -120,7 +120,7 @@ export class HostLayer {
     if (prevText !== fullText) {
       this.spinnies.update(name, {
         text: fullText,
-        status,
+        status
       });
     }
   }
