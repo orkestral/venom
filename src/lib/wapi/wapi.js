@@ -186,7 +186,7 @@ import {
 } from './serializers';
 import { getStore } from './store/get-store';
 
-window['webpackChunkbuild'] = window['webpackChunkbuild'] || [];
+window['webpackChunkbuild'] = window['webpackChunkbuild'] || window['webpackChunkwhatsapp_web_client'] || [];
 window.Store = {};
 var loadParasite = function () {
   function injectParasite() {
