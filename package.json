@@ -67,7 +67,7 @@
     "@commitlint/config-angular": "^12.1.4",
     "@types/atob": "^2.1.2",
     "@types/mime-types": "^2.1.0",
-    "@types/node": "^16.3.0",
+    "@types/node": "^16.4.10",
     "@types/puppeteer": "^5.4.1",
     "@types/sharp": "^0.28.4",
     "@types/ws": "^7.4.6",
