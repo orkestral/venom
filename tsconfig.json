@@ -111,6 +111,6 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
     // "experimentalDecorators": true,        /* Enables experimental support for ES7 decorators. */
     // "emitDecoratorMetadata": true,         /* Enables experimental support for emitting type metadata for decorators. */
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*", ".env"],
   "exclude": ["src/middleware/middleware.ts", "img/*"]
 }

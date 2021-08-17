@@ -99,5 +99,5 @@ export const defaultLogger = createLogger({
     format.simple()
   ),
   //   defaultMeta: { service: 'venon-bot' },
-  transports: [new transports.Console()],
+  transports: [new transports.Console()]
 });
