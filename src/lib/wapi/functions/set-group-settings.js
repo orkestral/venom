@@ -52,45 +52,43 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
-import path = require('path');
-import { existsSync, unlink } from 'fs';
-import { Logger } from 'winston';
-import * as chalk from 'chalk';
 
-export async function deleteFiles(
-  mergedOptions: any,
-  Session: String,
-  logger: Logger
-) {
-  let session = Session;
-  logger.info(`${chalk.red('removeFile')}`, {
-    session,
-    type: 'connection'
-  });
-  const pathTokens: string = path.join(
-    path.resolve(
-      process.cwd() + mergedOptions.mkdirFolderToken,
-      mergedOptions.folderNameToken
-    ),
-    `${Session}.data.json`
-  );
-  if (existsSync(pathTokens)) {
-    unlink(pathTokens, (err) => {
-      if (err) {
-        logger.info(`${chalk.green('removeFile')}`, {
-          session,
-          type: 'connection'
-        });
-      }
-      logger.info(`Not removed file: ${pathTokens}`, {
-        session,
-        type: 'connection'
+/**
+ * Parameters to change group title
+ * @param {string} groupId group number
+ * @param {GroupSettings} settings
+ * @param {boolean} value
+ */
+export async function setGroupSettings(groupId, settings, value) {
+  if (typeof settings != 'string' || settings.length === 0) {
+    return WAPI.scope(
+      undefined,
+      true,
+      null,
+      'It is necessary to write a settings!'
+    );
+  }
+  const chat = await WAPI.sendExist(groupId);
+  if (chat && chat.status != 404) {
+    const m = { type: 'setGroupSettings', settings };
+    const To = await WAPI.getchatId(chat.id);
+    const Value = { type: 'setGroupSettings', value };
+    return window.Store.GroupSettings.sendSetGroupProperty(
+      chat.id,
+      settings,
+      value
+    )
+      .then(() => {
+        const obj = WAPI.scope(To, false, 'OK', m, Value);
+        Object.assign(obj, m);
+        return obj;
+      })
+      .catch(() => {
+        const obj = WAPI.scope(To, true, 'error', m, Value);
+        Object.assign(obj, m);
+        return obj;
       });
-    });
   } else {
-    logger.info(`${chalk.red(`Not Files: ${pathTokens}`)}`, {
-      session,
-      type: 'connection'
-    });
+    return chat;
   }
 }

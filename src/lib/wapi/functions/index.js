@@ -153,3 +153,5 @@ export { checkIdMessage } from './check-id-messagem';
 export { returnReply } from './return-reply';
 export { logout } from './logout';
 export { setGroupDescription } from './set-group-description';
+export { setGroupTitle } from './set-group-title';
+export { setGroupSettings } from './set-group-settings';

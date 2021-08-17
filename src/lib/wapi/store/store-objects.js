@@ -417,5 +417,13 @@ export const storeObjects = [
   {
     id: 'GroupDesc',
     conditions: (module) => (module.setGroupDesc ? module : null)
+  },
+  {
+    id: 'GroupTitle',
+    conditions: (module) => (module.sendSetGroupSubject ? module : null)
+  },
+  {
+    id: 'GroupSettings',
+    conditions: (module) => (module.sendSetGroupProperty ? module : null)
   }
 ];

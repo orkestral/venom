@@ -157,8 +157,11 @@ import {
   checkIdMessage,
   returnReply,
   logout,
-  setGroupDescription
+  setGroupDescription,
+  setGroupTitle,
+  setGroupSettings
 } from './functions';
+import { sendButtons } from './functions/send-buttons';
 import {
   base64ToFile,
   generateMediaKey,
@@ -268,6 +271,8 @@ if (typeof window.WAPI === 'undefined') {
   window.WAPI.demoteParticipant = demoteParticipant;
   window.WAPI.joinGroup = joinGroup;
   window.WAPI.setGroupDescription = setGroupDescription;
+  window.WAPI.setGroupTitle = setGroupTitle;
+  window.WAPI.setGroupSettings = setGroupSettings;
 
   // Chatting functions
   window.WAPI.sendChatstate = sendChatstate;
@@ -304,6 +309,7 @@ if (typeof window.WAPI === 'undefined') {
   window.WAPI.markUnseenMessage = markUnseenMessage;
   window.WAPI.sendLinkPreview = sendLinkPreview;
   window.WAPI.sendMessageOptions = sendMessageOptions;
+  window.WAPI.sendButtons = sendButtons;
 
   //////block functions
   window.WAPI.blockContact = blockContact;

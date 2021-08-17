@@ -99,8 +99,10 @@
     "atob": "^2.1.2",
     "axios": "^0.21.0",
     "boxen": "^5.0.1",
-    "chalk": "^4.1.1",
+    "catch-exit": "^1.1.0",
+    "chalk": "^4.0.0",
     "chrome-launcher": "^0.14.0",
+    "dotenv": "^10.0.0",
     "futoin-hkdf": "^1.4.2",
     "latest-version": "^5.1.0",
     "mime-types": "^2.1.31",
@@ -109,9 +111,11 @@
     "puppeteer-extra": "^3.1.18",
     "puppeteer-extra-plugin-stealth": "^2.7.8",
     "qrcode-terminal": "^0.12.0",
+    "sanitize-filename": "^1.6.3",
     "sharp": "^0.28.3",
     "spinnies": "^0.5.1",
     "tree-kill": "^1.2.2",
+    "winston": "^3.3.3",
     "yoo-hoo": "^1.2.0"
   },
   "optionalDependencies": {

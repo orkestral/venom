@@ -52,45 +52,52 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
-import path = require('path');
-import { existsSync, unlink } from 'fs';
-import { Logger } from 'winston';
-import * as chalk from 'chalk';
+import { config, createLogger, format, transports } from 'winston';
+import { TransformableInfo } from 'logform';
 
-export async function deleteFiles(
-  mergedOptions: any,
-  Session: String,
-  logger: Logger
-) {
-  let session = Session;
-  logger.info(`${chalk.red('removeFile')}`, {
-    session,
-    type: 'connection'
-  });
-  const pathTokens: string = path.join(
-    path.resolve(
-      process.cwd() + mergedOptions.mkdirFolderToken,
-      mergedOptions.folderNameToken
-    ),
-    `${Session}.data.json`
-  );
-  if (existsSync(pathTokens)) {
-    unlink(pathTokens, (err) => {
-      if (err) {
-        logger.info(`${chalk.green('removeFile')}`, {
-          session,
-          type: 'connection'
-        });
-      }
-      logger.info(`Not removed file: ${pathTokens}`, {
-        session,
-        type: 'connection'
-      });
-    });
-  } else {
-    logger.info(`${chalk.red(`Not Files: ${pathTokens}`)}`, {
-      session,
-      type: 'connection'
-    });
-  }
+export type LogLevel =
+  | 'error'
+  | 'warn'
+  | 'info'
+  | 'http'
+  | 'verbose'
+  | 'debug'
+  | 'silly';
+
+export interface MetaInfo {
+  session?: string;
+  type?: string;
 }
+
+export interface SessionInfo extends TransformableInfo, MetaInfo {}
+
+export const formatLabelSession = format((info: SessionInfo, opts?: any) => {
+  const parts = [];
+  if (info.session) {
+    parts.push(info.session);
+    delete info.session;
+  }
+  if (info.type) {
+    parts.push(info.type);
+    delete info.type;
+  }
+
+  if (parts.length) {
+    let prefix = parts.join(':');
+    info.message = `[${prefix}] ${info.message}`;
+  }
+  return info;
+});
+
+export const defaultLogger = createLogger({
+  level: 'info',
+  levels: config.npm.levels,
+  format: format.combine(
+    formatLabelSession(),
+    format.colorize(),
+    format.padLevels(),
+    format.simple()
+  ),
+  //   defaultMeta: { service: 'venon-bot' },
+  transports: [new transports.Console()],
+});

@@ -52,45 +52,34 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
-import path = require('path');
-import { existsSync, unlink } from 'fs';
-import { Logger } from 'winston';
-import * as chalk from 'chalk';
 
-export async function deleteFiles(
-  mergedOptions: any,
-  Session: String,
-  logger: Logger
-) {
-  let session = Session;
-  logger.info(`${chalk.red('removeFile')}`, {
-    session,
-    type: 'connection'
-  });
-  const pathTokens: string = path.join(
-    path.resolve(
-      process.cwd() + mergedOptions.mkdirFolderToken,
-      mergedOptions.folderNameToken
-    ),
-    `${Session}.data.json`
-  );
-  if (existsSync(pathTokens)) {
-    unlink(pathTokens, (err) => {
-      if (err) {
-        logger.info(`${chalk.green('removeFile')}`, {
-          session,
-          type: 'connection'
-        });
-      }
-      logger.info(`Not removed file: ${pathTokens}`, {
-        session,
-        type: 'connection'
-      });
-    });
-  } else {
-    logger.info(`${chalk.red(`Not Files: ${pathTokens}`)}`, {
-      session,
-      type: 'connection'
-    });
-  }
+/**
+ * Group properties
+ */
+export enum GroupSettings {
+  /**
+   * Define how can send message in the group
+   * `true` only admins
+   * `false` everyone
+   */
+  ANNOUNCEMENT = 'announcement',
+
+  /**
+   * Define how can edit the group data
+   * `true` only admins
+   * `false` everyone
+   */
+  RESTRICT = 'restrict',
+
+  /**
+   * Non-Documented
+   */
+  NO_FREQUENTLY_FORWARDED = 'no_frequently_forwarded',
+
+  /**
+   * Enable or disable temporary messages
+   * `true` to enable
+   * `false` to disable
+   */
+  EPHEMERAL = 'ephemeral'
 }

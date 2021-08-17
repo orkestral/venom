@@ -251,19 +251,56 @@ export class SenderLayer extends ListenerLayer {
       }
     });
   }
-
+  /**
+   * Sends messages with options
+   * @param to Chat id
+   * @param content text string
+   * @param options object
+   */
   public async sendMessageOptions(
-    chat: any,
+    to: any,
     content: any,
     options?: any
   ): Promise<Message> {
     return new Promise(async (resolve, reject) => {
       try {
         const messageId = await this.page.evaluate(
-          ({ chat, content, options }) => {
-            return WAPI.sendMessageOptions(chat, content, options);
+          ({ to, content, options }) => {
+            return WAPI.sendMessageOptions(to, content, options);
           },
-          { chat, content, options }
+          { to, content, options }
+        );
+        const result = (await this.page.evaluate(
+          (messageId: any) => WAPI.getMessageById(messageId),
+          messageId
+        )) as Message;
+        resolve(result);
+      } catch (error) {
+        reject(error);
+      }
+    });
+  }
+
+  /**
+   * Send buttons reply
+   * @param to Chat id
+   * @param title title of message buttons
+   * @param description description of message buttons
+   * @param buttons array with buttons options
+   */
+  public async sendButtons(
+    to: any,
+    title: string,
+    buttons: any,
+    description?: string
+  ): Promise<Message> {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const messageId = await this.page.evaluate(
+          ({ to, title, buttons, description }) => {
+            return WAPI.sendButtons(to, title, buttons, description);
+          },
+          { to, title, buttons, description }
         );
         const result = (await this.page.evaluate(
           (messageId: any) => WAPI.getMessageById(messageId),
