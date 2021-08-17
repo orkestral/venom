@@ -1,3 +1,13 @@
+## [3.0.23](https://github.com/orkestral/venom/compare/v3.0.21...v3.0.23) (2021-08-17)
+
+
+### Bug Fixes
+
+* lint ([81568ed](https://github.com/orkestral/venom/commit/81568ed57ea2b35cd28ae9de2225a51b245a6ca1))
+* lint dependencies ([e86e6b2](https://github.com/orkestral/venom/commit/e86e6b275f38cd27af1b2194ddeb42b9fb0054a4))
+
+
+
 ## [3.0.21](https://github.com/orkestral/venom/compare/v3.0.20...v3.0.21) (2021-07-09)
 
 
