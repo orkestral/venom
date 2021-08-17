@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>InterfaceMode | venom-bot - v3.1.1</title>
+	<title>GroupSettings | venom-bot - v3.1.1</title>
 	<meta name="description" content="Documentation for venom-bot - v3.1.1">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -55,10 +55,10 @@
 					<a href="../modules.html">Globals</a>
 				</li>
 				<li>
-					<a href="interfacemode.html">InterfaceMode</a>
+					<a href="groupsettings.html">GroupSettings</a>
 				</li>
 			</ul>
-			<h1>Enumeration InterfaceMode</h1>
+			<h1>Enumeration GroupSettings</h1>
 		</div>
 	</div>
 </header>
@@ -72,15 +72,10 @@
 						<section class="tsd-index-section ">
 							<h3>Enumeration members</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="interfacemode.html#conflict" class="tsd-kind-icon">CONFLICT</a></li>
-								<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="interfacemode.html#deprecated_version" class="tsd-kind-icon">DEPRECATED_<wbr>VERSION</a></li>
-								<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="interfacemode.html#main" class="tsd-kind-icon">MAIN</a></li>
-								<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="interfacemode.html#offline" class="tsd-kind-icon">OFFLINE</a></li>
-								<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="interfacemode.html#proxyblock" class="tsd-kind-icon">PROXYBLOCK</a></li>
-								<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="interfacemode.html#qr" class="tsd-kind-icon">QR</a></li>
-								<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="interfacemode.html#smb_tos_block" class="tsd-kind-icon">SMB_<wbr>TOS_<wbr>BLOCK</a></li>
-								<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="interfacemode.html#syncing" class="tsd-kind-icon">SYNCING</a></li>
-								<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="interfacemode.html#tos_block" class="tsd-kind-icon">TOS_<wbr>BLOCK</a></li>
+								<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="groupsettings.html#announcement" class="tsd-kind-icon">ANNOUNCEMENT</a></li>
+								<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="groupsettings.html#ephemeral" class="tsd-kind-icon">EPHEMERAL</a></li>
+								<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="groupsettings.html#no_frequently_forwarded" class="tsd-kind-icon">NO_<wbr>FREQUENTLY_<wbr>FORWARDED</a></li>
+								<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="groupsettings.html#restrict" class="tsd-kind-icon">RESTRICT</a></li>
 							</ul>
 						</section>
 					</div>
@@ -89,110 +84,56 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Enumeration members</h2>
 				<section class="tsd-panel tsd-member tsd-kind-enum-member tsd-parent-kind-enum">
-					<a name="conflict" class="tsd-anchor"></a>
-					<h3>CONFLICT</h3>
-					<div class="tsd-signature tsd-kind-icon">CONFLICT<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> = &quot;CONFLICT&quot;</span></div>
+					<a name="announcement" class="tsd-anchor"></a>
+					<h3>ANNOUNCEMENT</h3>
+					<div class="tsd-signature tsd-kind-icon">ANNOUNCEMENT<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> = &quot;announcement&quot;</span></div>
 					<aside class="tsd-sources">
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Conflic page, when there are another whatsapp web openned.</p>
+							<p>Define how can send message in the group
+								<code>true</code> only admins
+							<code>false</code> everyone</p>
 						</div>
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-enum-member tsd-parent-kind-enum">
-					<a name="deprecated_version" class="tsd-anchor"></a>
-					<h3>DEPRECATED_<wbr>VERSION</h3>
-					<div class="tsd-signature tsd-kind-icon">DEPRECATED_<wbr>VERSION<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> = &quot;DEPRECATED_VERSION&quot;</span></div>
+					<a name="ephemeral" class="tsd-anchor"></a>
+					<h3>EPHEMERAL</h3>
+					<div class="tsd-signature tsd-kind-icon">EPHEMERAL<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> = &quot;ephemeral&quot;</span></div>
 					<aside class="tsd-sources">
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Deprecated page.</p>
+							<p>Enable or disable temporary messages
+								<code>true</code> to enable
+							<code>false</code> to disable</p>
 						</div>
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-enum-member tsd-parent-kind-enum">
-					<a name="main" class="tsd-anchor"></a>
-					<h3>MAIN</h3>
-					<div class="tsd-signature tsd-kind-icon">MAIN<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> = &quot;CONNECTION&quot;</span></div>
+					<a name="no_frequently_forwarded" class="tsd-anchor"></a>
+					<h3>NO_<wbr>FREQUENTLY_<wbr>FORWARDED</h3>
+					<div class="tsd-signature tsd-kind-icon">NO_<wbr>FREQUENTLY_<wbr>FORWARDED<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> = &quot;no_frequently_forwarded&quot;</span></div>
 					<aside class="tsd-sources">
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Chat page.</p>
+							<p>Non-Documented</p>
 						</div>
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-enum-member tsd-parent-kind-enum">
-					<a name="offline" class="tsd-anchor"></a>
-					<h3>OFFLINE</h3>
-					<div class="tsd-signature tsd-kind-icon">OFFLINE<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> = &quot;OFFLINE&quot;</span></div>
+					<a name="restrict" class="tsd-anchor"></a>
+					<h3>RESTRICT</h3>
+					<div class="tsd-signature tsd-kind-icon">RESTRICT<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> = &quot;restrict&quot;</span></div>
 					<aside class="tsd-sources">
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Offline page, when there are no internet.</p>
-						</div>
-					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-enum-member tsd-parent-kind-enum">
-					<a name="proxyblock" class="tsd-anchor"></a>
-					<h3>PROXYBLOCK</h3>
-					<div class="tsd-signature tsd-kind-icon">PROXYBLOCK<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> = &quot;PROXYBLOCK&quot;</span></div>
-					<aside class="tsd-sources">
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Blocked page, by proxy.</p>
-						</div>
-					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-enum-member tsd-parent-kind-enum">
-					<a name="qr" class="tsd-anchor"></a>
-					<h3>QR</h3>
-					<div class="tsd-signature tsd-kind-icon">QR<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> = &quot;QR&quot;</span></div>
-					<aside class="tsd-sources">
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>QR code page.</p>
-						</div>
-					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-enum-member tsd-parent-kind-enum">
-					<a name="smb_tos_block" class="tsd-anchor"></a>
-					<h3>SMB_<wbr>TOS_<wbr>BLOCK</h3>
-					<div class="tsd-signature tsd-kind-icon">SMB_<wbr>TOS_<wbr>BLOCK<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> = &quot;SMB_TOS_BLOCK&quot;</span></div>
-					<aside class="tsd-sources">
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Blocked page.</p>
-						</div>
-					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-enum-member tsd-parent-kind-enum">
-					<a name="syncing" class="tsd-anchor"></a>
-					<h3>SYNCING</h3>
-					<div class="tsd-signature tsd-kind-icon">SYNCING<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> = &quot;SYNCING&quot;</span></div>
-					<aside class="tsd-sources">
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Loading page, waiting data from smartphone.</p>
-						</div>
-					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-enum-member tsd-parent-kind-enum">
-					<a name="tos_block" class="tsd-anchor"></a>
-					<h3>TOS_<wbr>BLOCK</h3>
-					<div class="tsd-signature tsd-kind-icon">TOS_<wbr>BLOCK<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> = &quot;TOS_BLOCK&quot;</span></div>
-					<aside class="tsd-sources">
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Blocked page.</p>
+							<p>Define how can edit the group data
+								<code>true</code> only admins
+							<code>false</code> everyone</p>
 						</div>
 					</div>
 				</section>
@@ -232,45 +173,30 @@
 					<li class=" tsd-kind-enum">
 						<a href="groupnotificationtype.html" class="tsd-kind-icon">Group<wbr>Notification<wbr>Type</a>
 					</li>
-					<li class=" tsd-kind-enum">
-						<a href="groupsettings.html" class="tsd-kind-icon">Group<wbr>Settings</a>
-					</li>
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-enum">
-						<a href="interfacemode.html" class="tsd-kind-icon">Interface<wbr>Mode</a>
+						<a href="groupsettings.html" class="tsd-kind-icon">Group<wbr>Settings</a>
 						<ul>
 							<li class=" tsd-kind-enum-member tsd-parent-kind-enum">
-								<a href="interfacemode.html#conflict" class="tsd-kind-icon">CONFLICT</a>
+								<a href="groupsettings.html#announcement" class="tsd-kind-icon">ANNOUNCEMENT</a>
 							</li>
 							<li class=" tsd-kind-enum-member tsd-parent-kind-enum">
-								<a href="interfacemode.html#deprecated_version" class="tsd-kind-icon">DEPRECATED_<wbr>VERSION</a>
+								<a href="groupsettings.html#ephemeral" class="tsd-kind-icon">EPHEMERAL</a>
 							</li>
 							<li class=" tsd-kind-enum-member tsd-parent-kind-enum">
-								<a href="interfacemode.html#main" class="tsd-kind-icon">MAIN</a>
+								<a href="groupsettings.html#no_frequently_forwarded" class="tsd-kind-icon">NO_<wbr>FREQUENTLY_<wbr>FORWARDED</a>
 							</li>
 							<li class=" tsd-kind-enum-member tsd-parent-kind-enum">
-								<a href="interfacemode.html#offline" class="tsd-kind-icon">OFFLINE</a>
-							</li>
-							<li class=" tsd-kind-enum-member tsd-parent-kind-enum">
-								<a href="interfacemode.html#proxyblock" class="tsd-kind-icon">PROXYBLOCK</a>
-							</li>
-							<li class=" tsd-kind-enum-member tsd-parent-kind-enum">
-								<a href="interfacemode.html#qr" class="tsd-kind-icon">QR</a>
-							</li>
-							<li class=" tsd-kind-enum-member tsd-parent-kind-enum">
-								<a href="interfacemode.html#smb_tos_block" class="tsd-kind-icon">SMB_<wbr>TOS_<wbr>BLOCK</a>
-							</li>
-							<li class=" tsd-kind-enum-member tsd-parent-kind-enum">
-								<a href="interfacemode.html#syncing" class="tsd-kind-icon">SYNCING</a>
-							</li>
-							<li class=" tsd-kind-enum-member tsd-parent-kind-enum">
-								<a href="interfacemode.html#tos_block" class="tsd-kind-icon">TOS_<wbr>BLOCK</a>
+								<a href="groupsettings.html#restrict" class="tsd-kind-icon">RESTRICT</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
+					<li class=" tsd-kind-enum">
+						<a href="interfacemode.html" class="tsd-kind-icon">Interface<wbr>Mode</a>
+					</li>
 					<li class=" tsd-kind-enum">
 						<a href="interfacestate.html" class="tsd-kind-icon">Interface<wbr>State</a>
 					</li>
