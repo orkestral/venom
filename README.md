@@ -314,6 +314,22 @@ available can be found in [here](/src/api/layers) and
 
 ```javascript
 
+// Send Messages with Buttons Reply
+
+ const buttons = [
+            
+        {buttonId: 'id1', buttonText: {displayText: 'Text of Button 1'}, type: 1},
+        {buttonId: 'id2', buttonText: {displayText: 'Text of Button 2'}, type: 1},
+        {buttonId: 'id3', buttonText: {displayText: 'Text of Button 3'}, type: 1}
+    ]
+
+await client.sendButtons('000000000000@c.us', 'Title', buttons, 'Description').then((result) => {
+    console.log('Result: ', result); //return object success
+  })
+  .catch((erro) => {
+    console.error('Error when sending: ', erro); //return object error
+  });
+
 // Send audio file MP3
 await client.sendVoice('000000000000@c.us', './audio.mp3').then((result) => {
     console.log('Result: ', result); //return object success
