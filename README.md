@@ -55,6 +55,7 @@ Api venom with complete documentation, all venom calls in business version and V
 | 📁 Send **text, image, video, audio and docs**                | ✔   |
 | 👥 Get **contacts, chats, groups, group members, Block List** | ✔   |
 | 📞 Send contacts                                              | ✔   |
+| Send Buttons                                              | ✔   |
 | Send stickers                                              | ✔   |
 | Send stickers GIF                                          | ✔   |
 | Multiple Sessions                                          | ✔   |
