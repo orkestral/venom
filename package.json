@@ -61,6 +61,16 @@
   "publishConfig": {
     "access": "public"
   },
+  "files": [
+    ".env",
+    "dist/*",
+    "package.json",
+    "CHANGELOG.md",
+    "LICENSE",
+    "README.md",
+    "SECURITY.md"
+
+  ],
   "homepage": "https://github.com/orkestral/venom#readme",
   "devDependencies": {
     "@commitlint/cli": "^12.1.1",
