@@ -20,50 +20,51 @@
 </p>
 
 
-## Buy Venom Commercial API (Adquira a API Comercial do Venom)
-Api venom with complete documentation, all venom calls in business version and VDM api manager separating each instance in containers, ready for rest calls
-<br> <br>
+## Get started fast and easy! Official API!
+<br>
+It's a high-performance alternative API to whatzapp, you can send, text messages, files, images, videos and more.
+<br>
+Remember, the API was developed on a platform called RESTful Web services, providing interoperability between computer systems on the Internet.
+<br>
+It uses a set of well-defined operations that apply to all information resources: HTTP itself defines a small set of operations, the most important being POST, GET, PUT and DELETE.
+<br>
 |                                                            |     |
 | ---------------------------------------------------------- | --- |
-| Venom Docker Manager - Manager of API in Containers                                   | ✔   |
-| Full Rest API                                  | ✔   |
-| Balance Load                                  | ✔   |
-| Code is yours                                  | ✔   |
-| No monthly fee                                 | ✔   |
-| Automatic Installer                                 | ✔   |
-| Venom Business                                 | ✔   |
+| Venom Docker Manager - Manager of API in Containers        | ✔   |
+| Full Rest API                                              | ✔   |
+| Balance Load                                               | ✔   |
+| Code is yours                                              | ✔   |
+| No monthly fee                                             | ✔   |
+| Automatic Installer                                        | ✔   |
+| Venom Business                                             | ✔   |
 
-## Whatsapp to buy API, Paid Support or Consulting (Whatsapp para adquirir API, Suporte Pago ou Consultoria)
-<a target="_blank" href="https://web.whatsapp.com/send?phone=556181590153&text=I%20want%20access%20to%20API%20Venom" target="_blank"><img title="whatzapp" height="100" width="375" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/WhatsApp_logo.svg/2000px-WhatsApp_logo.svg.png"></a>
+## Get our official API! Contact us!
+<a target="_blank" href="https://web.whatsapp.com/send?phone=557599951550&text=I%20want%20access%20to%20API%20Venom" target="_blank"><img title="whatzapp" height="100" width="375" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/WhatsApp_logo.svg/2000px-WhatsApp_logo.svg.png"></a>
 
+## Need help? Talk to our support!
 
+<a target="_blank" href="https://web.whatsapp.com/send?phone=557599951550&text=Can%20you%20help%20me?" target="_blank"><img title="whatzapp" height="100" width="375" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/WhatsApp_logo.svg/2000px-WhatsApp_logo.svg.png"></a>
 
 ## Venom group support free on Telegram
 <a target="_blank" href="https://t.me/joinchat/G8wxNXidWBo1ZDYx" target="_blank"><img title="Telegram" height="100" width="375" src="https://user-images.githubusercontent.com/66584466/117182238-7d1d8980-adac-11eb-9a70-e32f90c3d4e5.png"></a>
 
-## Need help? Talk to our support Venom-pro!
-
-<a target="_blank" href="https://web.whatsapp.com/send?phone=557599951550&text=Can%20you%20help%20me?" target="_blank"><img title="whatzapp" height="100" width="375" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/WhatsApp_logo.svg/2000px-WhatsApp_logo.svg.png"></a>
-
-
-
 ## 🕷🕷 Functions Venom🕷🕷
 
-|                                                            |     |
-| ---------------------------------------------------------- | --- |
+|                                                               |     |
+| ------------------------------------------------------------- | --- |
 | 🚻 Automatic QR Refresh                                       | ✔   |
 | 📁 Send **text, image, video, audio and docs**                | ✔   |
 | 👥 Get **contacts, chats, groups, group members, Block List** | ✔   |
 | 📞 Send contacts                                              | ✔   |
-| Send Buttons                                              | ✔   |
-| Send stickers                                              | ✔   |
-| Send stickers GIF                                          | ✔   |
-| Multiple Sessions                                          | ✔   |
+| Send Buttons                                                  | ✔   |
+| Send stickers                                                 | ✔   |
+| Send stickers GIF                                             | ✔   |
+| Multiple Sessions                                             | ✔   |
 | ⏩ Forward Messages                                           | ✔   |
 | 📥 Receive message                                            | ✔   |
 | 👤 insert user section                                        | ✔   |
-| 📍 Send location!!                                         | ✔   |
-| 🕸🕸 **and much more**                                       | ✔   |
+| 📍 Send location!!                                             | ✔   |
+| 🕸🕸 **and much more**                                         | ✔   |
 
 Documentation at https://orkestral.github.io/venom/index.html
 
