@@ -20,15 +20,18 @@
 </p>
 
 ## Get started fast and easy! Official API!
-<br>
+<p>
 It's a high-performance alternative API to whatzapp, you can send, text messages, files, images, videos and more.
-<br>
+</p>
+<p>
 Remember, the API was developed on a platform called RESTful Web services, providing interoperability between computer systems on the Internet.
-<br>
+</p>
+<p>
 It uses a set of well-defined operations that apply to all information resources: HTTP itself defines a small set of operations, the most important being POST, GET, PUT and DELETE.
-<br>
+</p>
+<p>
 Use it in your favorite language like PHP, Python, C# and others. as long as your language is supported with the HTTP protocol, you will save time and money. you don't need to know how Venom works, we have the complete API documentation, in a professional way!
-<br>
+</p>
 
 ## Get our official API! Contact us!
 <a target="_blank" href="https://web.whatsapp.com/send?phone=557599951550&text=I%20want%20access%20to%20API%20Venom" target="_blank"><img title="whatzapp" height="100" width="375" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/WhatsApp_logo.svg/2000px-WhatsApp_logo.svg.png"></a>
