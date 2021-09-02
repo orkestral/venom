@@ -1,3 +1,12 @@
+## [3.1.3](https://github.com/orkestral/venom/compare/v3.1.2...v3.1.3) (2021-09-02)
+
+
+### Features
+
+* api ([72b9648](https://github.com/orkestral/venom/commit/72b9648ef7638c3f769b0210f76828f1612d3387))
+
+
+
 ## [3.1.2](https://github.com/orkestral/venom/compare/v3.1.1...v3.1.2) (2021-08-18)
 
 
