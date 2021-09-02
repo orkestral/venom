@@ -72,7 +72,7 @@
   ],
   "homepage": "https://github.com/orkestral/venom#readme",
   "devDependencies": {
-    "@commitlint/cli": "^12.1.1",
+    "@commitlint/cli": "^13.1.0",
     "@commitlint/config-angular": "^12.1.4",
     "@types/atob": "^2.1.2",
     "@types/mime-types": "^2.1.0",
