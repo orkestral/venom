@@ -3,8 +3,8 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>ChatState | venom-bot - v3.1.2</title>
-	<meta name="description" content="Documentation for venom-bot - v3.1.2">
+	<title>ContactStatus | venom-bot - v3.1.3</title>
+	<meta name="description" content="Documentation for venom-bot - v3.1.3">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
 	<link rel="stylesheet" href="../assets/css/pages.css">
@@ -23,7 +23,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../index.html" class="title">venom-bot - v3.1.2</a>
+					<a href="../index.html" class="title">venom-bot - v3.1.3</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -55,51 +55,59 @@
 					<a href="../modules.html">Globals</a>
 				</li>
 				<li>
-					<a href="chatstate.html">ChatState</a>
+					<a href="ContactStatus.html">ContactStatus</a>
 				</li>
 			</ul>
-			<h1>Enumeration ChatState</h1>
+			<h1>Interface ContactStatus</h1>
 		</div>
 	</div>
 </header>
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-hierarchy">
+				<h3>Hierarchy</h3>
+				<ul class="tsd-hierarchy">
+					<li>
+						<span class="target">ContactStatus</span>
+					</li>
+				</ul>
+			</section>
 			<section class="tsd-panel-group tsd-index-group">
 				<h2>Index</h2>
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
 						<section class="tsd-index-section ">
-							<h3>Enumeration members</h3>
+							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="chatstate.html#paused" class="tsd-kind-icon">Paused</a></li>
-								<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="chatstate.html#recording" class="tsd-kind-icon">Recording</a></li>
-								<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="chatstate.html#typing" class="tsd-kind-icon">Typing</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="ContactStatus.html#id" class="tsd-kind-icon">id</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="ContactStatus.html#stale" class="tsd-kind-icon">stale</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="ContactStatus.html#status" class="tsd-kind-icon">status</a></li>
 							</ul>
 						</section>
 					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
-				<h2>Enumeration members</h2>
-				<section class="tsd-panel tsd-member tsd-kind-enum-member tsd-parent-kind-enum">
-					<a name="paused" class="tsd-anchor"></a>
-					<h3>Paused</h3>
-					<div class="tsd-signature tsd-kind-icon">Paused<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> = 2</span></div>
+				<h2>Properties</h2>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="id" class="tsd-anchor"></a>
+					<h3>id</h3>
+					<div class="tsd-signature tsd-kind-icon">id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 					</aside>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-enum-member tsd-parent-kind-enum">
-					<a name="recording" class="tsd-anchor"></a>
-					<h3>Recording</h3>
-					<div class="tsd-signature tsd-kind-icon">Recording<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> = 1</span></div>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="stale" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> stale</h3>
+					<div class="tsd-signature tsd-kind-icon">stale<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 					</aside>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-enum-member tsd-parent-kind-enum">
-					<a name="typing" class="tsd-anchor"></a>
-					<h3>Typing</h3>
-					<div class="tsd-signature tsd-kind-icon">Typing<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> = 0</span></div>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="status" class="tsd-anchor"></a>
+					<h3>status</h3>
+					<div class="tsd-signature tsd-kind-icon">status<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 					</aside>
 				</section>
@@ -128,115 +136,115 @@
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
 					<li class=" tsd-kind-enum">
-						<a href="acktype.html" class="tsd-kind-icon">Ack<wbr>Type</a>
+						<a href="../enums/AckType.html" class="tsd-kind-icon">Ack<wbr>Type</a>
+					</li>
+					<li class=" tsd-kind-enum">
+						<a href="../enums/ChatState.html" class="tsd-kind-icon">Chat<wbr>State</a>
+					</li>
+					<li class=" tsd-kind-enum">
+						<a href="../enums/GroupChangeEvent.html" class="tsd-kind-icon">Group<wbr>Change<wbr>Event</a>
+					</li>
+					<li class=" tsd-kind-enum">
+						<a href="../enums/GroupNotificationType.html" class="tsd-kind-icon">Group<wbr>Notification<wbr>Type</a>
+					</li>
+					<li class=" tsd-kind-enum">
+						<a href="../enums/GroupSettings.html" class="tsd-kind-icon">Group<wbr>Settings</a>
+					</li>
+					<li class=" tsd-kind-enum">
+						<a href="../enums/InterfaceMode.html" class="tsd-kind-icon">Interface<wbr>Mode</a>
+					</li>
+					<li class=" tsd-kind-enum">
+						<a href="../enums/InterfaceState.html" class="tsd-kind-icon">Interface<wbr>State</a>
+					</li>
+					<li class=" tsd-kind-enum">
+						<a href="../enums/MessageType.html" class="tsd-kind-icon">Message<wbr>Type</a>
+					</li>
+					<li class=" tsd-kind-enum">
+						<a href="../enums/SocketState.html" class="tsd-kind-icon">Socket<wbr>State</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="../classes/Whatsapp.html" class="tsd-kind-icon">Whatsapp</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="Ack.html" class="tsd-kind-icon">Ack</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="Chat.html" class="tsd-kind-icon">Chat</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="Contact.html" class="tsd-kind-icon">Contact</a>
 					</li>
 				</ul>
 				<ul class="current">
-					<li class="current tsd-kind-enum">
-						<a href="chatstate.html" class="tsd-kind-icon">Chat<wbr>State</a>
+					<li class="current tsd-kind-interface">
+						<a href="ContactStatus.html" class="tsd-kind-icon">Contact<wbr>Status</a>
 						<ul>
-							<li class=" tsd-kind-enum-member tsd-parent-kind-enum">
-								<a href="chatstate.html#paused" class="tsd-kind-icon">Paused</a>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="ContactStatus.html#id" class="tsd-kind-icon">id</a>
 							</li>
-							<li class=" tsd-kind-enum-member tsd-parent-kind-enum">
-								<a href="chatstate.html#recording" class="tsd-kind-icon">Recording</a>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="ContactStatus.html#stale" class="tsd-kind-icon">stale</a>
 							</li>
-							<li class=" tsd-kind-enum-member tsd-parent-kind-enum">
-								<a href="chatstate.html#typing" class="tsd-kind-icon">Typing</a>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="ContactStatus.html#status" class="tsd-kind-icon">status</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
-					<li class=" tsd-kind-enum">
-						<a href="groupchangeevent.html" class="tsd-kind-icon">Group<wbr>Change<wbr>Event</a>
-					</li>
-					<li class=" tsd-kind-enum">
-						<a href="groupnotificationtype.html" class="tsd-kind-icon">Group<wbr>Notification<wbr>Type</a>
-					</li>
-					<li class=" tsd-kind-enum">
-						<a href="groupsettings.html" class="tsd-kind-icon">Group<wbr>Settings</a>
-					</li>
-					<li class=" tsd-kind-enum">
-						<a href="interfacemode.html" class="tsd-kind-icon">Interface<wbr>Mode</a>
-					</li>
-					<li class=" tsd-kind-enum">
-						<a href="interfacestate.html" class="tsd-kind-icon">Interface<wbr>State</a>
-					</li>
-					<li class=" tsd-kind-enum">
-						<a href="messagetype.html" class="tsd-kind-icon">Message<wbr>Type</a>
-					</li>
-					<li class=" tsd-kind-enum">
-						<a href="socketstate.html" class="tsd-kind-icon">Socket<wbr>State</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="../classes/whatsapp.html" class="tsd-kind-icon">Whatsapp</a>
+					<li class=" tsd-kind-interface">
+						<a href="CreateConfig.html" class="tsd-kind-icon">Create<wbr>Config</a>
 					</li>
 					<li class=" tsd-kind-interface">
-						<a href="../interfaces/ack.html" class="tsd-kind-icon">Ack</a>
+						<a href="CreateOptions.html" class="tsd-kind-icon">Create<wbr>Options</a>
 					</li>
 					<li class=" tsd-kind-interface">
-						<a href="../interfaces/chat.html" class="tsd-kind-icon">Chat</a>
+						<a href="GroupCreation.html" class="tsd-kind-icon">Group<wbr>Creation</a>
 					</li>
 					<li class=" tsd-kind-interface">
-						<a href="../interfaces/contact.html" class="tsd-kind-icon">Contact</a>
+						<a href="GroupMetadata.html" class="tsd-kind-icon">Group<wbr>Metadata</a>
 					</li>
 					<li class=" tsd-kind-interface">
-						<a href="../interfaces/contactstatus.html" class="tsd-kind-icon">Contact<wbr>Status</a>
+						<a href="HostDevice.html" class="tsd-kind-icon">Host<wbr>Device</a>
 					</li>
 					<li class=" tsd-kind-interface">
-						<a href="../interfaces/createconfig.html" class="tsd-kind-icon">Create<wbr>Config</a>
+						<a href="Id.html" class="tsd-kind-icon">Id</a>
 					</li>
 					<li class=" tsd-kind-interface">
-						<a href="../interfaces/createoptions.html" class="tsd-kind-icon">Create<wbr>Options</a>
+						<a href="LastReceivedKey.html" class="tsd-kind-icon">Last<wbr>Received<wbr>Key</a>
 					</li>
 					<li class=" tsd-kind-interface">
-						<a href="../interfaces/groupcreation.html" class="tsd-kind-icon">Group<wbr>Creation</a>
+						<a href="LiveLocation.html" class="tsd-kind-icon">Live<wbr>Location</a>
 					</li>
 					<li class=" tsd-kind-interface">
-						<a href="../interfaces/groupmetadata.html" class="tsd-kind-icon">Group<wbr>Metadata</a>
+						<a href="Message.html" class="tsd-kind-icon">Message</a>
 					</li>
 					<li class=" tsd-kind-interface">
-						<a href="../interfaces/hostdevice.html" class="tsd-kind-icon">Host<wbr>Device</a>
+						<a href="PartialMessage.html" class="tsd-kind-icon">Partial<wbr>Message</a>
 					</li>
 					<li class=" tsd-kind-interface">
-						<a href="../interfaces/id.html" class="tsd-kind-icon">Id</a>
+						<a href="ParticipantEvent.html" class="tsd-kind-icon">Participant<wbr>Event</a>
 					</li>
 					<li class=" tsd-kind-interface">
-						<a href="../interfaces/lastreceivedkey.html" class="tsd-kind-icon">Last<wbr>Received<wbr>Key</a>
+						<a href="ScopeResult.html" class="tsd-kind-icon">Scope<wbr>Result</a>
 					</li>
 					<li class=" tsd-kind-interface">
-						<a href="../interfaces/livelocation.html" class="tsd-kind-icon">Live<wbr>Location</a>
+						<a href="SendFileResult.html" class="tsd-kind-icon">Send<wbr>File<wbr>Result</a>
 					</li>
 					<li class=" tsd-kind-interface">
-						<a href="../interfaces/message.html" class="tsd-kind-icon">Message</a>
+						<a href="SendLinkResult.html" class="tsd-kind-icon">Send<wbr>Link<wbr>Result</a>
 					</li>
 					<li class=" tsd-kind-interface">
-						<a href="../interfaces/partialmessage.html" class="tsd-kind-icon">Partial<wbr>Message</a>
+						<a href="SendStickerResult.html" class="tsd-kind-icon">Send<wbr>Sticker<wbr>Result</a>
 					</li>
 					<li class=" tsd-kind-interface">
-						<a href="../interfaces/participantevent.html" class="tsd-kind-icon">Participant<wbr>Event</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="../interfaces/scoperesult.html" class="tsd-kind-icon">Scope<wbr>Result</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="../interfaces/sendfileresult.html" class="tsd-kind-icon">Send<wbr>File<wbr>Result</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="../interfaces/sendlinkresult.html" class="tsd-kind-icon">Send<wbr>Link<wbr>Result</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="../interfaces/sendstickerresult.html" class="tsd-kind-icon">Send<wbr>Sticker<wbr>Result</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="../interfaces/whatsappprofile.html" class="tsd-kind-icon">Whatsapp<wbr>Profile</a>
+						<a href="WhatsappProfile.html" class="tsd-kind-icon">Whatsapp<wbr>Profile</a>
 					</li>
 					<li class=" tsd-kind-type-alias">
-						<a href="../modules.html#catchqr" class="tsd-kind-icon">CatchQR</a>
+						<a href="../modules.html#CatchQR" class="tsd-kind-icon">CatchQR</a>
 					</li>
 					<li class=" tsd-kind-type-alias">
-						<a href="../modules.html#statusfind" class="tsd-kind-icon">Status<wbr>Find</a>
+						<a href="../modules.html#StatusFind" class="tsd-kind-icon">Status<wbr>Find</a>
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="../modules.html#create" class="tsd-kind-icon">create</a>
