@@ -81,7 +81,7 @@
     "@types/sharp": "^0.28.4",
     "@types/ws": "^7.4.6",
     "@typescript-eslint/eslint-plugin": "^4.28.4",
-    "@typescript-eslint/parser": "^4.28.4",
+    "@typescript-eslint/parser": "^4.31.0",
     "commitizen": "^4.2.4",
     "concurrently": "^6.2.0",
     "conventional-changelog-cli": "^2.1.1",
