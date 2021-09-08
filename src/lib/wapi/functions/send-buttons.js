@@ -56,7 +56,7 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
  * Send buttons reply
  * @param {string} to the numberid xxx@c.us
  * @param {string} title the titulo
- * @param {string} subtitle the subtitle 
+ * @param {string} subtitle the subtitle
  * @param {array} buttons arrays
  */
 export async function sendButtons(to, title, buttons, subtitle) {

@@ -22,6 +22,7 @@
     "lint:js": "npx eslint -c .eslintrc.js --ext .js src",
     "lint:ts": "npx eslint -c .eslintrc.js --ext .ts src",
     "lint": "npm run lint:ts && npm run lint:js",
+    "lint:fix": "npx eslint src --fix",
     "prepublish": "npm run clean && npm run build",
     "release": "release-it",
     "start": "npm run build:venom & tsc app.ts && node app.js",

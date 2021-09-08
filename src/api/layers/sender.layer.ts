@@ -285,7 +285,7 @@ export class SenderLayer extends ListenerLayer {
    * Send buttons reply
    * @param {string} to the numberid xxx@c.us
    * @param {string} title the titulo
-   * @param {string} subtitle the subtitle 
+   * @param {string} subtitle the subtitle
    * @param {array} buttons arrays
    */
   public async sendButtons(
@@ -304,29 +304,29 @@ export class SenderLayer extends ListenerLayer {
           type: type,
           value: to,
           function: typeFunction,
-          isUser: true,
+          isUser: true
         },
         {
           param: 'title',
           type: type,
           value: title,
           function: typeFunction,
-          isUser: true,
+          isUser: true
         },
         {
           param: 'subtitle',
           type: type,
           value: subtitle,
           function: typeFunction,
-          isUser: true,
+          isUser: true
         },
         {
           param: 'buttons',
           type: obj,
           value: buttons,
           function: typeFunction,
-          isUser: true,
-        },
+          isUser: true
+        }
       ];
       const validating = checkValuesSender(check);
       if (typeof validating === 'object') {
