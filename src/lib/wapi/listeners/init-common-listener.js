@@ -88,9 +88,8 @@ export function initNewMessagesListener() {
 
             // Remove removable callbacks.
             removeCallbacks.forEach(function (rmCallbackObj) {
-              let callbackIndex = window.WAPI._newMessagesCallbacks.indexOf(
-                rmCallbackObj
-              );
+              let callbackIndex =
+                window.WAPI._newMessagesCallbacks.indexOf(rmCallbackObj);
               window.WAPI._newMessagesCallbacks.splice(callbackIndex, 1);
             });
           }, 1000);

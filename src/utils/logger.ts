@@ -52,74 +52,52 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
-export function initNewMessagesListener() {
-  window.WAPI.waitForStore(['Chat', 'Msg'], () => {
-    window.WAPI._newMessagesListener = window.Store.Msg.on(
-      'add',
-      (newMessage) => {
-        if (newMessage && newMessage.isNewMsg && !newMessage.isSentByMe) {
-          let message = window.WAPI.processMessageObj(newMessage, false, false);
-          if (message) {
-            window.WAPI._newMessagesQueue.push(message);
-            window.WAPI._newMessagesBuffer.push(message);
-          }
+import { config, createLogger, format, transports } from 'winston';
+import { TransformableInfo } from 'logform';
 
-          // Starts debouncer time to don't call a callback for each message if more than one message arrives
-          // in the same second
-          if (
-            !window.WAPI._newMessagesDebouncer &&
-            window.WAPI._newMessagesQueue.length > 0
-          ) {
-            window.WAPI._newMessagesDebouncer = setTimeout(() => {
-              let queuedMessages = window.WAPI._newMessagesQueue;
+export type LogLevel =
+  | 'error'
+  | 'warn'
+  | 'info'
+  | 'http'
+  | 'verbose'
+  | 'debug'
+  | 'silly';
 
-              window.WAPI._newMessagesDebouncer = null;
-              window.WAPI._newMessagesQueue = [];
-
-              let removeCallbacks = [];
-
-              window.WAPI._newMessagesCallbacks.forEach(function (callbackObj) {
-                if (callbackObj.callback !== undefined) {
-                  callbackObj.callback(queuedMessages);
-                }
-                if (callbackObj.rmAfterUse === true) {
-                  removeCallbacks.push(callbackObj);
-                }
-              });
-
-              // Remove removable callbacks.
-              removeCallbacks.forEach(function (rmCallbackObj) {
-                let callbackIndex =
-                  window.WAPI._newMessagesCallbacks.indexOf(rmCallbackObj);
-                window.WAPI._newMessagesCallbacks.splice(callbackIndex, 1);
-              });
-            }, 1000);
-          }
-        }
-      }
-    );
-  });
-
-  window.WAPI._unloadInform = (event) => {
-    // Save in the buffer the ungot unreaded messages
-    window.WAPI._newMessagesBuffer.forEach((message) => {
-      Object.keys(message).forEach((key) =>
-        message[key] === undefined ? delete message[key] : ''
-      );
-    });
-    sessionStorage.setItem(
-      'saved_msgs',
-      JSON.stringify(window.WAPI._newMessagesBuffer)
-    );
-
-    // Inform callbacks that the page will be reloaded.
-    window.WAPI._newMessagesCallbacks.forEach(function (callbackObj) {
-      if (callbackObj.callback !== undefined) {
-        callbackObj.callback({
-          status: -1,
-          message: 'page will be reloaded, wait and register callback again.'
-        });
-      }
-    });
-  };
+export interface MetaInfo {
+  session?: string;
+  type?: string;
 }
+
+export interface SessionInfo extends TransformableInfo, MetaInfo {}
+
+export const formatLabelSession = format((info: SessionInfo, opts?: any) => {
+  const parts = [];
+  if (info.session) {
+    parts.push(info.session);
+    delete info.session;
+  }
+  if (info.type) {
+    parts.push(info.type);
+    delete info.type;
+  }
+
+  if (parts.length) {
+    let prefix = parts.join(':');
+    info.message = `[${prefix}] ${info.message}`;
+  }
+  return info;
+});
+
+export const defaultLogger = createLogger({
+  level: 'info',
+  levels: config.npm.levels,
+  format: format.combine(
+    formatLabelSession(),
+    format.colorize(),
+    format.padLevels(),
+    format.simple()
+  ),
+  //   defaultMeta: { service: 'venon-bot' },
+  transports: [new transports.Console()]
+});

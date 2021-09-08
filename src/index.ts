@@ -58,6 +58,7 @@ export {
   ChatState,
   GroupChangeEvent,
   GroupNotificationType,
+  GroupSettings,
   MessageType,
   SocketState,
   InterfaceMode,

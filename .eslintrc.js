@@ -8,7 +8,7 @@ module.exports = {
     'plugin:@typescript-eslint/eslint-recommended',
     'plugin:@typescript-eslint/recommended',
     'prettier/@typescript-eslint',
-    'plugin:prettier/recommended',
+    'plugin:prettier/recommended'
   ],
   rules: {
     // @todo more restrictive
@@ -27,21 +27,21 @@ module.exports = {
     'no-empty': ['error', { allowEmptyCatch: true }],
     'no-useless-catch': 'off',
     'no-useless-escape': 'off',
-    'prefer-const': 'off',
+    'prefer-const': 'off'
   },
   overrides: [
     {
       files: ['src/lib/**/*.js'],
       parserOptions: {
         ecmaVersion: 6,
-        sourceType: 'module',
+        sourceType: 'module'
       },
       env: {
         amd: true,
         commonjs: true,
         es6: true,
         browser: true,
-        node: false,
+        node: false
       },
       globals: {
         axios: true,
@@ -49,22 +49,22 @@ module.exports = {
         Store: true,
         WAPI: true,
         webpackChunkwhatsapp_web_client: true,
-        WWebJS: true,
+        WWebJS: true
       },
       rules: {
         // @todo more restrictive
         '@typescript-eslint/no-array-constructor': 'off',
         'no-prototype-builtins': 'off',
         'no-redeclare': 'off',
-        'no-console': 0,
-      },
+        'no-console': 0
+      }
     },
     {
       files: ['src/lib/**/webpack.*.js', 'src/lib/**/gulpfile.js'],
       env: {
         browser: false,
-        node: true,
-      },
-    },
-  ],
+        node: true
+      }
+    }
+  ]
 };

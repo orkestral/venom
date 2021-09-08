@@ -53,6 +53,11 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
 import { Browser, BrowserContext, LaunchOptions, Page } from 'puppeteer';
+
+import { Logger } from 'winston';
+
+import { defaultLogger } from '../utils/logger';
+
 import { puppeteerConfig } from './puppeteer.config';
 
 // Server config
@@ -140,6 +145,11 @@ export interface CreateConfig {
    * @default false
    */
   waitForLogin?: boolean;
+  /**
+   * Wait for in chat to return a instance of {@link Whatsapp}
+   * @default false
+   */
+  logger?: Logger;
 }
 export const defaultOptions: CreateConfig = {
   folderNameToken: 'tokens',
@@ -157,5 +167,6 @@ export const defaultOptions: CreateConfig = {
   updatesLog: true,
   autoClose: 120000,
   createPathFileToken: true,
-  waitForLogin: true
+  waitForLogin: true,
+  logger: defaultLogger
 };

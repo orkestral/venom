@@ -57,12 +57,107 @@ import { CreateConfig } from '../../config/create-config';
 import { Id } from '../model';
 import { RetrieverLayer } from './retriever.layer';
 import { Scope, checkValuesSender } from '../helpers/layers-interface';
+import {
+  base64MimeType,
+  fileToBase64,
+  downloadFileToBase64,
+  resizeImg
+} from '../helpers';
+import { GroupSettings } from '../model/enum';
 
 let obj: Scope;
 
 export class GroupLayer extends RetrieverLayer {
   constructor(public page: Page, session?: string, options?: CreateConfig) {
     super(page, session, options);
+  }
+
+  /**
+   * Parameters to change group image
+   * @param {string} groupId group number
+   * @param {string} path of image
+   */
+  public async setGroupImage(groupId: string, path: string) {
+    let b64 = await downloadFileToBase64(path, [
+      'image/gif',
+      'image/png',
+      'image/jpg',
+      'image/jpeg',
+      'image/webp'
+    ]);
+    if (!b64) {
+      b64 = await fileToBase64(path);
+    }
+    if (b64) {
+      const buff = Buffer.from(
+        b64.replace(/^data:image\/(png|jpe?g|webp);base64,/, ''),
+        'base64'
+      );
+      const mimeInfo = base64MimeType(b64);
+
+      if (!mimeInfo || mimeInfo.includes('image')) {
+        let _webb64_96 = await resizeImg(buff, { width: 96, height: 96 }),
+          _webb64_640 = await resizeImg(buff, { width: 640, height: 640 });
+        let obj = { a: _webb64_640, b: _webb64_96 };
+
+        return await this.page.evaluate(
+          ({ obj, groupId }) => WAPI.setProfilePic(obj, groupId),
+          {
+            obj,
+            groupId
+          }
+        );
+      } else {
+        console.log('Not an image, allowed formats png, jpeg and webp');
+        return false;
+      }
+    }
+  }
+
+  /**
+   * Parameters to change group title
+   * @param {string} groupId group number
+   * @param {string} title group title
+   */
+  public async setGroupTitle(groupId: string, title: string): Promise<Object> {
+    return new Promise(async (resolve, reject) => {
+      const typeFunction = 'setGroupTitle';
+      const type = 'string';
+      const check = [
+        {
+          param: 'groupId',
+          type: type,
+          value: groupId,
+          function: typeFunction,
+          isUser: true
+        },
+        {
+          param: 'title',
+          type: type,
+          value: title,
+          function: typeFunction,
+          isUser: true
+        }
+      ];
+
+      const validating = checkValuesSender(check);
+      if (typeof validating === 'object') {
+        return reject(validating);
+      }
+
+      const result = await this.page.evaluate(
+        ({ groupId, title }) => {
+          return WAPI.setGroupTitle(groupId, title);
+        },
+        { groupId, title }
+      );
+
+      if (result['erro'] == true) {
+        return reject(result);
+      } else {
+        return resolve(result);
+      }
+    });
   }
 
   /**
@@ -113,7 +208,63 @@ export class GroupLayer extends RetrieverLayer {
       }
     });
   }
+  /**
+   * Parameters to change group settings, see {@link GroupSettings for details}
+   * @param {string} groupId group number
+   * @param {GroupSettings} settings
+   * @param {boolean} value
+   */
+  public async setGroupSettings(
+    groupId: string,
+    settings: GroupSettings,
+    value: boolean
+  ): Promise<Object> {
+    return new Promise(async (resolve, reject) => {
+      const typeFunction = 'setGroupSettings';
+      const type = 'string';
+      const check = [
+        {
+          param: 'groupId',
+          type: type,
+          value: groupId,
+          function: typeFunction,
+          isUser: true
+        },
+        {
+          param: 'settings',
+          type: type,
+          value: settings,
+          function: typeFunction,
+          isUser: true
+        },
+        {
+          param: 'value',
+          type: type,
+          value: value,
+          function: typeFunction,
+          isUser: true
+        }
+      ];
 
+      const validating = checkValuesSender(check);
+      if (typeof validating === 'object') {
+        return reject(validating);
+      }
+
+      const result = await this.page.evaluate(
+        ({ groupId, settings, value }) => {
+          return WAPI.setGroupSettings(groupId, settings, value);
+        },
+        { groupId, settings, value }
+      );
+
+      if (result['erro'] == true) {
+        return reject(result);
+      } else {
+        return resolve(result);
+      }
+    });
+  }
   /**
    * Retrieve all groups
    * @returns array of groups

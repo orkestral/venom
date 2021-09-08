@@ -52,74 +52,47 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
-export function initNewMessagesListener() {
-  window.WAPI.waitForStore(['Chat', 'Msg'], () => {
-    window.WAPI._newMessagesListener = window.Store.Msg.on(
-      'add',
-      (newMessage) => {
-        if (newMessage && newMessage.isNewMsg && !newMessage.isSentByMe) {
-          let message = window.WAPI.processMessageObj(newMessage, false, false);
-          if (message) {
-            window.WAPI._newMessagesQueue.push(message);
-            window.WAPI._newMessagesBuffer.push(message);
-          }
+import { ConnectionTransport } from 'puppeteer';
 
-          // Starts debouncer time to don't call a callback for each message if more than one message arrives
-          // in the same second
-          if (
-            !window.WAPI._newMessagesDebouncer &&
-            window.WAPI._newMessagesQueue.length > 0
-          ) {
-            window.WAPI._newMessagesDebouncer = setTimeout(() => {
-              let queuedMessages = window.WAPI._newMessagesQueue;
+import * as WebSocket from 'ws';
 
-              window.WAPI._newMessagesDebouncer = null;
-              window.WAPI._newMessagesQueue = [];
+export class WebSocketTransport implements ConnectionTransport {
+  static create(url: string, timeout?: number): Promise<WebSocketTransport> {
+    return new Promise((resolve, reject) => {
+      const ws = new WebSocket(url, [], {
+        perMessageDeflate: false,
+        maxPayload: 256 * 1024 * 1024, // 256Mb
+        handshakeTimeout: timeout
+      });
 
-              let removeCallbacks = [];
-
-              window.WAPI._newMessagesCallbacks.forEach(function (callbackObj) {
-                if (callbackObj.callback !== undefined) {
-                  callbackObj.callback(queuedMessages);
-                }
-                if (callbackObj.rmAfterUse === true) {
-                  removeCallbacks.push(callbackObj);
-                }
-              });
-
-              // Remove removable callbacks.
-              removeCallbacks.forEach(function (rmCallbackObj) {
-                let callbackIndex =
-                  window.WAPI._newMessagesCallbacks.indexOf(rmCallbackObj);
-                window.WAPI._newMessagesCallbacks.splice(callbackIndex, 1);
-              });
-            }, 1000);
-          }
-        }
-      }
-    );
-  });
-
-  window.WAPI._unloadInform = (event) => {
-    // Save in the buffer the ungot unreaded messages
-    window.WAPI._newMessagesBuffer.forEach((message) => {
-      Object.keys(message).forEach((key) =>
-        message[key] === undefined ? delete message[key] : ''
-      );
+      ws.addEventListener('open', () => resolve(new WebSocketTransport(ws)));
+      ws.addEventListener('error', reject);
     });
-    sessionStorage.setItem(
-      'saved_msgs',
-      JSON.stringify(window.WAPI._newMessagesBuffer)
-    );
+  }
 
-    // Inform callbacks that the page will be reloaded.
-    window.WAPI._newMessagesCallbacks.forEach(function (callbackObj) {
-      if (callbackObj.callback !== undefined) {
-        callbackObj.callback({
-          status: -1,
-          message: 'page will be reloaded, wait and register callback again.'
-        });
-      }
+  private _ws: WebSocket;
+  onmessage?: (message: string) => void;
+  onclose?: () => void;
+
+  constructor(ws: WebSocket) {
+    this._ws = ws;
+    this._ws.addEventListener('message', (event) => {
+      if (this.onmessage) this.onmessage.call(null, event.data);
     });
-  };
+    this._ws.addEventListener('close', () => {
+      if (this.onclose) this.onclose.call(null);
+    });
+    // Silently ignore all errors - we don't know what to do with them.
+    this._ws.addEventListener('error', () => {});
+    this.onmessage = null;
+    this.onclose = null;
+  }
+
+  send(message: string): void {
+    this._ws.send(message);
+  }
+
+  close(): void {
+    this._ws.close();
+  }
 }

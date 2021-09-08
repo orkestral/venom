@@ -4,7 +4,7 @@ module.exports = {
     'subject-case': [
       1,
       'never',
-      ['sentence-case', 'start-case', 'pascal-case', 'upper-case'],
+      ['sentence-case', 'start-case', 'pascal-case', 'upper-case']
     ],
     'type-enum': [
       2,
@@ -20,8 +20,8 @@ module.exports = {
         'refactor',
         'revert',
         'style',
-        'test',
-      ],
-    ],
-  },
+        'test'
+      ]
+    ]
+  }
 };

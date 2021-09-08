@@ -54,13 +54,19 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
 import path = require('path');
 import { existsSync, unlink } from 'fs';
-import * as Spinnies from 'spinnies';
+import { Logger } from 'winston';
+import * as chalk from 'chalk';
+
 export async function deleteFiles(
   mergedOptions: any,
   Session: String,
-  spinnies: Spinnies
+  logger: Logger
 ) {
-  spinnies.add(`removeFile`, { text: '....' });
+  let session = Session;
+  logger.info(`${chalk.red('removeFile')}`, {
+    session,
+    type: 'connection'
+  });
   const pathTokens: string = path.join(
     path.resolve(
       process.cwd() + mergedOptions.mkdirFolderToken,
@@ -71,15 +77,20 @@ export async function deleteFiles(
   if (existsSync(pathTokens)) {
     unlink(pathTokens, (err) => {
       if (err) {
-        spinnies.fail(`removeFile`, {
-          text: `Not removed file: ${pathTokens}`
+        logger.info(`${chalk.green('removeFile')}`, {
+          session,
+          type: 'connection'
         });
       }
-      spinnies.succeed(`removeFile`, {
-        text: `Removed file: ${pathTokens}`
+      logger.info(`Not removed file: ${pathTokens}`, {
+        session,
+        type: 'connection'
       });
     });
   } else {
-    spinnies.fail(`removeFile`, { text: `Not Files: ${pathTokens}` });
+    logger.info(`${chalk.red(`Not Files: ${pathTokens}`)}`, {
+      session,
+      type: 'connection'
+    });
   }
 }
