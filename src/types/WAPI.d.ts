@@ -219,11 +219,11 @@ interface WAPI {
     options?: any
   ) => Promise<string>;
   sendButtons: (
-    chat: any,
+    to: string,
     title: string,
-    buttons: any,
-    description?: any
-  ) => Promise<string>;
+    buttons: [],
+    subtitle: string
+  ) => Promise<Object>;
   sendMessageWithThumb: (
     thumb: string,
     url: string,

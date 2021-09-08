@@ -159,9 +159,9 @@ import {
   logout,
   setGroupDescription,
   setGroupTitle,
-  setGroupSettings
+  setGroupSettings,
+  sendButtons
 } from './functions';
-import { sendButtons } from './functions/send-buttons';
 import {
   base64ToFile,
   generateMediaKey,

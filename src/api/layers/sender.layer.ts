@@ -283,32 +283,67 @@ export class SenderLayer extends ListenerLayer {
 
   /**
    * Send buttons reply
-   * @param to Chat id
-   * @param title title of message buttons
-   * @param description description of message buttons
-   * @param buttons array with buttons options
+   * @param {string} to the numberid xxx@c.us
+   * @param {string} title the titulo
+   * @param {string} subtitle the subtitle 
+   * @param {array} buttons arrays
    */
   public async sendButtons(
-    to: any,
+    to: string,
     title: string,
-    buttons: any,
-    description?: string
-  ): Promise<Message> {
+    buttons: [],
+    subtitle: string
+  ): Promise<object> {
     return new Promise(async (resolve, reject) => {
-      try {
-        const messageId = await this.page.evaluate(
-          ({ to, title, buttons, description }) => {
-            return WAPI.sendButtons(to, title, buttons, description);
-          },
-          { to, title, buttons, description }
-        );
-        const result = (await this.page.evaluate(
-          (messageId: any) => WAPI.getMessageById(messageId),
-          messageId
-        )) as Message;
-        resolve(result);
-      } catch (error) {
-        reject(error);
+      const typeFunction = 'sendButtons';
+      const type = 'string';
+      const obj = 'object';
+      const check = [
+        {
+          param: 'to',
+          type: type,
+          value: to,
+          function: typeFunction,
+          isUser: true,
+        },
+        {
+          param: 'title',
+          type: type,
+          value: title,
+          function: typeFunction,
+          isUser: true,
+        },
+        {
+          param: 'subtitle',
+          type: type,
+          value: subtitle,
+          function: typeFunction,
+          isUser: true,
+        },
+        {
+          param: 'buttons',
+          type: obj,
+          value: buttons,
+          function: typeFunction,
+          isUser: true,
+        },
+      ];
+      const validating = checkValuesSender(check);
+      if (typeof validating === 'object') {
+        return reject(validating);
+      }
+
+      const result = await this.page.evaluate(
+        ({ to, title, buttons, subtitle }) => {
+          return WAPI.sendButtons(to, title, buttons, subtitle);
+        },
+        { to, title, buttons, subtitle }
+      );
+
+      if (result['erro'] == true) {
+        return reject(result);
+      } else {
+        return resolve(result);
       }
     });
   }
