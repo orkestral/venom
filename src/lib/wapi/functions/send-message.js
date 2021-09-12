@@ -68,7 +68,7 @@ export async function sendMessage(to, content) {
     const m = { type: 'sendText', text: content };
     const newMsgId = await window.WAPI.getNewMessageId(chat.id);
     const fromwWid = await window.Store.Conn.wid;
-    let inChat = await WAPI.getchatId(to).catch(() => {});
+    let inChat = await WAPI.getchatId(chat.id).catch(() => {});
     if (inChat) {
       chat.lastReceivedKey._serialized = inChat._serialized;
       chat.lastReceivedKey.id = inChat.id;

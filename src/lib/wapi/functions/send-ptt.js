@@ -63,7 +63,7 @@ import { base64ToFile } from '../helper';
 export async function sendPtt(imgBase64, chatid) {
   const chat = await WAPI.sendExist(chatid);
   if (chat && chat.status != 404) {
-    let result = await Store.Chat.find(chatid).then(async (chat) => {
+    let result = await Store.Chat.find(chat.id).then(async (chat) => {
       var mediaBlob = base64ToFile(imgBase64);
       return await processFiles(chat, mediaBlob).then(async (mc) => {
         var media = mc.models[0];

@@ -72,14 +72,14 @@ export async function forwardMessages(chatId, messages, skipMyMessages) {
   return new Promise(async (resolve, reject) => {
     if (chat.id) {
       let newMsgId = await window.WAPI.getNewMessageId(chat.id);
-      let inChat = await WAPI.getchatId(chatId).catch(() => {});
+      let inChat = await WAPI.getchatId(chat.id).catch(() => {});
       if (inChat) {
         chat.lastReceivedKey._serialized = inChat._serialized;
         chat.lastReceivedKey.id = inChat.id;
       }
       await Promise.each(toForward, async (e) => {
         if (typeof e.erro !== 'undefined' && e.erro === true) {
-          var obj = WAPI.scope(chatId, true, null, 'message not found');
+          var obj = WAPI.scope(chat.id, true, null, 'message not found');
           Object.assign(obj, m);
           reject(obj);
           return;

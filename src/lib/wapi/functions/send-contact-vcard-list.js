@@ -102,9 +102,9 @@ export async function sendContactVcardList(chatId, contacts) {
       }
     });
 
-    var newMsgId = await window.WAPI.getNewMessageId(chatId);
+    var newMsgId = await window.WAPI.getNewMessageId(chat.id);
     const fromwWid = await window.Store.Conn.wid;
-    let inChat = await WAPI.getchatId(chatId).catch(() => {});
+    let inChat = await WAPI.getchatId(chat.id).catch(() => {});
 
     if (inChat) {
       chat.lastReceivedKey._serialized = inChat._serialized;
@@ -120,7 +120,7 @@ export async function sendContactVcardList(chatId, contacts) {
       local: !0,
       self: 'in',
       t: parseInt(new Date().getTime() / 1000),
-      to: chatId,
+      to: chat.id,
       type: 'multi_vcard',
       vcardList: Vcards,
       isNewMsg: !0

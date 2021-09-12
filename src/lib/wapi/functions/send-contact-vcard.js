@@ -58,7 +58,7 @@ export async function sendContactVcard(chatId, contact, name) {
 
   if (chat.id && cont.id) {
     const newMsgId = await window.WAPI.getNewMessageId(chat.id);
-    const inChat = await WAPI.getchatId(chatId).catch(() => {});
+    const inChat = await WAPI.getchatId(chat.id).catch(() => {});
 
     if (inChat) {
       chat.lastReceivedKey._serialized = inChat._serialized;

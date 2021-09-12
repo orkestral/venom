@@ -139,8 +139,12 @@ export async function sendExist(chatId, returnChat = true, Send = true) {
     }
   }
 
-  let ck = await window.WAPI.checkNumberStatus(chatId),
-    chat = await window.WAPI.getChat(ck.id._serialized);
+  let ck = await window.WAPI.checkNumberStatus(chatId);
+
+  if (ck.status === 404) {
+    return WAPI.scope(chatId, true, ck.status, 'The number does not exist');
+  }
+  let chat = await window.WAPI.getChat(ck.id._serialized);
 
   if (ck.numberExists && chat === undefined) {
     var idUser = new window.Store.UserConstructor(chatId, {

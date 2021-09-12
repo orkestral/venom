@@ -61,8 +61,8 @@ export async function sendLocation(
   const chat = await WAPI.sendExist(chatId);
 
   if (!chat.erro) {
-    const newMsgId = await window.WAPI.getNewMessageId(chatId);
-    const inChat = await WAPI.getchatId(chatId).catch(() => {});
+    const newMsgId = await window.WAPI.getNewMessageId(chat.id);
+    const inChat = await WAPI.getchatId(chat.id).catch(() => {});
     const fromwWid = await window.Store.Conn.wid;
 
     if (inChat) {
@@ -76,7 +76,7 @@ export async function sendLocation(
       local: !0,
       self: 'in',
       t: parseInt(new Date().getTime() / 1000),
-      to: chatId,
+      to: chat.id,
       from: fromwWid,
       isNewMsg: !0,
       type: 'location',
