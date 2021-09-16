@@ -14,9 +14,9 @@
 > Venom is a high-performance system developed with JavaScript to create a bot for WhatsApp, support for creating any interaction, such as customer service, media sending, sentence recognition based on artificial intelligence and all types of design architecture for WhatsApp.
 
 <p align="center">
-  <a href="https://orkestral.github.io/venom/pages/Getting%20Started/creating-client.html">Getting Started</a> •
-  <a href="https://orkestral.github.io/venom/pages/Getting%20Started/basic-functions.html">Basic Function</a> •
-  <a href="https://orkestral.github.io/venom">Documentation</a>
+  <a href="https://github.com/orkestral/venom/blob/master/docs/getting-started/creating-client.md">Getting Started</a> •
+  <a href="https://github.com/orkestral/venom/blob/master/docs/getting-started/basic-functions.md">Basic Function</a> •
+  <a href="https://github.com/orkestral/venom/tree/master/docs/getting-started">Documentation</a>
 </p>
 
 ## Get started fast and easy! Official API!
