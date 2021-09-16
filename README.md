@@ -313,6 +313,42 @@ available can be found in [here](/src/api/layers) and
 ##### Here, `chatId` could be `<phoneNumber>@c.us` or `<phoneNumber>-<groupId>@g.us`
 
 ```javascript
+
+// Send List menu
+//This function does not work for Bussines contacts
+const list = [
+    {
+      title: "Pasta",
+      rows: [
+        {
+          title: "Ravioli Lasagna",
+          description: "Made with layers of frozen cheese",
+        }
+      ]
+    },
+    {
+      title: "Dessert",
+      rows: [
+        {
+          title: "Baked Ricotta Cake",
+          description: "Sweets pecan baklava rolls",
+        },
+        {
+          title: "Lemon Meringue Pie",
+          description: "Pastry filled with lemonand meringue.",
+        }
+      ]
+    }
+  ];
+
+await client.sendListMenu('000000000000@c.us', 'Title', 'subTitle', 'Description', 'menu', list)
+  .then((result) => {
+    console.log('Result: ', result); //return object success
+  })
+  .catch((erro) => {
+    console.error('Error when sending: ', erro); //return object error
+  });
+  
 // Send Messages with Buttons Reply
 const buttons = [
   {
