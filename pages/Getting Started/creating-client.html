@@ -1,0 +1,311 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Creating a Client | venom-bot - v3.1.6</title>
+	<meta name="description" content="Documentation for venom-bot - v3.1.6">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="../../assets/css/main.css">
+	<link rel="stylesheet" href="../../assets/css/pages.css">
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="../../assets/js/search.json" data-base="../..">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="../../index.html" class="title">venom-bot - v3.1.6</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-only-exported" />
+							<label class="tsd-widget" for="tsd-filter-only-exported">Only exported</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<ul class="tsd-breadcrumb">
+				<li>
+					<a href="../../modules.html">Globals</a>
+				</li>
+				<li>
+					<a href="installation.html">Getting Started</a>
+				</li>
+				<li>
+					<a href="creating-client.html">Creating a Client</a>
+				</li>
+			</ul>
+			<h1>Creating a Client</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<div class="tsd-panel tsd-typography">
+				<a href="#creating-a-client" id="creating-a-client" style="color: inherit; text-decoration: none;">
+					<h1>Creating a Client</h1>
+				</a>
+				<p>To start using <code>Venom Bot</code>, you need to create a file and call the <a href="../../modules.html#create">create</a> method.<br>That method returns an <code>Promise</code> of <a href="../../classes/Whatsapp.html">Whatsapp</a>.</p>
+				<pre><code class="language-javascript"><span style="color: #008000">// Supports ES6</span>
+<span style="color: #008000">// import { create, Whatsapp } from &#039;venom-bot&#039;;</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">venom</span><span style="color: #000000"> = </span><span style="color: #795E26">require</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;venom-bot&#039;</span><span style="color: #000000">);</span>
+
+<span style="color: #001080">venom</span>
+<span style="color: #000000">  .</span><span style="color: #795E26">create</span><span style="color: #000000">()</span>
+<span style="color: #000000">  .</span><span style="color: #795E26">then</span><span style="color: #000000">((</span><span style="color: #001080">client</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> </span><span style="color: #795E26">start</span><span style="color: #000000">(</span><span style="color: #001080">client</span><span style="color: #000000">))</span>
+<span style="color: #000000">  .</span><span style="color: #795E26">catch</span><span style="color: #000000">((</span><span style="color: #001080">error</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #001080">error</span><span style="color: #000000">));</span>
+</code></pre>
+				<a href="#multi-sessions" id="multi-sessions" style="color: inherit; text-decoration: none;">
+					<h2>Multi sessions</h2>
+				</a>
+				<p>If you want to start more than one session, for example,
+					in case you have different departments in your project,
+				then you had to specify it in your code like in that example:</p>
+				<pre><code class="language-javascript"><span style="color: #008000">// Init sales whatsapp bot</span>
+<span style="color: #001080">venom</span><span style="color: #000000">.</span><span style="color: #795E26">create</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;sales&#039;</span><span style="color: #000000">).</span><span style="color: #795E26">then</span><span style="color: #000000">((</span><span style="color: #001080">client</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> </span><span style="color: #795E26">startClient</span><span style="color: #000000">(</span><span style="color: #001080">client</span><span style="color: #000000">));</span>
+
+<span style="color: #008000">// Init support whatsapp bot</span>
+<span style="color: #001080">venom</span><span style="color: #000000">.</span><span style="color: #795E26">create</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;support&#039;</span><span style="color: #000000">).</span><span style="color: #795E26">then</span><span style="color: #000000">((</span><span style="color: #001080">client</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> </span><span style="color: #795E26">startSupport</span><span style="color: #000000">(</span><span style="color: #001080">client</span><span style="color: #000000">));</span>
+</code></pre>
+				<a href="#passing-options-on-create" id="passing-options-on-create" style="color: inherit; text-decoration: none;">
+					<h2>Passing options on create</h2>
+				</a>
+				<p>The <code>create</code> method third parameter can have the following optional parameters:</p>
+				<pre><code class="language-javascript"><span style="color: #001080">venom</span><span style="color: #000000">.</span><span style="color: #795E26">create</span><span style="color: #000000">(</span>
+<span style="color: #000000">    </span><span style="color: #008000">//session</span>
+<span style="color: #000000">    </span><span style="color: #A31515">&#039;sessionName&#039;</span><span style="color: #000000">, </span><span style="color: #008000">//Pass the name of the client you want to start the bot</span>
+<span style="color: #000000">    </span><span style="color: #008000">//catchQR</span>
+<span style="color: #000000">    (</span><span style="color: #001080">base64Qrimg</span><span style="color: #000000">, </span><span style="color: #001080">asciiQR</span><span style="color: #000000">, </span><span style="color: #001080">attempts</span><span style="color: #000000">, </span><span style="color: #001080">urlCode</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">      </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;Number of attempts to read the qrcode: &#039;</span><span style="color: #000000">, </span><span style="color: #001080">attempts</span><span style="color: #000000">);</span>
+<span style="color: #000000">      </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;Terminal qrcode: &#039;</span><span style="color: #000000">, </span><span style="color: #001080">asciiQR</span><span style="color: #000000">);</span>
+<span style="color: #000000">      </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;base64 image string qrcode: &#039;</span><span style="color: #000000">, </span><span style="color: #001080">base64Qrimg</span><span style="color: #000000">);</span>
+<span style="color: #000000">      </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;urlCode (data-ref): &#039;</span><span style="color: #000000">, </span><span style="color: #001080">urlCode</span><span style="color: #000000">);</span>
+<span style="color: #000000">    },</span>
+<span style="color: #000000">    </span><span style="color: #008000">// statusFind</span>
+<span style="color: #000000">    (</span><span style="color: #001080">statusSession</span><span style="color: #000000">, </span><span style="color: #001080">session</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">      </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;Status Session: &#039;</span><span style="color: #000000">, </span><span style="color: #001080">statusSession</span><span style="color: #000000">); </span><span style="color: #008000">//return isLogged || notLogged || browserClose || qrReadSuccess || qrReadFail || autocloseCalled || desconnectedMobile || deleteToken</span>
+<span style="color: #000000">      </span><span style="color: #008000">//Create session wss return &quot;serverClose&quot; case server for close</span>
+<span style="color: #000000">      </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;Session name: &#039;</span><span style="color: #000000">, </span><span style="color: #001080">session</span><span style="color: #000000">);</span>
+<span style="color: #000000">    },</span>
+<span style="color: #000000">    </span><span style="color: #008000">// options</span>
+<span style="color: #000000">    {</span>
+<span style="color: #000000">      </span><span style="color: #001080">folderNameToken:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;tokens&#039;</span><span style="color: #000000">, </span><span style="color: #008000">//folder name when saving tokens</span>
+<span style="color: #000000">      </span><span style="color: #001080">mkdirFolderToken:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;&#039;</span><span style="color: #000000">, </span><span style="color: #008000">//folder directory tokens, just inside the venom folder, example:  { mkdirFolderToken: &#039;/node_modules&#039;, } //will save the tokens folder in the node_modules directory</span>
+<span style="color: #000000">      </span><span style="color: #001080">headless:</span><span style="color: #000000"> </span><span style="color: #0000FF">true</span><span style="color: #000000">, </span><span style="color: #008000">// Headless chrome</span>
+<span style="color: #000000">      </span><span style="color: #001080">devtools:</span><span style="color: #000000"> </span><span style="color: #0000FF">false</span><span style="color: #000000">, </span><span style="color: #008000">// Open devtools by default</span>
+<span style="color: #000000">      </span><span style="color: #001080">useChrome:</span><span style="color: #000000"> </span><span style="color: #0000FF">true</span><span style="color: #000000">, </span><span style="color: #008000">// If false will use Chromium instance</span>
+<span style="color: #000000">      </span><span style="color: #001080">debug:</span><span style="color: #000000"> </span><span style="color: #0000FF">false</span><span style="color: #000000">, </span><span style="color: #008000">// Opens a debug session</span>
+<span style="color: #000000">      </span><span style="color: #001080">logQR:</span><span style="color: #000000"> </span><span style="color: #0000FF">true</span><span style="color: #000000">, </span><span style="color: #008000">// Logs QR automatically in terminal</span>
+<span style="color: #000000">      </span><span style="color: #001080">browserWS:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;&#039;</span><span style="color: #000000">, </span><span style="color: #008000">// If u want to use browserWSEndpoint</span>
+<span style="color: #000000">      </span><span style="color: #001080">browserArgs:</span><span style="color: #000000"> [</span><span style="color: #A31515">&#039;&#039;</span><span style="color: #000000">], </span><span style="color: #008000">// Parameters to be added into the chrome browser instance</span>
+<span style="color: #000000">      </span><span style="color: #001080">puppeteerOptions:</span><span style="color: #000000"> {}, </span><span style="color: #008000">// Will be passed to puppeteer.launch</span>
+<span style="color: #000000">      </span><span style="color: #001080">disableSpins:</span><span style="color: #000000"> </span><span style="color: #0000FF">true</span><span style="color: #000000">, </span><span style="color: #008000">// Will disable Spinnies animation, useful for containers (docker) for a better log</span>
+<span style="color: #000000">      </span><span style="color: #001080">disableWelcome:</span><span style="color: #000000"> </span><span style="color: #0000FF">true</span><span style="color: #000000">, </span><span style="color: #008000">// Will disable the welcoming message which appears in the beginning</span>
+<span style="color: #000000">      </span><span style="color: #001080">updatesLog:</span><span style="color: #000000"> </span><span style="color: #0000FF">true</span><span style="color: #000000">, </span><span style="color: #008000">// Logs info updates automatically in terminal</span>
+<span style="color: #000000">      </span><span style="color: #001080">autoClose:</span><span style="color: #000000"> </span><span style="color: #098658">60000</span><span style="color: #000000">, </span><span style="color: #008000">// Automatically closes the venom-bot only when scanning the QR code (default 60 seconds, if you want to turn it off, assign 0 or false)</span>
+<span style="color: #000000">      </span><span style="color: #001080">createPathFileToken:</span><span style="color: #000000"> </span><span style="color: #0000FF">false</span><span style="color: #000000">, </span><span style="color: #008000">//creates a folder when inserting an object in the client&#039;s browser, to work it is necessary to pass the parameters in the function create browserSessionToken</span>
+<span style="color: #000000">    },</span>
+<span style="color: #000000">    </span><span style="color: #008000">// BrowserSessionToken</span>
+<span style="color: #000000">    </span><span style="color: #008000">// To receive the client&#039;s token use the function await clinet.getSessionTokenBrowser()</span>
+<span style="color: #000000">    {</span>
+<span style="color: #000000">      </span><span style="color: #001080">WABrowserId:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;&quot;UnXjH.....&quot;&#039;</span><span style="color: #000000">,</span>
+<span style="color: #000000">      </span><span style="color: #001080">WASecretBundle:</span>
+<span style="color: #000000">        </span><span style="color: #A31515">&#039;{&quot;key&quot;:&quot;+i/nRgWJ....&quot;,&quot;encKey&quot;:&quot;kGdMR5t....&quot;,&quot;macKey&quot;:&quot;+i/nRgW....&quot;}&#039;</span><span style="color: #000000">,</span>
+<span style="color: #000000">      </span><span style="color: #001080">WAToken1:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;&quot;0i8....&quot;&#039;</span><span style="color: #000000">,</span>
+<span style="color: #000000">      </span><span style="color: #001080">WAToken2:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;&quot;1@lPpzwC....&quot;&#039;</span><span style="color: #000000">,</span>
+<span style="color: #000000">    }</span>
+<span style="color: #000000">  )</span>
+<span style="color: #000000">  .</span><span style="color: #795E26">then</span><span style="color: #000000">((</span><span style="color: #001080">client</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> </span><span style="color: #795E26">start</span><span style="color: #000000">(</span><span style="color: #001080">client</span><span style="color: #000000">))</span>
+<span style="color: #000000">  .</span><span style="color: #795E26">catch</span><span style="color: #000000">((</span><span style="color: #001080">error</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #001080">error</span><span style="color: #000000">));</span>
+</code></pre>
+				<a href="#callback-status-session" id="callback-status-session" style="color: inherit; text-decoration: none;">
+					<h3>Callback Status Session</h3>
+				</a>
+				<p>Gets the return if the session is <code>isLogged</code> or <code>notLogged</code> or <code>browserClose</code>
+					or <code>qrReadSuccess</code> or <code>qrReadFail</code> or <code>autocloseCalled</code> or <code>desconnectedMobile</code>
+				or <code>deleteToken</code> or <code>Create session wss return &quot;serverClose&quot; case server for close</code></p>
+				<table>
+					<thead>
+						<tr>
+							<th>Status</th>
+							<th>Condition</th>
+						</tr>
+					</thead>
+					<tbody><tr>
+							<td><code>isLogged</code></td>
+							<td>When the user is already logged in to the browser</td>
+						</tr>
+						<tr>
+							<td><code>notLogged</code></td>
+							<td>When the user is not connected to the browser, it is necessary to scan the QR code through the cell phone in the option WhatsApp Web</td>
+						</tr>
+						<tr>
+							<td><code>browserClose</code></td>
+							<td>If the browser is closed this parameter is returned</td>
+						</tr>
+						<tr>
+							<td><code>qrReadSuccess</code></td>
+							<td>If the user is not logged in, the QR code is passed on the terminal a callback is returned. After the correct reading by cell phone this parameter is returned</td>
+						</tr>
+						<tr>
+							<td><code>qrReadFail</code></td>
+							<td>If the browser stops when the QR code scan is in progress, this parameter is returned</td>
+						</tr>
+						<tr>
+							<td><code>autocloseCalled</code></td>
+							<td>The browser was closed using the autoClose command</td>
+						</tr>
+						<tr>
+							<td><code>desconnectedMobile</code></td>
+							<td>Client has disconnected in to mobile</td>
+						</tr>
+						<tr>
+							<td><code>serverClose</code></td>
+							<td>Client has disconnected in to wss</td>
+						</tr>
+						<tr>
+							<td><code>deleteToken</code></td>
+							<td>If you pass true within the function <code>client.getSessionTokenBrowser(true)</code></td>
+						</tr>
+				</tbody></table>
+				<pre><code class="language-javascript"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">venom</span><span style="color: #000000"> = </span><span style="color: #795E26">require</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;venom-bot&#039;</span><span style="color: #000000">);</span>
+<span style="color: #001080">venom</span>
+<span style="color: #000000">  .</span><span style="color: #795E26">create</span><span style="color: #000000">(</span>
+<span style="color: #000000">    </span><span style="color: #A31515">&#039;sessionName&#039;</span><span style="color: #000000">,</span>
+<span style="color: #000000">    </span><span style="color: #0000FF">undefined</span><span style="color: #000000">,</span>
+<span style="color: #000000">    (</span><span style="color: #001080">statusSession</span><span style="color: #000000">, </span><span style="color: #001080">session</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">      </span><span style="color: #008000">// return: isLogged || notLogged || browserClose || qrReadSuccess || qrReadFail || autocloseCalled || desconnectedMobile || deleteToken</span>
+<span style="color: #000000">      </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;Status Session: &#039;</span><span style="color: #000000">, </span><span style="color: #001080">statusSession</span><span style="color: #000000">);</span>
+<span style="color: #000000">      </span><span style="color: #008000">// create session wss return &quot;serverClose&quot; case server for close</span>
+<span style="color: #000000">      </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;Session name: &#039;</span><span style="color: #000000">, </span><span style="color: #001080">session</span><span style="color: #000000">);</span>
+<span style="color: #000000">    },</span>
+<span style="color: #000000">    </span><span style="color: #0000FF">undefined</span>
+<span style="color: #000000">  )</span>
+<span style="color: #000000">  .</span><span style="color: #795E26">then</span><span style="color: #000000">((</span><span style="color: #001080">client</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> </span><span style="color: #795E26">start</span><span style="color: #000000">(</span><span style="color: #001080">client</span><span style="color: #000000">))</span>
+<span style="color: #000000">  .</span><span style="color: #795E26">catch</span><span style="color: #000000">((</span><span style="color: #001080">error</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #001080">error</span><span style="color: #000000">));</span>
+</code></pre>
+				<a href="#exporting-qr-code" id="exporting-qr-code" style="color: inherit; text-decoration: none;">
+					<h3>Exporting QR Code</h3>
+				</a>
+				<p>By default, QR code will appear on the terminal. If you need to pass the QR
+				somewhere else heres how:</p>
+				<pre><code class="language-javascript"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">fs</span><span style="color: #000000"> = </span><span style="color: #795E26">require</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;fs&#039;</span><span style="color: #000000">);</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">venom</span><span style="color: #000000"> = </span><span style="color: #795E26">require</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;venom-bot&#039;</span><span style="color: #000000">);</span>
+
+<span style="color: #001080">venom</span>
+<span style="color: #000000">  .</span><span style="color: #795E26">create</span><span style="color: #000000">(</span>
+<span style="color: #000000">    </span><span style="color: #A31515">&#039;sessionName&#039;</span><span style="color: #000000">,</span>
+<span style="color: #000000">    (</span><span style="color: #001080">base64Qr</span><span style="color: #000000">, </span><span style="color: #001080">asciiQR</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">      </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #001080">asciiQR</span><span style="color: #000000">); </span><span style="color: #008000">// Optional to log the QR in the terminal</span>
+<span style="color: #000000">      </span><span style="color: #0000FF">var</span><span style="color: #000000"> </span><span style="color: #001080">matches</span><span style="color: #000000"> = </span><span style="color: #001080">base64Qr</span><span style="color: #000000">.</span><span style="color: #795E26">match</span><span style="color: #000000">(</span><span style="color: #811F3F">/</span><span style="color: #EE0000">^</span><span style="color: #811F3F">data:</span><span style="color: #D16969">([</span><span style="color: #811F3F">A-Za-z-+</span><span style="color: #EE0000">\/</span><span style="color: #D16969">]</span><span style="color: #000000">+</span><span style="color: #D16969">)</span><span style="color: #811F3F">;base64,</span><span style="color: #D16969">(</span><span style="color: #811F3F">.</span><span style="color: #000000">+</span><span style="color: #D16969">)</span><span style="color: #EE0000">$</span><span style="color: #811F3F">/</span><span style="color: #000000">),</span>
+<span style="color: #000000">        </span><span style="color: #001080">response</span><span style="color: #000000"> = {};</span>
+
+<span style="color: #000000">      </span><span style="color: #AF00DB">if</span><span style="color: #000000"> (</span><span style="color: #001080">matches</span><span style="color: #000000">.</span><span style="color: #001080">length</span><span style="color: #000000"> !== </span><span style="color: #098658">3</span><span style="color: #000000">) {</span>
+<span style="color: #000000">        </span><span style="color: #AF00DB">return</span><span style="color: #000000"> </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #267F99">Error</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;Invalid input string&#039;</span><span style="color: #000000">);</span>
+<span style="color: #000000">      }</span>
+<span style="color: #000000">      </span><span style="color: #001080">response</span><span style="color: #000000">.</span><span style="color: #001080">type</span><span style="color: #000000"> = </span><span style="color: #001080">matches</span><span style="color: #000000">[</span><span style="color: #098658">1</span><span style="color: #000000">];</span>
+<span style="color: #000000">      </span><span style="color: #001080">response</span><span style="color: #000000">.</span><span style="color: #001080">data</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #001080">Buffer</span><span style="color: #000000">.</span><span style="color: #795E26">from</span><span style="color: #000000">(</span><span style="color: #001080">matches</span><span style="color: #000000">[</span><span style="color: #098658">2</span><span style="color: #000000">], </span><span style="color: #A31515">&#039;base64&#039;</span><span style="color: #000000">);</span>
+
+<span style="color: #000000">      </span><span style="color: #0000FF">var</span><span style="color: #000000"> </span><span style="color: #001080">imageBuffer</span><span style="color: #000000"> = </span><span style="color: #001080">response</span><span style="color: #000000">;</span>
+<span style="color: #000000">      </span><span style="color: #795E26">require</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;fs&#039;</span><span style="color: #000000">).</span><span style="color: #795E26">writeFile</span><span style="color: #000000">(</span>
+<span style="color: #000000">        </span><span style="color: #A31515">&#039;out.png&#039;</span><span style="color: #000000">,</span>
+<span style="color: #000000">        </span><span style="color: #001080">imageBuffer</span><span style="color: #000000">[</span><span style="color: #A31515">&#039;data&#039;</span><span style="color: #000000">],</span>
+<span style="color: #000000">        </span><span style="color: #A31515">&#039;binary&#039;</span><span style="color: #000000">,</span>
+<span style="color: #000000">        </span><span style="color: #0000FF">function</span><span style="color: #000000"> (</span><span style="color: #001080">err</span><span style="color: #000000">) {</span>
+<span style="color: #000000">          </span><span style="color: #AF00DB">if</span><span style="color: #000000"> (</span><span style="color: #001080">err</span><span style="color: #000000"> != </span><span style="color: #0000FF">null</span><span style="color: #000000">) {</span>
+<span style="color: #000000">            </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #001080">err</span><span style="color: #000000">);</span>
+<span style="color: #000000">          }</span>
+<span style="color: #000000">        }</span>
+<span style="color: #000000">      );</span>
+<span style="color: #000000">    },</span>
+<span style="color: #000000">    </span><span style="color: #0000FF">undefined</span><span style="color: #000000">,</span>
+<span style="color: #000000">    { </span><span style="color: #001080">logQR:</span><span style="color: #000000"> </span><span style="color: #0000FF">false</span><span style="color: #000000"> }</span>
+<span style="color: #000000">  )</span>
+<span style="color: #000000">  .</span><span style="color: #795E26">then</span><span style="color: #000000">((</span><span style="color: #001080">client</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> </span><span style="color: #795E26">start</span><span style="color: #000000">(</span><span style="color: #001080">client</span><span style="color: #000000">))</span>
+<span style="color: #000000">  .</span><span style="color: #795E26">catch</span><span style="color: #000000">((</span><span style="color: #001080">error</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #001080">error</span><span style="color: #000000">));</span>
+</code></pre>
+			</div>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class="label pp-nav pp-group">
+						<span>Getting <wbr>Started</span>
+					</li>
+					<li class=" pp-nav pp-page">
+						<a href="installation.html">Installation</a>
+					</li>
+					<li class="current pp-nav pp-page">
+						<a href="creating-client.html">Creating a <wbr>Client</a>
+					</li>
+					<li class=" pp-nav pp-page">
+						<a href="basic-functions.html">Basic <wbr>Functions</a>
+					</li>
+					<li class="label pp-nav pp-group">
+						<span>API</span>
+					</li>
+					<li class=" ">
+						<a href="../../modules.html">Exports</a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="../../assets/js/main.js"></script>
+<script>if (location.protocol == 'file:') document.write('<script src="../../assets/js/search.json"><' + '/script>');</script>
+</body>
+</html>
