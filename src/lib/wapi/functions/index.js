@@ -156,3 +156,4 @@ export { setGroupDescription } from './set-group-description';
 export { setGroupTitle } from './set-group-title';
 export { setGroupSettings } from './set-group-settings';
 export { sendButtons } from './send-buttons';
+export { sendListMenu } from './send-list-menu';

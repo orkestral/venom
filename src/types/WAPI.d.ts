@@ -212,6 +212,14 @@ interface WAPI {
     title: string
   ) => Promise<object>;
   sendMessage: (to: string, content: string) => Promise<Object>;
+  sendListMenu: (
+    to: string,
+    title: string,
+    subTitle: string,
+    description: string,
+    buttonText: string,
+    menu: Array<any>
+  ) => Promise<Object>;
   sendMessageMentioned: (...args: any) => any;
   sendMessageOptions: (
     chat: any,

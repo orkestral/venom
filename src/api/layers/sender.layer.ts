@@ -75,6 +75,45 @@ export class SenderLayer extends ListenerLayer {
   }
 
   /**
+   * Send List menu
+   * @param to the numberid xxx@c.us
+   * @param title the titulo
+   * @param subtitle the subtitle
+   * @param description the description
+   * @param buttonText the name button
+   * @param menu List menu
+   */
+  public async sendListMenu(
+    to: string,
+    title: string,
+    subTitle: string,
+    description: string,
+    buttonText: string,
+    menu: Array<any>
+  ): Promise<Object> {
+    return new Promise(async (resolve, reject) => {
+      const result = await this.page.evaluate(
+        ({ to, title, subTitle, description, buttonText, menu }) => {
+          return WAPI.sendListMenu(
+            to,
+            title,
+            subTitle,
+            description,
+            buttonText,
+            menu
+          );
+        },
+        { to, title, subTitle, description, buttonText, menu }
+      );
+      if (result['erro'] == true) {
+        return reject(result);
+      } else {
+        return resolve(result);
+      }
+    });
+  }
+
+  /**
    * Sends a text message to given chat
    * @param to chat id: xxxxx@us.c
    * @param content text message
