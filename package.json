@@ -99,7 +99,7 @@
     "release-it": "^14.10.0",
     "shx": "^0.3.3",
     "ts-loader": "^9.2.3",
-    "typedoc": "^0.21.2",
+    "typedoc": "^0.22.3",
     "typedoc-plugin-pages": "^1.1.0",
     "typescript": "^4.3.5",
     "webpack": "^5.52.1",
