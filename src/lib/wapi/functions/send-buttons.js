@@ -88,8 +88,12 @@ export async function sendButtons(to, title, buttons, subtitle) {
             'passed string value in displayText'
           );
         }
-        buttons[index].buttonId = `id${index}`;
-        buttons[index].type = 1;
+        if(!buttons[index].buttonId) {
+          buttons[index].buttonId = `id${index}`; 
+        } 
+        if(!buttons[index].type ) { 
+          buttons[index].type = 1; 
+        }
       }
     }
   }
