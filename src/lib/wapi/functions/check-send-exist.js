@@ -141,9 +141,10 @@ export async function sendExist(chatId, returnChat = true, Send = true) {
 
   let ck = await window.WAPI.checkNumberStatus(chatId);
 
-  if (ck.status === 404 && !ck.id._serialized.includes("@g")) {
+  if (ck.status === 404 && !chatId.includes('@g.us')) {
     return WAPI.scope(chatId, true, ck.status, 'The number does not exist');
   }
+  
   let chat = await window.WAPI.getChat(ck.id._serialized);
 
   if (ck.numberExists && chat === undefined) {
