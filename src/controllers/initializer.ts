@@ -63,13 +63,11 @@ import { deleteFiles, checkingCloses } from '../api/helpers';
 import { Whatsapp } from '../api/whatsapp';
 import { CreateConfig, defaultOptions } from '../config/create-config';
 import { tokenSession } from '../config/tokenSession.config';
-
 import { checkFileJson } from '../api/helpers/check-token-file';
 import { SocketState, SocketStream } from '../api/model/enum';
-
 import { SessionTokenCkeck, saveToken } from './auth';
 import { initWhatsapp, initBrowser } from './browser';
-import { checkUpdates, welcomeScreen } from './welcome';
+import { welcomeScreen } from './welcome';
 /**
  * A callback will be received, informing the status of the qrcode
  */
@@ -143,7 +141,6 @@ export async function create(
   browserSessionToken?: tokenSession,
   browserInstance?: BrowserInstance
 ): Promise<Whatsapp> {
-  let instance = 'session';
   let session = 'session';
 
   if (
@@ -169,11 +166,6 @@ export async function create(
   if (!mergedOptions.disableWelcome) {
     welcomeScreen();
   }
-
-  // if (mergedOptions.updatesLog) {
-  //   const ver = await checkUpdates();
-  //   throw `Unable to access: "https://www.npmjs.com", check your internet`;
-  // }
 
   // Initialize whatsapp
   if (mergedOptions.browserWS) {
