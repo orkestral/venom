@@ -78,7 +78,8 @@ or for [Nightly releases](https://github.com/orkestral/venom/releases/tag/nightl
 > npm i --save https://github.com/orkestral/venom/releases/download/nightly/venom-bot-nightly.tgz
 ```
 
-## Installing the current repository "you can download the beta version from the current repository!"
+Installing the current repository "you can download the beta version from the current repository!"
+
 ```bash
 > npm i github:orkestral/venom
 ```
