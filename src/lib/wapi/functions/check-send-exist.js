@@ -52,15 +52,16 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
-export function scope(id, erro, status, text = null) {
-  let e = {
+export function scope(id, erro, status, text = null, result = null) {
+  const object = {
     me: Store.Me.attributes,
     to: id,
     erro: erro,
     text: text,
-    status: status
+    status: status,
+    result: result
   };
-  return e;
+  return object;
 }
 export async function getchatId(chatId) {
   var to = await WAPI.getChatById(chatId);

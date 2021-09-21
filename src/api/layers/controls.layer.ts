@@ -63,6 +63,26 @@ export class ControlsLayer extends UILayer {
   constructor(public page: Page, session?: string, options?: CreateConfig) {
     super(page, session, options);
   }
+  /**
+   * Check if there is chat
+   * @param contactId {string} id '000000000000@c.us'
+   * @returns object
+   */
+  public async checkChat(contactId: string) {
+    return new Promise(async (resolve, reject) => {
+      const result = await this.page.evaluate(
+        ({ contactId }) => {
+          return WAPI.checkChat(contactId);
+        },
+        { contactId }
+      );
+      if (result['erro'] == true) {
+        return reject(result);
+      } else {
+        return resolve(result);
+      }
+    });
+  }
 
   /**
    * Unblock contact
