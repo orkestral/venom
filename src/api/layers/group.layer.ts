@@ -273,9 +273,11 @@ export class GroupLayer extends RetrieverLayer {
   public async getAllChatsGroups(groupId: string) {
     return await this.page.evaluate(() => {
       const chats = WAPI.getAllChats();
-      return (!groupId && !groupId.length && typeof groupId === 'string') ?
-        chats.filter((chat) => chat.kind === 'group') :
-        chats.filter((chat) => chat.kind === 'group' && groupId === chat.id._serialized);
+      return !groupId && !groupId.length && typeof groupId === 'string'
+        ? chats.filter((chat) => chat.kind === 'group')
+        : chats.filter(
+            (chat) => chat.kind === 'group' && groupId === chat.id._serialized
+          );
     });
   }
 
