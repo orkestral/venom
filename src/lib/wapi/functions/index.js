@@ -158,3 +158,4 @@ export { setGroupSettings } from './set-group-settings';
 export { sendButtons } from './send-buttons';
 export { sendListMenu } from './send-list-menu';
 export { checkChat } from './check-chat';
+export { checkNumberStatus } from './check-number-status';
