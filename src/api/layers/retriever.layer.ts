@@ -146,10 +146,17 @@ export class RetrieverLayer extends SenderLayer {
    * @returns contact detial as promise
    */
   public async checkNumberStatus(contactId: string): Promise<WhatsappProfile> {
-    return await this.page.evaluate(
-      (contactId) => WAPI.checkNumberStatus(contactId),
-      contactId
-    );
+    return new Promise(async (resolve, reject) => {
+      const result: WhatsappProfile = await this.page.evaluate(
+        (contactId) => WAPI.checkNumberStatus(contactId),
+        contactId
+      );
+      if (result['status'] !== 200) {
+        reject(result);
+      } else {
+        resolve(result);
+      }
+    });
   }
 
   /**

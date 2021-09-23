@@ -674,7 +674,12 @@ const url = await client.getProfilePicFromServer('000000000000@c.us');
 const chat = await client.getChat('000000000000@c.us');
 
 // Check if the number exists
-const chat = await client.checkNumberStatus('000000000000@c.us');
+const chat = await client.checkNumberStatus('000000000000@c.us')
+.then((result) => {
+    console.log('Result: ', result); //return object success
+}).catch((erro) => {
+    console.error('Error when sending: ', erro); //return object error
+});
 ```
 
 ## Group Functions
