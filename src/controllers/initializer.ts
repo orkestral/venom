@@ -270,17 +270,21 @@ export async function create(
         statusFind && statusFind('chatsAvailable', session);
       }
       if (stateStream === SocketStream.DISCONNECTED) {
-        let onQR: boolean = await page.evaluate(() => {
-          if (
-            document.querySelector('canvas') &&
-            document.querySelectorAll('#startup').length == 0
-          ) {
-            return true;
-          } else {
-            return false;
+        await page.waitForFunction(
+          () => {
+            if (
+              document.querySelector('canvas') &&
+              document.querySelectorAll('#startup').length == 0
+            ) {
+              return true;
+            }
+          },
+          {
+            timeout: 0,
+            polling: 100
           }
-        });
-        if (onQR === true && checkFileJson(mergedOptions, session)) {
+        );
+        if (checkFileJson(mergedOptions, session)) {
           if (statusFind) {
             statusFind('desconnectedMobile', session);
           }
@@ -289,19 +293,21 @@ export async function create(
       }
     });
 
-    client.onStateChange((state) => {
+    client.onStateChange(async (state) => {
       if (state === SocketState.PAIRING) {
-        const device = page.evaluate(() => {
-          if (document.querySelectorAll('#startup').length) {
-            return true;
-          } else {
-            return false;
+        await page.waitForFunction(
+          () => {
+            if (document.querySelectorAll('#startup').length) {
+              return true;
+            }
+          },
+          {
+            timeout: 0,
+            polling: 100
           }
-        });
-        if (device) {
-          if (statusFind) {
-            statusFind('deviceNotConnected', session);
-          }
+        );
+        if (statusFind) {
+          statusFind('deviceNotConnected', session);
         }
       }
       if (mergedOptions.createPathFileToken) {
