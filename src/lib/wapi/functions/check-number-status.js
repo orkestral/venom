@@ -8,14 +8,11 @@ export async function checkNumberStatus(id, conn = true) {
     }
     if (conn === true) {
       const connection = window.Store.State.default.state;
-      if (connection !== "CONNECTED") {
-        Object.assign(
-          err,
-          {
-            text: "No connection with WhatsApp",
-            connection: connection
-          }
-        );
+      if (connection !== 'CONNECTED') {
+        Object.assign(err, {
+          text: 'No connection with WhatsApp',
+          connection: connection
+        });
         throw err;
       }
     }
@@ -37,7 +34,7 @@ export async function checkNumberStatus(id, conn = true) {
       status: e.error,
       text: e.text,
       connection: e.connection,
-      jid: !!e.text ? undefined : new window.Store.WidFactory.createWid(id),
+      jid: e.text ? undefined : new window.Store.WidFactory.createWid(id)
     });
   }
 }

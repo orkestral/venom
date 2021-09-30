@@ -141,7 +141,7 @@ export function sendCheckType(chatId = undefined) {
         'incorrect parameters! Use as an example: 00000000-000000@g.us'
       );
     }
-  } 
+  }
 }
 
 export async function sendExist(chatId, returnChat = true, Send = true) {
