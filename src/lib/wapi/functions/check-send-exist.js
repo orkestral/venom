@@ -141,9 +141,7 @@ export function sendCheckType(chatId = undefined) {
         'incorrect parameters! Use as an example: 00000000-000000@g.us'
       );
     }
-  } else {
-    return WAPI.scope(chatId, true, 404, 'The number must be string!');
-  }
+  } 
 }
 
 export async function sendExist(chatId, returnChat = true, Send = true) {
