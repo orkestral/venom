@@ -1,4 +1,8 @@
 export async function checkNumberStatus(id) {
+  const checkType = WAPI.sendCheckType(id);
+  if (!!checkType && checkType.status === 404) {
+    return checkType;
+  }
   try {
     const result = await window.Store.WapQuery.queryExist(id);
     if (result.status === 404) {
