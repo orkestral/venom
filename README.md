@@ -748,6 +748,10 @@ await client.setProfileName('Venom bot');
 
 // Set client profile photo
 await client.setProfilePic('path/to/image.jpg');
+
+// Get device info
+await client.getHostDevice();
+
 ```
 
 ## Device Functions
@@ -762,9 +766,6 @@ await client.killServiceWorker();
 
 // Load the service again
 await client.restartService();
-
-// Get device info
-await client.getHostDevice();
 
 // Get connection state
 await client.getConnectionState();
