@@ -52,15 +52,16 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
-export function scope(id, erro, status, text = null) {
-  let e = {
+export function scope(id, erro, status, text = null, result = null) {
+  const object = {
     me: Store.Me.attributes,
     to: id,
     erro: erro,
     text: text,
-    status: status
+    status: status,
+    result: result
   };
-  return e;
+  return object;
 }
 export async function getchatId(chatId) {
   var to = await WAPI.getChatById(chatId);
@@ -81,7 +82,10 @@ export async function getchatId(chatId) {
   }
 }
 
-export async function sendExist(chatId, returnChat = true, Send = true) {
+export function sendCheckType(chatId = undefined) {
+  if (!chatId) {
+    return WAPI.scope(chatId, true, 404, 'It is necessary to pass a number!');
+  }
   if (typeof chatId === 'string') {
     const contact = '@c.us';
     const broadcast = '@broadcast';
@@ -138,12 +142,19 @@ export async function sendExist(chatId, returnChat = true, Send = true) {
       );
     }
   }
+}
 
+export async function sendExist(chatId, returnChat = true, Send = true) {
+  const checkType = WAPI.sendCheckType(chatId);
+  if (!!checkType && checkType.status === 404) {
+    return checkType;
+  }
   let ck = await window.WAPI.checkNumberStatus(chatId);
 
-  if (ck.status === 404) {
+  if (ck.status === 404 && !ck.id._serialized.includes('@g.us')) {
     return WAPI.scope(chatId, true, ck.status, 'The number does not exist');
   }
+
   let chat = await window.WAPI.getChat(ck.id._serialized);
 
   if (ck.numberExists && chat === undefined) {

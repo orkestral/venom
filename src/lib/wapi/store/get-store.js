@@ -89,21 +89,13 @@ export async function getStore(modules) {
     window.Store.SendTextMsgToChat(this, ...arguments);
   };
 
-  if (!window.Store.Chat._find) {
-    window.Store.Chat._find = (e) => {
-      const target = window.Store.Chat.get(e);
-      return target
-        ? Promise.resolve(target)
-        : Promise.resolve({
-            id: e
-          });
-    };
-  }
-
   if (window.Store.MediaCollection)
     window.Store.MediaCollection.prototype.processFiles =
       window.Store.MediaCollection.prototype.processFiles ||
       window.Store.MediaCollection.prototype.processAttachments;
+
+  Store.Chat._findAndParse = Store.BusinessProfile._findAndParse;
+  Store.Chat._find = Store.BusinessProfile._find;
 
   return window.Store;
 }

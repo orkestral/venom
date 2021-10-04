@@ -220,6 +220,7 @@ interface WAPI {
     buttonText: string,
     menu: Array<any>
   ) => Promise<Object>;
+  checkChat: (contactId: string) => Promise<Object>;
   sendMessageMentioned: (...args: any) => any;
   sendMessageOptions: (
     chat: any,

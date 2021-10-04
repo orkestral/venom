@@ -14,9 +14,9 @@
 > Venom is a high-performance system developed with JavaScript to create a bot for WhatsApp, support for creating any interaction, such as customer service, media sending, sentence recognition based on artificial intelligence and all types of design architecture for WhatsApp.
 
 <p align="center">
-  <a href="https://orkestral.github.io/venom/pages/Getting%20Started/creating-client.html">Getting Started</a> •
-  <a href="https://orkestral.github.io/venom/pages/Getting%20Started/basic-functions.html">Basic Function</a> •
-  <a href="https://orkestral.github.io/venom">Documentation</a>
+  <a href="https://github.com/orkestral/venom/blob/master/docs/getting-started/creating-client.md">Getting Started</a> •
+  <a href="https://github.com/orkestral/venom/blob/master/docs/getting-started/basic-functions.md">Basic Function</a> •
+  <a href="https://github.com/orkestral/venom/tree/master/docs/getting-started">Documentation</a>
 </p>
 
 ## Get started fast and easy! Official API!
@@ -76,6 +76,12 @@ or for [Nightly releases](https://github.com/orkestral/venom/releases/tag/nightl
 
 ```bash
 > npm i --save https://github.com/orkestral/venom/releases/download/nightly/venom-bot-nightly.tgz
+```
+
+Installing the current repository "you can download the beta version from the current repository!"
+
+```bash
+> npm i github:orkestral/venom
 ```
 
 ## Getting started
@@ -348,7 +354,7 @@ await client.sendListMenu('000000000000@c.us', 'Title', 'subTitle', 'Description
   .catch((erro) => {
     console.error('Error when sending: ', erro); //return object error
   });
-  
+
 // Send Messages with Buttons Reply
 const buttons = [
   {
@@ -612,6 +618,7 @@ const contacts = await client.getAllChatsContacts();
 const contactNewMsg = await client.getChatContactNewMsg();
 
 // Retrieve all groups
+// you can pass the group id optional use, exemple: client.getAllChatsGroups('00000000-000000@g.us')
 const chats = await client.getAllChatsGroups();
 
 //Retrieve all groups new messages
@@ -667,7 +674,12 @@ const url = await client.getProfilePicFromServer('000000000000@c.us');
 const chat = await client.getChat('000000000000@c.us');
 
 // Check if the number exists
-const chat = await client.checkNumberStatus('000000000000@c.us');
+const chat = await client.checkNumberStatus('000000000000@c.us')
+.then((result) => {
+    console.log('Result: ', result); //return object success
+}).catch((erro) => {
+    console.error('Error when sending: ', erro); //return object error
+});
 ```
 
 ## Group Functions
@@ -736,19 +748,24 @@ await client.setProfileName('Venom bot');
 
 // Set client profile photo
 await client.setProfilePic('path/to/image.jpg');
+
+// Get device info
+await client.getHostDevice();
+
 ```
 
 ## Device Functions
 
 ```javascript
+
+// Disconnect from service
+await client.logout();
+
 // Delete the Service Worker
 await client.killServiceWorker();
 
 // Load the service again
 await client.restartService();
-
-// Get device info
-await client.getHostDevice();
 
 // Get connection state
 await client.getConnectionState();
@@ -817,9 +834,18 @@ client.onAddedToGroup(chatEvent => {
 ## Other
 
 ```javascript
+//Check if there is chat
+await client
+  .checkChat(chatId)
+  .then((result) => {
+    console.log('Result: ', result); //return object success
+  })
+  .catch((erro) => {
+    console.error('Error when sending: ', erro); //return object error
+  });
+
 // Pin chat and Unpin chat messages with true or false
 // Pin chat, non-existent (optional)
-
 await client
   .pinChat(chatId, true, false)
   .then((result) => {

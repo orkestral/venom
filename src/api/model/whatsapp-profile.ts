@@ -60,4 +60,5 @@ export interface WhatsappProfile {
   isBusiness: boolean;
   canReceiveMessage: boolean;
   numberExists: boolean;
+  profilePic: string;
 }

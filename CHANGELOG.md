@@ -1,3 +1,22 @@
+## [3.1.7](https://github.com/orkestral/venom/compare/v3.1.6...v3.1.7) (2021-09-24)
+
+
+### Bug Fixes
+
+* Chat find ([00918f0](https://github.com/orkestral/venom/commit/00918f0c89e0226555df4eeefb9e16f1b36b3f70))
+* lint ([35a1c4a](https://github.com/orkestral/venom/commit/35a1c4ad38b1326cd1951689d4a22d530017ce0a))
+* statusFind ([80b5a77](https://github.com/orkestral/venom/commit/80b5a774d9f77002b405555071d162076af91849))
+
+
+### Features
+
+* checkChat ([ca4c1ba](https://github.com/orkestral/venom/commit/ca4c1bab17f15eeb33bca22f84867607352ff03c))
+* checkNumberStatus - Promise ([457eccb](https://github.com/orkestral/venom/commit/457eccb352f55044140ceba812af4938ce8d653a))
+* lint check-send-exist ([0390f9a](https://github.com/orkestral/venom/commit/0390f9a13e5105dc610207ec7c0d14dbaedcc01a))
+* select chat group ([170ab45](https://github.com/orkestral/venom/commit/170ab454c2f4bda1c7b99bc7c5b117ce4ca44281))
+
+
+
 ## [3.1.6](https://github.com/orkestral/venom/compare/v3.1.4...v3.1.6) (2021-09-16)
 
 
