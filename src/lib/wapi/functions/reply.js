@@ -107,7 +107,10 @@ export async function reply(chatId, content, quotedMessageId) {
       quotedMsgOptions = quotedMessage.msgContextInfo(chat);
     }
 
-    let checkID = await WAPI.checkIdMessage(chat.id._serialized, quotedMessageId);
+    let checkID = await WAPI.checkIdMessage(
+      chat.id._serialized,
+      quotedMessageId
+    );
     if (checkID.erro == true) {
       return checkID;
     }
