@@ -107,12 +107,12 @@ export async function reply(chatId, content, quotedMessageId) {
       quotedMsgOptions = quotedMessage.msgContextInfo(chat);
     }
 
-    let checkID = await WAPI.checkIdMessage(chat.id, quotedMessageId);
+    let checkID = await WAPI.checkIdMessage(chat.id._serialized, quotedMessageId);
     if (checkID.erro == true) {
       return checkID;
     }
 
-    const newMsgId = await window.WAPI.getNewMessageId(chat.id);
+    const newMsgId = await window.WAPI.getNewMessageId(chat.id._serialized);
     let inChat = await WAPI.getchatId(chat.id).catch(() => {});
     if (inChat) {
       chat.lastReceivedKey._serialized = inChat._serialized;
