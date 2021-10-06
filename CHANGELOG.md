@@ -1,3 +1,22 @@
+## [3.1.8](https://github.com/orkestral/venom/compare/v3.1.7...v3.1.8) (2021-10-06)
+
+
+### Bug Fixes
+
+* lint ([7a0f465](https://github.com/orkestral/venom/commit/7a0f465094b037e530b4628b01657d45bb90bdbf))
+* lint ([83a8df9](https://github.com/orkestral/venom/commit/83a8df985fa79c03b9cc6bc9ff6c5586cd53ec58))
+* lint -  fix-reply ([423c844](https://github.com/orkestral/venom/commit/423c84440dea92f631ec3079dd21a8970773a3b4))
+
+
+### Features
+
+*  checkNumber - state ([d617640](https://github.com/orkestral/venom/commit/d6176405aead74a2d734f0a7f7a21d17e49bb7a5))
+* get profile connection ([b57455e](https://github.com/orkestral/venom/commit/b57455e2b80882f4735571d5ff69a89c80fac8b3))
+* getHostDevice ([b342e23](https://github.com/orkestral/venom/commit/b342e2384f67aa0266a97ab137967efa11de582c))
+* sendCheckType ([dd10fea](https://github.com/orkestral/venom/commit/dd10feab37247b351ce5fcf6ee14335eceb9df97))
+
+
+
 ## [3.1.7](https://github.com/orkestral/venom/compare/v3.1.6...v3.1.7) (2021-09-24)
 
 
