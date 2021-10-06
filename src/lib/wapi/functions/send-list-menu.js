@@ -126,7 +126,8 @@ export async function sendListMenu(
                   !!menu[index].rows[i].description &&
                   menu[index].rows[i].description.length
                 ) {
-                  menu[index].rows[i].rowId = `dessert_${i}`;
+                  if(!menu[index].rows[i].rowId) {
+                    menu[index].rows[i].rowId = `dessert_${i}`; }
                 } else {
                   return WAPI.scope(
                     null,
