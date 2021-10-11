@@ -1,3 +1,17 @@
+## Meet the Superchats
+<br>
+<a href='https://github.com/orkestral/superchats'><img src='https://github.com/orkestral/superchats/raw/main/img/superchats.png' height='60' alt='SuperChats' aria-label='https://github.com/orkestral/superchats' /></a>
+<br>
+<br>
+
+**SuperChats** is a premium library with unique features that control Whatsapp functions with socket.
+With Superchats you can build service bots, multiservice chats or any system that uses Whatsapp
+
+**Superchats** is a premium version of **Venom**, with exclusive features and support for companies and developers worldwide
+<br>
+<a href='https://github.com/orkestral/superchats'>https://github.com/orkestral/superchats</a>
+
+
 # 🕷Venom Bot🕸
 
 [![npm version](https://img.shields.io/npm/v/venom-bot.svg?color=green)](https://www.npmjs.com/package/venom-bot)
@@ -14,18 +28,6 @@
 > Venom is a high-performance system developed with JavaScript to create a bot for WhatsApp, support for creating any interaction, such as customer service, media sending, sentence recognition based on artificial intelligence and all types of design architecture for WhatsApp.
 
 
-## Meet the Superchats
-<br>
-<a href='https://github.com/orkestral/superchats'><img src='https://github.com/orkestral/superchats/raw/main/img/superchats.png' height='60' alt='SuperChats' aria-label='https://github.com/orkestral/superchats' /></a>
-<br>
-<br>
-
-**SuperChats** is a premium library with unique features that control Whatsapp functions with socket.
-With Superchats you can build service bots, multiservice chats or any system that uses Whatsapp
-
-**Superchats** is a premium version of **Venom**, with exclusive features and support for companies and developers worldwide
-<br>
-<a href='https://github.com/orkestral/superchats'>https://github.com/orkestral/superchats</a>
 ## Get started fast and easy! Official API!
 
 <p align="center">
