@@ -13,11 +13,7 @@
 
 > Venom is a high-performance system developed with JavaScript to create a bot for WhatsApp, support for creating any interaction, such as customer service, media sending, sentence recognition based on artificial intelligence and all types of design architecture for WhatsApp.
 
-<p align="center">
-  <a href="https://github.com/orkestral/venom/blob/master/docs/getting-started/creating-client.md">Getting Started</a> •
-  <a href="https://github.com/orkestral/venom/blob/master/docs/getting-started/basic-functions.md">Basic Function</a> •
-  <a href="https://github.com/orkestral/venom/tree/master/docs/getting-started">Documentation</a>
-</p>
+
 ## Meet the Superchats
 <br>
 <a href='https://github.com/orkestral/superchats'><img src='https://github.com/orkestral/superchats/raw/main/img/superchats.png' height='60' alt='SuperChats' aria-label='https://github.com/orkestral/superchats' /></a>
@@ -29,6 +25,13 @@ With Superchats you can build service bots, multiservice chats or any system tha
 <br>
 <a href='https://github.com/orkestral/superchats'>https://github.com/orkestral/superchats</a>
 ## Get started fast and easy! Official API!
+
+<p align="center">
+  <a href="https://github.com/orkestral/venom/blob/master/docs/getting-started/creating-client.md">Getting Started</a> •
+  <a href="https://github.com/orkestral/venom/blob/master/docs/getting-started/basic-functions.md">Basic Function</a> •
+  <a href="https://github.com/orkestral/venom/tree/master/docs/getting-started">Documentation</a>
+</p>
+
 
 <p>
 It's a high-performance alternative API to whatzapp, you can send, text messages, files, images, videos and more.
