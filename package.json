@@ -108,7 +108,7 @@
   "dependencies": {
     "atob": "^2.1.2",
     "axios": "^0.21.4",
-    "boxen": "^5.1.1",
+    "boxen": "^6.2.1",
     "catch-exit": "^1.1.0",
     "chalk": "^4.0.0",
     "chrome-launcher": "^0.14.0",
