@@ -57,6 +57,7 @@ export function sendMessageWithThumb(
   url,
   title,
   description,
+  text,
   chatId,
   done
 ) {
@@ -72,7 +73,7 @@ export function sendMessageWithThumb(
     title: title,
     thumbnail: thumb
   };
-  chatSend.sendMessage(url, {
+  chatSend.sendMessage(text, {
     linkPreview: linkPreview,
     mentionedJidList: [],
     quotedMsg: null,
