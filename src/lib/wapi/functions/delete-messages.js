@@ -94,14 +94,8 @@ export async function deleteMessages(chatId, messageArray) {
     const m = { type: 'deleteMessages' };
 
     let jobs = [
-      chat.sendRevokeMsgs(
-        messagesToDelete.filter((msg) => msg.fromMe),
-        chat
-      ),
-      chat.sendDeleteMsgs(
-        messagesToDelete.filter((msg) => !msg.fromMe),
-        chat
-      )
+      chat.sendRevokeMsgs(messagesToDelete, chat),
+      chat.sendDeleteMsgs(messagesToDelete, chat)
     ];
 
     const result = (await Promise.all(jobs))[1];
