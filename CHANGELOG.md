@@ -1,3 +1,15 @@
+## [3.1.9](https://github.com/orkestral/venom/compare/v3.1.8...v3.1.9) (2021-10-23)
+
+
+### Bug Fixes
+
+* deleteMessage ([1ae12b1](https://github.com/orkestral/venom/commit/1ae12b134aec9620c83859db94389c778a6886d3))
+* get profile ([642aedc](https://github.com/orkestral/venom/commit/642aedcf3ccc0517df1e12d0f27cbe8eb1a09121))
+* onAnyMessage ([ba96f80](https://github.com/orkestral/venom/commit/ba96f80790c3eb23d115ed3277f0bf1bcdcd3d4a))
+* send group ([58b46d6](https://github.com/orkestral/venom/commit/58b46d60aa8f058cdee4484e5e1a7a030bce464f))
+
+
+
 ## [3.1.8](https://github.com/orkestral/venom/compare/v3.1.7...v3.1.8) (2021-10-06)
 
 
