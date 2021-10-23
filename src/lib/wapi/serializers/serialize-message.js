@@ -56,9 +56,8 @@ export const _serializeMessageObj = (obj) => {
   if (obj == undefined) {
     return null;
   }
-  const _chat = obj['chat'] ? WAPI._serializeChatObj(obj['chat']) : {};
-  if (obj.quotedMsg) obj.quotedMsgObj();
-  return Object.assign(window.WAPI._serializeRawObj(obj), {
+  const _chat = obj.chat ? WAPI._serializeChatObj(obj.chat) : {};
+  const message = {
     id: obj.id._serialized,
     from: obj.from._serialized,
     quotedParticipant: obj.quotedParticipant
@@ -83,11 +82,9 @@ export const _serializeMessageObj = (obj) => {
         : undefined
       : undefined,
     fromMe: obj.id.fromMe,
-    sender: obj['senderObj']
-      ? WAPI._serializeContactObj(obj['senderObj'])
-      : null,
-    timestamp: obj['t'],
-    content: obj['body'],
+    sender: obj.senderObj ? WAPI._serializeContactObj(obj.senderObj) : null,
+    timestamp: obj.t,
+    content: obj.body,
     isGroupMsg: obj.isGroupMsg,
     isLink: obj.isLink,
     isMMS: obj.isMMS,
@@ -98,8 +95,21 @@ export const _serializeMessageObj = (obj) => {
     chat: _chat,
     isOnline: _chat.isOnline,
     lastSeen: _chat.lastSeen,
-    quotedMsgObj: WAPI._serializeMessageObj(obj['_quotedMsgObj']),
-    mediaData: window.WAPI._serializeRawObj(obj['mediaData']),
+    quotedMsgObj: obj._quotedMsgObj,
+    mediaData: window.WAPI._serializeRawObj(obj.mediaData),
+    caption: obj.caption,
+    deprecatedMms3Url: obj.deprecatedMms3Url,
+    directPath: obj.directPath,
+    encFilehash: obj.encFilehash,
+    filehash: obj.filehash,
+    filename: obj.filename,
+    mimetype: obj.mimetype,
+    clientUrl: obj.clientUrl,
+    mediaKey: obj.mediaKey,
+    size: obj.size,
+    t: obj.t,
     reply: (body) => window.WAPI.reply(_chat.id._serialized, body, obj)
-  });
+  };
+
+  return Object.assign(message, Object.create(obj));
 };

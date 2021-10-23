@@ -801,6 +801,13 @@ await client.getWAVersion();
 ## Events
 
 ```javascript
+
+//Listens to all new messages
+//To receiver or recipient
+client.onAnyMessage(message => {
+  ...
+};
+
 // Listen to messages
 client.onMessage(message => {
   ...
