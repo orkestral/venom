@@ -438,6 +438,7 @@ export class SenderLayer extends ListenerLayer {
    * @param url
    * @param title
    * @param description
+   * @param text
    * @param chatId
    */
   public async sendMessageWithThumb(
@@ -445,17 +446,19 @@ export class SenderLayer extends ListenerLayer {
     url: string,
     title: string,
     description: string,
+    text: string,
     chatId: string
   ) {
     return this.page.evaluate(
-      ({ thumb, url, title, description, chatId }) => {
-        WAPI.sendMessageWithThumb(thumb, url, title, description, chatId);
+      ({ thumb, url, title, description, chatId, text }) => {
+        WAPI.sendMessageWithThumb(thumb, url, title, description, text, chatId);
       },
       {
         thumb,
         url,
         title,
         description,
+        text,
         chatId
       }
     );

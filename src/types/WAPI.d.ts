@@ -238,6 +238,7 @@ interface WAPI {
     url: string,
     title: string,
     description: string,
+    text: string,
     chatId: string
   ) => void;
   sendMute: (id: string, time: number, type: string) => Promise<object>;
