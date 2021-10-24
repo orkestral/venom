@@ -1,3 +1,7 @@
+## [3.1.11](https://github.com/orkestral/venom/compare/v3.1.10...v3.1.11) (2021-10-24)
+
+
+
 ## [3.1.10](https://github.com/orkestral/venom/compare/v3.1.9...v3.1.10) (2021-10-24)
 
 
