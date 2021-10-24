@@ -63,8 +63,14 @@ export const _serializeContactObj = (obj) => {
 
   return Object.assign(window.WAPI._serializeRawObj(obj), {
     formattedName: obj.formattedName,
+    displayName: obj.displayName,
+    formattedShortName: obj.formattedShortName,
+    formattedShortNameWithNonBreakingSpaces:
+      obj.formattedShortNameWithNonBreakingSpaces,
     isHighLevelVerified: obj.isHighLevelVerified,
     isMe: obj.isMe,
+    mentionName: obj.mentionName,
+    notifyName: obj.notifyName,
     isMyContact: obj.isMyContact,
     isPSA: obj.isPSA,
     isUser: obj.isUser,

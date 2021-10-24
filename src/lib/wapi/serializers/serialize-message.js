@@ -85,6 +85,7 @@ export const _serializeMessageObj = (obj) => {
     sender: obj.senderObj ? WAPI._serializeContactObj(obj.senderObj) : null,
     timestamp: obj.t,
     content: obj.body,
+    body: obj.body,
     isGroupMsg: obj.isGroupMsg,
     isLink: obj.isLink,
     isMMS: obj.isMMS,
@@ -108,6 +109,14 @@ export const _serializeMessageObj = (obj) => {
     mediaKey: obj.mediaKey,
     size: obj.size,
     t: obj.t,
+    isNewMsg: obj.isNewMsg,
+    linkPreview: obj.linkPreview,
+    text: obj.text,
+    height: obj.height,
+    width: obj.width,
+    self: obj.self,
+    initialPageSize: obj.initialPageSize,
+
     reply: (body) => window.WAPI.reply(_chat.id._serialized, body, obj)
   };
 
