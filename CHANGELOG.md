@@ -1,3 +1,17 @@
+## [3.1.10](https://github.com/orkestral/venom/compare/v3.1.9...v3.1.10) (2021-10-24)
+
+
+### Bug Fixes
+
+* body ([242df0b](https://github.com/orkestral/venom/commit/242df0be835708c772758fe8edae28cd74ee04e9))
+
+
+### Features
+
+* Add text option to the message with thumb method ([edddc3c](https://github.com/orkestral/venom/commit/edddc3cd85995c9c8ad734e3b0be2a422eb1ae17))
+
+
+
 ## [3.1.9](https://github.com/orkestral/venom/compare/v3.1.8...v3.1.9) (2021-10-23)
 
 
