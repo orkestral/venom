@@ -300,6 +300,7 @@ export const storeObjects = [
     id: 'Versions',
     conditions: (module) =>
       module.loadProtoVersions &&
+      module.default &&
       module.default['15'] &&
       module.default['16'] &&
       module.default['17']
