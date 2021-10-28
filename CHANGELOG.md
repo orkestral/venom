@@ -1,3 +1,12 @@
+## [3.1.12](https://github.com/orkestral/venom/compare/v3.1.11...v3.1.12) (2021-10-28)
+
+
+### Bug Fixes
+
+* Error connect ([e15a018](https://github.com/orkestral/venom/commit/e15a018486a36edc510b57ca5206f38c639bf053))
+
+
+
 ## [3.1.11](https://github.com/orkestral/venom/compare/v3.1.10...v3.1.11) (2021-10-24)
 
 
