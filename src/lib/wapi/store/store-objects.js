@@ -297,16 +297,6 @@ export const storeObjects = [
         : null
   },
   {
-    id: 'Versions',
-    conditions: (module) =>
-      module.loadProtoVersions &&
-      module.default['15'] &&
-      module.default['16'] &&
-      module.default['17']
-        ? module
-        : null
-  },
-  {
     id: 'Sticker',
     conditions: (module) =>
       module.StickerCollection && module.default ? module : null

@@ -73,7 +73,9 @@ export async function getStore(modules) {
   }
 
   let neededStore = neededObjects.find((needObj) => needObj.id === 'Store');
-  window.Store = neededStore.foundedModule ? neededStore.foundedModule : {};
+  if (neededStore) {
+    window.Store = neededStore.foundedModule ? neededStore.foundedModule : {};
+  }
   neededObjects.splice(neededObjects.indexOf(neededStore), 1);
 
   neededObjects.forEach((needObj) => {

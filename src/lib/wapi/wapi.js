@@ -216,10 +216,11 @@ var loadParasite = function () {
     try {
       const last = window['webpackChunkwhatsapp_web_client'].length - 1;
       if (
-        !/^parasite/.test(
-          window['webpackChunkwhatsapp_web_client'][last][0][0]
+        !window['webpackChunkwhatsapp_web_client'][last][0].includes(
+          'parasite'
         ) &&
-        (document.querySelectorAll('#app .two').length ||
+        (document.querySelectorAll('#app').length ||
+          document.querySelectorAll('#app .two').length ||
           document.querySelector('canvas') ||
           document.querySelectorAll('#startup').length == 0)
       ) {
