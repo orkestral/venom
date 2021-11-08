@@ -1,22 +1,3 @@
-## Meet the Superchats
-<br>
-<a href='https://github.com/orkestral/superchats'><img src='https://github.com/orkestral/superchats/raw/main/img/superchats.png' height='60' alt='SuperChats' aria-label='https://github.com/orkestral/superchats' /></a>
-<br>
-<br>
-
-**SuperChats** is a premium library with unique features that control Whatsapp functions with socket.
-With Superchats you can build service bots, multiservice chats or any system that uses Whatsapp
-
-**Superchats** is a premium version of **Venom**, with exclusive features and support for companies and developers worldwide
-<br>
-<a href='https://github.com/orkestral/superchats'>https://github.com/orkestral/superchats</a>
-
-## Buy a license Superchats
-
-The value of the license is $30 monthly dollars, to acquire contact in whatsapp by clicking on the image below !!
-
-<a target="_blank" href="https://web.whatsapp.com/send?phone=556181590153&text=I%20want%20to%20buy%201%20license" target="_blank"><img title="whatzapp" height="100" width="375" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/WhatsApp_logo.svg/2000px-WhatsApp_logo.svg.png"></a>
-
 
 # 🕷Venom Bot🕸
 
@@ -64,6 +45,26 @@ Use it in your favorite language like PHP, Python, C# and others. as long as you
 
 <a target="_blank" href="https://t.me/joinchat/G8wxNXidWBo1ZDYx" target="_blank"><img title="Telegram" height="100" width="375" src="https://user-images.githubusercontent.com/66584466/117182238-7d1d8980-adac-11eb-9a70-e32f90c3d4e5.png"></a>
 
+
+## Meet the Superchats
+<br>
+<a href='https://github.com/orkestral/superchats'><img src='https://github.com/orkestral/superchats/raw/main/img/superchats.png' height='60' alt='SuperChats' aria-label='https://github.com/orkestral/superchats' /></a>
+<br>
+<br>
+
+**SuperChats** is a premium library with unique features that control Whatsapp functions with socket.
+With Superchats you can build service bots, multiservice chats or any system that uses Whatsapp
+
+**Superchats** is a premium version of **Venom**, with exclusive features and support for companies and developers worldwide
+<br>
+<a href='https://github.com/orkestral/superchats'>https://github.com/orkestral/superchats</a>
+
+## Buy a license Superchats
+
+The value of the license is $30 monthly dollars, to acquire contact in whatsapp by clicking on the image below !!
+
+<a target="_blank" href="https://web.whatsapp.com/send?phone=556181590153&text=I%20want%20to%20buy%201%20license" target="_blank"><img title="whatzapp" height="100" width="375" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/WhatsApp_logo.svg/2000px-WhatsApp_logo.svg.png"></a>
+
 ## 🕷🕷 Functions Venom🕷🕷
 
 |                                                               |     |
@@ -102,7 +103,7 @@ Installing the current repository "you can download the beta version from the cu
 > npm i github:orkestral/venom
 ```
 
-## Getting started
+## Getting started Multidevice and Normal
 
 ```javascript
 // Supports ES6
@@ -177,6 +178,7 @@ venom
     },
     // options
     {
+      multidevice: true, // enabled multidevice.(default: true)
       folderNameToken: 'tokens', //folder name when saving tokens
       mkdirFolderToken: '', //folder directory tokens, just inside the venom folder, example:  { mkdirFolderToken: '/node_modules', } //will save the tokens folder in the node_modules directory
       headless: true, // Headless chrome
