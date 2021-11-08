@@ -62,6 +62,10 @@ import { puppeteerConfig } from './puppeteer.config';
 
 // Server config
 export interface CreateConfig {
+  /**
+   * multidevice option
+   */
+  multidevice?: boolean;
   /** folder name when saving tokens
    * @default 'tokens'
    */
@@ -152,6 +156,7 @@ export interface CreateConfig {
   logger?: Logger;
 }
 export const defaultOptions: CreateConfig = {
+  multidevice: true,
   folderNameToken: 'tokens',
   mkdirFolderToken: '',
   headless: true,

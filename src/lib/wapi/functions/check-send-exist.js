@@ -131,8 +131,8 @@ export function sendCheckType(chatId = undefined) {
 
     if (
       grup === chatId.substr(-grup.length, grup.length) &&
-      ((chatId.match(/(@g.us)/g) && chatId.match(/(@g.us)/g).length > 1) ||
-        !chatId.match(/^\d+(-)+(\d)*@g.us$/g))
+      chatId.match(/(@g.us)/g) &&
+      chatId.match(/(@g.us)/g).length > 1
     ) {
       return WAPI.scope(
         chatId,

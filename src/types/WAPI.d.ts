@@ -81,7 +81,16 @@ interface WAPI {
     contactId: string | string[]
   ) => GroupCreation;
   deleteConversation: (chatId: string) => boolean;
-  deleteMessages: (contactId: string, messageId: string[]) => Promise<object>;
+  deleteMessagesAll: (
+    contactId: string,
+    messageId: string[],
+    onlyLocal: boolean
+  ) => Promise<object>;
+  deleteMessagesMe: (
+    contactId: string,
+    messageId: string[],
+    onlyLocal: boolean
+  ) => Promise<object>;
   demoteParticipant: (groupId: string, contactId: string | string[]) => void;
   downloadFile: (data: string) => Promise<string | boolean>;
   downloadMedia: (messageId: string) => Promise<string>;

@@ -53,63 +53,27 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
 
-export async function deleteMessages(chatId, messageArray) {
-  if (typeof chatId != 'string') {
-    return WAPI.scope(
-      null,
-      true,
-      404,
-      'enter the chatid variable as an string'
-    );
+export async function deleteMessagesMe(chatId, messageArray, revoke) {
+  let userId = new window.Store.UserConstructor(chatId, {
+    intentionallyUsePrivateConstructor: true
+  });
+  let conversation = window.Store.Chat.get(chatId);
+
+  if (!conversation) return false;
+
+  if (!Array.isArray(messageArray)) {
+    messageArray = [messageArray];
   }
-  const chat = await WAPI.sendExist(chatId);
-  if (chat && chat.status != 404) {
-    if (!Array.isArray(messageArray)) {
-      return WAPI.scope(
-        chat,
-        true,
-        404,
-        'enter the message identification variable as an array'
-      );
-    }
 
-    for (let i in messageArray) {
-      if (typeof messageArray[i] === 'string') {
-        let checkID = await WAPI.checkIdMessage(chatId, messageArray[i]);
-        if (checkID.erro == true) {
-          return checkID;
-        }
-      }
-    }
+  let messagesToDelete = messageArray.map((msgId) =>
+    window.Store.Msg.get(msgId)
+  );
 
-    let messagesToDelete = (
-      await Promise.all(
-        messageArray.map(
-          async (msgId) => await WAPI.getMessageById(msgId, null, false)
-        )
-      )
-    ).filter((x) => x);
-
-    const To = chat.id;
-    const m = { type: 'deleteMessages' };
-
-    let jobs = [
-      chat.sendRevokeMsgs(messagesToDelete, chat),
-      chat.sendDeleteMsgs(messagesToDelete, chat)
-    ];
-
-    const result = (await Promise.all(jobs))[1];
-
-    if (result >= 0) {
-      let obj = WAPI.scope(To, false, result, '');
-      Object.assign(obj, m);
-      return obj;
-    } else {
-      let obj = WAPI.scope(To, true, result, '');
-      Object.assign(obj, m);
-      return obj;
-    }
+  if (revoke) {
+    conversation.sendRevokeMsgs(messagesToDelete, conversation);
   } else {
-    return chat;
+    conversation.sendDeleteMsgs(messagesToDelete, conversation);
   }
+
+  return true;
 }

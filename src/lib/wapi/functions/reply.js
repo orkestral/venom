@@ -121,7 +121,7 @@ export async function reply(chatId, content, quotedMessageId) {
       chat.lastReceivedKey._serialized = inChat._serialized;
       chat.lastReceivedKey.id = inChat.id;
     }
-    const fromwWid = await window.Store.Conn.wid;
+    const fromwWid = await Store.UserPrefs.getMaybeMeUser();
 
     const message = {
       id: newMsgId,

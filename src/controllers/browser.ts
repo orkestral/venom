@@ -56,20 +56,46 @@ import * as ChromeLauncher from 'chrome-launcher';
 import * as path from 'path';
 import { Browser, BrowserContext, Page } from 'puppeteer';
 import puppeteer from 'puppeteer-extra';
-import { CreateConfig } from '../config/create-config';
+import { CreateConfig, defaultOptions } from '../config/create-config';
 import { puppeteerConfig } from '../config/puppeteer.config';
 import StealthPlugin = require('puppeteer-extra-plugin-stealth');
 import { auth_InjectToken } from './auth';
 import { useragentOverride } from '../config/WAuserAgente';
 import { tokenSession } from '../config/tokenSession.config';
+import * as os from 'os';
+import * as rimraf from 'rimraf';
+import { addExitCallback } from 'catch-exit';
+
+export async function unregisterServiceWorker(page: Page) {
+  await page.evaluateOnNewDocument(() => {
+    // Remove existent service worker
+    navigator.serviceWorker
+      .getRegistrations()
+      .then((registrations) => {
+        for (let registration of registrations) {
+          registration.unregister();
+        }
+      })
+      .catch((err) => null);
+
+    // Disable service worker registration
+    // @ts-ignore
+    navigator.serviceWorker.register = undefined;
+    // Disable service worker detection
+    // @ts-ignore
+    delete navigator.serviceWorker;
+  });
+}
 
 export async function initWhatsapp(
   session: string,
   options: CreateConfig,
   browser: Browser,
-  token?: tokenSession
+  token?: tokenSession,
+  clear = options.multidevice ? true : false
 ): Promise<false | Page> {
   const waPage: Page = await getWhatsappPage(browser);
+  await unregisterServiceWorker(waPage);
   if (waPage != null) {
     try {
       await waPage.setUserAgent(useragentOverride);
@@ -77,7 +103,7 @@ export async function initWhatsapp(
         waitUntil: 'domcontentloaded'
       });
       // Auth with token
-      await auth_InjectToken(waPage, session, options, token);
+      await auth_InjectToken(waPage, session, options, token, clear);
       await waPage.evaluate(() => {
         window.location.reload();
       });
@@ -92,7 +118,7 @@ export async function initWhatsapp(
 export async function injectApi(page: Page) {
   const injected = await page
     .evaluate(() => {
-      // @ts-ignore
+      localStorage.setItem('md-opted-in', 'false');
       return (
         typeof window.WAPI !== 'undefined' &&
         typeof window.Store !== 'undefined'
@@ -177,6 +203,28 @@ export async function initBrowser(
         browser = 'launch';
       });
   }
+  // Register an exit callback to remove user-data-dir
+  try {
+    const arg = browser
+      .process()
+      .spawnargs.find((s: string) => s.startsWith('--user-data-dir='));
+
+    if (arg) {
+      const tmpUserDataDir = arg.split('=')[1];
+
+      // Only if path is in TMP directory
+      if (path.relative(os.tmpdir(), tmpUserDataDir).startsWith('puppeteer')) {
+        addExitCallback((signal) => {
+          // Remove only on exit signal
+          if (signal === 'exit') {
+            try {
+              rimraf.sync(tmpUserDataDir);
+            } catch (error) {}
+          }
+        });
+      }
+    }
+  } catch (error) {}
   return browser;
 }
 

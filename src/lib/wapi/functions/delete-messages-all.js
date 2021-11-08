@@ -52,48 +52,33 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
-const puppeteerConfig = {
-  whatsappUrl: 'https://web.whatsapp.com',
-  chromiumArgs: [
-    // `--app=${WAUrl}`,
-    '--log-level=3', // fatal only
-    //'--start-maximized',
-    '-wait-for-browser',
-    '--no-default-browser-check',
-    '--disable-site-isolation-trials',
-    '--no-experiments',
-    '--ignore-gpu-blacklist',
-    '--ignore-certificate-errors',
-    '--ignore-certificate-errors-spki-list',
-    '--disable-gpu',
-    '--disable-web-security',
-    '--disable-extensions',
-    '--disable-default-apps',
-    '--enable-features=NetworkService',
-    '--disable-setuid-sandbox',
-    '--no-sandbox',
-    // Extras
-    '--disable-webgl',
-    '--disable-infobars',
-    '--window-position=0,0',
-    '--ignore-certifcate-errors',
-    '--ignore-certifcate-errors-spki-list',
-    '--disable-threaded-animation',
-    '--disable-threaded-scrolling',
-    '--disable-in-process-stack-traces',
-    '--disable-histogram-customizer',
-    '--disable-gl-extensions',
-    '--disable-composited-antialiasing',
-    '--disable-canvas-aa',
-    '--disable-3d-apis',
-    '--disable-accelerated-2d-canvas',
-    '--disable-accelerated-jpeg-decoding',
-    '--disable-accelerated-mjpeg-decode',
-    '--disable-app-list-dismiss-on-blur',
-    '--disable-accelerated-video-decode',
-    '--disable-dev-shm-usage',
-    '--user-agent=WhatsApp/2.2043.8 Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36'
-  ]
-};
 
-export { puppeteerConfig };
+export async function deleteMessagesAll(chatId, messageArray, onlyLocal) {
+  var userId = new Store.WidFactory.createWid(chatId);
+  let conversation = WAPI.getChat(userId);
+  if (!conversation) return false;
+
+  if (!Array.isArray(messageArray)) {
+    messageArray = [messageArray];
+  }
+
+  let messagesToDelete = messageArray
+    .map((msgId) =>
+      typeof msgId == 'string' ? window.Store.Msg.get(msgId) : msgId
+    )
+    .filter((x) => x);
+  if (messagesToDelete.length == 0) return true;
+  let jobs = onlyLocal
+    ? [conversation.sendDeleteMsgs(messagesToDelete, conversation)]
+    : [
+        conversation.sendRevokeMsgs(
+          messagesToDelete.filter((msg) => msg.isSentByMe),
+          conversation
+        ),
+        conversation.sendDeleteMsgs(
+          messagesToDelete.filter((msg) => !msg.isSentByMe),
+          conversation
+        )
+      ];
+  return Promise.all(jobs).then((_) => true);
+}

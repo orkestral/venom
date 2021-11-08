@@ -53,6 +53,6 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
 export async function getProfilePicFromServer(id) {
-  const pinc = await Store.WapQuery.profilePicFind(id).then((x) => x.eurl);
+  const pinc = await Store.ProfilePicThumb.find(id).then((x) => x.eurl);
   return pinc;
 }

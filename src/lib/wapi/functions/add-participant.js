@@ -53,7 +53,7 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
 export async function addParticipant(groupId, contactsId) {
-  const chat = Store.Chat.get(groupId);
+  const chat = window.Store.WidFactory.createWid(groupId);
 
   if (!Array.isArray(contactsId)) {
     contactsId = [contactsId];
@@ -66,13 +66,9 @@ export async function addParticipant(groupId, contactsId) {
     return false;
   }
 
-  await window.Store.WapQuery.addParticipants(chat.id, contactsId);
-
-  const participants = contactsId.map((c) =>
-    chat.groupMetadata.participants.get(c)
+  const participants = contactsId.map((p) =>
+    window.Store.WidFactory.createWid(p)
   );
 
-  await window.Store.Participants.addParticipants(chat, contactsId);
-
-  return true;
+  return window.Store.sendAddParticipants(chat, participants);
 }

@@ -52,33 +52,23 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
-export async function promoteParticipant(groupId, contactsId, done) {
-  const chat = Store.Chat.get(groupId);
+export async function promoteParticipant(groupId, contactsId) {
+  const chat = window.Store.WidFactory.createWid(groupId);
 
   if (!Array.isArray(contactsId)) {
     contactsId = [contactsId];
   }
 
   contactsId = await Promise.all(contactsId.map((c) => WAPI.sendExist(c)));
-  contactsId = contactsId
-    .filter((c) => !c.erro && c.isUser)
-    .map((c) => chat.groupMetadata.participants.get(c.id))
-    .filter((c) => typeof c !== 'undefined')
-    .map((c) => c.id);
+  contactsId = contactsId.filter((c) => !c.erro && c.isUser).map((c) => c.id);
 
   if (!contactsId.length) {
-    typeof done === 'function' && done(false);
     return false;
   }
 
-  await window.Store.WapQuery.promoteParticipants(chat.id, contactsId);
-
-  const participants = contactsId.map((c) =>
-    chat.groupMetadata.participants.get(c)
+  const participants = contactsId.map((p) =>
+    window.Store.WidFactory.createWid(p)
   );
 
-  await window.Store.Participants.promoteParticipants(chat, participants);
-
-  typeof done === 'function' && done(true);
-  return true;
+  return window.Store.sendPromoteParticipants(chat, participants);
 }

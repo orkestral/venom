@@ -160,7 +160,7 @@ export async function sendListMenu(
 
   if (chat && chat.status != 404) {
     const newMsgId = await window.WAPI.getNewMessageId(chat.id);
-    const fromwWid = await window.Store.Conn.wid;
+    const fromwWid = await Store.UserPrefs.getMaybeMeUser();
     const inChat = await WAPI.getchatId(chat.id).catch(() => {});
 
     if (inChat) {

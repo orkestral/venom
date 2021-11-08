@@ -88,9 +88,6 @@ export class HostLayer {
   constructor(public page: Page, session?: string, options?: CreateConfig) {
     this.session = session;
     this.options = { ...defaultOptions, ...options };
-
-    // this.spin('Initializing...', 'spinning');
-    //this._initialize(this.page);
   }
 
   protected spin(text?: string, status?: Spinnies.SpinnerStatus) {
@@ -272,7 +269,7 @@ export class HostLayer {
 
       this.spin('Checking QRCode status...');
       // Wait for interface update
-      await sleep(200);
+      await sleep(3000);
       authenticated = await isAuthenticated(this.page).catch(() => null);
 
       if (authenticated === null || JSON.stringify(authenticated) === '{}') {
@@ -298,7 +295,7 @@ export class HostLayer {
       this.cancelAutoClose();
       this.startAutoClose();
       // Wait for interface update
-      await sleep(200);
+      await sleep(3000);
       this.spin('Checking phone is connected...');
       const inChat = await this.waitForInChat();
 

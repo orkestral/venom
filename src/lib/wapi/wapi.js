@@ -63,7 +63,8 @@ import {
   clearChatMessages,
   createGroup,
   deleteConversation,
-  deleteMessages,
+  deleteMessagesAll,
+  deleteMessagesMe,
   demoteParticipant,
   downloadFile,
   encryptAndUploadFile,
@@ -192,44 +193,37 @@ import {
   _serializeRawObj,
   _serializeMeObj
 } from './serializers';
-import { getStore } from './store/get-store';
+import { storeObjects } from './store/store-objects';
+import getStore from './store/get-store';
+window['webpackJsonp'] = window['webpackJsonp'] || [];
+window['webpackChunkbuild'] = window['webpackChunkbuild'] || [];
 
-window['webpackChunkwhatsapp_web_client'] =
-  window['webpackChunkwhatsapp_web_client'] || [];
-window.Store = {};
-var loadParasite = function () {
-  function injectParasite() {
-    const parasite = `parasite`;
-    window['webpackChunkwhatsapp_web_client'].push([
-      [parasite],
-      {},
-      async function (o) {
-        let modules = [];
-        for (let idx in o.m) {
-          modules.push(o(idx));
+if (typeof window.Store === 'undefined') {
+  window.Store = {};
+  window.Store.promises = {};
+  const f_modules = new getStore();
+  window.Store.loader = f_modules;
+
+  for (const store of storeObjects) {
+    Store.promises[store.id] = f_modules
+      .waitForModule((m) => !!store.conditions(m))
+      .then(store.conditions)
+      .then((m) => {
+        if (store.id === 'Store') {
+          window.Store = Object.assign({}, window.Store, m);
+        } else {
+          window.Store[store.id] = m;
         }
-        getStore(modules);
-      }
-    ]);
+      });
   }
-  setInterval(() => {
-    try {
-      const last = window['webpackChunkwhatsapp_web_client'].length - 1;
-      if (
-        !window['webpackChunkwhatsapp_web_client'][last][0].includes(
-          'parasite'
-        ) &&
-        (document.querySelectorAll('#app').length ||
-          document.querySelectorAll('#app .two').length ||
-          document.querySelector('canvas') ||
-          document.querySelectorAll('#startup').length == 0)
-      ) {
-        injectParasite();
-      }
-    } catch (e) {}
-  }, 100);
-};
-loadParasite();
+
+  window.Store.sendMessage = function (e) {
+    return window.Store.SendTextMsgToChat(this, ...arguments);
+  };
+  window.Store.sendAddMessage = function (e) {
+    return window.Store.addAndSendMsgToChat(this, ...arguments);
+  };
+}
 
 if (typeof window.WAPI === 'undefined') {
   window.WAPI = {
@@ -240,7 +234,6 @@ if (typeof window.WAPI === 'undefined') {
   window.WAPI.interfaceMute = interfaceMute;
   window.WAPI.checkIdMessage = checkIdMessage;
   window.WAPI.returnReply = returnReply;
-  window.WAPI.getStore = getStore;
   window.WAPI.checkChat = checkChat;
   window.WAPI.checkNumberStatus = checkNumberStatus;
   window.WAPI.sendCheckType = sendCheckType;
@@ -294,7 +287,8 @@ if (typeof window.WAPI === 'undefined') {
   window.WAPI.sendMessage2 = sendMessage2;
   window.WAPI.sendSeen = sendSeen;
   window.WAPI.deleteConversation = deleteConversation;
-  window.WAPI.deleteMessages = deleteMessages;
+  window.WAPI.deleteMessagesAll = deleteMessagesAll;
+  window.WAPI.deleteMessagesMe = deleteMessagesMe;
   window.WAPI.clearChatMessages = clearChatMessages;
   window.WAPI.sendImage = sendImage;
   window.WAPI.sendPtt = sendPtt;

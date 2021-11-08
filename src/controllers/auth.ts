@@ -57,7 +57,7 @@ import * as path from 'path';
 import * as puppeteer from 'puppeteer';
 import * as qrcode from 'qrcode-terminal';
 import { existsSync, readFileSync } from 'fs';
-import { CreateConfig } from '../config/create-config';
+import { CreateConfig, defaultOptions } from '../config/create-config';
 import { ScrapQrcode } from '../api/model/qrcode';
 import { tokenSession } from '../config/tokenSession.config';
 
@@ -211,7 +211,8 @@ export async function auth_InjectToken(
   page: puppeteer.Page,
   session: string,
   options: CreateConfig,
-  token?: tokenSession
+  token?: tokenSession,
+  clear = options.multidevice ? true : false
 ) {
   if (!token) {
     const pathToken: string = path.join(
@@ -231,8 +232,12 @@ export async function auth_InjectToken(
   }
 
   //Auth with token ->start<-
-  await page.evaluate((session) => {
-    localStorage.clear();
+  await page.evaluate(async (session) => {
+    if (clear) {
+      await page.evaluate((session) => {
+        localStorage.clear();
+      });
+    }
     Object.keys(session).forEach((key) => {
       localStorage.setItem(key, session[key]);
     });

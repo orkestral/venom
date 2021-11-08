@@ -16,7 +16,7 @@ export async function checkNumberStatus(id, conn = true) {
         throw err;
       }
     }
-    const result = await window.Store.WapQuery.queryExist(id);
+    const result = await Store.WidFactory.createWid(id);
     if (result.status === 404) {
       throw err;
     }

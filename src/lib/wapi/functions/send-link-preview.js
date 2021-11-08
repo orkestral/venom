@@ -88,7 +88,7 @@ export async function sendLinkPreview(chatId, url, text) {
       chat.lastReceivedKey.id = inChat.id;
     }
 
-    const fromwWid = await window.Store.Conn.wid;
+    const fromwWid = await Store.UserPrefs.getMaybeMeUser();
     const message = {
       id: newMsgId,
       ack: 0,

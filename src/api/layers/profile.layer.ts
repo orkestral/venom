@@ -102,12 +102,13 @@ export class ProfileLayer extends HostLayer {
    * @param status
    */
   public async setProfileStatus(status: string) {
-    return await this.page.evaluate(
+    await this.page.evaluate(
       ({ status }) => {
         WAPI.setMyStatus(status);
       },
       { status }
     );
+    return 200;
   }
 
   /**
@@ -156,11 +157,12 @@ export class ProfileLayer extends HostLayer {
    * @param name
    */
   public async setProfileName(name: string) {
-    return this.page.evaluate(
+    this.page.evaluate(
       ({ name }) => {
         WAPI.setMyName(name);
       },
       { name }
     );
+    return 200;
   }
 }

@@ -227,13 +227,18 @@ export const storeObjects = [
       module.getStatus && module.setMyStatus ? module : null
   },
   {
-    id: 'ChatStates',
+    id: 'ChatState',
     conditions: (module) =>
       module.sendChatStatePaused &&
       module.sendChatStateRecording &&
       module.sendChatStateComposing
         ? module
         : null
+  },
+  {
+    id: 'sendDeleteMsgs',
+    conditions: (module) =>
+      module.sendDeleteMsgs ? module.sendDeleteMsgs : null
   },
   {
     id: 'GroupActions',
@@ -415,5 +420,34 @@ export const storeObjects = [
   {
     id: 'GroupSettings',
     conditions: (module) => (module.sendSetGroupProperty ? module : null)
+  },
+  {
+    id: 'UserPrefs',
+    conditions: (module) => (module.getMaybeMeUser ? module : null)
+  },
+  {
+    id: 'sendCreateGroup',
+    conditions: (module) =>
+      module.sendCreateGroup ? module.sendCreateGroup : null
+  },
+  {
+    id: 'sendAddParticipants',
+    conditions: (module) =>
+      module.sendAddParticipants ? module.sendAddParticipants : null
+  },
+  {
+    id: 'sendRemoveParticipants',
+    conditions: (module) =>
+      module.sendRemoveParticipants ? module.sendRemoveParticipants : null
+  },
+  {
+    id: 'sendPromoteParticipants',
+    conditions: (module) =>
+      module.sendPromoteParticipants ? module.sendPromoteParticipants : null
+  },
+  {
+    id: 'sendDemoteParticipants',
+    conditions: (module) =>
+      module.sendDemoteParticipants ? module.sendDemoteParticipants : null
   }
 ];

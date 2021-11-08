@@ -63,5 +63,5 @@ export async function createGroup(name, contactsId) {
   if (!contactsId.length) {
     return false;
   }
-  return await window.Store.WapQuery.createGroup(name, contactsId);
+  return await Store.sendCreateGroup(name, contactsId);
 }

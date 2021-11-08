@@ -102,7 +102,7 @@ export async function sendButtons(to, title, buttons, subtitle) {
 
   if (chat && chat.status != 404) {
     const newMsgId = await window.WAPI.getNewMessageId(chat.id);
-    const fromwWid = await window.Store.Conn.wid;
+    const fromwWid = await Store.UserPrefs.getMaybeMeUser();
 
     const message = {
       id: newMsgId,
