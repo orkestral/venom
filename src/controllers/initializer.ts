@@ -55,7 +55,9 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 
 import * as chalk from 'chalk';
 
-import { readFileSync } from 'fs';
+import * as fs from 'fs';
+
+import { fstat, readFileSync } from 'fs';
 
 import { Browser, Page } from 'puppeteer';
 
@@ -162,6 +164,12 @@ export async function create(
   let browserToken: any;
   if (options?.multidevice != false) {
     const dirPath = `./${defaultOptions.folderNameToken}/${session}`;
+
+    let existFile = fs.existsSync(dirPath + '.data.json');
+
+    if (existFile) {
+      fs.unlinkSync(dirPath + '.data.json');
+    }
 
     defaultOptions.puppeteerOptions = {
       userDataDir: dirPath

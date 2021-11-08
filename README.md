@@ -111,7 +111,10 @@ Installing the current repository "you can download the beta version from the cu
 const venom = require('venom-bot');
 
 venom
-  .create()
+  .create({
+    session: 'session-name', //name of session
+    multidevice: false // for version not multidevice use false.(default: true)
+  })
   .then((client) => start(client))
   .catch((erro) => {
     console.log(erro);
@@ -178,7 +181,7 @@ venom
     },
     // options
     {
-      multidevice: true, // enabled multidevice.(default: true)
+      multidevice: false, // for version not multidevice use false.(default: true)
       folderNameToken: 'tokens', //folder name when saving tokens
       mkdirFolderToken: '', //folder directory tokens, just inside the venom folder, example:  { mkdirFolderToken: '/node_modules', } //will save the tokens folder in the node_modules directory
       headless: true, // Headless chrome
@@ -250,7 +253,9 @@ venom
       //Create session wss return "serverClose" case server for close
       console.log('Session name: ', session);
     },
-    undefined
+    {
+      multidevice: false // for version not multidevice use false.(default: true)
+    }
   )
   .then((client) => {
     start(client);

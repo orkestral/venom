@@ -62,8 +62,8 @@ import { puppeteerConfig } from './puppeteer.config';
 
 // Server config
 export interface CreateConfig {
-  /**
-   * multidevice option
+  /** enabled multidevice
+   * @default true
    */
   multidevice?: boolean;
   /** folder name when saving tokens

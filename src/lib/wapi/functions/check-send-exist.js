@@ -138,7 +138,7 @@ export function sendCheckType(chatId = undefined) {
         chatId,
         true,
         404,
-        'incorrect parameters! Use as an example: 00000000-000000@g.us'
+        'incorrect parameters! Use as an example: 00000000-000000@g.us or 00000000000000@g.us'
       );
     }
   }

@@ -58,7 +58,6 @@ const puppeteerConfig = {
     // `--app=${WAUrl}`,
     '--log-level=3', // fatal only
     //'--start-maximized',
-    '-wait-for-browser',
     '--no-default-browser-check',
     '--disable-site-isolation-trials',
     '--no-experiments',
@@ -66,7 +65,6 @@ const puppeteerConfig = {
     '--ignore-certificate-errors',
     '--ignore-certificate-errors-spki-list',
     '--disable-gpu',
-    '--disable-web-security',
     '--disable-extensions',
     '--disable-default-apps',
     '--enable-features=NetworkService',
@@ -92,7 +90,9 @@ const puppeteerConfig = {
     '--disable-app-list-dismiss-on-blur',
     '--disable-accelerated-video-decode',
     '--disable-dev-shm-usage',
-    '--user-agent=WhatsApp/2.2043.8 Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36'
+    '--disable-gl-drawing-for-tests',
+    '--incognito',
+    '--user-agent=Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.105 Safari/537.36'
   ]
 };
 
