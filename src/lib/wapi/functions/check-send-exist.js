@@ -161,6 +161,10 @@ export async function sendExist(chatId, returnChat = true, Send = true) {
     return WAPI.scope(chatId, true, ck.status, 'The number does not exist');
   }
 
+  if (!ck.id || !ck.id._serialized) {
+    return WAPI.scope(chatId, true, 404, '_serialized is missing');
+  }
+
   let chat = await window.WAPI.getChat(ck.id._serialized);
 
   if (ck.numberExists && chat === undefined) {
