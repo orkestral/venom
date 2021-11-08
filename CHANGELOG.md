@@ -1,3 +1,15 @@
+## [4.0.1](https://github.com/orkestral/venom/compare/v4.0.0...v4.0.1) (2021-11-08)
+
+
+### Bug Fixes
+
+* corretion for not multidevice version ([782fea4](https://github.com/orkestral/venom/commit/782fea4b1c664e4d96c664545eba2cdfe700c9c1))
+* corretion for version not multidevice ([e4d9c37](https://github.com/orkestral/venom/commit/e4d9c37cc5ee4b42db575a9145180f4134c49245))
+* eslint ([77a670b](https://github.com/orkestral/venom/commit/77a670b123fad100644705394c34750530a3d192))
+* readme param MD ([96c3163](https://github.com/orkestral/venom/commit/96c31630485c789a59d3d5e93314280b8f77ebcc))
+
+
+
 # [4.0.0](https://github.com/orkestral/venom/compare/v3.1.12...v4.0.0) (2021-11-08)
 
 
