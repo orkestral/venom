@@ -422,7 +422,7 @@ export const storeObjects = [
     conditions: (module) => (module.sendSetGroupProperty ? module : null)
   },
   {
-    id: 'UserPrefs',
+    id: 'MaybeMeUser',
     conditions: (module) => (module.getMaybeMeUser ? module : null)
   },
   {
@@ -449,5 +449,14 @@ export const storeObjects = [
     id: 'sendDemoteParticipants',
     conditions: (module) =>
       module.sendDemoteParticipants ? module.sendDemoteParticipants : null
-  }
+  },
+  {
+    id: 'checkNumber',
+    conditions: (module) =>
+      module.default &&
+      typeof module.default.toString === 'function' &&
+      module.default.toString().includes('Should not reach queryExists MD')
+        ? module.default
+        : null,
+  },
 ];

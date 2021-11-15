@@ -6,6 +6,7 @@ export async function checkNumberStatus(id, conn = true) {
       Object.assign(err, { text: checkType.text });
       throw err;
     }
+
     if (conn === true) {
       const connection = window.Store.State.default.state;
       if (connection !== 'CONNECTED') {
@@ -16,25 +17,23 @@ export async function checkNumberStatus(id, conn = true) {
         throw err;
       }
     }
-    const result = await Store.WidFactory.createWid(id);
-    if (result.status === 404) {
-      throw err;
-    }
-    if (result.jid === undefined) {
-      throw err;
-    }
-    const data = window.WAPI._serializeNumberStatusObj(result);
-    if (data.status == 200) {
-      data.numberExists = true;
-      data.profilePic = await WAPI.getProfilePicFromServer(id);
+
+    const result = await Store.checkNumber(id);
+    if (!!result && typeof result === 'object') {
+      const data = {
+        status: 200,
+        numberExists: true,
+        id: result.wid
+      };
       return data;
     }
+
+    throw err;
   } catch (e) {
-    return window.WAPI._serializeNumberStatusObj({
+    console.log(e);
+    return {
       status: e.error,
-      text: e.text,
-      connection: e.connection,
-      jid: e.text ? undefined : new window.Store.WidFactory.createWid(id)
-    });
+      text: e.text
+    };
   }
 }

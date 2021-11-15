@@ -64,20 +64,21 @@ export function scope(id, erro, status, text = null, result = null) {
   return object;
 }
 export async function getchatId(chatId) {
-  var to = await WAPI.getChatById(chatId);
-  if (to) {
-    var objTo = to.lastReceivedKey,
-      extend = {
-        formattedName: to.contact.formattedName,
-        isBusiness: to.contact.isBusiness,
-        isMyContact: to.contact.isMyContact,
-        verifiedName: to.contact.verifiedName,
-        pushname: to.contact.pushname,
-        isOnline: to.isOnline
-      };
-    Object.assign(objTo, extend);
-    return objTo;
-  } else {
+  if (chatId) {
+    var to = await WAPI.getChatById(chatId);
+    if (to && typeof to === 'object') {
+      var objTo = to.lastReceivedKey,
+        extend = {
+          formattedName: to.contact.formattedName,
+          isBusiness: to.contact.isBusiness,
+          isMyContact: to.contact.isMyContact,
+          verifiedName: to.contact.verifiedName,
+          pushname: to.contact.pushname,
+          isOnline: to.isOnline
+        };
+      Object.assign(objTo, extend);
+      return objTo;
+    }
     return undefined;
   }
 }
@@ -161,7 +162,10 @@ export async function sendExist(chatId, returnChat = true, Send = true) {
     return WAPI.scope(chatId, true, ck.status, 'The number does not exist');
   }
 
-  let chat = await window.WAPI.getChat(ck.id._serialized);
+  let chat =
+    ck && ck.id && ck.id._serialized
+      ? await window.WAPI.getChat(ck.id._serialized)
+      : undefined;
 
   if (ck.numberExists && chat === undefined) {
     var idUser = new window.Store.UserConstructor(chatId, {
@@ -173,7 +177,10 @@ export async function sendExist(chatId, returnChat = true, Send = true) {
   if (!chat) {
     const storeChat = await window.Store.Chat.find(chatId);
     if (storeChat) {
-      chat = await window.WAPI.getChat(storeChat.id._serialized);
+      chat =
+        storeChat && storeChat.id && storeChat.id._serialized
+          ? await window.WAPI.getChat(storeChat.id._serialized)
+          : undefined;
     }
   }
 
@@ -190,7 +197,13 @@ export async function sendExist(chatId, returnChat = true, Send = true) {
     );
   }
 
-  if (!ck.numberExists && !chat.t && chat.isBroadcast) {
+  if (
+    !ck.numberExists &&
+    !chat.t &&
+    chat.id &&
+    chat.id.user != 'status' &&
+    chat.isBroadcast
+  ) {
     return WAPI.scope(
       chatId,
       true,
@@ -200,7 +213,7 @@ export async function sendExist(chatId, returnChat = true, Send = true) {
   }
 
   if (!chat) {
-    return WAPI.scope(ck.id._serialized, true, 404);
+    return WAPI.scope(chatId, true, 404);
   }
 
   if (Send) {
@@ -211,5 +224,5 @@ export async function sendExist(chatId, returnChat = true, Send = true) {
     return chat;
   }
 
-  return WAPI.scope(ck.id._serialized, false, 200);
+  return WAPI.scope(chatId, false, 200);
 }
