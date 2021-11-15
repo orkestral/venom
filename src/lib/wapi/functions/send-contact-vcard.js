@@ -65,7 +65,7 @@ export async function sendContactVcard(chatId, contact, name) {
       chat.lastReceivedKey.id = inChat.id;
     }
 
-    const fromwWid = await Store.UserPrefs.getMaybeMeUser();
+    const fromwWid = await Store.MaybeMeUser.getMaybeMeUser();
     var body = await window.Store.Vcard.vcardFromContactModel(cont.__x_contact);
     name = !name ? cont.__x_formattedTitle : name;
     var message = {

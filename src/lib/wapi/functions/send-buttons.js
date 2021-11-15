@@ -100,9 +100,9 @@ export async function sendButtons(to, title, buttons, subtitle) {
 
   const chat = await WAPI.sendExist(to);
 
-  if (chat && chat.status != 404) {
+  if (chat && chat.status != 404 && chat.id) {
     const newMsgId = await window.WAPI.getNewMessageId(chat.id);
-    const fromwWid = await Store.UserPrefs.getMaybeMeUser();
+    const fromwWid = await Store.MaybeMeUser.getMaybeMeUser();
 
     const message = {
       id: newMsgId,

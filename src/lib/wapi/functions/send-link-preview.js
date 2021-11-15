@@ -88,7 +88,7 @@ export async function sendLinkPreview(chatId, url, text) {
       chat.lastReceivedKey.id = inChat.id;
     }
 
-    const fromwWid = await Store.UserPrefs.getMaybeMeUser();
+    const fromwWid = await Store.MaybeMeUser.getMaybeMeUser();
     const message = {
       id: newMsgId,
       ack: 0,
@@ -100,14 +100,14 @@ export async function sendLinkPreview(chatId, url, text) {
       t: parseInt(new Date().getTime() / 1000),
       isNewMsg: !0,
       type: 'chat',
-      subtype: 'url',
-      canonicalUrl: linkPreview.canonicalUrl,
-      description: linkPreview.description,
-      doNotPlayInline: linkPreview.doNotPlayInline,
-      matchedText: linkPreview.matchedText,
-      preview: linkPreview.preview,
-      thumbnail: linkPreview.thumbnail,
-      title: linkPreview.title
+      subtype: 'url'
+      // canonicalUrl: linkPreview.canonicalUrl,
+      // description: linkPreview.description,
+      // doNotPlayInline: linkPreview.doNotPlayInline,
+      // matchedText: linkPreview.matchedText,
+      // preview: linkPreview.preview,
+      // thumbnail: linkPreview.thumbnail,
+      // title: linkPreview.title
     };
     var result = (
       await Promise.all(window.Store.addAndSendMsgToChat(chat, message))

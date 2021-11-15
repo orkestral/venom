@@ -1,6 +1,6 @@
 export async function setProfilePic(obj, id) {
   if (!id) {
-    id = Store.UserPrefs.getMaybeMeUser();
+    id = Store.MaybeMeUser.getMaybeMeUser();
   } else {
     id = window.Store.WidFactory.createWid(id);
   }
