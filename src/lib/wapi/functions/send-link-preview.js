@@ -81,7 +81,7 @@ export async function sendLinkPreview(chatId, url, text) {
   var chat = await WAPI.sendExist(chatId);
   if (!chat.erro) {
     const linkPreview = await Store.WapQuery.queryLinkPreview(url);
-    const newMsgId = await window.WAPI.getNewMessageId(chat.id);
+    const newMsgId = await window.WAPI.getNewMessageId(chat.id._serialized);
     let inChat = await WAPI.getchatId(chat.id).catch(() => {});
     if (inChat) {
       chat.lastReceivedKey._serialized = inChat._serialized;

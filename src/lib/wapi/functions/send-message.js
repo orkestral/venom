@@ -70,8 +70,9 @@ export async function sendMessage(to, content) {
 
   if (chat && chat.status != 404 && chat.id) {
     const m = { type: 'sendText', text: content };
-    const newMsgId = await window.WAPI.getNewMessageId(chat.id);
+    const newMsgId = await window.WAPI.getNewMessageId(chat.id._serialized);
     const fromwWid = await Store.MaybeMeUser.getMaybeMeUser();
+
     let inChat = await WAPI.getchatId(chat.id).catch(() => {
       return WAPI.scope(chat.id, true, 404, 'Error to number ' + to);
     });

@@ -156,7 +156,7 @@ export async function sendMessageOptions(chatId, content, options = {}) {
       options = { ...options, ...preview };
     }
   }
-  const newMsgId = await window.WAPI.getNewMessageId(chat.id);
+  const newMsgId = await window.WAPI.getNewMessageId(chat.id._serialized);
   const fromwWid = await Store.MaybeMeUser.getMaybeMeUser();
   const message = {
     ...options,

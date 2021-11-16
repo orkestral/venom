@@ -65,10 +65,11 @@ export function scope(id, erro, status, text = null, result = null) {
 }
 export async function getchatId(chatId) {
   if (chatId) {
-    var to = await WAPI.getChatById(chatId);
+    let to = await WAPI.getChatById(chatId);
     if (to && typeof to === 'object') {
-      var objTo = to.lastReceivedKey,
-        extend = {
+      let objTo = to.lastReceivedKey;
+      if (objTo && typeof objTo === 'object') {
+        let extend = {
           formattedName: to.contact.formattedName,
           isBusiness: to.contact.isBusiness,
           isMyContact: to.contact.isMyContact,
@@ -76,11 +77,12 @@ export async function getchatId(chatId) {
           pushname: to.contact.pushname,
           isOnline: to.isOnline
         };
-      Object.assign(objTo, extend);
-      return objTo;
+        Object.assign(objTo, extend);
+        return objTo;
+      }
     }
-    return undefined;
   }
+  return undefined;
 }
 
 export function sendCheckType(chatId = undefined) {
@@ -150,15 +152,9 @@ export async function sendExist(chatId, returnChat = true, Send = true) {
   if (!!checkType && checkType.status === 404) {
     return checkType;
   }
-  let ck = await window.WAPI.checkNumberStatus(chatId);
+  let ck = await window.WAPI.checkNumberStatus(chatId, false);
 
-  if (
-    ck.status === 404 &&
-    ck.id &&
-    ck.id._serialized &&
-    ck.id._serialized.include &&
-    !ck.id._serialized.include('@g.us')
-  ) {
+  if (ck.status === 404 && !chatId.includes('@g.us')) {
     return WAPI.scope(chatId, true, ck.status, 'The number does not exist');
   }
 

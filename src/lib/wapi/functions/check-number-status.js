@@ -30,7 +30,6 @@ export async function checkNumberStatus(id, conn = true) {
 
     throw err;
   } catch (e) {
-    console.log(e);
     return {
       status: e.error,
       text: e.text

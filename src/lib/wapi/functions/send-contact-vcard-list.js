@@ -102,7 +102,7 @@ export async function sendContactVcardList(chatId, contacts) {
       }
     });
 
-    var newMsgId = await window.WAPI.getNewMessageId(chat.id);
+    var newMsgId = await window.WAPI.getNewMessageId(chat.id._serialized);
     const fromwWid = await Store.MaybeMeUser.getMaybeMeUser();
     let inChat = await WAPI.getchatId(chat.id).catch(() => {});
 
