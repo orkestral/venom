@@ -1,3 +1,17 @@
+## [4.0.2](https://github.com/orkestral/venom/compare/v4.0.1...v4.0.2) (2021-11-17)
+
+
+### Bug Fixes
+
+* checkNumber ([42e631e](https://github.com/orkestral/venom/commit/42e631ebcbcd5baccedec31f37512773c77b186e))
+* eslint ([7a91719](https://github.com/orkestral/venom/commit/7a91719ec6b0a414c33cc176063778fe0597bab8))
+* eslint ([5779d62](https://github.com/orkestral/venom/commit/5779d62a44fe90be72417a3037e14a7d24ac242a))
+* send ([f1a6289](https://github.com/orkestral/venom/commit/f1a6289af68449ea2d0fca476dab8c2cb12057b0))
+* Send with more digits ([14e2fea](https://github.com/orkestral/venom/commit/14e2fea6fe6b066ce6a793b7894c1d8955b15792))
+* webpack ([dc6e5db](https://github.com/orkestral/venom/commit/dc6e5db8380a0bd0b2f56d4f1e4a9c88d6f7ab66))
+
+
+
 ## [4.0.1](https://github.com/orkestral/venom/compare/v4.0.0...v4.0.1) (2021-11-08)
 
 
