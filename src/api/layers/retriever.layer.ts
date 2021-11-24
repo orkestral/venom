@@ -57,6 +57,7 @@ import { CreateConfig } from '../../config/create-config';
 import { tokenSession } from '../../config/tokenSession.config';
 import { WhatsappProfile } from '../model';
 import { SenderLayer } from './sender.layer';
+import { checkValuesSender } from '../helpers/layers-interface';
 
 export class RetrieverLayer extends SenderLayer {
   constructor(public page: Page, session?: string, options?: CreateConfig) {
@@ -276,10 +277,32 @@ export class RetrieverLayer extends SenderLayer {
    * @returns contact detial as promise
    */
   public async getNumberProfile(contactId: string) {
-    return this.page.evaluate(
-      (contactId) => WAPI.getNumberProfile(contactId),
-      contactId
-    );
+    return new Promise(async (resolve, reject) => {
+      const typeFunction = 'getNumberProfile';
+      const type = 'string';
+      const check = [
+        {
+          param: 'contactId',
+          type: type,
+          value: contactId,
+          function: typeFunction,
+          isUser: true
+        }
+      ];
+      const validating = checkValuesSender(check);
+      if (typeof validating === 'object') {
+        return reject(validating);
+      }
+      const result = this.page.evaluate(
+        (contactId: string) => WAPI.getNumberProfile(contactId),
+        contactId
+      );
+      if (result['erro'] == true) {
+        reject(result);
+      } else {
+        resolve(result);
+      }
+    });
   }
 
   /**

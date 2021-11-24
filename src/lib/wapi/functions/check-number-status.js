@@ -8,7 +8,7 @@ export async function checkNumberStatus(id, conn = true) {
     }
 
     if (conn === true) {
-      const connection = window.Store.State.default.state;
+      const connection = window.Store.State.Socket.state;
       if (connection !== 'CONNECTED') {
         Object.assign(err, {
           text: 'No connection with WhatsApp',
