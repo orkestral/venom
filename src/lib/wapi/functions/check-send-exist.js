@@ -54,7 +54,7 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
 export function scope(id, erro, status, text = null, result = null) {
   const object = {
-    me: Store.Me.attributes,
+    me: WAPI.getHost(),
     to: id,
     erro: erro,
     text: text,
@@ -154,7 +154,11 @@ export async function sendExist(chatId, returnChat = true, Send = true) {
   }
   let ck = await window.WAPI.checkNumberStatus(chatId, false);
 
-  if (ck.status === 404 && !chatId.includes('@g.us')) {
+  if (
+    ck.status === 404 &&
+    !chatId.includes('@g.us') &&
+    !chatId.includes('@broadcast')
+  ) {
     return WAPI.scope(chatId, true, ck.status, 'The number does not exist');
   }
 
