@@ -952,8 +952,6 @@ await client.blockContact('000000000000@c.us');
 // Unlocks contacts (returns true if it works)
 await client.unblockContact('000000000000@c.us');
 
-// Retrieve a number profile / check if contact is a valid whatsapp number
-const profile = await client.getNumberProfile('000000000000@c.us');
 ```
 
 ## Misc
