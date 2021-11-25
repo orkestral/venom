@@ -1,18 +1,22 @@
 export async function checkNumberStatus(id, conn = true) {
   try {
     const err = { error: 404 };
+    const connection = window.Store.State.Socket.state;
     const checkType = WAPI.sendCheckType(id);
     if (!!checkType && checkType.status === 404) {
-      Object.assign(err, { text: checkType.text });
+      Object.assign(err, {
+        text: checkType.text,
+        numberExists: null
+      });
       throw err;
     }
 
     if (conn === true) {
-      const connection = window.Store.State.Socket.state;
       if (connection !== 'CONNECTED') {
         Object.assign(err, {
           text: 'No connection with WhatsApp',
-          connection: connection
+          connection: connection,
+          numberExists: null
         });
         throw err;
       }
@@ -28,11 +32,17 @@ export async function checkNumberStatus(id, conn = true) {
       return data;
     }
 
-    throw err;
+    throw Object.assign(err, {
+      connection: connection,
+      numberExists: false,
+      text: 'The number does not exist'
+    });
   } catch (e) {
     return {
       status: e.error,
-      text: e.text
+      text: e.text,
+      numberExists: e.numberExists,
+      connection: e.connection
     };
   }
 }
