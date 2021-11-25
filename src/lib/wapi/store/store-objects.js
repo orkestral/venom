@@ -209,7 +209,7 @@ export const storeObjects = [
   {
     id: 'Me',
     conditions: (module) =>
-      module.PLATFORMS && module.Conn ? module.default : null
+      module.PLATFORMS && module.Conn ? module.Conn : null,
   },
   {
     id: 'CallUtils',
