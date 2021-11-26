@@ -401,6 +401,10 @@ export const storeObjects = [
       module.default && module.default.destroyStorage ? module.default : null
   },
   {
+    id: 'Login',
+    conditions: (module) => (module.startLogout ? module : null),
+  },
+  {
     id: 'BlobCache',
     conditions: (module) =>
       module.default && module.default.getOrCreateURL ? module.default : null
