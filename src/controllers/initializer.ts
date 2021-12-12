@@ -162,19 +162,6 @@ export async function create(
     options = sessionOrOption;
   }
   let browserToken: any;
-  if (options?.multidevice != false) {
-    const dirPath = `./${defaultOptions.folderNameToken}/${session}`;
-
-    let existFile = fs.existsSync(dirPath + '.data.json');
-
-    if (existFile) {
-      fs.unlinkSync(dirPath + '.data.json');
-    }
-
-    defaultOptions.puppeteerOptions = {
-      userDataDir: dirPath
-    };
-  }
 
   const mergedOptions = { ...defaultOptions, ...options };
 
@@ -190,7 +177,7 @@ export async function create(
     logger.info('Initializing browser wss...', { session });
   }
 
-  const browser = await initBrowser(session, mergedOptions);
+  const browser = await initBrowser(session, mergedOptions, logger);
   // Erro of connect wss
   if (typeof browser === 'string' && browser === 'connect') {
     logger.info('Error when try to connect ' + mergedOptions.browserWS, {
@@ -370,21 +357,23 @@ export async function create(
       console.log(`\nDebug: \x1b[34m${debugURL}\x1b[0m`);
     }
     await page.waitForSelector('#app .two', { visible: true }).catch(() => {});
-    await page.waitForFunction(
-      () => {
-        if (
-          window.Store &&
-          window.Store.WidFactory &&
-          window.Store.WidFactory.createWid
-        ) {
-          return true;
+    await page
+      .waitForFunction(
+        () => {
+          if (
+            window.Store &&
+            window.Store.WidFactory &&
+            window.Store.WidFactory.createWid
+          ) {
+            return true;
+          }
+        },
+        {
+          timeout: 0,
+          polling: 100
         }
-      },
-      {
-        timeout: 0,
-        polling: 100
-      }
-    );
+      )
+      .catch(() => {});
 
     return client;
   }
