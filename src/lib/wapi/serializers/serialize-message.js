@@ -96,7 +96,8 @@ export const _serializeMessageObj = (obj) => {
     chat: _chat,
     isOnline: _chat.isOnline,
     lastSeen: _chat.lastSeen,
-    quotedMsgObj: obj._quotedMsgObj,
+    quotedMsgObj: obj.quotedMsg,
+    quotedStanzaId: obj.quotedStanzaID ? obj.quotedStanzaID : undefined,
     mediaData: window.WAPI._serializeRawObj(obj.mediaData),
     caption: obj.caption,
     deprecatedMms3Url: obj.deprecatedMms3Url,
@@ -116,6 +117,8 @@ export const _serializeMessageObj = (obj) => {
     width: obj.width,
     self: obj.self,
     initialPageSize: obj.initialPageSize,
+    lat: obj.lat ? obj.lat : undefined,
+    lng: obj.lng ? obj.lng : undefined,
 
     reply: (body) => window.WAPI.reply(_chat.id._serialized, body, obj)
   };
