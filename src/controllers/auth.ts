@@ -63,7 +63,7 @@ import { tokenSession } from '../config/tokenSession.config';
 
 export const getInterfaceStatus = async (
   waPage: puppeteer.Page
-): Promise<string | null | boolean> => {
+): Promise<any> => {
   return await waPage
     .waitForFunction(
       () => {

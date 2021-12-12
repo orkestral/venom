@@ -146,7 +146,7 @@ export async function initBrowser(
     extras = { ...extras, executablePath: chromePath };
   } else {
     if (options.BrowserFetcher) {
-      const browserFetcher = puppeteer.createBrowserFetcher();
+      const browserFetcher = puppeteer.createBrowserFetcher(null);
       logger.info(`${chalk.green('Check chromium....')}`, {
         session,
         type: 'browser'
@@ -201,7 +201,7 @@ export async function initBrowser(
   }
 
   if (options.multidevice) {
-    const folderSession = path.join(
+    const folderSession: string = path.join(
       path.resolve(
         process.cwd(),
         options.mkdirFolderToken,

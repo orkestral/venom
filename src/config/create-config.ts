@@ -52,7 +52,13 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
-import { Browser, BrowserContext, LaunchOptions, Page } from 'puppeteer';
+import {
+  Browser,
+  BrowserContext,
+  LaunchOptions,
+  BrowserLaunchArgumentOptions,
+  Page
+} from 'puppeteer';
 
 import { Logger } from 'winston';
 
@@ -105,7 +111,7 @@ export interface CreateConfig {
   /**
    * Will be passed to puppeteer.launch
    */
-  puppeteerOptions?: LaunchOptions;
+  puppeteerOptions?: LaunchOptions | BrowserLaunchArgumentOptions;
   /**
    * Pass a external browser instance, can be used with electron
    */
@@ -159,6 +165,7 @@ export interface CreateConfig {
    * @default '818858'
    */
   chromiumVersion?: string;
+  userDataDir?: string;
   /**
    * Wait for in chat to return a instance of {@link Whatsapp}
    * @default false
@@ -185,5 +192,6 @@ export const defaultOptions: CreateConfig = {
   waitForLogin: true,
   BrowserFetcher: true,
   chromiumVersion: '818858',
+  userDataDir: '',
   logger: defaultLogger
 };
