@@ -18,7 +18,7 @@
     "clean": "shx rm -rf session dist",
     "commit": "cz",
     "fix:doc-theme": "shx cp ./node_modules/typedoc-default-themes/bin/default/partials/type.hbs ./node_modules/typedoc-plugin-pages/dist/theme/v2/partials/type.hbs",
-    "generate-api-docs": "npm run fix:doc-theme && typedoc",
+    "generate-api-docs": "npm run fix:doc-theme",
     "lint:js": "npx eslint -c .eslintrc.js --ext .js src",
     "lint:ts": "npx eslint -c .eslintrc.js --ext .ts src",
     "lint": "npm run lint:ts && npm run lint:js",
@@ -125,6 +125,7 @@
     "sharp": "^0.29.1",
     "spinnies": "^0.5.1",
     "tree-kill": "^1.2.2",
+    "typedoc-default-themes": "^0.12.10",
     "winston": "^3.3.3",
     "yoo-hoo": "^1.2.0"
   },
