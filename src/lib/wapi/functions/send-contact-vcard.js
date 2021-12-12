@@ -57,7 +57,7 @@ export async function sendContactVcard(chatId, contact, name) {
   const cont = await WAPI.sendExist(contact);
 
   if (chat.id && cont.id) {
-    const newMsgId = await window.WAPI.getNewMessageId(chat.id);
+    const newMsgId = await window.WAPI.getNewMessageId(chat.id._serialized);
     const inChat = await WAPI.getchatId(chat.id).catch(() => {});
 
     if (inChat) {
@@ -65,7 +65,7 @@ export async function sendContactVcard(chatId, contact, name) {
       chat.lastReceivedKey.id = inChat.id;
     }
 
-    const fromwWid = await Store.UserPrefs.getMaybeMeUser();
+    const fromwWid = await Store.MaybeMeUser.getMaybeMeUser();
     var body = await window.Store.Vcard.vcardFromContactModel(cont.__x_contact);
     name = !name ? cont.__x_formattedTitle : name;
     var message = {

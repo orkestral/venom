@@ -81,14 +81,14 @@ export async function sendLinkPreview(chatId, url, text) {
   var chat = await WAPI.sendExist(chatId);
   if (!chat.erro) {
     const linkPreview = await Store.WapQuery.queryLinkPreview(url);
-    const newMsgId = await window.WAPI.getNewMessageId(chat.id);
+    const newMsgId = await window.WAPI.getNewMessageId(chat.id._serialized);
     let inChat = await WAPI.getchatId(chat.id).catch(() => {});
     if (inChat) {
       chat.lastReceivedKey._serialized = inChat._serialized;
       chat.lastReceivedKey.id = inChat.id;
     }
 
-    const fromwWid = await Store.UserPrefs.getMaybeMeUser();
+    const fromwWid = await Store.MaybeMeUser.getMaybeMeUser();
     const message = {
       id: newMsgId,
       ack: 0,
@@ -100,14 +100,14 @@ export async function sendLinkPreview(chatId, url, text) {
       t: parseInt(new Date().getTime() / 1000),
       isNewMsg: !0,
       type: 'chat',
-      subtype: 'url',
-      canonicalUrl: linkPreview.canonicalUrl,
-      description: linkPreview.description,
-      doNotPlayInline: linkPreview.doNotPlayInline,
-      matchedText: linkPreview.matchedText,
-      preview: linkPreview.preview,
-      thumbnail: linkPreview.thumbnail,
-      title: linkPreview.title
+      subtype: 'url'
+      // canonicalUrl: linkPreview.canonicalUrl,
+      // description: linkPreview.description,
+      // doNotPlayInline: linkPreview.doNotPlayInline,
+      // matchedText: linkPreview.matchedText,
+      // preview: linkPreview.preview,
+      // thumbnail: linkPreview.thumbnail,
+      // title: linkPreview.title
     };
     var result = (
       await Promise.all(window.Store.addAndSendMsgToChat(chat, message))

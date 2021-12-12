@@ -71,7 +71,7 @@ export async function forwardMessages(chatId, messages, skipMyMessages) {
 
   return new Promise(async (resolve, reject) => {
     if (chat.id) {
-      let newMsgId = await window.WAPI.getNewMessageId(chat.id);
+      let newMsgId = await window.WAPI.getNewMessageId(chat.id._serialized);
       let inChat = await WAPI.getchatId(chat.id).catch(() => {});
       if (inChat) {
         chat.lastReceivedKey._serialized = inChat._serialized;

@@ -1,3 +1,45 @@
+## [4.0.3](https://github.com/orkestral/venom/compare/v4.0.2...v4.0.3) (2021-11-24)
+
+
+### Bug Fixes
+
+* get host ([0e055ae](https://github.com/orkestral/venom/commit/0e055aeda0c55279ca9278a8b618be44b672282a))
+* get me and State ([c1fac1b](https://github.com/orkestral/venom/commit/c1fac1b000f7277a680bcebfc04aed457e718305))
+* getNumberProfile ([cd62707](https://github.com/orkestral/venom/commit/cd62707d2bfe55c45e164fba1e1852198f2b7200))
+
+
+### Features
+
+* readme ([6d48b4e](https://github.com/orkestral/venom/commit/6d48b4e8f522acf4ce22682d7db15b61fc6059e2))
+
+
+
+## [4.0.2](https://github.com/orkestral/venom/compare/v4.0.1...v4.0.2) (2021-11-17)
+
+
+### Bug Fixes
+
+* checkNumber ([42e631e](https://github.com/orkestral/venom/commit/42e631ebcbcd5baccedec31f37512773c77b186e))
+* eslint ([7a91719](https://github.com/orkestral/venom/commit/7a91719ec6b0a414c33cc176063778fe0597bab8))
+* eslint ([5779d62](https://github.com/orkestral/venom/commit/5779d62a44fe90be72417a3037e14a7d24ac242a))
+* send ([f1a6289](https://github.com/orkestral/venom/commit/f1a6289af68449ea2d0fca476dab8c2cb12057b0))
+* Send with more digits ([14e2fea](https://github.com/orkestral/venom/commit/14e2fea6fe6b066ce6a793b7894c1d8955b15792))
+* webpack ([dc6e5db](https://github.com/orkestral/venom/commit/dc6e5db8380a0bd0b2f56d4f1e4a9c88d6f7ab66))
+
+
+
+## [4.0.1](https://github.com/orkestral/venom/compare/v4.0.0...v4.0.1) (2021-11-08)
+
+
+### Bug Fixes
+
+* corretion for not multidevice version ([782fea4](https://github.com/orkestral/venom/commit/782fea4b1c664e4d96c664545eba2cdfe700c9c1))
+* corretion for version not multidevice ([e4d9c37](https://github.com/orkestral/venom/commit/e4d9c37cc5ee4b42db575a9145180f4134c49245))
+* eslint ([77a670b](https://github.com/orkestral/venom/commit/77a670b123fad100644705394c34750530a3d192))
+* readme param MD ([96c3163](https://github.com/orkestral/venom/commit/96c31630485c789a59d3d5e93314280b8f77ebcc))
+
+
+
 # [4.0.0](https://github.com/orkestral/venom/compare/v3.1.12...v4.0.0) (2021-11-08)
 
 

@@ -54,7 +54,7 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
 export function scope(id, erro, status, text = null, result = null) {
   const object = {
-    me: Store.Me.attributes,
+    me: WAPI.getHost(),
     to: id,
     erro: erro,
     text: text,
@@ -64,22 +64,25 @@ export function scope(id, erro, status, text = null, result = null) {
   return object;
 }
 export async function getchatId(chatId) {
-  var to = await WAPI.getChatById(chatId);
-  if (to) {
-    var objTo = to.lastReceivedKey,
-      extend = {
-        formattedName: to.contact.formattedName,
-        isBusiness: to.contact.isBusiness,
-        isMyContact: to.contact.isMyContact,
-        verifiedName: to.contact.verifiedName,
-        pushname: to.contact.pushname,
-        isOnline: to.isOnline
-      };
-    Object.assign(objTo, extend);
-    return objTo;
-  } else {
-    return undefined;
+  if (chatId) {
+    let to = await WAPI.getChatById(chatId);
+    if (to && typeof to === 'object') {
+      let objTo = to.lastReceivedKey;
+      if (objTo && typeof objTo === 'object') {
+        let extend = {
+          formattedName: to.contact.formattedName,
+          isBusiness: to.contact.isBusiness,
+          isMyContact: to.contact.isMyContact,
+          verifiedName: to.contact.verifiedName,
+          pushname: to.contact.pushname,
+          isOnline: to.isOnline
+        };
+        Object.assign(objTo, extend);
+        return objTo;
+      }
+    }
   }
+  return undefined;
 }
 
 export function sendCheckType(chatId = undefined) {
@@ -138,7 +141,7 @@ export function sendCheckType(chatId = undefined) {
         chatId,
         true,
         404,
-        'incorrect parameters! Use as an example: 00000000-000000@g.us'
+        'incorrect parameters! Use as an example: 00000000-000000@g.us or 00000000000000@g.us'
       );
     }
   }
@@ -149,23 +152,22 @@ export async function sendExist(chatId, returnChat = true, Send = true) {
   if (!!checkType && checkType.status === 404) {
     return checkType;
   }
-  let ck = await window.WAPI.checkNumberStatus(chatId);
+  let ck = await window.WAPI.checkNumberStatus(chatId, false);
 
   if (
     ck.status === 404 &&
-    ck.id &&
-    ck.id._serialized &&
-    ck.id._serialized.include &&
-    !ck.id._serialized.include('@g.us')
+    !chatId.includes('@g.us') &&
+    !chatId.includes('@broadcast')
   ) {
     return WAPI.scope(chatId, true, ck.status, 'The number does not exist');
   }
 
-  if (!ck.id || !ck.id._serialized) {
-    return WAPI.scope(chatId, true, 404, '_serialized is missing');
-  }
-
   let chat = await window.WAPI.getChat(ck.id._serialized);
+
+  let chat =
+    ck && ck.id && ck.id._serialized
+      ? await window.WAPI.getChat(ck.id._serialized)
+      : undefined;
 
   if (ck.numberExists && chat === undefined) {
     var idUser = new window.Store.UserConstructor(chatId, {
@@ -177,7 +179,10 @@ export async function sendExist(chatId, returnChat = true, Send = true) {
   if (!chat) {
     const storeChat = await window.Store.Chat.find(chatId);
     if (storeChat) {
-      chat = await window.WAPI.getChat(storeChat.id._serialized);
+      chat =
+        storeChat && storeChat.id && storeChat.id._serialized
+          ? await window.WAPI.getChat(storeChat.id._serialized)
+          : undefined;
     }
   }
 
@@ -194,7 +199,13 @@ export async function sendExist(chatId, returnChat = true, Send = true) {
     );
   }
 
-  if (!ck.numberExists && !chat.t && chat.isBroadcast) {
+  if (
+    !ck.numberExists &&
+    !chat.t &&
+    chat.id &&
+    chat.id.user != 'status' &&
+    chat.isBroadcast
+  ) {
     return WAPI.scope(
       chatId,
       true,
@@ -204,7 +215,7 @@ export async function sendExist(chatId, returnChat = true, Send = true) {
   }
 
   if (!chat) {
-    return WAPI.scope(ck.id._serialized, true, 404);
+    return WAPI.scope(chatId, true, 404);
   }
 
   if (Send) {
@@ -215,5 +226,5 @@ export async function sendExist(chatId, returnChat = true, Send = true) {
     return chat;
   }
 
-  return WAPI.scope(ck.id._serialized, false, 200);
+  return WAPI.scope(chatId, false, 200);
 }

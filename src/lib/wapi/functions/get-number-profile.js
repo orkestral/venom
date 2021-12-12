@@ -52,26 +52,17 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
-export async function getNumberProfile(id, done) {
-  try {
-    const result = await window.Store.WapQuery.queryExist(id);
-    if (result.jid === undefined) throw 404;
-    const data = window.WAPI._serializeNumberStatusObj(result);
-    if (data.status == 200) data.numberExists = true;
-    if (done !== undefined) {
-      done(window.WAPI._serializeNumberStatusObj(result));
-      done(data);
-    }
-    return data;
-  } catch (e) {
-    if (done !== undefined) {
-      done(
-        window.WAPI._serializeNumberStatusObj({
-          status: e,
-          jid: id
-        })
-      );
-    }
-    return e;
+export async function getNumberProfile(id) {
+  if (typeof id != 'string' || id.length === 0) {
+    return WAPI.scope(id, true, 404, 'It is necessary to number');
   }
+  const chat = await WAPI.sendExist(id);
+  if (chat && chat.status != 404 && chat.id) {
+    const infoUser = await Store.MyStatus.getStatus(chat);
+    return await WAPI._serializeMeObj(infoUser);
+  }
+  if (!chat.erro) {
+    chat.erro = true;
+  }
+  return chat;
 }

@@ -52,14 +52,16 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
-export function getChatById(id, done) {
-  let found = WAPI.getChat(id);
-  if (found) {
-    found = WAPI._serializeChatObj(found);
-  } else {
-    found = false;
+export function getChatById(id) {
+  try {
+    if (id) {
+      let found = WAPI.getChat(id);
+      if (found) {
+        return WAPI._serializeChatObj(found);
+      }
+    }
+    throw false;
+  } catch {
+    return false;
   }
-
-  if (done !== undefined) done(found);
-  return found;
 }

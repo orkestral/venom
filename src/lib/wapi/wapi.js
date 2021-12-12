@@ -188,42 +188,48 @@ import {
   _serializeChatObj,
   _serializeContactObj,
   _serializeMessageObj,
-  _serializeNumberStatusObj,
   _serializeProfilePicThumb,
   _serializeRawObj,
   _serializeMeObj
 } from './serializers';
-import { storeObjects } from './store/store-objects';
-import getStore from './store/get-store';
-window['webpackJsonp'] = window['webpackJsonp'] || [];
-window['webpackChunkbuild'] = window['webpackChunkbuild'] || [];
+import { getStore } from './store/get-store';
 
-if (typeof window.Store === 'undefined') {
-  window.Store = {};
-  window.Store.promises = {};
-  const f_modules = new getStore();
-  window.Store.loader = f_modules;
-
-  for (const store of storeObjects) {
-    Store.promises[store.id] = f_modules
-      .waitForModule((m) => !!store.conditions(m))
-      .then(store.conditions)
-      .then((m) => {
-        if (store.id === 'Store') {
-          window.Store = Object.assign({}, window.Store, m);
-        } else {
-          window.Store[store.id] = m;
+window['webpackChunkwhatsapp_web_client'] =
+  window['webpackChunkwhatsapp_web_client'] || [];
+window.Store = {};
+var loadParasite = function () {
+  function injectParasite() {
+    const parasite = `parasite`;
+    window['webpackChunkwhatsapp_web_client'].push([
+      [parasite],
+      {},
+      async function (o) {
+        let modules = [];
+        for (let idx in o.m) {
+          modules.push(o(idx));
         }
-      });
+        getStore(modules);
+      }
+    ]);
   }
-
-  window.Store.sendMessage = function (e) {
-    return window.Store.SendTextMsgToChat(this, ...arguments);
-  };
-  window.Store.sendAddMessage = function (e) {
-    return window.Store.addAndSendMsgToChat(this, ...arguments);
-  };
-}
+  setInterval(() => {
+    try {
+      const last = window['webpackChunkwhatsapp_web_client'].length - 1;
+      if (
+        !window['webpackChunkwhatsapp_web_client'][last][0].includes(
+          'parasite'
+        ) &&
+        (document.querySelectorAll('#app').length ||
+          document.querySelectorAll('#app .two').length ||
+          document.querySelector('canvas') ||
+          document.querySelectorAll('#startup').length == 0)
+      ) {
+        injectParasite();
+      }
+    } catch (e) {}
+  }, 100);
+};
+loadParasite();
 
 if (typeof window.WAPI === 'undefined') {
   window.WAPI = {
@@ -257,7 +263,6 @@ if (typeof window.WAPI === 'undefined') {
   window.WAPI._serializeChatObj = _serializeChatObj;
   window.WAPI._serializeContactObj = _serializeContactObj;
   window.WAPI._serializeMessageObj = _serializeMessageObj;
-  window.WAPI._serializeNumberStatusObj = _serializeNumberStatusObj;
   window.WAPI._serializeProfilePicThumb = _serializeProfilePicThumb;
   window.WAPI._serializeMeObj = _serializeMeObj;
 

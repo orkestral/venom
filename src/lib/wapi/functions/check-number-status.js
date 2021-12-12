@@ -1,40 +1,48 @@
 export async function checkNumberStatus(id, conn = true) {
   try {
     const err = { error: 404 };
+    const connection = window.Store.State.Socket.state;
     const checkType = WAPI.sendCheckType(id);
     if (!!checkType && checkType.status === 404) {
-      Object.assign(err, { text: checkType.text });
+      Object.assign(err, {
+        text: checkType.text,
+        numberExists: null
+      });
       throw err;
     }
+
     if (conn === true) {
-      const connection = window.Store.State.default.state;
       if (connection !== 'CONNECTED') {
         Object.assign(err, {
           text: 'No connection with WhatsApp',
-          connection: connection
+          connection: connection,
+          numberExists: null
         });
         throw err;
       }
     }
-    const result = await Store.WidFactory.createWid(id);
-    if (result.status === 404) {
-      throw err;
-    }
-    if (result.jid === undefined) {
-      throw err;
-    }
-    const data = window.WAPI._serializeNumberStatusObj(result);
-    if (data.status == 200) {
-      data.numberExists = true;
-      data.profilePic = await WAPI.getProfilePicFromServer(id);
+
+    const result = await Store.checkNumber(id);
+    if (!!result && typeof result === 'object') {
+      const data = {
+        status: 200,
+        numberExists: true,
+        id: result.wid
+      };
       return data;
     }
+
+    throw Object.assign(err, {
+      connection: connection,
+      numberExists: false,
+      text: 'The number does not exist'
+    });
   } catch (e) {
-    return window.WAPI._serializeNumberStatusObj({
+    return {
       status: e.error,
       text: e.text,
-      connection: e.connection,
-      jid: e.text ? undefined : new window.Store.WidFactory.createWid(id)
-    });
+      numberExists: e.numberExists,
+      connection: e.connection
+    };
   }
 }

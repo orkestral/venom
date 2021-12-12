@@ -60,10 +60,10 @@ export async function sendLocation(
 ) {
   const chat = await WAPI.sendExist(chatId);
 
-  if (!chat.erro) {
-    const newMsgId = await window.WAPI.getNewMessageId(chat.id);
+  if (chat && chat.status != 404 && chat.id) {
+    const newMsgId = await window.WAPI.getNewMessageId(chat.id._serialized);
     const inChat = await WAPI.getchatId(chat.id).catch(() => {});
-    const fromwWid = await Store.UserPrefs.getMaybeMeUser();
+    const fromwWid = await Store.MaybeMeUser.getMaybeMeUser();
 
     if (inChat) {
       chat.lastReceivedKey._serialized = inChat._serialized;

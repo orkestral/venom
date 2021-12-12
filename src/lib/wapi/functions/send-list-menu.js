@@ -158,9 +158,9 @@ export async function sendListMenu(
 
   const chat = await WAPI.sendExist(to);
 
-  if (chat && chat.status != 404) {
-    const newMsgId = await window.WAPI.getNewMessageId(chat.id);
-    const fromwWid = await Store.UserPrefs.getMaybeMeUser();
+  if (chat && chat.status != 404 && chat.id) {
+    const newMsgId = await window.WAPI.getNewMessageId(chat.id._serialized);
+    const fromwWid = await Store.MaybeMeUser.getMaybeMeUser();
     const inChat = await WAPI.getchatId(chat.id).catch(() => {});
 
     if (inChat) {

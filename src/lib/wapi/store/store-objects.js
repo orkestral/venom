@@ -209,7 +209,7 @@ export const storeObjects = [
   {
     id: 'Me',
     conditions: (module) =>
-      module.PLATFORMS && module.Conn ? module.default : null
+      module.PLATFORMS && module.Conn ? module.Conn : null,
   },
   {
     id: 'CallUtils',
@@ -401,6 +401,10 @@ export const storeObjects = [
       module.default && module.default.destroyStorage ? module.default : null
   },
   {
+    id: 'Login',
+    conditions: (module) => (module.startLogout ? module : null),
+  },
+  {
     id: 'BlobCache',
     conditions: (module) =>
       module.default && module.default.getOrCreateURL ? module.default : null
@@ -422,7 +426,7 @@ export const storeObjects = [
     conditions: (module) => (module.sendSetGroupProperty ? module : null)
   },
   {
-    id: 'UserPrefs',
+    id: 'MaybeMeUser',
     conditions: (module) => (module.getMaybeMeUser ? module : null)
   },
   {
@@ -449,5 +453,14 @@ export const storeObjects = [
     id: 'sendDemoteParticipants',
     conditions: (module) =>
       module.sendDemoteParticipants ? module.sendDemoteParticipants : null
-  }
+  },
+  {
+    id: 'checkNumber',
+    conditions: (module) =>
+      module.default &&
+      typeof module.default.toString === 'function' &&
+      module.default.toString().includes('Should not reach queryExists MD')
+        ? module.default
+        : null,
+  },
 ];

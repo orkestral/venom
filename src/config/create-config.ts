@@ -62,8 +62,8 @@ import { puppeteerConfig } from './puppeteer.config';
 
 // Server config
 export interface CreateConfig {
-  /**
-   * multidevice option
+  /** enabled multidevice
+   * @default true
    */
   multidevice?: boolean;
   /** folder name when saving tokens
@@ -150,6 +150,16 @@ export interface CreateConfig {
    */
   waitForLogin?: boolean;
   /**
+   * automatically download Chromium browser
+   * @default true
+   */
+  BrowserFetcher?: boolean;
+  /**
+   * Version of the browser that will be used
+   * @default '818858'
+   */
+  chromiumVersion?: string;
+  /**
    * Wait for in chat to return a instance of {@link Whatsapp}
    * @default false
    */
@@ -173,5 +183,7 @@ export const defaultOptions: CreateConfig = {
   autoClose: 120000,
   createPathFileToken: true,
   waitForLogin: true,
+  BrowserFetcher: true,
+  chromiumVersion: '818858',
   logger: defaultLogger
 };
