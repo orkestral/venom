@@ -22,21 +22,32 @@ export async function checkNumberStatus(id, conn = true) {
       }
     }
 
-    const result = await Store.checkNumber(id);
-    if (!!result && typeof result === 'object') {
-      const data = {
-        status: 200,
-        numberExists: true,
-        id: result.wid
-      };
-      return data;
-    }
-
-    throw Object.assign(err, {
-      connection: connection,
-      numberExists: false,
-      text: 'The number does not exist'
-    });
+    return await Store.checkNumber(id)
+      .then((result) => {
+        if (!!result && typeof result === 'object') {
+          const data = {
+            status: 200,
+            numberExists: true,
+            id: result.wid
+          };
+          return data;
+        }
+        throw Object.assign(err, {
+          connection: connection,
+          numberExists: false,
+          text: `The number does not exist`
+        });
+      })
+      .catch((err) => {
+        if (err.text) {
+          throw err;
+        }
+        throw Object.assign(err, {
+          connection: connection,
+          numberExists: false,
+          text: err
+        });
+      });
   } catch (e) {
     return {
       status: e.error,
