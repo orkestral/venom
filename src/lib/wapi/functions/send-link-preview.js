@@ -74,9 +74,12 @@ export async function sendLinkPreview(chatId, url, text) {
     }
   };
   if (!_Path.Reg().test(url)) {
-    var text =
-      'Use a valid HTTP protocol. Example: https://www.youtube.com/watch?v=V1bFr2SWP1';
-    return WAPI.scope(chatId, true, null, text);
+    return WAPI.scope(
+      chatId,
+      true,
+      null,
+      'Use a valid HTTP protocol. Example: https://www.youtube.com/watch?v=atPaQtpx5QQ'
+    );
   }
   var chat = await WAPI.sendExist(chatId);
   if (!chat.erro) {
@@ -100,14 +103,22 @@ export async function sendLinkPreview(chatId, url, text) {
       t: parseInt(new Date().getTime() / 1000),
       isNewMsg: !0,
       type: 'chat',
-      subtype: 'url'
-      // canonicalUrl: linkPreview.canonicalUrl,
-      // description: linkPreview.description,
-      // doNotPlayInline: linkPreview.doNotPlayInline,
-      // matchedText: linkPreview.matchedText,
-      // preview: linkPreview.preview,
-      // thumbnail: linkPreview.thumbnail,
-      // title: linkPreview.title
+      subtype: 'url',
+      canonicalUrl: linkPreview.canonicalUrl
+        ? linkPreview.canonicalUrl
+        : undefined,
+      description: linkPreview.description
+        ? linkPreview.description
+        : undefined,
+      doNotPlayInline: linkPreview.doNotPlayInline
+        ? linkPreview.doNotPlayInline
+        : undefined,
+      matchedText: linkPreview.matchedText
+        ? linkPreview.matchedText
+        : undefined,
+      preview: linkPreview.preview ? linkPreview.preview : undefined,
+      thumbnail: linkPreview.thumbnail ? linkPreview.thumbnail : undefined,
+      title: linkPreview.title ? linkPreview.title : undefined
     };
     var result = (
       await Promise.all(window.Store.addAndSendMsgToChat(chat, message))
