@@ -1,3 +1,29 @@
+## [4.0.4](https://github.com/orkestral/venom/compare/v4.0.3...v4.0.4) (2021-12-19)
+
+
+### Bug Fixes
+
+* changed _quotedMsgObj to quotedMsg ([288b65a](https://github.com/orkestral/venom/commit/288b65a6064ef4d0f047004b7fe89e7348244213))
+* logout ([8f08abb](https://github.com/orkestral/venom/commit/8f08abbc2ed9414c9c7d71862d0bc0666eab52eb))
+* sendContactVcard ([d4a4700](https://github.com/orkestral/venom/commit/d4a4700557f1bbf632ba5f70a86477f146462fc6))
+* sendLinkPreview ([de3b0a7](https://github.com/orkestral/venom/commit/de3b0a71fc2a0ac0786c935c7599b8881a993430))
+* setProfilePic ([ddc8184](https://github.com/orkestral/venom/commit/ddc81844c5fb76be3ece25d715bd032ed07fa36e))
+* sticker ([6506d40](https://github.com/orkestral/venom/commit/6506d408863f740afc03e5325fb79345c7803960))
+* Store.State ([54dcd8e](https://github.com/orkestral/venom/commit/54dcd8e14c1895d7a45f8fd257118ddce03eccc1))
+
+
+### Features
+
+* checkNumber ([a2708e5](https://github.com/orkestral/venom/commit/a2708e5c559366a9395bff7b7ce76d9d3f0fc850))
+* checkNumberStatus ([15e8224](https://github.com/orkestral/venom/commit/15e822496b96f12187446db615ed9502b0b2bbaf))
+* multidevice and chromiumVersion ([4f8fe94](https://github.com/orkestral/venom/commit/4f8fe94b9ade9e6e291c5864ddbb97a9347a2531))
+* SerializeMeObj ([5d72a61](https://github.com/orkestral/venom/commit/5d72a61c4782009f19dd841ac5191a0e3a001721))
+* test typedoc ([5e4007f](https://github.com/orkestral/venom/commit/5e4007fd338c306d51d07e5b7c9028ef5610ff1c))
+* typedoc ([bb58502](https://github.com/orkestral/venom/commit/bb58502f747a023eb884fabdf3c1a6a54c0484e9))
+* update puppeteer ([b8ca6b6](https://github.com/orkestral/venom/commit/b8ca6b633a77c4e14535083586a46a58bfa6d777))
+
+
+
 ## [4.0.3](https://github.com/orkestral/venom/compare/v4.0.2...v4.0.3) (2021-11-24)
 
 
