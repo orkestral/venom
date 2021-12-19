@@ -455,12 +455,17 @@ export const storeObjects = [
       module.sendDemoteParticipants ? module.sendDemoteParticipants : null
   },
   {
-    id: 'checkNumber',
+    id: 'checkNumberBeta',
     conditions: (module) =>
       module.default &&
       typeof module.default.toString === 'function' &&
       module.default.toString().includes('Should not reach queryExists MD')
         ? module.default
         : null,
+  },
+  {
+    id: 'checkNumber',
+    conditions: (module) =>
+      module.default && module.default.queryExist ? module.default : null,
   },
 ];

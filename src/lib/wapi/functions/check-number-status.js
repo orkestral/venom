@@ -1,4 +1,4 @@
-export async function checkNumberStatus(id, conn = true) {
+export async function checkNumberStatus(id, conn = false) {
   try {
     const err = { error: 404 };
     const connection = window.Store.State.Socket.state;
@@ -22,32 +22,49 @@ export async function checkNumberStatus(id, conn = true) {
       }
     }
 
-    return await Store.checkNumber(id)
-      .then((result) => {
-        if (!!result && typeof result === 'object') {
-          const data = {
-            status: 200,
-            numberExists: true,
-            id: result.wid
-          };
-          return data;
-        }
-        throw Object.assign(err, {
-          connection: connection,
-          numberExists: false,
-          text: `The number does not exist`
+    const checkBeta = document.querySelector('._3hcUV');
+    if (checkBeta && checkBeta.innerText === 'BETA') {
+      return await Store.checkNumberBeta(id)
+        .then((result) => {
+          if (!!result && typeof result === 'object') {
+            const data = {
+              status: 200,
+              numberExists: true,
+              id: result.wid
+            };
+            return data;
+          }
+          throw Object.assign(err, {
+            connection: connection,
+            numberExists: false,
+            text: `The number does not exist`
+          });
+        })
+        .catch((err) => {
+          if (err.text) {
+            throw err;
+          }
+          throw Object.assign(err, {
+            connection: connection,
+            numberExists: false,
+            text: err
+          });
         });
-      })
-      .catch((err) => {
-        if (err.text) {
-          throw err;
-        }
-        throw Object.assign(err, {
-          connection: connection,
-          numberExists: false,
-          text: err
-        });
-      });
+    }
+
+    const result = await Store.checkNumber.queryExist(id);
+    if (result.status === 200) {
+      return {
+        status: result.status,
+        numberExists: true,
+        id: result.jid
+      };
+    }
+    return {
+      status: result.status,
+      numberExists: false,
+      text: `The number does not exist`
+    };
   } catch (e) {
     return {
       status: e.error,
