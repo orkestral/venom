@@ -56,7 +56,7 @@ export async function sendSticker(sticker, chatId, metadata, type) {
   var chat = await WAPI.sendExist(chatId);
 
   if (!chat.erro) {
-    var stick = new window.Store.Sticker.default.modelClass();
+    var stick = new window.Store.Sticker.modelClass();
 
     stick.deprecatedMms3Url = sticker.clientUrl;
     stick.filehash = sticker.filehash;
