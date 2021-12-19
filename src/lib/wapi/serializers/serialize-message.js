@@ -119,7 +119,7 @@ export const _serializeMessageObj = (obj) => {
     initialPageSize: obj.initialPageSize,
     lat: obj.lat ? obj.lat : undefined,
     lng: obj.lng ? obj.lng : undefined,
-
+    ack: obj.ack,
     reply: (body) => window.WAPI.reply(_chat.id._serialized, body, obj)
   };
 
