@@ -3,8 +3,8 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>CreateConfig | venom-bot - v4.0.3</title>
-	<meta name="description" content="Documentation for venom-bot - v4.0.3">
+	<title>CreateConfig | venom-bot - v4.0.4</title>
+	<meta name="description" content="Documentation for venom-bot - v4.0.4">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
 	<link rel="stylesheet" href="../assets/css/pages.css">
@@ -23,7 +23,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../index.html" class="title">venom-bot - v4.0.3</a>
+					<a href="../index.html" class="title">venom-bot - v4.0.4</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -85,10 +85,12 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="CreateConfig.html#BrowserFetcher" class="tsd-kind-icon">Browser<wbr>Fetcher</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="CreateConfig.html#autoClose" class="tsd-kind-icon">auto<wbr>Close</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="CreateConfig.html#browser" class="tsd-kind-icon">browser</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="CreateConfig.html#browserArgs" class="tsd-kind-icon">browser<wbr>Args</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="CreateConfig.html#browserWS" class="tsd-kind-icon">browserWS</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="CreateConfig.html#chromiumVersion" class="tsd-kind-icon">chromium<wbr>Version</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="CreateConfig.html#createPathFileToken" class="tsd-kind-icon">create<wbr>Path<wbr>File<wbr>Token</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="CreateConfig.html#debug" class="tsd-kind-icon">debug</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="CreateConfig.html#devtools" class="tsd-kind-icon">devtools</a></li>
@@ -104,6 +106,7 @@
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="CreateConfig.html#puppeteerOptions" class="tsd-kind-icon">puppeteer<wbr>Options</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="CreateConfig.html#updatesLog" class="tsd-kind-icon">updates<wbr>Log</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="CreateConfig.html#useChrome" class="tsd-kind-icon">use<wbr>Chrome</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="CreateConfig.html#userDataDir" class="tsd-kind-icon">user<wbr>Data<wbr>Dir</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="CreateConfig.html#waitForLogin" class="tsd-kind-icon">wait<wbr>For<wbr>Login</a></li>
 							</ul>
 						</section>
@@ -112,6 +115,23 @@
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="BrowserFetcher" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> Browser<wbr>Fetcher</h3>
+					<div class="tsd-signature tsd-kind-icon">Browser<wbr>Fetcher<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+					<aside class="tsd-sources">
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>automatically download Chromium browser</p>
+						</div>
+						<dl class="tsd-comment-tags">
+							<dt>default</dt>
+							<dd><p>true</p>
+							</dd>
+						</dl>
+					</div>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="autoClose" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> auto<wbr>Close</h3>
@@ -163,6 +183,23 @@
 						<div class="lead">
 							<p>If you want to use browserWSEndpoint</p>
 						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="chromiumVersion" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> chromium<wbr>Version</h3>
+					<div class="tsd-signature tsd-kind-icon">chromium<wbr>Version<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Version of the browser that will be used</p>
+						</div>
+						<dl class="tsd-comment-tags">
+							<dt>default</dt>
+							<dd><p>&#39;818858&#39;</p>
+							</dd>
+						</dl>
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
@@ -362,7 +399,7 @@
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="puppeteerOptions" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> puppeteer<wbr>Options</h3>
-					<div class="tsd-signature tsd-kind-icon">puppeteer<wbr>Options<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">LaunchOptions</span></div>
+					<div class="tsd-signature tsd-kind-icon">puppeteer<wbr>Options<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">LaunchOptions</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">BrowserLaunchArgumentOptions</span></div>
 					<aside class="tsd-sources">
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -404,6 +441,13 @@
 							</dd>
 						</dl>
 					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="userDataDir" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> user<wbr>Data<wbr>Dir</h3>
+					<div class="tsd-signature tsd-kind-icon">user<wbr>Data<wbr>Dir<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="waitForLogin" class="tsd-anchor"></a>
@@ -494,6 +538,9 @@
 						<a href="CreateConfig.html" class="tsd-kind-icon">Create<wbr>Config</a>
 						<ul>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="CreateConfig.html#BrowserFetcher" class="tsd-kind-icon">Browser<wbr>Fetcher</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="CreateConfig.html#autoClose" class="tsd-kind-icon">auto<wbr>Close</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
@@ -504,6 +551,9 @@
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="CreateConfig.html#browserWS" class="tsd-kind-icon">browserWS</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="CreateConfig.html#chromiumVersion" class="tsd-kind-icon">chromium<wbr>Version</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="CreateConfig.html#createPathFileToken" class="tsd-kind-icon">create<wbr>Path<wbr>File<wbr>Token</a>
@@ -549,6 +599,9 @@
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="CreateConfig.html#useChrome" class="tsd-kind-icon">use<wbr>Chrome</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="CreateConfig.html#userDataDir" class="tsd-kind-icon">user<wbr>Data<wbr>Dir</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="CreateConfig.html#waitForLogin" class="tsd-kind-icon">wait<wbr>For<wbr>Login</a>
