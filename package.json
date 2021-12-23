@@ -127,7 +127,7 @@
     "tree-kill": "^1.2.2",
     "typedoc-default-themes": "^0.12.10",
     "winston": "^3.3.3",
-    "ws": "^8.3.0",
+    "ws": "^8.4.0",
     "yoo-hoo": "^1.2.0"
   },
   "optionalDependencies": {
