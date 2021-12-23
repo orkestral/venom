@@ -77,6 +77,20 @@ export async function initWhatsapp(
     try {
       await waPage.setUserAgent(useragentOverride);
       await waPage.setBypassCSP(true);
+      if (
+        typeof options.userPass === 'string' &&
+        options.userPass.length &&
+        typeof options.userProxy === 'string' &&
+        options.userProxy.length &&
+        Array.isArray(options.addProxy) &&
+        options.addProxy.length
+      ) {
+        await waPage.authenticate({
+          username: options.userProxy,
+          password: options.userPass
+        });
+      }
+
       await waPage.goto(puppeteerConfig.whatsappUrl, {
         waitUntil: 'domcontentloaded'
       });
@@ -235,6 +249,17 @@ export async function initBrowser(
 
   // Use stealth plugin to avoid being detected as a bot
   puppeteer.use(StealthPlugin());
+
+  if (Array.isArray(options.addProxy) && options.addProxy.length) {
+    const proxy =
+      options.addProxy[Math.floor(Math.random() * options.addProxy.length)];
+    options.browserArgs
+      ? Object.assign(options.browserArgs, [`--proxy-server=${proxy}`])
+      : Object.assign(puppeteerConfig.chromiumArgs, [
+          `--proxy-server=${proxy}`
+        ]);
+    // console.log(puppeteerConfig.chromiumArgs);
+  }
 
   let browser = null;
   if (options.browserWS && options.browserWS != '') {

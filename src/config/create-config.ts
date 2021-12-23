@@ -171,6 +171,21 @@ export interface CreateConfig {
    * @default false
    */
   logger?: Logger;
+  /**
+   * Add proxy server
+   * @default null
+   */
+  addProxy?: string[];
+  /**
+   * Proxy username
+   * @default null
+   */
+  userProxy?: string;
+  /**
+   * Proxy password
+   * @default null
+   */
+  userPass?: string;
 }
 export const defaultOptions: CreateConfig = {
   multidevice: true,

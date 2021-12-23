@@ -276,7 +276,7 @@ export async function create(
           () => {
             if (
               document.querySelector('canvas') &&
-              document.querySelectorAll('#startup').length == 0
+              document.querySelectorAll('._2Nr6U').length == 0
             ) {
               return true;
             }
@@ -299,7 +299,7 @@ export async function create(
       if (state === SocketState.PAIRING) {
         await page.waitForFunction(
           () => {
-            if (document.querySelectorAll('#startup').length) {
+            if (document.querySelectorAll('._2Nr6U').length) {
               return true;
             }
           },
