@@ -67,21 +67,21 @@ The value of the license is $30 monthly dollars, to acquire contact in whatsapp 
 
 ## 🕷🕷 Functions Venom🕷🕷
 
-|                                                               |     |
-| ------------------------------------------------------------- | --- |
-| 🚻 Automatic QR Refresh                                       | ✔   |
-| 📁 Send **text, image, video, audio and docs**                | ✔   |
-| 👥 Get **contacts, chats, groups, group members, Block List** | ✔   |
-| 📞 Send contacts                                              | ✔   |
-| Send Buttons                                                  | ✔   |
-| Send stickers                                                 | ✔   |
-| Send stickers GIF                                             | ✔   |
-| Multiple Sessions                                             | ✔   |
-| ⏩ Forward Messages                                           | ✔   |
-| 📥 Receive message                                            | ✔   |
-| 👤 insert user section                                        | ✔   |
-| 📍 Send location!!                                            | ✔   |
-| 🕸🕸 **and much more**                                          | ✔   |
+|                                                               |   |
+|---------------------------------------------------------------|---|
+| 🚻 Automatic QR Refresh                                       | ✔ |
+| 📁 Send **text, image, video, audio and docs**                | ✔ |
+| 👥 Get **contacts, chats, groups, group members, Block List** | ✔ |
+| 📞 Send contacts                                              | ✔ |
+| Send Buttons                                                  | ✔ |
+| Send stickers                                                 | ✔ |
+| Send stickers GIF                                             | ✔ |
+| Multiple Sessions                                             | ✔ |
+| ⏩ Forward Messages                                            | ✔ |
+| 📥 Receive message                                            | ✔ |
+| 👤 insert user section                                        | ✔ |
+| 📍 Send location!!                                            | ✔ |
+| 🕸🕸 **and much more**                                        | ✔ |
 
 Documentation at https://orkestral.github.io/venom/index.html
 
@@ -196,7 +196,11 @@ venom
       disableWelcome: true, // Will disable the welcoming message which appears in the beginning
       updatesLog: true, // Logs info updates automatically in terminal
       autoClose: 60000, // Automatically closes the venom-bot only when scanning the QR code (default 60 seconds, if you want to turn it off, assign 0 or false)
-      createPathFileToken: false //creates a folder when inserting an object in the client's browser, to work it is necessary to pass the parameters in the function create browserSessionToken
+      createPathFileToken: false, // creates a folder when inserting an object in the client's browser, to work it is necessary to pass the parameters in the function create browserSessionToken
+      chromiumVersion: '818858', // Version of the browser that will be used. Revision strings can be obtained from omahaproxy.appspot.com.
+      addProxy: [''], // Add proxy server exemple : [e1.p.webshare.io:01, e1.p.webshare.io:01]
+      userProxy: '', // Proxy login username
+      userPass: '' // Proxy password
     },
     // BrowserSessionToken
     // To receive the client's token use the function await clinet.getSessionTokenBrowser()
@@ -226,7 +230,7 @@ venom
 Gets the return if the session is `isLogged` or `notLogged` or `browserClose` or `qrReadSuccess` or `qrReadFail` or `autocloseCalled` or `desconnectedMobile` or `deleteToken` or `chatsAvailable` or `deviceNotConnected` or `serverWssNotConnected` or `noOpenBrowser` or `Create session wss return "serverClose" case server for close`
 
 | Status                  | Condition                                                                                                                                                      |
-| ----------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|-------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `isLogged`              | When the user is already logged in to the browser                                                                                                              |
 | `notLogged`             | When the user is not connected to the browser, it is necessary to scan the QR code through the cell phone in the option WhatsApp Web                           |
 | `browserClose`          | If the browser is closed this parameter is returned                                                                                                            |
