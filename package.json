@@ -74,12 +74,12 @@
   "homepage": "https://github.com/orkestral/venom#readme",
   "devDependencies": {
     "@commitlint/cli": "^15.0.0",
-    "@commitlint/config-angular": "^15.0.0",
+    "@commitlint/config-angular": "^16.0.0",
     "@types/atob": "^2.1.2",
     "@types/mime-types": "^2.1.0",
     "@types/node": "^17.0.4",
     "@types/puppeteer": "^5.4.0",
-    "@types/sharp": "^0.29.1",
+    "@types/sharp": "^0.29.5",
     "@types/ws": "^8.2.0",
     "concurrently": "^6.5.1",
     "conventional-changelog-cli": "^2.1.1",
@@ -102,7 +102,7 @@
     "webpack-cli": "^4.7.0"
   },
   "dependencies": {
-    "@typescript-eslint/eslint-plugin": "^5.8.0",
+    "@typescript-eslint/eslint-plugin": "^5.9.0",
     "@typescript-eslint/parser": "^5.8.0",
     "atob": "^2.1.2",
     "axios": "^0.21.4",
