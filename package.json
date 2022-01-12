@@ -81,7 +81,7 @@
     "@types/puppeteer": "^5.4.0",
     "@types/sharp": "^0.29.5",
     "@types/ws": "^8.2.0",
-    "concurrently": "^6.5.1",
+    "concurrently": "^7.0.0",
     "conventional-changelog-cli": "^2.2.2",
     "copy-webpack-plugin": "^10.2.0",
     "eslint": "^8.6.0",
