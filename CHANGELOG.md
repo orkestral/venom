@@ -1,3 +1,19 @@
+## [4.0.5](https://github.com/orkestral/venom/compare/v4.0.4...v4.0.5) (2022-01-15)
+
+
+### Bug Fixes
+
+* logout ([ee6b6c3](https://github.com/orkestral/venom/commit/ee6b6c33ed2a1bccda588af5f08b156139c9dd41))
+* MessageObj ([deae0e9](https://github.com/orkestral/venom/commit/deae0e9b15b5385572ec32c56d5252f54f3b5ad8))
+
+
+### Features
+
+* addProxy ([22f9f01](https://github.com/orkestral/venom/commit/22f9f01866dc90d0d682500f97116e4e148efe5f))
+* readme ([ab0ff66](https://github.com/orkestral/venom/commit/ab0ff6667b7c127a2e39246c822e65c006118235))
+
+
+
 ## [4.0.4](https://github.com/orkestral/venom/compare/v4.0.3...v4.0.4) (2021-12-19)
 
 
