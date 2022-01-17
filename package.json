@@ -112,7 +112,7 @@
     "chrome-launcher": "^0.15.0",
     "commitizen": "^4.2.4",
     "cz-conventional-changelog": "^3.3.0",
-    "dotenv": "^11.0.0",
+    "dotenv": "^14.1.0",
     "futoin-hkdf": "^1.4.3",
     "latest-version": "^5.1.0",
     "mime-types": "^2.1.33",
