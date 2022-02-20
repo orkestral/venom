@@ -98,7 +98,7 @@
     "typedoc": "^0.21.2",
     "typedoc-plugin-pages": "^1.1.0",
     "typescript": "^4.5.4",
-    "webpack": "^5.66.0",
+    "webpack": "^5.69.1",
     "webpack-cli": "^4.7.0"
   },
   "dependencies": {
@@ -127,7 +127,7 @@
     "tree-kill": "^1.2.2",
     "typedoc-default-themes": "^0.12.10",
     "winston": "^3.4.0",
-    "ws": "^8.4.2",
+    "ws": "^8.5.0",
     "yoo-hoo": "^1.2.0"
   },
   "optionalDependencies": {
