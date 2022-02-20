@@ -126,7 +126,7 @@
     "spinnies": "^0.5.1",
     "tree-kill": "^1.2.2",
     "typedoc-default-themes": "^0.12.10",
-    "winston": "^3.4.0",
+    "winston": "^3.6.0",
     "ws": "^8.5.0",
     "yoo-hoo": "^1.2.0"
   },
