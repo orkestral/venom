@@ -153,7 +153,7 @@ export async function create(
   ) {
     session = sessionOrOption.replace(/\s/g, '');
   } else if (typeof sessionOrOption === 'object') {
-    session = sessionOrOption.session;
+    session = sessionOrOption.session || session;
     catchQR = sessionOrOption.catchQR || catchQR;
     statusFind = sessionOrOption.statusFind || statusFind;
     browserSessionToken =
@@ -172,9 +172,9 @@ export async function create(
   }
   // Initialize whatsapp
   if (mergedOptions.browserWS) {
-    logger.info('Initializing browser...', { session });
+    logger.info(`Waiting... checking the wss server...`, { session });
   } else {
-    logger.info('Initializing browser wss...', { session });
+    logger.info('Waiting... checking the browser...', { session });
   }
 
   const browser = await initBrowser(session, mergedOptions, logger);
@@ -312,6 +312,7 @@ export async function create(
           statusFind('deviceNotConnected', session);
         }
       }
+
       if (mergedOptions.createPathFileToken) {
         if (state === SocketState.CONNECTED) {
           setTimeout(() => {

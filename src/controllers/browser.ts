@@ -156,11 +156,11 @@ export async function initBrowser(
   extras = {}
 ): Promise<Browser | string> {
   const chromePath = getChrome();
-  if (options.useChrome && options.useChrome) {
+  if (chromePath && options.useChrome) {
     extras = { ...extras, executablePath: chromePath };
   } else {
     if (options.BrowserFetcher) {
-      const browserFetcher = puppeteer.createBrowserFetcher(null);
+      const browserFetcher = puppeteer.createBrowserFetcher(undefined);
       logger.info(`${chalk.green('Check chromium....')}`, {
         session,
         type: 'browser'
@@ -182,6 +182,12 @@ export async function initBrowser(
             logger.info(`${chalk.green(`Total Bytes ${totalBytes}`)}`, {
               session,
               type: 'browser-total'
+            });
+          }
+          if (downloadedByte === totalBytes) {
+            logger.info(`${chalk.green(`extract file....`)}`, {
+              session,
+              type: 'extract-file'
             });
           }
         })
