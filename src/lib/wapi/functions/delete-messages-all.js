@@ -69,15 +69,16 @@ export async function deleteMessagesAll(chatId, messageArray, onlyLocal) {
     .filter((x) => x);
   if (messagesToDelete.length == 0) return true;
   let jobs = onlyLocal
-    ? [conversation.sendDeleteMsgs(messagesToDelete, conversation)]
+    ? [conversation.sendDeleteMsgs(messagesToDelete, true)]
     : [
         conversation.sendRevokeMsgs(
           messagesToDelete.filter((msg) => msg.isSentByMe),
-          conversation
+          "Sender",
+          true
         ),
         conversation.sendDeleteMsgs(
           messagesToDelete.filter((msg) => !msg.isSentByMe),
-          conversation
+          true
         )
       ];
   return Promise.all(jobs).then((_) => true);
