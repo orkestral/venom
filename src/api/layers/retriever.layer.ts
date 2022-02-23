@@ -306,6 +306,14 @@ export class RetrieverLayer extends SenderLayer {
   }
 
   /**
+   * check if it's beta
+   * @returns boolean
+   */
+  public async isBeta() {
+    return await this.page.evaluate(() => WAPI.isBeta());
+  }
+
+  /**
    * Retrieves all undread Messages
    * @param includeMe
    * @param includeNotifications

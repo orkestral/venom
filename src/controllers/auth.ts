@@ -289,3 +289,16 @@ export async function saveToken(
 
   return token;
 }
+
+export async function isBeta(page: puppeteer.Page) {
+  return await page.evaluate(() => {
+    if (
+      window.localStorage.getItem('WASecretBundle') &&
+      window.localStorage.getItem('WAToken1') &&
+      window.localStorage.getItem('WAToken2')
+    ) {
+      return true;
+    }
+    return false;
+  });
+}

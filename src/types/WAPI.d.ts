@@ -108,6 +108,7 @@ interface WAPI {
     includeMe: boolean,
     includeNotifications: boolean
   ) => Message[];
+  isBeta: () => boolean;
   getAllNewMessages: () => Message[];
   getAllUnreadMessages: () => PartialMessage[];
   getBatteryLevel: () => number;

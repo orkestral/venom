@@ -69,7 +69,7 @@ import { CreateConfig, defaultOptions } from '../config/create-config';
 import { tokenSession } from '../config/tokenSession.config';
 import { checkFileJson } from '../api/helpers/check-token-file';
 import { SocketState, SocketStream } from '../api/model/enum';
-import { SessionTokenCkeck, saveToken } from './auth';
+import { SessionTokenCkeck, saveToken, isBeta } from './auth';
 import { initWhatsapp, initBrowser } from './browser';
 import { welcomeScreen } from './welcome';
 /**
@@ -297,19 +297,29 @@ export async function create(
 
     client.onStateChange(async (state) => {
       if (state === SocketState.PAIRING) {
-        await page.waitForFunction(
-          () => {
-            if (document.querySelectorAll('._2Nr6U').length) {
-              return true;
+        const device = await page
+          .waitForFunction(
+            () => {
+              if (document.querySelectorAll('._2Nr6U').length) {
+                return true;
+              }
+            },
+            {
+              timeout: 0,
+              polling: 100
             }
-          },
-          {
-            timeout: 0,
-            polling: 100
+          )
+          .catch();
+        if (device) {
+          const ckeckVersion = await isBeta(page);
+          if (ckeckVersion === false) {
+            await page.evaluate(async () => {
+              await window.Store.Login.triggerCriticalSyncLogout();
+            });
           }
-        );
-        if (statusFind) {
-          statusFind('deviceNotConnected', session);
+          if (statusFind) {
+            statusFind('deviceNotConnected', session);
+          }
         }
       }
 

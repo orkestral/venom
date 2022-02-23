@@ -22,8 +22,7 @@ export async function checkNumberStatus(id, conn = false) {
       }
     }
 
-    const checkBeta = document.querySelector('._3hcUV');
-    if (checkBeta && checkBeta.innerText === 'BETA') {
+    if (WAPI.isBeta()) {
       return await Store.checkNumberBeta(id)
         .then((result) => {
           if (!!result && typeof result === 'object') {

@@ -165,7 +165,8 @@ import {
   sendListMenu,
   checkChat,
   checkNumberStatus,
-  sendCheckType
+  sendCheckType,
+  isBeta
 } from './functions';
 import {
   base64ToFile,
@@ -243,6 +244,7 @@ if (typeof window.WAPI === 'undefined') {
   window.WAPI.checkChat = checkChat;
   window.WAPI.checkNumberStatus = checkNumberStatus;
   window.WAPI.sendCheckType = sendCheckType;
+  window.WAPI.isBeta = isBeta;
 
   //Profile
   window.WAPI.setProfilePic = setProfilePic;
