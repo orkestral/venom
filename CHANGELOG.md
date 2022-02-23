@@ -1,3 +1,19 @@
+## [4.0.6](https://github.com/orkestral/venom/compare/v4.0.5...v4.0.6) (2022-02-23)
+
+
+### Bug Fixes
+
+* checkNumber ([0a20479](https://github.com/orkestral/venom/commit/0a204796998d547da7a3395dcf1985a05edf0935))
+* Product ([d17d3a3](https://github.com/orkestral/venom/commit/d17d3a3ee1597c44749e0cb3173f7f977302782f))
+* sendSticker ([557d1ae](https://github.com/orkestral/venom/commit/557d1ae8b07597d16a77a1a3c27de24240c85685))
+
+
+### Features
+
+* typedoc ([977eb8d](https://github.com/orkestral/venom/commit/977eb8d954956b46c43149de7c6ce1ee4ab16d0b))
+
+
+
 ## [4.0.5](https://github.com/orkestral/venom/compare/v4.0.4...v4.0.5) (2022-01-15)
 
 
