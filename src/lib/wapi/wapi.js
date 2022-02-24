@@ -172,7 +172,8 @@ import {
   base64ToFile,
   generateMediaKey,
   getFileHash,
-  arrayBufferToBase64
+  arrayBufferToBase64,
+  sleep
 } from './helper';
 import {
   addNewMessagesListener,
@@ -197,8 +198,9 @@ import { getStore } from './store/get-store';
 
 window['webpackChunkwhatsapp_web_client'] =
   window['webpackChunkwhatsapp_web_client'] || [];
+
 window.Store = {};
-var loadParasite = function () {
+var loadParasite = async function () {
   function injectParasite() {
     const parasite = `parasite`;
     window['webpackChunkwhatsapp_web_client'].push([
@@ -213,7 +215,7 @@ var loadParasite = function () {
       }
     ]);
   }
-  setInterval(() => {
+  while (true) {
     try {
       const last = window['webpackChunkwhatsapp_web_client'].length - 1;
       if (
@@ -226,10 +228,13 @@ var loadParasite = function () {
           document.querySelectorAll('#startup').length == 0)
       ) {
         injectParasite();
+        return;
       }
     } catch (e) {}
-  }, 100);
+    await sleep(1000);
+  }
 };
+
 loadParasite();
 
 if (typeof window.WAPI === 'undefined') {
