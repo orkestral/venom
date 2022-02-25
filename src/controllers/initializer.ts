@@ -55,13 +55,9 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 
 import * as chalk from 'chalk';
 
-import * as fs from 'fs';
-
-import { fstat, readFileSync } from 'fs';
+import { readFileSync } from 'fs';
 
 import { Browser, Page } from 'puppeteer';
-
-import path = require('path');
 
 import { deleteFiles, checkingCloses } from '../api/helpers';
 import { Whatsapp } from '../api/whatsapp';
@@ -70,7 +66,7 @@ import { tokenSession } from '../config/tokenSession.config';
 import { checkFileJson } from '../api/helpers/check-token-file';
 import { SocketState, SocketStream } from '../api/model/enum';
 import { SessionTokenCkeck, saveToken, isBeta } from './auth';
-import { initWhatsapp, initBrowser } from './browser';
+import { initWhatsapp, initBrowser, injectApi } from './browser';
 import { welcomeScreen } from './welcome';
 /**
  * A callback will be received, informing the status of the qrcode
@@ -336,6 +332,10 @@ export async function create(
       }
     });
 
+    page.on('dialog', async (dialog) => {
+      await dialog.accept();
+    });
+
     if (mergedOptions.waitForLogin) {
       const isLogged = await client.waitForLogin(catchQR, statusFind);
       if (!isLogged) {
@@ -367,7 +367,9 @@ export async function create(
       ).slice(0, -54)}`;
       console.log(`\nDebug: \x1b[34m${debugURL}\x1b[0m`);
     }
+
     await page.waitForSelector('#app .two', { visible: true }).catch(() => {});
+
     await page
       .waitForFunction(
         () => {
@@ -385,6 +387,8 @@ export async function create(
         }
       )
       .catch(() => {});
+
+    await injectApi(page);
 
     return client;
   }

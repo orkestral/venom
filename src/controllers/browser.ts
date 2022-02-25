@@ -97,9 +97,7 @@ export async function initWhatsapp(
       await browser.userAgent();
       // Auth with token
       await auth_InjectToken(waPage, session, options, token);
-      await waPage.evaluate(() => {
-        window.location.reload();
-      });
+
       return waPage;
     } catch {
       waPage.close().catch(() => {});
