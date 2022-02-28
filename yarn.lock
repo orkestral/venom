@@ -4870,9 +4870,9 @@ registry-url@^5.0.0:
   dependencies:
     rc "^1.2.8"
 
-release-it@^14.12.4:
-  version "14.12.4"
-  resolved "https://registry.npmjs.org/release-it/-/release-it-14.12.4.tgz"
+release-it@^14.12.5:
+  version "14.12.5"
+  resolved "https://registry.yarnpkg.com/release-it/-/release-it-14.12.5.tgz#aaf9802545717f299e14d1dbf025afa7bf956668"
   dependencies:
     "@iarna/toml" "2.2.5"
     "@octokit/rest" "18.12.0"
