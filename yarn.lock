@@ -437,9 +437,9 @@
   version "4.0.0"
   resolved "https://registry.npmjs.org/@types/parse-json/-/parse-json-4.0.0.tgz"
 
-"@types/puppeteer@*", "@types/puppeteer@^5.4.0":
-  version "5.4.4"
-  resolved "https://registry.npmjs.org/@types/puppeteer/-/puppeteer-5.4.4.tgz"
+"@types/puppeteer@*", "@types/puppeteer@^5.4.5":
+  version "5.4.5"
+  resolved "https://registry.yarnpkg.com/@types/puppeteer/-/puppeteer-5.4.5.tgz#154e3850a77bfd3967f036680de8ddc88eb3a12b"
   dependencies:
     "@types/node" "*"
 
