@@ -5360,12 +5360,13 @@ spdx-license-ids@^3.0.0:
   version "3.0.11"
   resolved "https://registry.npmjs.org/spdx-license-ids/-/spdx-license-ids-3.0.11.tgz"
 
-spinnies@^0.3.2:
-  version "0.3.2"
-  resolved "https://registry.npmjs.org/spinnies/-/spinnies-0.3.2.tgz"
+spinnies@^0.5.1:
+  version "0.5.1"
+  resolved "https://registry.yarnpkg.com/spinnies/-/spinnies-0.5.1.tgz#6ac88455d9117c7712d52898a02c969811819a7e"
   dependencies:
     chalk "^2.4.2"
     cli-cursor "^3.0.0"
+    strip-ansi "^5.2.0"
 
 split-on-first@^1.0.0:
   version "1.1.0"
@@ -5453,7 +5454,7 @@ strip-ansi@^4.0.0:
   dependencies:
     ansi-regex "^3.0.0"
 
-strip-ansi@^5.1.0:
+strip-ansi@^5.1.0, strip-ansi@^5.2.0:
   version "5.2.0"
   resolved "https://registry.npmjs.org/strip-ansi/-/strip-ansi-5.2.0.tgz"
   dependencies:
