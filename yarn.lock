@@ -467,13 +467,13 @@
   dependencies:
     "@types/node" "*"
 
-"@typescript-eslint/eslint-plugin@^5.12.0":
-  version "5.12.0"
-  resolved "https://registry.npmjs.org/@typescript-eslint/eslint-plugin/-/eslint-plugin-5.12.0.tgz"
+"@typescript-eslint/eslint-plugin@^5.12.1":
+  version "5.12.1"
+  resolved "https://registry.yarnpkg.com/@typescript-eslint/eslint-plugin/-/eslint-plugin-5.12.1.tgz#b2cd3e288f250ce8332d5035a2ff65aba3374ac4"
   dependencies:
-    "@typescript-eslint/scope-manager" "5.12.0"
-    "@typescript-eslint/type-utils" "5.12.0"
-    "@typescript-eslint/utils" "5.12.0"
+    "@typescript-eslint/scope-manager" "5.12.1"
+    "@typescript-eslint/type-utils" "5.12.1"
+    "@typescript-eslint/utils" "5.12.1"
     debug "^4.3.2"
     functional-red-black-tree "^1.0.1"
     ignore "^5.1.8"
@@ -490,13 +490,6 @@
     "@typescript-eslint/typescript-estree" "5.12.1"
     debug "^4.3.2"
 
-"@typescript-eslint/scope-manager@5.12.0":
-  version "5.12.0"
-  resolved "https://registry.npmjs.org/@typescript-eslint/scope-manager/-/scope-manager-5.12.0.tgz"
-  dependencies:
-    "@typescript-eslint/types" "5.12.0"
-    "@typescript-eslint/visitor-keys" "5.12.0"
-
 "@typescript-eslint/scope-manager@5.12.1":
   version "5.12.1"
   resolved "https://registry.yarnpkg.com/@typescript-eslint/scope-manager/-/scope-manager-5.12.1.tgz#58734fd45d2d1dec49641aacc075fba5f0968817"
@@ -504,33 +497,17 @@
     "@typescript-eslint/types" "5.12.1"
     "@typescript-eslint/visitor-keys" "5.12.1"
 
-"@typescript-eslint/type-utils@5.12.0":
-  version "5.12.0"
-  resolved "https://registry.npmjs.org/@typescript-eslint/type-utils/-/type-utils-5.12.0.tgz"
+"@typescript-eslint/type-utils@5.12.1":
+  version "5.12.1"
+  resolved "https://registry.yarnpkg.com/@typescript-eslint/type-utils/-/type-utils-5.12.1.tgz#8d58c6a0bb176b5e9a91581cda1a7f91a114d3f0"
   dependencies:
-    "@typescript-eslint/utils" "5.12.0"
+    "@typescript-eslint/utils" "5.12.1"
     debug "^4.3.2"
     tsutils "^3.21.0"
-
-"@typescript-eslint/types@5.12.0":
-  version "5.12.0"
-  resolved "https://registry.npmjs.org/@typescript-eslint/types/-/types-5.12.0.tgz"
 
 "@typescript-eslint/types@5.12.1":
   version "5.12.1"
   resolved "https://registry.yarnpkg.com/@typescript-eslint/types/-/types-5.12.1.tgz#46a36a28ff4d946821b58fe5a73c81dc2e12aa89"
-
-"@typescript-eslint/typescript-estree@5.12.0":
-  version "5.12.0"
-  resolved "https://registry.npmjs.org/@typescript-eslint/typescript-estree/-/typescript-estree-5.12.0.tgz"
-  dependencies:
-    "@typescript-eslint/types" "5.12.0"
-    "@typescript-eslint/visitor-keys" "5.12.0"
-    debug "^4.3.2"
-    globby "^11.0.4"
-    is-glob "^4.0.3"
-    semver "^7.3.5"
-    tsutils "^3.21.0"
 
 "@typescript-eslint/typescript-estree@5.12.1":
   version "5.12.1"
@@ -544,23 +521,16 @@
     semver "^7.3.5"
     tsutils "^3.21.0"
 
-"@typescript-eslint/utils@5.12.0":
-  version "5.12.0"
-  resolved "https://registry.npmjs.org/@typescript-eslint/utils/-/utils-5.12.0.tgz"
+"@typescript-eslint/utils@5.12.1":
+  version "5.12.1"
+  resolved "https://registry.yarnpkg.com/@typescript-eslint/utils/-/utils-5.12.1.tgz#447c24a05d9c33f9c6c64cb48f251f2371eef920"
   dependencies:
     "@types/json-schema" "^7.0.9"
-    "@typescript-eslint/scope-manager" "5.12.0"
-    "@typescript-eslint/types" "5.12.0"
-    "@typescript-eslint/typescript-estree" "5.12.0"
+    "@typescript-eslint/scope-manager" "5.12.1"
+    "@typescript-eslint/types" "5.12.1"
+    "@typescript-eslint/typescript-estree" "5.12.1"
     eslint-scope "^5.1.1"
     eslint-utils "^3.0.0"
-
-"@typescript-eslint/visitor-keys@5.12.0":
-  version "5.12.0"
-  resolved "https://registry.npmjs.org/@typescript-eslint/visitor-keys/-/visitor-keys-5.12.0.tgz"
-  dependencies:
-    "@typescript-eslint/types" "5.12.0"
-    eslint-visitor-keys "^3.0.0"
 
 "@typescript-eslint/visitor-keys@5.12.1":
   version "5.12.1"
