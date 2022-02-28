@@ -93,8 +93,13 @@ export const storeObjects = [
       module.default && module.default.killServiceWorker ? module : null
   },
   {
+    id: 'Stream',
+    conditions: (module) =>
+      module.Stream && module.StreamInfo ? module.Stream : null,
+  },
+  {
     id: 'State',
-    conditions: (module) => (module.STATE && module.STREAM ? module : null)
+    conditions: (module) => (module.Socket ? module : null),
   },
   {
     id: 'WapDelete',
@@ -389,11 +394,6 @@ export const storeObjects = [
     id: 'NetworkStatus',
     conditions: (module) =>
       module.default && module.default._logOnlineOffline ? module.default : null
-  },
-  {
-    id: 'Stream',
-    conditions: (module) =>
-      module.default && module.default.unobscure ? module.default : null
   },
   {
     id: 'ws2',
