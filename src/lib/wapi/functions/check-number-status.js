@@ -1,7 +1,13 @@
 export async function checkNumberStatus(id, conn = false) {
   try {
     const err = { error: 404 };
-    const connection = window.Store.State.Socket.state;
+    const connection =
+      window.Store &&
+      window.Store.State &&
+      window.Store.State.Socket &&
+      window.Store.State.Socket.state
+        ? window.Store.State.Socket.state
+        : undefined;
     const checkType = WAPI.sendCheckType(id);
     if (!!checkType && checkType.status === 404) {
       Object.assign(err, {

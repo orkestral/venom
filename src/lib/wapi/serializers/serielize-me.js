@@ -3,7 +3,13 @@ export const _serializeMeObj = async (obj) => {
     return null;
   }
 
-  const connection = await window.Store.State.Socket.state;
+  const connection =
+    window.Store &&
+    window.Store.State &&
+    window.Store.State.Socket &&
+    window.Store.State.Socket.state
+      ? window.Store.State.Socket.state
+      : undefined;
 
   let PicThumb = undefined;
   if (
