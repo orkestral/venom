@@ -1,3 +1,20 @@
+## [4.0.7](https://github.com/orkestral/venom/compare/v4.0.6...v4.0.7) (2022-03-01)
+
+
+### Bug Fixes
+
+* Socket ([bca8283](https://github.com/orkestral/venom/commit/bca8283323fdd92274637a92ddb8c94748e21c69))
+* Stream and State ([b71e032](https://github.com/orkestral/venom/commit/b71e032610d0e2935d1b5f8d0a926538b3c97ab6))
+
+
+### Features
+
+* forcing injectApi ([f5404ba](https://github.com/orkestral/venom/commit/f5404ba93ab258664b88ca46dc3702bd9e32fef6))
+* typedoc ([9ca17ec](https://github.com/orkestral/venom/commit/9ca17ec34780ed1811217f1ffde70f4d2a3c2889))
+* webpack sleep ([ec89f4e](https://github.com/orkestral/venom/commit/ec89f4e9114aff587153f5e170cecc5bb801e267))
+
+
+
 ## [4.0.6](https://github.com/orkestral/venom/compare/v4.0.5...v4.0.6) (2022-02-23)
 
 
