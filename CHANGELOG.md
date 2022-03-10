@@ -1,3 +1,13 @@
+## [4.0.9](https://github.com/orkestral/venom/compare/v4.0.8...v4.0.9) (2022-03-10)
+
+
+### Bug Fixes
+
+* add queryExists ([bdea56c](https://github.com/orkestral/venom/commit/bdea56c2b2cb7e246e2a8614eaad3fd260868bad))
+* lint ([9bfbead](https://github.com/orkestral/venom/commit/9bfbead2009d617600261f804f0939bb8d7dd921))
+
+
+
 ## [4.0.8](https://github.com/orkestral/venom/compare/v4.0.7...v4.0.8) (2022-03-10)
 
 
