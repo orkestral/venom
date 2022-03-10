@@ -3,9 +3,9 @@ export async function checkNumberStatus(id, conn = false) {
     const err = { error: 404 };
     const connection =
       window.Store &&
-      window.Store.State &&
-      window.Store.State.Socket &&
-      window.Store.State.Socket.state
+        window.Store.State &&
+        window.Store.State.Socket &&
+        window.Store.State.Socket.state
         ? window.Store.State.Socket.state
         : undefined;
     const checkType = WAPI.sendCheckType(id);
@@ -29,7 +29,7 @@ export async function checkNumberStatus(id, conn = false) {
     }
 
     if (WAPI.isBeta()) {
-      return await Store.checkNumberBeta(id)
+      return await Store.checkNumberBeta.queryExists(id)
         .then((result) => {
           if (!!result && typeof result === 'object') {
             const data = {
