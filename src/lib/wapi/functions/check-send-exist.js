@@ -162,13 +162,15 @@ export async function sendExist(chatId, returnChat = true, Send = true) {
     return WAPI.scope(chatId, true, ck.status, 'The number does not exist');
   }
 
+  const chatWid = new Store.WidFactory.createWid(chatWid);
+
   let chat =
     ck && ck.id && ck.id._serialized
       ? await window.WAPI.getChat(ck.id._serialized)
       : undefined;
 
   if (ck.numberExists && chat === undefined) {
-    var idUser = new window.Store.UserConstructor(chatId, {
+    var idUser = new window.Store.UserConstructor(chatWid, {
       intentionallyUsePrivateConstructor: true
     });
     chat = await Store.Chat.find(idUser);
