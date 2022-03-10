@@ -1,3 +1,12 @@
+## [4.0.8](https://github.com/orkestral/venom/compare/v4.0.7...v4.0.8) (2022-03-10)
+
+
+### Bug Fixes
+
+* checkNumber ([d0515e7](https://github.com/orkestral/venom/commit/d0515e79db9da39f881c6fc7ef8561187524cd9d))
+
+
+
 ## [4.0.7](https://github.com/orkestral/venom/compare/v4.0.6...v4.0.7) (2022-03-01)
 
 
