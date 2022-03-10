@@ -457,11 +457,7 @@ export const storeObjects = [
   {
     id: 'checkNumberBeta',
     conditions: (module) =>
-      module.default &&
-      typeof module.default.toString === 'function' &&
-      module.default.toString().includes('Should not reach queryExists MD')
-        ? module.default
-        : null,
+      module.queryExists && module.queryPhoneExists ? module : null,
   },
   {
     id: 'checkNumber',
