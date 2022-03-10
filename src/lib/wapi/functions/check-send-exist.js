@@ -170,14 +170,14 @@ export async function sendExist(chatId, returnChat = true, Send = true) {
       : undefined;
 
   if (ck.numberExists && chat === undefined) {
-    var idUser = new window.Store.UserConstructor(chatWid, {
+    var idUser = new window.Store.UserConstructor(chatId, {
       intentionallyUsePrivateConstructor: true
     });
     chat = await Store.Chat.find(idUser);
   }
 
   if (!chat) {
-    const storeChat = await window.Store.Chat.find(chatId);
+    const storeChat = await window.Store.Chat.find(chatWid);
     if (storeChat) {
       chat =
         storeChat && storeChat.id && storeChat.id._serialized
