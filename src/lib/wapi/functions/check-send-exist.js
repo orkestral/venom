@@ -162,6 +162,8 @@ export async function sendExist(chatId, returnChat = true, Send = true) {
     return WAPI.scope(chatId, true, ck.status, 'The number does not exist');
   }
 
+  const chatWid = new Store.WidFactory.createWid(chatWid);
+
   let chat =
     ck && ck.id && ck.id._serialized
       ? await window.WAPI.getChat(ck.id._serialized)
@@ -175,7 +177,7 @@ export async function sendExist(chatId, returnChat = true, Send = true) {
   }
 
   if (!chat) {
-    const storeChat = await window.Store.Chat.find(chatId);
+    const storeChat = await window.Store.Chat.find(chatWid);
     if (storeChat) {
       chat =
         storeChat && storeChat.id && storeChat.id._serialized
