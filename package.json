@@ -101,8 +101,8 @@
     "webpack-cli": "^4.9.2"
   },
   "dependencies": {
-    "@typescript-eslint/eslint-plugin": "^5.14.0",
-    "@typescript-eslint/parser": "^5.14.0",
+    "@typescript-eslint/eslint-plugin": "^5.15.0",
+    "@typescript-eslint/parser": "^5.16.0",
     "atob": "^2.1.2",
     "axios": "^0.26.1",
     "boxen": "^5.1.1",
