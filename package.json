@@ -77,7 +77,7 @@
     "@commitlint/config-angular": "^16.2.1",
     "@types/atob": "^2.1.2",
     "@types/mime-types": "^2.1.0",
-    "@types/node": "^17.0.21",
+    "@types/node": "^17.0.22",
     "@types/puppeteer": "^5.4.5",
     "@types/sharp": "^0.30.0",
     "@types/ws": "^8.5.3",
@@ -101,7 +101,7 @@
     "webpack-cli": "^4.9.2"
   },
   "dependencies": {
-    "@typescript-eslint/eslint-plugin": "^5.14.0",
+    "@typescript-eslint/eslint-plugin": "^5.15.0",
     "@typescript-eslint/parser": "^5.14.0",
     "atob": "^2.1.2",
     "axios": "^0.26.1",
