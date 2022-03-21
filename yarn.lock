@@ -3879,11 +3879,21 @@ mime-db@1.51.0:
   version "1.51.0"
   resolved "https://registry.npmjs.org/mime-db/-/mime-db-1.51.0.tgz"
 
-mime-types@2.1.34, mime-types@^2.1.12, mime-types@^2.1.27, mime-types@^2.1.33:
+mime-db@1.52.0:
+  version "1.52.0"
+  resolved "https://registry.yarnpkg.com/mime-db/-/mime-db-1.52.0.tgz#bbabcdc02859f4987301c856e3387ce5ec43bf70"
+
+mime-types@2.1.34:
   version "2.1.34"
   resolved "https://registry.npmjs.org/mime-types/-/mime-types-2.1.34.tgz"
   dependencies:
     mime-db "1.51.0"
+
+mime-types@^2.1.12, mime-types@^2.1.27, mime-types@^2.1.35:
+  version "2.1.35"
+  resolved "https://registry.yarnpkg.com/mime-types/-/mime-types-2.1.35.tgz#381a871b62a734450660ae3deee44813f70d959a"
+  dependencies:
+    mime-db "1.52.0"
 
 mimic-fn@^1.0.0:
   version "1.2.0"
