@@ -145,11 +145,15 @@ export class ListenerLayer extends ProfileLayer {
           window['onInterfaceChange'].exposed = true;
         }
         if (!window['onMessage'].exposed) {
-          window.WAPI.onMessage(window['onMessage']);
+          window.WAPI.waitNewMessages(false, (data) => {
+            data.forEach((message) => {
+              window['onMessage'](message);
+            });
+          });
           window['onMessage'].exposed = true;
         }
         if (!window['onAck'].exposed) {
-          window.WAPI.onMessage(window['onAck']);
+          window.WAPI.waitNewAcknowledgements(window['onAck']);
           window['onAck'].exposed = true;
         }
       })
