@@ -38,9 +38,9 @@
   version "16.2.1"
   resolved "https://registry.npmjs.org/@commitlint/config-angular-type-enum/-/config-angular-type-enum-16.2.1.tgz"
 
-"@commitlint/config-angular@^16.2.1":
-  version "16.2.1"
-  resolved "https://registry.npmjs.org/@commitlint/config-angular/-/config-angular-16.2.1.tgz"
+"@commitlint/config-angular@^16.2.3":
+  version "16.2.3"
+  resolved "https://registry.yarnpkg.com/@commitlint/config-angular/-/config-angular-16.2.3.tgz#2502d3773be93e60e689f13cc54882e4ede9dddc"
   dependencies:
     "@commitlint/config-angular-type-enum" "^16.2.1"
 
