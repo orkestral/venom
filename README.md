@@ -646,7 +646,7 @@ const contacts = await client.getAllChatsContacts();
 //Retrieve all contacts new messages
 const contactNewMsg = await client.getChatContactNewMsg();
 
-// Retrieve all groups
+// Retrieve all messages within specified group
 // you can pass the group id optional use, exemple: client.getAllChatsGroups('00000000-000000@g.us')
 const chats = await client.getAllChatsGroups();
 
