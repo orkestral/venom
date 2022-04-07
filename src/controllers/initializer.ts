@@ -337,6 +337,10 @@ export async function create(
     });
 
     if (mergedOptions.waitForLogin) {
+      if (mergedOptions.debug) {
+        console.log(`\nDebug: Option waitForLogin it's true. waiting...`);
+      }
+
       const isLogged = await client.waitForLogin(catchQR, statusFind);
       if (!isLogged) {
         throw 'Not Logged';
@@ -363,23 +367,38 @@ export async function create(
 
     if (mergedOptions.debug) {
       const debugURL = `http://localhost:${readFileSync(
-        `./${session}/DevToolsActivePort`
+        path.resolve(
+          process.cwd() + mergedOptions.mkdirFolderToken,
+          mergedOptions.folderNameToken,
+          session,
+          'DevToolsActivePort'
+        )
       ).slice(0, -54)}`;
       console.log(`\nDebug: \x1b[34m${debugURL}\x1b[0m`);
     }
 
+    if (mergedOptions.debug) {
+      console.log(`\nDebug: Init WP app... waitForFunction "Store" ... this might take a while`);
+    }
+
     await page.waitForSelector('#app .two', { visible: true }).catch(() => {});
+
+    if (mergedOptions.debug) {
+      console.log(`\nDebug: Loading wp app... waitForFunction "Store" ... this might take a while also`);
+    }
 
     await page
       .waitForFunction(
         () => {
-          if (
-            window.Store &&
-            window.Store.WidFactory &&
-            window.Store.WidFactory.createWid
-          ) {
+          if (mergedOptions.debug) {
+            console.log(`\nDebug: Loading wp app....`);
+          }
+          const StoreKey = Object.keys(window).find(k => window[k] && (window[k].hasOwnProperty('WidFactory')) && (window[k].WidFactory.hasOwnProperty('createWid')));
+          if (StoreKey) {
+            window.Store = window[StoreKey];
             return true;
           }
+          return false;
         },
         {
           timeout: 0,
@@ -388,7 +407,15 @@ export async function create(
       )
       .catch(() => {});
 
+    if (mergedOptions.debug) {
+      console.log(`\nDebug: injecting Api ...`);
+    }
+
     await injectApi(page);
+
+    if (mergedOptions.debug) {
+      console.log(`\nDebug: injecting Api done...`);
+    }
 
     return client;
   }
