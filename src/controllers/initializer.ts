@@ -68,6 +68,7 @@ import { SocketState, SocketStream } from '../api/model/enum';
 import { SessionTokenCkeck, saveToken, isBeta } from './auth';
 import { initWhatsapp, initBrowser, injectApi } from './browser';
 import { welcomeScreen } from './welcome';
+const path = require('path');
 /**
  * A callback will be received, informing the status of the qrcode
  */
@@ -378,13 +379,17 @@ export async function create(
     }
 
     if (mergedOptions.debug) {
-      console.log(`\nDebug: Init WP app... waitForFunction "Store" ... this might take a while`);
+      console.log(
+        `\nDebug: Init WP app... waitForFunction "Store" ... this might take a while`
+      );
     }
 
     await page.waitForSelector('#app .two', { visible: true }).catch(() => {});
 
     if (mergedOptions.debug) {
-      console.log(`\nDebug: Loading wp app... waitForFunction "Store" ... this might take a while also`);
+      console.log(
+        `\nDebug: Loading wp app... waitForFunction "Store" ... this might take a while also`
+      );
     }
 
     await page
@@ -393,7 +398,14 @@ export async function create(
           if (mergedOptions.debug) {
             console.log(`\nDebug: Loading wp app....`);
           }
-          const StoreKey = Object.keys(window).find(k => window[k] && (window[k].hasOwnProperty('WidFactory')) && (window[k].WidFactory.hasOwnProperty('createWid')));
+          const StoreKey = Object.keys(window).find(
+            (k) =>
+              !!Object.getOwnPropertyDescriptor(window[k], 'WidFactory') &&
+              !!Object.getOwnPropertyDescriptor(
+                window[k].WidFactory,
+                'createWid'
+              )
+          );
           if (StoreKey) {
             window.Store = window[StoreKey];
             return true;
