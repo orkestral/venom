@@ -129,13 +129,6 @@ export async function sendListMenu(
                   if (!menu[index].rows[i].rowId) {
                     menu[index].rows[i].rowId = `dessert_${i}`;
                   }
-                } else {
-                  return WAPI.scope(
-                    null,
-                    true,
-                    404,
-                    'Enter the Description variable as an string'
-                  );
                 }
               } else {
                 return WAPI.scope(
