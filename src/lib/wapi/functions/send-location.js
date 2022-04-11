@@ -59,8 +59,15 @@ export async function sendLocation(
   location = null
 ) {
   const chat = await WAPI.sendExist(chatId);
-
-  if (chat && chat.status != 404 && chat.id) {
+  if (isNaN(Number(latitude)) || isNaN(Number(longitude))) {
+    return WAPI.scope(
+      chatId,
+      true,
+      null,
+      'latitude and longitude must be numbers'
+    );
+  }
+  if (!chat.erro) {
     const newMsgId = await window.WAPI.getNewMessageId(chat.id._serialized);
     const inChat = await WAPI.getchatId(chat.id).catch(() => {});
     const fromwWid = await Store.MaybeMeUser.getMaybeMeUser();
@@ -80,8 +87,8 @@ export async function sendLocation(
       from: fromwWid,
       isNewMsg: !0,
       type: 'location',
-      lat: latitude,
-      lng: longitude,
+      lat: Number(latitude),
+      lng: Number(longitude),
       loc: location
     };
 
