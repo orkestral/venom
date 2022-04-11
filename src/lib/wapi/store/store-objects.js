@@ -331,7 +331,7 @@ export const storeObjects = [
   {
     id: 'Cmd',
     conditions: (module) =>
-      module.default && module.default.openChatFromUnread ? module : null
+      module.Cmd && module.Cmd.openChatFromUnread ? module.Cmd : null
   },
   {
     id: 'ReadSeen',

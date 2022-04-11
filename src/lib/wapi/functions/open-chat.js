@@ -54,7 +54,7 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
 export async function openChat(chatId) {
   const chat = Store.Chat.get(chatId);
-  const result = Store.Cmd.default.openChatBottom(chat);
+  const result = Store.Cmd.openChatBottom(chat);
   return result;
 }
 
@@ -73,6 +73,6 @@ export async function openChatAt(chatId, messageId) {
     msg: atMessage,
     isUnreadDivider: false
   };
-  const result = await Store.Cmd.default._openChat(chat, args);
+  const result = await Store.Cmd._openChat(chat, args);
   return result;
 }
