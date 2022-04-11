@@ -74,28 +74,23 @@ export async function sendLinkPreview(chatId, url, text) {
     }
   };
   if (!_Path.Reg().test(url)) {
-    return WAPI.scope(
-      chatId,
-      true,
-      null,
-      'Use a valid HTTP protocol. Example: https://www.youtube.com/watch?v=atPaQtpx5QQ'
-    );
+    var text =
+      'Use a valid HTTP protocol. Example: https://www.youtube.com/watch?v=V1bFr2SWP1';
+    return WAPI.scope(chatId, true, null, text);
   }
   var chat = await WAPI.sendExist(chatId);
   if (!chat.erro) {
-    const linkPreview = await Store.WapQuery.queryLinkPreview(url);
     const newMsgId = await window.WAPI.getNewMessageId(chat.id._serialized);
+    const fromwWid = await Store.MaybeMeUser.getMaybeMeUser();
     let inChat = await WAPI.getchatId(chat.id).catch(() => {});
     if (inChat) {
       chat.lastReceivedKey._serialized = inChat._serialized;
       chat.lastReceivedKey.id = inChat.id;
     }
-
-    const fromwWid = await Store.MaybeMeUser.getMaybeMeUser();
     const message = {
       id: newMsgId,
       ack: 0,
-      body: `${url}\n${text}`,
+      body: url,
       from: fromwWid,
       to: chat.id,
       local: !0,
@@ -104,32 +99,22 @@ export async function sendLinkPreview(chatId, url, text) {
       isNewMsg: !0,
       type: 'chat',
       subtype: 'url',
-      canonicalUrl: linkPreview.canonicalUrl
-        ? linkPreview.canonicalUrl
-        : undefined,
-      description: linkPreview.description
-        ? linkPreview.description
-        : undefined,
-      doNotPlayInline: linkPreview.doNotPlayInline
-        ? linkPreview.doNotPlayInline
-        : undefined,
-      matchedText: linkPreview.matchedText
-        ? linkPreview.matchedText
-        : undefined,
-      preview: linkPreview.preview ? linkPreview.preview : undefined,
-      thumbnail: linkPreview.thumbnail ? linkPreview.thumbnail : undefined,
-      title: linkPreview.title ? linkPreview.title : undefined
+      content: url,
+      canonicalUrl: url,
+      description: url,
+      matchedText: url,
+      title: text
     };
-    var result = (
+    const result = (
       await Promise.all(window.Store.addAndSendMsgToChat(chat, message))
     )[1];
-    var m = { type: 'LinkPreview', url: url, text: text };
+    let m = { type: 'LinkPreview', url: url, text: text };
     if (result === 'success' || result === 'OK') {
-      var obj = WAPI.scope(newMsgId, false, result, null);
+      let obj = WAPI.scope(newMsgId, false, result, null);
       Object.assign(obj, m);
       return obj;
     } else {
-      var obj = WAPI.scope(newMsgId, true, result, null);
+      let obj = WAPI.scope(newMsgId, true, result, null);
       Object.assign(obj, m);
       return obj;
     }
