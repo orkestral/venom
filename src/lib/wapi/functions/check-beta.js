@@ -1,4 +1,4 @@
-export async function isBeta() {
+export function isBeta() {
   if (
     !window.localStorage.getItem('WASecretBundle') &&
     !window.localStorage.getItem('WAToken1') &&
