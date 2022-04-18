@@ -1,3 +1,23 @@
+## [4.0.10](https://github.com/orkestral/venom/compare/v4.0.9...v4.0.10) (2022-04-18)
+
+
+### Bug Fixes
+
+* lint ([890d7b3](https://github.com/orkestral/venom/commit/890d7b37a8a571794d46c0c7b1a857ca48f045c0))
+* module Cmd is now a class, no longer exported in the `default` key ([b21b11f](https://github.com/orkestral/venom/commit/b21b11f53261d50735782d3d73cea1d639dfaedd))
+* sendLinkPreview ([d00634a](https://github.com/orkestral/venom/commit/d00634a5b44adc47517708bc22c220576b269ec8))
+* sendLocation ([921e2f0](https://github.com/orkestral/venom/commit/921e2f016f55522ba49e51563a21f09dfa13ec52))
+* type definition and code expect a promise from isBeta ([b7b9ccb](https://github.com/orkestral/venom/commit/b7b9ccb5156a83027ab028a71e4f0a81996d8ec3))
+* **wapi:** sendMessage function throw exception on invalid object ([4332fce](https://github.com/orkestral/venom/commit/4332fce89820a287921708e361990caf4ea903fb))
+
+
+### Features
+
+* device ([21d4173](https://github.com/orkestral/venom/commit/21d4173e785cb2228dbd40854561485491926819))
+* remove mandatory descrition sendList ([0098594](https://github.com/orkestral/venom/commit/0098594df2695596cd2ec30c5cf8611b848129ab))
+
+
+
 ## [4.0.9](https://github.com/orkestral/venom/compare/v4.0.8...v4.0.9) (2022-03-10)
 
 
