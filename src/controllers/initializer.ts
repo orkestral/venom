@@ -294,19 +294,18 @@ export async function create(
 
     client.onStateChange(async (state) => {
       if (state === SocketState.PAIRING) {
-        const device = await page
-          .waitForFunction(
-            () => {
-              if (document.querySelectorAll('._2Nr6U').length) {
-                return true;
-              }
-            },
-            {
-              timeout: 0,
-              polling: 100
+        const device: Boolean = await page
+          .evaluate(() => {
+            if (
+              document.querySelector('[tabindex="-1"]') &&
+              window?.Store?.Stream?.mode == 'SYNCING' &&
+              window?.Store?.Stream?.obscurity == 'SHOW'
+            ) {
+              return true;
             }
-          )
-          .catch();
+            return false;
+          })
+          .catch(() => undefined);
         if (device) {
           const ckeckVersion = await isBeta(page);
           if (ckeckVersion === false) {
