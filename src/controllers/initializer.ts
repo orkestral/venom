@@ -167,6 +167,9 @@ export async function create(
   if (!mergedOptions.disableWelcome) {
     welcomeScreen();
   }
+
+  statusFind && statusFind('initBrowser', this.session);
+
   // Initialize whatsapp
   if (mergedOptions.browserWS) {
     logger.info(`Waiting... checking the wss server...`, { session });
@@ -197,7 +200,9 @@ export async function create(
     logger.info('Has been properly connected to the wss server', {
       session
     });
+    statusFind && statusFind('connectBrowserWs', this.session);
   } else {
+    statusFind && statusFind('openBrowser', this.session);
     logger.info('Browser successfully opened', {
       session
     });
@@ -235,10 +240,12 @@ export async function create(
     if (SessionTokenCkeck(browserSessionToken)) {
       browserToken = browserSessionToken;
     }
+
     logger.info('Checking page...', {
       session
     });
 
+    statusFind && statusFind('initWhatsapp', this.session);
     // Initialize whatsapp
     const page: false | Page = await initWhatsapp(
       session,
@@ -255,9 +262,12 @@ export async function create(
       logger.info('Error accessing the page: "https://web.whatsapp.com"', {
         session
       });
+
+      statusFind && statusFind('erroPageWhatsapp', this.session);
       throw 'Error when trying to access the page: "https://web.whatsapp.com"';
     }
 
+    statusFind && statusFind('successPageWhatsapp', this.session);
     logger.info(`${chalk.green('Page successfully accessed')}`, {
       session
     });
@@ -341,7 +351,10 @@ export async function create(
         console.log(`\nDebug: Option waitForLogin it's true. waiting...`);
       }
 
+      statusFind && statusFind('waitForLogin', this.session);
+
       const isLogged = await client.waitForLogin(catchQR, statusFind);
+
       if (!isLogged) {
         throw 'Not Logged';
       }
@@ -382,6 +395,8 @@ export async function create(
         `\nDebug: Init WP app... waitForFunction "Store" ... this might take a while`
       );
     }
+
+    statusFind && statusFind('waitChat', this.session);
 
     await page.waitForSelector('#app .two', { visible: true }).catch(() => {});
 
@@ -427,7 +442,7 @@ export async function create(
     if (mergedOptions.debug) {
       console.log(`\nDebug: injecting Api done...`);
     }
-
+    statusFind && statusFind('successChat', this.session);
     return client;
   }
 }
