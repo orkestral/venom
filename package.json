@@ -81,7 +81,7 @@
     "@types/puppeteer": "^5.4.5",
     "@types/sharp": "^0.30.0",
     "@types/ws": "^8.5.3",
-    "concurrently": "^7.0.0",
+    "concurrently": "^7.1.0",
     "conventional-changelog-cli": "^2.2.2",
     "copy-webpack-plugin": "^10.2.4",
     "eslint": "^8.13.0",
@@ -101,7 +101,7 @@
     "webpack-cli": "^4.9.2"
   },
   "dependencies": {
-    "@typescript-eslint/eslint-plugin": "^5.17.0",
+    "@typescript-eslint/eslint-plugin": "^5.20.0",
     "@typescript-eslint/parser": "^5.17.0",
     "atob": "^2.1.2",
     "axios": "^0.26.1",
