@@ -39,6 +39,8 @@ Use it in your favorite language like PHP, Python, C# and others. as long as you
 
 ## Get our official API Venom ! Contact us!
 
+<a target="_blank" href="https://web.whatsapp.com/send?phone=5511959389975&text=I%20want%20access%20to%20API%20Venom" target="_blank"><img title="whatzapp" height="100" width="375" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/WhatsApp_logo.svg/2000px-WhatsApp_logo.svg.png"></a>
+
 <a target="_blank" href="https://web.whatsapp.com/send?phone=556181590153&text=I%20want%20access%20to%20API%20Venom" target="_blank"><img title="whatzapp" height="100" width="375" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/WhatsApp_logo.svg/2000px-WhatsApp_logo.svg.png"></a>
 
 ## Venom group support free on Telegram
@@ -190,7 +192,8 @@ venom
       debug: false, // Opens a debug session
       logQR: true, // Logs QR automatically in terminal
       browserWS: '', // If u want to use browserWSEndpoint
-      browserArgs: [''], //Original parameters  ---Parameters to be added into the chrome browser instance
+      browserArgs: [''], // Original parameters  ---Parameters to be added into the chrome browser instance
+      addBrowserArgs: [''], // Add broserArgs without overwriting the project's original
       puppeteerOptions: {}, // Will be passed to puppeteer.launch
       disableSpins: true, // Will disable Spinnies animation, useful for containers (docker) for a better log
       disableWelcome: true, // Will disable the welcoming message which appears in the beginning

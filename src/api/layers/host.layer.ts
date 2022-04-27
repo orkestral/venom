@@ -246,7 +246,6 @@ export class HostLayer {
     statusFind?: (statusGet: string, session: string) => void
   ) {
     this.statusFind = statusFind;
-
     this.spin('Waiting page load', 'spinning');
 
     await this.page

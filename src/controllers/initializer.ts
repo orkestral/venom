@@ -168,6 +168,12 @@ export async function create(
     welcomeScreen();
   }
 
+  logger.info(
+    `Need help?: ${chalk.underline(
+      'https://web.whatsapp.com/send?phone=5511959389975&text=Hi! I need help on Venom!'
+    )}\n`
+  );
+
   statusFind && statusFind('initBrowser', this.session);
 
   // Initialize whatsapp

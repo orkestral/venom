@@ -109,6 +109,10 @@ export interface CreateConfig {
    */
   browserArgs?: string[];
   /**
+   * Add broserArgs without overwriting the project's original
+   */
+  addBrowserArgs?: string[];
+  /**
    * Will be passed to puppeteer.launch
    */
   puppeteerOptions?: LaunchOptions | BrowserLaunchArgumentOptions;
@@ -198,6 +202,7 @@ export const defaultOptions: CreateConfig = {
   logQR: true,
   browserWS: '',
   browserArgs: puppeteerConfig.chromiumArgs,
+  addBrowserArgs: [],
   puppeteerOptions: {},
   disableSpins: false,
   disableWelcome: false,

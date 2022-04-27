@@ -264,6 +264,21 @@ export async function initBrowser(
         ]);
     // console.log(puppeteerConfig.chromiumArgs);
   }
+  if (
+    Array.isArray(options?.addBrowserArgs) &&
+    options?.addBrowserArgs.length
+  ) {
+    for (
+      let index: number = 0;
+      index < options?.addBrowserArgs.length;
+      index++
+    ) {
+      const element = options?.addBrowserArgs[index];
+      if (!puppeteerConfig.chromiumArgs.includes(element)) {
+        puppeteerConfig.chromiumArgs.push(element);
+      }
+    }
+  }
 
   let browser = null;
   if (options.browserWS && options.browserWS != '') {
@@ -285,9 +300,10 @@ export async function initBrowser(
       .launch({
         headless: options.headless,
         devtools: options.devtools,
-        args: options.browserArgs
-          ? options.browserArgs
-          : [...puppeteerConfig.chromiumArgs],
+        args:
+          Array.isArray(options.browserArgs) && options.browserArgs.length
+            ? options.browserArgs
+            : [...puppeteerConfig.chromiumArgs],
         ...options.puppeteerOptions,
         ...extras
       })
