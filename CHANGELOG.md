@@ -1,3 +1,13 @@
+## [4.0.11](https://github.com/orkestral/venom/compare/v4.0.10...v4.0.11) (2022-04-27)
+
+
+### Features
+
+* addBrowserArgs ([6541669](https://github.com/orkestral/venom/commit/654166943f8d256a07fc1163c49681c16a783a65))
+* statusFind ([7ee608d](https://github.com/orkestral/venom/commit/7ee608d20595146e4287635f3844db403a08b17f))
+
+
+
 ## [4.0.10](https://github.com/orkestral/venom/compare/v4.0.9...v4.0.10) (2022-04-18)
 
 
