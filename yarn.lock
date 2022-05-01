@@ -181,9 +181,9 @@
   version "0.5.6"
   resolved "https://registry.npmjs.org/@discoveryjs/json-ext/-/json-ext-0.5.6.tgz"
 
-"@eslint/eslintrc@^1.2.1":
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/@eslint/eslintrc/-/eslintrc-1.2.1.tgz#8b5e1c49f4077235516bc9ec7d41378c0f69b8c6"
+"@eslint/eslintrc@^1.2.2":
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/@eslint/eslintrc/-/eslintrc-1.2.2.tgz#4989b9e8c0216747ee7cca314ae73791bb281aae"
   dependencies:
     ajv "^6.12.4"
     debug "^4.3.2"
@@ -2176,11 +2176,11 @@ eslint-visitor-keys@^3.0.0, eslint-visitor-keys@^3.3.0:
   version "3.3.0"
   resolved "https://registry.npmjs.org/eslint-visitor-keys/-/eslint-visitor-keys-3.3.0.tgz"
 
-eslint@^8.13.0:
-  version "8.13.0"
-  resolved "https://registry.yarnpkg.com/eslint/-/eslint-8.13.0.tgz#6fcea43b6811e655410f5626cfcf328016badcd7"
+eslint@^8.14.0:
+  version "8.14.0"
+  resolved "https://registry.yarnpkg.com/eslint/-/eslint-8.14.0.tgz#62741f159d9eb4a79695b28ec4989fcdec623239"
   dependencies:
-    "@eslint/eslintrc" "^1.2.1"
+    "@eslint/eslintrc" "^1.2.2"
     "@humanwhocodes/config-array" "^0.9.2"
     ajv "^6.10.0"
     chalk "^4.0.0"
