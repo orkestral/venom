@@ -79,7 +79,7 @@
     "@types/mime-types": "^2.1.0",
     "@types/node": "^17.0.30",
     "@types/puppeteer": "^5.4.6",
-    "@types/sharp": "^0.30.0",
+    "@types/sharp": "^0.30.2",
     "@types/ws": "^8.5.3",
     "concurrently": "^7.1.0",
     "conventional-changelog-cli": "^2.2.2",
