@@ -73,13 +73,13 @@
   ],
   "homepage": "https://github.com/orkestral/venom#readme",
   "devDependencies": {
-    "@commitlint/cli": "^16.2.3",
+    "@commitlint/cli": "^16.2.4",
     "@commitlint/config-angular": "^16.2.3",
     "@types/atob": "^2.1.2",
     "@types/mime-types": "^2.1.0",
     "@types/node": "^17.0.30",
     "@types/puppeteer": "^5.4.6",
-    "@types/sharp": "^0.30.0",
+    "@types/sharp": "^0.30.2",
     "@types/ws": "^8.5.3",
     "concurrently": "^7.1.0",
     "conventional-changelog-cli": "^2.2.2",
@@ -127,7 +127,7 @@
     "typedoc": "^0.21.10",
     "typedoc-default-themes": "^0.12.10",
     "winston": "^3.4.0",
-    "ws": "^8.5.0",
+    "ws": "^8.6.0",
     "yoo-hoo": "^1.2.0"
   },
   "optionalDependencies": {
