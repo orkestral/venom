@@ -20,6 +20,10 @@
     chalk "^2.0.0"
     js-tokens "^4.0.0"
 
+"@colors/colors@1.5.0":
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/@colors/colors/-/colors-1.5.0.tgz#bb504579c1cae923e6576a4f5da43d25f97bdbd9"
+
 "@commitlint/cli@^16.2.4":
   version "16.2.4"
   resolved "https://registry.yarnpkg.com/@commitlint/cli/-/cli-16.2.4.tgz#f22707918d08c27a19779798788a7c793f1d38e6"
@@ -1429,10 +1433,6 @@ color@^4.2.1:
 colorette@^2.0.14:
   version "2.0.16"
   resolved "https://registry.npmjs.org/colorette/-/colorette-2.0.16.tgz"
-
-colors@1.4.0:
-  version "1.4.0"
-  resolved "https://registry.npmjs.org/colors/-/colors-1.4.0.tgz"
 
 colorspace@1.1.x:
   version "1.1.4"
@@ -3806,14 +3806,14 @@ log-symbols@^5.1.0:
     chalk "^5.0.0"
     is-unicode-supported "^1.1.0"
 
-logform@^2.3.2:
-  version "2.3.2"
-  resolved "https://registry.npmjs.org/logform/-/logform-2.3.2.tgz"
+logform@^2.3.2, logform@^2.4.0:
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/logform/-/logform-2.4.0.tgz#131651715a17d50f09c2a2c1a524ff1a4164bcfe"
   dependencies:
-    colors "1.4.0"
+    "@colors/colors" "1.5.0"
     fecha "^4.2.0"
     ms "^2.1.1"
-    safe-stable-stringify "^1.1.0"
+    safe-stable-stringify "^2.3.1"
     triple-beam "^1.3.0"
 
 lolcatjs@^2.4.0:
@@ -4862,7 +4862,7 @@ read-pkg@^5.2.0:
     parse-json "^5.0.0"
     type-fest "^0.6.0"
 
-readable-stream@3, readable-stream@^3.0.0, readable-stream@^3.1.1, readable-stream@^3.4.0:
+readable-stream@3, readable-stream@^3.0.0, readable-stream@^3.1.1, readable-stream@^3.4.0, readable-stream@^3.6.0:
   version "3.6.0"
   resolved "https://registry.npmjs.org/readable-stream/-/readable-stream-3.6.0.tgz"
   dependencies:
@@ -5149,9 +5149,9 @@ safe-regex@^1.1.0:
   dependencies:
     ret "~0.1.10"
 
-safe-stable-stringify@^1.1.0:
-  version "1.1.1"
-  resolved "https://registry.npmjs.org/safe-stable-stringify/-/safe-stable-stringify-1.1.1.tgz"
+safe-stable-stringify@^2.3.1:
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/safe-stable-stringify/-/safe-stable-stringify-2.3.1.tgz#ab67cbe1fe7d40603ca641c5e765cb942d04fc73"
 
 "safer-buffer@>= 2.1.2 < 3":
   version "2.1.2"
@@ -5774,7 +5774,7 @@ trim-newlines@^3.0.0:
   version "3.0.1"
   resolved "https://registry.npmjs.org/trim-newlines/-/trim-newlines-3.0.1.tgz"
 
-triple-beam@^1.2.0, triple-beam@^1.3.0:
+triple-beam@^1.3.0:
   version "1.3.0"
   resolved "https://registry.npmjs.org/triple-beam/-/triple-beam-1.3.0.tgz"
 
@@ -6270,27 +6270,28 @@ windows-release@^4.0.0:
   dependencies:
     execa "^4.0.2"
 
-winston-transport@^4.4.2:
-  version "4.4.2"
-  resolved "https://registry.npmjs.org/winston-transport/-/winston-transport-4.4.2.tgz"
+winston-transport@^4.5.0:
+  version "4.5.0"
+  resolved "https://registry.yarnpkg.com/winston-transport/-/winston-transport-4.5.0.tgz#6e7b0dd04d393171ed5e4e4905db265f7ab384fa"
   dependencies:
     logform "^2.3.2"
-    readable-stream "^3.4.0"
-    triple-beam "^1.2.0"
+    readable-stream "^3.6.0"
+    triple-beam "^1.3.0"
 
-winston@^3.4.0:
-  version "3.4.0"
-  resolved "https://registry.npmjs.org/winston/-/winston-3.4.0.tgz"
+winston@^3.7.2:
+  version "3.7.2"
+  resolved "https://registry.yarnpkg.com/winston/-/winston-3.7.2.tgz#95b4eeddbec902b3db1424932ac634f887c400b1"
   dependencies:
     "@dabh/diagnostics" "^2.0.2"
     async "^3.2.3"
     is-stream "^2.0.0"
-    logform "^2.3.2"
+    logform "^2.4.0"
     one-time "^1.0.0"
     readable-stream "^3.4.0"
+    safe-stable-stringify "^2.3.1"
     stack-trace "0.0.x"
     triple-beam "^1.3.0"
-    winston-transport "^4.4.2"
+    winston-transport "^4.5.0"
 
 word-wrap@^1.0.3, word-wrap@^1.2.3:
   version "1.2.3"
