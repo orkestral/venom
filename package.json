@@ -127,7 +127,7 @@
     "typedoc": "^0.21.10",
     "typedoc-default-themes": "^0.12.10",
     "winston": "^3.4.0",
-    "ws": "^8.5.0",
+    "ws": "^8.6.0",
     "yoo-hoo": "^1.2.0"
   },
   "optionalDependencies": {
