@@ -104,7 +104,7 @@
     "@typescript-eslint/eslint-plugin": "^5.21.0",
     "@typescript-eslint/parser": "^5.21.0",
     "atob": "^2.1.2",
-    "axios": "^0.26.1",
+    "axios": "^0.27.2",
     "boxen": "^5.1.1",
     "catch-exit": "^1.1.0",
     "chalk": "^4.0.0",
