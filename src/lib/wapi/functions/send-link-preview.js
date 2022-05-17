@@ -90,7 +90,7 @@ export async function sendLinkPreview(chatId, url, text) {
     const message = {
       id: newMsgId,
       ack: 0,
-      body: url,
+      body: text.includes(url) ? text : `${url}\n${text}`,
       from: fromwWid,
       to: chat.id,
       local: !0,
@@ -103,7 +103,7 @@ export async function sendLinkPreview(chatId, url, text) {
       canonicalUrl: url,
       description: url,
       matchedText: url,
-      title: text
+      title: url
     };
     const result = (
       await Promise.all(window.Store.addAndSendMsgToChat(chat, message))
