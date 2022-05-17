@@ -90,7 +90,7 @@ export async function sendLinkPreview(chatId, url, text) {
     const message = {
       id: newMsgId,
       ack: 0,
-      body: text,
+      body: text.includes(url) ? text : `${url}\n${text}`,
       from: fromwWid,
       to: chat.id,
       local: !0,
