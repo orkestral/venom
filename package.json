@@ -121,7 +121,7 @@
     "puppeteer-extra-plugin-stealth": "^2.9.0",
     "qrcode-terminal": "^0.12.0",
     "sanitize-filename": "^1.6.3",
-    "sharp": "^0.30.3",
+    "sharp": "^0.30.5",
     "spinnies": "^0.5.1",
     "tree-kill": "^1.2.2",
     "typedoc": "^0.22.15",
