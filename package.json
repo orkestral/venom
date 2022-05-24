@@ -101,7 +101,7 @@
     "webpack-cli": "^4.9.2"
   },
   "dependencies": {
-    "@typescript-eslint/eslint-plugin": "^5.21.0",
+    "@typescript-eslint/eslint-plugin": "^5.26.0",
     "@typescript-eslint/parser": "^5.21.0",
     "atob": "^2.1.2",
     "axios": "^0.27.2",
@@ -111,7 +111,7 @@
     "chrome-launcher": "^0.15.0",
     "commitizen": "^4.2.4",
     "cz-conventional-changelog": "^3.3.0",
-    "dotenv": "^16.0.0",
+    "dotenv": "^16.0.1",
     "futoin-hkdf": "^1.5.0",
     "latest-version": "^5.1.0",
     "mime-types": "^2.1.35",
