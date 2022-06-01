@@ -1,84 +1,10 @@
-name: Nightly Release
-
-on:
-  push:
-    branches:
-      - 'master'
-
-jobs:
-  nightly:
-    runs-on: ubuntu-latest
-    continue-on-error: true
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-
-      - name: Fetching tags
-        run: git fetch --tags -f || true
-
-      - name: Setup Node
-        uses: actions/setup-node@v1
-        with:
-          node-version: 12.x
-
-      - name: Get npm cache directory
-        id: npm-cache
-        run: |
-          echo "::set-output name=dir::$(npm config get cache)"
-      - name: Setup npm cache
-        uses: actions/cache@v2
-        with:
-          path: ${{ steps.npm-cache.outputs.dir }}
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
-
-      - name: Install Dependencies
-        run: npm ci || npm install
-        env:
-          PUPPETEER_SKIP_DOWNLOAD: true
-
-      - name: Update version to alpha
-        run: npm version prerelease --preid=alpha --no-git --no-git-tag-version
-
-      - name: Build NPM package
-        run: npm pack && mv venom-bot-*.tgz venom-bot-nightly.tgz
-
-      - name: Build API-Docs
-        run: npm run generate-api-docs
-
-      - name: Generate Changelog
-        id: generate_changelog
-        run: |
-          changelog=$(npm run changelog:preview --silent)
-          changelog="${changelog//$'\n'/'%0A'}"
-          changelog="${changelog//$'\r'/'%0D'}" 
-          echo -e "set-output name=changelog::${changelog-<empty>}\n"
-          echo -e "::set-output name=changelog::${changelog}\n"
-
-      - name: Update Nightly TAG
-        uses: richardsimko/update-tag@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: nightly
-
-      - name: Update Nightly Release
-        uses: meeDamian/github-release@2.0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          tag: nightly
-          commitish: ${{ github.sha }}
-          name: Nightly Release
-          body: ${{ steps.generate_changelog.outputs.changelog }}
-          draft: false
-          prerelease: true
-          files: >
-            venom-bot-nightly.tgz
-            api-docs/
-          gzip: folders
-          allow_override: true
+- name: Update nightly release
+  run: |
+     echo -e "ref: $GITHUB_REF \ncommit: $GITHUB_SHA\nbuild: $(date +"%Y-%m-%dT%H:%M:%SZ")" \
+     > build/libs/info.txt
+  uses: eine/tip@master
+  with:
+    tag: nightly
+    rm: true
+    token: ${{ secrets.GITHUB_TOKEN }}
+    files: build/libs/*.*
