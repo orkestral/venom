@@ -101,7 +101,7 @@
     "webpack-cli": "^4.9.2"
   },
   "dependencies": {
-    "@typescript-eslint/eslint-plugin": "^5.26.0",
+    "@typescript-eslint/eslint-plugin": "^5.27.0",
     "@typescript-eslint/parser": "^5.21.0",
     "atob": "^2.1.2",
     "axios": "^0.27.2",
@@ -112,11 +112,11 @@
     "commitizen": "^4.2.4",
     "cz-conventional-changelog": "^3.3.0",
     "dotenv": "^16.0.1",
-    "futoin-hkdf": "^1.5.0",
+    "futoin-hkdf": "^1.5.1",
     "latest-version": "^5.1.0",
     "mime-types": "^2.1.35",
     "ora": "^6.1.0",
-    "puppeteer": "^13.7.0",
+    "puppeteer": "^14.1.2",
     "puppeteer-extra": "^3.2.3",
     "puppeteer-extra-plugin-stealth": "^2.9.0",
     "qrcode-terminal": "^0.12.0",
@@ -127,7 +127,7 @@
     "typedoc": "^0.22.15",
     "typedoc-default-themes": "^0.12.10",
     "winston": "^3.7.2",
-    "ws": "^8.6.0",
+    "ws": "^8.7.0",
     "yoo-hoo": "^1.2.0"
   },
   "optionalDependencies": {

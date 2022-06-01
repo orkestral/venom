@@ -448,13 +448,13 @@
   dependencies:
     "@types/node" "*"
 
-"@typescript-eslint/eslint-plugin@^5.26.0":
-  version "5.26.0"
-  resolved "https://registry.yarnpkg.com/@typescript-eslint/eslint-plugin/-/eslint-plugin-5.26.0.tgz#c1f98ccba9d345e38992975d3ca56ed6260643c2"
+"@typescript-eslint/eslint-plugin@^5.27.0":
+  version "5.27.0"
+  resolved "https://registry.yarnpkg.com/@typescript-eslint/eslint-plugin/-/eslint-plugin-5.27.0.tgz#23d82a4f21aaafd8f69dbab7e716323bb6695cc8"
   dependencies:
-    "@typescript-eslint/scope-manager" "5.26.0"
-    "@typescript-eslint/type-utils" "5.26.0"
-    "@typescript-eslint/utils" "5.26.0"
+    "@typescript-eslint/scope-manager" "5.27.0"
+    "@typescript-eslint/type-utils" "5.27.0"
+    "@typescript-eslint/utils" "5.27.0"
     debug "^4.3.4"
     functional-red-black-tree "^1.0.1"
     ignore "^5.2.0"
@@ -478,18 +478,18 @@
     "@typescript-eslint/types" "5.21.0"
     "@typescript-eslint/visitor-keys" "5.21.0"
 
-"@typescript-eslint/scope-manager@5.26.0":
-  version "5.26.0"
-  resolved "https://registry.yarnpkg.com/@typescript-eslint/scope-manager/-/scope-manager-5.26.0.tgz#44209c7f649d1a120f0717e0e82da856e9871339"
+"@typescript-eslint/scope-manager@5.27.0":
+  version "5.27.0"
+  resolved "https://registry.yarnpkg.com/@typescript-eslint/scope-manager/-/scope-manager-5.27.0.tgz#a272178f613050ed62f51f69aae1e19e870a8bbb"
   dependencies:
-    "@typescript-eslint/types" "5.26.0"
-    "@typescript-eslint/visitor-keys" "5.26.0"
+    "@typescript-eslint/types" "5.27.0"
+    "@typescript-eslint/visitor-keys" "5.27.0"
 
-"@typescript-eslint/type-utils@5.26.0":
-  version "5.26.0"
-  resolved "https://registry.yarnpkg.com/@typescript-eslint/type-utils/-/type-utils-5.26.0.tgz#937dee97702361744a3815c58991acf078230013"
+"@typescript-eslint/type-utils@5.27.0":
+  version "5.27.0"
+  resolved "https://registry.yarnpkg.com/@typescript-eslint/type-utils/-/type-utils-5.27.0.tgz#36fd95f6747412251d79c795b586ba766cf0974b"
   dependencies:
-    "@typescript-eslint/utils" "5.26.0"
+    "@typescript-eslint/utils" "5.27.0"
     debug "^4.3.4"
     tsutils "^3.21.0"
 
@@ -497,9 +497,9 @@
   version "5.21.0"
   resolved "https://registry.yarnpkg.com/@typescript-eslint/types/-/types-5.21.0.tgz#8cdb9253c0dfce3f2ab655b9d36c03f72e684017"
 
-"@typescript-eslint/types@5.26.0":
-  version "5.26.0"
-  resolved "https://registry.yarnpkg.com/@typescript-eslint/types/-/types-5.26.0.tgz#cb204bb154d3c103d9cc4d225f311b08219469f3"
+"@typescript-eslint/types@5.27.0":
+  version "5.27.0"
+  resolved "https://registry.yarnpkg.com/@typescript-eslint/types/-/types-5.27.0.tgz#c3f44b9dda6177a9554f94a74745ca495ba9c001"
 
 "@typescript-eslint/typescript-estree@5.21.0":
   version "5.21.0"
@@ -513,26 +513,26 @@
     semver "^7.3.5"
     tsutils "^3.21.0"
 
-"@typescript-eslint/typescript-estree@5.26.0":
-  version "5.26.0"
-  resolved "https://registry.yarnpkg.com/@typescript-eslint/typescript-estree/-/typescript-estree-5.26.0.tgz#16cbceedb0011c2ed4f607255f3ee1e6e43b88c3"
+"@typescript-eslint/typescript-estree@5.27.0":
+  version "5.27.0"
+  resolved "https://registry.yarnpkg.com/@typescript-eslint/typescript-estree/-/typescript-estree-5.27.0.tgz#7965f5b553c634c5354a47dcce0b40b94611e995"
   dependencies:
-    "@typescript-eslint/types" "5.26.0"
-    "@typescript-eslint/visitor-keys" "5.26.0"
+    "@typescript-eslint/types" "5.27.0"
+    "@typescript-eslint/visitor-keys" "5.27.0"
     debug "^4.3.4"
     globby "^11.1.0"
     is-glob "^4.0.3"
     semver "^7.3.7"
     tsutils "^3.21.0"
 
-"@typescript-eslint/utils@5.26.0":
-  version "5.26.0"
-  resolved "https://registry.yarnpkg.com/@typescript-eslint/utils/-/utils-5.26.0.tgz#896b8480eb124096e99c8b240460bb4298afcfb4"
+"@typescript-eslint/utils@5.27.0":
+  version "5.27.0"
+  resolved "https://registry.yarnpkg.com/@typescript-eslint/utils/-/utils-5.27.0.tgz#d0021cbf686467a6a9499bd0589e19665f9f7e71"
   dependencies:
     "@types/json-schema" "^7.0.9"
-    "@typescript-eslint/scope-manager" "5.26.0"
-    "@typescript-eslint/types" "5.26.0"
-    "@typescript-eslint/typescript-estree" "5.26.0"
+    "@typescript-eslint/scope-manager" "5.27.0"
+    "@typescript-eslint/types" "5.27.0"
+    "@typescript-eslint/typescript-estree" "5.27.0"
     eslint-scope "^5.1.1"
     eslint-utils "^3.0.0"
 
@@ -543,11 +543,11 @@
     "@typescript-eslint/types" "5.21.0"
     eslint-visitor-keys "^3.0.0"
 
-"@typescript-eslint/visitor-keys@5.26.0":
-  version "5.26.0"
-  resolved "https://registry.yarnpkg.com/@typescript-eslint/visitor-keys/-/visitor-keys-5.26.0.tgz#7195f756e367f789c0e83035297c45b417b57f57"
+"@typescript-eslint/visitor-keys@5.27.0":
+  version "5.27.0"
+  resolved "https://registry.yarnpkg.com/@typescript-eslint/visitor-keys/-/visitor-keys-5.27.0.tgz#97aa9a5d2f3df8215e6d3b77f9d214a24db269bd"
   dependencies:
-    "@typescript-eslint/types" "5.26.0"
+    "@typescript-eslint/types" "5.27.0"
     eslint-visitor-keys "^3.3.0"
 
 "@webassemblyjs/ast@1.11.1":
@@ -1973,9 +1973,9 @@ detect-libc@^2.0.0, detect-libc@^2.0.1:
   version "2.0.1"
   resolved "https://registry.npmjs.org/detect-libc/-/detect-libc-2.0.1.tgz"
 
-devtools-protocol@0.0.981744:
-  version "0.0.981744"
-  resolved "https://registry.yarnpkg.com/devtools-protocol/-/devtools-protocol-0.0.981744.tgz#9960da0370284577d46c28979a0b32651022bacf"
+devtools-protocol@0.0.982423:
+  version "0.0.982423"
+  resolved "https://registry.yarnpkg.com/devtools-protocol/-/devtools-protocol-0.0.982423.tgz#39ac3791d4c5b90ebb416d4384663b7b0cc44154"
 
 diff@^4.0.1:
   version "4.0.2"
@@ -2679,9 +2679,9 @@ functional-red-black-tree@^1.0.1:
   version "1.0.1"
   resolved "https://registry.npmjs.org/functional-red-black-tree/-/functional-red-black-tree-1.0.1.tgz"
 
-futoin-hkdf@^1.5.0:
-  version "1.5.0"
-  resolved "https://registry.npmjs.org/futoin-hkdf/-/futoin-hkdf-1.5.0.tgz"
+futoin-hkdf@^1.5.1:
+  version "1.5.1"
+  resolved "https://registry.yarnpkg.com/futoin-hkdf/-/futoin-hkdf-1.5.1.tgz#141f00427bc9950b38a42aa786b99c318b9b688d"
 
 gauge@~2.7.3:
   version "2.7.4"
@@ -4833,13 +4833,13 @@ puppeteer-extra@^3.2.3:
     debug "^4.1.1"
     deepmerge "^4.2.2"
 
-puppeteer@^13.7.0:
-  version "13.7.0"
-  resolved "https://registry.yarnpkg.com/puppeteer/-/puppeteer-13.7.0.tgz#18e16f83e397cf02f7a0804c67c1603d381cfb0b"
+puppeteer@^14.1.2:
+  version "14.1.2"
+  resolved "https://registry.yarnpkg.com/puppeteer/-/puppeteer-14.1.2.tgz#bde2ca5585fb56ed906bccced898d551778f5c5d"
   dependencies:
     cross-fetch "3.1.5"
     debug "4.3.4"
-    devtools-protocol "0.0.981744"
+    devtools-protocol "0.0.982423"
     extract-zip "2.0.1"
     https-proxy-agent "5.0.1"
     pkg-dir "4.2.0"
@@ -4848,7 +4848,7 @@ puppeteer@^13.7.0:
     rimraf "3.0.2"
     tar-fs "2.1.1"
     unbzip2-stream "1.4.3"
-    ws "8.5.0"
+    ws "8.6.0"
 
 q@^1.5.1:
   version "1.5.1"
@@ -6416,13 +6416,13 @@ write-file-atomic@^3.0.0:
     signal-exit "^3.0.2"
     typedarray-to-buffer "^3.1.5"
 
-ws@8.5.0:
-  version "8.5.0"
-  resolved "https://registry.npmjs.org/ws/-/ws-8.5.0.tgz"
-
-ws@^8.6.0:
+ws@8.6.0:
   version "8.6.0"
   resolved "https://registry.yarnpkg.com/ws/-/ws-8.6.0.tgz#e5e9f1d9e7ff88083d0c0dd8281ea662a42c9c23"
+
+ws@^8.7.0:
+  version "8.7.0"
+  resolved "https://registry.yarnpkg.com/ws/-/ws-8.7.0.tgz#eaf9d874b433aa00c0e0d8752532444875db3957"
 
 xdg-basedir@^4.0.0:
   version "4.0.0"
