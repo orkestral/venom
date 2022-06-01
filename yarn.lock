@@ -1973,9 +1973,9 @@ detect-libc@^2.0.0, detect-libc@^2.0.1:
   version "2.0.1"
   resolved "https://registry.npmjs.org/detect-libc/-/detect-libc-2.0.1.tgz"
 
-devtools-protocol@0.0.981744:
-  version "0.0.981744"
-  resolved "https://registry.yarnpkg.com/devtools-protocol/-/devtools-protocol-0.0.981744.tgz#9960da0370284577d46c28979a0b32651022bacf"
+devtools-protocol@0.0.982423:
+  version "0.0.982423"
+  resolved "https://registry.yarnpkg.com/devtools-protocol/-/devtools-protocol-0.0.982423.tgz#39ac3791d4c5b90ebb416d4384663b7b0cc44154"
 
 diff@^4.0.1:
   version "4.0.2"
@@ -2679,9 +2679,9 @@ functional-red-black-tree@^1.0.1:
   version "1.0.1"
   resolved "https://registry.npmjs.org/functional-red-black-tree/-/functional-red-black-tree-1.0.1.tgz"
 
-futoin-hkdf@^1.5.0:
-  version "1.5.0"
-  resolved "https://registry.npmjs.org/futoin-hkdf/-/futoin-hkdf-1.5.0.tgz"
+futoin-hkdf@^1.5.1:
+  version "1.5.1"
+  resolved "https://registry.yarnpkg.com/futoin-hkdf/-/futoin-hkdf-1.5.1.tgz#141f00427bc9950b38a42aa786b99c318b9b688d"
 
 gauge@~2.7.3:
   version "2.7.4"
@@ -4833,13 +4833,13 @@ puppeteer-extra@^3.2.3:
     debug "^4.1.1"
     deepmerge "^4.2.2"
 
-puppeteer@^13.7.0:
-  version "13.7.0"
-  resolved "https://registry.yarnpkg.com/puppeteer/-/puppeteer-13.7.0.tgz#18e16f83e397cf02f7a0804c67c1603d381cfb0b"
+puppeteer@^14.1.2:
+  version "14.1.2"
+  resolved "https://registry.yarnpkg.com/puppeteer/-/puppeteer-14.1.2.tgz#bde2ca5585fb56ed906bccced898d551778f5c5d"
   dependencies:
     cross-fetch "3.1.5"
     debug "4.3.4"
-    devtools-protocol "0.0.981744"
+    devtools-protocol "0.0.982423"
     extract-zip "2.0.1"
     https-proxy-agent "5.0.1"
     pkg-dir "4.2.0"
@@ -4848,7 +4848,7 @@ puppeteer@^13.7.0:
     rimraf "3.0.2"
     tar-fs "2.1.1"
     unbzip2-stream "1.4.3"
-    ws "8.5.0"
+    ws "8.6.0"
 
 q@^1.5.1:
   version "1.5.1"
@@ -6416,13 +6416,9 @@ write-file-atomic@^3.0.0:
     signal-exit "^3.0.2"
     typedarray-to-buffer "^3.1.5"
 
-ws@8.5.0:
-  version "8.5.0"
-  resolved "https://registry.npmjs.org/ws/-/ws-8.5.0.tgz"
-
-ws@^8.6.0:
-  version "8.6.0"
-  resolved "https://registry.yarnpkg.com/ws/-/ws-8.6.0.tgz#e5e9f1d9e7ff88083d0c0dd8281ea662a42c9c23"
+ws@^8.7.0:
+  version "8.7.0"
+  resolved "https://registry.yarnpkg.com/ws/-/ws-8.7.0.tgz#eaf9d874b433aa00c0e0d8752532444875db3957"
 
 xdg-basedir@^4.0.0:
   version "4.0.0"
