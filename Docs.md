@@ -1,90 +1,3 @@
-
-# 🕷Venom Bot🕸
-
-[![npm version](https://img.shields.io/npm/v/venom-bot.svg?color=green)](https://www.npmjs.com/package/venom-bot)
-![node](https://img.shields.io/node/v/venom-bot)
-[![Downloads](https://img.shields.io/npm/dm/venom-bot.svg)](https://www.npmjs.com/package/venom-bot)
-[![Average time to resolve an issue](http://isitmaintained.com/badge/resolution/orkestral/venom.svg)](http://isitmaintained.com/project/orkestral/venom 'Average time to resolve an issue')
-[![Percentage of issues still open](http://isitmaintained.com/badge/open/orkestral/venom.svg)](http://isitmaintained.com/project/orkestral/venom 'Percentage of issues still open')
-<a href="https://discord.gg/qCJ95FVbzR"><img src="https://img.shields.io/discord/772885202351292426?color=blueviolet&label=discord&style=flat" /></a>
-
-[![Build Status](https://img.shields.io/github/workflow/status/orkestral/venom/build.svg)](https://github.com/orkestral/venom/actions)
-[![Lint Status](https://img.shields.io/github/workflow/status/orkestral/venom/lint.svg?label=lint)](https://github.com/orkestral/venom/actions)
-[![release-it](https://img.shields.io/badge/%F0%9F%93%A6%F0%9F%9A%80-release--it-e10079.svg)](https://github.com/release-it/release-it)
-
-> Venom is a high-performance system developed with JavaScript to create a bot for WhatsApp, support for creating any interaction, such as customer service, media sending, sentence recognition based on artificial intelligence and all types of design architecture for WhatsApp.
-
-
-## Get started fast and easy! Official API!
-
-<p align="center">
-  <a href="https://github.com/orkestral/venom/blob/master/docs/getting-started/creating-client.md">Getting Started</a> •
-  <a href="https://github.com/orkestral/venom/blob/master/docs/getting-started/basic-functions.md">Basic Function</a> •
-  <a href="https://github.com/orkestral/venom/tree/master/docs/getting-started">Documentation</a>
-</p>
-
-
-<p>
-It's a high-performance alternative API to whatzapp, you can send, text messages, files, images, videos and more.
-</p>
-<p>
-Remember, the API was developed on a platform called RESTful Web services, providing interoperability between computer systems on the Internet.
-</p>
-<p>
-It uses a set of well-defined operations that apply to all information resources: HTTP itself defines a small set of operations, the most important being POST, GET, PUT and DELETE.
-</p>
-<p>
-Use it in your favorite language like PHP, Python, C# and others. as long as your language is supported with the HTTP protocol, you will save time and money. you don't need to know how Venom works, we have the complete API documentation, in a professional way!
-</p>
-
-## Get our official API Venom ! Contact us!
-
-<a target="_blank" href="https://web.whatsapp.com/send?phone=5511914380641&text=I%20want%20access%20to%20API%20Venom" target="_blank"><img title="whatzapp" height="100" width="375" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/WhatsApp_logo.svg/2000px-WhatsApp_logo.svg.png"></a>
-
-## Venom group support on Telegram
-
-<a target="_blank" href="https://t.me/joinchat/G8wxNXidWBo1ZDYx" target="_blank"><img title="Telegram" height="100" width="375" src="https://user-images.githubusercontent.com/66584466/117182238-7d1d8980-adac-11eb-9a70-e32f90c3d4e5.png"></a>
-
-
-## Meet the Superchats
-<br>
-<a href='https://github.com/orkestral/superchats'><img src='https://github.com/orkestral/superchats/raw/main/img/superchats.png' height='60' alt='SuperChats' aria-label='https://github.com/orkestral/superchats' /></a>
-<br>
-<br>
-
-**SuperChats** is a premium library with unique features that control Whatsapp functions with socket.
-With Superchats you can build service bots, multiservice chats or any system that uses Whatsapp
-
-**Superchats** is a premium version of **Venom**, with exclusive features and support for companies and developers worldwide
-<br>
-<a href='https://github.com/orkestral/superchats'>https://github.com/orkestral/superchats</a>
-
-## Buy a license Superchats
-
-The value of the license is $50 monthly dollars, to acquire contact in whatsapp by clicking on the image below !!
-
-<a target="_blank" href="https://web.whatsapp.com/send?phone=5511914380641&text=I%20want%20to%20buy%201%20license" target="_blank"><img title="whatzapp" height="100" width="375" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/WhatsApp_logo.svg/2000px-WhatsApp_logo.svg.png"></a>
-
-## 🕷🕷 Functions Venom🕷🕷
-
-|                                                               |   |
-|---------------------------------------------------------------|---|
-| 🚻 Automatic QR Refresh                                       | ✔ |
-| 📁 Send **text, image, video, audio and docs**                | ✔ |
-| 👥 Get **contacts, chats, groups, group members, Block List** | ✔ |
-| 📞 Send contacts                                              | ✔ |
-| Send Buttons                                                  | ✔ |
-| Send stickers                                                 | ✔ |
-| Send stickers GIF                                             | ✔ |
-| Multiple Sessions                                             | ✔ |
-| ⏩ Forward Messages                                            | ✔ |
-| 📥 Receive message                                            | ✔ |
-| 👤 insert user section                                        | ✔ |
-| 📍 Send location!!                                            | ✔ |
-| 🕸🕸 **and much more**                                        | ✔ |
-
-Documentation at https://orkestral.github.io/venom/index.html
-
 ## Installation
 
 ```bash
@@ -1045,7 +958,6 @@ Receives the time in milliseconds to countdown until paired.
 
 Use "autoClose: 0 | false" to disable auto closing.
 
-### Debugging
 
 ## Development
 
@@ -1075,13 +987,3 @@ To build the entire project just run
 ```bash
 > npm run build
 ```
-
-## Maintainers
-
-Maintainers are needed, I cannot keep with all the updates by myself. If you are
-interested please open a Pull Request.
-
-## Contributing
-
-Pull requests are welcome. For major changes, please open an issue first to
-discuss what you would like to change.
