@@ -1,0 +1,10 @@
+- name: Update nightly release
+  run: |
+     echo -e "ref: $GITHUB_REF \ncommit: $GITHUB_SHA\nbuild: $(date +"%Y-%m-%dT%H:%M:%SZ")" \
+     > build/libs/info.txt
+  uses: eine/tip@master
+  with:
+    tag: nightly
+    rm: true
+    token: ${{ secrets.GITHUB_TOKEN }}
+    files: build/libs/*.*
