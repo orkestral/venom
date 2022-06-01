@@ -1291,9 +1291,9 @@ chownr@^1.1.1:
   version "1.1.4"
   resolved "https://registry.npmjs.org/chownr/-/chownr-1.1.4.tgz"
 
-chrome-launcher@^0.15.0:
-  version "0.15.0"
-  resolved "https://registry.npmjs.org/chrome-launcher/-/chrome-launcher-0.15.0.tgz"
+chrome-launcher@^0.15.1:
+  version "0.15.1"
+  resolved "https://registry.yarnpkg.com/chrome-launcher/-/chrome-launcher-0.15.1.tgz#0a0208037063641e2b3613b7e42b0fcb3fa2d399"
   dependencies:
     "@types/node" "*"
     escape-string-regexp "^4.0.0"
