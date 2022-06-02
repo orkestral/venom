@@ -1,3 +1,7 @@
+# [4.1.0](https://github.com/orkestral/venom/compare/v4.0.11...v4.1.0) (2022-06-02)
+
+
+
 ## [4.0.11](https://github.com/orkestral/venom/compare/v4.0.10...v4.0.11) (2022-04-27)
 
 
