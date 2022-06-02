@@ -229,7 +229,7 @@ export const storeObjects = [
   {
     id: 'MyStatus',
     conditions: (module) =>
-      module.getStatus && module.setMyStatus ? module : null
+      module.getStatus && module.setMyStatus && module.queryStatusAll ? module : null
   },
   {
     id: 'ChatState',

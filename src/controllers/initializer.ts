@@ -168,11 +168,7 @@ export async function create(
     welcomeScreen();
   }
 
-  logger.info(
-    `Need help?: ${chalk.underline(
-      'https://web.whatsapp.com/send?phone=5511959389975&text=Hi! I need help on Venom!'
-    )}\n`
-  );
+  logger.info(`${chalk.underline('https://orkestral.io - official site!')}\n`);
 
   statusFind && statusFind('initBrowser', this.session);
 
