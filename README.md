@@ -113,7 +113,7 @@ const venom = require('venom-bot');
 venom
   .create({
     session: 'session-name', //name of session
-    multidevice: false // for version not multidevice use false.(default: true)
+    multidevice: true // for version not multidevice use false.(default: true)
   })
   .then((client) => start(client))
   .catch((erro) => {
