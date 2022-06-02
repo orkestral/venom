@@ -90,7 +90,7 @@ export const storeObjects = [
   {
     id: 'ServiceWorker',
     conditions: (module) =>
-      module.default && module.default.killServiceWorker ? module : null
+      module.default && module.default.killServiceWorker ? module : null,
   },
   {
     id: 'Stream',
