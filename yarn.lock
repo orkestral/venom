@@ -431,9 +431,10 @@
   dependencies:
     "@types/node" "*"
 
-"@types/sharp@^0.30.2":
-  version "0.30.2"
-  resolved "https://registry.yarnpkg.com/@types/sharp/-/sharp-0.30.2.tgz#df5ff34140b3bad165482e6f3d26b08e42a0503a"
+"@types/sharp@^0.30.3":
+  version "0.30.3"
+  resolved "https://registry.yarnpkg.com/@types/sharp/-/sharp-0.30.3.tgz#c6abb46931abf92b8ab4d594c783013035c15cc1"
+  integrity sha512-dEaZZRjxbaf/nJRYik/4KNfZQ7LNF8u4P2RXksyAP6NXMyaOFkibD3ZeSakXURIVZz11JsqHshiGeAX8ohOLCQ==
   dependencies:
     "@types/node" "*"
 
