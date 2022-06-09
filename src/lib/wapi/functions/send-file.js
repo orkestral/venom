@@ -73,8 +73,8 @@ export async function sendFile(imgBase64, chatid, filename, caption, type) {
   if (!chat.erro) {
     var mediaBlob = base64ToFile(imgBase64, filename),
       mediaCollection = await processFiles(chat, mediaBlob),
-      media = mediaCollection._models[0];
-
+      media = (mediaCollection.models || mediaCollection._models)[0];
+    
     var result = (await media.sendToChat(chat, { caption: caption })) || '';
     var m = { type: type, filename: filename, text: caption, mimeType: mime },
       To = await WAPI.getchatId(chat.id);
