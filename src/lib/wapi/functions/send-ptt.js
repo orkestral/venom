@@ -66,7 +66,7 @@ export async function sendPtt(imgBase64, chatid) {
     let result = await Store.Chat.find(chat.id).then(async (chat) => {
       var mediaBlob = base64ToFile(imgBase64);
       return await processFiles(chat, mediaBlob).then(async (mc) => {
-        var media = mc.models[0];
+        var media = (mc.models || mc._models)[0];
         media.mediaPrep._mediaData.type = 'ptt';
         return await media.mediaPrep.sendToChat(chat, {});
       });

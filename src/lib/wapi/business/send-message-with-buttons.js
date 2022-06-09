@@ -55,7 +55,7 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 window.WAPI.sendButtons = async function (chatId) {
   var chat = Store.Chat.get(chatId);
   var tempMsg = Object.create(chat.msgs.filter((msg) => msg.__x_isSentByMe)[0]);
-  // var tempMsg = Object.create(Store.Msg.models.filter(msg => msg.to._serialized===chatId&&msg.__x_isSentByMe&& msg.type=='chat' && !msg.quotedStanzaID)[0])
+  // var tempMsg = Object.create(Store.Msg._models.filter(msg => msg.to._serialized===chatId&&msg.__x_isSentByMe&& msg.type=='chat' && !msg.quotedStanzaID)[0])
   var t2 = Object.create(
     Store.Msg.filter((x) => (x.type == 'template') & !x.id.fromMe)[0]
   );
@@ -230,7 +230,7 @@ window.WAPI.sendButtons = async function (chatId) {
 window.WAPI.sendButtons2 = async function (chatId) {
   var chat = Store.Chat.get(chatId);
   var tempMsg = Object.create(
-    Store.Msg.models.filter(
+    Store.Msg._models.filter(
       (msg) =>
         msg.to._serialized === chatId &&
         msg.__x_isSentByMe &&
@@ -239,7 +239,7 @@ window.WAPI.sendButtons2 = async function (chatId) {
     )[0]
   );
   var t2 = Object.create(
-    Store.Msg.models.filter(
+    Store.Msg._models.filter(
       (msg) =>
         msg.to._serialized === chatId &&
         msg.__x_isSentByMe &&
