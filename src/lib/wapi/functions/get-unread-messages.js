@@ -58,7 +58,7 @@ export function getUnreadMessages(
   useUnreadCount,
   done
 ) {
-  const chats = window.Store.Chat.models;
+  const chats = window.Store.Chat._models;
   const output = [];
 
   for (const chat in chats) {

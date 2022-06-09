@@ -99,7 +99,7 @@ export function sendImageWithProduct(
         // var mc = new Store.MediaCollection(chat);
         // mc.processFiles([mediaBlob], chat, 1)
         processFiles(chat, mediaBlob).then((mc) => {
-          var media = mc.models[0];
+          var media = (mc.models || mc._models)[0];
           Object.entries(temp.productMsgOptions).map(
             ([k, v]) => (media.mediaPrep._mediaData[k] = v)
           );

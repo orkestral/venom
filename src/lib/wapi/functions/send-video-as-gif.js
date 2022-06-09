@@ -69,7 +69,7 @@ export function sendVideoAsGif(dataBase64, chatid, filename, caption, done) {
   return Store.Chat.find(idUser).then((chat) => {
     var mediaBlob = base64ToFile(dataBase64, filename);
     processFiles(chat, mediaBlob).then((mc) => {
-      var media = mc.models[0];
+      var media = (mc.models || mc._models)[0];
       media.mediaPrep._mediaData.isGif = true;
       media.mediaPrep._mediaData.gifAttribution = 1;
       media.mediaPrep.sendToChat(chat, { caption: caption });
