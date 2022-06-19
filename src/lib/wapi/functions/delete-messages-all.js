@@ -55,6 +55,7 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 
 export async function deleteMessagesAll(chatId, messageArray, onlyLocal) {
   var userId = new Store.WidFactory.createWid(chatId);
+
   let conversation = WAPI.getChat(userId);
   if (!conversation) return false;
 
@@ -67,17 +68,18 @@ export async function deleteMessagesAll(chatId, messageArray, onlyLocal) {
       typeof msgId == 'string' ? window.Store.Msg.get(msgId) : msgId
     )
     .filter((x) => x);
-  if (messagesToDelete.length == 0) return true;
+  if (!messagesToDelete) return true;
   let jobs = onlyLocal
-    ? [conversation.sendDeleteMsgs(messagesToDelete, conversation)]
+    ? [Store.WapDeleteMsg.sendDeleteMsgs(conversation,messagesToDelete)]
     : [
-        conversation.sendRevokeMsgs(
+      Store.WapDeleteMsg.sendRevokeMsgs(
+          conversation,
           messagesToDelete.filter((msg) => msg.isSentByMe),
-          conversation
+        true
         ),
-        conversation.sendDeleteMsgs(
+      Store.WapDeleteMsg.sendDeleteMsgs(
+          conversation,
           messagesToDelete.filter((msg) => !msg.isSentByMe),
-          conversation
         )
       ];
   return Promise.all(jobs).then((_) => true);
