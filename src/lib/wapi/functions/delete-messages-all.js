@@ -70,14 +70,21 @@ export async function deleteMessagesAll(chatId, messageArray, onlyLocal) {
     .filter((x) => x);
   if (!messagesToDelete) return true;
   let jobs = onlyLocal
-    ? [Store.WapDeleteMsg.sendDeleteMsgs(conversation,messagesToDelete)]
+    ? [conversation.sendDeleteMsgs ? conversation.sendDeleteMsgs(messagesToDelete, conversation) : Store.WapDeleteMsg.sendDeleteMsgs(conversation,messagesToDelete)]
     : [
+      conversation.sendRevokeMsgs ? conversation.sendRevokeMsgs(
+        messagesToDelete.filter((msg) => msg.isSentByMe),
+        conversation
+      ) :
       Store.WapDeleteMsg.sendRevokeMsgs(
           conversation,
           messagesToDelete.filter((msg) => msg.isSentByMe),
         true
         ),
-      Store.WapDeleteMsg.sendDeleteMsgs(
+      conversation.sendDeleteMsgs ? conversation.sendDeleteMsgs(
+        messagesToDelete.filter((msg) => !msg.isSentByMe),
+        conversation
+      ) : Store.WapDeleteMsg.sendDeleteMsgs(
           conversation,
           messagesToDelete.filter((msg) => !msg.isSentByMe),
         )
