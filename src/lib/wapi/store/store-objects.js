@@ -104,7 +104,14 @@ export const storeObjects = [
   {
     id: 'WapDelete',
     conditions: (module) =>
-      module.sendConversationDelete && module.sendConversationDelete.length == 2
+      module.sendConversationDelete && module.sendConversationDelete.length > 1
+        ? module
+        : null
+  },
+  {
+    id: 'WapDeleteMsg',
+    conditions: (module) =>
+      module.sendRevokeMsgs && module.sendGroupInviteMessage
         ? module
         : null
   },
