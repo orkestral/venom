@@ -123,6 +123,11 @@ export const storeObjects = [
         : null
   },
   {
+     id: "ConversationMsgs",
+     conditions: (module) =>
+       (module.loadEarlierMsgs) ? module : null
+  },
+  {
     id: 'WapQuery',
     conditions: (module) =>
       module.default &&
