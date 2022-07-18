@@ -145,6 +145,15 @@ export function sendCheckType(chatId = undefined) {
       );
     }
   }
+
+  if (!Store.WidFactory.isWidlike(chatId)) {
+    return WAPI.scope(
+      chatId,
+      true,
+      404,
+      'The number does not exist. Invalid wid!'
+    );
+  }
 }
 
 export async function sendExist(chatId, returnChat = true, Send = true) {
