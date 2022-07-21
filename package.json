@@ -118,7 +118,7 @@
     "ora": "^6.1.2",
     "puppeteer": "^14.4.1",
     "puppeteer-extra": "^3.2.3",
-    "puppeteer-extra-plugin-stealth": "^2.10.1",
+    "puppeteer-extra-plugin-stealth": "^2.11.0",
     "qrcode-terminal": "^0.12.0",
     "sanitize-filename": "^1.6.3",
     "sharp": "^0.30.7",
