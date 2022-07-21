@@ -115,7 +115,7 @@
     "futoin-hkdf": "^1.5.1",
     "latest-version": "^7.0.0",
     "mime-types": "^2.1.35",
-    "ora": "^6.1.0",
+    "ora": "^6.1.2",
     "puppeteer": "^14.4.1",
     "puppeteer-extra": "^3.2.3",
     "puppeteer-extra-plugin-stealth": "^2.10.1",
