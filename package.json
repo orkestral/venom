@@ -86,7 +86,7 @@
     "copy-webpack-plugin": "^10.2.4",
     "eslint": "^8.18.0",
     "eslint-config-prettier": "^6.14.0",
-    "eslint-plugin-prettier": "^3.4.0",
+    "eslint-plugin-prettier": "^4.2.1",
     "gulp": "^4.0.2",
     "husky": "^8.0.1",
     "nodemon": "^2.0.18",
