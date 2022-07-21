@@ -30,7 +30,9 @@ export async function checkNumberStatus(id, conn = false) {
 
     if (WAPI.isBeta()) {
       return await Store.checkNumberBeta
-        .queryExists(id)
+
+        .queryExists(new Store.WidFactory.createWid(id))
+
         .then((result) => {
           if (!!result && typeof result === 'object') {
             const data = {
