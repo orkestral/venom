@@ -114,7 +114,7 @@
     "dotenv": "^16.0.1",
     "futoin-hkdf": "^1.5.1",
     "i": "^0.3.7",
-    "latest-version": "^7.0.0",
+    "latest-lib": "^0.2.1",
     "mime-types": "^2.1.35",
     "ora": "^6.1.2",
     "puppeteer": "^14.4.1",
