@@ -37,7 +37,6 @@ export async function checkUpdates() {
   }
 }
 
-
 /**
  * Checs for a new versoin of venom and logs
  */
@@ -45,8 +44,8 @@ async function checkVenomVersion() {
   logger.info('Checking for updates');
   await latestLib('venom-bot')
     .then((latest) => {
-      logger.info(latest.version)
-      logger.info(version)
+      logger.info(latest.version);
+      logger.info(version);
       if (!upToDate(version, latest.version)) {
         logger.info('There is a new version available');
         logUpdateAvailable(version, latest.version);
