@@ -546,9 +546,9 @@
   dependencies:
     "@types/node" "*"
 
-"@types/sharp@^0.30.4":
-  version "0.30.4"
-  resolved "https://registry.npmjs.org/@types/sharp/-/sharp-0.30.4.tgz"
+"@types/sharp@^0.30.5":
+  version "0.30.5"
+  resolved "https://registry.yarnpkg.com/@types/sharp/-/sharp-0.30.5.tgz#d75d91f7acf5260525aeae229845046dcff6d17a"
   dependencies:
     "@types/node" "*"
 
