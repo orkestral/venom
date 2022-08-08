@@ -330,7 +330,7 @@ export class SenderLayer extends ListenerLayer {
   public async sendButtons(
     to: string,
     title: string,
-    buttons: { "buttonText": { "displayText": string } }[],
+    buttons: { buttonText: { displayText: string } }[],
     subtitle: string
   ): Promise<object> {
     return new Promise(async (resolve, reject) => {

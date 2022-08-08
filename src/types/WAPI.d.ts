@@ -217,9 +217,11 @@ interface WAPI {
   ) => Promise<SendLinkResult>;
   sendLocation: (
     to: string,
-    latitude: string,
-    longitude: string,
-    title: string
+    lat: any,
+    lng: any,
+    loc: string,
+    address?: string,
+    url?: string
   ) => Promise<object>;
   sendMessage: (to: string, content: string) => Promise<Object>;
   sendListMenu: (
