@@ -5180,9 +5180,9 @@ pupa@^2.1.1:
   dependencies:
     escape-goat "^2.0.0"
 
-puppeteer-extra-plugin-stealth@^2.10.1:
-  version "2.11.0"
-  resolved "https://registry.npmjs.org/puppeteer-extra-plugin-stealth/-/puppeteer-extra-plugin-stealth-2.11.0.tgz"
+puppeteer-extra-plugin-stealth@^2.11.1:
+  version "2.11.1"
+  resolved "https://registry.yarnpkg.com/puppeteer-extra-plugin-stealth/-/puppeteer-extra-plugin-stealth-2.11.1.tgz#7d56a27a986cb5eb69dca3c65695ad6444f4e822"
   dependencies:
     debug "^4.1.1"
     puppeteer-extra-plugin "^3.2.2"
