@@ -1,3 +1,12 @@
+## [4.2.7](https://github.com/orkestral/venom/compare/v4.2.5...v4.2.7) (2022-08-10)
+
+
+### Bug Fixes
+
+* loadEarlierMsgs ([b3e66a1](https://github.com/orkestral/venom/commit/b3e66a18addc2edca514a7aba9de9960ea031929))
+
+
+
 ## [4.2.5](https://github.com/orkestral/venom/compare/v4.2.3...v4.2.5) (2022-08-10)
 
 
