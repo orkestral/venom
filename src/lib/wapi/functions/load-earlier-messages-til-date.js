@@ -59,7 +59,7 @@ export function loadEarlierMessagesTillDate(id, lastMessage, done) {
       found.msgs._models[0].t > lastMessage &&
       !found.msgs.msgLoadState.noEarlierMsgs
     ) {
-      found.loadEarlierMsgs().then(x);
+      window.Store.ConversationMsgs.loadEarlierMsgs(found).then(x);
     } else {
       done();
     }

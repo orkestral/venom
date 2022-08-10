@@ -56,7 +56,7 @@ export async function loadAllEarlierMessages(id, done) {
   const found = WAPI.getChat(id);
   while (!found.msgs.msgLoadState.noEarlierMsgs) {
     console.log('Loading...');
-    await found.loadEarlierMsgs();
+    await window.Store.ConversationMsgs.loadEarlierMsgs(found);
   }
   console.log('done');
   return true;
