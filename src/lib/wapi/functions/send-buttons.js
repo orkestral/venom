@@ -59,8 +59,6 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
  * @param {string} subtitle the subtitle
  * @param {array} buttons arrays
  */
-import { processFiles } from './process-files';
-import { base64ToFile } from '../helper';
 
 export async function sendButtons(to, title, buttons, subtitle) {
   if (typeof title != 'string' || title.length === 0) {
