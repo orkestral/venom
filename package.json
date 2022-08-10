@@ -102,7 +102,7 @@
   },
   "dependencies": {
     "@typescript-eslint/eslint-plugin": "^5.29.0",
-    "@typescript-eslint/parser": "^5.29.0",
+    "@typescript-eslint/parser": "^5.33.0",
     "atob": "^2.1.2",
     "axios": "^0.27.2",
     "boxen": "^5.1.1",
