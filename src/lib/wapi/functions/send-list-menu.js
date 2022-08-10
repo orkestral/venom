@@ -179,6 +179,7 @@ export async function sendListMenu(
       star: false,
       broadcast: false,
       fromMe: false,
+
       list: {
         title: title,
         description: description,
