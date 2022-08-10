@@ -49,8 +49,7 @@ module.exports = {
         Store: true,
         WAPI: true,
         webpackChunkwhatsapp_web_client: true,
-        WWebJS: true,
-        WPP: true
+        WWebJS: true
       },
       rules: {
         // @todo more restrictive
