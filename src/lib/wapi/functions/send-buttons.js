@@ -59,6 +59,9 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
  * @param {string} subtitle the subtitle
  * @param {array} buttons arrays
  */
+import { processFiles } from './process-files';
+import { base64ToFile } from '../helper';
+
 export async function sendButtons(to, title, buttons, subtitle) {
   if (typeof title != 'string' || title.length === 0) {
     return WAPI.scope(to, true, 404, 'It is necessary to write a title!');
@@ -125,7 +128,8 @@ export async function sendButtons(to, title, buttons, subtitle) {
       fromMe: false
     };
     var obj = {
-      dynamicReplyButtons: buttons
+      dynamicReplyButtons: buttons,
+      replyButtons: buttons
     };
     Object.assign(message, obj);
     var result = (

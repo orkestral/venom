@@ -5823,10 +5823,10 @@
     "registry-url" "^5.0.0"
     "semver" "^6.2.0"
 
-"packloader@^0.0.1":
-  "integrity" "sha512-0h7RzpvHpysJ/2ywYSSyvNzotErEwoZpDj0Xld7l/yOiY6H5exEPD4wMXv9fpiwvfttAP5pXSHi9IYlUDBe79g=="
-  "resolved" "https://registry.npmjs.org/packloader/-/packloader-0.0.1.tgz"
-  "version" "0.0.1"
+"packloader@^0.0.2":
+  "integrity" "sha512-gQx+Z9cCK2xa4jrN4l/Wu8TfBFkECKTMpXCHkQXwlBrPUQ+Q3vWCOV/z4QL2UFNpDFkw+QyrYkq20CtH51L2LA=="
+  "resolved" "https://registry.npmjs.org/packloader/-/packloader-0.0.2.tgz"
+  "version" "0.0.2"
 
 "parent-module@^1.0.0":
   "integrity" "sha512-GQ2EWRpQV8/o+Aw8YqtfZZPfNRWZYkbidE9k5rpl/hC3vtHHBfGm2Ifi6qWV+coDGkrUKZAxE3Lot5kcsRlh+g=="
