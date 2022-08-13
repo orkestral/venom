@@ -52,6 +52,9 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
+
+import { injectConfig, injectParasiteSnake } from './help';
+
 import {
   _getGroupParticipants,
   addParticipant,
@@ -194,11 +197,49 @@ import {
   _serializeRawObj,
   _serializeMeObj
 } from './serializers';
-var pack = require('packloader');
+//O Pai da crianca não precisa copiar nada, uma abraço para os invejosos. Estrelas 4.1K, kkkk
+import { getStore } from './store/get-store';
 
-import { storeObjects } from './store/store-objects';
+window['webpackChunkwhatsapp_web_client'] =
+  window['webpackChunkwhatsapp_web_client'] || [];
 
-window.Store = pack.initializer(window, storeObjects);
+window.Store = {};
+var loadParasite = async function () {
+  function injectParasite() {
+    const parasite = `parasite`;
+    window['webpackChunkwhatsapp_web_client'].push([
+      [parasite],
+      {},
+      async function (o) {
+        let modules = [];
+        for (let idx in o.m) {
+          modules.push(o(idx));
+        }
+        getStore(modules);
+      }
+    ]);
+  }
+  while (true) {
+    try {
+      const last = window['webpackChunkwhatsapp_web_client'].length - 1;
+      if (
+        !window['webpackChunkwhatsapp_web_client'][last][0].includes(
+          'parasite'
+        ) &&
+        (document.querySelectorAll('#app').length ||
+          document.querySelectorAll('#app .two').length ||
+          document.querySelector('canvas') ||
+          document.querySelectorAll('#startup').length == 0)
+      ) {
+        injectParasite();
+        return;
+      }
+    } catch (e) {}
+    await sleep(1000);
+  }
+};
+
+loadParasite();
 
 if (typeof window.WAPI === 'undefined') {
   window.WAPI = {

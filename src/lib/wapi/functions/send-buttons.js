@@ -64,11 +64,9 @@ export async function sendButtons(to, title, buttons, subtitle) {
   if (typeof title != 'string' || title.length === 0) {
     return WAPI.scope(to, true, 404, 'It is necessary to write a title!');
   }
-
   if (typeof subtitle != 'string' || subtitle.length === 0) {
     return WAPI.scope(to, true, 404, 'It is necessary to write a subtitle!');
   }
-
   if (Array.isArray(buttons) && buttons.length > 0) {
     for (let index in buttons) {
       if (typeof buttons[index] !== 'function') {
@@ -98,13 +96,10 @@ export async function sendButtons(to, title, buttons, subtitle) {
       }
     }
   }
-
   const chat = await WAPI.sendExist(to);
-
   if (chat && chat.status != 404 && chat.id) {
     const newMsgId = await window.WAPI.getNewMessageId(chat.id._serialized);
     const fromwWid = await Store.MaybeMeUser.getMaybeMeUser();
-
     const message = {
       id: newMsgId,
       ack: 0,

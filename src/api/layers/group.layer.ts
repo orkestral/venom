@@ -270,14 +270,10 @@ export class GroupLayer extends RetrieverLayer {
    * @returns array of groups
    * @param groupId Chat id ('0000000000-00000000@g.us')
    */
-  public async getAllChatsGroups(groupId: string) {
+  public async getAllChatsGroups() {
     return await this.page.evaluate(() => {
       const chats = WAPI.getAllChats();
-      return !groupId && !groupId.length && typeof groupId === 'string'
-        ? chats.filter((chat) => chat.kind === 'group')
-        : chats.filter(
-            (chat) => chat.kind === 'group' && groupId === chat.id._serialized
-          );
+      return chats.filter((chat) => chat.isGroup);
     });
   }
 

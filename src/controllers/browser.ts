@@ -123,9 +123,7 @@ export async function injectApi(page: Page) {
   }
 
   await page.addScriptTag({
-    path: require.resolve(
-      path.join(__dirname, '../../dist/lib/wapi', 'wapi.js')
-    )
+    path: require.resolve(path.join(__dirname, '../lib/wapi', 'wapi.js'))
   });
 
   await page.addScriptTag({
@@ -135,14 +133,14 @@ export async function injectApi(page: Page) {
   });
 
   // Make sure WAPI is initialized
-  return await page
-    .waitForFunction(() => {
-      return (
-        typeof window.WAPI !== 'undefined' &&
-        typeof window.Store !== 'undefined'
-      );
-    })
-    .catch(() => false);
+  await page.waitForFunction(() => {
+    // @ts-ignore
+    return (
+      typeof window.WAPI !== 'undefined' && typeof window.Store !== 'undefined'
+    );
+  });
+
+  return page;
 }
 
 /**
