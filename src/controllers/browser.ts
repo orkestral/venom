@@ -122,8 +122,37 @@ export async function injectApi(page: Page) {
     return;
   }
 
+  //  * Credits for WPPConnect Team
+  //  * Author: <Edgard Messias>
+  //  * wppconnect-team/wa-js
+  //  * https://github.com/wppconnect-team/wa-js
   await page.addScriptTag({
-    path: require.resolve(path.join(__dirname, '../lib/wapi', 'wapi.js'))
+    path: require.resolve('@wppconnect/wa-js')
+  });
+  // ********************************************
+
+  await page
+    .waitForFunction(
+      () => {
+        return typeof window.WPP !== 'undefined' && window.WPP.isReady;
+      },
+      {
+        timeout: 60000
+      }
+    )
+    .catch(() => false);
+
+  await page
+    .evaluate(() => {
+      WPP.chat.defaultSendMessageOptions.createChat = true;
+      WPP.conn.setKeepAlive(true);
+      WPP.config.poweredBy = 'Venom-Bot';
+    })
+    .catch(() => false);
+  await page.addScriptTag({
+    path: require.resolve(
+      path.join(__dirname, '../../dist/lib/wapi', 'wapi.js')
+    )
   });
 
   await page.addScriptTag({

@@ -157,21 +157,23 @@ export function sendCheckType(chatId = undefined) {
 }
 
 export async function sendExist(chatId, returnChat = true, Send = true) {
-  const checkType = WAPI.sendCheckType(chatId);
+  const checkType = await WAPI.sendCheckType(chatId);
   if (!!checkType && checkType.status === 404) {
     return checkType;
   }
-  let ck = await window.WAPI.checkNumberStatus(chatId, false);
 
+  let ck = await window.WAPI.checkNumberStatus(chatId, false);
   if (
-    ck.status === 404 &&
-    !chatId.includes('@g.us') &&
-    !chatId.includes('@broadcast')
+    ck.status === 404 ||
+    (ck &&
+      ck.text &&
+      typeof ck.text.includes === 'function' &&
+      ck.text.includes('XmppParsingFailure'))
   ) {
     return WAPI.scope(chatId, true, ck.status, 'The number does not exist');
   }
 
-  const chatWid = new Store.WidFactory.createWid(chatId);
+  const chatWid = new window.Store.WidFactory.createWid(chatId);
 
   let chat =
     ck && ck.id && ck.id._serialized
@@ -182,7 +184,7 @@ export async function sendExist(chatId, returnChat = true, Send = true) {
     var idUser = new window.Store.UserConstructor(chatId, {
       intentionallyUsePrivateConstructor: true
     });
-    chat = await Store.Chat.find(idUser);
+    chat = await window.Store.Chat.find(idUser);
   }
 
   if (!chat) {
@@ -196,11 +198,16 @@ export async function sendExist(chatId, returnChat = true, Send = true) {
   }
 
   if (!ck.numberExists && !chat.t && chat.isUser) {
-    return WAPI.scope(chatId, true, ck.status, 'The number does not exist');
+    return window.WAPI.scope(
+      chatId,
+      true,
+      ck.status,
+      'The number does not exist'
+    );
   }
 
   if (!ck.numberExists && !chat.t && chat.isGroup) {
-    return WAPI.scope(
+    return window.WAPI.scope(
       chatId,
       true,
       ck.status,
@@ -208,32 +215,16 @@ export async function sendExist(chatId, returnChat = true, Send = true) {
     );
   }
 
-  if (
-    !ck.numberExists &&
-    !chat.t &&
-    chat.id &&
-    chat.id.user != 'status' &&
-    chat.isBroadcast
-  ) {
-    return WAPI.scope(
-      chatId,
-      true,
-      ck.status,
-      'The transmission list number does not exist on your chat list, or it does not exist at all!'
-    );
-  }
-
   if (!chat) {
-    return WAPI.scope(chatId, true, 404);
+    return window.WAPI.scope(chatId, true, 404);
   }
 
   if (Send) {
-    await window.Store.SendSeen(chat, false);
+    await window.Store.ReadSeen.sendSeen(chat, false);
   }
 
   if (returnChat) {
     return chat;
   }
-
-  return WAPI.scope(chatId, false, 200);
+  return window.WAPI.scope(chatId, false, 200);
 }

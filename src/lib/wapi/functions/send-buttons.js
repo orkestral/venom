@@ -125,7 +125,8 @@ export async function sendButtons(to, title, buttons, subtitle) {
       fromMe: false
     };
     var obj = {
-      dynamicReplyButtons: buttons
+      dynamicReplyButtons: buttons,
+      replyButtons: buttons
     };
     Object.assign(message, obj);
     var result = (

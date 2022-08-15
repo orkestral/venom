@@ -98,6 +98,10 @@ export const storeObjects = [
       module.Stream && module.StreamInfo ? module.Stream : null,
   },
   {
+    id: 'Wid',
+    conditions: (module) => (module.validateWid ? module : null),
+  },
+  {
     id: 'State',
     conditions: (module) => (module.Socket ? module : null),
   },
@@ -345,6 +349,11 @@ export const storeObjects = [
     conditions: (module) =>
       module.Cmd && module.Cmd.openChatFromUnread ? module.Cmd : null
   },
+  {
+    id: 'checkNumberMD',
+    conditions: (module) =>
+        module.queryExists && module.queryPhoneExists ? module : null,
+},
   {
     id: 'ReadSeen',
     conditions: (module) => (module.sendSeen ? module : null)

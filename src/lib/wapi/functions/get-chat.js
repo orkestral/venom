@@ -53,23 +53,19 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
 export function getChat(id) {
-  if (!id) {
-    return false;
-  }
+  if (!id) return false;
+
   id = typeof id == 'string' ? id : id._serialized;
-  let found = Store.Chat.get(id);
+  let found = window.Store.Chat.get(id);
+
   if (!found) {
-    const ConstructChat = new window.Store.UserConstructor(id, {
-      intentionallyUsePrivateConstructor: !0
-    });
-    found = Store.Chat.find(ConstructChat) || false;
+    if (Store.Wid.validateWid(id)) {
+      const ConstructChat = new window.Store.UserConstructor(id, {
+        intentionallyUsePrivateConstructor: true
+      });
+      found = window.Store.Chat.find(ConstructChat) || false;
+    }
   }
-  if (found) {
-    found.sendMessage = found.sendMessage
-      ? found.sendMessage
-      : function () {
-          return window.Store.sendMessage.apply(this, arguments);
-        };
-  }
+
   return found;
 }
