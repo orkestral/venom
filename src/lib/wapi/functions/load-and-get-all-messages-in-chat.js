@@ -52,14 +52,31 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
-export async function loadAllEarlierMessages(id, done) {
-  const found = WAPI.getChat(id);
-  while (!found.msgs.msgLoadState.noEarlierMsgs) {
-    console.log('Loading...');
-    await window.Store.ConversationMsgs.loadEarlierMsgs(found);
-  }
-  console.log('done');
-  return true;
+export async function loadAndGetAllMessagesInChat(
+  id,
+  includeMe,
+  includeNotifications
+) {
+  return window.WAPI.loadAllEarlierMessages(id).then(() => {
+    const chat = window.WAPI.getChat(id);
+    let output = [];
+    const messages = chat.msgs._models;
+
+    for (const i in messages) {
+      if (i === 'remove') {
+        continue;
+      }
+      const messageObj = messages[i];
+
+      let message = WAPI.processMessageObj(
+        messageObj,
+        includeMe,
+        includeNotifications
+      );
+      if (message) output.push(message);
+    }
+    return output;
+  });
 }
 
 /**
@@ -69,6 +86,6 @@ export async function loadAllEarlierMessages(id, done) {
  * @param {Funciton} done Optional callback
  */
 export function asyncLoadAllEarlierMessages(id, done) {
-  loadAllEarlierMessages(id);
+  loadAndGetAllMessagesInChat(id);
   done();
 }
