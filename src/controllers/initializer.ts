@@ -248,6 +248,7 @@ export async function create(
     });
 
     statusFind && statusFind('initWhatsapp', this.session);
+    
     const newPage: Page = await getWhatsappPage(browser);
     const client = new Whatsapp(newPage, session, mergedOptions);
     const page: false | Page = await initWhatsapp(
