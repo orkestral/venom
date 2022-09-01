@@ -66,12 +66,7 @@ import { tokenSession } from '../config/tokenSession.config';
 import { checkFileJson } from '../api/helpers/check-token-file';
 import { SocketState, SocketStream } from '../api/model/enum';
 import { SessionTokenCkeck, saveToken, isBeta } from './auth';
-import {
-  initWhatsapp,
-  initBrowser,
-  injectApi,
-  getWhatsappPage
-} from './browser';
+import { initWhatsapp, initBrowser, injectApi, getWhatsappPage } from './browser';
 import { welcomeScreen } from './welcome';
 const path = require('path');
 /**
@@ -253,7 +248,7 @@ export async function create(
     });
 
     statusFind && statusFind('initWhatsapp', this.session);
-    // Initialize whatsapp
+    
     const newPage: Page = await getWhatsappPage(browser);
     const client = new Whatsapp(newPage, session, mergedOptions);
     const page: false | Page = await initWhatsapp(
