@@ -526,9 +526,9 @@
   version "0.7.31"
   resolved "https://registry.npmjs.org/@types/ms/-/ms-0.7.31.tgz"
 
-"@types/node@*", "@types/node@>=12", "@types/node@^18.6.4":
-  version "18.6.4"
-  resolved "https://registry.npmjs.org/@types/node/-/node-18.6.4.tgz"
+"@types/node@*", "@types/node@>=12", "@types/node@^18.7.15":
+  version "18.7.15"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-18.7.15.tgz#20ae1ec80c57ee844b469f968a1cd511d4088b29"
 
 "@types/normalize-package-data@^2.4.0":
   version "2.4.1"
