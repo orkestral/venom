@@ -52,230 +52,119 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
+
 import { Page } from 'puppeteer';
+import { CreateConfig } from '../../config/create-config';
 import { evaluateAndReturn } from '../helpers';
-import { ControlsLayer } from './controls.layer';
+import { CatalogLayer } from './catalog.layer';
 
-export class BusinessLayer extends ControlsLayer {
-  constructor(page: Page) {
-    super(page);
-  }
-
-  /**
-   * Querys product catalog
-   * @param id Buisness profile id ('00000@c.us')
-   */
-  public async getBusinessProfilesProducts(id: string) {
-    return evaluateAndReturn(
-      this.page,
-      ({ id }) => WAPI.getBusinessProfilesProducts(id),
-      { id }
-    );
+export class LabelsLayer extends CatalogLayer {
+  constructor(public page: Page, session?: string, options?: CreateConfig) {
+    super(page, session, options);
   }
   /**
-   * Get Business Profile
-   * @param id Buisness profile id ('00000@c.us')
-   */
-  public async getBusinessProfile(id: string) {
-    return evaluateAndReturn(
-      this.page,
-      async ({ id }) => {
-        return JSON.parse(
-          JSON.stringify(await WPP.contact.getBusinessProfile(id))
-        );
-      },
-      { id }
-    );
-  }
-
-  /**
-   * Update your business profile
+   * Create New Label
    *
    * @example
    * ```javascript
-   * await client.editBusinessProfile({description: 'New description for profile'});
+   * client.addNewLabel(`Name of label`);
+   * //or
+   * client.addNewLabel(`Name of label`, { labelColor: '#dfaef0' });
+   * //or
+   * client.addNewLabel(`Name of label`, { labelColor: 4292849392 });
    * ```
-   *
-   * ```javascript
-   * await client.editBusinessProfile({categories: {
-      id: "133436743388217",
-      localized_display_name: "Artes e entretenimento",
-      not_a_biz: false,
-    }});
-   * ```
-   *
-   * ```javascript
-   * await client.editBusinessProfile({address: 'Street 01, New York'});
-   * ```
-   *
-   * ```javascript
-   * await client.editBusinessProfile({email: 'test@test.com.br'});
-   * ```
-   *
-   * Change website of profile (max 2 sites)
-   * ```javascript
-   * await client.editBusinessProfile({website: [
-    "https://www.wppconnect.io",
-    "https://www.teste2.com.br",
-  ]});
-   * ```
-   *
-   * Change businessHours for Specific Hours
-   * ```javascript
-   * await client.editBusinessProfile({ businessHours: {
-   * {
-        tue: {
-          mode: "specific_hours",
-          hours: [
-            [
-              540,
-              1080,
-            ],
-          ],
-        },
-        wed: {
-          mode: "specific_hours",
-          hours: [
-            [
-              540,
-              1080,
-            ],
-          ],
-        },
-        thu: {
-          mode: "specific_hours",
-          hours: [
-            [
-              540,
-              1080,
-            ],
-          ],
-        },
-        fri: {
-          mode: "specific_hours",
-          hours: [
-            [
-              540,
-              1080,
-            ],
-          ],
-        },
-        sat: {
-          mode: "specific_hours",
-          hours: [
-            [
-              540,
-              1080,
-            ],
-          ],
-        },
-        sun: {
-          mode: "specific_hours",
-          hours: [
-            [
-              540,
-              1080,
-            ],
-          ],
-        },
-      }
-    },
-    timezone: "America/Sao_Paulo"
-    });
-   *
-   * Change businessHours for Always Opened
-   * ```javascript
-   * await client.editBusinessProfile({ businessHours: {
-      {
-        mon: {
-          mode: "open_24h",
-        },
-        tue: {
-          mode: "open_24h",
-        },
-        wed: {
-          mode: "open_24h",
-        },
-        thu: {
-          mode: "open_24h",
-        },
-        fri: {
-          mode: "open_24h",
-        },
-        sat: {
-          mode: "open_24h",
-        },
-        sun: {
-          mode: "open_24h",
-        },
-      }
-      timezone: "America/Sao_Paulo"
-    });
-   *
-   * Change businessHours for Appointment Only
-   * ```javascript
-   * await client.editBusinessProfile({ businessHours: { {
-      mon: {
-        mode: "appointment_only",
-      },
-      tue: {
-        mode: "appointment_only",
-      },
-      wed: {
-        mode: "appointment_only",
-      },
-      thu: {
-        mode: "appointment_only",
-      },
-      fri: {
-        mode: "appointment_only",
-      },
-      sat: {
-        mode: "appointment_only",
-      },
-      sun: {
-        mode: "appointment_only",
-      },
-    }
-      timezone: "America/Sao_Paulo"
-    });
-   *
-   *
-   * ```
+   * @param name Name of label
+   * @param options options of label
    */
-  public async editBusinessProfile(options: any) {
+  public async addNewLabel(name: string, options?: string) {
     return await evaluateAndReturn(
       this.page,
-      async ({ options }) => {
-        return JSON.parse(
-          JSON.stringify(await WPP.profile.editBusinessProfile(options))
-        );
+      ({ name, options }) => {
+        WPP.labels.addNewLabel(name, options);
       },
-      { options }
+      { name, options }
     );
+  }
+  /**
+   * Add or delete label of chatId
+   *
+   * @example
+   * ```javascript
+   * client.addOrRemoveLabels(['[number]@c.us','[number]@c.us'],
+   * [{labelId:'76', type:'add'},{labelId:'75', type:'remove'}]);
+   * //or
+   * ```
+   * @param chatIds ChatIds
+   * @param options options to remove or add
+   */
+  public async addOrRemoveLabels(chatIds: string, options: string) {
+    return await evaluateAndReturn(
+      this.page,
+      ({ chatIds, options }) => {
+        WPP.labels.addOrRemoveLabels(chatIds, options);
+      },
+      { chatIds, options }
+    );
+  }
+  /**
+   * Get all Labels
+   *
+   * @example
+   * ```javascript
+   * client.getAllLabels();
+   * ```
+   */
+  public async getAllLabels() {
+    return evaluateAndReturn(this.page, () => WPP.labels.getAllLabels());
   }
 
   /**
-   * Sends product with product image to given chat id
-   * @param to Chat id
-   * @param base64 Base64 image data
-   * @param caption Message body
-   * @param businessId Business id number that owns the product ('0000@c.us')
-   * @param productId Product id, see method getBusinessProfilesProducts for more info
+   * Get Label by id
+   * @param id - Id of label
+   *
+   * @example
+   * ```javascript
+   * client.getLabelById('1');
+   * ```
    */
-  public async sendImageWithProduct(
-    to: string,
-    base64: string,
-    caption: string,
-    businessId: string,
-    productId: string
-  ) {
-    return evaluateAndReturn(
+  public async getLabelById(id: string) {
+    return await evaluateAndReturn(
       this.page,
-      ({ to, base64, businessId, caption, productId }) => {
-        WAPI.sendImageWithProduct(base64, to, caption, businessId, productId);
+      ({ id }) => {
+        WPP.labels.getLabelById(id);
       },
-      { to, base64, businessId, caption, productId }
+      { id }
+    );
+  }
+  /**
+   * Delete all Labels
+   *
+   * @example
+   * ```javascript
+   * client.deleteAllLabels();
+   * ```
+   */
+  public async deleteAllLabels() {
+    return await evaluateAndReturn(this.page, () => {
+      WPP.labels.deleteAllLabels();
+    });
+  }
+  /**
+   * Add or delete label of chatId
+   *
+   * @example
+   * ```javascript
+   * client.deleteLabel();
+   * ```
+   * @param id Id or string to labels to delete
+   */
+  public async deleteLabel(id: string | string[]) {
+    return await evaluateAndReturn(
+      this.page,
+      ({ id }) => {
+        WPP.labels.deleteLabel(id);
+      },
+      { id }
     );
   }
 }

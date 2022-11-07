@@ -910,10 +910,10 @@
   "resolved" "https://registry.npmjs.org/@webpack-cli/serve/-/serve-1.7.0.tgz"
   "version" "1.7.0"
 
-"@wppconnect/wa-js@^2.11.0":
-  "integrity" "sha512-yKgEOgDdmt8GtPJLGPkKmRDEfQZcTrix6BHAQIe1utkTizE923aefPxT2bC16MaWuCbmuJTgjY8sbJi23dZBUA=="
-  "resolved" "https://registry.npmjs.org/@wppconnect/wa-js/-/wa-js-2.11.0.tgz"
-  "version" "2.11.0"
+"@wppconnect/wa-js@^2.14.1":
+  "integrity" "sha512-diyv2g6osU7xHsZBZgle+sqNFQk8kcEg+cbMDOqqQ1SifR3JMthhaYLGgh4YUprEOqWCPAqIHkx9+M70L/xBQQ=="
+  "resolved" "https://registry.npmjs.org/@wppconnect/wa-js/-/wa-js-2.14.1.tgz"
+  "version" "2.14.1"
 
 "@xtuc/ieee754@^1.2.0":
   "integrity" "sha512-DX8nKgqcGwsc0eJSqYt5lwP4DH5FlHnmuWWBRy7X0NcaGR0ZtuyeESgMwTYVEtxmsNGY+qit4QYT/MIYTOTPeA=="
@@ -2387,21 +2387,7 @@
   dependencies:
     "ms" "^2.1.1"
 
-"debug@^4.1.1", "debug@^4.3.1", "debug@^4.3.2", "debug@4":
-  "integrity" "sha512-/zxw5+vh1Tfv+4Qn7a5nsbcJKPaSvCDhojn6FEl9vupwK2VCSDtEiEtqr8DFtzYFOdz63LBkxec7DYuc2jon6Q=="
-  "resolved" "https://registry.npmjs.org/debug/-/debug-4.3.3.tgz"
-  "version" "4.3.3"
-  dependencies:
-    "ms" "2.1.2"
-
-"debug@^4.3.4":
-  "integrity" "sha512-PRWFHuSU3eDtQJPvnNY7Jcket1j0t5OuOsFzPPzsekD52Zl8qUfFIPEiswXqIvHWGVHOgX+7G/vCNNhehwxfkQ=="
-  "resolved" "https://registry.npmjs.org/debug/-/debug-4.3.4.tgz"
-  "version" "4.3.4"
-  dependencies:
-    "ms" "2.1.2"
-
-"debug@4.3.4":
+"debug@^4.1.1", "debug@^4.3.1", "debug@^4.3.2", "debug@^4.3.4", "debug@4", "debug@4.3.4":
   "integrity" "sha512-PRWFHuSU3eDtQJPvnNY7Jcket1j0t5OuOsFzPPzsekD52Zl8qUfFIPEiswXqIvHWGVHOgX+7G/vCNNhehwxfkQ=="
   "resolved" "https://registry.npmjs.org/debug/-/debug-4.3.4.tgz"
   "version" "4.3.4"
@@ -2575,6 +2561,11 @@
   "integrity" "sha512-G6OsIFnv/rDyxSqBa2lDLR6thp9oJioLsb2Gl+LbQlyoA9/OBAkrTU9jiCcQ8Pnh7z4d6slDiLaogR5hzgJLmQ=="
   "resolved" "https://registry.npmjs.org/devtools-protocol/-/devtools-protocol-0.0.1001819.tgz"
   "version" "0.0.1001819"
+
+"devtools-protocol@0.0.1056733":
+  "integrity" "sha512-CmTu6SQx2g3TbZzDCAV58+LTxVdKplS7xip0g5oDXpZ+isr0rv5dDP8ToyVRywzPHkCCPKgKgScEcwz4uPWDIA=="
+  "resolved" "https://registry.npmjs.org/devtools-protocol/-/devtools-protocol-0.0.1056733.tgz"
+  "version" "0.0.1056733"
 
 "diff@^4.0.1":
   "integrity" "sha512-58lmxKSA4BNyLz+HHMUzlOEpg09FV+ev6ZMe3vJihgdxzgcwZ8VoEEPmALCZG9LmqfVoNMMKpttIYTVG6uDY7A=="
@@ -5077,6 +5068,11 @@
   "resolved" "https://registry.npmjs.org/longest/-/longest-2.0.1.tgz"
   "version" "2.0.1"
 
+"lookpath@^1.2.2":
+  "integrity" "sha512-k2Gmn8iV6qdME3ztZC2spubmQISimFOPLuQKiPaLcVdRz0IpdxrNClVepMlyTJlhodm/zG/VfbkWERm3kUIh+Q=="
+  "resolved" "https://registry.npmjs.org/lookpath/-/lookpath-1.2.2.tgz"
+  "version" "1.2.2"
+
 "lowercase-keys@^1.0.0", "lowercase-keys@^1.0.1":
   "integrity" "sha512-G2Lj61tXDnVFFOi8VZds+SoQjtQC3dgokKdDG2mTm1tx4m50NUHBOZSBwQQHyy0V12A0JTG4icfZQH+xPyh8VA=="
   "resolved" "https://registry.npmjs.org/lowercase-keys/-/lowercase-keys-1.0.1.tgz"
@@ -6231,6 +6227,22 @@
   "version" "2.1.1"
   dependencies:
     "escape-goat" "^2.0.0"
+
+"puppeteer-core@*":
+  "integrity" "sha512-faojf+1pZ/tHXSr4x1q+9MVd9FrL3rpdbC0w7qN7MNClMoLuCvMbpR4vzcjoiJYgclt1n+SOPUOmHQViTw6frw=="
+  "resolved" "https://registry.npmjs.org/puppeteer-core/-/puppeteer-core-19.2.2.tgz"
+  "version" "19.2.2"
+  dependencies:
+    "cross-fetch" "3.1.5"
+    "debug" "4.3.4"
+    "devtools-protocol" "0.0.1056733"
+    "extract-zip" "2.0.1"
+    "https-proxy-agent" "5.0.1"
+    "proxy-from-env" "1.1.0"
+    "rimraf" "3.0.2"
+    "tar-fs" "2.1.1"
+    "unbzip2-stream" "1.4.3"
+    "ws" "8.10.0"
 
 "puppeteer-extra-plugin-stealth@^2.11.1":
   "integrity" "sha512-n0wdC0Ilc9tk5L6FWLyd0P2gT8b2fp+2NuB+KB0oTSw3wXaZ0D6WNakjJsayJ4waGzIJFCUHkmK9zgx5NKMoFw=="
@@ -8380,10 +8392,10 @@
     "signal-exit" "^3.0.2"
     "typedarray-to-buffer" "^3.1.5"
 
-"ws@^8.8.0":
-  "integrity" "sha512-bGy2JzvzkPowEJV++hF07hAD6niYSr0JzBNo/J29WsB57A2r7Wlc1UFcTR9IzrPvuNVO4B8LGqF8qcpsVOhJCA=="
-  "resolved" "https://registry.npmjs.org/ws/-/ws-8.8.1.tgz"
-  "version" "8.8.1"
+"ws@^8.8.0", "ws@8.10.0":
+  "integrity" "sha512-+s49uSmZpvtAsd2h37vIPy1RBusaLawVe8of+GyEPsaJTCMpj/2v8NpeK1SHXjBlQ95lQTmQofOJnFiLoaN3yw=="
+  "resolved" "https://registry.npmjs.org/ws/-/ws-8.10.0.tgz"
+  "version" "8.10.0"
 
 "ws@8.7.0":
   "integrity" "sha512-c2gsP0PRwcLFzUiA8Mkr37/MI7ilIlHQxaEAtd0uNMbVMoy8puJyafRlm0bV9MbGSabUPeLrRRaqIBcFcA2Pqg=="

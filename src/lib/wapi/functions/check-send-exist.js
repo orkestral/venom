@@ -157,74 +157,44 @@ export function sendCheckType(chatId = undefined) {
 }
 
 export async function sendExist(chatId, returnChat = true, Send = true) {
-  const checkType = await WAPI.sendCheckType(chatId);
-  if (!!checkType && checkType.status === 404) {
-    return checkType;
+  if (!chatId) {
+    return scope(chatId, true, 500, 'Chat ID is empty');
   }
 
-  let ck = await window.WAPI.checkNumberStatus(chatId, false);
-  if (
-    ck.status === 404 ||
-    (ck &&
-      ck.text &&
-      typeof ck.text.includes === 'function' &&
-      ck.text.includes('XmppParsingFailure'))
-  ) {
-    return WAPI.scope(chatId, true, ck.status, 'The number does not exist');
-  }
+  // Check chat exists (group is always a chat)
+  let chat = await window.WAPI.getChat(chatId);
 
-  const chatWid = new window.Store.WidFactory.createWid(chatId);
-
-  let chat =
-    ck && ck.id && ck.id._serialized
-      ? await window.WAPI.getChat(ck.id._serialized)
-      : undefined;
-
-  if (ck.numberExists && chat === undefined) {
-    var idUser = new window.Store.UserConstructor(chatId, {
-      intentionallyUsePrivateConstructor: true
+  if (!chat && chatId === 'status@broadcast') {
+    chat = new WPP.whatsapp.ChatStore.modelClass({
+      id: WPP.whatsapp.WidFactory.createWid('status@broadcast')
     });
-    chat = await window.Store.Chat.find(idUser);
+    WPP.whatsapp.ChatStore.add(chat);
+    chat = await window.WAPI.getChat(chatId); // Fix some methods
   }
 
-  if (!chat) {
-    const storeChat = await window.Store.Chat.find(chatWid);
-    if (storeChat) {
-      chat =
-        storeChat && storeChat.id && storeChat.id._serialized
-          ? await window.WAPI.getChat(storeChat.id._serialized)
-          : undefined;
+  // Check if contact number exists
+  if (!chat && !chatId.includes('@g')) {
+    let ck = await window.WAPI.checkNumberStatus(chatId);
+
+    if (!ck.numberExists) {
+      return scope(chatId, true, ck.status, 'The number does not exist');
     }
-  }
 
-  if (!ck.numberExists && !chat.t && chat.isUser) {
-    return window.WAPI.scope(
-      chatId,
-      true,
-      ck.status,
-      'The number does not exist'
-    );
-  }
+    // Load chat ID for non contact
+    await WPP.chat.find(ck.id);
 
-  if (!ck.numberExists && !chat.t && chat.isGroup) {
-    return window.WAPI.scope(
-      chatId,
-      true,
-      ck.status,
-      'The group number does not exist on your chat list, or it does not exist at all!'
-    );
+    chatId = ck.id._serialized;
+    chat = await window.WAPI.getChat(chatId);
   }
 
   if (!chat) {
-    return window.WAPI.scope(chatId, true, 404);
+    return scope(chatId, true, 404);
   }
-
   if (Send) {
-    await window.Store.ReadSeen.sendSeen(chat, false);
+    await WPP.chat.markIsRead(chat.id).catch(() => null);
   }
-
   if (returnChat) {
     return chat;
   }
-  return window.WAPI.scope(chatId, false, 200);
+  return scope(chatId, false, 200);
 }

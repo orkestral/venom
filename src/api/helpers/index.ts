@@ -63,3 +63,4 @@ export { scrapeDeleteToken } from './scrape-deletetoken';
 export { deleteFiles } from './delete-file';
 export { callbackWile } from './callback-wile';
 export { checkingCloses } from './closes-browser';
+export { evaluateAndReturn } from './evaluate-and-return';

@@ -56,6 +56,7 @@ import { Page } from 'puppeteer';
 import { CreateConfig } from '../../config/create-config';
 import { UILayer } from './ui.layer';
 import { Scope, checkValuesSender } from '../helpers/layers-interface';
+import { evaluateAndReturn } from '../helpers';
 
 let obj: Scope;
 
@@ -90,10 +91,13 @@ export class ControlsLayer extends UILayer {
    * @returns boolean
    */
   public async unblockContact(contactId: string) {
-    return this.page.evaluate(
-      (contactId) => WAPI.unblockContact(contactId),
+    await evaluateAndReturn(
+      this.page,
+      (contactId) => WPP.blocklist.unblockContact(contactId),
       contactId
     );
+
+    return true;
   }
 
   /**
@@ -102,10 +106,13 @@ export class ControlsLayer extends UILayer {
    * @returns boolean
    */
   public async blockContact(contactId: string) {
-    return this.page.evaluate(
-      (contactId) => WAPI.blockContact(contactId),
+    await evaluateAndReturn(
+      this.page,
+      (contactId) => WPP.blocklist.blockContact(contactId),
       contactId
     );
+
+    return true;
   }
 
   /**
@@ -114,10 +121,12 @@ export class ControlsLayer extends UILayer {
    * @returns boolean
    */
   public async markUnseenMessage(contactId: string) {
-    return this.page.evaluate(
-      (contactId) => WAPI.markUnseenMessage(contactId),
+    await evaluateAndReturn(
+      this.page,
+      (contactId) => WPP.chat.markIsUnread(contactId),
       contactId
     );
+    return true;
   }
 
   /**
@@ -126,10 +135,12 @@ export class ControlsLayer extends UILayer {
    * @returns boolean
    */
   public async deleteChat(chatId: string) {
-    return this.page.evaluate(
-      (chatId) => WAPI.deleteConversation(chatId),
+    const result = await evaluateAndReturn(
+      this.page,
+      (chatId) => WPP.chat.delete(chatId),
       chatId
     );
+    return result.status === 200;
   }
 
   /**
@@ -138,9 +149,10 @@ export class ControlsLayer extends UILayer {
    * @param option {boolean} true or false
    * @returns boolean
    */
-  public async archiveChat(chatId: string, option: boolean) {
-    return this.page.evaluate(
-      ({ chatId, option }) => WAPI.archiveChat(chatId, option),
+  public async archiveChat(chatId: string, option: boolean = true) {
+    return evaluateAndReturn(
+      this.page,
+      ({ chatId, option }) => WPP.chat.archive(chatId, option),
       { chatId, option }
     );
   }
@@ -153,19 +165,19 @@ export class ControlsLayer extends UILayer {
    * @returns object
    */
   public async pinChat(chatId: string, option: boolean, nonExistent?: boolean) {
-    return new Promise(async (resolve, reject) => {
-      const result = await this.page.evaluate(
-        ({ chatId, option, nonExistent }) => {
-          return WAPI.pinChat(chatId, option, nonExistent);
-        },
-        { chatId, option, nonExistent }
+    if (nonExistent) {
+      await evaluateAndReturn(
+        this.page,
+        ({ chatId }) => WPP.chat.find(chatId),
+        { chatId }
       );
-      if (result['erro'] == true) {
-        reject(result);
-      } else {
-        resolve(result);
-      }
-    });
+    }
+
+    return await evaluateAndReturn(
+      this.page,
+      ({ chatId, option }) => WPP.chat.pin(chatId, option),
+      { chatId, option }
+    );
   }
 
   /**
@@ -173,107 +185,41 @@ export class ControlsLayer extends UILayer {
    * @param chatId
    * @returns boolean
    */
-  public async clearChatMessages(chatId: string) {
-    return this.page.evaluate(
-      (chatId) => WAPI.clearChatMessages(chatId),
-      chatId
+  public async clearChat(chatId: string, keepStarred = true) {
+    const result = await evaluateAndReturn(
+      this.page,
+      ({ chatId, keepStarred }) => WPP.chat.clear(chatId, keepStarred),
+      { chatId, keepStarred }
     );
+
+    return result.status === 200;
   }
 
   /**
-   * Deletes message all of given message id
+   * Deletes message of given message id
    * @param chatId The chat id from which to delete the message.
    * @param messageId The specific message id of the message to be deleted
    * @param onlyLocal If it should only delete locally (message remains on the other recipienct's phone). Defaults to false.
    */
-  public async deleteMessageAll(
+  public async deleteMessage(
     chatId: string,
-    messageId: string[] | string
-  ): Promise<Object> {
-    return new Promise(async (resolve, reject) => {
-      const typeFunction = 'deleteMessageAll';
-      const type = 'string';
-      const check = [
-        {
-          param: 'chatId',
-          type: type,
-          value: chatId,
-          function: typeFunction,
-          isUser: true
-        },
-        {
-          param: 'messageId',
-          type: 'object',
-          value: messageId,
-          function: typeFunction,
-          isUser: true
-        }
-      ];
+    messageId: string[] | string,
+    onlyLocal = false,
+    deleteMediaInDevice = true
+  ) {
+    await evaluateAndReturn(
+      this.page,
+      ({ chatId, messageId, onlyLocal, deleteMediaInDevice }) =>
+        WPP.chat.deleteMessage(
+          chatId,
+          messageId,
+          deleteMediaInDevice,
+          !onlyLocal
+        ),
+      { chatId, messageId, onlyLocal, deleteMediaInDevice }
+    );
 
-      const validating = checkValuesSender(check);
-      if (typeof validating === 'object') {
-        return reject(validating);
-      }
-      const result = await this.page.evaluate(
-        ({ contactId, messageId }) =>
-          WAPI.deleteMessagesAll(contactId, messageId, false),
-        { contactId: chatId, messageId }
-      );
-
-      if (result['erro'] == true) {
-        return reject(result);
-      } else {
-        return resolve(result);
-      }
-    });
-  }
-
-  /**
-   * Deletes message me of given message id
-   * @param chatId The chat id from which to delete the message.
-   * @param messageId The specific message id of the message to be deleted
-   * @param onlyLocal If it should only delete locally (message remains on the other recipienct's phone). Defaults to false.
-   */
-  public async deleteMessageMe(
-    chatId: string,
-    messageId: string[] | string
-  ): Promise<Object> {
-    return new Promise(async (resolve, reject) => {
-      const typeFunction = 'deleteMessageMe';
-      const type = 'string';
-      const check = [
-        {
-          param: 'chatId',
-          type: type,
-          value: chatId,
-          function: typeFunction,
-          isUser: true
-        },
-        {
-          param: 'messageId',
-          type: 'object',
-          value: messageId,
-          function: typeFunction,
-          isUser: true
-        }
-      ];
-
-      const validating = checkValuesSender(check);
-      if (typeof validating === 'object') {
-        return reject(validating);
-      }
-      const result = await this.page.evaluate(
-        ({ contactId, messageId }) =>
-          WAPI.deleteMessagesMe(contactId, messageId, true),
-        { contactId: chatId, messageId }
-      );
-
-      if (result['erro'] == true) {
-        return reject(result);
-      } else {
-        return resolve(result);
-      }
-    });
+    return true;
   }
 
   /**

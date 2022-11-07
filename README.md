@@ -18,9 +18,7 @@
 ## Get started fast and easy! Official API!
 
 <p align="center">
-  <a href="https://github.com/orkestral/venom/blob/master/docs/getting-started/creating-client.md">Getting Started</a> •
-  <a href="https://github.com/orkestral/venom/blob/master/docs/getting-started/basic-functions.md">Basic Function</a> •
-  <a href="https://github.com/orkestral/venom/tree/master/docs/getting-started">Documentation</a>
+  <a href="https://docs.orkestral.io/venom">Full Documentation</a>
 </p>
 
 

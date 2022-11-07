@@ -57,7 +57,7 @@ import { CreateConfig, defaultOptions } from '../../config/create-config';
 import { SocketState } from '../model/enum';
 import { injectApi } from '../../controllers/browser';
 import { ScrapQrcode } from '../model/qrcode';
-import { scrapeImg } from '../helpers';
+import { evaluateAndReturn, scrapeImg } from '../helpers';
 import {
   asciiQr,
   isAuthenticated,
@@ -358,9 +358,8 @@ export class HostLayer {
    * Retrieves the connecction state
    */
   public async getConnectionState(): Promise<SocketState> {
-    return await this.page.evaluate(() => {
-      //@ts-ignore
-      return Store.State.Socket.state;
+    return await evaluateAndReturn(this.page, () => {
+      return WPP.whatsapp.Socket.state as SocketState;
     });
   }
 

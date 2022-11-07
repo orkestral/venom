@@ -52,230 +52,111 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
-import { Page } from 'puppeteer';
-import { evaluateAndReturn } from '../helpers';
-import { ControlsLayer } from './controls.layer';
 
-export class BusinessLayer extends ControlsLayer {
-  constructor(page: Page) {
-    super(page);
-  }
+const execa = require('execa');
+import * as fs from 'fs';
+import * as path from 'path';
+import rimraf from 'rimraf';
+import * as tmp from 'tmp';
+import { lookpath } from 'lookpath';
 
-  /**
-   * Querys product catalog
-   * @param id Buisness profile id ('00000@c.us')
-   */
-  public async getBusinessProfilesProducts(id: string) {
-    return evaluateAndReturn(
-      this.page,
-      ({ id }) => WAPI.getBusinessProfilesProducts(id),
-      { id }
-    );
-  }
-  /**
-   * Get Business Profile
-   * @param id Buisness profile id ('00000@c.us')
-   */
-  public async getBusinessProfile(id: string) {
-    return evaluateAndReturn(
-      this.page,
-      async ({ id }) => {
-        return JSON.parse(
-          JSON.stringify(await WPP.contact.getBusinessProfile(id))
-        );
-      },
-      { id }
-    );
-  }
+const tmpDir = tmp.dirSync({});
 
-  /**
-   * Update your business profile
-   *
-   * @example
-   * ```javascript
-   * await client.editBusinessProfile({description: 'New description for profile'});
-   * ```
-   *
-   * ```javascript
-   * await client.editBusinessProfile({categories: {
-      id: "133436743388217",
-      localized_display_name: "Artes e entretenimento",
-      not_a_biz: false,
-    }});
-   * ```
-   *
-   * ```javascript
-   * await client.editBusinessProfile({address: 'Street 01, New York'});
-   * ```
-   *
-   * ```javascript
-   * await client.editBusinessProfile({email: 'test@test.com.br'});
-   * ```
-   *
-   * Change website of profile (max 2 sites)
-   * ```javascript
-   * await client.editBusinessProfile({website: [
-    "https://www.wppconnect.io",
-    "https://www.teste2.com.br",
-  ]});
-   * ```
-   *
-   * Change businessHours for Specific Hours
-   * ```javascript
-   * await client.editBusinessProfile({ businessHours: {
-   * {
-        tue: {
-          mode: "specific_hours",
-          hours: [
-            [
-              540,
-              1080,
-            ],
-          ],
-        },
-        wed: {
-          mode: "specific_hours",
-          hours: [
-            [
-              540,
-              1080,
-            ],
-          ],
-        },
-        thu: {
-          mode: "specific_hours",
-          hours: [
-            [
-              540,
-              1080,
-            ],
-          ],
-        },
-        fri: {
-          mode: "specific_hours",
-          hours: [
-            [
-              540,
-              1080,
-            ],
-          ],
-        },
-        sat: {
-          mode: "specific_hours",
-          hours: [
-            [
-              540,
-              1080,
-            ],
-          ],
-        },
-        sun: {
-          mode: "specific_hours",
-          hours: [
-            [
-              540,
-              1080,
-            ],
-          ],
-        },
-      }
-    },
-    timezone: "America/Sao_Paulo"
-    });
-   *
-   * Change businessHours for Always Opened
-   * ```javascript
-   * await client.editBusinessProfile({ businessHours: {
-      {
-        mon: {
-          mode: "open_24h",
-        },
-        tue: {
-          mode: "open_24h",
-        },
-        wed: {
-          mode: "open_24h",
-        },
-        thu: {
-          mode: "open_24h",
-        },
-        fri: {
-          mode: "open_24h",
-        },
-        sat: {
-          mode: "open_24h",
-        },
-        sun: {
-          mode: "open_24h",
-        },
-      }
-      timezone: "America/Sao_Paulo"
-    });
-   *
-   * Change businessHours for Appointment Only
-   * ```javascript
-   * await client.editBusinessProfile({ businessHours: { {
-      mon: {
-        mode: "appointment_only",
-      },
-      tue: {
-        mode: "appointment_only",
-      },
-      wed: {
-        mode: "appointment_only",
-      },
-      thu: {
-        mode: "appointment_only",
-      },
-      fri: {
-        mode: "appointment_only",
-      },
-      sat: {
-        mode: "appointment_only",
-      },
-      sun: {
-        mode: "appointment_only",
-      },
+let i = 0;
+
+process.on('exit', () => {
+  // Remove only on exit signal
+  try {
+    // Use rimraf because it is synchronous
+    rimraf.sync(tmpDir.name);
+  } catch (error) {}
+});
+
+export async function getFfmpegPath() {
+  let ffmpegPath = process.env['FFMPEG_PATH'];
+
+  if (ffmpegPath) {
+    const isExecutable = await fs.promises
+      .access(ffmpegPath, fs.constants.X_OK)
+      .then(() => true)
+      .catch(() => false);
+
+    if (isExecutable) {
+      return ffmpegPath;
     }
-      timezone: "America/Sao_Paulo"
-    });
-   *
-   *
-   * ```
-   */
-  public async editBusinessProfile(options: any) {
-    return await evaluateAndReturn(
-      this.page,
-      async ({ options }) => {
-        return JSON.parse(
-          JSON.stringify(await WPP.profile.editBusinessProfile(options))
-        );
-      },
-      { options }
+  }
+
+  ffmpegPath = await lookpath('ffmpeg', {
+    include: [
+      'C:\\FFmpeg\\bin',
+      'C:\\FFmpeg\\FFmpeg\\bin',
+      'C:\\Program Files\\ffmpeg\\bin',
+      'C:\\Program Files (x86)\\ffmpeg\\bin'
+    ]
+  });
+
+  if (!ffmpegPath) {
+    try {
+      ffmpegPath = require('ffmpeg-static');
+    } catch (error) {}
+  }
+
+  if (!ffmpegPath) {
+    throw new Error(
+      'Error: FFMPEG not found. Please install ffmpeg or define the env FFMPEG_PATH or install ffmpeg-static'
     );
   }
 
-  /**
-   * Sends product with product image to given chat id
-   * @param to Chat id
-   * @param base64 Base64 image data
-   * @param caption Message body
-   * @param businessId Business id number that owns the product ('0000@c.us')
-   * @param productId Product id, see method getBusinessProfilesProducts for more info
-   */
-  public async sendImageWithProduct(
-    to: string,
-    base64: string,
-    caption: string,
-    businessId: string,
-    productId: string
-  ) {
-    return evaluateAndReturn(
-      this.page,
-      ({ to, base64, businessId, caption, productId }) => {
-        WAPI.sendImageWithProduct(base64, to, caption, businessId, productId);
-      },
-      { to, base64, businessId, caption, productId }
-    );
+  return ffmpegPath;
+}
+
+/**
+ * Convert a file to a compatible MP4-GIF for WhatsApp
+ * @param inputBase64 Gif in base64 format
+ * @returns base64 of a MP4-GIF for WhatsApp
+ */
+export async function convertToMP4GIF(inputBase64: string): Promise<string> {
+  const inputPath = path.join(tmpDir.name, `${i++}`);
+  const outputPath = path.join(tmpDir.name, `${i++}.mp4`);
+
+  if (inputBase64.includes(',')) {
+    inputBase64 = inputBase64.split(',')[1];
   }
+
+  fs.writeFileSync(inputPath, Buffer.from(inputBase64, 'base64'));
+
+  /**
+   * fluent-ffmpeg is a good alternative,
+   * but to work with MP4 you must use fisical file or ffmpeg will not work
+   * Because of that, I made the choice to use temporary file
+   */
+  const ffmpegPath = await getFfmpegPath();
+
+  try {
+    const out = await execa(ffmpegPath, [
+      '-i',
+      inputPath,
+      '-movflags',
+      'faststart',
+      '-pix_fmt',
+      'yuv420p',
+      '-vf',
+      'scale=trunc(iw/2)*2:trunc(ih/2)*2',
+      '-f',
+      'mp4',
+      outputPath
+    ]);
+
+    if (out.exitCode === 0) {
+      const outputBase64 = fs.readFileSync(outputPath);
+      return 'data:video/mp4;base64,' + outputBase64.toString('base64');
+    }
+
+    throw out.stderr;
+  } finally {
+    rimraf(inputPath, () => null);
+    rimraf(outputPath, () => null);
+  }
+
+  return '';
 }

@@ -55,9 +55,10 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 import { Page } from 'puppeteer';
 import { CreateConfig } from '../../config/create-config';
 import { tokenSession } from '../../config/tokenSession.config';
-import { WhatsappProfile } from '../model';
+import { Chat, ContactStatus, WhatsappProfile } from '../model';
 import { SenderLayer } from './sender.layer';
 import { checkValuesSender } from '../helpers/layers-interface';
+import { evaluateAndReturn } from '../helpers';
 
 export class RetrieverLayer extends SenderLayer {
   constructor(public page: Page, session?: string, options?: CreateConfig) {
@@ -104,18 +105,45 @@ export class RetrieverLayer extends SenderLayer {
    * @returns array of [0,1,2,3....]
    */
   public async getBlockList() {
-    return await this.page.evaluate(() => WAPI.getBlockList());
+    return await evaluateAndReturn(this.page, () =>
+      WPP.blocklist.all().map((b) => b.toString())
+    );
   }
 
   /**
    * Retrieves all chats
    * @returns array of [Chat]
    */
-  public async getAllChats() {
-    return await this.page.evaluate(() => {
-      let chats = WAPI.getAllChats();
-      return chats;
-    });
+  public async getAllChats(withNewMessageOnly = false) {
+    if (withNewMessageOnly) {
+      return evaluateAndReturn(this.page, () => WAPI.getAllChatsWithNewMsg());
+    } else {
+      return evaluateAndReturn(this.page, () => WAPI.getAllChats());
+    }
+  }
+
+  /**
+   * Retrieve all groups
+   * @category Group
+   * @returns array of groups
+   */
+  public async getAllGroups(withNewMessagesOnly = false): Promise<Chat[]> {
+    return await evaluateAndReturn(
+      this.page,
+      async ({ withNewMessagesOnly }) => {
+        const chats = await WPP.chat.list({
+          onlyGroups: true,
+          onlyWithUnreadMessage: withNewMessagesOnly
+        });
+
+        const groups = await Promise.all(
+          chats.map((c) => WPP.group.ensureGroup(c.id))
+        );
+
+        return groups.map((g) => WAPI._serializeChatObj(g));
+      },
+      { withNewMessagesOnly }
+    );
   }
 
   /**
@@ -264,9 +292,17 @@ export class RetrieverLayer extends SenderLayer {
    * Retrieves status of given contact
    * @param contactId
    */
-  public async getStatus(contactId: string) {
-    return this.page.evaluate(
-      (contactId) => WAPI.getStatus(contactId),
+  public async getStatus(contactId: string): Promise<ContactStatus> {
+    return await evaluateAndReturn(
+      this.page,
+      async (contactId) => {
+        const status = await WPP.contact.getStatus(contactId);
+
+        return {
+          id: contactId,
+          status: (status as any)?.status || status
+        };
+      },
       contactId
     );
   }
@@ -412,6 +448,24 @@ export class RetrieverLayer extends SenderLayer {
     return await this.page.evaluate(
       (chatId: string) => WAPI.getLastSeen(chatId),
       chatId
+    );
+  }
+
+  /**
+   * Get the platform message from message ID
+   *
+   * The platform can be:
+   * android
+   * iphone
+   * web
+   * unknown
+   * @param chatId chat id: xxxxx@c.us
+   */
+  public async getPlatformFromMessage(msgId: string): Promise<string> {
+    return await evaluateAndReturn(
+      this.page,
+      (msgId: string) => WPP.chat.getPlatformFromMessage(msgId),
+      msgId
     );
   }
 }

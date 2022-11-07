@@ -283,6 +283,8 @@ interface WAPI {
     settings: string,
     value: boolean
   ) => Promise<object>;
+
+  _serializeChatObj: (obj: any) => any;
 }
 
 declare global {

@@ -52,230 +52,153 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
+
 import { Page } from 'puppeteer';
-import { evaluateAndReturn } from '../helpers';
-import { ControlsLayer } from './controls.layer';
+import { CreateConfig } from '../../config/create-config';
+import { LabelsLayer } from './labels.layer';
+import {
+  evaluateAndReturn,
+  base64MimeType,
+  fileToBase64,
+  downloadFileToBase64
+} from '../helpers';
 
-export class BusinessLayer extends ControlsLayer {
-  constructor(page: Page) {
-    super(page);
-  }
-
-  /**
-   * Querys product catalog
-   * @param id Buisness profile id ('00000@c.us')
-   */
-  public async getBusinessProfilesProducts(id: string) {
-    return evaluateAndReturn(
-      this.page,
-      ({ id }) => WAPI.getBusinessProfilesProducts(id),
-      { id }
-    );
+export class StatusLayer extends LabelsLayer {
+  constructor(public page: Page, session?: string, options?: CreateConfig) {
+    super(page, session, options);
   }
   /**
-   * Get Business Profile
-   * @param id Buisness profile id ('00000@c.us')
-   */
-  public async getBusinessProfile(id: string) {
-    return evaluateAndReturn(
-      this.page,
-      async ({ id }) => {
-        return JSON.parse(
-          JSON.stringify(await WPP.contact.getBusinessProfile(id))
-        );
-      },
-      { id }
-    );
-  }
-
-  /**
-   * Update your business profile
+   * Send a image message to status stories
    *
    * @example
    * ```javascript
-   * await client.editBusinessProfile({description: 'New description for profile'});
+   * client.sendImageStatus('data:image/jpeg;base64,<a long base64 file...>');
    * ```
-   *
-   * ```javascript
-   * await client.editBusinessProfile({categories: {
-      id: "133436743388217",
-      localized_display_name: "Artes e entretenimento",
-      not_a_biz: false,
-    }});
-   * ```
-   *
-   * ```javascript
-   * await client.editBusinessProfile({address: 'Street 01, New York'});
-   * ```
-   *
-   * ```javascript
-   * await client.editBusinessProfile({email: 'test@test.com.br'});
-   * ```
-   *
-   * Change website of profile (max 2 sites)
-   * ```javascript
-   * await client.editBusinessProfile({website: [
-    "https://www.wppconnect.io",
-    "https://www.teste2.com.br",
-  ]});
-   * ```
-   *
-   * Change businessHours for Specific Hours
-   * ```javascript
-   * await client.editBusinessProfile({ businessHours: {
-   * {
-        tue: {
-          mode: "specific_hours",
-          hours: [
-            [
-              540,
-              1080,
-            ],
-          ],
-        },
-        wed: {
-          mode: "specific_hours",
-          hours: [
-            [
-              540,
-              1080,
-            ],
-          ],
-        },
-        thu: {
-          mode: "specific_hours",
-          hours: [
-            [
-              540,
-              1080,
-            ],
-          ],
-        },
-        fri: {
-          mode: "specific_hours",
-          hours: [
-            [
-              540,
-              1080,
-            ],
-          ],
-        },
-        sat: {
-          mode: "specific_hours",
-          hours: [
-            [
-              540,
-              1080,
-            ],
-          ],
-        },
-        sun: {
-          mode: "specific_hours",
-          hours: [
-            [
-              540,
-              1080,
-            ],
-          ],
-        },
-      }
-    },
-    timezone: "America/Sao_Paulo"
-    });
-   *
-   * Change businessHours for Always Opened
-   * ```javascript
-   * await client.editBusinessProfile({ businessHours: {
-      {
-        mon: {
-          mode: "open_24h",
-        },
-        tue: {
-          mode: "open_24h",
-        },
-        wed: {
-          mode: "open_24h",
-        },
-        thu: {
-          mode: "open_24h",
-        },
-        fri: {
-          mode: "open_24h",
-        },
-        sat: {
-          mode: "open_24h",
-        },
-        sun: {
-          mode: "open_24h",
-        },
-      }
-      timezone: "America/Sao_Paulo"
-    });
-   *
-   * Change businessHours for Appointment Only
-   * ```javascript
-   * await client.editBusinessProfile({ businessHours: { {
-      mon: {
-        mode: "appointment_only",
-      },
-      tue: {
-        mode: "appointment_only",
-      },
-      wed: {
-        mode: "appointment_only",
-      },
-      thu: {
-        mode: "appointment_only",
-      },
-      fri: {
-        mode: "appointment_only",
-      },
-      sat: {
-        mode: "appointment_only",
-      },
-      sun: {
-        mode: "appointment_only",
-      },
-    }
-      timezone: "America/Sao_Paulo"
-    });
-   *
-   *
-   * ```
+   * @param pathOrBase64 Path or base 64 image
    */
-  public async editBusinessProfile(options: any) {
+  public async sendImageStatus(pathOrBase64: string) {
+    let base64: string = '';
+    if (pathOrBase64.startsWith('data:')) {
+      base64 = pathOrBase64;
+    } else {
+      let fileContent = await downloadFileToBase64(pathOrBase64, [
+        'image/gif',
+        'image/png',
+        'image/jpg',
+        'image/jpeg',
+        'image/webp'
+      ]);
+      if (!fileContent) {
+        fileContent = await fileToBase64(pathOrBase64);
+      }
+      if (fileContent) {
+        base64 = fileContent;
+      }
+    }
+
+    if (!base64) {
+      const error = new Error('Empty or invalid file or base64');
+      Object.assign(error, {
+        code: 'empty_file'
+      });
+      throw error;
+    }
+
+    const mimeInfo = base64MimeType(base64);
+
+    if (!mimeInfo || !mimeInfo.includes('image')) {
+      const error = new Error(
+        'Not an image, allowed formats png, jpeg and webp'
+      );
+      Object.assign(error, {
+        code: 'invalid_image'
+      });
+      throw error;
+    }
     return await evaluateAndReturn(
       this.page,
-      async ({ options }) => {
-        return JSON.parse(
-          JSON.stringify(await WPP.profile.editBusinessProfile(options))
-        );
+      ({ base64 }) => {
+        WPP.status.sendImageStatus(base64);
       },
-      { options }
+      { base64 }
+    );
+  }
+  /**
+   * Send a video message to status stories
+   *
+   * @example
+   * ```javascript
+   * client.sendVideoStatus('data:video/mp4;base64,<a long base64 file...>');
+   * ```
+   * @param pathOrBase64 Path or base 64 image
+   */
+  public async sendVideoStatus(pathOrBase64: string) {
+    let base64: string = '';
+    if (pathOrBase64.startsWith('data:')) {
+      base64 = pathOrBase64;
+    } else {
+      let fileContent = await downloadFileToBase64(pathOrBase64);
+      if (!fileContent) {
+        fileContent = await fileToBase64(pathOrBase64);
+      }
+      if (fileContent) {
+        base64 = fileContent;
+      }
+    }
+
+    if (!base64) {
+      const error = new Error('Empty or invalid file or base64');
+      Object.assign(error, {
+        code: 'empty_file'
+      });
+      throw error;
+    }
+
+    return await evaluateAndReturn(
+      this.page,
+      ({ base64 }) => {
+        WPP.status.sendVideoStatus(base64);
+      },
+      { base64 }
     );
   }
 
   /**
-   * Sends product with product image to given chat id
-   * @param to Chat id
-   * @param base64 Base64 image data
-   * @param caption Message body
-   * @param businessId Business id number that owns the product ('0000@c.us')
-   * @param productId Product id, see method getBusinessProfilesProducts for more info
+   * Send a text to status stories
+   *
+   * @example
+   * ```javascript
+   * client.sendTextStatus(`Bootstrap primary color: #0275d8`, { backgroundColor: '#0275d8', font: 2});
+   * ```
+   * @param pathOrBase64 Path or base 64 image
    */
-  public async sendImageWithProduct(
-    to: string,
-    base64: string,
-    caption: string,
-    businessId: string,
-    productId: string
-  ) {
-    return evaluateAndReturn(
+  public async sendTextStatus(text: string, options: string) {
+    return await evaluateAndReturn(
       this.page,
-      ({ to, base64, businessId, caption, productId }) => {
-        WAPI.sendImageWithProduct(base64, to, caption, businessId, productId);
+      ({ text, options }) => {
+        WPP.status.sendTextStatus(text, options);
       },
-      { to, base64, businessId, caption, productId }
+      { text, options }
+    );
+  }
+
+  /**
+   * Mark status as read/seen
+   *
+   * @example
+   * ```javascript
+   * client.sendReadStatus('[phone_number]@c.us', 'false_status@broadcast_3A169E0FD4BC6E92212F_[]@c.us');
+   * ```
+   * @param chatId Chat ID of contact
+   * @param statusId ID of status msg
+   */
+  public async sendReadStatus(chatId: string, statusId: string) {
+    return await evaluateAndReturn(
+      this.page,
+      ({ chatId, statusId }) => {
+        WPP.status.sendReadStatus(chatId, statusId);
+      },
+      { chatId, statusId }
     );
   }
 }
