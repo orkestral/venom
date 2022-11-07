@@ -165,9 +165,12 @@ export async function sendExist(chatId, returnChat = true, Send = true) {
   let chat = await window.WAPI.getChat(chatId);
 
   if (!chat && chatId === 'status@broadcast') {
+    // eslint-disable-next-line no-undef
     chat = new WPP.whatsapp.ChatStore.modelClass({
+      // eslint-disable-next-line no-undef
       id: WPP.whatsapp.WidFactory.createWid('status@broadcast')
     });
+    // eslint-disable-next-line no-undef
     WPP.whatsapp.ChatStore.add(chat);
     chat = await window.WAPI.getChat(chatId); // Fix some methods
   }
@@ -181,6 +184,7 @@ export async function sendExist(chatId, returnChat = true, Send = true) {
     }
 
     // Load chat ID for non contact
+    // eslint-disable-next-line no-undef
     await WPP.chat.find(ck.id);
 
     chatId = ck.id._serialized;
@@ -191,6 +195,7 @@ export async function sendExist(chatId, returnChat = true, Send = true) {
     return scope(chatId, true, 404);
   }
   if (Send) {
+    // eslint-disable-next-line no-undef
     await WPP.chat.markIsRead(chat.id).catch(() => null);
   }
   if (returnChat) {
