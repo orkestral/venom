@@ -1,3 +1,14 @@
+## [4.3.1](https://github.com/orkestral/venom/compare/v4.3.0...v4.3.1) (2022-11-07)
+
+
+### Bug Fixes
+
+* alterado ordem de inicialização ([f782610](https://github.com/orkestral/venom/commit/f7826106b05b361123fe6c8f724408dab68d22df))
+* getAllUnreadMessages ack incorreto ([c39c3a0](https://github.com/orkestral/venom/commit/c39c3a09d8e41413512ea35f6f958b80e9cd4d30))
+* loadAllEarlierMessages e retorno da loadAndGetAllMessagesInChat ([4e2a198](https://github.com/orkestral/venom/commit/4e2a198109677df4be10a82ed99cfca8d4230f10))
+
+
+
 # [4.3.0](https://github.com/orkestral/venom/compare/v4.2.3...v4.3.0) (2022-08-15)
 
 
