@@ -67,7 +67,6 @@ import { Message, SendFileResult, SendStickerResult } from '../model';
 import { ChatState } from '../model/enum';
 import { ListenerLayer } from './listener.layer';
 import { Scope, checkValuesSender } from '../helpers/layers-interface';
-import { convertToMP4GIF } from '../../utils/ffmpeg';
 
 let obj: Scope;
 
@@ -923,60 +922,6 @@ export class SenderLayer extends ListenerLayer {
     );
 
     return result;
-  }
-
-  /**
-   * Sends a video to given chat as a gif, with caption or not, using base64
-   * @param to Chat id
-   * @param filePath File path
-   * @param filename
-   * @param caption
-   */
-
-  public async sendGif(
-    to: string,
-    filePath: string,
-    filename?: string,
-    caption?: string
-  ) {
-    let base64 = await downloadFileToBase64(filePath),
-      obj: { erro: boolean; to: string; text: string };
-
-    if (!base64) {
-      base64 = await fileToBase64(filePath);
-    }
-
-    if (!base64) {
-      obj = {
-        erro: true,
-        to: to,
-        text: 'No such file or directory, open "' + filePath + '"'
-      };
-      throw obj;
-    }
-
-    if (!filename) {
-      filename = path.basename(filePath);
-    }
-
-    return this.sendGifFromBase64(to, base64, filename, caption);
-  }
-  /**
-   * Sends a video to given chat as a gif, with caption or not, using base64
-   * @param to chat id xxxxx@us.c
-   * @param base64 base64 data:video/xxx;base64,xxx
-   * @param filename string xxxxx
-   * @param caption string xxxxx
-   */
-  public async sendGifFromBase64(
-    to: string,
-    base64: string,
-    filename: string,
-    caption?: string
-  ) {
-    base64 = await convertToMP4GIF(base64);
-
-    return await this.sendVideoAsGifFromBase64(to, base64, filename, caption);
   }
 
   /**
