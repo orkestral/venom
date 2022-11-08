@@ -146,6 +146,7 @@ export async function injectApi(page: Page) {
     .evaluate(() => {
       WPP.chat.defaultSendMessageOptions.createChat = true;
       WPP.conn.setKeepAlive(true);
+      WPP.config.poweredBy = 'Venom-Bot';
     })
     .catch(() => false);
   await page.addScriptTag({
