@@ -790,7 +790,6 @@
   version "1.7.0"
   resolved "https://registry.npmjs.org/@webpack-cli/serve/-/serve-1.7.0.tgz"
 
-
 "@wppconnect/wa-js@^2.15.1":
   version "2.15.1"
   resolved "https://registry.yarnpkg.com/@wppconnect/wa-js/-/wa-js-2.15.1.tgz#580c6fc057449d4f97e526ac132a81de44ae08ce"
@@ -3462,9 +3461,9 @@ human-signals@^3.0.1:
   version "3.0.1"
   resolved "https://registry.npmjs.org/human-signals/-/human-signals-3.0.1.tgz"
 
-husky@^8.0.1:
-  version "8.0.1"
-  resolved "https://registry.npmjs.org/husky/-/husky-8.0.1.tgz"
+husky@^8.0.2:
+  version "8.0.2"
+  resolved "https://registry.yarnpkg.com/husky/-/husky-8.0.2.tgz#5816a60db02650f1f22c8b69b928fd6bcd77a236"
 
 i@^0.3.7:
   version "0.3.7"
