@@ -790,7 +790,6 @@
   version "1.7.0"
   resolved "https://registry.npmjs.org/@webpack-cli/serve/-/serve-1.7.0.tgz"
 
-
 "@wppconnect/wa-js@^2.15.1":
   version "2.15.1"
   resolved "https://registry.yarnpkg.com/@wppconnect/wa-js/-/wa-js-2.15.1.tgz#580c6fc057449d4f97e526ac132a81de44ae08ce"
@@ -2199,9 +2198,9 @@ dot-prop@^5.1.0, dot-prop@^5.2.0:
   dependencies:
     is-obj "^2.0.0"
 
-dotenv@^16.0.1:
-  version "16.0.1"
-  resolved "https://registry.npmjs.org/dotenv/-/dotenv-16.0.1.tgz"
+dotenv@^16.0.3:
+  version "16.0.3"
+  resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-16.0.3.tgz#115aec42bac5053db3c456db30cc243a5a836a07"
 
 duplexer3@^0.1.4:
   version "0.1.4"
