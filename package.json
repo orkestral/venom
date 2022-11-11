@@ -129,7 +129,7 @@
     "sharp": "^0.30.7",
     "spinnies": "^0.5.1",
     "tree-kill": "^1.2.2",
-    "typedoc": "^0.22.15",
+    "typedoc": "^0.23.20",
     "typedoc-default-themes": "^0.12.10",
     "winston": "^3.8.2",
     "ws": "^8.11.0",
