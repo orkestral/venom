@@ -2421,9 +2421,9 @@ esutils@^2.0.2:
   version "2.0.3"
   resolved "https://registry.npmjs.org/esutils/-/esutils-2.0.3.tgz"
 
-eventemitter2@^6.4.7:
-  version "6.4.7"
-  resolved "https://registry.npmjs.org/eventemitter2/-/eventemitter2-6.4.7.tgz"
+eventemitter2@^6.4.9:
+  version "6.4.9"
+  resolved "https://registry.yarnpkg.com/eventemitter2/-/eventemitter2-6.4.9.tgz#41f2750781b4230ed58827bc119d293471ecb125"
 
 events@^3.2.0:
   version "3.3.0"
