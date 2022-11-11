@@ -114,7 +114,7 @@
     "compressorjs": "^1.1.1",
     "cz-conventional-changelog": "^3.3.0",
     "dotenv": "^16.0.3",
-    "eventemitter2": "^6.4.7",
+    "eventemitter2": "^6.4.9",
     "futoin-hkdf": "^1.5.1",
     "i": "^0.3.7",
     "latest-lib": "^0.2.1",
