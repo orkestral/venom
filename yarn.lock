@@ -6373,9 +6373,9 @@ typedoc-plugin-pages@^1.1.0:
     compare-versions "^3.6.0"
     typedoc-default-themes "^0.10.1"
 
-typedoc@^0.23.20:
-  version "0.23.20"
-  resolved "https://registry.yarnpkg.com/typedoc/-/typedoc-0.23.20.tgz#c6fa221762322837161932990b79416afcdc895c"
+typedoc@^0.23.21:
+  version "0.23.21"
+  resolved "https://registry.yarnpkg.com/typedoc/-/typedoc-0.23.21.tgz#2a6b0e155f91ffa9689086706ad7e3e4bc11d241"
   dependencies:
     lunr "^2.3.9"
     marked "^4.0.19"
