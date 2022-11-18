@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /*
 NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
@@ -58,6 +59,7 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
  * @param {string} groupId group number
  * @param {string} description group description
  */
+
 export async function setGroupDescription(groupId, description) {
   if (typeof description != 'string' || description.length === 0) {
     return WAPI.scope(
@@ -67,22 +69,6 @@ export async function setGroupDescription(groupId, description) {
       'It is necessary to write a text!'
     );
   }
-  const chat = await WAPI.sendExist(groupId);
-  if (chat && chat.status != 404) {
-    const m = { type: 'setGroupDescription', description };
-    const To = await WAPI.getchatId(chat.id);
-    return window.Store.GroupDesc.setGroupDesc(chat, description)
-      .then(() => {
-        const obj = WAPI.scope(To, false, 'OK', description);
-        Object.assign(obj, m);
-        return obj;
-      })
-      .catch(() => {
-        const obj = WAPI.scope(To, true, 'error', description);
-        Object.assign(obj, m);
-        return obj;
-      });
-  } else {
-    return chat;
-  }
+
+  return WPP.group.setDescription(groupId, description);
 }

@@ -54,7 +54,6 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
 import { Page } from 'puppeteer';
 import { CreateConfig } from '../../config/create-config';
-import { evaluateAndReturn } from '../helpers';
 import { GroupLayer } from './group.layer';
 
 export class UILayer extends GroupLayer {
@@ -81,9 +80,8 @@ export class UILayer extends GroupLayer {
    * @param chatId
    */
   public async openChat(chatId: string) {
-    return evaluateAndReturn(
-      this.page,
-      (chatId: string) => WPP.chat.openChatBottom(chatId),
+    return this.page.evaluate(
+      (chatId: string) => WAPI.openChat(chatId),
       chatId
     );
   }
@@ -94,9 +92,8 @@ export class UILayer extends GroupLayer {
    * @param messageId Message id (For example: '06D3AB3D0EEB9D077A3F9A3EFF4DD030')
    */
   public async openChatAt(chatId: string, messageId: string) {
-    return evaluateAndReturn(
-      this.page,
-      (chatId: string) => WPP.chat.openChatAt(chatId, messageId),
+    return this.page.evaluate(
+      (chatId: string) => WAPI.openChatAt(chatId, messageId),
       chatId
     );
   }

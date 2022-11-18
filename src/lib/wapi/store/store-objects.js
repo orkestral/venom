@@ -65,9 +65,9 @@ export const storeObjects = [
     id: 'MediaCollection',
     conditions: (module) =>
       module.default &&
-        module.default.prototype &&
-        (module.default.prototype.processFiles !== undefined ||
-          module.default.prototype.processAttachments !== undefined)
+      module.default.prototype &&
+      (module.default.prototype.processFiles !== undefined ||
+        module.default.prototype.processAttachments !== undefined)
         ? module.default
         : null
   },
@@ -102,6 +102,11 @@ export const storeObjects = [
     conditions: (module) => (module.validateWid ? module : null),
   },
   {
+    id: 'EphemeralFields',
+    conditions: (module) =>
+      module.getEphemeralFields ? module : null
+  },
+  {
     id: 'State',
     conditions: (module) => (module.Socket ? module : null),
   },
@@ -127,17 +132,17 @@ export const storeObjects = [
         : null
   },
   {
-    id: "ConversationMsgs",
-    conditions: (module) =>
-      (module.loadEarlierMsgs) ? module : null
+     id: "ConversationMsgs",
+     conditions: (module) =>
+       (module.loadEarlierMsgs) ? module : null
   },
   {
     id: 'WapQuery',
     conditions: (module) =>
       module.default &&
-        //module.default.contactFindQuery &&
-        module.default.queryExist &&
-        module.default.getCapabilities
+      //module.default.contactFindQuery &&
+      module.default.queryExist &&
+      module.default.getCapabilities
         ? module.default
         : null
   },
@@ -149,8 +154,8 @@ export const storeObjects = [
     id: 'OpenChat',
     conditions: (module) =>
       module.default &&
-        module.default.prototype &&
-        module.default.prototype.openChat
+      module.default.prototype &&
+      module.default.prototype.openChat
         ? module.default
         : null
   },
@@ -158,9 +163,9 @@ export const storeObjects = [
     id: 'UserConstructor',
     conditions: (module) =>
       module.default &&
-        module.default.prototype &&
-        module.default.prototype.isServer &&
-        module.default.prototype.isUser
+      module.default.prototype &&
+      module.default.prototype.isServer &&
+      module.default.prototype.isUser
         ? module.default
         : null
   },
@@ -202,8 +207,8 @@ export const storeObjects = [
     id: 'Perfil',
     conditions: (module) =>
       module.__esModule === true &&
-        module.setPushname &&
-        !module.getComposeContents
+      module.setPushname &&
+      !module.getComposeContents
         ? module
         : null
   },
@@ -211,9 +216,9 @@ export const storeObjects = [
     id: 'MsgKey',
     conditions: (module) =>
       module.default &&
-        module.default.toString &&
-        typeof module.default.toString === 'function' &&
-        module.default.toString().includes('MsgKey error: obj is null/undefined')
+      module.default.toString &&
+      typeof module.default.toString === 'function' &&
+      module.default.toString().includes('MsgKey error: obj is null/undefined')
         ? module.default
         : null
   },
@@ -251,8 +256,8 @@ export const storeObjects = [
     id: 'ChatState',
     conditions: (module) =>
       module.sendChatStatePaused &&
-        module.sendChatStateRecording &&
-        module.sendChatStateComposing
+      module.sendChatStateRecording &&
+      module.sendChatStateComposing
         ? module
         : null
   },
@@ -292,19 +297,19 @@ export const storeObjects = [
     id: 'Participants',
     conditions: (module) =>
       module.addParticipants &&
-        module.removeParticipants &&
-        module.promoteParticipants &&
-        module.demoteParticipants
+      module.removeParticipants &&
+      module.promoteParticipants &&
+      module.demoteParticipants
         ? module
         : null
   },
-  { 
-    id: "WidFactory", 
-  conditions: (module) => 
-  (module.isWidlike && module.createWid && module.createWidFromWidLike) 
-  ? module 
-  : null 
-},
+  {
+    id: 'WidFactory',
+    conditions: (module) =>
+      module.isWidlike && module.createWid && module.createWidFromWidLike
+        ? module
+        : null
+  },
   {
     id: 'Base',
     conditions: (module) =>
@@ -316,9 +321,9 @@ export const storeObjects = [
     id: 'Base2',
     conditions: (module) =>
       module.supportsFeatureFlags &&
-        module.parseMsgStubProto &&
-        module.binSend &&
-        module.subscribeLiveLocation
+      module.parseMsgStubProto &&
+      module.binSend &&
+      module.subscribeLiveLocation
         ? module
         : null
   },
@@ -349,11 +354,15 @@ export const storeObjects = [
     conditions: (module) =>
       module.Cmd && module.Cmd.openChatFromUnread ? module.Cmd : null
   },
+  { id: "WapQuery",
+   conditions: (module) =>
+    (module.queryExist) ? module : ((module.default && module.default.queryExist) ? module.default : null)
+  },
   {
     id: 'checkNumberMD',
     conditions: (module) =>
-      module.queryExists && module.queryPhoneExists ? module : null,
-  },
+        module.queryExists && module.queryPhoneExists ? module : null,
+},
   {
     id: 'ReadSeen',
     conditions: (module) => (module.sendSeen ? module : null)
@@ -396,8 +405,8 @@ export const storeObjects = [
     id: 'genId',
     conditions: (module) =>
       module.default &&
-        typeof module.default === 'function' &&
-        module.default.toString().match(/crypto/)
+      typeof module.default === 'function' &&
+      module.default.toString().match(/crypto/)
         ? module
         : null
   },
@@ -474,6 +483,11 @@ export const storeObjects = [
     id: 'sendDemoteParticipants',
     conditions: (module) =>
       module.sendDemoteParticipants ? module.sendDemoteParticipants : null
+  },
+  {
+    id: 'queryExist',
+    conditions: (module) =>
+      module.queryExist ?  module.queryExist : null,
   },
   {
     id: 'checkNumberBeta',

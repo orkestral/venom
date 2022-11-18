@@ -142,7 +142,13 @@ export { setTheme, getTheme } from './theme';
 export { restartService } from './restart-service';
 export { killServiceWorker } from './kill-service-worker';
 export { sendLinkPreview } from './send-link-preview';
-export { sendExist, scope, getchatId, sendCheckType } from './check-send-exist';
+export {
+  sendExist,
+  scope,
+  newId,
+  getchatId,
+  sendCheckType
+} from './check-send-exist';
 export { sendContactVcardList } from './send-contact-vcard-list';
 export { setProfilePic } from './set-profile-pic';
 export { pinChat } from './fix-chat';

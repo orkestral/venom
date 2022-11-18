@@ -62,7 +62,6 @@ export async function getListMute(type = 'all') {
       ? toMute.push(WAPI.interfaceMute(muteList[i]))
       : noMute.push(WAPI.interfaceMute(muteList[i]));
   var r = null;
-  console.log(0, type);
   switch (type) {
     case 'all':
       r = [

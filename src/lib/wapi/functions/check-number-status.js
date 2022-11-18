@@ -24,8 +24,7 @@ export async function checkNumberStatus(id, conn = false) {
     }
     const lid = await WAPI.getChat(id);
     if (lid) {
-      return await Store.checkNumberMD
-        .queryExists(lid.id)
+      return await Store.queryExist('phone', '+' + lid.id)
         .then((result) => {
           if (!!result && typeof result === 'object') {
             const data = {

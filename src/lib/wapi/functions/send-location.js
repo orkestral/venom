@@ -81,15 +81,15 @@ export async function sendLocation(
       ack: 0,
       id: newMsgId,
       local: !0,
-      self: 'in',
+      self: 'out',
       t: parseInt(new Date().getTime() / 1000),
       to: chat.id,
       from: fromwWid,
       isNewMsg: !0,
-      type: 'location',
       lat: Number(latitude),
       lng: Number(longitude),
-      loc: location
+      loc: location,
+      type: 'location'
     };
 
     const result =

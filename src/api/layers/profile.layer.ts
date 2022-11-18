@@ -58,8 +58,7 @@ import {
   base64MimeType,
   fileToBase64,
   downloadFileToBase64,
-  resizeImg,
-  evaluateAndReturn
+  resizeImg
 } from '../helpers';
 import { CreateConfig } from '../../config/create-config';
 
@@ -103,13 +102,13 @@ export class ProfileLayer extends HostLayer {
    * @param status
    */
   public async setProfileStatus(status: string) {
-    return await evaluateAndReturn(
-      this.page,
+    await this.page.evaluate(
       ({ status }) => {
-        WPP.profile.setMyStatus(status);
+        WAPI.setMyStatus(status);
       },
       { status }
     );
+    return 200;
   }
 
   /**

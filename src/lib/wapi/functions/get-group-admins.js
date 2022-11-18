@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /*
 NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
@@ -52,12 +53,11 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
-import { _getGroupParticipants } from './get-group-participants';
-
 export async function getGroupAdmins(id, done) {
-  const output = (await _getGroupParticipants(id))
-    .filter((participant) => participant.isAdmin)
-    .map((admin) => admin.id);
+  const output = Promise.resolve(WPP.group.getParticipants(id)).then(
+    (participants) =>
+      participants.map((p) => p.toJSON()).filter((e) => e.isAdmin)
+  );
 
   if (done !== undefined) done(output);
   return output;

@@ -61,8 +61,7 @@ import {
   base64MimeType,
   fileToBase64,
   downloadFileToBase64,
-  resizeImg,
-  evaluateAndReturn
+  resizeImg
 } from '../helpers';
 import { GroupSettings } from '../model/enum';
 
@@ -100,10 +99,14 @@ export class GroupLayer extends RetrieverLayer {
         let _webb64_96 = await resizeImg(buff, { width: 96, height: 96 }),
           _webb64_640 = await resizeImg(buff, { width: 640, height: 640 });
         let obj = { a: _webb64_640, b: _webb64_96 };
-
         return await this.page.evaluate(
-          ({ obj, groupId }) => WPP.group.setIcon(groupId, obj),
+          async ({ mimeInfo, obj, groupId }) =>
+            await WPP.group.setIcon(
+              groupId,
+              `data:${mimeInfo};base64,` + obj.a
+            ),
           {
+            mimeInfo,
             obj,
             groupId
           }
@@ -114,18 +117,50 @@ export class GroupLayer extends RetrieverLayer {
       }
     }
   }
-
   /**
    * Parameters to change group title
    * @param {string} groupId group number
    * @param {string} title group title
    */
-  public async setGroupTitle(groupId: string, title: string) {
-    return await evaluateAndReturn(
-      this.page,
-      ({ groupId, title }) => WPP.group.setSubject(groupId, title),
-      { groupId, title }
-    );
+  public async setGroupTitle(groupId: string, title: string): Promise<Object> {
+    return new Promise(async (resolve, reject) => {
+      const typeFunction = 'setGroupTitle';
+      const type = 'string';
+      const check = [
+        {
+          param: 'groupId',
+          type: type,
+          value: groupId,
+          function: typeFunction,
+          isUser: true
+        },
+        {
+          param: 'title',
+          type: type,
+          value: title,
+          function: typeFunction,
+          isUser: true
+        }
+      ];
+
+      const validating = checkValuesSender(check);
+      if (typeof validating === 'object') {
+        return reject(validating);
+      }
+
+      const result = await this.page.evaluate(
+        ({ groupId, title }) => {
+          return WAPI.setGroupTitle(groupId, title);
+        },
+        { groupId, title }
+      );
+
+      if (result['erro'] == true) {
+        return reject(result);
+      } else {
+        return resolve(result);
+      }
+    });
   }
 
   /**
@@ -133,15 +168,49 @@ export class GroupLayer extends RetrieverLayer {
    * @param {string} groupId group number
    * @param {string} description group description
    */
-  public async setGroupDescription(groupId: string, description: string) {
-    return await evaluateAndReturn(
-      this.page,
-      ({ groupId, description }) =>
-        WPP.group.setDescription(groupId, description),
-      { groupId, description }
-    );
-  }
+  public async setGroupDescription(
+    groupId: string,
+    description: string
+  ): Promise<Object> {
+    return new Promise(async (resolve, reject) => {
+      const typeFunction = 'setGroupDescription';
+      const type = 'string';
+      const check = [
+        {
+          param: 'groupId',
+          type: type,
+          value: groupId,
+          function: typeFunction,
+          isUser: true
+        },
+        {
+          param: 'description',
+          type: type,
+          value: description,
+          function: typeFunction,
+          isUser: true
+        }
+      ];
 
+      const validating = checkValuesSender(check);
+      if (typeof validating === 'object') {
+        return reject(validating);
+      }
+
+      const result = await this.page.evaluate(
+        ({ groupId, description }) => {
+          return WAPI.setGroupDescription(groupId, description);
+        },
+        { groupId, description }
+      );
+
+      if (result['erro'] == true) {
+        return reject(result);
+      } else {
+        return resolve(result);
+      }
+    });
+  }
   /**
    * Parameters to change group settings, see {@link GroupSettings for details}
    * @param {string} groupId group number
@@ -187,7 +256,7 @@ export class GroupLayer extends RetrieverLayer {
 
       const result = await this.page.evaluate(
         ({ groupId, settings, value }) => {
-          return WPP.group.setProperty(groupId, settings, value);
+          return WAPI.setGroupSettings(groupId, settings, value);
         },
         { groupId, settings, value }
       );
@@ -231,23 +300,16 @@ export class GroupLayer extends RetrieverLayer {
    * @param groupId group id
    */
   public async leaveGroup(groupId: string) {
-    return evaluateAndReturn(
-      this.page,
-      (groupId) => WPP.group.leave(groupId),
-      groupId
-    );
+    return this.page.evaluate((groupId) => WAPI.leaveGroup(groupId), groupId);
   }
+
   /**
    * Retrieves group members as [Id] objects
    * @param groupId group id
    */
   public async getGroupMembersIds(groupId: string): Promise<Id[]> {
-    return evaluateAndReturn(
-      this.page,
-      (groupId: string) =>
-        Promise.resolve(WPP.group.getParticipants(groupId)).then(
-          (participants) => participants.map((p) => p.id as any)
-        ),
+    return this.page.evaluate(
+      (groupId: string) => WAPI.getGroupParticipantIDs(groupId),
       groupId
     );
   }
@@ -257,11 +319,10 @@ export class GroupLayer extends RetrieverLayer {
    * @param groupId
    */
   public async getGroupMembers(groupId: string) {
-    const membersIds = await this.getGroupMembersIds(groupId);
-    const actions = membersIds.map((memberId) => {
-      return this.getContact(memberId._serialized);
-    });
-    return Promise.all(actions);
+    return await this.page.evaluate(
+      (groupId) => WAPI.getGroupParticipantIDs(groupId),
+      groupId
+    );
   }
 
   /**
@@ -270,13 +331,10 @@ export class GroupLayer extends RetrieverLayer {
    * @returns boolean
    */
   public async revokeGroupInviteLink(chatId: string) {
-    const code = await evaluateAndReturn(
-      this.page,
-      (chatId) => WPP.group.revokeInviteCode(chatId),
+    return await this.page.evaluate(
+      (chatId) => WAPI.revokeGroupInviteLink(chatId),
       chatId
     );
-
-    return `https://chat.whatsapp.com/${code}`;
   }
 
   /**
@@ -285,13 +343,10 @@ export class GroupLayer extends RetrieverLayer {
    * @returns Invitation link
    */
   public async getGroupInviteLink(chatId: string) {
-    const code = await evaluateAndReturn(
-      this.page,
-      (chatId) => WPP.group.getInviteCode(chatId),
+    return await this.page.evaluate(
+      (chatId) => WAPI.getGroupInviteLink(chatId),
       chatId
     );
-
-    return `https://chat.whatsapp.com/${code}`;
   }
   /**
    * Generates group-invite link
@@ -303,9 +358,8 @@ export class GroupLayer extends RetrieverLayer {
     inviteCode = inviteCode.replace('invite/', '');
     inviteCode = inviteCode.replace('https://', '');
     inviteCode = inviteCode.replace('http://', '');
-    return await evaluateAndReturn(
-      this.page,
-      (inviteCode) => WPP.group.getGroupInfoFromInviteCode(inviteCode),
+    return await this.page.evaluate(
+      (inviteCode) => WAPI.getGroupInfoFromInviteLink(inviteCode),
       inviteCode
     );
   }
@@ -316,9 +370,8 @@ export class GroupLayer extends RetrieverLayer {
    * @param contacts Contacts that should be added.
    */
   public async createGroup(groupName: string, contacts: string | string[]) {
-    return await evaluateAndReturn(
-      this.page,
-      ({ groupName, contacts }) => WPP.group.create(groupName, contacts),
+    return await this.page.evaluate(
+      ({ groupName, contacts }) => WAPI.createGroup(groupName, contacts),
       { groupName, contacts }
     );
   }
@@ -332,14 +385,11 @@ export class GroupLayer extends RetrieverLayer {
     groupId: string,
     participantId: string | string[]
   ) {
-    await evaluateAndReturn(
-      this.page,
+    return await this.page.evaluate(
       ({ groupId, participantId }) =>
-        WPP.group.removeParticipants(groupId, participantId),
+        WAPI.removeParticipant(groupId, participantId),
       { groupId, participantId }
     );
-
-    return true;
   }
 
   /**
@@ -351,10 +401,9 @@ export class GroupLayer extends RetrieverLayer {
     groupId: string,
     participantId: string | string[]
   ) {
-    return await evaluateAndReturn(
-      this.page,
+    return await this.page.evaluate(
       ({ groupId, participantId }) =>
-        WPP.group.addParticipants(groupId, participantId),
+        WAPI.addParticipant(groupId, participantId),
       { groupId, participantId }
     );
   }
@@ -368,14 +417,11 @@ export class GroupLayer extends RetrieverLayer {
     groupId: string,
     participantId: string | string[]
   ) {
-    await evaluateAndReturn(
-      this.page,
+    return await this.page.evaluate(
       ({ groupId, participantId }) =>
-        WPP.group.promoteParticipants(groupId, participantId),
+        WAPI.promoteParticipant(groupId, participantId),
       { groupId, participantId }
     );
-
-    return true;
   }
 
   /**
@@ -387,14 +433,11 @@ export class GroupLayer extends RetrieverLayer {
     groupId: string,
     participantId: string | string[]
   ) {
-    return await evaluateAndReturn(
-      this.page,
+    return await this.page.evaluate(
       ({ groupId, participantId }) =>
-        WPP.group.demoteParticipants(groupId, participantId),
+        WAPI.demoteParticipant(groupId, participantId),
       { groupId, participantId }
     );
-
-    return true;
   }
 
   /**
@@ -402,16 +445,10 @@ export class GroupLayer extends RetrieverLayer {
    * @param chatId Group/Chat id ('0000000000-00000000@g.us')
    */
   public async getGroupAdmins(chatId: string) {
-    const participants = await evaluateAndReturn(
-      this.page,
-      (chatId) =>
-        Promise.resolve(WPP.group.getParticipants(chatId)).then(
-          (participants) => participants.map((p) => p.toJSON())
-        ),
+    return await this.page.evaluate(
+      (chatId) => WAPI.getGroupAdmins(chatId),
       chatId
     );
-
-    return participants.filter((p) => p.isAdmin).map((p) => p.id);
   }
   /**
    * Join a group with invite code
@@ -422,9 +459,8 @@ export class GroupLayer extends RetrieverLayer {
     inviteCode = inviteCode.replace('invite/', '');
     inviteCode = inviteCode.replace('https://', '');
     inviteCode = inviteCode.replace('http://', '');
-    return await evaluateAndReturn(
-      this.page,
-      (inviteCode) => WPP.group.join(inviteCode),
+    return await this.page.evaluate(
+      (inviteCode) => WAPI.joinGroup(inviteCode),
       inviteCode
     );
   }

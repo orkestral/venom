@@ -145,6 +145,7 @@ import {
   killServiceWorker,
   sendLinkPreview,
   scope,
+  newId,
   getchatId,
   sendExist,
   sendContactVcardList,
@@ -192,7 +193,8 @@ import {
   _serializeMessageObj,
   _serializeProfilePicThumb,
   _serializeRawObj,
-  _serializeMeObj
+  _serializeMeObj,
+  _serializeNumberStatusObj
 } from './serializers';
 import { getStore } from './store/get-store';
 
@@ -257,6 +259,7 @@ if (typeof window.WAPI === 'undefined') {
 
   // Chat Functions
   window.WAPI.scope = scope;
+  window.WAPI.newId = newId;
   window.WAPI.getchatId = getchatId;
   window.WAPI.sendExist = sendExist;
   window.WAPI.pinChat = pinChat;
@@ -272,6 +275,7 @@ if (typeof window.WAPI === 'undefined') {
   window.WAPI._serializeMessageObj = _serializeMessageObj;
   window.WAPI._serializeProfilePicThumb = _serializeProfilePicThumb;
   window.WAPI._serializeMeObj = _serializeMeObj;
+  window.WAPI._serializeNumberStatusObj = _serializeNumberStatusObj;
 
   // Group Functions
   window.WAPI.createGroup = createGroup;

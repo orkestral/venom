@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /*
 NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
@@ -67,22 +68,6 @@ export async function setGroupTitle(groupId, title) {
       'It is necessary to write a text!'
     );
   }
-  const chat = await WAPI.sendExist(groupId);
-  if (chat && chat.status != 404) {
-    const m = { type: 'setGroupTitle', title };
-    const To = await WAPI.getchatId(chat.id);
-    return window.Store.GroupTitle.sendSetGroupSubject(chat.id, title)
-      .then(() => {
-        const obj = WAPI.scope(To, false, 'OK', title);
-        Object.assign(obj, m);
-        return obj;
-      })
-      .catch(() => {
-        const obj = WAPI.scope(To, true, 'error', title);
-        Object.assign(obj, m);
-        return obj;
-      });
-  } else {
-    return chat;
-  }
+
+  return WPP.group.setSubject(groupId, title);
 }

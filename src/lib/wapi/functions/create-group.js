@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /*
 NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
@@ -59,9 +60,15 @@ export async function createGroup(name, contactsId) {
 
   contactsId = await Promise.all(contactsId.map((c) => WAPI.sendExist(c)));
   contactsId = contactsId.filter((c) => !c.erro && c.isUser).map((c) => c.id);
-
+  let m = { type: 'Create-Group' };
   if (!contactsId.length) {
-    return false;
+    let obj = { status: '404' };
+    Object.assign(m, obj);
+    return m;
   }
-  return await Store.sendCreateGroup(name, contactsId);
+  let obj = { status: '200' };
+  Object.assign(m, obj);
+  let result = await WPP.group.create(name, contactsId);
+  Object.assign(result, m);
+  return result;
 }

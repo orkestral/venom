@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /*
 NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
@@ -55,7 +56,7 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 export async function clearChatMessages(chatId) {
   const chat = await Store.Chat.get(chatId);
   if (chat) {
-    return await Store.ChatUtil.sendClear(chat, chat.lastReceivedKey, true);
+    return await WPP.chat.clear(chatId, true);
   } else {
     return false;
   }

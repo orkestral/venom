@@ -63,6 +63,23 @@ export function scope(id, erro, status, text = null, result = null) {
   };
   return object;
 }
+export function newId(result) {
+  const to = {
+    fromMe: true,
+    remote: {
+      server: result.id.split('@')[1].split('.us_')[0] + '.us',
+      user: result.id.split('@')[0].split('_')[1],
+      _serialized:
+        result.id.split('@')[0].split('_')[1] +
+        '@' +
+        result.id.split('@')[1].split('.us_')[0] +
+        '.us'
+    },
+    id: result.id.split('@')[1].split('.us_')[1],
+    _serialized: result.id
+  };
+  return to;
+}
 export async function getchatId(chatId) {
   if (chatId) {
     let to = await WAPI.getChatById(chatId);
@@ -157,49 +174,74 @@ export function sendCheckType(chatId = undefined) {
 }
 
 export async function sendExist(chatId, returnChat = true, Send = true) {
-  if (!chatId) {
-    return scope(chatId, true, 500, 'Chat ID is empty');
+  const checkType = await WAPI.sendCheckType(chatId);
+  if (!!checkType && checkType.status === 404) {
+    return checkType;
   }
 
-  // Check chat exists (group is always a chat)
-  let chat = await window.WAPI.getChat(chatId);
+  let ck = await window.WAPI.checkNumberStatus(chatId, false);
+  if (
+    ck.status === 404 ||
+    (ck &&
+      ck.text &&
+      typeof ck.text.includes === 'function' &&
+      ck.text.includes('XmppParsingFailure'))
+  ) {
+    return WAPI.scope(chatId, true, ck.status, 'The number does not exist');
+  }
 
-  if (!chat && chatId === 'status@broadcast') {
-    // eslint-disable-next-line no-undef
-    chat = new WPP.whatsapp.ChatStore.modelClass({
-      // eslint-disable-next-line no-undef
-      id: WPP.whatsapp.WidFactory.createWid('status@broadcast')
+  const chatWid = new window.Store.WidFactory.createWid(chatId);
+
+  let chat =
+    ck && ck.id && ck.id._serialized
+      ? await window.WAPI.getChat(ck.id._serialized)
+      : undefined;
+
+  if (ck.numberExists && chat === undefined) {
+    var idUser = new window.Store.UserConstructor(chatId, {
+      intentionallyUsePrivateConstructor: true
     });
-    // eslint-disable-next-line no-undef
-    WPP.whatsapp.ChatStore.add(chat);
-    chat = await window.WAPI.getChat(chatId); // Fix some methods
-  }
-
-  // Check if contact number exists
-  if (!chat && !chatId.includes('@g')) {
-    let ck = await window.WAPI.checkNumberStatus(chatId);
-
-    if (!ck.numberExists) {
-      return scope(chatId, true, ck.status, 'The number does not exist');
-    }
-
-    // Load chat ID for non contact
-    // eslint-disable-next-line no-undef
-    await WPP.chat.find(ck.id);
-
-    chatId = ck.id._serialized;
-    chat = await window.WAPI.getChat(chatId);
+    chat = await window.Store.Chat.find(idUser);
   }
 
   if (!chat) {
-    return scope(chatId, true, 404);
+    const storeChat = await window.Store.Chat.find(chatWid);
+    if (storeChat) {
+      chat =
+        storeChat && storeChat.id && storeChat.id._serialized
+          ? await window.WAPI.getChat(storeChat.id._serialized)
+          : undefined;
+    }
   }
+
+  if (!ck.numberExists && !chat.t && chat.isUser) {
+    return window.WAPI.scope(
+      chatId,
+      true,
+      ck.status,
+      'The number does not exist'
+    );
+  }
+
+  if (!ck.numberExists && !chat.t && chat.isGroup) {
+    return window.WAPI.scope(
+      chatId,
+      true,
+      ck.status,
+      'The group number does not exist on your chat list, or it does not exist at all!'
+    );
+  }
+
+  if (!chat) {
+    return window.WAPI.scope(chatId, true, 404);
+  }
+
   if (Send) {
-    // eslint-disable-next-line no-undef
-    await WPP.chat.markIsRead(chat.id).catch(() => null);
+    await window.Store.ReadSeen.sendSeen(chat, false);
   }
+
   if (returnChat) {
     return chat;
   }
-  return scope(chatId, false, 200);
+  return window.WAPI.scope(chatId, false, 200);
 }

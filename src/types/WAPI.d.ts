@@ -100,6 +100,7 @@ interface WAPI {
     skipMyMessages: boolean
   ) => Promise<object>;
   getAllChats: () => Chat[];
+  getAllGroups: () => Chat[];
   getAllChatsWithMessages: (withNewMessageOnly?: boolean) => Chat[];
   getAllChatsWithNewMsg: () => Chat[];
   getAllContacts: () => Contact[];
@@ -227,7 +228,6 @@ interface WAPI {
   sendListMenu: (
     to: string,
     title: string,
-    subTitle: string,
     description: string,
     buttonText: string,
     menu: Array<any>
@@ -283,8 +283,8 @@ interface WAPI {
     settings: string,
     value: boolean
   ) => Promise<object>;
-
   _serializeChatObj: (obj: any) => any;
+  _serializeNumberStatusObj: (obj: any) => any;
 }
 
 declare global {

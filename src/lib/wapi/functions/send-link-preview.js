@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /*
 NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
@@ -80,41 +81,25 @@ export async function sendLinkPreview(chatId, url, text) {
   }
   var chat = await WAPI.sendExist(chatId);
   if (!chat.erro) {
-    const newMsgId = await window.WAPI.getNewMessageId(chat.id._serialized);
-    const fromwWid = await Store.MaybeMeUser.getMaybeMeUser();
     let inChat = await WAPI.getchatId(chat.id).catch(() => {});
     if (inChat) {
       chat.lastReceivedKey._serialized = inChat._serialized;
       chat.lastReceivedKey.id = inChat.id;
     }
-    const message = {
-      id: newMsgId,
-      ack: 0,
-      body: text.includes(url) ? text : `${url}\n${text}`,
-      from: fromwWid,
-      to: chat.id,
-      local: !0,
-      self: 'out',
-      t: parseInt(new Date().getTime() / 1000),
-      isNewMsg: !0,
-      type: 'chat',
-      subtype: 'url',
-      content: url,
-      canonicalUrl: url,
-      description: url,
-      matchedText: url,
-      title: url
-    };
-    const result = (
-      await Promise.all(window.Store.addAndSendMsgToChat(chat, message))
-    )[1];
+    const message = text.includes(url) ? text : `${url}\n${text}`;
+
+    let result = await WPP.chat.sendTextMessage(chatId, message, {
+      linkPreview: true
+    });
+
+    let newMsgId = WAPI.newId(result);
     let m = { type: 'LinkPreview', url: url, text: text };
-    if (result === 'success' || result === 'OK') {
-      let obj = WAPI.scope(newMsgId, false, result, null);
+    if (result.sendMsgResult._value === 'OK') {
+      let obj = WAPI.scope(newMsgId, false, result.sendMsgResult._value, null);
       Object.assign(obj, m);
       return obj;
     } else {
-      let obj = WAPI.scope(newMsgId, true, result, null);
+      let obj = WAPI.scope(newMsgId, true, result.sendMsgResult._value, null);
       Object.assign(obj, m);
       return obj;
     }

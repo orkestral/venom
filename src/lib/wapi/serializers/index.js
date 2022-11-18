@@ -58,3 +58,4 @@ export { _serializeMessageObj } from './serialize-message';
 export { _serializeContactObj } from './serialize-contact';
 export { _serializeProfilePicThumb } from './serialize-profile-pic-thumb';
 export { _serializeMeObj } from './serielize-me';
+export { _serializeNumberStatusObj } from './serializeNumberStatusObj';
