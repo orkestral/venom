@@ -69,38 +69,6 @@ export async function sendButtons(to, title, buttons, subtitle) {
     return WAPI.scope(to, true, 404, 'It is necessary to write a subtitle!');
   }
 
-  // const chat = await WAPI.sendExist(to);
-
-  // if (chat && chat.status != 404 && chat.id) {
-  //   let inChat = await WAPI.getchatId(chat.id).catch(() => {});
-
-  //   if (inChat) {
-  //     chat.lastReceivedKey._serialized = inChat._serialized;
-  //     chat.lastReceivedKey.id = inChat.id;
-  //   }
-
-  // const message = {
-  //   id: newMsgId,
-  //   ack: 0,
-  //   from: fromwWid,
-  //   to: chat.id,
-  //   local: !0,
-  //   self: 'out',
-  //   t: parseInt(new Date().getTime() / 1000),
-  //   isNewMsg: !0,
-  //   type: 'chat',
-  //   body: title,
-  //   caption: title,
-  //   content: title,
-  //   footer: subtitle,
-  //   isDynamicReplyButtonsMsg: true,
-  //   isForwarded: false,
-  //   isFromTemplate: false,
-  //   invis: true,
-  //   fromMe: false
-  // };
-  const wid = await WPP.contact.queryExists(to);
-
   let options = {
     useTemplateButtons: false,
     createChat: true,
@@ -120,14 +88,11 @@ export async function sendButtons(to, title, buttons, subtitle) {
 
   if (result.sendMsgResult._value === 'OK') {
     let obj = WAPI.scope(newMsgId, false, result.sendMsgResult._value, null);
-    Object.assign(obj, wid);
-    return { wid: wid.wid, erro: false };
+    Object.assign(obj, m);
+    return obj;
   } else {
     let obj = WAPI.scope(newMsgId, true, result.sendMsgResult._value, null);
-    Object.assign(obj, wid);
+    Object.assign(obj, m);
     return obj;
   }
-  // } else {
-  //   return chat;
-  // }
 }
