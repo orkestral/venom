@@ -264,7 +264,7 @@ interface WAPI {
   setMessagesAdminsOnly: (chatId: string, option: boolean) => boolean;
   setMyName: (name: string) => void;
   setMyStatus: (to: string) => void;
-  setProfilePic: (path: string, to?: string) => Promise<boolean>;
+  setProfilePic: (path: string) => Promise<boolean>;
   setTheme: (theme?: string) => boolean;
   startTyping: (to: string) => void;
   stopTyping: (to: string) => void;
