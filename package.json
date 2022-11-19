@@ -110,7 +110,7 @@
     "catch-exit": "^1.1.0",
     "chalk": "^4.0.0",
     "chrome-launcher": "^0.15.1",
-    "commitizen": "^4.2.4",
+    "commitizen": "^4.2.5",
     "compressorjs": "^1.1.1",
     "cz-conventional-changelog": "^3.3.0",
     "dotenv": "^16.0.1",
