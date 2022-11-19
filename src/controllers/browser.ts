@@ -247,38 +247,36 @@ export async function initBrowser(
     }
   }
 
-  if (options.multidevice) {
-    const folderSession: string = path.join(
-      path.resolve(
-        process.cwd(),
-        options.mkdirFolderToken,
-        options.folderNameToken,
-        session
-      )
-    );
+  const folderSession: string = path.join(
+    path.resolve(
+      process.cwd(),
+      options.mkdirFolderToken,
+      options.folderNameToken,
+      'session-' + session
+    )
+  );
 
-    const folderMulidevice = path.join(
-      path.resolve(
-        process.cwd(),
-        options.mkdirFolderToken,
-        options.folderNameToken
-      )
-    );
+  const folderMulidevice = path.join(
+    path.resolve(
+      process.cwd(),
+      options.mkdirFolderToken,
+      options.folderNameToken
+    )
+  );
 
-    if (!fs.existsSync(folderMulidevice)) {
-      fs.mkdirSync(folderMulidevice, {
-        recursive: true
-      });
-    }
-
-    fs.chmodSync(folderMulidevice, '777');
-
-    options.puppeteerOptions = {
-      userDataDir: folderSession
-    };
-
-    puppeteerConfig.chromiumArgs.push(`--user-data-dir=${folderSession}`);
+  if (!fs.existsSync(folderMulidevice)) {
+    fs.mkdirSync(folderMulidevice, {
+      recursive: true
+    });
   }
+
+  fs.chmodSync(folderMulidevice, '777');
+
+  options.puppeteerOptions = {
+    userDataDir: folderSession
+  };
+
+  puppeteerConfig.chromiumArgs.push(`--user-data-dir=${folderSession}`);
 
   // Use stealth plugin to avoid being detected as a bot
   puppeteer.use(StealthPlugin());
