@@ -43,9 +43,9 @@
   version "17.0.0"
   resolved "https://registry.npmjs.org/@commitlint/config-angular-type-enum/-/config-angular-type-enum-17.0.0.tgz"
 
-"@commitlint/config-angular@^17.0.3":
-  version "17.0.3"
-  resolved "https://registry.npmjs.org/@commitlint/config-angular/-/config-angular-17.0.3.tgz"
+"@commitlint/config-angular@^17.3.0":
+  version "17.3.0"
+  resolved "https://registry.yarnpkg.com/@commitlint/config-angular/-/config-angular-17.3.0.tgz#288b566817397fc7b5a1643b7fa3dd3ed8a80bd8"
   dependencies:
     "@commitlint/config-angular-type-enum" "^17.0.0"
 
