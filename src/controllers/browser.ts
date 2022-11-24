@@ -252,7 +252,7 @@ export async function initBrowser(
       process.cwd(),
       options.mkdirFolderToken,
       options.folderNameToken,
-      'session-' + session
+      session
     )
   );
 
