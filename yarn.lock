@@ -532,7 +532,7 @@
     semver "^7.3.7"
     tsutils "^3.21.0"
 
-"@typescript-eslint/parser@^5.45.0":
+"@typescript-eslint/parser@^5.44.0":
   version "5.45.0"
   resolved "https://registry.yarnpkg.com/@typescript-eslint/parser/-/parser-5.45.0.tgz#b18a5f6b3cf1c2b3e399e9d2df4be40d6b0ddd0e"
   dependencies:
@@ -540,13 +540,6 @@
     "@typescript-eslint/types" "5.45.0"
     "@typescript-eslint/typescript-estree" "5.45.0"
     debug "^4.3.4"
-
-"@typescript-eslint/scope-manager@5.44.0":
-  version "5.44.0"
-  resolved "https://registry.npmjs.org/@typescript-eslint/scope-manager/-/scope-manager-5.44.0.tgz"
-  dependencies:
-    "@typescript-eslint/types" "5.44.0"
-    "@typescript-eslint/visitor-keys" "5.44.0"
 
 "@typescript-eslint/scope-manager@5.45.0":
   version "5.45.0"
@@ -564,25 +557,9 @@
     debug "^4.3.4"
     tsutils "^3.21.0"
 
-"@typescript-eslint/types@5.44.0":
-  version "5.44.0"
-  resolved "https://registry.npmjs.org/@typescript-eslint/types/-/types-5.44.0.tgz"
-
 "@typescript-eslint/types@5.45.0":
   version "5.45.0"
   resolved "https://registry.yarnpkg.com/@typescript-eslint/types/-/types-5.45.0.tgz#794760b9037ee4154c09549ef5a96599621109c5"
-
-"@typescript-eslint/typescript-estree@5.44.0":
-  version "5.44.0"
-  resolved "https://registry.npmjs.org/@typescript-eslint/typescript-estree/-/typescript-estree-5.44.0.tgz"
-  dependencies:
-    "@typescript-eslint/types" "5.44.0"
-    "@typescript-eslint/visitor-keys" "5.44.0"
-    debug "^4.3.4"
-    globby "^11.1.0"
-    is-glob "^4.0.3"
-    semver "^7.3.7"
-    tsutils "^3.21.0"
 
 "@typescript-eslint/typescript-estree@5.45.0":
   version "5.45.0"
@@ -608,13 +585,6 @@
     eslint-scope "^5.1.1"
     eslint-utils "^3.0.0"
     semver "^7.3.7"
-
-"@typescript-eslint/visitor-keys@5.44.0":
-  version "5.44.0"
-  resolved "https://registry.npmjs.org/@typescript-eslint/visitor-keys/-/visitor-keys-5.44.0.tgz"
-  dependencies:
-    "@typescript-eslint/types" "5.44.0"
-    eslint-visitor-keys "^3.3.0"
 
 "@typescript-eslint/visitor-keys@5.45.0":
   version "5.45.0"
@@ -743,9 +713,9 @@
   version "1.7.0"
   resolved "https://registry.npmjs.org/@webpack-cli/serve/-/serve-1.7.0.tgz"
 
-"@wppconnect/wa-js@^2.16.2":
-  version "2.16.2"
-  resolved "https://registry.npmjs.org/@wppconnect/wa-js/-/wa-js-2.16.2.tgz"
+"@wppconnect/wa-js@^2.16.3":
+  version "2.16.3"
+  resolved "https://registry.yarnpkg.com/@wppconnect/wa-js/-/wa-js-2.16.3.tgz#dc94b48e3fac6362694f006c5deb3e63bf340809"
 
 "@xtuc/ieee754@^1.2.0":
   version "1.2.0"
