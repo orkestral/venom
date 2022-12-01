@@ -103,7 +103,7 @@ export async function reply(chatId, content, quotedMessageId) {
       return obj;
     }
 
-    if (quotedMessage && quotedMessage.canReply()) {
+    if (quotedMessage) {
       quotedMsgOptions = quotedMessage.msgContextInfo(chat);
     }
 

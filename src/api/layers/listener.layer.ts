@@ -129,7 +129,9 @@ export class ListenerLayer extends ProfileLayer {
           window['onStateChange'].exposed = true;
         }
         if (!window['onStreamChange'].exposed) {
-          window.WAPI.onStreamChange(window['onStreamChange']);
+          WPP.on('conn.logout', (state) => {
+            window['onStreamChange']('LOGOUT');
+          });
           window['onStreamChange'].exposed = true;
         }
         if (!window['onAddedToGroup'].exposed) {
@@ -145,11 +147,17 @@ export class ListenerLayer extends ProfileLayer {
           window['onInterfaceChange'].exposed = true;
         }
         if (!window['onMessage'].exposed) {
-          window.WAPI.waitNewMessages(false, (data) => {
-            data.forEach((message) => {
-              window['onMessage'](message);
-            });
+          WPP.on('chat.new_message', (msg) => {
+            if (msg.isSentByMe || msg.isStatusV3) {
+              return;
+            }
+            if (msg.quotedMsg) {
+              msg.subtype = msg.type;
+              msg.type = 'reply';
+              window['onMessage'](msg);
+            }
           });
+
           window['onMessage'].exposed = true;
         }
         if (!window['onAck'].exposed) {
@@ -163,8 +171,8 @@ export class ListenerLayer extends ProfileLayer {
   /**
    * @returns Returns the current state of the connection
    */
-  public async onStreamChange(fn: (state: SocketStream) => void) {
-    this.listenerEmitter.on(ExposedFn.onStreamChange, (state: SocketStream) => {
+  public async onStreamChange(fn: (state) => void) {
+    this.listenerEmitter.on(ExposedFn.onStreamChange, (state) => {
       fn(state);
     });
     return {
@@ -178,8 +186,8 @@ export class ListenerLayer extends ProfileLayer {
    * @event Listens to messages received
    * @returns Observable stream of messages
    */
-  public async onMessage(fn: (message: Message) => void) {
-    this.listenerEmitter.on(ExposedFn.OnMessage, (state: Message) => {
+  public async onMessage(fn: (message) => void) {
+    this.listenerEmitter.on(ExposedFn.OnMessage, (state) => {
       if (!callonMessage.checkObj(state.from, state.id)) {
         callonMessage.addObjects(state.from, state.id);
         fn(state);
@@ -187,7 +195,7 @@ export class ListenerLayer extends ProfileLayer {
     });
     return {
       dispose: () => {
-        this.listenerEmitter.off(ExposedFn.OnMessage, (state: Message) => {
+        this.listenerEmitter.off(ExposedFn.OnMessage, (state) => {
           if (!callonMessage.checkObj(state.from, state.id)) {
             callonMessage.addObjects(state.from, state.id);
             fn(state);

@@ -28,7 +28,7 @@ export async function checkNumberStatus(id, conn = false) {
       return await WPP.contact
         .queryExists(lid.id)
         .then((result) => {
-          if (!!result && typeof result === 'object') {
+          if (typeof result === 'object') {
             const data = {
               status: 200,
               numberExists: true,

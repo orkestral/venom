@@ -518,13 +518,13 @@
   dependencies:
     "@types/node" "*"
 
-"@typescript-eslint/eslint-plugin@^5.44.0":
-  version "5.44.0"
-  resolved "https://registry.npmjs.org/@typescript-eslint/eslint-plugin/-/eslint-plugin-5.44.0.tgz"
+"@typescript-eslint/eslint-plugin@^5.45.0":
+  version "5.45.0"
+  resolved "https://registry.yarnpkg.com/@typescript-eslint/eslint-plugin/-/eslint-plugin-5.45.0.tgz#ffa505cf961d4844d38cfa19dcec4973a6039e41"
   dependencies:
-    "@typescript-eslint/scope-manager" "5.44.0"
-    "@typescript-eslint/type-utils" "5.44.0"
-    "@typescript-eslint/utils" "5.44.0"
+    "@typescript-eslint/scope-manager" "5.45.0"
+    "@typescript-eslint/type-utils" "5.45.0"
+    "@typescript-eslint/utils" "5.45.0"
     debug "^4.3.4"
     ignore "^5.2.0"
     natural-compare-lite "^1.4.0"
@@ -555,12 +555,12 @@
     "@typescript-eslint/types" "5.45.0"
     "@typescript-eslint/visitor-keys" "5.45.0"
 
-"@typescript-eslint/type-utils@5.44.0":
-  version "5.44.0"
-  resolved "https://registry.npmjs.org/@typescript-eslint/type-utils/-/type-utils-5.44.0.tgz"
+"@typescript-eslint/type-utils@5.45.0":
+  version "5.45.0"
+  resolved "https://registry.yarnpkg.com/@typescript-eslint/type-utils/-/type-utils-5.45.0.tgz#aefbc954c40878fcebeabfb77d20d84a3da3a8b2"
   dependencies:
-    "@typescript-eslint/typescript-estree" "5.44.0"
-    "@typescript-eslint/utils" "5.44.0"
+    "@typescript-eslint/typescript-estree" "5.45.0"
+    "@typescript-eslint/utils" "5.45.0"
     debug "^4.3.4"
     tsutils "^3.21.0"
 
@@ -596,15 +596,15 @@
     semver "^7.3.7"
     tsutils "^3.21.0"
 
-"@typescript-eslint/utils@5.44.0":
-  version "5.44.0"
-  resolved "https://registry.npmjs.org/@typescript-eslint/utils/-/utils-5.44.0.tgz"
+"@typescript-eslint/utils@5.45.0":
+  version "5.45.0"
+  resolved "https://registry.yarnpkg.com/@typescript-eslint/utils/-/utils-5.45.0.tgz#9cca2996eee1b8615485a6918a5c763629c7acf5"
   dependencies:
     "@types/json-schema" "^7.0.9"
     "@types/semver" "^7.3.12"
-    "@typescript-eslint/scope-manager" "5.44.0"
-    "@typescript-eslint/types" "5.44.0"
-    "@typescript-eslint/typescript-estree" "5.44.0"
+    "@typescript-eslint/scope-manager" "5.45.0"
+    "@typescript-eslint/types" "5.45.0"
+    "@typescript-eslint/typescript-estree" "5.45.0"
     eslint-scope "^5.1.1"
     eslint-utils "^3.0.0"
     semver "^7.3.7"
@@ -1689,9 +1689,9 @@ concat-stream@^1.6.0:
     readable-stream "^2.2.2"
     typedarray "^0.0.6"
 
-concurrently@^7.3.0:
-  version "7.5.0"
-  resolved "https://registry.npmjs.org/concurrently/-/concurrently-7.5.0.tgz"
+concurrently@^7.6.0:
+  version "7.6.0"
+  resolved "https://registry.yarnpkg.com/concurrently/-/concurrently-7.6.0.tgz#531a6f5f30cf616f355a4afb8f8fcb2bba65a49a"
   dependencies:
     chalk "^4.1.0"
     date-fns "^2.29.1"
