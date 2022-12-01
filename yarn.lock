@@ -6420,9 +6420,9 @@ truncate-utf8-bytes@^1.0.0:
   dependencies:
     utf8-byte-length "^1.0.1"
 
-ts-loader@^9.3.1:
-  version "9.3.1"
-  resolved "https://registry.npmjs.org/ts-loader/-/ts-loader-9.3.1.tgz"
+ts-loader@^9.4.2:
+  version "9.4.2"
+  resolved "https://registry.yarnpkg.com/ts-loader/-/ts-loader-9.4.2.tgz#80a45eee92dd5170b900b3d00abcfa14949aeb78"
   dependencies:
     chalk "^4.1.0"
     enhanced-resolve "^5.0.0"
