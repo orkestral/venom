@@ -1594,9 +1594,9 @@ commander@^7.0.0:
   version "7.2.0"
   resolved "https://registry.npmjs.org/commander/-/commander-7.2.0.tgz"
 
-commitizen@^4.0.3, commitizen@^4.2.5:
-  version "4.2.5"
-  resolved "https://registry.npmjs.org/commitizen/-/commitizen-4.2.5.tgz"
+commitizen@^4.0.3, commitizen@^4.2.6:
+  version "4.2.6"
+  resolved "https://registry.yarnpkg.com/commitizen/-/commitizen-4.2.6.tgz#c35af39e1cb5fc2de88511df802da4344dc3ca80"
   dependencies:
     cachedir "2.3.0"
     cz-conventional-changelog "3.3.0"
