@@ -703,9 +703,9 @@
   version "1.7.0"
   resolved "https://registry.npmjs.org/@webpack-cli/serve/-/serve-1.7.0.tgz"
 
-"@wppconnect/wa-js@^2.16.3":
-  version "2.16.3"
-  resolved "https://registry.yarnpkg.com/@wppconnect/wa-js/-/wa-js-2.16.3.tgz#dc94b48e3fac6362694f006c5deb3e63bf340809"
+"@wppconnect/wa-js@^2.18.2":
+  version "2.18.2"
+  resolved "https://registry.yarnpkg.com/@wppconnect/wa-js/-/wa-js-2.18.2.tgz#37c60cca7bae4065614fbc0a105f8eea9f6d4cd1"
 
 "@xtuc/ieee754@^1.2.0":
   version "1.2.0"
