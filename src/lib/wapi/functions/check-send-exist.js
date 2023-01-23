@@ -139,7 +139,7 @@ export function sendCheckType(chatId = undefined) {
       broadcast === chatId.substr(-broadcast.length, broadcast.length) &&
       ((chatId.match(/(@broadcast)/g) &&
         chatId.match(/(@broadcast)/g).length > 1) ||
-        !chatId.match(/^(\d+(\d)*@broadcast)$/g))
+        !chatId.match(/^((\d+(\d)*|status)@broadcast)$/g))
     ) {
       return WAPI.scope(
         chatId,
@@ -162,7 +162,7 @@ export function sendCheckType(chatId = undefined) {
       );
     }
 
-    if (!Store.WidFactory.isWidlike(chatId)) {
+    if (Store.WidFactory && Store.WidFactory.isWidlike && !Store.WidFactory.isWidlike(chatId)) {
       return WAPI.scope(
         chatId,
         true,
