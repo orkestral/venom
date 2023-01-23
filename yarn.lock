@@ -39,15 +39,15 @@
     resolve-global "1.0.0"
     yargs "^17.0.0"
 
-"@commitlint/config-angular-type-enum@^17.0.0":
-  version "17.0.0"
-  resolved "https://registry.npmjs.org/@commitlint/config-angular-type-enum/-/config-angular-type-enum-17.0.0.tgz"
+"@commitlint/config-angular-type-enum@^17.4.0":
+  version "17.4.0"
+  resolved "https://registry.yarnpkg.com/@commitlint/config-angular-type-enum/-/config-angular-type-enum-17.4.0.tgz#5b6c882f192d1c7f4b0f42526637295434179d7f"
 
-"@commitlint/config-angular@^17.0.3":
-  version "17.3.0"
-  resolved "https://registry.npmjs.org/@commitlint/config-angular/-/config-angular-17.3.0.tgz"
+"@commitlint/config-angular@^17.4.2":
+  version "17.4.2"
+  resolved "https://registry.yarnpkg.com/@commitlint/config-angular/-/config-angular-17.4.2.tgz#26265570fb9324eeceb642e4e803a922a77e0336"
   dependencies:
-    "@commitlint/config-angular-type-enum" "^17.0.0"
+    "@commitlint/config-angular-type-enum" "^17.4.0"
 
 "@commitlint/config-validator@^17.1.0":
   version "17.1.0"
