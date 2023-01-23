@@ -1594,9 +1594,9 @@ commander@^7.0.0:
   version "7.2.0"
   resolved "https://registry.npmjs.org/commander/-/commander-7.2.0.tgz"
 
-commitizen@^4.0.3, commitizen@^4.2.5:
-  version "4.2.5"
-  resolved "https://registry.npmjs.org/commitizen/-/commitizen-4.2.5.tgz"
+commitizen@^4.0.3, commitizen@^4.3.0:
+  version "4.3.0"
+  resolved "https://registry.yarnpkg.com/commitizen/-/commitizen-4.3.0.tgz#0d056c542a2d2b1f9b9aba981aa32575b2849924"
   dependencies:
     cachedir "2.3.0"
     cz-conventional-changelog "3.3.0"
@@ -1606,10 +1606,10 @@ commitizen@^4.0.3, commitizen@^4.2.5:
     find-root "1.1.0"
     fs-extra "9.1.0"
     glob "7.2.3"
-    inquirer "8.2.4"
+    inquirer "8.2.5"
     is-utf8 "^0.2.1"
     lodash "4.17.21"
-    minimist "1.2.6"
+    minimist "1.2.7"
     strip-bom "4.0.0"
     strip-json-comments "3.1.1"
 
@@ -3504,9 +3504,9 @@ ini@^1.3.2, ini@^1.3.4, ini@~1.3.0:
   version "1.3.8"
   resolved "https://registry.npmjs.org/ini/-/ini-1.3.8.tgz"
 
-inquirer@8.2.4:
-  version "8.2.4"
-  resolved "https://registry.npmjs.org/inquirer/-/inquirer-8.2.4.tgz"
+inquirer@8.2.5:
+  version "8.2.5"
+  resolved "https://registry.yarnpkg.com/inquirer/-/inquirer-8.2.5.tgz#d8654a7542c35a9b9e069d27e2df4858784d54f8"
   dependencies:
     ansi-escapes "^4.2.1"
     chalk "^4.1.1"
@@ -4510,11 +4510,7 @@ minimist-options@4.1.0:
     is-plain-obj "^1.1.0"
     kind-of "^6.0.3"
 
-minimist@1.2.6:
-  version "1.2.6"
-  resolved "https://registry.npmjs.org/minimist/-/minimist-1.2.6.tgz"
-
-minimist@^1.2.0, minimist@^1.2.3, minimist@^1.2.5, minimist@^1.2.6:
+minimist@1.2.7, minimist@^1.2.0, minimist@^1.2.3, minimist@^1.2.5, minimist@^1.2.6:
   version "1.2.7"
   resolved "https://registry.npmjs.org/minimist/-/minimist-1.2.7.tgz"
 
