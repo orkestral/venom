@@ -57,7 +57,7 @@ export const _serializeMessageObj = (obj) => {
     return null;
   }
   const _chat = obj['chat'] ? WAPI._serializeChatObj(obj['chat']) : {};
-  if (obj.quotedMsg) obj.quotedMsgObj();
+  if (obj.quotedMsg && obj.quotedMsg.call) obj.quotedMsgObj();
   return Object.assign(window.WAPI._serializeRawObj(obj), {
     id: obj.id._serialized,
     from: obj.from._serialized,
