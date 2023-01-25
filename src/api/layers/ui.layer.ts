@@ -93,8 +93,8 @@ export class UILayer extends GroupLayer {
    */
   public async openChatAt(chatId: string, messageId: string) {
     return this.page.evaluate(
-      (chatId: string) => WAPI.openChatAt(chatId, messageId),
-      chatId
+      ({ chatId, messageId }) => WAPI.openChatAt(chatId, messageId),
+      { chatId, messageId }
     );
   }
 }
