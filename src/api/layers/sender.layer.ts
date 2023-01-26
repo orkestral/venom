@@ -66,6 +66,7 @@ import { Message, SendFileResult, SendStickerResult } from '../model';
 import { ChatState } from '../model/enum';
 import { ListenerLayer } from './listener.layer';
 import { Scope, checkValuesSender } from '../helpers/layers-interface';
+import { Serializable } from 'puppeteer';
 
 let obj: Scope;
 
@@ -110,7 +111,8 @@ export class SenderLayer extends ListenerLayer {
    * @param to chat id: xxxxx@us.c
    * @param content text message
    */
-  public async sendText(to: string, content: string): Promise<Object> {
+  public async sendText(to: string, content: string, extra?: Serializable): Promise<Object> {
+    if (!extra) extra = {};
     return new Promise(async (resolve, reject) => {
       const typeFunction = 'sendText';
       const type = 'string';
@@ -135,10 +137,10 @@ export class SenderLayer extends ListenerLayer {
         return reject(validating);
       }
       const result = await this.page.evaluate(
-        ({ to, content }) => {
-          return WAPI.sendMessage(to, content);
+        ({ to, content, extra }) => {
+          return WAPI.sendMessage(to, content, extra);
         },
-        { to, content }
+        { to, content, extra }
       );
       // if (result['erro'] == true) {
       //   return reject(result);

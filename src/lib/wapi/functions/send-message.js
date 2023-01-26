@@ -53,7 +53,7 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
 
-export async function sendMessage(to, content) {
+export async function sendMessage(to, content, extra = {}) {
   if (typeof content != 'string' || content.length === 0) {
     return WAPI.scope(
       undefined,
@@ -90,7 +90,7 @@ export async function sendMessage(to, content) {
       return WAPI.scope(to, true, 404, 'Error to newId');
     }
 
-    const message = {
+    const message = Object.assign({
       id: newMsgId,
       ack: 0,
       body: content,
@@ -101,7 +101,7 @@ export async function sendMessage(to, content) {
       t: parseInt(new Date().getTime() / 1000),
       isNewMsg: !0,
       type: 'chat'
-    };
+    }, extra);
 
     try {
       var result = (
