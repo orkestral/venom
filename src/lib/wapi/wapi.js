@@ -167,7 +167,8 @@ import {
   checkChat,
   checkNumberStatus,
   sendCheckType,
-  isBeta
+  isBeta,
+  sendQueryMsgInfo
 } from './functions';
 import {
   base64ToFile,
@@ -232,7 +233,7 @@ var loadParasite = async function () {
         injectParasite();
         return;
       }
-    } catch (e) {}
+    } catch (e) { }
     await sleep(1000);
   }
 };
@@ -346,6 +347,7 @@ if (typeof window.WAPI === 'undefined') {
   window.WAPI.getAllChatsWithNewMsg = getAllChatsWithNewMessages;
   window.WAPI.getAllChatIds = getAllChatIds;
   window.WAPI.getAllNewMessages = getAllNewMessages;
+  window.WAPI.getMessageInfo = sendQueryMsgInfo;
   window.WAPI.getAllUnreadMessages = getAllUnreadMessages;
   window.WAPI.getAllChatsWithMessages = getAllChatsWithMessages;
   window.WAPI.getAllGroups = getAllGroups;

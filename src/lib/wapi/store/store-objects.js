@@ -196,6 +196,11 @@ export const storeObjects = [
       module.addAndSendMsgToChat ? module.addAndSendMsgToChat : null
   },
   {
+    id: 'sendQueryMsgInfo',
+    conditions: (module) =>
+      module.sendQueryMsgInfo ? module.sendQueryMsgInfo : null
+  },
+  {
     id: 'sendMsgToChat',
     conditions: (module) => (module.sendMsgToChat ? module.sendMsgToChat : null)
   },
