@@ -6648,9 +6648,9 @@ typedoc@^0.23.21:
     minimatch "^5.1.0"
     shiki "^0.11.1"
 
-typescript@^4.6.4:
-  version "4.7.4"
-  resolved "https://registry.npmjs.org/typescript/-/typescript-4.7.4.tgz"
+typescript@^4.6.4, typescript@^4.9.5:
+  version "4.9.5"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.9.5.tgz#095979f9bcc0d09da324d58d03ce8f8374cbe65a"
 
 uglify-js@^3.1.4:
   version "3.14.4"
