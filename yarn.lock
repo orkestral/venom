@@ -731,9 +731,9 @@
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/@webpack-cli/serve/-/serve-2.0.1.tgz#34bdc31727a1889198855913db2f270ace6d7bf8"
 
-"@wppconnect/wa-js@^2.18.3":
-  version "2.18.3"
-  resolved "https://registry.yarnpkg.com/@wppconnect/wa-js/-/wa-js-2.18.3.tgz#42241642655afb6a62fcbf25b6929d75cb339454"
+"@wppconnect/wa-js@^2.19.1":
+  version "2.20.2"
+  resolved "https://registry.yarnpkg.com/@wppconnect/wa-js/-/wa-js-2.20.2.tgz#e9d741c487352f70e6b17ef08cd0e6976d87e10f"
 
 "@xtuc/ieee754@^1.2.0":
   version "1.2.0"
@@ -815,7 +815,7 @@ ajv@^8.0.0, ajv@^8.11.0, ajv@^8.8.0:
     require-from-string "^2.0.2"
     uri-js "^4.2.2"
 
-ansi-align@^3.0.0, ansi-align@^3.0.1:
+ansi-align@^3.0.1:
   version "3.0.1"
   resolved "https://registry.npmjs.org/ansi-align/-/ansi-align-3.0.1.tgz"
   dependencies:
@@ -1158,22 +1158,9 @@ blueimp-canvas-to-blob@^3.29.0:
   version "3.29.0"
   resolved "https://registry.npmjs.org/blueimp-canvas-to-blob/-/blueimp-canvas-to-blob-3.29.0.tgz"
 
-boxen@^5.1.1:
-  version "5.1.2"
-  resolved "https://registry.npmjs.org/boxen/-/boxen-5.1.2.tgz"
-  dependencies:
-    ansi-align "^3.0.0"
-    camelcase "^6.2.0"
-    chalk "^4.1.0"
-    cli-boxes "^2.2.1"
-    string-width "^4.2.2"
-    type-fest "^0.20.2"
-    widest-line "^3.1.0"
-    wrap-ansi "^7.0.0"
-
-boxen@^7.0.0:
-  version "7.0.0"
-  resolved "https://registry.npmjs.org/boxen/-/boxen-7.0.0.tgz"
+boxen@^7.0.0, boxen@^7.0.1:
+  version "7.0.1"
+  resolved "https://registry.yarnpkg.com/boxen/-/boxen-7.0.1.tgz#cd84db4364a8bae65f1f016ce94a21ec2c832c16"
   dependencies:
     ansi-align "^3.0.1"
     camelcase "^7.0.0"
@@ -1321,10 +1308,6 @@ camelcase@^5.3.1:
   version "5.3.1"
   resolved "https://registry.npmjs.org/camelcase/-/camelcase-5.3.1.tgz"
 
-camelcase@^6.2.0:
-  version "6.2.1"
-  resolved "https://registry.npmjs.org/camelcase/-/camelcase-6.2.1.tgz"
-
 camelcase@^7.0.0:
   version "7.0.0"
   resolved "https://registry.npmjs.org/camelcase/-/camelcase-7.0.0.tgz"
@@ -1434,10 +1417,6 @@ class-utils@^0.3.5:
     define-property "^0.2.5"
     isobject "^3.0.0"
     static-extend "^0.1.1"
-
-cli-boxes@^2.2.1:
-  version "2.2.1"
-  resolved "https://registry.npmjs.org/cli-boxes/-/cli-boxes-2.2.1.tgz"
 
 cli-boxes@^3.0.0:
   version "3.0.0"
@@ -6188,7 +6167,7 @@ string-width@^1.0.1, string-width@^1.0.2:
     is-fullwidth-code-point "^1.0.0"
     strip-ansi "^3.0.0"
 
-string-width@^4.0.0, string-width@^4.1.0, string-width@^4.2.0, string-width@^4.2.2, string-width@^4.2.3:
+string-width@^4.1.0, string-width@^4.2.0, string-width@^4.2.3:
   version "4.2.3"
   resolved "https://registry.npmjs.org/string-width/-/string-width-4.2.3.tgz"
   dependencies:
@@ -6591,13 +6570,9 @@ type-fest@^1.0.1:
   version "1.4.0"
   resolved "https://registry.npmjs.org/type-fest/-/type-fest-1.4.0.tgz"
 
-type-fest@^2.13.0:
+type-fest@^2.13.0, type-fest@^2.5.1:
   version "2.19.0"
   resolved "https://registry.npmjs.org/type-fest/-/type-fest-2.19.0.tgz"
-
-type-fest@^2.5.1:
-  version "2.13.1"
-  resolved "https://registry.npmjs.org/type-fest/-/type-fest-2.13.1.tgz"
 
 type-fest@^3.0.0:
   version "3.3.0"
@@ -7010,12 +6985,6 @@ which@^2.0.1:
   resolved "https://registry.npmjs.org/which/-/which-2.0.2.tgz"
   dependencies:
     isexe "^2.0.0"
-
-widest-line@^3.1.0:
-  version "3.1.0"
-  resolved "https://registry.npmjs.org/widest-line/-/widest-line-3.1.0.tgz"
-  dependencies:
-    string-width "^4.0.0"
 
 widest-line@^4.0.1:
   version "4.0.1"
