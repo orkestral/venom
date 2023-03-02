@@ -731,9 +731,9 @@
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/@webpack-cli/serve/-/serve-2.0.1.tgz#34bdc31727a1889198855913db2f270ace6d7bf8"
 
-"@wppconnect/wa-js@^2.18.3":
-  version "2.18.3"
-  resolved "https://registry.yarnpkg.com/@wppconnect/wa-js/-/wa-js-2.18.3.tgz#42241642655afb6a62fcbf25b6929d75cb339454"
+"@wppconnect/wa-js@^2.19.1":
+  version "2.20.2"
+  resolved "https://registry.yarnpkg.com/@wppconnect/wa-js/-/wa-js-2.20.2.tgz#e9d741c487352f70e6b17ef08cd0e6976d87e10f"
 
 "@xtuc/ieee754@^1.2.0":
   version "1.2.0"
@@ -4684,14 +4684,14 @@ node-releases@^2.0.3:
   version "2.0.5"
   resolved "https://registry.npmjs.org/node-releases/-/node-releases-2.0.5.tgz"
 
-nodemon@^2.0.19:
-  version "2.0.19"
-  resolved "https://registry.npmjs.org/nodemon/-/nodemon-2.0.19.tgz"
+nodemon@^2.0.21:
+  version "2.0.21"
+  resolved "https://registry.yarnpkg.com/nodemon/-/nodemon-2.0.21.tgz#267edff25578da91075d6aa54346ef77ecb7b302"
   dependencies:
     chokidar "^3.5.2"
     debug "^3.2.7"
     ignore-by-default "^1.0.1"
-    minimatch "^3.0.4"
+    minimatch "^3.1.2"
     pstree.remy "^1.1.8"
     semver "^5.7.1"
     simple-update-notifier "^1.0.7"
