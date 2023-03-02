@@ -259,6 +259,18 @@ export class RetrieverLayer extends SenderLayer {
   }
 
   /**
+   * Retrieves delivery / reads statistics of a given message
+   * @param msgId
+   * @returns message detial as promise
+   */
+  public async getMessageInfo(msgId: string) {
+    return this.page.evaluate(
+      (msgId) => WAPI.getMessageInfo(msgId),
+      msgId
+    );
+  }
+
+  /**
    * Retrieves chat picture
    * @param chatId Chat id
    * @returns url of the chat picture or undefined if there is no picture for the chat.

@@ -142,6 +142,7 @@ export { setTheme, getTheme } from './theme';
 export { restartService } from './restart-service';
 export { killServiceWorker } from './kill-service-worker';
 export { sendLinkPreview } from './send-link-preview';
+export { sendQueryMsgInfo } from './send-query-message-info';
 export {
   sendExist,
   scope,
