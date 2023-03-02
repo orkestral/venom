@@ -152,7 +152,7 @@ export class RetrieverLayer extends SenderLayer {
         (contactId) => WAPI.checkNumberStatus(contactId),
         contactId
       );
-      if (result['status'] !== 200) {
+      if (result && result['status'] !== 200) {
         reject(result);
       } else {
         resolve(result);
