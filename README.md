@@ -45,7 +45,7 @@ Use it in your favorite language like PHP, Python, C# and others. as long as you
 
 ## Venom group support on Discord
 
-<a target="_blank" href="https://t.me/joinchat/G8wxNXidWBo1ZDYx" target="_blank"><img title="Telegram" height="110" width="375" src="https://s2.glbimg.com/GUbCgnBxJERAmuaYcrjBzTXD5ws=/0x0:800x272/984x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_63b422c2caee4269b8b34177e8876b93/internal_photos/bs/2021/d/N/zJs579QOGxKVRxfPILCA/discord-app.png"></a>
+<a target="_blank" href="https://discord.gg/uBRjk6vecs" target="_blank"><img title="Discord" height="110" width="375" src="https://s2.glbimg.com/GUbCgnBxJERAmuaYcrjBzTXD5ws=/0x0:800x272/984x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_63b422c2caee4269b8b34177e8876b93/internal_photos/bs/2021/d/N/zJs579QOGxKVRxfPILCA/discord-app.png"></a>
 
 
 ## Meet the Superchats
