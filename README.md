@@ -43,6 +43,10 @@ Use it in your favorite language like PHP, Python, C# and others. as long as you
 
 <a target="_blank" href="https://t.me/joinchat/G8wxNXidWBo1ZDYx" target="_blank"><img title="Telegram" height="100" width="375" src="https://user-images.githubusercontent.com/66584466/117182238-7d1d8980-adac-11eb-9a70-e32f90c3d4e5.png"></a>
 
+## Venom group support on Discord
+
+<a target="_blank" href="https://t.me/joinchat/G8wxNXidWBo1ZDYx" target="_blank"><img title="Telegram" height="110" width="375" src="https://s2.glbimg.com/GUbCgnBxJERAmuaYcrjBzTXD5ws=/0x0:800x272/984x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_63b422c2caee4269b8b34177e8876b93/internal_photos/bs/2021/d/N/zJs579QOGxKVRxfPILCA/discord-app.png"></a>
+
 
 ## Meet the Superchats
 <br>
