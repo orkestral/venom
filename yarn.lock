@@ -464,9 +464,9 @@
   version "0.7.31"
   resolved "https://registry.npmjs.org/@types/ms/-/ms-0.7.31.tgz"
 
-"@types/node@*", "@types/node@^18.11.10":
-  version "18.11.10"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-18.11.10.tgz#4c64759f3c2343b7e6c4b9caf761c7a3a05cee34"
+"@types/node@*", "@types/node@^18.15.1":
+  version "18.15.1"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-18.15.1.tgz#41dc2bf78e8085a250d4670d95edb7fba621dd29"
 
 "@types/node@^14.0.0":
   version "14.18.33"
@@ -731,9 +731,9 @@
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/@webpack-cli/serve/-/serve-2.0.1.tgz#34bdc31727a1889198855913db2f270ace6d7bf8"
 
-"@wppconnect/wa-js@^2.18.3":
-  version "2.18.3"
-  resolved "https://registry.yarnpkg.com/@wppconnect/wa-js/-/wa-js-2.18.3.tgz#42241642655afb6a62fcbf25b6929d75cb339454"
+"@wppconnect/wa-js@^2.19.1":
+  version "2.22.0"
+  resolved "https://registry.yarnpkg.com/@wppconnect/wa-js/-/wa-js-2.22.0.tgz#a3845fc10bd3a30b4cb4da353422bfed2aa6736b"
 
 "@xtuc/ieee754@^1.2.0":
   version "1.2.0"
