@@ -731,9 +731,9 @@
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/@webpack-cli/serve/-/serve-2.0.1.tgz#34bdc31727a1889198855913db2f270ace6d7bf8"
 
-"@wppconnect/wa-js@^2.18.3":
-  version "2.18.3"
-  resolved "https://registry.yarnpkg.com/@wppconnect/wa-js/-/wa-js-2.18.3.tgz#42241642655afb6a62fcbf25b6929d75cb339454"
+"@wppconnect/wa-js@^2.19.1":
+  version "2.22.2"
+  resolved "https://registry.yarnpkg.com/@wppconnect/wa-js/-/wa-js-2.22.2.tgz#c0eb1c7c3bfc55bbcafc27359d782925e9301d30"
 
 "@xtuc/ieee754@^1.2.0":
   version "1.2.0"
@@ -6947,9 +6947,9 @@ webpack-sources@^3.2.3:
   version "3.2.3"
   resolved "https://registry.npmjs.org/webpack-sources/-/webpack-sources-3.2.3.tgz"
 
-webpack@^5.74.0:
-  version "5.75.0"
-  resolved "https://registry.npmjs.org/webpack/-/webpack-5.75.0.tgz"
+webpack@^5.76.0:
+  version "5.76.0"
+  resolved "https://registry.yarnpkg.com/webpack/-/webpack-5.76.0.tgz#f9fb9fb8c4a7dbdcd0d56a98e56b8a942ee2692c"
   dependencies:
     "@types/eslint-scope" "^3.7.3"
     "@types/estree" "^0.0.51"
