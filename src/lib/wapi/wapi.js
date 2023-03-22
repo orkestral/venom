@@ -211,7 +211,9 @@ var loadParasite = async function () {
       async function (o) {
         let modules = [];
         for (let idx in o.m) {
-          modules.push(o(idx));
+          try {
+            modules.push(o(idx));
+          } catch (e) {}
         }
         getStore(modules);
       }
