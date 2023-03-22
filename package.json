@@ -97,7 +97,7 @@
     "ts-loader": "^9.4.2",
     "typedoc-plugin-pages": "^1.1.0",
     "typescript": "^4.6.4",
-    "webpack": "^5.74.0",
+    "webpack": "^5.76.3",
     "webpack-cli": "^5.0.1"
   },
   "dependencies": {
