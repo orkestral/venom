@@ -58,7 +58,6 @@ import { tokenSession } from '../../config/tokenSession.config';
 import { Chat, WhatsappProfile } from '../model';
 import { SenderLayer } from './sender.layer';
 import { checkValuesSender } from '../helpers/layers-interface';
-
 export class RetrieverLayer extends SenderLayer {
   constructor(public page: Page, session?: string, options?: CreateConfig) {
     super(page, session, options);
@@ -264,10 +263,7 @@ export class RetrieverLayer extends SenderLayer {
    * @returns message detial as promise
    */
   public async getMessageInfo(msgId: string) {
-    return this.page.evaluate(
-      (msgId) => WAPI.getMessageInfo(msgId),
-      msgId
-    );
+    return this.page.evaluate((msgId) => WAPI.getMessageInfo(msgId), msgId);
   }
 
   /**
