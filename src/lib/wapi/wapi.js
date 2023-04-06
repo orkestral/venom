@@ -233,7 +233,7 @@ var loadParasite = async function () {
         injectParasite();
         return;
       }
-    } catch (e) { }
+    } catch (e) {}
     await sleep(1000);
   }
 };

@@ -66,8 +66,6 @@ import { Message, SendFileResult, SendStickerResult } from '../model';
 import { ChatState } from '../model/enum';
 import { ListenerLayer } from './listener.layer';
 import { Scope, checkValuesSender } from '../helpers/layers-interface';
-
-
 let obj: Scope;
 
 export class SenderLayer extends ListenerLayer {
@@ -111,7 +109,11 @@ export class SenderLayer extends ListenerLayer {
    * @param to chat id: xxxxx@us.c
    * @param content text message
    */
-  public async sendText(to: string, content: string, extra?: any): Promise<Object> {
+  public async sendText(
+    to: string,
+    content: string,
+    extra?: any
+  ): Promise<Object> {
     if (!extra) extra = {};
     return new Promise(async (resolve, reject) => {
       const typeFunction = 'sendText';
@@ -1031,7 +1033,7 @@ export class SenderLayer extends ListenerLayer {
   public async setChatState(chatId: string, chatState: ChatState) {
     return await this.page.evaluate(
       ({ chatState, chatId }) => {
-       return WAPI.sendChatstate(chatState, chatId);
+        return WAPI.sendChatstate(chatState, chatId);
       },
       { chatState, chatId }
     );

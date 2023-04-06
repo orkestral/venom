@@ -1,6 +1,6 @@
 {
   "singleQuote": true,
-  "endOfLine": "auto",
+  "endOfLine": "crlf",
   "useTabs": false,
   "trailingComma": "none"
 }

@@ -90,18 +90,21 @@ export async function sendMessage(to, content, extra = {}) {
       return WAPI.scope(to, true, 404, 'Error to newId');
     }
 
-    const message = Object.assign({
-      id: newMsgId,
-      ack: 0,
-      body: content,
-      from: fromwWid,
-      to: chat.id,
-      local: !0,
-      self: 'out',
-      t: parseInt(new Date().getTime() / 1000),
-      isNewMsg: !0,
-      type: 'chat'
-    }, extra);
+    const message = Object.assign(
+      {
+        id: newMsgId,
+        ack: 0,
+        body: content,
+        from: fromwWid,
+        to: chat.id,
+        local: !0,
+        self: 'out',
+        t: parseInt(new Date().getTime() / 1000),
+        isNewMsg: !0,
+        type: 'chat'
+      },
+      extra
+    );
 
     try {
       var result = (

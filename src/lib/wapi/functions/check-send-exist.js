@@ -162,7 +162,11 @@ export function sendCheckType(chatId = undefined) {
       );
     }
 
-    if (Store.WidFactory && Store.WidFactory.isWidlike && !Store.WidFactory.isWidlike(chatId)) {
+    if (
+      Store.WidFactory &&
+      Store.WidFactory.isWidlike &&
+      !Store.WidFactory.isWidlike(chatId)
+    ) {
       return WAPI.scope(
         chatId,
         true,

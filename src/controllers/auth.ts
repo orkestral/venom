@@ -99,9 +99,7 @@ export const getInterfaceStatus = async (
         polling: 100
       }
     )
-    .then(async (element) => {
-
-    })
+    .then(async (element) => {})
     .catch((e) => e);
 };
 
