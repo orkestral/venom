@@ -1,10 +1,53 @@
-- name: Update nightly release
-  run: |
-     echo -e "ref: $GITHUB_REF \ncommit: $GITHUB_SHA\nbuild: $(date +"%Y-%m-%dT%H:%M:%SZ")" \
-     > build/libs/info.txt
-  uses: eine/tip@master
-  with:
-    tag: nightly
-    rm: true
-    token: ${{ secrets.GITHUB_TOKEN }}
-    files: build/libs/*.*
+name: Update nightly release
+on:
+  push:
+    branches:
+      - main
+  schedule:
+    - cron: '0 0 * * *' # Executa a meia-noite de cada dia
+
+jobs:
+  update-nightly-release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Java
+        uses: actions/setup-java@v2
+        with:
+          java-version: 11
+
+      - name: Install Dependencies
+        run: ./gradlew clean build
+
+      - name: Update info.txt
+        run: |
+          echo -e "ref: ${{ github.ref }}\ncommit: ${{ github.sha }}\nbuild: $(date +'%Y-%m-%dT%H:%M:%SZ')" > build/libs/info.txt
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: nightly-build
+          path: build/libs/
+
+      - name: Create Release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: nightly
+          release_name: Nightly Build
+          body: Automated nightly build for branch ${{ github.ref }}
+          draft: false
+          prerelease: true
+          
+      - name: Attach Artifacts to Release
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: build/libs/
+          asset_name: nightly-build
+          asset_content_type: application/zip

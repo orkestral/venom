@@ -1,6 +1,8 @@
 name: commit lint
-on: [pull_request]
 
+on:
+  pull_request:
+  
 jobs:
   commitlint:
     runs-on: ubuntu-latest
@@ -10,7 +12,15 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Lint commit
-        uses: wagoid/commitlint-github-action@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
         with:
-          configFile: './.commitlintrc.js'
+          node-version: 14.x
+
+      - name: Install dependencies
+        run: |
+          npm install -g @commitlint/cli
+          npm install
+
+      - name: Lint commit
+        run: commitlint --config .commitlintrc.js --from=HEAD~1

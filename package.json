@@ -114,6 +114,7 @@
     "compressorjs": "^1.1.1",
     "cz-conventional-changelog": "^3.3.0",
     "dotenv": "^16.0.1",
+    "eslint-config-eslint": "^7.0.0",
     "eventemitter2": "^6.4.7",
     "futoin-hkdf": "^1.5.1",
     "i": "^0.3.7",
