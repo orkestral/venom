@@ -108,7 +108,7 @@
     "axios": "^1.2.0",
     "boxen": "^5.1.1",
     "catch-exit": "^1.1.0",
-    "chalk": "^4.0.0",
+    "chalk": "^5.2.0",
     "chrome-launcher": "^0.15.1",
     "commitizen": "^4.3.0",
     "compressorjs": "^1.1.1",
