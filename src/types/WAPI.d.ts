@@ -83,12 +83,12 @@ interface WAPI {
   deleteConversation: (chatId: string) => boolean;
   deleteMessagesAll: (
     contactId: string,
-    messageId: string[],
+    messageId: string[] | string,
     onlyLocal: boolean
   ) => Promise<object>;
   deleteMessagesMe: (
     contactId: string,
-    messageId: string[],
+    messageId: string[] | string,
     onlyLocal: boolean
   ) => Promise<object>;
   demoteParticipant: (groupId: string, contactId: string | string[]) => void;
@@ -174,10 +174,10 @@ interface WAPI {
   removeParticipant: (groupId: string, contactId: string | string[]) => void;
   reply: (to: string, content: string, quotedMsg: string) => Promise<object>;
   restartService: () => boolean;
-  sendChatstate: (chatState: string, chatId: string) => void;
+  sendChatstate: (chatState: string | any, chatId: string) => void;
   sendContactVcard: (
     to: string,
-    contact: string,
+    contact: string | any,
     name?: string
   ) => Promise<object>;
   sendContactVcardList: (to: string, contacts: string[]) => Promise<object>;
@@ -243,7 +243,7 @@ interface WAPI {
   sendButtons: (
     to: string,
     title: string,
-    buttons: [],
+    buttons: [] | any,
     subtitle: string
   ) => Promise<Object>;
   sendMessageWithThumb: (

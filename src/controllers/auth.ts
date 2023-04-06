@@ -100,9 +100,7 @@ export const getInterfaceStatus = async (
       }
     )
     .then(async (element) => {
-      return await element.evaluate((a) => {
-        return a;
-      });
+
     })
     .catch((e) => e);
 };
