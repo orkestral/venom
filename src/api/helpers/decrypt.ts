@@ -53,8 +53,8 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
 import * as crypto from 'crypto';
-import * as hkdf from 'futoin-hkdf';
-import atob = require('atob');
+import hkdf from 'futoin-hkdf';
+import atob from 'atob';
 import { ResponseType } from 'axios';
 
 export const makeOptions = (useragentOverride: string) => ({
@@ -96,7 +96,7 @@ export const magix = (
   const encodedHex = fileData.toString('hex');
   const encodedBytes = hexToBytes(encodedHex);
   const mediaKeyBytes: any = base64ToBytes(mediaKeyBase64);
-  const info = `WhatsApp ${mediaTypes[mediaType.toUpperCase()]} Keys`;
+  const info = `WhatsApp ${(mediaTypes as any)[mediaType.toUpperCase()]} Keys`;
   const hash: string = 'sha256';
   const salt: any = new Uint8Array(32);
   const expandedSize = 112;
@@ -123,7 +123,7 @@ const fixPadding = (data: Buffer, expectedSize: number) => {
       data = data.slice(0, data.length - padding);
     } else if (data.length + padding == expectedSize) {
       // console.log(`adding: ${padding} bytes`);
-      let arr = new Uint16Array(padding).map((b) => padding);
+      let arr = new Uint16Array(padding).map(() => padding);
       data = Buffer.concat([data, Buffer.from(arr)]);
     }
   }

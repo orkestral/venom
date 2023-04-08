@@ -1,12 +1,12 @@
-import * as boxen from 'boxen';
+import boxen from 'boxen';
 
-import * as chalk from 'chalk';
+import chalk from 'chalk';
 
-const path = require('path');
+import path from 'path';
 
 require('dotenv').config({ path: path.resolve(__dirname, '../../.env') });
 
-export const BRAND = process.env.NAME;
+export const BRAND: any = process.env.NAME;
 
 const latestLib = require('latest-lib');
 
@@ -43,7 +43,7 @@ export async function checkUpdates() {
 async function checkVenomVersion() {
   logger.info('Checking for updates');
   await latestLib('venom-bot')
-    .then((latest) => {
+    .then((latest: any) => {
       logger.info(latest.version);
       logger.info(version);
       if (!upToDate(version, latest.version)) {

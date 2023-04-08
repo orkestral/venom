@@ -56,7 +56,7 @@ import { Page } from 'puppeteer';
 import { CreateConfig } from '../../config/create-config';
 import { Id } from '../model';
 import { RetrieverLayer } from './retriever.layer';
-import { Scope, checkValuesSender } from '../helpers/layers-interface';
+import { checkValuesSender } from '../helpers/layers-interface';
 import {
   base64MimeType,
   fileToBase64,
@@ -64,8 +64,6 @@ import {
   resizeImg
 } from '../helpers';
 import { GroupSettings } from '../model/enum';
-
-let obj: Scope;
 
 export class GroupLayer extends RetrieverLayer {
   constructor(public page: Page, session?: string, options?: CreateConfig) {
@@ -77,7 +75,7 @@ export class GroupLayer extends RetrieverLayer {
    * @param {string} groupId group number
    * @param {string} path of image
    */
-  public async setGroupImage(groupId: string, path: string) {
+  public async setGroupImage(groupId: string, path: string): Promise<any> {
     let b64 = await downloadFileToBase64(path, [
       'image/gif',
       'image/png',
@@ -148,7 +146,7 @@ export class GroupLayer extends RetrieverLayer {
         return reject(validating);
       }
 
-      const result = await this.page.evaluate(
+      const result: any = await this.page.evaluate(
         ({ groupId, title }) => {
           return WAPI.setGroupTitle(groupId, title);
         },
@@ -197,7 +195,7 @@ export class GroupLayer extends RetrieverLayer {
         return reject(validating);
       }
 
-      const result = await this.page.evaluate(
+      const result: any = await this.page.evaluate(
         ({ groupId, description }) => {
           return WAPI.setGroupDescription(groupId, description);
         },
@@ -254,7 +252,7 @@ export class GroupLayer extends RetrieverLayer {
         return reject(validating);
       }
 
-      const result = await this.page.evaluate(
+      const result: any = await this.page.evaluate(
         ({ groupId, settings, value }) => {
           return WAPI.setGroupSettings(groupId, settings, value);
         },

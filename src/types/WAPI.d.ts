@@ -127,7 +127,7 @@ interface WAPI {
   revokeGroupInviteLink: (chatId: string) => Promise<boolean>;
   getGroupParticipantIDs: (groupId: string) => Id[];
   getHost: () => HostDevice;
-  getListMute: (type?: string) => object;
+  getListMute: (type?: string) => object | any;
   getMessageById: (messageId: string) => Promise<Message>;
   getNumberProfile: (contactId: string) => WhatsappProfile;
   getProfilePicFromServer: (chatId: string) => string;
@@ -185,7 +185,7 @@ interface WAPI {
     base64: string,
     to: string,
     filename: string,
-    caption: string,
+    caption: string | any,
     type?: string
   ) => Promise<SendFileResult>;
   sendImage: (

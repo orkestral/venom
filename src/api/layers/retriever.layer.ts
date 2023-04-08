@@ -68,9 +68,9 @@ export class RetrieverLayer extends SenderLayer {
    * @param type return type: all, toMute and noMute.
    * @returns obj
    */
-  public async getListMutes(type?: string): Promise<object> {
+  public async getListMutes(type?: string): Promise<object | any> {
     return await this.page.evaluate(
-      (type: string) => WAPI.getListMute(type),
+      (type: string | any) => WAPI.getListMute(type),
       type
     );
   }
@@ -328,7 +328,7 @@ export class RetrieverLayer extends SenderLayer {
         (contactId: string) => WAPI.getNumberProfile(contactId),
         contactId
       );
-      if (result['erro'] == true) {
+      if ((result as any)['erro'] == true) {
         reject(result);
       } else {
         resolve(result);

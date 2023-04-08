@@ -52,8 +52,8 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
-export { base64ToFile } from './base64-to-file';
-export { getFileHash } from './get-file-hash';
-export { generateMediaKey } from './generate-media-key';
-export { arrayBufferToBase64 } from './array-buffer-to-base64';
-export { sleep } from './sleep';
+export { base64ToFile } from './base64-to-file.js';
+export { getFileHash } from './get-file-hash.js';
+export { generateMediaKey } from './generate-media-key.js';
+export { arrayBufferToBase64 } from './array-buffer-to-base64.js';
+export { sleep } from './sleep.js';

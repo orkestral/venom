@@ -57,7 +57,7 @@ import { Page } from 'puppeteer';
 import { CreateConfig } from '../../config/create-config';
 import { ExposedFn } from '../helpers/exposed.enum';
 import { Ack, Chat, LiveLocation, Message, ParticipantEvent } from '../model';
-import { SocketState, SocketStream } from '../model/enum';
+import { SocketState } from '../model/enum';
 import { InterfaceMode } from '../model/enum/interface-mode';
 import { InterfaceState } from '../model/enum/interface-state';
 import { ProfileLayer } from './profile.layer';
@@ -106,12 +106,12 @@ export class ListenerLayer extends ProfileLayer {
 
     for (const func of functions) {
       const has = await this.page
-        .evaluate((func) => typeof window[func] === 'function', func)
+        .evaluate((func) => typeof (window as any)[func] === 'function', func)
         .catch(() => false);
 
       if (!has) {
         await this.page
-          .exposeFunction(func, (...args) =>
+          .exposeFunction(func, (...args: any) =>
             this.listenerEmitter.emit(func, ...args)
           )
           .catch(() => {});
@@ -129,22 +129,22 @@ export class ListenerLayer extends ProfileLayer {
           window['onStateChange'].exposed = true;
         }
         if (!window['onStreamChange'].exposed) {
-          WPP.on('conn.logout', (state) => {
+          WPP.on('conn.logout', () => {
             window['onStreamChange']('LOGOUT');
           });
           window['onStreamChange'].exposed = true;
         }
-        if (!window['onAddedToGroup'].exposed) {
-          window.WAPI.onAddedToGroup(window['onAddedToGroup']);
-          window['onAddedToGroup'].exposed = true;
+        if (!(window as any)['onAddedToGroup'].exposed) {
+          window.WAPI.onAddedToGroup((window as any)['onAddedToGroup']);
+          (window as any)['onAddedToGroup'].exposed = true;
         }
         if (!window['onIncomingCall'].exposed) {
           window.WAPI.onIncomingCall(window['onIncomingCall']);
           window['onIncomingCall'].exposed = true;
         }
-        if (!window['onInterfaceChange'].exposed) {
-          window.WAPI.onInterfaceChange(window['onInterfaceChange']);
-          window['onInterfaceChange'].exposed = true;
+        if (!(window as any)['onInterfaceChange'].exposed) {
+          window.WAPI.onInterfaceChange((window as any)['onInterfaceChange']);
+          (window as any)['onInterfaceChange'].exposed = true;
         }
         if (!window['onMessage'].exposed) {
           WPP.on('chat.new_message', (msg) => {
@@ -171,7 +171,7 @@ export class ListenerLayer extends ProfileLayer {
   /**
    * @returns Returns the current state of the connection
    */
-  public async onStreamChange(fn: (state) => void) {
+  public async onStreamChange(fn: (state: any) => void) {
     this.listenerEmitter.on(ExposedFn.onStreamChange, (state) => {
       fn(state);
     });
@@ -186,7 +186,7 @@ export class ListenerLayer extends ProfileLayer {
    * @event Listens to messages received
    * @returns Observable stream of messages
    */
-  public async onMessage(fn: (message) => void) {
+  public async onMessage(fn: (message: any) => void) {
     this.listenerEmitter.on(ExposedFn.OnMessage, (state) => {
       if (!callonMessage.checkObj(state.from, state.id)) {
         callonMessage.addObjects(state.from, state.id);
@@ -259,7 +259,7 @@ export class ListenerLayer extends ProfileLayer {
       if (!callOnack.checkObj(e.ack, e.id._serialized)) {
         let key = callOnack.getObjKey(e.id._serialized);
         if (key) {
-          callOnack.module[key].id = e.ack;
+          (callOnack as any).module[key].id = e.ack;
           fn(e);
         } else {
           callOnack.addObjects(e.ack, e.id._serialized);
@@ -274,7 +274,7 @@ export class ListenerLayer extends ProfileLayer {
           if (!callOnack.checkObj(e.ack, e.id._serialized)) {
             let key = callOnack.getObjKey(e.id._serialized);
             if (key) {
-              callOnack.module[key].id = e.ack;
+              (callOnack as any).module[key].id = e.ack;
               fn(e);
             } else {
               callOnack.addObjects(e.ack, e.id._serialized);

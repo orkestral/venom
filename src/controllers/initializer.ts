@@ -144,9 +144,9 @@ export async function create(
   catchQR?: CatchQR,
   statusFind?: StatusFind,
   options?: CreateConfig,
-  browserSessionToken?: tokenSession,
+  browserSessionToken?: tokenSession | any,
   browserInstance?: BrowserInstance
-): Promise<Whatsapp> {
+): Promise<Whatsapp | any> {
   let session = 'session';
 
   if (
@@ -167,7 +167,7 @@ export async function create(
 
   const mergedOptions = { ...defaultOptions, ...options };
 
-  const logger = mergedOptions.logger;
+  const logger: any = mergedOptions.logger || {};
 
   if (!mergedOptions.disableWelcome) {
     welcomeScreen();
@@ -184,7 +184,7 @@ export async function create(
     logger.info('Waiting... checking the browser...', { session });
   }
 
-  const browser = await initBrowser(session, mergedOptions, logger);
+  const browser: any = await initBrowser(session, mergedOptions, logger);
   // Erro of connect wss
   if (typeof browser === 'string' && browser === 'connect') {
     logger.info('Error when try to connect ' + mergedOptions.browserWS, {
@@ -256,7 +256,7 @@ export async function create(
 
     const newPage: Page = await getWhatsappPage(browser);
     const client = new Whatsapp(newPage, session, mergedOptions);
-    const page: false | Page = await initWhatsapp(
+    const page: false | Page | any = await initWhatsapp(
       session,
       mergedOptions,
       browser,
@@ -294,6 +294,7 @@ export async function create(
             ) {
               return true;
             }
+            return false;
           },
           {
             timeout: 0,
@@ -311,7 +312,7 @@ export async function create(
 
     client.onStateChange(async (state) => {
       if (state === SocketState.PAIRING) {
-        const device: Boolean = await page
+        const device: Boolean | any = await page
           .evaluate(() => {
             if (
               document.querySelector('[tabindex="-1"]') &&
@@ -349,7 +350,7 @@ export async function create(
       }
     });
 
-    page.on('dialog', async (dialog) => {
+    page.on('dialog', async (dialog: any) => {
       await dialog.accept();
     });
 
@@ -366,7 +367,7 @@ export async function create(
         throw 'Not Logged';
       }
 
-      let waitLoginPromise = null;
+      let waitLoginPromise: any = null;
       client.onStateChange(async (state) => {
         if (
           state === SocketState.UNPAIRED ||
@@ -412,33 +413,6 @@ export async function create(
         `\nDebug: Loading wp app... waitForFunction "Store" ... this might take a while also`
       );
     }
-
-    await page
-      .waitForFunction(
-        () => {
-          if (mergedOptions.debug) {
-            console.log(`\nDebug: Loading wp app....`);
-          }
-          const StoreKey = Object.keys(window).find(
-            (k) =>
-              !!Object.getOwnPropertyDescriptor(window[k], 'WidFactory') &&
-              !!Object.getOwnPropertyDescriptor(
-                window[k].WidFactory,
-                'createWid'
-              )
-          );
-          if (StoreKey) {
-            window.Store = window[StoreKey];
-            return true;
-          }
-          return false;
-        },
-        {
-          timeout: 0,
-          polling: 100
-        }
-      )
-      .catch(() => {});
 
     if (mergedOptions.debug) {
       console.log(`\nDebug: injecting Api ...`);

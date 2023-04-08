@@ -55,9 +55,7 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 import { Page } from 'puppeteer';
 import { CreateConfig } from '../../config/create-config';
 import { UILayer } from './ui.layer';
-import { Scope, checkValuesSender } from '../helpers/layers-interface';
-
-let obj: Scope;
+import { checkValuesSender } from '../helpers/layers-interface';
 
 export class ControlsLayer extends UILayer {
   constructor(public page: Page, session?: string, options?: CreateConfig) {
@@ -70,7 +68,7 @@ export class ControlsLayer extends UILayer {
    */
   public async checkChat(contactId: string) {
     return new Promise(async (resolve, reject) => {
-      const result = await this.page.evaluate(
+      const result: any = await this.page.evaluate(
         ({ contactId }) => {
           return WAPI.checkChat(contactId);
         },
@@ -154,7 +152,7 @@ export class ControlsLayer extends UILayer {
    */
   public async pinChat(chatId: string, option: boolean, nonExistent?: boolean) {
     return new Promise(async (resolve, reject) => {
-      const result = await this.page.evaluate(
+      const result: any = await this.page.evaluate(
         ({ chatId, option, nonExistent }) => {
           return WAPI.pinChat(chatId, option, nonExistent);
         },
@@ -214,7 +212,7 @@ export class ControlsLayer extends UILayer {
       if (typeof validating === 'object') {
         return reject(validating);
       }
-      const result = await this.page.evaluate(
+      const result: any = await this.page.evaluate(
         ({ contactId, messageId }) =>
           WAPI.deleteMessagesAll(contactId, messageId, false),
         { contactId: chatId, messageId }
@@ -262,7 +260,7 @@ export class ControlsLayer extends UILayer {
       if (typeof validating === 'object') {
         return reject(validating);
       }
-      const result = await this.page.evaluate(
+      const result: any = await this.page.evaluate(
         ({ contactId, messageId }) =>
           WAPI.deleteMessagesMe(contactId, messageId, true),
         { contactId: chatId, messageId }

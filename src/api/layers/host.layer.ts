@@ -70,8 +70,8 @@ import { getSpinnies } from '../../utils/spinnies';
 import * as Spinnies from 'spinnies';
 
 export class HostLayer {
-  readonly session: string;
-  readonly options: CreateConfig;
+  readonly session: string | any;
+  readonly options: CreateConfig | any;
 
   protected spinnies: Spinnies = getSpinnies();
   protected spinStatus = {
@@ -82,8 +82,8 @@ export class HostLayer {
     state: ''
   };
 
-  protected autoCloseInterval = null;
-  protected statusFind?: (statusGet: string, session: string) => void = null;
+  protected autoCloseInterval: any = null;
+  protected statusFind?: (statusGet: string, session: string) => void;
 
   constructor(public page: Page, session?: string, options?: CreateConfig) {
     this.session = session;
@@ -93,14 +93,15 @@ export class HostLayer {
     //this._initialize(this.page);
   }
 
-  protected spin(text?: string, status?: Spinnies.SpinnerStatus) {
+  protected spin(text?: string, status?: Spinnies.SpinnerStatus | any) {
     const name = `session-${this.session}`;
 
     text = text || this.spinStatus.previousText;
     this.spinStatus.previousText = text;
 
     status =
-      status || (this.spinStatus.previousStatus as Spinnies.SpinnerStatus);
+      status ||
+      (this.spinStatus.previousStatus as Spinnies.SpinnerStatus | any);
     this.spinStatus.previousStatus = status;
 
     let fullText = `[instance: ${this.session}`;
@@ -109,7 +110,7 @@ export class HostLayer {
     // }
     fullText += `]: ${text}`;
 
-    let prevText = '';
+    let prevText: any = '';
 
     try {
       prevText = this.spinnies.pick(name).text;
@@ -244,7 +245,7 @@ export class HostLayer {
       urlCode?: string
     ) => void,
     statusFind?: (statusGet: string, session: string) => void
-  ) {
+  ): Promise<any> {
     this.statusFind = statusFind;
     this.spin('Waiting page load', 'spinning');
 

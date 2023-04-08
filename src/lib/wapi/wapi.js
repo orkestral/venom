@@ -169,14 +169,14 @@ import {
   sendCheckType,
   isBeta,
   sendQueryMsgInfo
-} from './functions';
+} from './functions/index.js';
 import {
   base64ToFile,
   generateMediaKey,
   getFileHash,
   arrayBufferToBase64,
   sleep
-} from './helper';
+} from './helper/index.js';
 import {
   addNewMessagesListener,
   addOnAddedToGroup,
@@ -187,7 +187,7 @@ import {
   allNewMessagesListener,
   initNewMessagesListener,
   addOnStreamChange
-} from './listeners';
+} from './listeners/index.js';
 import {
   _serializeChatObj,
   _serializeContactObj,
@@ -196,8 +196,9 @@ import {
   _serializeRawObj,
   _serializeMeObj,
   _serializeNumberStatusObj
-} from './serializers';
-import { getStore } from './store/get-store';
+} from './serializers/index.js';
+
+import { getStore } from './store/get-store.js';
 
 window['webpackChunkwhatsapp_web_client'] =
   window['webpackChunkwhatsapp_web_client'] || [];

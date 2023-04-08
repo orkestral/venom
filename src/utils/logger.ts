@@ -71,7 +71,7 @@ export interface MetaInfo {
 
 export interface SessionInfo extends TransformableInfo, MetaInfo {}
 
-export const formatLabelSession = format((info: SessionInfo, opts?: any) => {
+export const formatLabelSession = format((info: SessionInfo) => {
   const parts = [];
   if (info.session) {
     parts.push(info.session);

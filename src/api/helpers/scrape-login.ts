@@ -59,13 +59,14 @@ export async function scrapeLogin(page: Page): Promise<boolean> {
     let data: boolean;
     data = false;
     if (count != null) {
-      const text = count.textContent,
+      const text: any = count.textContent,
         timeNumber = text.match('Invalid');
       if (timeNumber) {
         data = true;
       }
       return data;
     }
+    return false;
   });
   return result;
 }

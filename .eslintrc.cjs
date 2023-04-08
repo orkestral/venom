@@ -1,8 +1,7 @@
-// eslint-disable-next-line no-undef
 module.exports = {
   root: true,
   parser: '@typescript-eslint/parser',
-  plugins: ['@typescript-eslint'],
+  plugins: ['@typescript-eslint', 'import'],
   extends: [
     'eslint:recommended',
     'plugin:@typescript-eslint/eslint-recommended',
@@ -11,7 +10,8 @@ module.exports = {
     'plugin:prettier/recommended'
   ],
   rules: {
-    // @todo more restrictive
+    'import/no-unresolved': [2, { commonjs: true }],
+    '@typescript-eslint/no-unsafe-member-access': 'off',
     '@typescript-eslint/ban-ts-comment': 'off',
     '@typescript-eslint/ban-types': 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
@@ -27,7 +27,16 @@ module.exports = {
     'no-empty': ['error', { allowEmptyCatch: true }],
     'no-useless-catch': 'off',
     'no-useless-escape': 'off',
-    'prefer-const': 'off'
+    'prefer-const': 'off',
+    'no-trailing-spaces': 0
+  },
+  settings: {
+    'import/resolver': {
+      node: {
+        paths: ['./src']
+      },
+      typescript: {}
+    }
   },
   overrides: [
     {
@@ -52,7 +61,6 @@ module.exports = {
         WWebJS: true
       },
       rules: {
-        // @todo more restrictive
         '@typescript-eslint/no-array-constructor': 'off',
         'no-prototype-builtins': 'off',
         'no-redeclare': 'off',

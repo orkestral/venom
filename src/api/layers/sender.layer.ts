@@ -90,7 +90,7 @@ export class SenderLayer extends ListenerLayer {
     menu: Array<any>
   ): Promise<Object> {
     return new Promise(async (resolve, reject) => {
-      const result = await this.page.evaluate(
+      const result: any = await this.page.evaluate(
         ({ to, title, description, buttonText, menu }) => {
           return WAPI.sendListMenu(to, title, description, buttonText, menu);
         },
@@ -217,7 +217,7 @@ export class SenderLayer extends ListenerLayer {
   public async sendImageFromBase64(
     to: string,
     base64: string,
-    filename?: string,
+    filename?: string | any,
     caption?: string
   ): Promise<SendFileResult> {
     return new Promise(async (resolve, reject) => {
@@ -436,7 +436,7 @@ export class SenderLayer extends ListenerLayer {
         return reject(validating);
       }
 
-      const result = await this.page.evaluate(
+      const result: any = await this.page.evaluate(
         ({ to, title, buttons, subtitle }) => {
           return WAPI.sendButtons(to, title, buttons, subtitle);
         },
@@ -546,7 +546,7 @@ export class SenderLayer extends ListenerLayer {
       { to, content, quotedMsg }
     );
 
-    const message = (await this.page.evaluate(
+    const message: any = (await this.page.evaluate(
       (messageId: any) => WAPI.getMessageById(messageId),
       result.id
     )) as Message;
@@ -779,7 +779,7 @@ export class SenderLayer extends ListenerLayer {
     name?: string
   ) {
     return new Promise(async (resolve, reject) => {
-      const result = await this.page.evaluate(
+      const result: any = await this.page.evaluate(
         ({ to, contactsId, name }) => {
           return WAPI.sendContactVcard(to, contactsId, name);
         },
@@ -800,7 +800,7 @@ export class SenderLayer extends ListenerLayer {
    */
   public async sendContactVcardList(to: string, contacts: string[]) {
     return new Promise(async (resolve, reject) => {
-      const result = await this.page.evaluate(
+      const result: any = await this.page.evaluate(
         ({ to, contacts }) => {
           return WAPI.sendContactVcardList(to, contacts);
         },
@@ -850,7 +850,7 @@ export class SenderLayer extends ListenerLayer {
   public async sendImageAsStickerGif(
     to: string,
     path: string
-  ): Promise<SendStickerResult | false> {
+  ): Promise<SendStickerResult | false | any> {
     let b64 = await downloadFileToBase64(path, ['image/gif', 'image/webp']);
     if (!b64) {
       b64 = await fileToBase64(path);
@@ -901,7 +901,7 @@ export class SenderLayer extends ListenerLayer {
   public async sendImageAsSticker(
     to: string,
     path: string
-  ): Promise<SendStickerResult | false> {
+  ): Promise<SendStickerResult | false | any> {
     let b64 = await downloadFileToBase64(path, [
       'image/gif',
       'image/png',
@@ -973,7 +973,7 @@ export class SenderLayer extends ListenerLayer {
     title: string
   ) {
     return new Promise(async (resolve, reject) => {
-      const result = await this.page.evaluate(
+      const result: any = await this.page.evaluate(
         ({ to, latitude, longitude, title }) => {
           return WAPI.sendLocation(to, latitude, longitude, title);
         },

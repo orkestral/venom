@@ -71,7 +71,7 @@ export async function initWhatsapp(
   options: CreateConfig,
   browser: Browser,
   token?: tokenSession
-): Promise<false | Page> {
+): Promise<false | Page | undefined | any> {
   const waPage: Page = await getWhatsappPage(browser);
   if (waPage != null) {
     try {
@@ -178,10 +178,10 @@ export async function injectApi(page: Page) {
  */
 export async function initBrowser(
   session: string,
-  options: CreateConfig,
+  options: CreateConfig | any,
   logger: Logger,
   extras = {}
-): Promise<Browser | string> {
+): Promise<Browser | string | null> {
   const chromePath = getChrome();
   if (chromePath && options.useChrome) {
     extras = { ...extras, executablePath: chromePath };
@@ -218,7 +218,7 @@ export async function initBrowser(
             });
           }
         })
-        .then((revisionInfo) => {
+        .then((revisionInfo: any) => {
           logger.info(`${chalk.green(`Chromium Finished result`)}`, {
             session,
             type: 'browser'

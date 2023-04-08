@@ -56,10 +56,10 @@ import { AckType } from '../../api/model/enum/ack-type';
 export class callbackWile {
   obj: Object;
   constructor() {
-    this.obj = [];
+    this.obj = ['filter'];
   }
   addObjects(ids: AckType | String, serializeds: string) {
-    let checkFilter = this.obj['filter'](
+    let checkFilter = (this.obj as any)['filter'](
       (order: any) => order.serialized === serializeds
     );
     let add = null;
@@ -68,7 +68,7 @@ export class callbackWile {
         id: ids,
         serialized: serializeds
       };
-      this.obj['push'](add);
+      (this.obj as any)['push'](add);
       return true;
     }
     return false;
@@ -76,7 +76,7 @@ export class callbackWile {
 
   getObjKey(serialized: string) {
     for (let i in this.obj) {
-      if (this.obj[i].serialized === serialized) {
+      if ((this.obj as any)[i].serialized === serialized) {
         return i;
       }
     }
@@ -84,7 +84,7 @@ export class callbackWile {
   }
 
   checkObj(id: AckType | String, serialized: string) {
-    let checkFilter = this.obj['filter'](
+    let checkFilter = (this.obj as any)['filter'](
       (order: any) => order.id === id && order.serialized === serialized
     );
     if (checkFilter.length) {

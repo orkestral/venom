@@ -52,7 +52,7 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
-import * as sharp from 'sharp';
+import sharp from 'sharp';
 
 interface selectOutput {
   webpBase64: string;
@@ -79,7 +79,7 @@ export async function stickerSelect(_B: Buffer, _t: number) {
       return false;
   }
 
-  const metadata = await _w.metadata();
+  const metadata: any = await _w.metadata();
 
   if (metadata.width > 512 || metadata.pageHeight > 512) {
     console.error(

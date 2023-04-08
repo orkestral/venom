@@ -67,7 +67,7 @@ export const getInterfaceStatus = async (
   return await waPage
     .waitForFunction(
       () => {
-        const erroHTTP = document.querySelector('.error-code');
+        const erroHTTP: any = document.querySelector('.error-code');
         if (erroHTTP && erroHTTP[0].innerText.includes('HTTP ERROR 429')) {
           return { type: erroHTTP[0].innerText };
         }
@@ -99,7 +99,7 @@ export const getInterfaceStatus = async (
         polling: 100
       }
     )
-    .then(async (element) => {})
+    .then(() => {})
     .catch((e) => e);
 };
 
@@ -148,7 +148,7 @@ export const isConnectingToPhone = async (waPage: puppeteer.Page) => {
 
 export async function asciiQr(code: string): Promise<string> {
   return new Promise((resolve) => {
-    qrcode.generate(code, { small: true }, (qrcode) => {
+    qrcode.generate(code, { small: true }, (qrcode: any) => {
       resolve(qrcode);
     });
   });
@@ -189,7 +189,7 @@ export async function retrieveQR(
     .catch(() => undefined);
 }
 
-export function SessionTokenCkeck(token: object) {
+export function SessionTokenCkeck(token: object | any) {
   if (
     token &&
     token['WABrowserId'] &&
@@ -206,9 +206,9 @@ export function SessionTokenCkeck(token: object) {
 export async function auth_InjectToken(
   page: puppeteer.Page,
   session: string,
-  options: CreateConfig,
+  options: CreateConfig | any,
   token?: tokenSession
-) {
+): Promise<false | undefined | any> {
   if (!token) {
     const pathToken: string = path.join(
       path.resolve(
@@ -239,7 +239,7 @@ export async function auth_InjectToken(
 export async function saveToken(
   page: puppeteer.Page,
   session: string,
-  options: CreateConfig
+  options: CreateConfig | any
 ) {
   const token = (await page
     .evaluate(() => {

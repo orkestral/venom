@@ -52,10 +52,10 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 */
-export { _serializeChatObj } from './serialize-chat';
-export { _serializeRawObj } from './serialize-raw';
-export { _serializeMessageObj } from './serialize-message';
-export { _serializeContactObj } from './serialize-contact';
-export { _serializeProfilePicThumb } from './serialize-profile-pic-thumb';
-export { _serializeMeObj } from './serielize-me';
-export { _serializeNumberStatusObj } from './serializeNumberStatusObj';
+export { _serializeChatObj } from './serialize-chat.js';
+export { _serializeRawObj } from './serialize-raw.js';
+export { _serializeMessageObj } from './serialize-message.js';
+export { _serializeContactObj } from './serialize-contact.js';
+export { _serializeProfilePicThumb } from './serialize-profile-pic-thumb.js';
+export { _serializeMeObj } from './serielize-me.js';
+export { _serializeNumberStatusObj } from './serializeNumberStatusObj.js';

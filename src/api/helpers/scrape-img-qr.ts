@@ -73,7 +73,7 @@ export async function scrapeImg(page: Page): Promise<ScrapQrcode | undefined> {
 
   const result = await page
     .evaluate(() => {
-      const selectorImg = document.querySelector('canvas');
+      const selectorImg: any = document.querySelector('canvas');
       const selectorUrl = selectorImg.closest('[data-ref]');
 
       if (selectorImg != null && selectorUrl != null) {

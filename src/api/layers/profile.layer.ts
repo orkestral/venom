@@ -75,7 +75,7 @@ export class ProfileLayer extends HostLayer {
    */
   public sendMute(id: string, time: number, type: string): Promise<object> {
     return new Promise(async (resolve, reject) => {
-      const result = await this.page.evaluate(
+      const result: any = await this.page.evaluate(
         (id, time, type) => WAPI.sendMute(id, time, type),
         id,
         time,
@@ -115,7 +115,7 @@ export class ProfileLayer extends HostLayer {
    * Sets the user's current profile photo
    * @param name
    */
-  public async setProfilePic(path: string) {
+  public async setProfilePic(path: string): Promise<any> {
     let b64 = await downloadFileToBase64(path, [
       'image/gif',
       'image/png',

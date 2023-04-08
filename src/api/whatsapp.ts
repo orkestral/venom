@@ -59,7 +59,6 @@ import { magix, timeout, makeOptions } from './helpers/decrypt';
 import { useragentOverride } from '../config/WAuserAgente';
 import { CreateConfig } from '../config/create-config';
 import axios from 'axios';
-import treekill = require('tree-kill');
 
 export class Whatsapp extends ControlsLayer {
   constructor(public page: Page, session?: string, options?: CreateConfig) {
@@ -129,7 +128,7 @@ export class Whatsapp extends ControlsLayer {
    * Closes page and browser
    * @internal
    */
-  public async close() {
+  public async close(): Promise<boolean | undefined | any> {
     try {
       if (!this.page.isClosed()) {
         await this.page.close();

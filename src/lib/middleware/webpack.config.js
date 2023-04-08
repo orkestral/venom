@@ -55,21 +55,25 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 const path = require('path');
 
 module.exports = {
+  mode: 'development',
   entry: './middleware.ts',
-  module: {
-    rules: [
-      {
-        test: /\.tsx?$/,
-        use: 'ts-loader',
-        exclude: /node_modules/
-      }
-    ]
+  output: {
+    filename: 'middleware.js',
+    path: path.resolve(__dirname, '../../../dist/lib/middleware')
   },
   resolve: {
     extensions: ['.tsx', '.ts', '.js']
   },
-  output: {
-    filename: 'middleware.js',
-    path: path.resolve(__dirname, '../../../dist/lib/middleware')
-  }
+  module: {
+    rules: [
+      {
+        test: /\.tsx?$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'ts-loader'
+        }
+      }
+    ]
+  },
+  devtool: 'source-map'
 };
