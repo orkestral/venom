@@ -55,37 +55,6 @@ export const getInterfaceStatus = async (waPage: puppeteer.Page) => {
     .catch(() => undefined);
 };
 
-// export const initSocket = async (
-//   options: CreateConfig,
-//   session: string,
-//   catchQR: CatchQR,
-//   spinnies?: Spinnies
-// ) => {
-//   return new Promise(async (resolve, reject) => {
-//     const socket = await connectSocket(options, session);
-
-//     socket.ev.on('connection.update', async (update: any) => {
-//       const { connection, qr } = update;
-
-//       if (qr) {
-//         QRCode.toDataURL(
-//           qr,
-//           {
-//             type: 'image/jpeg',
-//             quality: 1,
-//           },
-//           function (err: any, qrCodeBase64: any) {
-//             if (err) throw err;
-//             catchQR && catchQR(qrCodeBase64, qr);
-//           }
-//         );
-//       }
-
-//       if (connection === 'open') {
-//         return resolve(socket);
-//       }
-//     });
-//   });
 // };
 
 /**

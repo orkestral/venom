@@ -105,7 +105,6 @@ export async function puppeteerMutationListener(oldValue, newValue) {
   console.log(`${oldValue} -> ${newValue}`);
 }
 
-
 export function folderSession(
   options: CreateConfig,
   session: string,

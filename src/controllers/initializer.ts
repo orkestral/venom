@@ -1,15 +1,7 @@
 import { readFileSync } from 'fs';
 import { Whatsapp } from '../api/whatsapp';
 import { CreateConfig, defaultOptions } from '../config/create-config';
-import {
-  SessionTokenCkeck,
-  saveToken,
-  isClassic,
-  checkStore,
-  // resetStore,
-  checkDisconnect
-} from './auth';
-import { sleep } from '../utils/sleep';
+import { SessionTokenCkeck, isClassic } from './auth';
 import { initWhatsapp, initBrowser, statusLog } from './browser';
 import { welcomeScreen } from './welcome';
 import { getSpinnies } from '../utils/spinnies';
@@ -20,10 +12,11 @@ import {
   InterfaceState
 } from '../api/model/enum';
 import { InterfaceChangeMode } from '../api/model';
-import { deleteFiles, checkingCloses, loadForceConnect } from '../api/helpers';
+import { checkingCloses } from '../api/helpers';
 import { tokenSession } from '../config/tokenSession.config';
 import { Browser, Page } from 'puppeteer';
-import { checkFileJson } from '../api/helpers/check-token-file';
+import { checkUpdates } from './check-up-to-date';
+
 const QRCode = require('qrcode');
 
 declare global {
@@ -176,6 +169,8 @@ export async function create(
       browserInstance = sessionOrOption.browserInstance || browserInstance;
       options = sessionOrOption;
     }
+
+    await checkUpdates();
 
     let browserToken: any;
 
