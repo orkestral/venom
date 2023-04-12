@@ -1,3 +1,22 @@
+# [5.0.0](https://github.com/orkestral/venom/compare/v4.3.7...v5.0.0) (2023-04-12)
+
+
+### Bug Fixes
+
+* all functions ([dbbee0e](https://github.com/orkestral/venom/commit/dbbee0ebc7f89eece8ed2953768e2ec4b6bd0e28))
+* lint! ([f25bc41](https://github.com/orkestral/venom/commit/f25bc41994f72e933bd72dfc588bd972f91f1542))
+* lint? ([46c6cae](https://github.com/orkestral/venom/commit/46c6cae046d503bf52dcc95f69c5a850a738c665))
+* yml ([c167d83](https://github.com/orkestral/venom/commit/c167d832232e1412cc0a4f12bf8efa1b4e214545))
+
+
+### Features
+
+* checkUpdates ([c90a155](https://github.com/orkestral/venom/commit/c90a1557370121fbd8ae68cc09799ef3d13d7309))
+* ECMAScript ([05b1854](https://github.com/orkestral/venom/commit/05b1854fd66d428d329cc79892887443a3bda588))
+* workflows ([4ac92fd](https://github.com/orkestral/venom/commit/4ac92fdd0896764137bc8936444c194fe5c92484))
+
+
+
 ## [4.3.7](https://github.com/orkestral/venom/compare/v4.3.6...v4.3.7) (2022-12-01)
 
 
