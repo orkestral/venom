@@ -37,6 +37,8 @@ jobs:
 
       - name: Install Dependencies
         run: npm ci --no-progress || npm install --no-progress
+      - name: Lint source
+        run: npm run lint
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           PUPPETEER_SKIP_DOWNLOAD: true

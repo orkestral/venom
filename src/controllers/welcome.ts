@@ -5,6 +5,6 @@ export function welcomeScreen() {
     return;
   }
   welcomeShown = true;
-  yo('SNAKE-PRO', { color: 'cyan' });
+  yo('VENOM-BOT', { color: 'cyan' });
   console.log('\n\n');
 }
