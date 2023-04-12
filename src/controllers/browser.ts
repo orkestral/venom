@@ -1,61 +1,7 @@
-/*
-NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN
-MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mMMMMMMMMMNNNmmNNNMMNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mmNMMNMMMMNNNNNmmmddhdddNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mddNMMNy:/odNmmddmmNNmdhhddmNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NmmdNMNd:--+dNmmddhhddmmhsyhhmdmmNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NmNmdNmy:.-oyNmmmhmdhho+sososyhhhddNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NmmNdh+-`.:oyNNdmmdmmdo-://oysssyhhhdmNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-Nmmmoyyyo+osdNmdmmddNNhs+/::/+osyssydyhdNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NNmhsymMMNmmmmdmdNNddNmsso+++////ossssyyhdmNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mhhhmNNMNNNhssshhmmddmmssyooooso/::+oysshhhhmMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mmdhdddNNdyoosyhdmddmmmsoooooyysyys/::/oyyhhhyMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mdddhddmhsooshdmdmdhhyyyysso/ooo+syhhs/-/+shyhMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-dyyhdmd+ososhdmdmyyhhhhhhhyo++o/+///+ohhso++sdMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-dhdmNNdsossyhmdmsydhssssyhhs/++o/o+//:++yhhy+/hNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mdmNNNNmhysshddyshdyyy/oss+s::/:://++///++++/::hmNNNNNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NNMNNNmmNNdymNNhshdshdyhdysh+sy+-:++osssosss++yNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NmNNNmdNNmNmmmNmyyddyyhdhydyohys/-oo+osssysyyohNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mmNNNhdNmmNNmNMMNhyyhhhdhyyhmmyh+-/s+sysssyyhyydNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mNMMMhdNdmMNMMMMMNNmdhdddmhdmmNho/-osoyyo++oyddhhNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NMMMNmhNdNMNMNMMNmNNNmmmdyoohmhoyo::hsooo++oooydhymMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMNNNhmNNMmmNMNNmmmmdmmdyhhoyddddoo++yoyysooossyhsmMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMNNNmmNNNmdNdNmmddhhhdNNhsmNssdooo/dso++osyyysoymMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMNNNNmNNNNNmddmmNhshNmmmNmNMdhNsh/ohho++/:++MMNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MNNNMMNNNNmmmhhhhdyosdNmdmMMhoNmhdmys+ooo++/+MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mmNNNMMNNNNmddmdoodmMMNmmNNhssdmNMMMNdNd/osomMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NmNdhMNmNNMNmdNddohmMMNNNmdmdddNMMMMMMMMmMNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NmNhmMmmmmNNmdNyoNMNmNmdhyyyhdhoyNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NmdmMmmddddNmmdys+hmMMMmmhysssyy++dMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NmdNMMdmdddmmNNyshmNNNNNNNdhhs+yy//dMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NmNMMMdmdddmmMNysdmNNMMMNhhNdhs+y+/:mMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mmNMMNhmmddNNNMdyydmMMMNdyshNhyoss+:/MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NmNMMddmmmmNMNMNdsymNNmdhhdNMNdhsss+:yMMMMMMMMMMMMMMMMNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMdhmmmmmNMNNMmshNMMMmmMMMMMmNdyo+//NMMMMMMMMMMMMMMMhNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMmhmmmmmmNMMNNMyshdhhhyhNMMMMMMdhso+sMMMMMMMMMMMMMMMhmMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMmdmmmmmmmNMMMmNm+ys++oyyNMMMMMMNmmyyoyNMMMMMMMMMMMMMddMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NmmmmmmmmmmmNMNNmNNyyo+/oohNMMMMMMMMdhhsshmMMMMMMMMMMMyNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mmNNNNNNmmmmNMMNmmddNmmdhhdmMMMMMMMMMNddhssshmmNNNmmdhdMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NNNNNNNNNNNNNNNNmNNNNMMMMMNomMMMMMMMMMNNmdhhyyyyyyyhdmMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-Nd+oNMMMMMMMmodo++++++++++m..yNMMMMMNo+mNMMmhssshdNMMNhNMMMMMMMMMMMddMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MN+ /NMMMMMm: d` -ssssss+`d. `+mMMMMN. dNm+:+syso//hNN--yNMMMMMMMd+`yMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMN+ /NMMMm: oM` +NMMMMMNdN. /`.yNMMN. dh.omMMMMMNy.oM- `:hNMMMm+.  yMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMN/ /NMm: oNy` :sssmMMMMN. dh-`/mMN. d-/NMMMMMMMMy`m- y/`/dmo..o: yMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMN/ /m: +NNy. /yyyNMMMMN. dNNo`.yN- d.oNMMMMMMMMd d- mNh-`.`+mN/ yMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMMN/ . +NMMN- oNMMMMMNdN. dMMMd:`/. ds.dNMMMMMMm::M- dMMNy/dMMN/ yMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMMMN/ +NMMMN- /yyyyyys d. dMMMMNo`  dNy-+ymmmho-+NN- dMMMMMMMMN/ yMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMMMMNyNMMMMN+::::::::::m+/mMMMMMMd: dMMNho///+ymMMN+/mMMMMMMMMNs/hMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMMMMMNMMMMMMMMMMMMMMMMMMMMMMMMMMMMNsmMMMMMMMMMMMMMMNNNNMMNNNMMNNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-*/
 import * as ChromeLauncher from 'chrome-launcher';
 import * as fs from 'fs';
 import * as path from 'path';
-import { Browser, BrowserContext, Page } from 'puppeteer';
+import { Browser, BrowserContext, Page, LaunchOptions } from 'puppeteer';
 import puppeteer from 'puppeteer-extra';
 import { CreateConfig } from '../config/create-config';
 import { puppeteerConfig } from '../config/puppeteer.config';
@@ -63,20 +9,21 @@ import StealthPlugin = require('puppeteer-extra-plugin-stealth');
 import { auth_InjectToken } from './auth';
 import { useragentOverride } from '../config/WAuserAgente';
 import { tokenSession } from '../config/tokenSession.config';
-import * as chalk from 'chalk';
-import { Logger } from 'winston';
-
+import { sleep } from '../utils/sleep';
+import * as Spinnies from 'spinnies';
+import * as os from 'os';
+import * as rimraf from 'rimraf';
 export async function initWhatsapp(
   session: string,
   options: CreateConfig,
   browser: Browser,
   token?: tokenSession
-): Promise<false | Page | undefined | any> {
+): Promise<false | Page> {
   const waPage: Page = await getWhatsappPage(browser);
   if (waPage != null) {
     try {
       await waPage.setUserAgent(useragentOverride);
-      await waPage.setBypassCSP(true);
+      //await waPage.setCacheEnabled(true);
       if (
         typeof options.userPass === 'string' &&
         options.userPass.length &&
@@ -90,16 +37,26 @@ export async function initWhatsapp(
           password: options.userPass
         });
       }
-
       await waPage.goto(puppeteerConfig.whatsappUrl, {
         waitUntil: 'domcontentloaded'
       });
+
+      waPage.on('pageerror', ({ message }) => {
+        const erroLog = message.includes('RegisterEffect is not a function');
+        if (erroLog) {
+          waPage.evaluate(() => {
+            localStorage.clear();
+            window.location.reload();
+          });
+        }
+      });
+
       await browser.userAgent();
       // Auth with token
       await auth_InjectToken(waPage, session, options, token);
 
       return waPage;
-    } catch {
+    } catch (e) {
       waPage.close().catch(() => {});
       browser.close().catch(() => {});
       return false;
@@ -107,154 +64,68 @@ export async function initWhatsapp(
   }
 }
 
-export async function injectApi(page: Page) {
-  const injected = await page
-    .evaluate(() => {
-      // @ts-ignore
-      return (
-        typeof window.WAPI !== 'undefined' &&
-        typeof window.Store !== 'undefined'
-      );
-    })
-    .catch(() => false);
+export async function statusLog(
+  page: Page,
+  spinnies: Spinnies,
+  session: string,
+  callback: (infoLog: string) => void
+) {
+  while (true) {
+    if (page.isClosed()) {
+      try {
+        spinnies.fail(`whatzapp-intro-${session}`, {
+          text: 'Erro intro'
+        });
+      } catch {}
+      break;
+    }
 
-  if (injected) {
-    return;
+    const infoLog: string = await page
+      .evaluate(() => {
+        const target = document.getElementsByClassName('_2dfCc');
+        if (target && target.length) {
+          if (
+            target[0]['innerText'] !== 'WhatsApp' &&
+            target[0]['innerText'] !== window['statusInicial']
+          ) {
+            window['statusInicial'] = target[0]['innerText'];
+            return window['statusInicial'];
+          }
+        }
+      })
+      .catch(() => undefined);
+    if (infoLog) {
+      callback(infoLog);
+    }
+    await sleep(200);
   }
-
-  //  * Credits for WPPConnect Team
-  //  * Author: <Edgard Messias>
-  //  * wppconnect-team/wa-js
-  //  * https://github.com/wppconnect-team/wa-js
-  await page.addScriptTag({
-    path: require.resolve('@wppconnect/wa-js')
-  });
-  // ********************************************
-
-  await page
-    .waitForFunction(
-      () => {
-        return typeof window.WPP !== 'undefined' && window.WPP.isReady;
-      },
-      {
-        timeout: 60000
-      }
-    )
-    .catch(() => false);
-
-  await page
-    .evaluate(() => {
-      WPP.chat.defaultSendMessageOptions.createChat = true;
-      WPP.conn.setKeepAlive(true);
-      WPP.config.poweredBy = 'Venom-Bot';
-    })
-    .catch(() => false);
-  await page.addScriptTag({
-    path: require.resolve(
-      path.join(__dirname, '../../dist/lib/wapi', 'wapi.js')
-    )
-  });
-
-  await page.addScriptTag({
-    path: require.resolve(
-      path.join(__dirname, '../lib/middleware', 'middleware.js')
-    )
-  });
-
-  // Make sure WAPI is initialized
-  await page.waitForFunction(() => {
-    // @ts-ignore
-    return (
-      typeof window.WAPI !== 'undefined' && typeof window.Store !== 'undefined'
-    );
-  });
-
-  return page;
 }
 
-/**
- * Initializes browser, will try to use chrome as default
- * @param session
- */
-export async function initBrowser(
+export async function puppeteerMutationListener(oldValue, newValue) {
+  console.log(`${oldValue} -> ${newValue}`);
+}
+
+
+export function folderSession(
+  options: CreateConfig,
   session: string,
-  options: CreateConfig | any,
-  logger: Logger,
-  extras = {}
-): Promise<Browser | string | null> {
-  const chromePath = getChrome();
-  if (chromePath && options.useChrome) {
-    extras = { ...extras, executablePath: chromePath };
-  } else {
-    if (options.BrowserFetcher) {
-      const browserFetcher = puppeteer.createBrowserFetcher(undefined);
-      logger.info(`${chalk.green('Check chromium....')}`, {
-        session,
-        type: 'browser'
-      });
-      logger.info(`${chalk.green('Checking the total bytes to download!')}`, {
-        session,
-        type: 'browser-total'
-      });
-
-      await browserFetcher
-        .download(options.chromiumVersion, (downloadedByte, totalBytes) => {
-          if (downloadedByte) {
-            logger.info(`${chalk.green(`wait... ${downloadedByte}`)}`, {
-              session,
-              type: 'browser'
-            });
-          }
-          if (totalBytes) {
-            logger.info(`${chalk.green(`Total Bytes ${totalBytes}`)}`, {
-              session,
-              type: 'browser-total'
-            });
-          }
-          if (downloadedByte === totalBytes) {
-            logger.info(`${chalk.green(`extract file....`)}`, {
-              session,
-              type: 'extract-file'
-            });
-          }
-        })
-        .then((revisionInfo: any) => {
-          logger.info(`${chalk.green(`Chromium Finished result`)}`, {
-            session,
-            type: 'browser'
-          });
-          logger.info(`${chalk.green(`Chromium completed result`)}`, {
-            session,
-            type: 'browser-total'
-          });
-          extras = {
-            ...extras,
-            executablePath: revisionInfo.executablePath
-          };
-          puppeteerConfig.chromiumArgs.push(`--single-process`);
-        })
-        .catch((e) => {
-          logger.info(`${chalk.red(`Error chromium: ${e}`)}`, {
-            session
-          });
-          extras = {};
-        });
-    } else {
-      logger.info(`${chalk.red('Chrome not found, using chromium')}`, {
-        session
-      });
-      extras = {};
-    }
-  }
-
-  const folderSession: string = path.join(
+  returnFolder: boolean = true
+) {
+  const folderSession = path.join(
     path.resolve(
       process.cwd(),
       options.mkdirFolderToken,
       options.folderNameToken,
+      options.mkdirFolderTokenMultidevice,
       session
     )
   );
+
+  if (!fs.existsSync(folderSession)) {
+    fs.mkdirSync(folderSession, {
+      recursive: true
+    });
+  }
 
   const folderMulidevice = path.join(
     path.resolve(
@@ -271,12 +142,100 @@ export async function initBrowser(
   }
 
   fs.chmodSync(folderMulidevice, '777');
+  fs.chmodSync(folderSession, '777');
 
   options.puppeteerOptions = {
-    userDataDir: folderSession
-  };
+    userDataDir: folderSession,
+    ignoreHTTPSErrors: true
+  } as LaunchOptions;
 
   puppeteerConfig.chromiumArgs.push(`--user-data-dir=${folderSession}`);
+
+  if (returnFolder) {
+    return folderSession;
+  }
+}
+/**
+ * Initializes browser, will try to use chrome as default
+ * @param session
+ */
+export async function initBrowser(
+  spinnies: any,
+  session: string,
+  options: CreateConfig,
+  extras = {}
+): Promise<Browser | string> {
+  const chromePath = getChrome();
+  if (chromePath && options.useChrome) {
+    extras = { ...extras, executablePath: chromePath };
+  } else {
+    if (options.BrowserFetcher) {
+      const browserFetcher = puppeteer.createBrowserFetcher(undefined);
+
+      spinnies.add(`extract-file`, {
+        text: `Await download Chromium`
+      });
+      let init = true;
+      await browserFetcher
+        .download(options.chromiumVersion, (downloadedByte, totalBytes) => {
+          if (init) {
+            spinnies.add(`chromium-${session}`, {
+              text: 'Check chromium....'
+            });
+
+            spinnies.add(`chromium-total-${session}`, {
+              text: 'Checking the total bytes to download!'
+            });
+            init = false;
+          }
+
+          if (downloadedByte) {
+            spinnies.update(`chromium-${session}`, {
+              text: `Total byte value....${downloadedByte}`
+            });
+          }
+
+          if (totalBytes) {
+            spinnies.update(`chromium-total-${session}`, {
+              text: `Total Bytes ${totalBytes}`
+            });
+          }
+
+          if (downloadedByte === totalBytes) {
+            spinnies.succeed(`chromium-${session}`, {
+              text: `Chromium Finished result`
+            });
+            spinnies.succeed(`chromium-total-${session}`, {
+              text: `Chromium completed result`
+            });
+            spinnies.update(`extract-file`, {
+              text: `Extract files... await...`
+            });
+          }
+        })
+        .then((revisionInfo) => {
+          spinnies.succeed(`extract-file`, {
+            text: `Extract files concluded`
+          });
+          extras = {
+            ...extras,
+            executablePath: revisionInfo.executablePath
+          };
+          puppeteerConfig.chromiumArgs.push(`--single-process`);
+        })
+        .catch((e) => {
+          console.log('error chromium: ', e);
+          extras = {};
+        });
+    } else {
+      console.log('Chrome not found, using chromium');
+      extras = {};
+    }
+  }
+
+  if (options.multidevice === true) {
+    folderSession(options, session);
+  }
 
   // Use stealth plugin to avoid being detected as a bot
   puppeteer.use(StealthPlugin());
@@ -289,11 +248,12 @@ export async function initBrowser(
       : Object.assign(puppeteerConfig.chromiumArgs, [
           `--proxy-server=${proxy}`
         ]);
+
     // console.log(puppeteerConfig.chromiumArgs);
   }
   if (
     Array.isArray(options?.addBrowserArgs) &&
-    options?.addBrowserArgs.length
+    options?.addBrowserArgs.length > 0
   ) {
     for (
       let index: number = 0;
@@ -306,7 +266,6 @@ export async function initBrowser(
       }
     }
   }
-
   let browser = null;
   if (options.browserWS && options.browserWS != '') {
     await puppeteer
@@ -316,10 +275,7 @@ export async function initBrowser(
       .then((e) => {
         browser = e;
       })
-      .catch((e) => {
-        logger.info(`${chalk.red(`Error connect: ${e}`)}`, {
-          session
-        });
+      .catch(() => {
         browser = 'connect';
       });
   } else {
@@ -338,12 +294,29 @@ export async function initBrowser(
         browser = e;
       })
       .catch((e) => {
-        logger.info(`${chalk.red(`Error launch: ${e}`)}`, {
-          session
-        });
+        console.error('Error launch: ', e);
         browser = 'launch';
       });
   }
+  try {
+    const arg = browser
+      .process()
+      .spawnargs.find((s: string) => s.startsWith('--user-data-dir='));
+
+    if (arg) {
+      const tmpUserDataDir = arg.split('=')[1];
+
+      // Only if path is in TMP directory
+      if (path.relative(os.tmpdir(), tmpUserDataDir).startsWith('puppeteer')) {
+        process.on('exit', () => {
+          // Remove only on exit signal
+          try {
+            rimraf.sync(tmpUserDataDir);
+          } catch (error) {}
+        });
+      }
+    }
+  } catch (error) {}
   return browser;
 }
 
@@ -351,11 +324,9 @@ export async function getWhatsappPage(
   browser: Browser | BrowserContext
 ): Promise<Page> {
   const pages = await browser.pages().catch();
-
   if (pages.length) {
     return pages[0];
   }
-
   return await browser.newPage().catch();
 }
 

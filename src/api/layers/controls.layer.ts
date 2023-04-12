@@ -1,85 +1,18 @@
-/*
-NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN
-MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mMMMMMMMMMNNNmmNNNMMNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mmNMMNMMMMNNNNNmmmddhdddNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mddNMMNy:/odNmmddmmNNmdhhddmNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NmmdNMNd:--+dNmmddhhddmmhsyhhmdmmNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NmNmdNmy:.-oyNmmmhmdhho+sososyhhhddNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NmmNdh+-`.:oyNNdmmdmmdo-://oysssyhhhdmNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-Nmmmoyyyo+osdNmdmmddNNhs+/::/+osyssydyhdNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NNmhsymMMNmmmmdmdNNddNmsso+++////ossssyyhdmNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mhhhmNNMNNNhssshhmmddmmssyooooso/::+oysshhhhmMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mmdhdddNNdyoosyhdmddmmmsoooooyysyys/::/oyyhhhyMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mdddhddmhsooshdmdmdhhyyyysso/ooo+syhhs/-/+shyhMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-dyyhdmd+ososhdmdmyyhhhhhhhyo++o/+///+ohhso++sdMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-dhdmNNdsossyhmdmsydhssssyhhs/++o/o+//:++yhhy+/hNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mdmNNNNmhysshddyshdyyy/oss+s::/:://++///++++/::hmNNNNNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NNMNNNmmNNdymNNhshdshdyhdysh+sy+-:++osssosss++yNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NmNNNmdNNmNmmmNmyyddyyhdhydyohys/-oo+osssysyyohNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mmNNNhdNmmNNmNMMNhyyhhhdhyyhmmyh+-/s+sysssyyhyydNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mNMMMhdNdmMNMMMMMNNmdhdddmhdmmNho/-osoyyo++oyddhhNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NMMMNmhNdNMNMNMMNmNNNmmmdyoohmhoyo::hsooo++oooydhymMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMNNNhmNNMmmNMNNmmmmdmmdyhhoyddddoo++yoyysooossyhsmMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMNNNmmNNNmdNdNmmddhhhdNNhsmNssdooo/dso++osyyysoymMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMNNNNmNNNNNmddmmNhshNmmmNmNMdhNsh/ohho++/:++MMNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MNNNMMNNNNmmmhhhhdyosdNmdmMMhoNmhdmys+ooo++/+MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mmNNNMMNNNNmddmdoodmMMNmmNNhssdmNMMMNdNd/osomMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NmNdhMNmNNMNmdNddohmMMNNNmdmdddNMMMMMMMMmMNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NmNhmMmmmmNNmdNyoNMNmNmdhyyyhdhoyNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NmdmMmmddddNmmdys+hmMMMmmhysssyy++dMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NmdNMMdmdddmmNNyshmNNNNNNNdhhs+yy//dMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NmNMMMdmdddmmMNysdmNNMMMNhhNdhs+y+/:mMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mmNMMNhmmddNNNMdyydmMMMNdyshNhyoss+:/MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NmNMMddmmmmNMNMNdsymNNmdhhdNMNdhsss+:yMMMMMMMMMMMMMMMMNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMdhmmmmmNMNNMmshNMMMmmMMMMMmNdyo+//NMMMMMMMMMMMMMMMhNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMmhmmmmmmNMMNNMyshdhhhyhNMMMMMMdhso+sMMMMMMMMMMMMMMMhmMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMmdmmmmmmmNMMMmNm+ys++oyyNMMMMMMNmmyyoyNMMMMMMMMMMMMMddMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NmmmmmmmmmmmNMNNmNNyyo+/oohNMMMMMMMMdhhsshmMMMMMMMMMMMyNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mmNNNNNNmmmmNMMNmmddNmmdhhdmMMMMMMMMMNddhssshmmNNNmmdhdMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NNNNNNNNNNNNNNNNmNNNNMMMMMNomMMMMMMMMMNNmdhhyyyyyyyhdmMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-Nd+oNMMMMMMMmodo++++++++++m..yNMMMMMNo+mNMMmhssshdNMMNhNMMMMMMMMMMMddMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MN+ /NMMMMMm: d` -ssssss+`d. `+mMMMMN. dNm+:+syso//hNN--yNMMMMMMMd+`yMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMN+ /NMMMm: oM` +NMMMMMNdN. /`.yNMMN. dh.omMMMMMNy.oM- `:hNMMMm+.  yMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMN/ /NMm: oNy` :sssmMMMMN. dh-`/mMN. d-/NMMMMMMMMy`m- y/`/dmo..o: yMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMN/ /m: +NNy. /yyyNMMMMN. dNNo`.yN- d.oNMMMMMMMMd d- mNh-`.`+mN/ yMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMMN/ . +NMMN- oNMMMMMNdN. dMMMd:`/. ds.dNMMMMMMm::M- dMMNy/dMMN/ yMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMMMN/ +NMMMN- /yyyyyys d. dMMMMNo`  dNy-+ymmmho-+NN- dMMMMMMMMN/ yMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMMMMNyNMMMMN+::::::::::m+/mMMMMMMd: dMMNho///+ymMMN+/mMMMMMMMMNs/hMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMMMMMNMMMMMMMMMMMMMMMMMMMMMMMMMMMMNsmMMMMMMMMMMMMMMNNNNMMNNNMMNNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-*/
-import { Page } from 'puppeteer';
+import { Page, Browser } from 'puppeteer';
 import { CreateConfig } from '../../config/create-config';
 import { UILayer } from './ui.layer';
-import { checkValuesSender } from '../helpers/layers-interface';
+import { Scope, checkValuesSender } from '../helpers/layers-interface';
+
+let obj: Scope;
 
 export class ControlsLayer extends UILayer {
-  constructor(public page: Page, session?: string, options?: CreateConfig) {
-    super(page, session, options);
-  }
-  /**
-   * Check if there is chat
-   * @param contactId {string} id '000000000000@c.us'
-   * @returns object
-   */
-  public async checkChat(contactId: string) {
-    return new Promise(async (resolve, reject) => {
-      const result: any = await this.page.evaluate(
-        ({ contactId }) => {
-          return WAPI.checkChat(contactId);
-        },
-        { contactId }
-      );
-      if (result['erro'] == true) {
-        return reject(result);
-      } else {
-        return resolve(result);
-      }
-    });
+  constructor(
+    public browser: Browser,
+    public page: Page,
+    session?: string,
+    options?: CreateConfig
+  ) {
+    super(browser, page, session, options);
   }
 
   /**
@@ -89,7 +22,7 @@ export class ControlsLayer extends UILayer {
    */
   public async unblockContact(contactId: string) {
     return this.page.evaluate(
-      (contactId) => WAPI.unblockContact(contactId),
+      (contactId: string) => WAPI.unblockContact(contactId),
       contactId
     );
   }
@@ -101,21 +34,81 @@ export class ControlsLayer extends UILayer {
    */
   public async blockContact(contactId: string) {
     return this.page.evaluate(
-      (contactId) => WAPI.blockContact(contactId),
+      (contactId: string) => WAPI.blockContact(contactId),
       contactId
     );
   }
 
   /**
-   * puts the chat as unread
+   * Mark unread chat
+   * @param contactId {string} id '000000000000@c.us'
+   * @returns bollean
+   */
+  public async markUnseenMessage(contactId: string) {
+    return new Promise(async (resolve, reject) => {
+      const typeFunction = 'markUnseenMessage';
+      const type = 'string';
+      const check = [
+        {
+          param: 'contactId',
+          type: type,
+          value: contactId,
+          function: typeFunction,
+          isUser: true
+        }
+      ];
+
+      const validating = checkValuesSender(check);
+      if (typeof validating === 'object') {
+        return reject(validating);
+      }
+      const result = await this.page.evaluate(
+        (contactId: string) => WAPI.markUnseenMessage(contactId),
+        contactId
+      );
+
+      if (result['erro'] == true) {
+        return reject(result);
+      } else {
+        return resolve(result);
+      }
+    });
+  }
+
+  /**
+   * Mark chat as read ✔️✔️
    * @param contactId {string} id '000000000000@c.us'
    * @returns boolean
    */
-  public async markUnseenMessage(contactId: string) {
-    return this.page.evaluate(
-      (contactId) => WAPI.markUnseenMessage(contactId),
-      contactId
-    );
+  public async markMarkSeenMessage(contactId: string) {
+    return new Promise(async (resolve, reject) => {
+      const typeFunction = 'markMarkSeenMessage';
+      const type = 'string';
+      const check = [
+        {
+          param: 'contactId',
+          type: type,
+          value: contactId,
+          function: typeFunction,
+          isUser: true
+        }
+      ];
+
+      const validating = checkValuesSender(check);
+      if (typeof validating === 'object') {
+        return reject(validating);
+      }
+      const result = await this.page.evaluate(
+        (contactId: string) => WAPI.markMarkSeenMessage(contactId),
+        contactId
+      );
+
+      if (result['erro'] == true) {
+        return reject(result);
+      } else {
+        return resolve(result);
+      }
+    });
   }
 
   /**
@@ -152,7 +145,7 @@ export class ControlsLayer extends UILayer {
    */
   public async pinChat(chatId: string, option: boolean, nonExistent?: boolean) {
     return new Promise(async (resolve, reject) => {
-      const result: any = await this.page.evaluate(
+      const result = await this.page.evaluate(
         ({ chatId, option, nonExistent }) => {
           return WAPI.pinChat(chatId, option, nonExistent);
         },
@@ -179,17 +172,17 @@ export class ControlsLayer extends UILayer {
   }
 
   /**
-   * Deletes message all of given message id
+   * Deletes message of given message id
    * @param chatId The chat id from which to delete the message.
    * @param messageId The specific message id of the message to be deleted
    * @param onlyLocal If it should only delete locally (message remains on the other recipienct's phone). Defaults to false.
    */
-  public async deleteMessageAll(
+  public async deleteMessage(
     chatId: string,
-    messageId: string[] | string
+    messageId: string[]
   ): Promise<Object> {
     return new Promise(async (resolve, reject) => {
-      const typeFunction = 'deleteMessageAll';
+      const typeFunction = 'deleteMessage';
       const type = 'string';
       const check = [
         {
@@ -212,61 +205,12 @@ export class ControlsLayer extends UILayer {
       if (typeof validating === 'object') {
         return reject(validating);
       }
-      const result: any = await this.page.evaluate(
-        ({ contactId, messageId }) =>
-          WAPI.deleteMessagesAll(contactId, messageId, false),
-        { contactId: chatId, messageId }
+      const result = await this.page.evaluate(
+        ({ chatId, messageId }) => WAPI.deleteMessages(chatId, messageId),
+        { chatId, messageId }
       );
 
-      if (result['erro'] == true) {
-        return reject(result);
-      } else {
-        return resolve(result);
-      }
-    });
-  }
-
-  /**
-   * Deletes message me of given message id
-   * @param chatId The chat id from which to delete the message.
-   * @param messageId The specific message id of the message to be deleted
-   * @param onlyLocal If it should only delete locally (message remains on the other recipienct's phone). Defaults to false.
-   */
-  public async deleteMessageMe(
-    chatId: string,
-    messageId: string[] | string
-  ): Promise<Object> {
-    return new Promise(async (resolve, reject) => {
-      const typeFunction = 'deleteMessageMe';
-      const type = 'string';
-      const check = [
-        {
-          param: 'chatId',
-          type: type,
-          value: chatId,
-          function: typeFunction,
-          isUser: true
-        },
-        {
-          param: 'messageId',
-          type: 'object',
-          value: messageId,
-          function: typeFunction,
-          isUser: true
-        }
-      ];
-
-      const validating = checkValuesSender(check);
-      if (typeof validating === 'object') {
-        return reject(validating);
-      }
-      const result: any = await this.page.evaluate(
-        ({ contactId, messageId }) =>
-          WAPI.deleteMessagesMe(contactId, messageId, true),
-        { contactId: chatId, messageId }
-      );
-
-      if (result['erro'] == true) {
+      if (result['erro'] === true) {
         return reject(result);
       } else {
         return resolve(result);
@@ -285,5 +229,11 @@ export class ControlsLayer extends UILayer {
       ({ chatId, option }) => WAPI.setMessagesAdminsOnly(chatId, option),
       { chatId, option }
     );
+  }
+
+  public async reload() {
+    await this.page.evaluate(() => {
+      window.location.reload();
+    });
   }
 }

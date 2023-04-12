@@ -1,62 +1,8 @@
-/*
-NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN
-MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mMMMMMMMMMNNNmmNNNMMNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mmNMMNMMMMNNNNNmmmddhdddNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mddNMMNy:/odNmmddmmNNmdhhddmNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NmmdNMNd:--+dNmmddhhddmmhsyhhmdmmNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NmNmdNmy:.-oyNmmmhmdhho+sososyhhhddNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NmmNdh+-`.:oyNNdmmdmmdo-://oysssyhhhdmNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-Nmmmoyyyo+osdNmdmmddNNhs+/::/+osyssydyhdNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NNmhsymMMNmmmmdmdNNddNmsso+++////ossssyyhdmNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mhhhmNNMNNNhssshhmmddmmssyooooso/::+oysshhhhmMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mmdhdddNNdyoosyhdmddmmmsoooooyysyys/::/oyyhhhyMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mdddhddmhsooshdmdmdhhyyyysso/ooo+syhhs/-/+shyhMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-dyyhdmd+ososhdmdmyyhhhhhhhyo++o/+///+ohhso++sdMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-dhdmNNdsossyhmdmsydhssssyhhs/++o/o+//:++yhhy+/hNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mdmNNNNmhysshddyshdyyy/oss+s::/:://++///++++/::hmNNNNNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NNMNNNmmNNdymNNhshdshdyhdysh+sy+-:++osssosss++yNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NmNNNmdNNmNmmmNmyyddyyhdhydyohys/-oo+osssysyyohNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mmNNNhdNmmNNmNMMNhyyhhhdhyyhmmyh+-/s+sysssyyhyydNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mNMMMhdNdmMNMMMMMNNmdhdddmhdmmNho/-osoyyo++oyddhhNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NMMMNmhNdNMNMNMMNmNNNmmmdyoohmhoyo::hsooo++oooydhymMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMNNNhmNNMmmNMNNmmmmdmmdyhhoyddddoo++yoyysooossyhsmMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMNNNmmNNNmdNdNmmddhhhdNNhsmNssdooo/dso++osyyysoymMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMNNNNmNNNNNmddmmNhshNmmmNmNMdhNsh/ohho++/:++MMNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MNNNMMNNNNmmmhhhhdyosdNmdmMMhoNmhdmys+ooo++/+MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mmNNNMMNNNNmddmdoodmMMNmmNNhssdmNMMMNdNd/osomMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NmNdhMNmNNMNmdNddohmMMNNNmdmdddNMMMMMMMMmMNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NmNhmMmmmmNNmdNyoNMNmNmdhyyyhdhoyNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NmdmMmmddddNmmdys+hmMMMmmhysssyy++dMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NmdNMMdmdddmmNNyshmNNNNNNNdhhs+yy//dMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NmNMMMdmdddmmMNysdmNNMMMNhhNdhs+y+/:mMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mmNMMNhmmddNNNMdyydmMMMNdyshNhyoss+:/MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NmNMMddmmmmNMNMNdsymNNmdhhdNMNdhsss+:yMMMMMMMMMMMMMMMMNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMdhmmmmmNMNNMmshNMMMmmMMMMMmNdyo+//NMMMMMMMMMMMMMMMhNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMmhmmmmmmNMMNNMyshdhhhyhNMMMMMMdhso+sMMMMMMMMMMMMMMMhmMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMmdmmmmmmmNMMMmNm+ys++oyyNMMMMMMNmmyyoyNMMMMMMMMMMMMMddMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NmmmmmmmmmmmNMNNmNNyyo+/oohNMMMMMMMMdhhsshmMMMMMMMMMMMyNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mmNNNNNNmmmmNMMNmmddNmmdhhdmMMMMMMMMMNddhssshmmNNNmmdhdMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NNNNNNNNNNNNNNNNmNNNNMMMMMNomMMMMMMMMMNNmdhhyyyyyyyhdmMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-Nd+oNMMMMMMMmodo++++++++++m..yNMMMMMNo+mNMMmhssshdNMMNhNMMMMMMMMMMMddMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MN+ /NMMMMMm: d` -ssssss+`d. `+mMMMMN. dNm+:+syso//hNN--yNMMMMMMMd+`yMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMN+ /NMMMm: oM` +NMMMMMNdN. /`.yNMMN. dh.omMMMMMNy.oM- `:hNMMMm+.  yMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMN/ /NMm: oNy` :sssmMMMMN. dh-`/mMN. d-/NMMMMMMMMy`m- y/`/dmo..o: yMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMN/ /m: +NNy. /yyyNMMMMN. dNNo`.yN- d.oNMMMMMMMMd d- mNh-`.`+mN/ yMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMMN/ . +NMMN- oNMMMMMNdN. dMMMd:`/. ds.dNMMMMMMm::M- dMMNy/dMMN/ yMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMMMN/ +NMMMN- /yyyyyys d. dMMMMNo`  dNy-+ymmmho-+NN- dMMMMMMMMN/ yMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMMMMNyNMMMMN+::::::::::m+/mMMMMMMd: dMMNho///+ymMMN+/mMMMMMMMMNs/hMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMMMMMNMMMMMMMMMMMMMMMMMMMMMMMMMMMMNsmMMMMMMMMMMMMMMNNNNMMNNNMMNNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-*/
-import { Page } from 'puppeteer';
+import { Page, Browser } from 'puppeteer';
 import { CreateConfig } from '../../config/create-config';
 import { Id } from '../model';
 import { RetrieverLayer } from './retriever.layer';
-import { checkValuesSender } from '../helpers/layers-interface';
+import { Scope, checkValuesSender } from '../helpers/layers-interface';
 import {
   base64MimeType,
   fileToBase64,
@@ -64,10 +10,74 @@ import {
   resizeImg
 } from '../helpers';
 import { GroupSettings } from '../model/enum';
+let obj: Scope;
 
 export class GroupLayer extends RetrieverLayer {
-  constructor(public page: Page, session?: string, options?: CreateConfig) {
-    super(page, session, options);
+  constructor(
+    public browser: Browser,
+    public page: Page,
+    session?: string,
+    options?: CreateConfig
+  ) {
+    super(browser, page, session, options);
+  }
+
+  /**
+   * Parameters to change group settings, see {@link GroupSettings for details}
+   * @param {string} groupId group number
+   * @param {GroupSettings} settings
+   * @param {boolean} value
+   */
+  public async setGroupSettings(
+    groupId: string,
+    settings: GroupSettings,
+    value: boolean
+  ): Promise<Object> {
+    return new Promise(async (resolve, reject) => {
+      const typeFunction = 'setGroupSettings';
+      const type = 'string';
+      const check = [
+        {
+          param: 'groupId',
+          type: type,
+          value: groupId,
+          function: typeFunction,
+          isUser: true
+        },
+        {
+          param: 'settings',
+          type: type,
+          value: settings,
+          function: typeFunction,
+          isUser: true
+        },
+        {
+          param: 'value',
+          type: type,
+          value: value,
+          function: typeFunction,
+          isUser: true
+        }
+      ];
+
+      const validating = checkValuesSender(check);
+      if (typeof validating === 'object') {
+        return reject(validating);
+      }
+
+      const result = await this.page.evaluate(
+        ({ groupId, settings, value }) => {
+          return WAPI.setGroupSettings(groupId, settings, value);
+        },
+        { groupId, settings, value }
+      );
+
+      if (result['erro'] == true) {
+        return reject(result);
+      } else {
+        return resolve(result);
+      }
+    });
   }
 
   /**
@@ -75,7 +85,7 @@ export class GroupLayer extends RetrieverLayer {
    * @param {string} groupId group number
    * @param {string} path of image
    */
-  public async setGroupImage(groupId: string, path: string): Promise<any> {
+  public async setGroupImage(groupId: string, path: string) {
     let b64 = await downloadFileToBase64(path, [
       'image/gif',
       'image/png',
@@ -97,14 +107,10 @@ export class GroupLayer extends RetrieverLayer {
         let _webb64_96 = await resizeImg(buff, { width: 96, height: 96 }),
           _webb64_640 = await resizeImg(buff, { width: 640, height: 640 });
         let obj = { a: _webb64_640, b: _webb64_96 };
+
         return await this.page.evaluate(
-          async ({ mimeInfo, obj, groupId }) =>
-            await WPP.group.setIcon(
-              groupId,
-              `data:${mimeInfo};base64,` + obj.a
-            ),
+          ({ obj, groupId }) => WAPI.setProfilePic(obj, groupId),
           {
-            mimeInfo,
             obj,
             groupId
           }
@@ -115,6 +121,7 @@ export class GroupLayer extends RetrieverLayer {
       }
     }
   }
+
   /**
    * Parameters to change group title
    * @param {string} groupId group number
@@ -146,7 +153,7 @@ export class GroupLayer extends RetrieverLayer {
         return reject(validating);
       }
 
-      const result: any = await this.page.evaluate(
+      const result = await this.page.evaluate(
         ({ groupId, title }) => {
           return WAPI.setGroupTitle(groupId, title);
         },
@@ -195,7 +202,7 @@ export class GroupLayer extends RetrieverLayer {
         return reject(validating);
       }
 
-      const result: any = await this.page.evaluate(
+      const result = await this.page.evaluate(
         ({ groupId, description }) => {
           return WAPI.setGroupDescription(groupId, description);
         },
@@ -209,76 +216,15 @@ export class GroupLayer extends RetrieverLayer {
       }
     });
   }
-  /**
-   * Parameters to change group settings, see {@link GroupSettings for details}
-   * @param {string} groupId group number
-   * @param {GroupSettings} settings
-   * @param {boolean} value
-   */
-  public async setGroupSettings(
-    groupId: string,
-    settings: GroupSettings,
-    value: boolean
-  ): Promise<Object> {
-    return new Promise(async (resolve, reject) => {
-      const typeFunction = 'setGroupSettings';
-      const type = 'string';
-      const check = [
-        {
-          param: 'groupId',
-          type: type,
-          value: groupId,
-          function: typeFunction,
-          isUser: true
-        },
-        {
-          param: 'settings',
-          type: type,
-          value: settings,
-          function: typeFunction,
-          isUser: true
-        },
-        {
-          param: 'value',
-          type: type,
-          value: value,
-          function: typeFunction,
-          isUser: true
-        }
-      ];
 
-      const validating = checkValuesSender(check);
-      if (typeof validating === 'object') {
-        return reject(validating);
-      }
-
-      const result: any = await this.page.evaluate(
-        ({ groupId, settings, value }) => {
-          return WAPI.setGroupSettings(groupId, settings, value);
-        },
-        { groupId, settings, value }
-      );
-
-      if (result['erro'] == true) {
-        return reject(result);
-      } else {
-        return resolve(result);
-      }
-    });
-  }
   /**
    * Retrieve all groups
    * @returns array of groups
-   * @param groupId Chat id ('0000000000-00000000@g.us')
    */
-  public async getAllChatsGroups(groupId: string) {
-    return await this.page.evaluate(() => {
-      const chats = WAPI.getAllChats();
-      return !groupId && !groupId.length && typeof groupId === 'string'
-        ? chats.filter((chat) => chat.kind === 'group')
-        : chats.filter(
-            (chat) => chat.kind === 'group' && groupId === chat.id._serialized
-          );
+  public async getAllChatsGroups() {
+    return await this.page.evaluate(async () => {
+      let chats = WAPI.getAllChats();
+      return (await chats).filter((chat) => chat.kind === 'group');
     });
   }
 
@@ -305,23 +251,48 @@ export class GroupLayer extends RetrieverLayer {
    * Retrieves group members as [Id] objects
    * @param groupId group id
    */
-  public async getGroupMembersIds(groupId: string): Promise<Id[]> {
-    return this.page.evaluate(
-      (groupId: string) => WAPI.getGroupParticipantIDs(groupId),
-      groupId
-    );
+  public async getGroupMembers(groupId: string, time: string): Promise<Object> {
+    return new Promise(async (resolve, reject) => {
+      const typeFunction = 'getGroupMembers';
+      const type = 'string';
+      const check = [
+        {
+          param: 'groupId',
+          type: type,
+          value: groupId,
+          function: typeFunction,
+          isUser: true
+        }
+      ];
+      const validating = checkValuesSender(check);
+      if (typeof validating === 'object') {
+        return reject(validating);
+      }
+      const result = this.page.evaluate(
+        (groupId: string, time: string) =>
+          WAPI.getGroupParticipant(groupId, time),
+        groupId,
+        time
+      );
+      if (result['erro'] == true) {
+        reject(result);
+      } else {
+        resolve(result);
+      }
+    });
   }
 
-  /**
-   * Returns group members [Contact] objects
-   * @param groupId
-   */
-  public async getGroupMembers(groupId: string) {
-    return await this.page.evaluate(
-      (groupId) => WAPI.getGroupParticipantIDs(groupId),
-      groupId
-    );
-  }
+  // /**
+  //  * Returns group members [Contact] objects
+  //  * @param groupId
+  //  */
+  // public async getGroupMembers(groupId: string) {
+  //   const membersIds = await this.getGroupMembersIds(groupId);
+  //   const actions = membersIds.map((memberId) => {
+  //     return this.getContact(memberId._serialized);
+  //   });
+  //   return Promise.all(actions);
+  // }
 
   /**
    * Reset group invitation link
@@ -440,13 +411,35 @@ export class GroupLayer extends RetrieverLayer {
 
   /**
    * Retrieves group admins
-   * @param chatId Group/Chat id ('0000000000-00000000@g.us')
+   * @param groupId Group/Chat id ('0000000000-00000000@g.us')
    */
-  public async getGroupAdmins(chatId: string) {
-    return await this.page.evaluate(
-      (chatId) => WAPI.getGroupAdmins(chatId),
-      chatId
-    );
+  public async getGroupAdmins(groupId: string): Promise<Object> {
+    return new Promise(async (resolve, reject) => {
+      const typeFunction = 'getGroupAdmins';
+      const type = 'string';
+      const check = [
+        {
+          param: 'groupId',
+          type: type,
+          value: groupId,
+          function: typeFunction,
+          isUser: true
+        }
+      ];
+      const validating = checkValuesSender(check);
+      if (typeof validating === 'object') {
+        return reject(validating);
+      }
+      const result = this.page.evaluate(
+        (groupId: string) => WAPI.getGroupAdmins(groupId),
+        groupId
+      );
+      if (result['erro'] == true) {
+        reject(result);
+      } else {
+        resolve(result);
+      }
+    });
   }
   /**
    * Join a group with invite code

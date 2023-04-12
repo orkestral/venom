@@ -1,63 +1,19 @@
-/*
-NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN
-MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mMMMMMMMMMNNNmmNNNMMNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mmNMMNMMMMNNNNNmmmddhdddNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mddNMMNy:/odNmmddmmNNmdhhddmNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NmmdNMNd:--+dNmmddhhddmmhsyhhmdmmNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NmNmdNmy:.-oyNmmmhmdhho+sososyhhhddNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NmmNdh+-`.:oyNNdmmdmmdo-://oysssyhhhdmNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-Nmmmoyyyo+osdNmdmmddNNhs+/::/+osyssydyhdNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NNmhsymMMNmmmmdmdNNddNmsso+++////ossssyyhdmNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mhhhmNNMNNNhssshhmmddmmssyooooso/::+oysshhhhmMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mmdhdddNNdyoosyhdmddmmmsoooooyysyys/::/oyyhhhyMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mdddhddmhsooshdmdmdhhyyyysso/ooo+syhhs/-/+shyhMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-dyyhdmd+ososhdmdmyyhhhhhhhyo++o/+///+ohhso++sdMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-dhdmNNdsossyhmdmsydhssssyhhs/++o/o+//:++yhhy+/hNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mdmNNNNmhysshddyshdyyy/oss+s::/:://++///++++/::hmNNNNNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NNMNNNmmNNdymNNhshdshdyhdysh+sy+-:++osssosss++yNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NmNNNmdNNmNmmmNmyyddyyhdhydyohys/-oo+osssysyyohNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mmNNNhdNmmNNmNMMNhyyhhhdhyyhmmyh+-/s+sysssyyhyydNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mNMMMhdNdmMNMMMMMNNmdhdddmhdmmNho/-osoyyo++oyddhhNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NMMMNmhNdNMNMNMMNmNNNmmmdyoohmhoyo::hsooo++oooydhymMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMNNNhmNNMmmNMNNmmmmdmmdyhhoyddddoo++yoyysooossyhsmMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMNNNmmNNNmdNdNmmddhhhdNNhsmNssdooo/dso++osyyysoymMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMNNNNmNNNNNmddmmNhshNmmmNmNMdhNsh/ohho++/:++MMNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MNNNMMNNNNmmmhhhhdyosdNmdmMMhoNmhdmys+ooo++/+MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mmNNNMMNNNNmddmdoodmMMNmmNNhssdmNMMMNdNd/osomMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NmNdhMNmNNMNmdNddohmMMNNNmdmdddNMMMMMMMMmMNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NmNhmMmmmmNNmdNyoNMNmNmdhyyyhdhoyNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NmdmMmmddddNmmdys+hmMMMmmhysssyy++dMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NmdNMMdmdddmmNNyshmNNNNNNNdhhs+yy//dMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NmNMMMdmdddmmMNysdmNNMMMNhhNdhs+y+/:mMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mmNMMNhmmddNNNMdyydmMMMNdyshNhyoss+:/MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NmNMMddmmmmNMNMNdsymNNmdhhdNMNdhsss+:yMMMMMMMMMMMMMMMMNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMdhmmmmmNMNNMmshNMMMmmMMMMMmNdyo+//NMMMMMMMMMMMMMMMhNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMmhmmmmmmNMMNNMyshdhhhyhNMMMMMMdhso+sMMMMMMMMMMMMMMMhmMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMmdmmmmmmmNMMMmNm+ys++oyyNMMMMMMNmmyyoyNMMMMMMMMMMMMMddMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NmmmmmmmmmmmNMNNmNNyyo+/oohNMMMMMMMMdhhsshmMMMMMMMMMMMyNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mmNNNNNNmmmmNMMNmmddNmmdhhdmMMMMMMMMMNddhssshmmNNNmmdhdMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NNNNNNNNNNNNNNNNmNNNNMMMMMNomMMMMMMMMMNNmdhhyyyyyyyhdmMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-Nd+oNMMMMMMMmodo++++++++++m..yNMMMMMNo+mNMMmhssshdNMMNhNMMMMMMMMMMMddMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MN+ /NMMMMMm: d` -ssssss+`d. `+mMMMMN. dNm+:+syso//hNN--yNMMMMMMMd+`yMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMN+ /NMMMm: oM` +NMMMMMNdN. /`.yNMMN. dh.omMMMMMNy.oM- `:hNMMMm+.  yMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMN/ /NMm: oNy` :sssmMMMMN. dh-`/mMN. d-/NMMMMMMMMy`m- y/`/dmo..o: yMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMN/ /m: +NNy. /yyyNMMMMN. dNNo`.yN- d.oNMMMMMMMMd d- mNh-`.`+mN/ yMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMMN/ . +NMMN- oNMMMMMNdN. dMMMd:`/. ds.dNMMMMMMm::M- dMMNy/dMMN/ yMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMMMN/ +NMMMN- /yyyyyys d. dMMMMNo`  dNy-+ymmmho-+NN- dMMMMMMMMN/ yMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMMMMNyNMMMMN+::::::::::m+/mMMMMMMd: dMMNho///+ymMMN+/mMMMMMMMMNs/hMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMMMMMNMMMMMMMMMMMMMMMMMMMMMMMMMMMMNsmMMMMMMMMMMMMMMNNNNMMNNNMMNNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-*/
 import { EventEmitter } from 'events';
-import { Page } from 'puppeteer';
+import { Page, Browser } from 'puppeteer';
 import { CreateConfig } from '../../config/create-config';
 import { ExposedFn } from '../helpers/exposed.enum';
-import { Ack, Chat, LiveLocation, Message, ParticipantEvent } from '../model';
-import { SocketState } from '../model/enum';
+import {
+  Ack,
+  Chat,
+  LiveLocation,
+  Message,
+  ParticipantEvent,
+  PicTumb,
+  ChatStatus
+} from '../model';
+//import { resetStore } from '../../controllers/auth';
+import { SocketState, SocketStream } from '../model/enum';
+import { InterfaceChangeMode } from '../model';
 import { InterfaceMode } from '../model/enum/interface-mode';
 import { InterfaceState } from '../model/enum/interface-state';
 import { ProfileLayer } from './profile.layer';
@@ -71,25 +27,30 @@ declare global {
     onIncomingCall: any;
     onAck: any;
     onStreamChange: any;
+    onFilePicThumb: any;
+    onChatState: any;
+    onUnreadMessage: any;
+    onInterfaceChange: any;
+    onAddedToGroup: any;
+    func: any;
+    onLiveLocation: any;
+    waitNewMessages: any;
   }
 }
+
 const callonMessage = new callbackWile();
 const callOnack = new callbackWile();
+
 export class ListenerLayer extends ProfileLayer {
   private listenerEmitter = new EventEmitter();
 
-  constructor(public page: Page, session?: string, options?: CreateConfig) {
-    super(page, session, options);
-
-    this.page.on('load', async () => {
-      try {
-        await page.waitForSelector('canvas, #app .two, #startup', {
-          visible: true
-        });
-      } catch {}
-      await this._initialize(this.page);
-      await this.initialize();
-    });
+  constructor(
+    public browser: Browser,
+    public page: Page,
+    session?: string,
+    options?: CreateConfig
+  ) {
+    super(browser, page, session, options);
 
     this.page.on('close', () => {
       this.cancelAutoClose();
@@ -98,15 +59,11 @@ export class ListenerLayer extends ProfileLayer {
   }
 
   public async initialize() {
-    const functions = [
-      ...Object.values(ExposedFn),
-      'onAddedToGroup',
-      'onIncomingCall'
-    ];
+    const functions = [...Object.values(ExposedFn)];
 
     for (const func of functions) {
       const has = await this.page
-        .evaluate((func) => typeof (window as any)[func] === 'function', func)
+        .evaluate((func) => typeof window[func] === 'function', func)
         .catch(() => false);
 
       if (!has) {
@@ -118,91 +75,57 @@ export class ListenerLayer extends ProfileLayer {
       }
     }
 
+    this.addMsg();
     await this.page
       .evaluate(() => {
-        if (!window['onAnyMessage'].exposed) {
-          window.WAPI.allNewMessagesListener(window['onAnyMessage']);
-          window['onAnyMessage'].exposed = true;
-        }
-        if (!window['onStateChange'].exposed) {
-          window.WAPI.onStateChange(window['onStateChange']);
-          window['onStateChange'].exposed = true;
-        }
-        if (!window['onStreamChange'].exposed) {
-          WPP.on('conn.logout', () => {
-            window['onStreamChange']('LOGOUT');
+        window.WAPI.onInterfaceChange((e: any) => {
+          window.onInterfaceChange(e);
+        });
+        window.WAPI.onStreamChange((e: any) => {
+          window.onStreamChange(e);
+        });
+        window.WAPI.onChatState((e: any) => {
+          window.onChatState(e);
+        });
+        window.WAPI.onStateChange((e: any) => {
+          window.onStateChange(e);
+        });
+        window.WAPI.onUnreadMessage((e: any) => {
+          window.onUnreadMessage(e);
+        });
+        window.WAPI.waitNewMessages(false, (data: any) => {
+          data.forEach((message: any) => {
+            window.onMessage(message);
           });
-          window['onStreamChange'].exposed = true;
-        }
-        if (!(window as any)['onAddedToGroup'].exposed) {
-          window.WAPI.onAddedToGroup((window as any)['onAddedToGroup']);
-          (window as any)['onAddedToGroup'].exposed = true;
-        }
-        if (!window['onIncomingCall'].exposed) {
-          window.WAPI.onIncomingCall(window['onIncomingCall']);
-          window['onIncomingCall'].exposed = true;
-        }
-        if (!(window as any)['onInterfaceChange'].exposed) {
-          window.WAPI.onInterfaceChange((window as any)['onInterfaceChange']);
-          (window as any)['onInterfaceChange'].exposed = true;
-        }
-        if (!window['onMessage'].exposed) {
-          WPP.on('chat.new_message', (msg) => {
-            if (msg.isSentByMe || msg.isStatusV3) {
-              return;
-            }
-            if (msg.quotedMsg) {
-              msg.subtype = msg.type;
-              msg.type = 'reply';
-              window['onMessage'](msg);
-            }
-          });
-
-          window['onMessage'].exposed = true;
-        }
-        if (!window['onAck'].exposed) {
-          window.WAPI.waitNewAcknowledgements(window['onAck']);
-          window['onAck'].exposed = true;
-        }
+        });
+        window.WAPI.onAddedToGroup((e: any) => {
+          window.onAddedToGroup(e);
+        });
+        window.WAPI.onAck((e: any) => {
+          window.onAck(e);
+        });
       })
       .catch(() => {});
   }
 
-  /**
-   * @returns Returns the current state of the connection
-   */
-  public async onStreamChange(fn: (state: any) => void) {
-    this.listenerEmitter.on(ExposedFn.onStreamChange, (state) => {
-      fn(state);
-    });
-    return {
-      dispose: () => {
-        this.listenerEmitter.off(ExposedFn.onStreamChange, fn);
-      }
-    };
-  }
-
-  /**
-   * @event Listens to messages received
-   * @returns Observable stream of messages
-   */
-  public async onMessage(fn: (message: any) => void) {
-    this.listenerEmitter.on(ExposedFn.OnMessage, (state) => {
-      if (!callonMessage.checkObj(state.from, state.id)) {
-        callonMessage.addObjects(state.from, state.id);
-        fn(state);
-      }
-    });
-    return {
-      dispose: () => {
-        this.listenerEmitter.off(ExposedFn.OnMessage, (state) => {
-          if (!callonMessage.checkObj(state.from, state.id)) {
-            callonMessage.addObjects(state.from, state.id);
-            fn(state);
+  public async addMsg() {
+    this.page
+      .evaluate(() => {
+        let isHeroEqual = {};
+        // try {
+        window.Store.Msg.on('add', (newMessage) => {
+          if (!Object.is(isHeroEqual, newMessage)) {
+            isHeroEqual = newMessage;
+            if (newMessage && newMessage.isNewMsg) {
+              window.onAnyMessage(
+                window.WAPI.processMessageObj(newMessage, true, false)
+              );
+            }
           }
         });
-      }
-    };
+        // } catch { }
+      })
+      .catch(() => {});
   }
 
   /**
@@ -211,11 +134,15 @@ export class ListenerLayer extends ProfileLayer {
    * @fires Message
    */
   public async onAnyMessage(fn: (message: Message) => void) {
-    this.listenerEmitter.on(ExposedFn.OnAnyMessage, fn);
+    this.listenerEmitter.on(ExposedFn.OnAnyMessage, (msg) => {
+      fn(msg);
+    });
 
     return {
       dispose: () => {
-        this.listenerEmitter.off(ExposedFn.OnAnyMessage, fn);
+        this.listenerEmitter.off(ExposedFn.OnAnyMessage, (msg) => {
+          fn(msg);
+        });
       }
     };
   }
@@ -235,17 +162,98 @@ export class ListenerLayer extends ProfileLayer {
   }
 
   /**
+   * @returns Returns chat state
+   */
+  public async onChatState(fn: (state: ChatStatus) => void) {
+    this.listenerEmitter.on(ExposedFn.onChatState, (state: ChatStatus) => {
+      fn(state);
+    });
+    return {
+      dispose: () => {
+        this.listenerEmitter.off(ExposedFn.onChatState, fn);
+      }
+    };
+  }
+
+  ////////////////////////////////////////////////////
+  /**
+   * @returns Returns the current state of the connection
+   */
+  public async onStreamChange(fn: (state: SocketStream) => void) {
+    this.listenerEmitter.on(ExposedFn.onStreamChange, (state: SocketStream) => {
+      fn(state);
+    });
+    return {
+      dispose: () => {
+        this.listenerEmitter.off(ExposedFn.onStreamChange, fn);
+      }
+    };
+  }
+
+  /**
    * @event Listens to interface mode change See {@link InterfaceState} and {@link InterfaceMode} for details
    * @returns A disposable object to cancel the event
    */
-  public onInterfaceChange(
-    fn: (state: { displayInfo: InterfaceState; mode: InterfaceMode }) => void
+  public async onInterfaceChange(
+    fn: (state: {
+      displayInfo: InterfaceState;
+      mode: InterfaceMode;
+      info: InterfaceState;
+    }) => void | InterfaceChangeMode | Promise<any>
   ) {
     this.listenerEmitter.on(ExposedFn.onInterfaceChange, fn);
 
     return {
       dispose: () => {
         this.listenerEmitter.off(ExposedFn.onInterfaceChange, fn);
+      }
+    };
+  }
+
+  //////////////////////////////////////PRO
+  /**
+   * @returns Returns new UnreadMessage
+   */
+  public async onUnreadMessage(fn: (unread: Message) => void) {
+    this.listenerEmitter.on(ExposedFn.onUnreadMessage, fn);
+    return {
+      dispose: () => {
+        this.listenerEmitter.off(ExposedFn.onUnreadMessage, fn);
+      }
+    };
+  }
+
+  /**
+   * @returns Returns new PicThumb
+   */
+  public async onFilePicThumb(fn: (pic: PicTumb) => void) {
+    this.listenerEmitter.on(ExposedFn.onFilePicThumb, fn);
+    return {
+      dispose: () => {
+        this.listenerEmitter.off(ExposedFn.onFilePicThumb, fn);
+      }
+    };
+  }
+
+  /**
+   * @event Listens to messages received
+   * @returns Observable stream of messages
+   */
+  public async onMessage(fn: (message: Message) => void) {
+    this.listenerEmitter.on(ExposedFn.OnMessage, (state: Message) => {
+      if (!callonMessage.checkObj(state.from, state.id)) {
+        callonMessage.addObjects(state.from, state.id);
+        fn(state);
+      }
+    });
+    return {
+      dispose: () => {
+        this.listenerEmitter.off(ExposedFn.OnMessage, (state: Message) => {
+          if (!callonMessage.checkObj(state.from, state.id)) {
+            callonMessage.addObjects(state.from, state.id);
+            fn(state);
+          }
+        });
       }
     };
   }
@@ -259,7 +267,7 @@ export class ListenerLayer extends ProfileLayer {
       if (!callOnack.checkObj(e.ack, e.id._serialized)) {
         let key = callOnack.getObjKey(e.id._serialized);
         if (key) {
-          (callOnack as any).module[key].id = e.ack;
+          callOnack.module[key].id = e.ack;
           fn(e);
         } else {
           callOnack.addObjects(e.ack, e.id._serialized);
@@ -274,7 +282,7 @@ export class ListenerLayer extends ProfileLayer {
           if (!callOnack.checkObj(e.ack, e.id._serialized)) {
             let key = callOnack.getObjKey(e.id._serialized);
             if (key) {
-              (callOnack as any).module[key].id = e.ack;
+              callOnack.module[key].id = e.ack;
               fn(e);
             } else {
               callOnack.addObjects(e.ack, e.id._serialized);

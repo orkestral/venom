@@ -1,11 +1,13 @@
+/* eslint-disable prettier/prettier */
 const { storeObjects } = require('./store-objects');
 export async function getStore(modules) {
   let foundCount = 0;
-  let neededObjects = storeObjects;
+  const neededObjects = storeObjects;
   for (let idx in modules) {
     if (typeof modules[idx] === 'object' && modules[idx] !== null) {
       neededObjects.forEach((needObj) => {
         if (!needObj.conditions || needObj.foundedModule) return;
+        // console.log(needObj.id);
         let neededModule = needObj.conditions(modules[idx]);
         if (neededModule !== null) {
           foundCount++;
@@ -18,30 +20,220 @@ export async function getStore(modules) {
     }
   }
 
-  let neededStore = neededObjects.find((needObj) => needObj.id === 'Store');
-  window.Store = neededStore.foundedModule ? neededStore.foundedModule : {};
-  neededObjects.splice(neededObjects.indexOf(neededStore), 1);
-
   neededObjects.forEach((needObj) => {
     if (needObj.foundedModule) {
-      window.Store[needObj.id] = needObj.foundedModule;
+      if (needObj.id !== "module") {
+        window.Store[needObj.id] = needObj.foundedModule;
+      }
     }
   });
 
-  window.Store.sendMessage = function (e) {
-    return window.Store.SendTextMsgToChat(this, ...arguments);
+  const module = (neededObjects.filter((e) => e.id === 'module'))[0].foundedModule;
+  Object.keys(module).forEach((key) => {
+    if (![
+      'Chat',
+    ].includes(key)) {
+      if (window.Store[key]) {
+        window.Store[key + '_'] = module[key];
+      } else {
+        window.Store[key] = module[key];
+      }
+    }
+  });
+
+  if (window.Store.MediaCollection) {
+      window.Store.MediaCollection.prototype.processFiles =
+        window.Store.MediaCollection.prototype.processFiles ||
+        window.Store.MediaCollection.prototype.processAttachments;
+  }
+  
+  window.mR = async (find) => {
+    return new Promise((resolve) => {
+      const parasite = `parasite${Date.now()}`;
+      window["webpackChunkwhatsapp_web_client"].push([
+        [parasite],
+        {},
+        function (o) {
+          let modules = [];
+          for (let idx in o.m) {
+            modules.push(o(idx));
+          }
+          for (let idx in modules) {
+            if (typeof modules[idx] === "object" && modules[idx] !== null) {
+              let module = modules[idx];
+
+              var evet = module[find] ? module : null;
+              if (evet) {
+                window[find] = evet;
+                return resolve(window[find]);
+              }
+            }
+          }
+
+        },
+      ]);
+    });
+  }
+
+  window.injectToFunction = (selector, callback) => {
+    (async () => {
+      const Nr = await window.mR(selector);
+      const oldFunct = Nr[selector];
+      //console.log(selector, oldFunct);
+      Nr[selector] = (...args) => callback(oldFunct, args);
+    })();
   };
-  window.Store.Chat.modelClass.prototype.sendMessage = function (e) {
-    window.Store.SendTextMsgToChat(this, ...arguments);
-  };
+  
+  window.injectToFunction('createMsgProtobuf', (func, args) => {
+    const proto = func(...args);
+    const [message] = args;
 
-  if (window.Store.MediaCollection)
-    window.Store.MediaCollection.prototype.processFiles =
-      window.Store.MediaCollection.prototype.processFiles ||
-      window.Store.MediaCollection.prototype.processAttachments;
+    if (proto.listMessage) {
+        proto.viewOnceMessage = {
+            message: {
+                listMessage: proto.listMessage
+            }
+        };
+        delete proto.listMessage;
+    }
 
-  Store.Chat._findAndParse = Store.BusinessProfile._findAndParse;
-  Store.Chat._find = Store.BusinessProfile._find;
+    if (proto.buttonsMessage) {
+      proto.viewOnceMessage = {
+          message: {
+              buttonsMessage: proto.buttonsMessage,
+          },
+      };
+      delete proto.buttonsMessage;
+    }
 
-  return window.Store;
+    if (proto.templateMessage) {
+      proto.viewOnceMessage = {
+        message: {
+          templateMessage: proto.templateMessage,
+        },
+      };
+      delete proto.templateMessage;
+    }
+
+    if (message.hydratedButtons) {
+      const hydratedTemplate = {
+        hydratedButtons: message.hydratedButtons,
+      };
+  
+      if (message.footer) {
+        hydratedTemplate.hydratedFooterText = message.footer;
+      }
+  
+      if (message.caption) {
+        hydratedTemplate.hydratedContentText = message.caption;
+      }
+  
+      if (message.title) {
+        hydratedTemplate.hydratedTitleText = message.title;
+      }
+  
+      if (proto.conversation) {
+        hydratedTemplate.hydratedContentText = proto.conversation;
+        delete proto.conversation;
+      } else if (proto.extendedTextMessage?.text) {
+        hydratedTemplate.hydratedContentText = proto.extendedTextMessage.text;
+        delete proto.extendedTextMessage;
+      } else {
+        // Search media part in message
+        let found;
+        const mediaPart = [
+          'documentMessage',
+          'imageMessage',
+          'locationMessage',
+          'videoMessage',
+        ];
+        for (const part of mediaPart) {
+          if (part in proto) {
+            found = part;
+            break;
+          }
+        }
+  
+        if (!found) {
+          return proto;
+        }
+  
+        // Media message doesn't allow title
+        hydratedTemplate[found] = proto[found];
+  
+        // Copy title to caption if not setted
+        if (
+          hydratedTemplate.hydratedTitleText &&
+          !hydratedTemplate.hydratedContentText
+        ) {
+          hydratedTemplate.hydratedContentText =
+            hydratedTemplate.hydratedTitleText;
+        }
+  
+        // Remove title for media messages
+        delete hydratedTemplate.hydratedTitleText;
+  
+        if (found === 'locationMessage') {
+          if (
+            !hydratedTemplate.hydratedContentText &&
+            (proto[found].name || proto[found].address)
+          ) {
+            hydratedTemplate.hydratedContentText =
+            proto[found].name && proto[found].address
+                ? `${proto[found].name}\n${proto[found].address}`
+                : proto[found].name || proto[found].address || '';
+          }
+        }
+  
+        // Ensure a content text;
+        hydratedTemplate.hydratedContentText =
+          hydratedTemplate.hydratedContentText || ' ';
+  
+        delete proto[found];
+      }
+  
+      proto.templateMessage = {
+        hydratedTemplate,
+      };
+    }
+    
+    return proto;
+  });
+
+  window.injectToFunction('mediaTypeFromProtobuf', (func, ...args) => {
+    const [proto] = args;
+    if (proto.viewOnceMessage?.message.templateMessage.hydratedTemplate) {
+      return func(proto.viewOnceMessage?.message.templateMessage.hydratedTemplate);
+    }
+    return func(...args);
+  });
+
+  window.injectToFunction('typeAttributeFromProtobuf', (func, args) => {
+    const [proto] = args;
+    console.log(`proto`, proto);
+    
+    if (proto.viewOnceMessage?.message.listMessage) {
+      return 'text';
+    }
+
+    if (proto.imageMessage || proto.audioMessage) {
+      return 'text';
+    }
+    
+    if (
+      proto.viewOnceMessage?.message?.buttonsMessage?.headerType === 1 ||
+      proto.viewOnceMessage?.message?.buttonsMessage?.headerType === 2
+    ) {
+      return 'text';
+    }
+
+    if (proto.viewOnceMessage?.message.templateMessage.hydratedTemplate) {
+      return 'text';
+    }
+
+    return 'text';
+   });
+  
+
 }
+

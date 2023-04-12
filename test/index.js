@@ -1,12 +1,17 @@
-import { create } from 'venom-bot';
+const { create } = require('../dist');
 
-create({
-  session: 'session-name', //name of session
-  multidevice: true // for version not multidevice use false.(default: true)
-})
-  .then((client) => start(client))
-  .catch((erro) => {
-    console.log(erro);
-  });
+(async () => {
+  create({
+    session: 'session-name', //name of session
+    multidevice: true,
+    headless: false,
+    logQR: true,
+    useChrome: true
+  })
+    .then((client) => start(client))
+    .catch((erro) => {
+      console.error(erro);
+    });
+  function start(client) { }
 
-function start(client) {}
+})();

@@ -1,91 +1,66 @@
-/*
-NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN
-MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mMMMMMMMMMNNNmmNNNMMNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mmNMMNMMMMNNNNNmmmddhdddNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mddNMMNy:/odNmmddmmNNmdhhddmNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NmmdNMNd:--+dNmmddhhddmmhsyhhmdmmNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NmNmdNmy:.-oyNmmmhmdhho+sososyhhhddNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NmmNdh+-`.:oyNNdmmdmmdo-://oysssyhhhdmNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-Nmmmoyyyo+osdNmdmmddNNhs+/::/+osyssydyhdNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NNmhsymMMNmmmmdmdNNddNmsso+++////ossssyyhdmNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mhhhmNNMNNNhssshhmmddmmssyooooso/::+oysshhhhmMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mmdhdddNNdyoosyhdmddmmmsoooooyysyys/::/oyyhhhyMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mdddhddmhsooshdmdmdhhyyyysso/ooo+syhhs/-/+shyhMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-dyyhdmd+ososhdmdmyyhhhhhhhyo++o/+///+ohhso++sdMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-dhdmNNdsossyhmdmsydhssssyhhs/++o/o+//:++yhhy+/hNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mdmNNNNmhysshddyshdyyy/oss+s::/:://++///++++/::hmNNNNNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NNMNNNmmNNdymNNhshdshdyhdysh+sy+-:++osssosss++yNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NmNNNmdNNmNmmmNmyyddyyhdhydyohys/-oo+osssysyyohNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mmNNNhdNmmNNmNMMNhyyhhhdhyyhmmyh+-/s+sysssyyhyydNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mNMMMhdNdmMNMMMMMNNmdhdddmhdmmNho/-osoyyo++oyddhhNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NMMMNmhNdNMNMNMMNmNNNmmmdyoohmhoyo::hsooo++oooydhymMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMNNNhmNNMmmNMNNmmmmdmmdyhhoyddddoo++yoyysooossyhsmMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMNNNmmNNNmdNdNmmddhhhdNNhsmNssdooo/dso++osyyysoymMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMNNNNmNNNNNmddmmNhshNmmmNmNMdhNsh/ohho++/:++MMNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MNNNMMNNNNmmmhhhhdyosdNmdmMMhoNmhdmys+ooo++/+MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mmNNNMMNNNNmddmdoodmMMNmmNNhssdmNMMMNdNd/osomMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NmNdhMNmNNMNmdNddohmMMNNNmdmdddNMMMMMMMMmMNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NmNhmMmmmmNNmdNyoNMNmNmdhyyyhdhoyNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NmdmMmmddddNmmdys+hmMMMmmhysssyy++dMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NmdNMMdmdddmmNNyshmNNNNNNNdhhs+yy//dMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NmNMMMdmdddmmMNysdmNNMMMNhhNdhs+y+/:mMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mmNMMNhmmddNNNMdyydmMMMNdyshNhyoss+:/MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NmNMMddmmmmNMNMNdsymNNmdhhdNMNdhsss+:yMMMMMMMMMMMMMMMMNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMdhmmmmmNMNNMmshNMMMmmMMMMMmNdyo+//NMMMMMMMMMMMMMMMhNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMmhmmmmmmNMMNNMyshdhhhyhNMMMMMMdhso+sMMMMMMMMMMMMMMMhmMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMmdmmmmmmmNMMMmNm+ys++oyyNMMMMMMNmmyyoyNMMMMMMMMMMMMMddMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NmmmmmmmmmmmNMNNmNNyyo+/oohNMMMMMMMMdhhsshmMMMMMMMMMMMyNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mmNNNNNNmmmmNMMNmmddNmmdhhdmMMMMMMMMMNddhssshmmNNNmmdhdMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NNNNNNNNNNNNNNNNmNNNNMMMMMNomMMMMMMMMMNNmdhhyyyyyyyhdmMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-Nd+oNMMMMMMMmodo++++++++++m..yNMMMMMNo+mNMMmhssshdNMMNhNMMMMMMMMMMMddMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MN+ /NMMMMMm: d` -ssssss+`d. `+mMMMMN. dNm+:+syso//hNN--yNMMMMMMMd+`yMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMN+ /NMMMm: oM` +NMMMMMNdN. /`.yNMMN. dh.omMMMMMNy.oM- `:hNMMMm+.  yMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMN/ /NMm: oNy` :sssmMMMMN. dh-`/mMN. d-/NMMMMMMMMy`m- y/`/dmo..o: yMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMN/ /m: +NNy. /yyyNMMMMN. dNNo`.yN- d.oNMMMMMMMMd d- mNh-`.`+mN/ yMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMMN/ . +NMMN- oNMMMMMNdN. dMMMd:`/. ds.dNMMMMMMm::M- dMMNy/dMMN/ yMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMMMN/ +NMMMN- /yyyyyys d. dMMMMNo`  dNy-+ymmmho-+NN- dMMMMMMMMN/ yMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMMMMNyNMMMMN+::::::::::m+/mMMMMMMd: dMMNho///+ymMMN+/mMMMMMMMMNs/hMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMMMMMNMMMMMMMMMMMMMMMMMMMMMMMMMMMMNsmMMMMMMMMMMMMMMNNNNMMNNNMMNNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-*/
-
 export const storeObjects = [
   {
-    id: 'Store',
+    id: 'module',
     conditions: (module) =>
       module.default && module.default.Chat && module.default.Msg
         ? module.default
-        : null
+        : null,
+  },
+  {
+    id: 'replyButton',
+    conditions: (module) =>
+      module.__esModule &&
+        module.default &&
+        module.default.prototype &&
+        module.default.prototype.proxyName === 'replyButton'
+        ? module.default
+        : null,
+  },
+  {
+    id: 'templateButton',
+    conditions: (module) =>
+      module.__esModule &&
+        module.default &&
+        module.default.prototype &&
+        module.default.prototype.proxyName === 'templateButton'
+        ? module.default
+        : null,
+  },
+  {
+    id: 'TemplateButtonCollection',
+    conditions: (module) =>
+      module.TemplateButtonCollection ? module.TemplateButtonCollection : null,
+  },
+  {
+    id: 'ButtonCollection',
+    conditions: (module) =>
+      module.ButtonCollection ? module.ButtonCollection : null,
   },
   {
     id: 'MediaCollection',
     conditions: (module) =>
       module.default &&
-      module.default.prototype &&
-      (module.default.prototype.processFiles !== undefined ||
-        module.default.prototype.processAttachments !== undefined)
+        module.default.prototype &&
+        (module.default.prototype.processFiles !== undefined ||
+          module.default.prototype.processAttachments !== undefined)
         ? module.default
-        : null
+        : null,
   },
   { id: 'MediaProcess', conditions: (module) => (module.BLOB ? module : null) },
   {
     id: 'ChatUtil',
-    conditions: (module) => (module.sendClear ? module : null)
+    conditions: (module) => (module.sendClear ? module : null),
   },
   {
     id: 'GroupInvite',
     conditions: (module) =>
       module.sendQueryGroupInviteCode && module.sendRevokeGroupInviteCode
         ? module
-        : null
+        : null,
   },
   {
     id: 'Wap',
-    conditions: (module) => (module.createGroup ? module : null)
+    conditions: (module) => (module.createGroup ? module : null),
   },
   {
     id: 'ServiceWorker',
@@ -93,347 +68,296 @@ export const storeObjects = [
       module.default && module.default.killServiceWorker ? module : null,
   },
   {
-    id: 'Stream',
-    conditions: (module) =>
-      module.Stream && module.StreamInfo ? module.Stream : null,
-  },
-  {
-    id: 'Wid',
-    conditions: (module) => (module.validateWid ? module : null),
-  },
-  {
-    id: 'EphemeralFields',
-    conditions: (module) =>
-      module.getEphemeralFields ? module : null
-  },
-  {
-    id: 'State',
-    conditions: (module) => (module.Socket ? module : null),
-  },
-  {
     id: 'WapDelete',
     conditions: (module) =>
-      module.sendConversationDelete && module.sendConversationDelete.length > 1
+      module.sendConversationDelete && module.sendConversationDelete.length == 2
         ? module
-        : null
-  },
-  {
-    id: 'WapDeleteMsg',
-    conditions: (module) =>
-      module.sendRevokeMsgs && module.sendGroupInviteMessage
-        ? module
-        : null
+        : null,
   },
   {
     id: 'Conn',
     conditions: (module) =>
       module.default && module.default.ref && module.default.refTTL
         ? module.default
-        : null
-  },
-  {
-     id: "ConversationMsgs",
-     conditions: (module) =>
-       (module.loadEarlierMsgs) ? module : null
+        : null,
   },
   {
     id: 'WapQuery',
     conditions: (module) =>
       module.default &&
-      //module.default.contactFindQuery &&
-      module.default.queryExist &&
-      module.default.getCapabilities
+        module.default.contactFindQuery &&
+        module.default.queryExist
         ? module.default
-        : null
+        : null,
   },
   {
     id: 'CryptoLib',
-    conditions: (module) => (module.decryptE2EMedia ? module : null)
+    conditions: (module) => (module.decryptE2EMedia ? module : null),
   },
   {
     id: 'OpenChat',
     conditions: (module) =>
       module.default &&
-      module.default.prototype &&
-      module.default.prototype.openChat
+        module.default.prototype &&
+        module.default.prototype.openChat
         ? module.default
-        : null
+        : null,
   },
   {
     id: 'UserConstructor',
     conditions: (module) =>
       module.default &&
-      module.default.prototype &&
-      module.default.prototype.isServer &&
-      module.default.prototype.isUser
+        module.default.prototype &&
+        module.default.prototype.isServer &&
+        module.default.prototype.isUser
         ? module.default
-        : null
+        : null,
   },
   {
     id: 'SendTextMsgToChat',
     conditions: (module) =>
-      module.sendTextMsgToChat ? module.sendTextMsgToChat : null
-  },
-  {
-    id: 'SendSeen',
-    conditions: (module) => (module.sendSeen ? module.sendSeen : null)
+      module.sendTextMsgToChat ? module.sendTextMsgToChat : null,
   },
   {
     id: 'Archive',
-    conditions: (module) => (module.setArchive ? module : null)
+    conditions: (module) => (module.setArchive ? module : null),
   },
   {
     id: 'pinChat',
-    conditions: (module) => (module.setPin ? module : null)
+    conditions: (module) => (module.setPin ? module : null),
   },
   {
     id: 'sendDelete',
-    conditions: (module) => (module.sendDelete ? module.sendDelete : null)
+    conditions: (module) => (module.sendDelete ? module.sendDelete : null),
   },
   {
     id: 'addAndSendMsgToChat',
     conditions: (module) =>
-      module.addAndSendMsgToChat ? module.addAndSendMsgToChat : null
-  },
-  {
-    id: 'sendQueryMsgInfo',
-    conditions: (module) =>
-      module.sendQueryMsgInfo ? module.sendQueryMsgInfo : null
+      module.addAndSendMsgToChat ? module.addAndSendMsgToChat : null,
   },
   {
     id: 'sendMsgToChat',
-    conditions: (module) => (module.sendMsgToChat ? module.sendMsgToChat : null)
+    conditions: (module) =>
+      module.sendMsgToChat ? module.sendMsgToChat : null,
   },
   {
     id: 'Catalog',
-    conditions: (module) => (module.Catalog ? module.Catalog : null)
+    conditions: (module) => (module.Catalog ? module.Catalog : null),
   },
   {
     id: 'Perfil',
     conditions: (module) =>
       module.__esModule === true &&
-      module.setPushname &&
-      !module.getComposeContents
+        module.setPushname &&
+        !module.getComposeContents
         ? module
-        : null
+        : null,
   },
   {
     id: 'MsgKey',
     conditions: (module) =>
       module.default &&
-      module.default.toString &&
-      typeof module.default.toString === 'function' &&
-      module.default.toString().includes('MsgKey error: obj is null/undefined')
+        module.default.toString &&
+        typeof module.default.toString === 'function' &&
+        module.default.toString().includes('MsgKey error: obj is null/undefined')
         ? module.default
-        : null
+        : null,
   },
   {
     id: 'Parser',
     conditions: (module) =>
-      module.convertToTextWithoutSpecialEmojis ? module.default : null
+      module.convertToTextWithoutSpecialEmojis ? module.default : null,
   },
   {
     id: 'Builders',
     conditions: (module) =>
-      module.TemplateMessage && module.HydratedFourRowTemplate ? module : null
+      module.TemplateMessage && module.HydratedFourRowTemplate ? module : null,
   },
   {
     id: 'Me',
     conditions: (module) =>
-      module.PLATFORMS && module.Conn ? module.Conn : null,
+      module.Conn && module.ConnImpl ? module.Conn : null,
   },
   {
     id: 'CallUtils',
     conditions: (module) =>
-      module.sendCallEnd && module.parseCall ? module : null
+      module.sendCallEnd && module.parseCall ? module : null,
   },
   {
     id: 'Identity',
     conditions: (module) =>
-      module.queryIdentity && module.updateIdentity ? module : null
+      module.queryIdentity && module.updateIdentity ? module : null,
   },
   {
     id: 'MyStatus',
     conditions: (module) =>
-      module.getStatus && module.setMyStatus && module.queryStatusAll ? module : null
+      module.getStatus && module.setMyStatus ? module : null,
   },
   {
-    id: 'ChatState',
+    id: 'ChatStates',
     conditions: (module) =>
       module.sendChatStatePaused &&
-      module.sendChatStateRecording &&
-      module.sendChatStateComposing
+        module.sendChatStateRecording &&
+        module.sendChatStateComposing
         ? module
-        : null
-  },
-  {
-    id: 'sendDeleteMsgs',
-    conditions: (module) =>
-      module.sendDeleteMsgs ? module.sendDeleteMsgs : null
+        : null,
   },
   {
     id: 'GroupActions',
     conditions: (module) =>
-      module.sendExitGroup && module.localExitGroup ? module : null
+      module.sendExitGroup && module.localExitGroup ? module : null,
   },
   {
     id: 'Features',
     conditions: (module) =>
-      module.FEATURE_CHANGE_EVENT && module.features ? module : null
+      module.FEATURE_CHANGE_EVENT && module.features ? module : null,
   },
   {
     id: 'MessageUtils',
     conditions: (module) =>
-      module.storeMessages && module.appendMessage ? module : null
-  },
-  {
-    id: 'WebMessageInfo',
-    conditions: (module) =>
-      module.WebMessageInfo && module.WebFeatures ? module.WebMessageInfo : null
+      module.storeMessages && module.appendMessage ? module : null,
   },
   {
     id: 'createMessageKey',
     conditions: (module) =>
       module.createMessageKey && module.createDeviceSentMessage
         ? module.createMessageKey
-        : null
-  },
-  {
-    id: 'Participants',
-    conditions: (module) =>
-      module.addParticipants &&
-      module.removeParticipants &&
-      module.promoteParticipants &&
-      module.demoteParticipants
-        ? module
-        : null
+        : null,
   },
   {
     id: 'WidFactory',
     conditions: (module) =>
       module.isWidlike && module.createWid && module.createWidFromWidLike
         ? module
-        : null
+        : null,
   },
   {
     id: 'Base',
     conditions: (module) =>
       module.setSubProtocol && module.binSend && module.actionNode
         ? module
-        : null
+        : null,
   },
   {
     id: 'Base2',
     conditions: (module) =>
       module.supportsFeatureFlags &&
-      module.parseMsgStubProto &&
-      module.binSend &&
-      module.subscribeLiveLocation
+        module.parseMsgStubProto &&
+        module.binSend &&
+        module.subscribeLiveLocation
         ? module
-        : null
+        : null,
+  },
+  {
+    id: 'MaybeMeUser',
+    conditions: (module) => (module.getMaybeMeUser ? module : null),
   },
   {
     id: 'Sticker',
     conditions: (module) =>
-      module.StickerCollection && module.default ? module : null
+      module.StickerCollection && module.default ? module : null,
   },
   {
     id: 'MediaObject',
     conditions: (module) =>
       module.getOrCreateMediaObject && module.disassociateMediaFromStickerPack
         ? module
-        : null
+        : null,
   },
   {
     id: 'MediaUpload',
     conditions: (module) =>
-      module.default && module.default.mediaUpload ? module.default : null
+      module.default && module.default.mediaUpload ? module.default : null,
   },
   {
     id: 'UploadUtils',
     conditions: (module) =>
-      module.default && module.default.encryptAndUpload ? module.default : null
+      module.default && module.default.encryptAndUpload ? module.default : null,
   },
   {
     id: 'Cmd',
-    conditions: (module) =>
-      module.Cmd && module.Cmd.openChatFromUnread ? module.Cmd : null
+    conditions: (module) => (module.CmdImpl && module.Cmd ? module.Cmd : null),
   },
-  { id: "WapQuery",
-   conditions: (module) =>
-    (module.queryExist) ? module : ((module.default && module.default.queryExist) ? module.default : null)
-  },
-  {
-    id: 'checkNumberMD',
-    conditions: (module) =>
-        module.queryExists && module.queryPhoneExists ? module : null,
-},
   {
     id: 'ReadSeen',
-    conditions: (module) => (module.sendSeen ? module : null)
+    conditions: (module) => (module.sendSeen ? module : null),
   },
   {
     id: 'Block',
     conditions: (module) =>
-      module.blockContact && module.unblockContact ? module : null
+      module.blockContact && module.unblockContact ? module : null,
   },
   {
     id: 'BlockList',
-    conditions: (module) => (module.BlocklistCollection ? module : null)
+    conditions: (module) => (module.BlocklistCollection ? module : null),
   },
   {
     id: 'Theme',
-    conditions: (module) => (module.getTheme && module.setTheme ? module : null)
+    conditions: (module) =>
+      module.getTheme && module.setTheme ? module : null,
   },
   {
     id: 'Vcard',
-    conditions: (module) => (module.vcardFromContactModel ? module : null)
+    conditions: (module) => (module.vcardFromContactModel ? module : null),
   },
   {
     id: 'Profile',
     conditions: (module) =>
-      module.sendSetPicture && module.requestDeletePicture ? module : null
+      module.sendSetPicture && module.requestDeletePicture ? module : null,
   },
   {
     id: 'SendMute',
-    conditions: (module) => (module.sendConversationMute ? module : null)
+    conditions: (module) => (module.sendConversationMute ? module : null),
   },
   {
     id: 'Validators',
-    conditions: (module) => (module.findLinks ? module : null)
+    conditions: (module) => (module.findLinks ? module : null),
   },
   {
     id: 'Wap2',
-    conditions: (module) => (module.Wap ? module : null)
+    conditions: (module) => (module.Wap ? module : null),
   },
   {
     id: 'genId',
     conditions: (module) =>
       module.default &&
-      typeof module.default === 'function' &&
-      module.default.toString().match(/crypto/)
+        typeof module.default === 'function' &&
+        module.default.toString().match(/crypto/)
         ? module
-        : null
+        : null,
   },
   {
     id: 'GroupMetadata',
     conditions: (module) =>
-      module.default && module.default.handlePendingInvite ? module : null
+      module.default && module.default.handlePendingInvite ? module : null,
   },
   {
     id: 'i10n',
     conditions: (module) =>
-      module.default && module.default.downloadAppLocale ? module.default : null
+      module.default && module.default.downloadAppLocale
+        ? module.default
+        : null,
   },
   {
     id: 'NetworkStatus',
     conditions: (module) =>
-      module.default && module.default._logOnlineOffline ? module.default : null
+      module.default && module.default._logOnlineOffline
+        ? module.default
+        : null,
+  },
+  {
+    id: 'Stream',
+    conditions: (module) =>
+      module.Stream && module.StreamInfo ? module.Stream : null,
+  },
+  {
+    id: 'State',
+    conditions: (module) => (module.Socket ? module : null),
   },
   {
     id: 'ws2',
     conditions: (module) =>
-      module.default && module.default.destroyStorage ? module.default : null
+      module.default && module.default.destroyStorage ? module.default : null,
   },
   {
     id: 'Login',
@@ -442,66 +366,81 @@ export const storeObjects = [
   {
     id: 'BlobCache',
     conditions: (module) =>
-      module.default && module.default.getOrCreateURL ? module.default : null
+      module.default && module.default.getOrCreateURL ? module.default : null,
   },
   {
-    id: 'infoGroup',
-    conditions: (module) => (module.queryGroupInviteInfo ? module : null)
+    id: 'Presence',
+    conditions: (module) =>
+      module.setPresenceAvailable && module.setPresenceUnavailable
+        ? module
+        : null,
+  },
+  {
+    id: 'PresenceCollection',
+    conditions: (module) =>
+      module.default && module.PresenceCollection ? module.default : null,
+  },
+  {
+    id: 'chatOptions',
+    conditions: (module) =>
+      module.default && module.default.archiveChat ? module.default : null,
+  },
+  {
+    id: 'blob',
+    conditions: (module) =>
+      module.default && module.default.createFromData ? module : null,
   },
   {
     id: 'GroupDesc',
-    conditions: (module) => (module.setGroupDesc ? module : null)
+    conditions: (module) => (module.setGroupDesc ? module : null),
+  },
+  {
+    id: 'infoGroup',
+    conditions: (module) => (module.queryGroupInviteInfo ? module : null),
   },
   {
     id: 'GroupTitle',
-    conditions: (module) => (module.sendSetGroupSubject ? module : null)
+    conditions: (module) => (module.sendSetGroupSubject ? module : null),
   },
   {
     id: 'GroupSettings',
-    conditions: (module) => (module.sendSetGroupProperty ? module : null)
+    conditions: (module) => (module.sendSetGroupProperty ? module : null),
   },
   {
-    id: 'MaybeMeUser',
-    conditions: (module) => (module.getMaybeMeUser ? module : null)
-  },
-  {
-    id: 'sendCreateGroup',
+    id: 'createGroup',
     conditions: (module) =>
-      module.sendCreateGroup ? module.sendCreateGroup : null
+      module.createGroup && module.sendForNeededAddRequest
+        ? module.createGroup
+        : null,
   },
   {
-    id: 'sendAddParticipants',
+    id: 'SetStatusChat',
     conditions: (module) =>
-      module.sendAddParticipants ? module.sendAddParticipants : null
+      module.markComposing && module.markRecording ? module : null,
   },
   {
-    id: 'sendRemoveParticipants',
-    conditions: (module) =>
-      module.sendRemoveParticipants ? module.sendRemoveParticipants : null
+    id: 'Reactions',
+    conditions: (module) => (module.sendReactionToMsg ? module : null),
   },
   {
-    id: 'sendPromoteParticipants',
-    conditions: (module) =>
-      module.sendPromoteParticipants ? module.sendPromoteParticipants : null
+    id: 'CheckWid',
+    conditions: (module) => (module.validateWid ? module : null),
   },
   {
-    id: 'sendDemoteParticipants',
-    conditions: (module) =>
-      module.sendDemoteParticipants ? module.sendDemoteParticipants : null
+    id: 'ProfileBusiness',
+    conditions: (module) => (module.BUSINESS_URL_DOMAIN ? module : null),
   },
   {
-    id: 'queryExist',
-    conditions: (module) =>
-      module.queryExist ?  module.queryExist : null,
+    id: 'Contacts',
+    conditions: (module) => (module.ContactCollection ? module : null),
   },
   {
-    id: 'checkNumberBeta',
+    id: 'onlySendAdmin',
     conditions: (module) =>
-      module.queryExists && module.queryPhoneExists ? module : null,
+      module.setGroupProperty && module.setGroupDescription ? module : null,
   },
   {
-    id: 'checkNumber',
-    conditions: (module) =>
-      module.default && module.default.queryExist ? module.default : null,
+    id: 'SendCommunity',
+    conditions: (module) => (module.sendCreateCommunity ? module : null),
   },
 ];

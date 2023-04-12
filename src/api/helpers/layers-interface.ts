@@ -7,7 +7,7 @@ export interface Scope {
 function infoType(data: string, type: string) {
   return typeof data === type ? true : false;
 }
-export function checkValuesSender(data: any): any {
+export function checkValuesSender(data: any) {
   if (Array.isArray(data)) {
     for (let i in data) {
       if (typeof i == 'number') {

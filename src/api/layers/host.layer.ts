@@ -1,61 +1,7 @@
-/*
-NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN
-MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mMMMMMMMMMNNNmmNNNMMNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mmNMMNMMMMNNNNNmmmddhdddNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mddNMMNy:/odNmmddmmNNmdhhddmNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NmmdNMNd:--+dNmmddhhddmmhsyhhmdmmNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NmNmdNmy:.-oyNmmmhmdhho+sososyhhhddNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NmmNdh+-`.:oyNNdmmdmmdo-://oysssyhhhdmNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-Nmmmoyyyo+osdNmdmmddNNhs+/::/+osyssydyhdNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NNmhsymMMNmmmmdmdNNddNmsso+++////ossssyyhdmNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mhhhmNNMNNNhssshhmmddmmssyooooso/::+oysshhhhmMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mmdhdddNNdyoosyhdmddmmmsoooooyysyys/::/oyyhhhyMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mdddhddmhsooshdmdmdhhyyyysso/ooo+syhhs/-/+shyhMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-dyyhdmd+ososhdmdmyyhhhhhhhyo++o/+///+ohhso++sdMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-dhdmNNdsossyhmdmsydhssssyhhs/++o/o+//:++yhhy+/hNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mdmNNNNmhysshddyshdyyy/oss+s::/:://++///++++/::hmNNNNNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NNMNNNmmNNdymNNhshdshdyhdysh+sy+-:++osssosss++yNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NmNNNmdNNmNmmmNmyyddyyhdhydyohys/-oo+osssysyyohNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mmNNNhdNmmNNmNMMNhyyhhhdhyyhmmyh+-/s+sysssyyhyydNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mNMMMhdNdmMNMMMMMNNmdhdddmhdmmNho/-osoyyo++oyddhhNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NMMMNmhNdNMNMNMMNmNNNmmmdyoohmhoyo::hsooo++oooydhymMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMNNNhmNNMmmNMNNmmmmdmmdyhhoyddddoo++yoyysooossyhsmMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMNNNmmNNNmdNdNmmddhhhdNNhsmNssdooo/dso++osyyysoymMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMNNNNmNNNNNmddmmNhshNmmmNmNMdhNsh/ohho++/:++MMNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MNNNMMNNNNmmmhhhhdyosdNmdmMMhoNmhdmys+ooo++/+MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mmNNNMMNNNNmddmdoodmMMNmmNNhssdmNMMMNdNd/osomMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NmNdhMNmNNMNmdNddohmMMNNNmdmdddNMMMMMMMMmMNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NmNhmMmmmmNNmdNyoNMNmNmdhyyyhdhoyNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NmdmMmmddddNmmdys+hmMMMmmhysssyy++dMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NmdNMMdmdddmmNNyshmNNNNNNNdhhs+yy//dMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NmNMMMdmdddmmMNysdmNNMMMNhhNdhs+y+/:mMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mmNMMNhmmddNNNMdyydmMMMNdyshNhyoss+:/MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NmNMMddmmmmNMNMNdsymNNmdhhdNMNdhsss+:yMMMMMMMMMMMMMMMMNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMdhmmmmmNMNNMmshNMMMmmMMMMMmNdyo+//NMMMMMMMMMMMMMMMhNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMmhmmmmmmNMMNNMyshdhhhyhNMMMMMMdhso+sMMMMMMMMMMMMMMMhmMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMmdmmmmmmmNMMMmNm+ys++oyyNMMMMMMNmmyyoyNMMMMMMMMMMMMMddMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NmmmmmmmmmmmNMNNmNNyyo+/oohNMMMMMMMMdhhsshmMMMMMMMMMMMyNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-mmNNNNNNmmmmNMMNmmddNmmdhhdmMMMMMMMMMNddhssshmmNNNmmdhdMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-NNNNNNNNNNNNNNNNmNNNNMMMMMNomMMMMMMMMMNNmdhhyyyyyyyhdmMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-Nd+oNMMMMMMMmodo++++++++++m..yNMMMMMNo+mNMMmhssshdNMMNhNMMMMMMMMMMMddMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MN+ /NMMMMMm: d` -ssssss+`d. `+mMMMMN. dNm+:+syso//hNN--yNMMMMMMMd+`yMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMN+ /NMMMm: oM` +NMMMMMNdN. /`.yNMMN. dh.omMMMMMNy.oM- `:hNMMMm+.  yMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMN/ /NMm: oNy` :sssmMMMMN. dh-`/mMN. d-/NMMMMMMMMy`m- y/`/dmo..o: yMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMN/ /m: +NNy. /yyyNMMMMN. dNNo`.yN- d.oNMMMMMMMMd d- mNh-`.`+mN/ yMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMMN/ . +NMMN- oNMMMMMNdN. dMMMd:`/. ds.dNMMMMMMm::M- dMMNy/dMMN/ yMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMMMN/ +NMMMN- /yyyyyys d. dMMMMNo`  dNy-+ymmmho-+NN- dMMMMMMMMN/ yMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMMMMNyNMMMMN+::::::::::m+/mMMMMMMd: dMMNho///+ymMMN+/mMMMMMMMMNs/hMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMMMMMNMMMMMMMMMMMMMMMMMMMMMMMMMMMMNsmMMMMMMMMMMMMMMNNNNMMNNNMMNNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNMMNMNMMMNMMNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMMNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-*/
-import { Page } from 'puppeteer';
+import { Page, Browser } from 'puppeteer';
 import { CreateConfig, defaultOptions } from '../../config/create-config';
 import { SocketState } from '../model/enum';
-import { injectApi } from '../../controllers/browser';
+//import { injectApi } from '../../controllers/browser';
 import { ScrapQrcode } from '../model/qrcode';
 import { scrapeImg } from '../helpers';
 import {
@@ -70,8 +16,8 @@ import { getSpinnies } from '../../utils/spinnies';
 import * as Spinnies from 'spinnies';
 
 export class HostLayer {
-  readonly session: string | any;
-  readonly options: CreateConfig | any;
+  readonly session: string;
+  readonly options: CreateConfig;
 
   protected spinnies: Spinnies = getSpinnies();
   protected spinStatus = {
@@ -82,10 +28,15 @@ export class HostLayer {
     state: ''
   };
 
-  protected autoCloseInterval: any = null;
-  protected statusFind?: (statusGet: string, session: string) => void;
+  protected autoCloseInterval = null;
+  protected statusFind?: (statusGet: string, session: string) => void = null;
 
-  constructor(public page: Page, session?: string, options?: CreateConfig) {
+  constructor(
+    public browser: Browser,
+    public page: Page,
+    session?: string,
+    options?: CreateConfig
+  ) {
     this.session = session;
     this.options = { ...defaultOptions, ...options };
 
@@ -93,15 +44,14 @@ export class HostLayer {
     //this._initialize(this.page);
   }
 
-  protected spin(text?: string, status?: Spinnies.SpinnerStatus | any) {
+  protected spin(text?: string, status?: Spinnies.SpinnerStatus) {
     const name = `session-${this.session}`;
 
     text = text || this.spinStatus.previousText;
     this.spinStatus.previousText = text;
 
     status =
-      status ||
-      (this.spinStatus.previousStatus as Spinnies.SpinnerStatus | any);
+      status || (this.spinStatus.previousStatus as Spinnies.SpinnerStatus);
     this.spinStatus.previousStatus = status;
 
     let fullText = `[instance: ${this.session}`;
@@ -110,7 +60,7 @@ export class HostLayer {
     // }
     fullText += `]: ${text}`;
 
-    let prevText: any = '';
+    let prevText = '';
 
     try {
       prevText = this.spinnies.pick(name).text;
@@ -125,16 +75,17 @@ export class HostLayer {
       });
     }
   }
-  public async _initialize(page: Page) {
-    this.spinStatus.apiInject = 'injecting';
-    await injectApi(page)
-      .then(() => {
-        this.spinStatus.apiInject = 'injected';
-      })
-      .catch(() => {
-        this.spinStatus.apiInject = 'failed';
-      });
-  }
+
+  // public async _initialize(page: Page) {
+  //   this.spinStatus.apiInject = 'injecting';
+  //   await injectApi(page)
+  //     .then(() => {
+  //       this.spinStatus.apiInject = 'injected';
+  //     })
+  //     .catch(() => {
+  //       this.spinStatus.apiInject = 'failed';
+  //     });
+  // }
 
   protected tryAutoClose() {
     if (
@@ -143,31 +94,32 @@ export class HostLayer {
       !this.page.isClosed()
     ) {
       this.statusFind && this.statusFind('autocloseCalled', this.session);
-      try {
-        this.page.close().catch(() => {});
-      } catch (error) {}
+      this.page.close().catch(() => {});
+      this.browser.close().catch(() => {});
     }
   }
 
   protected startAutoClose() {
     if (this.options.autoClose > 0 && !this.autoCloseInterval) {
       let remain = this.options.autoClose;
-      this.autoCloseInterval = setInterval(() => {
-        if (this.page.isClosed()) {
-          this.cancelAutoClose();
-          return;
-        }
-        remain -= 1000;
-        this.spinStatus.autoCloseRemain = Math.round(remain / 1000);
-        if (remain <= 0) {
-          this.cancelAutoClose();
-          this.tryAutoClose();
-        }
-      }, 1000);
+      try {
+        this.autoCloseInterval = setInterval(() => {
+          if (this.page.isClosed()) {
+            this.cancelAutoClose();
+            return;
+          }
+          remain -= 1000;
+          this.spinStatus.autoCloseRemain = Math.round(remain / 1000);
+          if (remain <= 0) {
+            this.cancelAutoClose();
+            this.tryAutoClose();
+          }
+        }, 1000);
+      } catch (e) {}
     }
   }
 
-  protected cancelAutoClose() {
+  public cancelAutoClose() {
     clearInterval(this.autoCloseInterval);
     this.autoCloseInterval = null;
   }
@@ -199,10 +151,11 @@ export class HostLayer {
       if (!needsScan) {
         break;
       }
-      const result = await this.getQrCode();
-      if (!result?.urlCode) {
+      const result = await this.getQrCode().catch(() => null);
+      if (!result.urlCode) {
         break;
       }
+
       if (urlCode !== result.urlCode) {
         urlCode = result.urlCode;
         attempt++;
@@ -210,7 +163,7 @@ export class HostLayer {
         let qr = '';
 
         if (this.options.logQR || catchQR) {
-          qr = await asciiQr(urlCode);
+          qr = await asciiQr(urlCode).catch(() => undefined);
         }
 
         if (this.options.logQR) {
@@ -223,7 +176,7 @@ export class HostLayer {
           catchQR(result.base64Image, qr, attempt, result.urlCode);
         }
       }
-      await sleep(200);
+      await sleep(200).catch(() => undefined);
     }
   }
 
@@ -244,22 +197,19 @@ export class HostLayer {
       attempt: number,
       urlCode?: string
     ) => void,
-    statusFind?: (statusGet: string, session: string) => void
-  ): Promise<any> {
+    statusFind?: (statusGet: string, session?: string) => void
+  ) {
     this.statusFind = statusFind;
+
     this.spin('Waiting page load', 'spinning');
 
-    await this.page
-      .waitForFunction(`!document.querySelector('#initial_startup')`)
-      .catch(() => {});
-
     this.spin('Checking is logged...');
-
     let authenticated = await isAuthenticated(this.page).catch(() => null);
 
     if (typeof authenticated === 'object' && authenticated.type) {
       this.spin(`Error http: ${authenticated.type}`, 'fail');
-      this.page.close();
+      this.page.close().catch(() => {});
+      this.browser.close().catch(() => {});
       throw `Error http: ${authenticated.type}`;
     }
 
@@ -268,9 +218,11 @@ export class HostLayer {
     if (authenticated === false) {
       this.spin('Waiting for QRCode Scan...');
       statusFind && statusFind('notLogged', this.session);
-      await this.waitForQrCodeScan(catchQR);
+
+      await this.waitForQrCodeScan(catchQR).catch(() => undefined);
 
       this.spin('Checking QRCode status...');
+
       // Wait for interface update
       await sleep(200);
       authenticated = await isAuthenticated(this.page).catch(() => null);
@@ -307,7 +259,7 @@ export class HostLayer {
         statusFind && statusFind('phoneNotConnected', this.session);
         this.cancelAutoClose();
         this.tryAutoClose();
-        throw 'Phone not connected';
+        throw new Error('Phone not connected');
       }
       this.cancelAutoClose();
       this.spin('Connected', 'succeed');
@@ -319,12 +271,28 @@ export class HostLayer {
       this.cancelAutoClose();
       this.tryAutoClose();
       this.spin('Not logged', 'fail');
-      throw 'Not logged';
+      throw new Error('Not logged');
     }
 
     this.cancelAutoClose();
     this.tryAutoClose();
     this.spin('Unknow error', 'fail');
+  }
+
+  //Pro
+  /**
+   * Set offline
+   */
+  public async setPresenceOffline() {
+    return await this.page.evaluate(() => WAPI.setPresenceOffline());
+  }
+
+  //Pro
+  /**
+   * Set online
+   */
+  public async setPresenceOnline() {
+    return await this.page.evaluate(() => WAPI.setPresenceOnline());
   }
 
   /**
@@ -344,7 +312,7 @@ export class HostLayer {
   /**
    * @returns Current host device details
    */
-  public async getHostDevice() {
+  public async getHostDevice(): Promise<Object> {
     return await this.page.evaluate(() => WAPI.getHost());
   }
 

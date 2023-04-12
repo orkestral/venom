@@ -1,10 +1,6 @@
-/* eslint-disable no-undef */
 export async function checkNumberStatus(id, conn = false) {
   try {
-    const err = {
-      error: 404
-    };
-
+    const err = { error: 404 };
     const connection =
       window.Store &&
       window.Store.State &&
@@ -12,6 +8,14 @@ export async function checkNumberStatus(id, conn = false) {
       window.Store.State.Socket.state
         ? window.Store.State.Socket.state
         : '';
+    const checkType = WAPI.sendCheckType(id);
+    if (!!checkType && checkType.status === 404) {
+      Object.assign(err, {
+        text: checkType.text,
+        numberExists: null
+      });
+      throw err;
+    }
 
     if (conn === true) {
       if (connection !== 'CONNECTED') {
@@ -23,12 +27,13 @@ export async function checkNumberStatus(id, conn = false) {
         throw err;
       }
     }
+
     const lid = await WAPI.getChat(id);
     if (lid) {
-      return await WPP.contact
-        .queryExists(lid.id)
+      return await Store.checkNumber
+        .queryWidExists(lid.id)
         .then((result) => {
-          if (typeof result === 'object') {
+          if (!!result && typeof result === 'object') {
             const data = {
               status: 200,
               numberExists: true,
