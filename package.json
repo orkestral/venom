@@ -113,7 +113,7 @@
     "boxen": "^5.1.1",
     "catch-exit": "^1.1.0",
     "chalk": "^4.0.0",
-    "chrome-launcher": "^0.15.1",
+    "chrome-launcher": "^0.15.2",
     "commitizen": "^4.3.0",
     "compressorjs": "^1.1.1",
     "cz-conventional-changelog": "^3.3.0",
