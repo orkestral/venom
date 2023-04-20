@@ -136,7 +136,6 @@ export class ProfileLayer extends HostLayer {
           process.cwd(),
           this.options.mkdirFolderToken,
           this.options.folderNameToken,
-          this.options.mkdirFolderTokenMultidevice,
           this.session
         )
       );

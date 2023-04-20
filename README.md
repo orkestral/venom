@@ -203,15 +203,7 @@ venom
       userProxy: '', // Proxy login username
       userPass: '' // Proxy password
     },
-    // BrowserSessionToken
-    // To receive the client's token use the function await clinet.getSessionTokenBrowser()
-    {
-      WABrowserId: '"UnXjH....."',
-      WASecretBundle:
-        '{"key":"+i/nRgWJ....","encKey":"kGdMR5t....","macKey":"+i/nRgW...."}',
-      WAToken1: '"0i8...."',
-      WAToken2: '"1@lPpzwC...."'
-    },
+  
     // BrowserInstance
     (browser, waPage) => {
       console.log('Browser PID:', browser.process().pid);
@@ -240,7 +232,7 @@ Gets the return if the session is `isLogged` or `notLogged` or `browserClose` or
 | `autocloseCalled`       | The browser was closed using the autoClose command                                                                                                             |
 | `desconnectedMobile`    | Client has desconnected in to mobile                                                                                                                           |
 | `serverClose`           | Client has desconnected in to wss                                                                                                                              |
-| `deleteToken`           | If you pass true within the function `client.getSessionTokenBrowser(true)`                                                                                     |
+| `deleteToken`           | If you pass true within the function                                                                                   |
 | `chatsAvailable`        | When Venom is connected to the chat list                                                                                                                       |
 | `deviceNotConnected`    | Chat not available because the phone is disconnected `(Trying to connect to the phone)`                                                                        |
 | `serverWssNotConnected` | The address wss was not found!                                                                                                                                 |
@@ -670,10 +662,6 @@ const contacts = await client.getAllContacts();
 // "toMute" List all silent chats
 // "noMute" List all chats without silence
 const listMute = await client.getListMute('all');
-
-// Retrieve the browser session token
-// if you want to delete the token file -> const browserSessionToken = await client.getSessionTokenBrowser(true);
-const browserSessionToken = await client.getSessionTokenBrowser();
 
 // Calls your list of blocked contacts (returns an array)
 const getBlockList = await client.getBlockList();

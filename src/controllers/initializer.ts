@@ -14,8 +14,6 @@ import { checkingCloses } from '../api/helpers';
 import { Browser, Page } from 'puppeteer';
 import { checkUpdates } from './check-up-to-date';
 
-const QRCode = require('qrcode');
-
 declare global {
   interface Window {
     updater;
@@ -157,7 +155,6 @@ export async function create(
 
     await checkUpdates();
 
-    let browserToken: any;
 
     const spinnies = getSpinnies({
       disableSpins: options ? options.disableSpins : false

@@ -3,10 +3,6 @@ import { puppeteerConfig } from './puppeteer.config';
 
 // Server config
 export interface CreateConfig {
-  /** enabled multidevice
-   * @default false
-   */
-  multidevice?: Boolean;
   /** folder name when saving tokens
    * @default 'tokens'
    */
@@ -16,11 +12,6 @@ export interface CreateConfig {
    * @default 'null'
    */
   mkdirFolderToken?: string;
-  /**
-   * folder directory tokens Multidevice, just inside the venom folder, example:  { mkdirFolderToken: '/node_modules', } //will save the tokens folder in the node_modules directory
-   * @default 'data'
-   */
-  mkdirFolderTokenMultidevice?: string;
   /**
    * Headless chrome
    * @default true
@@ -145,7 +136,6 @@ export interface CreateConfig {
 export const defaultOptions: CreateConfig = {
   folderNameToken: 'tokens',
   mkdirFolderToken: '',
-  mkdirFolderTokenMultidevice: 'data',
   headless: true,
   devtools: false,
   useChrome: true,
@@ -163,7 +153,6 @@ export const defaultOptions: CreateConfig = {
   waitForLogin: true,
   BrowserFetcher: true,
   chromiumVersion: '818858',
-  multidevice: false,
   forceConnect: false,
   attemptsForceConnectLoad: 5,
   forceConnectTime: 5000,
