@@ -6,24 +6,19 @@ import puppeteer from 'puppeteer-extra';
 import { CreateConfig } from '../config/create-config';
 import { puppeteerConfig } from '../config/puppeteer.config';
 import StealthPlugin = require('puppeteer-extra-plugin-stealth');
-import { auth_InjectToken } from './auth';
 import { useragentOverride } from '../config/WAuserAgente';
-import { tokenSession } from '../config/tokenSession.config';
 import { sleep } from '../utils/sleep';
 import * as Spinnies from 'spinnies';
 import * as os from 'os';
 import * as rimraf from 'rimraf';
 export async function initWhatsapp(
-  session: string,
   options: CreateConfig,
-  browser: Browser,
-  token?: tokenSession
+  browser: Browser
 ): Promise<false | Page> {
   const waPage: Page = await getWhatsappPage(browser);
   if (waPage != null) {
     try {
       await waPage.setUserAgent(useragentOverride);
-      //await waPage.setCacheEnabled(true);
       if (
         typeof options.userPass === 'string' &&
         options.userPass.length &&
@@ -52,8 +47,6 @@ export async function initWhatsapp(
       });
 
       await browser.userAgent();
-      // Auth with token
-      await auth_InjectToken(waPage, session, options, token);
 
       return waPage;
     } catch (e) {
@@ -115,7 +108,6 @@ export function folderSession(
       process.cwd(),
       options.mkdirFolderToken,
       options.folderNameToken,
-      options.mkdirFolderTokenMultidevice,
       session
     )
   );
@@ -232,9 +224,7 @@ export async function initBrowser(
     }
   }
 
-  if (options.multidevice === true) {
-    folderSession(options, session);
-  }
+  folderSession(options, session);
 
   // Use stealth plugin to avoid being detected as a bot
   puppeteer.use(StealthPlugin());

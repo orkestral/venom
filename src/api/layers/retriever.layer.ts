@@ -1,6 +1,5 @@
 import { Page, Browser } from 'puppeteer';
 import { CreateConfig } from '../../config/create-config';
-import { tokenSession } from '../../config/tokenSession.config';
 import { WhatsappProfile } from '../model';
 import { SenderLayer } from './sender.layer';
 import { Scope, checkValuesSender } from '../helpers/layers-interface';
@@ -92,20 +91,6 @@ export class RetrieverLayer extends SenderLayer {
    */
   public async getStateConnection() {
     return await this.page.evaluate(() => WAPI.getStateConnection());
-  }
-  /**
-   * Returns browser session token
-   * @returns obj [token]
-   */
-  public async getSessionTokenBrowser(
-    removePath?: boolean
-  ): Promise<tokenSession> {
-    if (removePath === true) {
-      await this.page.evaluate(() => {
-        window['pathSession'] = true;
-      });
-    }
-    return await this.page.evaluate(() => WAPI.getSessionTokenBrowser());
   }
 
   /**

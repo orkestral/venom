@@ -3,8 +3,6 @@ import {
   Contact,
   ContactStatus,
   GroupCreation,
-  HostDevice,
-  Id,
   Message,
   PartialMessage,
   SendFileResult,
@@ -12,7 +10,6 @@ import {
   SendStickerResult,
   WhatsappProfile
 } from '../api/model';
-import { tokenSession } from '../config/tokenSession.config';
 
 interface WAPI {
   addParticipant: (groupId: string, contactId: string | string[]) => boolean;
@@ -74,7 +71,6 @@ interface WAPI {
   getMessageById: (messageId: string) => Promise<Message>;
   getNumberProfile: (contactId: string) => Object;
   getProfilePicFromServer: (chatId: string) => string;
-  getSessionTokenBrowser: (removePath?: boolean) => tokenSession;
   getStatus: (contactId: string) => ContactStatus;
   getTheme: () => string;
   getUnreadMessages: (unread: boolean) => any;

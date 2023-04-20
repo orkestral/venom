@@ -1,13 +1,7 @@
-import * as fs from 'fs';
 import * as path from 'path';
 import * as puppeteer from 'puppeteer';
 import * as qrcode from 'qrcode-terminal';
-import { existsSync, readFileSync } from 'fs';
-import { CreateConfig } from '../config/create-config';
 import { ScrapQrcode } from '../api/model/qrcode';
-import { tokenSession } from '../config/tokenSession.config';
-//import { InterfaceMode } from '../api/model/enum/interface-mode';
-//import { injectApi } from './browser';
 import { sleep } from '../utils/sleep';
 import { Whatsapp } from '../api/whatsapp';
 const QRCode = require('qrcode');
@@ -160,130 +154,6 @@ export async function retrieveQR(
     })
     .catch(() => undefined);
 }
-
-export function SessionTokenCkeck(token: object) {
-  if (
-    token &&
-    token['WABrowserId'] &&
-    token['WASecretBundle'] &&
-    token['WAToken1'] &&
-    token['WAToken2']
-  ) {
-    return true;
-  } else {
-    return false;
-  }
-}
-
-export async function auth_InjectToken(
-  page: puppeteer.Page,
-  session: string,
-  options: CreateConfig,
-  token?: tokenSession
-) {
-  if (!token) {
-    const pathToken: string = path.join(
-      path.resolve(
-        process.cwd() + options.mkdirFolderToken,
-        options.folderNameToken
-      ),
-      `${session}.data.json`
-    );
-    if (existsSync(pathToken)) {
-      token = JSON.parse(readFileSync(pathToken).toString());
-    }
-  }
-
-  if (!token || !SessionTokenCkeck(token)) {
-    return false;
-  }
-
-  await page
-    .evaluate((session) => {
-      localStorage.clear();
-      Object.keys(session).forEach((key) => {
-        localStorage.setItem(key, session[key]);
-      });
-    }, token as any)
-    .catch();
-}
-
-export async function isClassic(page: puppeteer.Page): Promise<Boolean> {
-  return await page
-    .evaluate(() => {
-      if (
-        window.localStorage.getItem('WASecretBundle') &&
-        window.localStorage.getItem('WAToken1') &&
-        window.localStorage.getItem('WAToken2')
-      ) {
-        return true;
-      }
-      return false;
-    })
-    .catch(() => undefined);
-}
-
-export async function saveToken(
-  page: puppeteer.Page,
-  session: string,
-  options: CreateConfig
-) {
-  const token = (await page
-    .evaluate(() => {
-      if (window.localStorage) {
-        return {
-          WABrowserId: window.localStorage.getItem('WABrowserId'),
-          WASecretBundle: window.localStorage.getItem('WASecretBundle'),
-          WAToken1: window.localStorage.getItem('WAToken1'),
-          WAToken2: window.localStorage.getItem('WAToken2')
-        };
-      }
-      return undefined;
-    })
-    .catch(() => undefined)) as tokenSession;
-
-  if (!token || !SessionTokenCkeck(token)) {
-    return false;
-  }
-
-  const folder = path.join(
-    path.resolve(
-      process.cwd(),
-      options.mkdirFolderToken,
-      options.folderNameToken
-    )
-  );
-
-  try {
-    fs.mkdirSync(folder, { recursive: true });
-  } catch (error) {
-    throw 'Failed to create folder tokens...';
-  }
-
-  try {
-    fs.writeFileSync(
-      path.join(folder, `${session}.data.json`),
-      JSON.stringify(token)
-    );
-    //fs.chmodSync(folder, '777');
-    //fs.chmodSync(folder + '/' + session + '.data.json', '777');
-  } catch (error) {
-    throw 'Failed to save token...';
-  }
-
-  return token;
-}
-
-// export async function resetStore(page: puppeteer.Page) {
-//   await page
-//     .evaluate(() => {
-//       let last = window['webpackChunkwhatsapp_web_client'].length - 1;
-//       window['webpackChunkwhatsapp_web_client'][last][0] = [];
-//       window.Store = undefined;
-//       window.WAPI = undefined;
-//     })
-//     .catch(() => {});
-// }
 
 export async function checkDisconnect(page: puppeteer.Page, wpp: Whatsapp) {
   while (true) {
