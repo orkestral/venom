@@ -106,7 +106,7 @@
   },
   "dependencies": {
     "@typescript-eslint/eslint-plugin": "^5.48.2",
-    "@typescript-eslint/parser": "^5.44.0",
+    "@typescript-eslint/parser": "^5.59.1",
     "@wppconnect/wa-js": "^2.19.1",
     "atob": "^2.1.2",
     "axios": "^1.2.0",
