@@ -10,14 +10,14 @@ export async function sendLinkPreview(chatId, url, text) {
     Reg: () => {
       return new RegExp(
         _Path.Protocol +
-          _Path.Domain +
-          _Path.IP +
-          _Path.Port +
-          _Path.Query +
-          _Path.End,
+        _Path.Domain +
+        _Path.IP +
+        _Path.Port +
+        _Path.Query +
+        _Path.End,
         'i'
       );
-    }
+    },
   };
   if (!_Path.Reg().test(url)) {
     var text =
@@ -28,13 +28,15 @@ export async function sendLinkPreview(chatId, url, text) {
   if (!chat.erro) {
     const newMsgId = await window.WAPI.getNewMessageId(chat.id._serialized);
     const fromwWid = await Store.MaybeMeUser.getMaybeMeUser();
-    let inChat = await WAPI.getchatId(chat.id).catch(() => {});
+    let inChat = await WAPI.getchatId(chat.id).catch(() => { });
     if (inChat) {
       chat.lastReceivedKey._serialized = inChat._serialized;
       chat.lastReceivedKey.id = inChat.id;
     }
+    const link = await window.Store.Validators.findLink(url);
     const message = {
       id: newMsgId,
+      links: link,
       ack: 0,
       body: url,
       from: fromwWid,
@@ -45,11 +47,14 @@ export async function sendLinkPreview(chatId, url, text) {
       isNewMsg: !0,
       type: 'chat',
       subtype: 'url',
+      preview: true,
+      disappearingModeInitiator: 'chat',
+      thumbnail: "iVBORw0KGgoAAAANSUhEUgAAAGMAAABjCAIAAAAAWSnCAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAA0SURBVHhe7cExAQAAAMKg9U9tCj8gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADipAXM+AAFcstx4AAAAAElFTkSuQmCC",
       content: url,
       canonicalUrl: url,
       description: url,
       matchedText: url,
-      title: text
+      title: text,
     };
     const result = (
       await Promise.all(window.Store.addAndSendMsgToChat(chat, message))
