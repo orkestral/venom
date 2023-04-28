@@ -23,11 +23,6 @@ export interface CreateConfig {
    */
   devtools?: boolean;
   /**
-   * If false will use Chromium instance
-   * @default false
-   */
-  useChrome?: boolean;
-  /**
    * Opens a debug session
    * @default false
    */
@@ -97,11 +92,6 @@ export interface CreateConfig {
    */
   BrowserFetcher?: boolean;
   /**
-   * Version of the browser that will be used
-   * @default '818858'
-   */
-  chromiumVersion?: string;
-  /**
    * Forcing connection with whatsapp
    * @default true
    */
@@ -138,7 +128,6 @@ export const defaultOptions: CreateConfig = {
   mkdirFolderToken: '',
   headless: true,
   devtools: false,
-  useChrome: true,
   debug: false,
   logQR: true,
   browserWS: '',
@@ -152,7 +141,6 @@ export const defaultOptions: CreateConfig = {
   createPathFileToken: true,
   waitForLogin: true,
   BrowserFetcher: true,
-  chromiumVersion: '818858',
   forceConnect: false,
   attemptsForceConnectLoad: 5,
   forceConnectTime: 5000,

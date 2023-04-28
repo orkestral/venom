@@ -155,7 +155,6 @@ export async function create(
 
     await checkUpdates();
 
-
     const spinnies = getSpinnies({
       disableSpins: options ? options.disableSpins : false
     });
@@ -179,19 +178,13 @@ export async function create(
       });
     }
 
-    const browser = await initBrowser(spinnies, session, mergedOptions);
+    const browser: Browser | boolean = await initBrowser(
+      spinnies,
+      session,
+      mergedOptions
+    );
 
-    // Erro of connect wss
-    if (typeof browser === 'string' && browser === 'connect') {
-      spinnies.fail(`browser-${session}`, {
-        text: `Error when try to connect ${mergedOptions.browserWS}`
-      });
-      statusFind && statusFind('serverWssNotConnected', session);
-      return reject(`Error when try to connect ${mergedOptions.browserWS}`);
-    }
-
-    // Erro open browser
-    if (typeof browser === 'string' && browser === 'launch') {
+    if (typeof browser === 'boolean') {
       spinnies.fail(`browser-${session}`, {
         text: `Error no open browser....`
       });

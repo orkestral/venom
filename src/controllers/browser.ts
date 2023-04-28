@@ -5,18 +5,17 @@ import { Browser, BrowserContext, Page, LaunchOptions } from 'puppeteer';
 import puppeteer from 'puppeteer-extra';
 import { CreateConfig } from '../config/create-config';
 import { puppeteerConfig } from '../config/puppeteer.config';
-import StealthPlugin = require('puppeteer-extra-plugin-stealth');
+import StealthPlugin from 'puppeteer-extra-plugin-stealth';
 import { useragentOverride } from '../config/WAuserAgente';
 import { sleep } from '../utils/sleep';
 import * as Spinnies from 'spinnies';
-import * as os from 'os';
-import * as rimraf from 'rimraf';
+
 export async function initWhatsapp(
   options: CreateConfig,
   browser: Browser
 ): Promise<false | Page> {
-  const waPage: Page = await getWhatsappPage(browser);
-  if (waPage != null) {
+  const waPage: Page | boolean = await getWhatsappPage(browser);
+  if (waPage) {
     try {
       await waPage.setUserAgent(useragentOverride);
       if (
@@ -37,8 +36,11 @@ export async function initWhatsapp(
       });
 
       waPage.on('pageerror', ({ message }) => {
-        const erroLog = message.includes('RegisterEffect is not a function');
-        if (erroLog) {
+        const erroLogType1 = message.includes(
+          'RegisterEffect is not a function'
+        );
+        const erroLogType2 = message.includes('[Report Only]');
+        if (erroLogType1 || erroLogType2) {
           waPage.evaluate(() => {
             localStorage.clear();
             window.location.reload();
@@ -47,14 +49,13 @@ export async function initWhatsapp(
       });
 
       await browser.userAgent();
-
       return waPage;
-    } catch (e) {
-      waPage.close().catch(() => {});
-      browser.close().catch(() => {});
+    } catch {
+      waPage.close();
       return false;
     }
   }
+  return false;
 }
 
 export async function statusLog(
@@ -98,11 +99,7 @@ export async function puppeteerMutationListener(oldValue, newValue) {
   console.log(`${oldValue} -> ${newValue}`);
 }
 
-export function folderSession(
-  options: CreateConfig,
-  session: string,
-  returnFolder: boolean = true
-) {
+export function folderSession(options: CreateConfig, session: string) {
   const folderSession = path.join(
     path.resolve(
       process.cwd(),
@@ -141,11 +138,8 @@ export function folderSession(
   } as LaunchOptions;
 
   puppeteerConfig.chromiumArgs.push(`--user-data-dir=${folderSession}`);
-
-  if (returnFolder) {
-    return folderSession;
-  }
 }
+
 /**
  * Initializes browser, will try to use chrome as default
  * @param session
@@ -153,78 +147,13 @@ export function folderSession(
 export async function initBrowser(
   spinnies: any,
   session: string,
-  options: CreateConfig,
-  extras = {}
-): Promise<Browser | string> {
-  const chromePath = getChrome();
-  if (chromePath && options.useChrome) {
-    extras = { ...extras, executablePath: chromePath };
-  } else {
-    if (options.BrowserFetcher) {
-      const browserFetcher = puppeteer.createBrowserFetcher(undefined);
-
-      spinnies.add(`extract-file`, {
-        text: `Await download Chromium`
-      });
-      let init = true;
-      await browserFetcher
-        .download(options.chromiumVersion, (downloadedByte, totalBytes) => {
-          if (init) {
-            spinnies.add(`chromium-${session}`, {
-              text: 'Check chromium....'
-            });
-
-            spinnies.add(`chromium-total-${session}`, {
-              text: 'Checking the total bytes to download!'
-            });
-            init = false;
-          }
-
-          if (downloadedByte) {
-            spinnies.update(`chromium-${session}`, {
-              text: `Total byte value....${downloadedByte}`
-            });
-          }
-
-          if (totalBytes) {
-            spinnies.update(`chromium-total-${session}`, {
-              text: `Total Bytes ${totalBytes}`
-            });
-          }
-
-          if (downloadedByte === totalBytes) {
-            spinnies.succeed(`chromium-${session}`, {
-              text: `Chromium Finished result`
-            });
-            spinnies.succeed(`chromium-total-${session}`, {
-              text: `Chromium completed result`
-            });
-            spinnies.update(`extract-file`, {
-              text: `Extract files... await...`
-            });
-          }
-        })
-        .then((revisionInfo) => {
-          spinnies.succeed(`extract-file`, {
-            text: `Extract files concluded`
-          });
-          extras = {
-            ...extras,
-            executablePath: revisionInfo.executablePath
-          };
-          puppeteerConfig.chromiumArgs.push(`--single-process`);
-        })
-        .catch((e) => {
-          console.log('error chromium: ', e);
-          extras = {};
-        });
-    } else {
-      console.log('Chrome not found, using chromium');
-      extras = {};
-    }
-  }
-
+  options: CreateConfig
+): Promise<Browser | boolean> {
   folderSession(options, session);
+  let extras = {};
+  const chromePath = getChrome() ?? puppeteer.executablePath();
+
+  extras = { ...extras, executablePath: chromePath };
 
   // Use stealth plugin to avoid being detected as a bot
   puppeteer.use(StealthPlugin());
@@ -237,8 +166,6 @@ export async function initBrowser(
       : Object.assign(puppeteerConfig.chromiumArgs, [
           `--proxy-server=${proxy}`
         ]);
-
-    // console.log(puppeteerConfig.chromiumArgs);
   }
   if (
     Array.isArray(options?.addBrowserArgs) &&
@@ -255,21 +182,18 @@ export async function initBrowser(
       }
     }
   }
-  let browser = null;
+
   if (options.browserWS && options.browserWS != '') {
-    await puppeteer
-      .connect({
+    try {
+      return await puppeteer.connect({
         browserWSEndpoint: options.browserWS
-      })
-      .then((e) => {
-        browser = e;
-      })
-      .catch(() => {
-        browser = 'connect';
       });
+    } catch {
+      return false;
+    }
   } else {
-    await puppeteer
-      .launch({
+    try {
+      return await puppeteer.launch({
         headless: options.headless,
         devtools: options.devtools,
         args:
@@ -278,45 +202,23 @@ export async function initBrowser(
             : [...puppeteerConfig.chromiumArgs],
         ...options.puppeteerOptions,
         ...extras
-      })
-      .then((e) => {
-        browser = e;
-      })
-      .catch((e) => {
-        console.error('Error launch: ', e);
-        browser = 'launch';
       });
-  }
-  try {
-    const arg = browser
-      .process()
-      .spawnargs.find((s: string) => s.startsWith('--user-data-dir='));
-
-    if (arg) {
-      const tmpUserDataDir = arg.split('=')[1];
-
-      // Only if path is in TMP directory
-      if (path.relative(os.tmpdir(), tmpUserDataDir).startsWith('puppeteer')) {
-        process.on('exit', () => {
-          // Remove only on exit signal
-          try {
-            rimraf.sync(tmpUserDataDir);
-          } catch (error) {}
-        });
-      }
+    } catch {
+      return false;
     }
-  } catch (error) {}
-  return browser;
+  }
 }
 
 export async function getWhatsappPage(
   browser: Browser | BrowserContext
-): Promise<Page> {
-  const pages = await browser.pages().catch();
-  if (pages.length) {
-    return pages[0];
+): Promise<Page | false> {
+  try {
+    const page: Page[] = await browser.pages();
+    if (page.length) return page[0];
+    return await browser.newPage();
+  } catch {
+    return false;
   }
-  return await browser.newPage().catch();
 }
 
 /**
