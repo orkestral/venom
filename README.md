@@ -346,7 +346,6 @@ available can be found in [here](/src/api/layers) and
 ```javascript
 
 // Send List menu
-//This function does not work for Bussines contacts
 const list = [
     {
       title: "Pasta",

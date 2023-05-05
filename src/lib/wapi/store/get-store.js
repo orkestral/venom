@@ -42,11 +42,11 @@ export async function getStore(modules) {
   });
 
   if (window.Store.MediaCollection) {
-      window.Store.MediaCollection.prototype.processFiles =
-        window.Store.MediaCollection.prototype.processFiles ||
-        window.Store.MediaCollection.prototype.processAttachments;
+    window.Store.MediaCollection.prototype.processFiles =
+      window.Store.MediaCollection.prototype.processFiles ||
+      window.Store.MediaCollection.prototype.processAttachments;
   }
-  
+
   window.mR = async (find) => {
     return new Promise((resolve) => {
       const parasite = `parasite${Date.now()}`;
@@ -83,25 +83,25 @@ export async function getStore(modules) {
       Nr[selector] = (...args) => callback(oldFunct, args);
     })();
   };
-  
+
   window.injectToFunction('createMsgProtobuf', (func, args) => {
     const proto = func(...args);
     const [message] = args;
 
     if (proto.listMessage) {
-        proto.viewOnceMessage = {
-            message: {
-                listMessage: proto.listMessage
-            }
-        };
-        delete proto.listMessage;
+      proto.viewOnceMessage = {
+        message: {
+          listMessage: proto.listMessage
+        }
+      };
+      delete proto.listMessage;
     }
 
     if (proto.buttonsMessage) {
       proto.viewOnceMessage = {
-          message: {
-              buttonsMessage: proto.buttonsMessage,
-          },
+        message: {
+          buttonsMessage: proto.buttonsMessage,
+        },
       };
       delete proto.buttonsMessage;
     }
@@ -119,19 +119,19 @@ export async function getStore(modules) {
       const hydratedTemplate = {
         hydratedButtons: message.hydratedButtons,
       };
-  
+
       if (message.footer) {
         hydratedTemplate.hydratedFooterText = message.footer;
       }
-  
+
       if (message.caption) {
         hydratedTemplate.hydratedContentText = message.caption;
       }
-  
+
       if (message.title) {
         hydratedTemplate.hydratedTitleText = message.title;
       }
-  
+
       if (proto.conversation) {
         hydratedTemplate.hydratedContentText = proto.conversation;
         delete proto.conversation;
@@ -153,14 +153,14 @@ export async function getStore(modules) {
             break;
           }
         }
-  
+
         if (!found) {
           return proto;
         }
-  
+
         // Media message doesn't allow title
         hydratedTemplate[found] = proto[found];
-  
+
         // Copy title to caption if not setted
         if (
           hydratedTemplate.hydratedTitleText &&
@@ -169,34 +169,34 @@ export async function getStore(modules) {
           hydratedTemplate.hydratedContentText =
             hydratedTemplate.hydratedTitleText;
         }
-  
+
         // Remove title for media messages
         delete hydratedTemplate.hydratedTitleText;
-  
+
         if (found === 'locationMessage') {
           if (
             !hydratedTemplate.hydratedContentText &&
             (proto[found].name || proto[found].address)
           ) {
             hydratedTemplate.hydratedContentText =
-            proto[found].name && proto[found].address
+              proto[found].name && proto[found].address
                 ? `${proto[found].name}\n${proto[found].address}`
                 : proto[found].name || proto[found].address || '';
           }
         }
-  
+
         // Ensure a content text;
         hydratedTemplate.hydratedContentText =
           hydratedTemplate.hydratedContentText || ' ';
-  
+
         delete proto[found];
       }
-  
+
       proto.templateMessage = {
         hydratedTemplate,
       };
     }
-    
+
     return proto;
   });
 
@@ -211,7 +211,7 @@ export async function getStore(modules) {
   window.injectToFunction('typeAttributeFromProtobuf', (func, args) => {
     const [proto] = args;
     console.log(`proto`, proto);
-    
+
     if (proto.viewOnceMessage?.message.listMessage) {
       return 'text';
     }
@@ -219,7 +219,7 @@ export async function getStore(modules) {
     if (proto.imageMessage || proto.audioMessage) {
       return 'text';
     }
-    
+
     if (
       proto.viewOnceMessage?.message?.buttonsMessage?.headerType === 1 ||
       proto.viewOnceMessage?.message?.buttonsMessage?.headerType === 2
@@ -232,8 +232,53 @@ export async function getStore(modules) {
     }
 
     return 'text';
-   });
-  
+  });
 
+  window.injectToFunction('createFanoutMsgStanza', async (func, args) => {
+    const [, proto] = args;
+
+    let buttonNode = null;
+
+    if (proto.viewOnceMessage?.message.listMessage) {
+      const listType = proto.viewOnceMessage?.message.listMessage?.listType || 0;
+
+      const types = ['unknown', 'single_select', 'product_list'];
+
+      buttonNode = Store.Websocket.smax('list', {
+        v: '2',
+        type: types[listType],
+      });
+    }
+
+    const node = await func(...args);
+
+    if (!buttonNode) {
+      return node;
+    }
+
+    const content = node.content;
+
+    let bizNode = content.find((c) => c.tag === 'biz');
+
+    if (!bizNode) {
+      bizNode = Store.Websocket.smax('biz', {}, null);
+      content.push(bizNode);
+    }
+
+    let hasButtonNode = false;
+
+    if (Array.isArray(bizNode.content)) {
+      hasButtonNode = !!bizNode.content.find((c) => c.tag === buttonNode?.tag);
+    } else {
+      bizNode.content = [];
+    }
+
+
+    if (!hasButtonNode) {
+      bizNode.content.push(buttonNode);
+    }
+
+    return node;
+  });
 }
 

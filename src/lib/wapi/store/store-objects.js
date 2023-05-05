@@ -443,4 +443,8 @@ export const storeObjects = [
     id: 'SendCommunity',
     conditions: (module) => (module.sendCreateCommunity ? module : null),
   },
+  {
+    id: 'Websocket',
+    conditions: (module) => (module.smax ? module : null),
+  },
 ];
