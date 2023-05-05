@@ -1,10 +1,11 @@
 name: Update nightly release
+
 on:
   push:
     branches:
       - main
   schedule:
-    - cron: '0 0 * * *' # Executa a meia-noite de cada dia
+    - cron: '0 0 * * *' 
 
 jobs:
   update-nightly-release:
@@ -23,7 +24,10 @@ jobs:
 
       - name: Update info.txt
         run: |
-          echo -e "ref: ${{ github.ref }}\ncommit: ${{ github.sha }}\nbuild: $(date +'%Y-%m-%dT%H:%M:%SZ')" > build/libs/info.txt
+          commit=$(git log --format="%H" -n 1)
+          date=$(git log --format="%cd" -n 1 --date=format:'%Y-%m-%dT%H:%M:%SZ')
+          author=$(git config user.name)
+          echo -e "ref: ${{ github.ref }}\ncommit: $commit\nauthor: $author\ndate: $date" > build/libs/info.txt
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
