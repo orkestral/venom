@@ -1,3 +1,21 @@
+## [5.0.1](https://github.com/orkestral/venom/compare/v5.0.0...v5.0.1) (2023-05-05)
+
+
+### Bug Fixes
+
+* eslintrc.cjs ([59ee984](https://github.com/orkestral/venom/commit/59ee98427c99cab569c394b1475f274e753955d0))
+* sendListMenu for Bussines contacts ([262eaaa](https://github.com/orkestral/venom/commit/262eaaa6ba5f50e8e335a1a0af1f50d2dd703c5b))
+* temporary sendLinkPreview ([059df92](https://github.com/orkestral/venom/commit/059df928b9013ae0d7c56bff56f0da673c6a9d42))
+
+
+### Features
+
+* remove useChrome ([a1850b4](https://github.com/orkestral/venom/commit/a1850b4a9dc4c1a22e593af47986eac916f7cc9f))
+* removing multi device option ([4564c24](https://github.com/orkestral/venom/commit/4564c246347074bd1f625b2f6bede62d7ac89d19))
+* update puppeteer ([459a2ea](https://github.com/orkestral/venom/commit/459a2eaa5746133d06314d3c67b1245b05d963f7))
+
+
+
 # [5.0.0](https://github.com/orkestral/venom/compare/v4.3.7...v5.0.0) (2023-04-12)
 
 
