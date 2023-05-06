@@ -11,7 +11,14 @@ export async function getAllMessagesInChat(
     typeof includeNotifications === 'boolean'
   ) {
     let output = [];
-    const messages = chat.msgs._models;
+    let msg = await chat.getAllMsgs();
+    if (msg && msg.length > 0) {
+      msg = msg[0].collection._models;
+    } else {
+      msg = [];
+    }
+    const messages =
+      msg.length > chat.msgs._models.length ? msg : chat.msgs._models;
 
     for (const i in messages) {
       if (i === 'remove') {
