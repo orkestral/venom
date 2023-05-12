@@ -108,7 +108,6 @@
   "dependencies": {
     "@typescript-eslint/eslint-plugin": "^5.48.2",
     "@typescript-eslint/parser": "^5.44.0",
-    "@wppconnect/wa-js": "^2.19.1",
     "atob": "^2.1.2",
     "axios": "^1.2.0",
     "boxen": "^5.1.1",
@@ -125,7 +124,7 @@
     "futoin-hkdf": "^1.5.1",
     "i": "^0.3.7",
     "latest-lib": "^0.2.1",
-    "latest-version": "^5.1.0",
+    "latest-version": "^7.0.0",
     "mime-types": "^2.1.35",
     "ora": "^6.1.2",
     "puppeteer": "^20.0.0",

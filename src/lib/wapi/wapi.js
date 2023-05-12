@@ -139,7 +139,6 @@ import {
   addOnNewAcks,
   addOnParticipantsChange,
   addOnStateChange,
-  allNewMessagesListener,
   initNewMessagesListener,
   addOnStreamChange,
   addonFilePicThumb,
@@ -537,7 +536,6 @@ if (typeof window.WAPI === 'undefined') {
   };
 
   addNewMessagesListener();
-  //allNewMessagesListener();
 
   addonUnreadMessage();
   addonFilePicThumb();

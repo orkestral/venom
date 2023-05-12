@@ -11,7 +11,7 @@ export async function addParticipant(groupId, contactsId) {
   }
 
   try {
-    await window.Store.Participants.addParticipants(chat, contactsId);
+    await Store.Participants.addParticipants(chat, contactsId);
     return true;
   } catch {
     return false;
