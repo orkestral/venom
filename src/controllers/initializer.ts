@@ -179,7 +179,6 @@ export async function create(
     }
 
     const browser: Browser | boolean = await initBrowser(
-      spinnies,
       session,
       mergedOptions
     );

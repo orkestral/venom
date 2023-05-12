@@ -11,7 +11,6 @@ import {
   PicTumb,
   ChatStatus
 } from '../model';
-//import { resetStore } from '../../controllers/auth';
 import { SocketState, SocketStream } from '../model/enum';
 import { InterfaceChangeMode } from '../model';
 import { InterfaceMode } from '../model/enum/interface-mode';

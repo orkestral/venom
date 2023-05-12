@@ -13,90 +13,65 @@ import * as Spinnies from 'spinnies';
 export async function initWhatsapp(
   options: CreateConfig,
   browser: Browser
-): Promise<false | Page> {
-  const waPage: Page | boolean = await getWhatsappPage(browser);
-  if (waPage) {
-    try {
-      await waPage.setUserAgent(useragentOverride);
-      if (
-        typeof options.userPass === 'string' &&
-        options.userPass.length &&
-        typeof options.userProxy === 'string' &&
-        options.userProxy.length &&
-        Array.isArray(options.addProxy) &&
-        options.addProxy.length
-      ) {
-        await waPage.authenticate({
-          username: options.userProxy,
-          password: options.userPass
+): Promise<Page | false> {
+  const waPage = await getWhatsappPage(browser);
+  if (!waPage) {
+    return false;
+  }
+  try {
+    await waPage.setUserAgent(useragentOverride);
+
+    const hasUserPass =
+      typeof options.userPass === 'string' && options.userPass.length;
+    const hasUserProxy =
+      typeof options.userProxy === 'string' && options.userProxy.length;
+    const hasAddProxy =
+      Array.isArray(options.addProxy) && options.addProxy.length;
+
+    if (hasUserPass && hasUserProxy && hasAddProxy) {
+      await waPage.authenticate({
+        username: options.userProxy,
+        password: options.userPass
+      });
+    }
+
+    await waPage.goto(puppeteerConfig.whatsappUrl, {
+      waitUntil: 'domcontentloaded'
+    });
+
+    waPage.on('pageerror', ({ message }) => {
+      const erroLogType1 = message.includes('RegisterEffect is not a function');
+      const erroLogType2 = message.includes('[Report Only]');
+      if (erroLogType1 || erroLogType2) {
+        waPage.evaluate(() => {
+          localStorage.clear();
+          window.location.reload();
         });
       }
-      await waPage.goto(puppeteerConfig.whatsappUrl, {
-        waitUntil: 'domcontentloaded'
-      });
+    });
 
-      waPage.on('pageerror', ({ message }) => {
-        const erroLogType1 = message.includes(
-          'RegisterEffect is not a function'
-        );
-        const erroLogType2 = message.includes('[Report Only]');
-        if (erroLogType1 || erroLogType2) {
-          waPage.evaluate(() => {
-            localStorage.clear();
-            window.location.reload();
-          });
-        }
-      });
-
-      await browser.userAgent();
-      return waPage;
-    } catch {
-      waPage.close();
-      return false;
-    }
-  }
-  return false;
-}
-
-export async function statusLog(
-  page: Page,
-  spinnies: Spinnies,
-  session: string,
-  callback: (infoLog: string) => void
-) {
-  while (true) {
-    if (page.isClosed()) {
-      try {
-        spinnies.fail(`whatzapp-intro-${session}`, {
-          text: 'Erro intro'
-        });
-      } catch {}
-      break;
-    }
-
-    const infoLog: string = await page
-      .evaluate(() => {
-        const target = document.getElementsByClassName('_2dfCc');
-        if (target && target.length) {
-          if (
-            target[0]['innerText'] !== 'WhatsApp' &&
-            target[0]['innerText'] !== window['statusInicial']
-          ) {
-            window['statusInicial'] = target[0]['innerText'];
-            return window['statusInicial'];
-          }
-        }
-      })
-      .catch(() => undefined);
-    if (infoLog) {
-      callback(infoLog);
-    }
-    await sleep(200);
+    await browser.userAgent();
+    return waPage;
+  } catch (error) {
+    console.error(error);
+    await waPage.close();
+    return false;
   }
 }
 
-export async function puppeteerMutationListener(oldValue, newValue) {
-  console.log(`${oldValue} -> ${newValue}`);
+export async function getWhatsappPage(
+  browser: Browser | BrowserContext
+): Promise<Page | false> {
+  try {
+    const pages: Page[] = await browser.pages();
+    if (pages.length !== 0) {
+      return pages[0];
+    } else {
+      return await browser.newPage();
+    }
+  } catch {
+    return false;
+  }
 }
 
 export function folderSession(options: CreateConfig, session: string) {
@@ -140,95 +115,98 @@ export function folderSession(options: CreateConfig, session: string) {
   puppeteerConfig.chromiumArgs.push(`--user-data-dir=${folderSession}`);
 }
 
-/**
- * Initializes browser, will try to use chrome as default
- * @param session
- */
 export async function initBrowser(
-  spinnies: any,
   session: string,
   options: CreateConfig
-): Promise<Browser | boolean> {
-  folderSession(options, session);
-  let extras = {};
-  const chromePath = getChrome() ?? puppeteer.executablePath();
-
-  extras = { ...extras, executablePath: chromePath };
-
-  // Use stealth plugin to avoid being detected as a bot
-  puppeteer.use(StealthPlugin());
-
-  if (Array.isArray(options.addProxy) && options.addProxy.length) {
-    const proxy =
-      options.addProxy[Math.floor(Math.random() * options.addProxy.length)];
-    options.browserArgs
-      ? Object.assign(options.browserArgs, [`--proxy-server=${proxy}`])
-      : Object.assign(puppeteerConfig.chromiumArgs, [
-          `--proxy-server=${proxy}`
-        ]);
-  }
-  if (
-    Array.isArray(options?.addBrowserArgs) &&
-    options?.addBrowserArgs.length > 0
-  ) {
-    for (
-      let index: number = 0;
-      index < options?.addBrowserArgs.length;
-      index++
-    ) {
-      const element = options?.addBrowserArgs[index];
-      if (!puppeteerConfig.chromiumArgs.includes(element)) {
-        puppeteerConfig.chromiumArgs.push(element);
-      }
-    }
-  }
-
-  if (options.browserWS && options.browserWS != '') {
-    try {
-      return await puppeteer.connect({
-        browserWSEndpoint: options.browserWS
-      });
-    } catch {
-      return false;
-    }
-  } else {
-    try {
-      return await puppeteer.launch({
-        headless: options.headless,
-        devtools: options.devtools,
-        args:
-          Array.isArray(options.browserArgs) && options.browserArgs.length
-            ? options.browserArgs
-            : [...puppeteerConfig.chromiumArgs],
-        ...options.puppeteerOptions,
-        ...extras
-      });
-    } catch {
-      return false;
-    }
-  }
-}
-
-export async function getWhatsappPage(
-  browser: Browser | BrowserContext
-): Promise<Page | false> {
+): Promise<Browser | false> {
   try {
-    const page: Page[] = await browser.pages();
-    if (page.length) return page[0];
-    return await browser.newPage();
+    folderSession(options, session);
+
+    // Set the executable path to the path of the Chrome binary or the executable path provided
+    const executablePath = getChrome() ?? puppeteer.executablePath();
+    const extras = { executablePath };
+
+    // Use stealth plugin to avoid being detected as a bot
+    puppeteer.use(StealthPlugin());
+
+    if (Array.isArray(options.addProxy) && options.addProxy.length) {
+      const proxy =
+        options.addProxy[Math.floor(Math.random() * options.addProxy.length)];
+      const args = options.browserArgs ?? puppeteerConfig.chromiumArgs;
+      args.push(`--proxy-server=${proxy}`);
+    }
+
+    if (
+      Array.isArray(options.addBrowserArgs) &&
+      options.addBrowserArgs.length
+    ) {
+      options.addBrowserArgs.forEach((arg) => {
+        if (!puppeteerConfig.chromiumArgs.includes(arg)) {
+          puppeteerConfig.chromiumArgs.push(arg);
+        }
+      });
+    }
+
+    const launchOptions = {
+      headless: options.headless,
+      devtools: options.devtools,
+      args: options.browserArgs ?? puppeteerConfig.chromiumArgs,
+      ...options.puppeteerOptions,
+      ...extras
+    };
+
+    if (options.browserWS && options.browserWS !== '') {
+      return await puppeteer.connect({ browserWSEndpoint: options.browserWS });
+    } else {
+      return await puppeteer.launch(launchOptions);
+    }
   } catch {
     return false;
   }
 }
 
-/**
- * Retrieves chrome instance path
- */
 function getChrome() {
   try {
     const chromeInstalations = ChromeLauncher.Launcher.getInstallations();
     return chromeInstalations[0];
   } catch (error) {
     return undefined;
+  }
+}
+
+export async function statusLog(
+  page: Page,
+  spinnies: Spinnies,
+  session: string,
+  callback: (infoLog: string) => void
+) {
+  while (true) {
+    if (page.isClosed()) {
+      try {
+        spinnies.fail(`whatzapp-intro-${session}`, {
+          text: 'Erro intro'
+        });
+      } catch {}
+      break;
+    }
+
+    const infoLog: string = await page
+      .evaluate(() => {
+        const target = document.getElementsByClassName('_2dfCc');
+        if (target && target.length) {
+          if (
+            target[0]['innerText'] !== 'WhatsApp' &&
+            target[0]['innerText'] !== window['statusInicial']
+          ) {
+            window['statusInicial'] = target[0]['innerText'];
+            return window['statusInicial'];
+          }
+        }
+      })
+      .catch(() => undefined);
+    if (infoLog) {
+      callback(infoLog);
+    }
+    await sleep(200);
   }
 }
