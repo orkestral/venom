@@ -37,7 +37,7 @@ Use it in your favorite language like PHP, Python, C# and others. as long as you
 
 ## Get our official API Venom ! Contact us!
 
-<a target="_blank" href="https://web.whatsapp.com/send?phone=5511914380641&text=I%20want%20access%20to%20API%20Venom" target="_blank"><img title="whatzapp" height="100" width="375" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/WhatsApp_logo.svg/2000px-WhatsApp_logo.svg.png"></a>
+<a target="_blank" href="https://web.whatsapp.com/send?phone=5561985290357&text=I%20want%20access%20to%20API%20Venom" target="_blank"><img title="whatzapp" height="100" width="375" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/WhatsApp_logo.svg/2000px-WhatsApp_logo.svg.png"></a>
 
 ## Venom group support on Telegram
 
@@ -65,7 +65,7 @@ With Superchats you can build service bots, multiservice chats or any system tha
 
 The value of the license is $50 monthly dollars, to acquire contact in whatsapp by clicking on the image below !!
 
-<a target="_blank" href="https://web.whatsapp.com/send?phone=5511914380641&text=I%20want%20to%20buy%201%20license" target="_blank"><img title="whatzapp" height="100" width="375" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/WhatsApp_logo.svg/2000px-WhatsApp_logo.svg.png"></a>
+<a target="_blank" href="https://web.whatsapp.com/send?phone=5561985290357&text=I%20want%20to%20buy%201%20license" target="_blank"><img title="whatzapp" height="100" width="375" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/WhatsApp_logo.svg/2000px-WhatsApp_logo.svg.png"></a>
 
 ## 🕷🕷 Functions Venom🕷🕷
 
