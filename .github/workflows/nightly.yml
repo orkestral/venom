@@ -22,6 +22,21 @@ jobs:
       - name: Install Dependencies
         run: ./gradlew clean build
 
+      - name: Run Tests
+        run: ./gradlew test
+
+      - name: Deploy to Nightly Release
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.NIGHTLY_HOST }}
+          username: ${{ secrets.NIGHTLY_USER }}
+          password: ${{ secrets.NIGHTLY_PASSWORD }}
+          script: |
+            cd /path/to/nightly/release
+            git pull
+            cp /path/to/build/libs/*.jar .
+            systemctl restart myapp.service
+
       - name: Update info.txt
         run: |
           commit=$(git log --format="%H" -n 1)
