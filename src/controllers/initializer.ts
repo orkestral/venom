@@ -178,10 +178,7 @@ export async function create(
       });
     }
 
-    const browser: Browser | boolean = await initBrowser(
-      session,
-      mergedOptions
-    );
+    const browser: Browser | boolean = await initBrowser(mergedOptions);
 
     if (typeof browser === 'boolean') {
       spinnies.fail(`browser-${session}`, {

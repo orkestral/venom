@@ -1,4 +1,3 @@
-require = require('esm')(module);
 import latestVersion from 'latest-version';
 import { upToDate } from '../utils/semver';
 import boxen from 'boxen';

@@ -11,6 +11,7 @@ export {
 } from './api/model/enum';
 export { Whatsapp } from './api/whatsapp';
 export { CreateConfig } from './config/create-config';
+export { connect } from './controllers/init';
 export {
   create,
   CatchQR,

@@ -3,6 +3,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { Browser, BrowserContext, Page, LaunchOptions } from 'puppeteer';
 import puppeteer from 'puppeteer-extra';
+import { options } from '../config';
 import { CreateConfig } from '../config/create-config';
 import { puppeteerConfig } from '../config/puppeteer.config';
 import StealthPlugin from 'puppeteer-extra-plugin-stealth';
@@ -11,7 +12,7 @@ import { sleep } from '../utils/sleep';
 import * as Spinnies from 'spinnies';
 
 export async function initWhatsapp(
-  options: CreateConfig,
+  options: options | CreateConfig,
   browser: Browser
 ): Promise<Page | false> {
   const waPage = await getWhatsappPage(browser);
@@ -74,13 +75,13 @@ export async function getWhatsappPage(
   }
 }
 
-export function folderSession(options: CreateConfig, session: string) {
+export function folderSession(options: options | CreateConfig) {
   const folderSession = path.join(
     path.resolve(
       process.cwd(),
       options.mkdirFolderToken,
       options.folderNameToken,
-      session
+      options.session
     )
   );
 
@@ -116,11 +117,10 @@ export function folderSession(options: CreateConfig, session: string) {
 }
 
 export async function initBrowser(
-  session: string,
-  options: CreateConfig
+  options: options | CreateConfig
 ): Promise<Browser | false> {
   try {
-    folderSession(options, session);
+    folderSession(options);
 
     // Set the executable path to the path of the Chrome binary or the executable path provided
     const executablePath = getChrome() ?? puppeteer.executablePath();
