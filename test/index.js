@@ -1,17 +1,21 @@
-const { create } = require('../dist');
+const venom = require('../dist');
 
 (async () => {
-  create({
-    session: 'session-name', //name of session
-    headless: false
-  })
-  .then((client) => start(client))
-  .catch((erro) => {
-    console.log(erro);
-  });
-
-function start(client) {
-
-}
-
+  try {
+    const client = await venom.create({
+      session: 'sessionname', //name of session
+      headless: false
+    });
+    start(client);
+  } catch { }
 })();
+
+async function start(client) {
+  // client.onMessage((message) => {
+  //   console.log(message);
+  // });
+  // const allMessages = await client.loadAndGetAllMessagesInChat(
+  //   '557592600184@c.us'
+  // );
+  // console.log(allMessages);
+}

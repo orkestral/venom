@@ -136,7 +136,7 @@ export const defaultOptions: CreateConfig = {
   addBrowserArgs: [],
   puppeteerOptions: {},
   disableSpins: false,
-  disableWelcome: false,
+  disableWelcome: true,
   updatesLog: true,
   autoClose: 120000,
   createPathFileToken: true,

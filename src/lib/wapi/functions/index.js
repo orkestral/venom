@@ -125,3 +125,7 @@ export { addChatWapi } from './add-chat-wapi';
 export { sendTypeButtons } from './send-type-buttons';
 export { onlySendAdmin } from './only-send-admin';
 export { createCommunity } from './create-community';
+
+/////
+export { baseSendMessage } from './send-message-scope';
+export { setGroupImage } from './set-group-image';

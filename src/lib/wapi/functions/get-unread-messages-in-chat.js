@@ -1,4 +1,4 @@
-export function getUnreadMessagesInChat(
+export async function getUnreadMessagesInChat(
   id,
   includeMe,
   includeNotifications,
@@ -30,7 +30,7 @@ export function getUnreadMessagesInChat(
     } else {
       messageObj.isNewMsg = false;
       // process it
-      let message = WAPI.processMessageObj(
+      let message = await WAPI.processMessageObj(
         messageObj,
         includeMe,
         includeNotifications

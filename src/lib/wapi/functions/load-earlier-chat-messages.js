@@ -1,9 +1,11 @@
 export async function loadChatEarlierMessages(id) {
   const chat = WAPI.getChat(id);
   if (chat) {
-    const someEarlierMessages = await chat.loadEarlierMsgs();
-    if (someEarlierMessages)
-      return someEarlierMessages.map(WAPI._serializeMessageObj);
+    const someEarlierMessages = await chat.onEmptyMRM();
+    if (someEarlierMessages) {
+      const serializeMessageObj = await WAPI._serializeMessageObj;
+      return someEarlierMessages.map(serializeMessageObj);
+    }
   }
   return false;
 }

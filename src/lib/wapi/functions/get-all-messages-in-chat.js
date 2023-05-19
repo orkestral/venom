@@ -19,7 +19,7 @@ export async function getAllMessagesInChat(
       }
       const messageObj = messages[i];
 
-      let message = WAPI.processMessageObj(
+      let message = await WAPI.processMessageObj(
         messageObj,
         includeMe,
         includeNotifications

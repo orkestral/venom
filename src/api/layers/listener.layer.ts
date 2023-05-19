@@ -112,13 +112,16 @@ export class ListenerLayer extends ProfileLayer {
       .evaluate(() => {
         let isHeroEqual = {};
         // try {
-        window.Store.Msg.on('add', (newMessage) => {
+        window.Store.Msg.on('add', async (newMessage) => {
           if (!Object.is(isHeroEqual, newMessage)) {
             isHeroEqual = newMessage;
             if (newMessage && newMessage.isNewMsg) {
-              window.onAnyMessage(
-                window.WAPI.processMessageObj(newMessage, true, false)
+              const processMessageObj = await window.WAPI.processMessageObj(
+                newMessage,
+                true,
+                false
               );
+              window.onAnyMessage(processMessageObj);
             }
           }
         });

@@ -3,8 +3,8 @@ export const _serializeContactObj = (obj) => {
     return null;
   }
 
-  if (!obj.profilePicThumb && obj.id && window.Store.ProfilePicThumb) {
-    obj.profilePicThumb = window.Store.ProfilePicThumb.get(obj.id);
+  if (!obj.profilePicThumb && obj.id && Store.ProfilePicThumb) {
+    obj.profilePicThumb = Store.ProfilePicThumb.get(obj.id);
   }
 
   return Object.assign(window.WAPI._serializeRawObj(obj), {

@@ -124,6 +124,7 @@ export async function initBrowser(
 
     // Set the executable path to the path of the Chrome binary or the executable path provided
     const executablePath = getChrome() ?? puppeteer.executablePath();
+    console.log('Path Chrome: ', executablePath);
     const extras = { executablePath };
 
     // Use stealth plugin to avoid being detected as a bot

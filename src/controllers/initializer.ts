@@ -391,10 +391,6 @@ export async function create(
       client
         .onStateChange(async (state) => {
           if (state === SocketState.PAIRING) {
-            await page.evaluate(async () => {
-              await window?.Store?.Login?.triggerCriticalSyncLogout();
-            });
-
             if (statusFind) {
               statusFind('deviceNotConnected', session);
             }

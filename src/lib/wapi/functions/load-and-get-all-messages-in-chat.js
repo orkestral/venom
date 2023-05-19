@@ -3,24 +3,27 @@ export async function loadAndGetAllMessagesInChat(
   includeMe,
   includeNotifications
 ) {
-  return WAPI.loadAllEarlierMessages(id).then(() => {
-    const chat = WAPI.getChat(id);
-    let output = [];
-    const messages = chat.msgs._models;
+  return new Promise((resolve) => {
+    WAPI.loadAllEarlierMessages(id, async (chat) => {
+      let output = [];
+      const messages = chat.msgs._models;
 
-    for (const i in messages) {
-      if (i === 'remove') {
-        continue;
+      for (const i in messages) {
+        if (i === 'remove') {
+          continue;
+        }
+        const messageObj = messages[i];
+        let message = await WAPI.processMessageObj(
+          messageObj,
+          includeMe,
+          includeNotifications
+        );
+
+        if (message) {
+          output.push(message);
+        }
       }
-      const messageObj = messages[i];
-
-      let message = WAPI.processMessageObj(
-        messageObj,
-        includeMe,
-        includeNotifications
-      );
-      if (message) output.push(message);
-    }
-    return output;
+      resolve(output);
+    });
   });
 }

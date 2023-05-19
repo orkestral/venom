@@ -11,7 +11,8 @@ export async function getMessageById(key, done, serialize = true) {
     }
 
     //If not message not found, load latest messages of chat
-    await chat.loadEarlierMsgs();
+    await chat.onEmptyMRM();
+    await WAPI.sleep(100);
     msg = window.Store.Msg.get(key);
 
     if (!msg) {
@@ -36,7 +37,7 @@ export async function getMessageById(key, done, serialize = true) {
 
   if (serialize) {
     try {
-      result = WAPI.processMessageObj(msg, true, true);
+      result = await WAPI.processMessageObj(msg, true, true);
     } catch (err) {}
   } else {
     result = msg;

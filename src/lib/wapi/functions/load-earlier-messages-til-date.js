@@ -5,7 +5,7 @@ export function loadEarlierMessagesTillDate(id, lastMessage, done) {
       found.msgs.models[0].t > lastMessage &&
       !found.msgs.msgLoadState.noEarlierMsgs
     ) {
-      found.loadEarlierMsgs().then(x);
+      found.onEmptyMRM().then(x);
     } else {
       done();
     }

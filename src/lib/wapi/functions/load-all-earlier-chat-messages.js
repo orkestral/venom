@@ -1,10 +1,10 @@
-export async function loadAllEarlierMessages(id, done) {
+export async function loadAllEarlierMessages(id, chat) {
   const found = WAPI.getChat(id);
   while (!found.msgs.msgLoadState.noEarlierMsgs) {
-    console.log('Loading...');
-    await found.loadEarlierMsgs();
+    await found.onEmptyMRM();
+    await WAPI.sleep(100);
   }
-  console.log('done');
+  chat(found);
   return true;
 }
 

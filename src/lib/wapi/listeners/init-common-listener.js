@@ -1,9 +1,13 @@
 export function initNewMessagesListener() {
   window.WAPI._newMessagesListener = window.Store.Msg.on(
     'add',
-    (newMessage) => {
+    async (newMessage) => {
       if (newMessage && newMessage.isNewMsg && !newMessage.isSentByMe) {
-        let message = window.WAPI.processMessageObj(newMessage, false, false);
+        let message = await window.WAPI.processMessageObj(
+          newMessage,
+          false,
+          false
+        );
         if (message) {
           window.WAPI._newMessagesQueue.push(message);
           window.WAPI._newMessagesBuffer.push(message);

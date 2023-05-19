@@ -1,11 +1,13 @@
 import { Browser, Page } from 'puppeteer';
 import { checkUpdates } from './check-up-to-date';
 import { options, defaultOptions } from '../config';
-import { initWhatsapp, initBrowser, statusLog } from './browser';
+import { initWhatsapp, initBrowser } from './browser';
+import { CallbackOnStatus } from '../api/layers';
 
 export async function connect(options?: options);
 
 export async function connect(options?: options) {
+  const event = new CallbackOnStatus();
   const mergeOptionsDefault = { ...defaultOptions, ...options };
 
   if (!!mergeOptionsDefault.session && mergeOptionsDefault.session.length) {

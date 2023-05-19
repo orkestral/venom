@@ -17,7 +17,7 @@ export async function getUnreadMessages(undread = true) {
       for (let r in t) {
         let h = Number(r);
         if (!isNaN(h)) {
-          let message = WAPI.processMessageObj(t[r], true, true);
+          let message = await WAPI.processMessageObj(t[r], true, true);
           if (message) {
             arr.push(message);
           }

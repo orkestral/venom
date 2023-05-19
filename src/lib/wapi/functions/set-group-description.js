@@ -16,7 +16,7 @@ export async function setGroupDescription(groupId, description) {
   if (chat && chat.status != 404) {
     const m = { type: 'setGroupDescription', description };
     const To = await WAPI.getchatId(chat.id);
-    return window.Store.GroupDesc.setGroupDesc(chat, description)
+    return Store.GroupDesc.setGroupDesc(chat, description)
       .then(() => {
         const obj = WAPI.scope(To, false, 'OK', description);
         Object.assign(obj, m);

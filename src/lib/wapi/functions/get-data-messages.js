@@ -43,7 +43,7 @@ export async function getAllMessagesDate(
   if (chat && chat.status != 404) {
     const statusMsg = chat.msgs.msgLoadState.noEarlierMsgs;
     if (statusMsg === false) {
-      await chat.loadEarlierMsgs();
+      await chat.onEmptyMRM();
     }
 
     let messages = chat.msgs._models;
@@ -93,7 +93,7 @@ export async function getAllMessagesDate(
       }
       if (output.length < limit || limit === 0) {
         const messageObj = messages[i];
-        const message = WAPI._serializeMessageObj(messageObj);
+        const message = await WAPI._serializeMessageObj(messageObj);
         if (message.id && idCheck.includes(message.id) === true) {
           continue;
         }

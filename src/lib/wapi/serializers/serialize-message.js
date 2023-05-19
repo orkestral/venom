@@ -1,11 +1,11 @@
-export const _serializeMessageObj = (obj) => {
-  if (obj == undefined) {
+export const _serializeMessageObj = async (obj) => {
+  if (obj === undefined) {
     return null;
   }
-  const _chat = obj['chat'] ? WAPI._serializeChatObj(obj['chat']) : {};
-  // if (obj.quotedMsg) obj.quotedMsgObj();
-
-  return Object.assign(window.WAPI._serializeRawObj(obj), {
+  const _chat = obj['chat'] ? await WAPI._serializeChatObj(obj['chat']) : {};
+  let chats = await WAPI.getAllChats();
+  return {
+    ...window.WAPI._serializeRawObj(obj),
     id: obj?.id?._serialized,
     from: obj?.from?._serialized,
     quotedParticipant: obj?.quotedParticipant?._serialized
@@ -19,7 +19,9 @@ export const _serializeMessageObj = (obj) => {
       : undefined,
     to: obj?.to?._serialized ? obj?.to?._serialized : undefined,
     fromMe: obj?.id?.fromMe,
-    sender: obj?.senderObj ? WAPI._serializeContactObj(obj?.senderObj) : null,
+    sender: obj?.senderObj
+      ? await WAPI._serializeContactObj(obj?.senderObj)
+      : null,
     timestamp: obj?.t,
     content: obj?.body,
     body: obj?.body,
@@ -65,7 +67,12 @@ export const _serializeMessageObj = (obj) => {
     buttons: null,
     hydratedButtons: null,
     isGroupMsg:
-      obj?.to?.server == 'g.us' || obj?.from?.server == 'g.us' ? true : false,
+      obj?.to?.server === 'g.us' || obj?.from?.server === 'g.us' ? true : false,
+    groupInfo:
+      obj?.to?.server === 'g.us' || obj?.from?.server === 'g.us'
+        ? chats.find((chat) => chat.id._serialized === obj.from._serialized)
+            .contact
+        : null,
     reply: (body) => window.WAPI.reply(_chat.id._serialized, body, obj)
-  });
+  };
 };
