@@ -315,7 +315,6 @@ export class RetrieverLayer extends SenderLayer {
     return await this.page.evaluate(() => WAPI.isBeta());
   }
 
-  //PRO
   /**
    * Retrieves all undread Messages
    */

@@ -16,12 +16,10 @@ import {
   getAllChatIds,
   getAllChats,
   getAllChatsWithMessages,
-  getAllChatsWithNewMessages,
   getAllContacts,
   getAllGroupMetadata,
   getAllGroups,
   getAllMessagesInChat,
-  getAllUnreadMessages,
   getBatteryLevel,
   getChat,
   getChatById,
@@ -41,7 +39,6 @@ import {
   getProfilePicFromServer,
   getStatus,
   getUnreadMessages,
-  hasUndreadMessages,
   isConnected,
   isLoggedIn,
   leaveGroup,
@@ -313,10 +310,7 @@ if (typeof window.WAPI === 'undefined') {
   window.WAPI.getMyContacts = getMyContacts;
   window.WAPI.getContact = getContact;
   window.WAPI.getAllChats = getAllChats;
-  window.WAPI.haveNewMsg = hasUndreadMessages;
-  window.WAPI.getAllChatsWithNewMsg = getAllChatsWithNewMessages;
   window.WAPI.getAllChatIds = getAllChatIds;
-  window.WAPI.getAllUnreadMessages = getAllUnreadMessages;
   window.WAPI.getAllChatsWithMessages = getAllChatsWithMessages;
   window.WAPI.getAllGroups = getAllGroups;
   window.WAPI.getChat = getChat;

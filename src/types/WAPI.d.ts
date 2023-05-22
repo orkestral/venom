@@ -50,7 +50,6 @@ interface WAPI {
     limit: number
   ) => Message[];
 
-  getAllUnreadMessages: () => PartialMessage[];
   getBatteryLevel: () => number;
   getBlockList: () => Contact[];
   getBusinessProfilesProducts: (to: string) => any;

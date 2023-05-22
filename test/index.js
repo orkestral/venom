@@ -14,8 +14,6 @@ async function start(client) {
   // client.onMessage((message) => {
   //   console.log(message);
   // });
-  // const allMessages = await client.loadAndGetAllMessagesInChat(
-  //   '557592600184@c.us'
-  // );
+  // const allMessages = await client.getAllUnreadMessages();
   // console.log(allMessages);
 }
