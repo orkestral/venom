@@ -9,3 +9,4 @@ export { addonFilePicThumb } from './add-on-pictumb-change';
 export { addonChatState } from './add-on-chatstate-change';
 export { addonUnreadMessage } from './add-unread-message';
 export { addOnStream } from './add-on-stream';
+export { addOnPoll } from './add-on-poll';

@@ -111,6 +111,26 @@ export class SenderLayer extends ListenerLayer {
     });
   }
 
+  /**
+   * Create poll
+   * @param idUser chat id: xxxxx@us.c
+   */
+  public async sendPollCreation(idUser: string, poll: any) {
+    return new Promise(async (resolve, reject) => {
+      const result = await this.page.evaluate(
+        ({ idUser, poll }) => {
+          return WAPI.sendPollCreation(idUser, poll);
+        },
+        { idUser, poll }
+      );
+      if (result['erro'] == true) {
+        return reject(result);
+      } else {
+        return resolve(result);
+      }
+    });
+  }
+
   //*PRO_
   /**
    * @param filePath path, http link or base64Encoded

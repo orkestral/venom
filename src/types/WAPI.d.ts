@@ -96,6 +96,7 @@ interface WAPI {
   onInterfaceChange: (callback: Function) => void;
   onMessage: (callback: Function) => void;
   onAck: (callback: Function) => void;
+  onPoll: (callback: Function) => void;
   onLiveLocation: (chatId: string, callback: Function) => any;
   onParticipantsChanged: (groupId: string, callback: Function) => any;
   onStateChange: (callback: Function) => void;
@@ -261,6 +262,7 @@ interface WAPI {
   addChatWapi: () => void;
   processMessageObj: (a: any, b: any, c: any) => any;
   createCommunity: (name: string, description: string) => void;
+  sendPollCreation: (to: string, poll: any) => void;
 }
 
 declare global {

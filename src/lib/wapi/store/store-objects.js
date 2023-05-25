@@ -447,4 +447,30 @@ export const storeObjects = [
     id: 'Websocket',
     conditions: (module) => (module.smax ? module : null),
   },
+  {
+    id: "Survey",
+    conditions: (module) => (module.sendPollCreation ? module : null),
+  },
+  {
+    id: "Cmd",
+    conditions: (module) => (module.APP_STATE_SYNC_COMPLETED ? module : null),
+  },
+  {
+    id: "Wap",
+    conditions: (module) => (module.BIG_ENDIAN_CONTENT ? module : null),
+  },
+  {
+    id: "WapParser",
+    conditions: (module) => (module.WapParser ? module : null),
+  },
+  {
+    id: "SendSocket",
+    conditions: (module) => (module.deprecatedSendIq ? module : null),
+  }
+  ,
+  {
+    id: "Jid",
+    conditions: (module) => (module.WAP_JID_SUBTYPE ? module : null),
+  }
+ 
 ];

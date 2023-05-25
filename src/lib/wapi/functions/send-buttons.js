@@ -52,7 +52,7 @@ export async function sendButtons(to, title, buttons, subtitle) {
       self: 'out',
       t: parseInt(new Date().getTime() / 1000),
       isNewMsg: !0,
-      type: 'ciphertext',
+      type: 'chat',
       body: title,
       caption: title,
       content: title,

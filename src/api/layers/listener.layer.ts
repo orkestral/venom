@@ -34,6 +34,7 @@ declare global {
     func: any;
     onLiveLocation: any;
     waitNewMessages: any;
+    onPoll: any;
   }
 }
 
@@ -103,6 +104,9 @@ export class ListenerLayer extends ProfileLayer {
         window.WAPI.onAck((e: any) => {
           window.onAck(e);
         });
+        window.WAPI.onPoll((e: any) => {
+          window.onPoll(e);
+        });
       })
       .catch(() => {});
   }
@@ -128,6 +132,20 @@ export class ListenerLayer extends ProfileLayer {
         // } catch { }
       })
       .catch(() => {});
+  }
+
+  public async onPoll(fn: (ack: any) => void) {
+    this.listenerEmitter.on(ExposedFn.onPoll, (e) => {
+      fn(e);
+    });
+
+    return {
+      dispose: () => {
+        this.listenerEmitter.off(ExposedFn.onPoll, (e) => {
+          fn(e);
+        });
+      }
+    };
   }
 
   /**

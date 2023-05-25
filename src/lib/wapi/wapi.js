@@ -119,7 +119,8 @@ import {
   addChatWapi,
   sendTypeButtons,
   onlySendAdmin,
-  createCommunity
+  createCommunity,
+  pollCreation
 } from './functions';
 import {
   base64ToFile,
@@ -134,6 +135,7 @@ import {
   addOnAddedToGroup,
   addOnLiveLocation,
   addOnNewAcks,
+  addOnPoll,
   addOnParticipantsChange,
   addOnStateChange,
   initNewMessagesListener,
@@ -299,6 +301,7 @@ if (typeof window.WAPI === 'undefined') {
   window.WAPI.sendReactions = sendReactions;
   window.WAPI.addChatWapi = addChatWapi;
   window.WAPI.sendTypeButtons = sendTypeButtons;
+  window.WAPI.sendPollCreation = pollCreation;
 
   //////block functions
   window.WAPI.blockContact = blockContact;
@@ -528,6 +531,8 @@ if (typeof window.WAPI === 'undefined') {
 
     return await all;
   };
+
+  addOnPoll();
 
   addNewMessagesListener();
 

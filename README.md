@@ -1,4 +1,3 @@
-
 # 🕷Venom Bot🕸
 
 [![npm version](https://img.shields.io/npm/v/venom-bot.svg?color=green)](https://www.npmjs.com/package/venom-bot)
@@ -14,13 +13,11 @@
 
 > Venom is a high-performance system developed with JavaScript to create a bot for WhatsApp, support for creating any interaction, such as customer service, media sending, sentence recognition based on artificial intelligence and all types of design architecture for WhatsApp.
 
-
 ## Get started fast and easy! Official API!
 
 <p align="center">
   <a href="https://docs.orkestral.io/venom">Full Documentation</a>
 </p>
-
 
 <p>
 It's a high-performance alternative API to whatzapp, you can send, text messages, files, images, videos and more.
@@ -47,8 +44,8 @@ Use it in your favorite language like PHP, Python, C# and others. as long as you
 
 <a target="_blank" href="https://discord.gg/uBRjk6vecs" target="_blank"><img title="Discord" height="110" width="375" src="https://s2.glbimg.com/GUbCgnBxJERAmuaYcrjBzTXD5ws=/0x0:800x272/984x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_63b422c2caee4269b8b34177e8876b93/internal_photos/bs/2021/d/N/zJs579QOGxKVRxfPILCA/discord-app.png"></a>
 
-
 ## Meet the Superchats
+
 <br>
 <a href='https://github.com/orkestral/superchats'><img src='https://github.com/orkestral/superchats/raw/main/img/superchats.png' height='60' alt='SuperChats' aria-label='https://github.com/orkestral/superchats' /></a>
 <br>
@@ -69,21 +66,21 @@ The value of the license is $50 monthly dollars, to acquire contact in whatsapp 
 
 ## 🕷🕷 Functions Venom🕷🕷
 
-|                                                               |   |
-|---------------------------------------------------------------|---|
-| 🚻 Automatic QR Refresh                                       | ✔ |
-| 📁 Send **text, image, video, audio and docs**                | ✔ |
-| 👥 Get **contacts, chats, groups, group members, Block List** | ✔ |
-| 📞 Send contacts                                              | ✔ |
-| Send Buttons                                                  | ✔ |
-| Send stickers                                                 | ✔ |
-| Send stickers GIF                                             | ✔ |
-| Multiple Sessions                                             | ✔ |
-| ⏩ Forward Messages                                            | ✔ |
-| 📥 Receive message                                            | ✔ |
-| 👤 insert user section                                        | ✔ |
-| 📍 Send location!!                                            | ✔ |
-| 🕸🕸 **and much more**                                        | ✔ |
+|                                                               |     |
+| ------------------------------------------------------------- | --- |
+| 🚻 Automatic QR Refresh                                       | ✔   |
+| 📁 Send **text, image, video, audio and docs**                | ✔   |
+| 👥 Get **contacts, chats, groups, group members, Block List** | ✔   |
+| 📞 Send contacts                                              | ✔   |
+| Send Buttons                                                  | ✔   |
+| Send stickers                                                 | ✔   |
+| Send stickers GIF                                             | ✔   |
+| Multiple Sessions                                             | ✔   |
+| ⏩ Forward Messages                                           | ✔   |
+| 📥 Receive message                                            | ✔   |
+| 👤 insert user section                                        | ✔   |
+| 📍 Send location!!                                            | ✔   |
+| 🕸🕸 **and much more**                                          | ✔   |
 
 Documentation at https://orkestral.github.io/venom/index.html
 
@@ -114,7 +111,7 @@ const venom = require('venom-bot');
 
 venom
   .create({
-    session: 'session-name', //name of session
+    session: 'session-name' //name of session
   })
   .then((client) => start(client))
   .catch((erro) => {
@@ -201,7 +198,7 @@ venom
       userProxy: '', // Proxy login username
       userPass: '' // Proxy password
     },
-  
+
     // BrowserInstance
     (browser, waPage) => {
       console.log('Browser PID:', browser.process().pid);
@@ -221,7 +218,7 @@ venom
 Gets the return if the session is `isLogged` or `notLogged` or `browserClose` or `qrReadSuccess` or `qrReadFail` or `autocloseCalled` or `desconnectedMobile` or `deleteToken` or `chatsAvailable` or `deviceNotConnected` or `serverWssNotConnected` or `noOpenBrowser` or `initBrowser` or `openBrowser` or `connectBrowserWs` or `initWhatsapp` or `erroPageWhatsapp` or `successPageWhatsapp` or `waitForLogin` or `waitChat` or `successChat` or `Create session wss return "serverClose" case server for close`
 
 | Status                  | Condition                                                                                                                                                      |
-|-------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| ----------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `isLogged`              | When the user is already logged in to the browser                                                                                                              |
 | `notLogged`             | When the user is not connected to the browser, it is necessary to scan the QR code through the cell phone in the option WhatsApp Web                           |
 | `browserClose`          | If the browser is closed this parameter is returned                                                                                                            |
@@ -230,7 +227,7 @@ Gets the return if the session is `isLogged` or `notLogged` or `browserClose` or
 | `autocloseCalled`       | The browser was closed using the autoClose command                                                                                                             |
 | `desconnectedMobile`    | Client has desconnected in to mobile                                                                                                                           |
 | `serverClose`           | Client has desconnected in to wss                                                                                                                              |
-| `deleteToken`           | If you pass true within the function                                                                                   |
+| `deleteToken`           | If you pass true within the function                                                                                                                           |
 | `chatsAvailable`        | When Venom is connected to the chat list                                                                                                                       |
 | `deviceNotConnected`    | Chat not available because the phone is disconnected `(Trying to connect to the phone)`                                                                        |
 | `serverWssNotConnected` | The address wss was not found!                                                                                                                                 |
@@ -243,20 +240,17 @@ Gets the return if the session is `isLogged` or `notLogged` or `browserClose` or
 | `successPageWhatsapp`   | Page Whatsapp successfully accessed                                                                                                                            |
 | `waitForLogin`          | Waiting for login verification!                                                                                                                                |
 | `waitChat`              | Waiting for the chat to load                                                                                                                                   |
-| `successChat`           | Chat successfully loaded!                                                                                                                                      | 
+| `successChat`           | Chat successfully loaded!                                                                                                                                      |
+
 ```javascript
 const venom = require('venom-bot');
 venom
-  .create(
-    'sessionName',
-    undefined,
-    (statusSession, session) => {
-      console.log('Status Session: ', statusSession);
-      //return isLogged || notLogged || browserClose || qrReadSuccess || qrReadFail || autocloseCalled || desconnectedMobile || deleteToken || chatsAvailable || deviceNotConnected || serverWssNotConnected || noOpenBrowser || initBrowser || openBrowser || connectBrowserWs || initWhatsapp || erroPageWhatsapp || successPageWhatsapp || waitForLogin || waitChat || successChat
-      //Create session wss return "serverClose" case server for close
-      console.log('Session name: ', session);
-    },
-  )
+  .create('sessionName', undefined, (statusSession, session) => {
+    console.log('Status Session: ', statusSession);
+    //return isLogged || notLogged || browserClose || qrReadSuccess || qrReadFail || autocloseCalled || desconnectedMobile || deleteToken || chatsAvailable || deviceNotConnected || serverWssNotConnected || noOpenBrowser || initBrowser || openBrowser || connectBrowserWs || initWhatsapp || erroPageWhatsapp || successPageWhatsapp || waitForLogin || waitChat || successChat
+    //Create session wss return "serverClose" case server for close
+    console.log('Session name: ', session);
+  })
   .then((client) => {
     start(client);
   })
@@ -344,6 +338,27 @@ available can be found in [here](/src/api/layers) and
 ##### Here, `chatId` could be `<phoneNumber>@c.us` or `<phoneNumber>-<groupId>@g.us`
 
 ```javascript
+
+// Send Poll
+const poll = {
+  name: 'new poll',
+  options: [
+    {
+      name: 'option 1'
+    },
+    {
+      name: 'option 2'
+    }
+  ],
+  selectableOptionsCount: 1
+};
+await client.sendPollCreation('000000000000@c.us', poll)
+.then((result) => {
+    console.log('Result: ', result); //return object success
+})
+.catch((erro) => {
+    console.error('Error when sending: ', erro); //return object error
+});
 
 // Send List menu
 const list = [
@@ -694,12 +709,14 @@ const url = await client.getProfilePicFromServer('000000000000@c.us');
 const chat = await client.getChat('000000000000@c.us');
 
 // Check if the number exists
-const chat = await client.checkNumberStatus('000000000000@c.us')
-.then((result) => {
+const chat = await client
+  .checkNumberStatus('000000000000@c.us')
+  .then((result) => {
     console.log('Result: ', result); //return object success
-}).catch((erro) => {
+  })
+  .catch((erro) => {
     console.error('Error when sending: ', erro); //return object error
-});
+  });
 ```
 
 ## Group Functions
@@ -771,13 +788,11 @@ await client.setProfilePic('path/to/image.jpg');
 
 // Get device info
 await client.getHostDevice();
-
 ```
 
 ## Device Functions
 
 ```javascript
-
 // Disconnect from service
 await client.logout();
 
@@ -946,7 +961,6 @@ await client.blockContact('000000000000@c.us');
 
 // Unlocks contacts (returns true if it works)
 await client.unblockContact('000000000000@c.us');
-
 ```
 
 ## Misc
