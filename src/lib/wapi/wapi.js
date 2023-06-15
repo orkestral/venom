@@ -179,7 +179,10 @@ function injectParasite() {
 }
 
 (async () => {
-  window[injectConfig.webpack] = window[injectConfig.webpack] || [];
+  // window[injectConfig.webpack] = window[injectConfig.webpack] || [];
+  if (typeof window[injectConfig.webpack] === 'undefined') {
+    window[injectConfig.webpack] = [];
+  }
   while (true) {
     const last = window[injectConfig.webpack].length - 1;
     if (
