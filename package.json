@@ -1,6 +1,6 @@
 {
   "name": "venom-bot",
-  "version": "5.0.1",
+  "version": "5.0.3",
   "description": "Venom is a high-performance system developed with JavaScript to create a bot for WhatsApp, support for creating any interaction, such as customer service, media sending, sentence recognition based on artificial intelligence and all types of design architecture for WhatsApp. ",
   "main": "index.js",
   "types": "index.d.ts",
@@ -19,7 +19,7 @@
     "clean": "shx rm -rf session dist",
     "commit": "cz",
     "fix:doc-theme": "shx cp ./node_modules/typedoc-default-themes/bin/default/partials/type.hbs ./node_modules/typedoc-plugin-pages/dist/theme/v2/partials/type.hbs",
-    "fix:imports": "eslint --fix src/**/*.{js,jsx,ts,tsx} && npm run lint:fix",
+    "fix:imports": "eslint --fix \"src/**/*.{js,jsx,ts,tsx}\" && npm run lint:fix",
     "generate-api-docs": "npm run fix:doc-theme && typedoc",
     "lint:js": "npx eslint -c .eslintrc.cjs --ext .js src",
     "lint:ts": "npx eslint -c .eslintrc.cjs --ext .ts src",
