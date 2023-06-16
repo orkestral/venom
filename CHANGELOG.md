@@ -1,3 +1,17 @@
+## [5.0.5](https://github.com/orkestral/venom/compare/v5.0.4...v5.0.5) (2023-06-16)
+
+
+### Bug Fixes
+
+* main and types ([ded9fd6](https://github.com/orkestral/venom/commit/ded9fd69c3c8918946819488fa70d10af84ce6da))
+
+
+### Features
+
+* add routine Update Package Version ([f3160b1](https://github.com/orkestral/venom/commit/f3160b1914c98663c998d3407068454691ab71f3))
+
+
+
 ## [5.0.4](https://github.com/orkestral/venom/compare/v5.0.3...v5.0.4) (2023-06-16)
 
 
