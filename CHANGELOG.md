@@ -1,3 +1,13 @@
+## [5.0.4](https://github.com/orkestral/venom/compare/v5.0.3...v5.0.4) (2023-06-16)
+
+
+### Bug Fixes
+
+* ci dependencies ([6902d7d](https://github.com/orkestral/venom/commit/6902d7d6691927176e3cab0c4ff812d5e2750a58))
+* wait For Objects webpack ([6c22540](https://github.com/orkestral/venom/commit/6c225408ceb43beef43bfa4cae64754edf5bad68))
+
+
+
 ## [5.0.1](https://github.com/orkestral/venom/compare/v5.0.0...v5.0.1) (2023-05-05)
 
 
