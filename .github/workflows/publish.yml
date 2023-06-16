@@ -35,6 +35,11 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           PUPPETEER_SKIP_DOWNLOAD: true
 
+      - name: Update Package Version
+        run: |
+          npm version patch --no-git-tag-version
+          echo "::set-env name=PACKAGE_VERSION::$(node -p "require('./package.json').version")"
+
       - name: Publish to npm
         run: npm publish
         env:
