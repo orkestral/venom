@@ -57,13 +57,13 @@ export class Whatsapp extends ControlsLayer {
     try {
       await this.page
         .waitForFunction('webpackChunkwhatsapp_web_client.length')
-        .catch();
+        .catch(() => undefined);
 
       await this.page
         .addScriptTag({
           path: require.resolve(path.join(__dirname, '../lib/wapi/', 'wapi.js'))
         })
-        .catch();
+        .catch(() => undefined);
 
       await this.page
         .addScriptTag({
@@ -71,7 +71,7 @@ export class Whatsapp extends ControlsLayer {
             path.join(__dirname, '../lib/middleware', 'middleware.js')
           )
         })
-        .catch();
+        .catch(() => undefined);
       this.initialize();
     } catch {}
   }

@@ -386,7 +386,7 @@ export async function create(
             }
           }
         })
-        .catch();
+        .catch(() => undefined);
 
       client
         .onStateChange(async (state) => {
@@ -396,7 +396,7 @@ export async function create(
             }
           }
         })
-        .catch();
+        .catch(() => undefined);
 
       page.on('dialog', async (dialog) => {
         await dialog.accept();
@@ -436,7 +436,7 @@ export async function create(
               await waitLoginPromise;
             }
           })
-          .catch();
+          .catch(() => undefined);
       }
 
       statusFind && statusFind('waitChat', session);
