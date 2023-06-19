@@ -1,3 +1,18 @@
+## [5.0.7](https://github.com/orkestral/venom/compare/v5.0.6...v5.0.7) (2023-06-19)
+
+
+### Bug Fixes
+
+* session name ([5db179c](https://github.com/orkestral/venom/commit/5db179c2ef601f440e6519c99d1d619d5638ab2c))
+
+
+### Features
+
+* Create Release versions ([bf14b48](https://github.com/orkestral/venom/commit/bf14b481e2f9b2f69703773c2f6b845123087551))
+* headless =  "new" |  false https://developer.chrome.com/articles/new-headless/ ([b2d0610](https://github.com/orkestral/venom/commit/b2d0610762ce4f4373ca7ae64a034e1f31064805))
+
+
+
 ## [5.0.6](https://github.com/orkestral/venom/compare/v5.0.5...v5.0.6) (2023-06-19)
 
 
