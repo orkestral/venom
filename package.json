@@ -85,7 +85,7 @@
     "@types/sharp": "^0.30.5",
     "@types/ws": "^8.5.3",
     "concurrently": "^7.6.0",
-    "conventional-changelog-cli": "^2.2.2",
+    "conventional-changelog-cli": "^3.0.0",
     "copy-webpack-plugin": "^10.2.4",
     "eslint": "^8.39.0",
     "eslint-config-prettier": "^6.14.0",
