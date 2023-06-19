@@ -1,3 +1,14 @@
+## [5.0.6](https://github.com/orkestral/venom/compare/v5.0.5...v5.0.6) (2023-06-19)
+
+
+### Bug Fixes
+
+* Environment Files ([08f9812](https://github.com/orkestral/venom/commit/08f98127c04a243e6e1d241bef9b19392af1f2b9))
+* latest-version ([e77e790](https://github.com/orkestral/venom/commit/e77e7900aed827f9342ed19ebd80dd7f1089636e))
+* required Node Version ([4751ac4](https://github.com/orkestral/venom/commit/4751ac4c56357bf4a6c67bb68f4e1c731317fa14))
+
+
+
 ## [5.0.5](https://github.com/orkestral/venom/compare/v5.0.4...v5.0.5) (2023-06-16)
 
 
