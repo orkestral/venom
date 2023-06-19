@@ -38,7 +38,7 @@ jobs:
       - name: Update Package Version
         run: |
           npm version patch --no-git-tag-version
-          echo "::set-env name=PACKAGE_VERSION::$(node -p "require('./package.json').version")"
+          echo "PACKAGE_VERSION=$(node -p "require('./package.json').version")" >> $GITHUB_ENV
 
       - name: Publish to npm
         run: npm publish
