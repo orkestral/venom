@@ -35,11 +35,6 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           PUPPETEER_SKIP_DOWNLOAD: true
 
-      - name: Update Package Version
-        run: |
-          npm version patch --no-git-tag-version
-          echo "PACKAGE_VERSION=$(node -p "require('./package.json').version")" >> $GITHUB_ENV
-
       - name: Publish to npm
         run: npm publish
         env:
@@ -53,11 +48,15 @@ jobs:
           changelog="${changelog//$'\r'/'%0D'}"
           echo -e "::set-output name=changelog::${changelog}\n"
 
+      - name: Extract Version
+        id: extract_version
+        run: echo "::set-output name=version::$(echo ${{ github.ref }} | sed -n 's/refs\/tags\/v\(.*\)/\1/p')"
+
       - name: Create Release
         uses: actions/create-release@v1
         with:
-          tag_name: ${{ github.ref }}
-          release_name: ${{ github.ref }}
+          tag_name: v${{ steps.extract_version.outputs.version }}
+          release_name: v${{ steps.extract_version.outputs.version }}
           body: ${{ steps.generate_changelog.outputs.changelog }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
