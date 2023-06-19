@@ -114,6 +114,7 @@
     "catch-exit": "^1.1.0",
     "chalk": "^4.0.0",
     "chrome-launcher": "^0.15.1",
+    "chrome-version": "^1.0.1",
     "commitizen": "^4.3.0",
     "compressorjs": "^1.1.1",
     "cz-conventional-changelog": "^3.3.0",
@@ -142,6 +143,5 @@
     "winston": "^3.8.0",
     "ws": "^8.8.0",
     "yoo-hoo": "^1.2.0"
-  },
-  "optionalDependencies": {}
+  }
 }

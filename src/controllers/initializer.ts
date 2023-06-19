@@ -145,6 +145,7 @@ export async function create(
       sessionOrOption.replace(/\s/g, '').length
     ) {
       session = sessionOrOption.replace(/\s/g, '');
+      options = { session };
     } else if (typeof sessionOrOption === 'object') {
       session = sessionOrOption.session || session;
       catchQR = sessionOrOption.catchQR || catchQR;
