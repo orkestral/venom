@@ -153,6 +153,14 @@ export async function create(
       options = sessionOrOption;
     }
 
+    const requiredNodeVersion = 16;
+    const currentNodeVersion = Number(process.versions.node.split('.')[0]);
+    if (currentNodeVersion < requiredNodeVersion) {
+      return reject(
+        `Outdated Node.js version. Node.js ${requiredNodeVersion} or higher is required. Please update Node.js.`
+      );
+    }
+
     await checkUpdates();
 
     const spinnies = getSpinnies({
