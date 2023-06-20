@@ -1,5 +1,6 @@
-export async function sendLinkPreview(chatId, url, text) {
+export async function sendLinkPreview(chatId, url, text, title) {
   text = text || '';
+  title = title || url;
   const _Path = {
     Protocol: '^(https?:\\/\\/)?',
     Domain: '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|',
@@ -38,7 +39,7 @@ export async function sendLinkPreview(chatId, url, text) {
       id: newMsgId,
       links: link,
       ack: 0,
-      body: url,
+      body: text.includes(url) ? text : url + '\n' + text,
       from: fromwWid,
       to: chat.id,
       local: !0,
@@ -55,7 +56,7 @@ export async function sendLinkPreview(chatId, url, text) {
       canonicalUrl: url,
       description: url,
       matchedText: url,
-      title: text
+      title: title
     };
     const result = (
       await Promise.all(window.Store.addAndSendMsgToChat(chat, message))

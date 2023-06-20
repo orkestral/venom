@@ -163,7 +163,8 @@ interface WAPI {
   sendLinkPreview: (
     chatId: string,
     url: string,
-    title: string
+    text: string,
+    title: string | undefined
   ) => Promise<SendLinkResult>;
   sendLocation: (
     to: string,
