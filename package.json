@@ -134,7 +134,7 @@
     "node-7z": "^3.0.0",
     "ora": "^6.1.2",
     "os": "^0.1.2",
-    "puppeteer": "^20.7.2",
+    "puppeteer": "^20.7.3",
     "puppeteer-core": "^20.7.3",
     "puppeteer-extra": "^3.3.6",
     "puppeteer-extra-plugin-stealth": "^2.11.2",
