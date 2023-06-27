@@ -1,14 +1,12 @@
 const venom = require('../dist');
 
-(async () => {
-  try {
-    const client = await venom.create({
-      session: 'sessionname', //name of session
-      headless: false
-    });
-    start(client);
-  } catch { }
-})();
+
+venom.create({
+  session: 'sessionname', //name of session
+  headless: false
+}).then(()=> {
+  start(client);
+});
 
 async function start(client) {
   // client.onMessage((message) => {
