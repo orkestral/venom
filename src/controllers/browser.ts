@@ -11,6 +11,9 @@ import StealthPlugin from 'puppeteer-extra-plugin-stealth';
 import { useragentOverride } from '../config/WAuserAgente';
 import { sleep } from '../utils/sleep';
 import * as Spinnies from 'spinnies';
+import * as os from 'os';
+import axios from 'axios';
+import unzipper from 'unzipper';
 
 export async function initWhatsapp(
   options: options | CreateConfig,
@@ -138,6 +141,19 @@ function isChromeInstalled(executablePath: string): boolean {
   }
 }
 
+async function getLatestChromeVersion() {
+  try {
+    const response = await axios.get(
+      'https://api.github.com/repos/chromium/chromium/releases/latest'
+    );
+    const latestVersion = response.data.tag_name;
+    return latestVersion;
+  } catch (error) {
+    console.error('Error getting latest Chrome version:', error);
+    return null;
+  }
+}
+
 async function getGlobalChromeVersion(): Promise<string | null> {
   try {
     const chromePath = ChromeLauncher.Launcher.getInstallations().pop();
@@ -164,14 +180,57 @@ export async function initBrowser(
       console.error('Now use only headless: "new" or false');
       return false;
     }
+
+    const chromePath = getChromeExecutablePath();
     // Set the executable path to the path of the Chrome binary or the executable path provided
-    const executablePath = getChrome() ?? puppeteer.executablePath();
+    const executablePath = chromePath || puppeteer.executablePath();
 
     console.log('Path Google-Chrome: ', executablePath);
 
-    if (!executablePath && !isChromeInstalled(executablePath)) {
+    if (!executablePath || !isChromeInstalled(executablePath)) {
       console.error('Could not find the google-chrome browser on the machine!');
-      return false;
+
+      // Download the latest version of Chrome
+      const latestVersion = await getLatestChromeVersion();
+      if (latestVersion) {
+        const downloadUrl = `https://www.googleapis.com/download/storage/v1/b/chromium-browser-snapshots/o/Win_x64%2F${latestVersion}%2Fchrome-win.zip?generation=1630501359489848&alt=media`;
+        const zipFilePath = path.join(os.tmpdir(), 'chrome-win.zip');
+        const extractPath = path.join(os.tmpdir(), 'chrome-win');
+
+        console.log('Downloading Chrome:', downloadUrl);
+
+        const response = await axios.get(downloadUrl, {
+          responseType: 'stream'
+        });
+        const writeStream = fs.createWriteStream(zipFilePath);
+        response.data.pipe(writeStream);
+
+        await new Promise((resolve, reject) => {
+          writeStream.on('finish', resolve);
+          writeStream.on('error', reject);
+        });
+
+        console.log('Download completed.');
+
+        console.log('Extracting Chrome...');
+
+        await fs
+          .createReadStream(zipFilePath)
+          .pipe(unzipper.Extract({ path: extractPath }))
+          .promise();
+
+        console.log('Chrome extracted successfully.');
+
+        // Update the executable path
+        options.puppeteerOptions.executablePath = path.join(
+          extractPath,
+          'chrome-win',
+          'chrome.exe'
+        );
+      } else {
+        console.error('Failed to retrieve the latest Chrome version.');
+        return false;
+      }
     }
 
     let chromeVersion = '';
@@ -227,12 +286,24 @@ export async function initBrowser(
   }
 }
 
-function getChrome() {
-  try {
-    const chromeInstalations = ChromeLauncher.Launcher.getInstallations();
-    return chromeInstalations[0];
-  } catch (error) {
-    return undefined;
+function getChromeExecutablePath() {
+  const platform = os.platform();
+  switch (platform) {
+    case 'win32':
+      return path.join(
+        process.env.LOCALAPPDATA,
+        'Google',
+        'Chrome',
+        'Application',
+        'chrome.exe'
+      );
+    case 'darwin':
+      return '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
+    case 'linux':
+      return '/usr/bin/google-chrome';
+    default:
+      console.error('Could not find browser.');
+      return null;
   }
 }
 
