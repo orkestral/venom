@@ -24,11 +24,11 @@ export async function connect(options?: options) {
     await checkUpdates();
   }
 
-  const wpage: Browser | boolean = await initBrowser(mergeOptionsDefault);
-  if (typeof wpage !== 'boolean') {
-    const page: boolean | Page = await initWhatsapp(mergeOptionsDefault, wpage);
-    if (typeof page !== 'boolean') {
-      console.log('New option');
-    }
-  }
+  // const wpage: Browser | boolean = await initBrowser(mergeOptionsDefault);
+  // if (typeof wpage !== 'boolean') {
+  //   const page: boolean | Page = await initWhatsapp(mergeOptionsDefault, wpage);
+  //   if (typeof page !== 'boolean') {
+  //     console.log('New option');
+  //   }
+  // }
 }
