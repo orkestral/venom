@@ -79,7 +79,7 @@
     "@commitlint/config-angular": "^17.0.3",
     "@types/atob": "^2.1.2",
     "@types/mime-types": "^2.1.0",
-    "@types/node": "^18.11.10",
+    "@types/node": "^20.3.2",
     "@types/node-7z": "^2.1.5",
     "@types/puppeteer": "^5.4.6",
     "@types/qrcode-terminal": "^0.12.0",
