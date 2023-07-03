@@ -1,6 +1,11 @@
 export async function getGroupInviteLink(chatId) {
   var chat = Store.Chat.get(chatId);
   if (!chat.isGroup) return '';
-  const code = await Store.GroupInvite.sendQueryGroupInviteCode(chat.id);
-  return `https://chat.whatsapp.com/${code}`;
+  await Store.GroupInvite.queryGroupInviteCode(chat.groupMetadata);
+  return {
+    groupInviteLink: chat?.groupMetadata?.groupInviteLink,
+    inviteCode: chat?.groupMetadata?.inviteCode,
+    incognito: chat?.groupMetadata?.incognito,
+    id: chat?.groupMetadata?.id,
+  }
 }
