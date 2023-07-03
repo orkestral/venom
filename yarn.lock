@@ -367,7 +367,7 @@
   "resolved" "https://registry.npmjs.org/@octokit/auth-token/-/auth-token-3.0.4.tgz"
   "version" "3.0.4"
 
-"@octokit/core@^4.2.1":
+"@octokit/core@^4.2.1", "@octokit/core@>=3", "@octokit/core@>=4":
   "integrity" "sha512-tEDxFx8E38zF3gT7sSMDrT1tGumDgsw5yPG6BBh/X+5ClIQfMH/Yqocxz1PnHx6CHyF6pxmovUTOfZAUvQ0Lvw=="
   "resolved" "https://registry.npmjs.org/@octokit/core/-/core-4.2.1.tgz"
   "version" "4.2.1"
@@ -643,13 +643,6 @@
   "integrity" "sha512-iiUgKzV9AuaEkZqkOLDIvlQiL6ltuZd9tGcW3gwpnX8JbuiuhFlEGmmFXEXkN50Cvq7Os88IY2v0dkDqXYWVgA=="
   "resolved" "https://registry.npmjs.org/@types/ms/-/ms-0.7.31.tgz"
   "version" "0.7.31"
-
-"@types/node-7z@^2.1.5":
-  "integrity" "sha512-ZTcXeMhJPcGzZBjkpc6m3FsWpKlr5OotizwzRNyIjoMo57OQ7RkM5GganOHVE1brMX9tvyr6YEYvfj8LSrx0Nw=="
-  "resolved" "https://registry.npmjs.org/@types/node-7z/-/node-7z-2.1.5.tgz"
-  "version" "2.1.5"
-  dependencies:
-    "@types/node" "*"
 
 "@types/node@*", "@types/node@^18.11.10":
   "integrity" "sha512-/aNaQZD0+iSBAGnvvN2Cx92HqE5sZCPZtx2TsK+4nvV23fFe09jVDvpArXr2j9DnYlzuU9WuoykDDc6wqvpNcw=="
@@ -1649,9 +1642,9 @@
   "version" "7.0.0"
 
 "cacheable-request@^10.2.8":
-  "integrity" "sha512-v6WB+Epm/qO4Hdlio/sfUn69r5Shgh39SsE9DSd4bIezP0mblOlObI+I0kUEM7J0JFc+I7pSeMeYaOYtX1N/VQ=="
-  "resolved" "https://registry.npmjs.org/cacheable-request/-/cacheable-request-10.2.10.tgz"
-  "version" "10.2.10"
+  "integrity" "sha512-qtWGB5kn2OLjx47pYUkWicyOpK1vy9XZhq8yRTXOy+KAmjjESSRLx6SiExnnaGGUP1NM6/vmygMu0fGylNh9tw=="
+  "resolved" "https://registry.npmjs.org/cacheable-request/-/cacheable-request-10.2.12.tgz"
+  "version" "10.2.12"
   dependencies:
     "@types/http-cache-semantics" "^4.0.1"
     "get-stream" "^6.0.1"
@@ -1777,7 +1770,12 @@
   "resolved" "https://registry.npmjs.org/chalk/-/chalk-5.2.0.tgz"
   "version" "5.2.0"
 
-"chalk@^5.0.1", "chalk@^5.2.0", "chalk@5.2.0":
+"chalk@^5.0.1", "chalk@^5.2.0":
+  "integrity" "sha512-dLitG79d+GV1Nb/VYcCDFivJeK1hiukt9QjRNVOsUtTy1rR1YJsmpGGTZ3qJos+uw7WmWF4wUwBd9jxjocFC2w=="
+  "resolved" "https://registry.npmjs.org/chalk/-/chalk-5.3.0.tgz"
+  "version" "5.3.0"
+
+"chalk@5.2.0":
   "integrity" "sha512-ree3Gqw/nazQAPuJJEy+avdl7QfZMcUvmHIKgEZkGL+xOBzRvup5Hxo6LHuMceSxOabuJLJm5Yp/92R9eMmMvA=="
   "resolved" "https://registry.npmjs.org/chalk/-/chalk-5.2.0.tgz"
   "version" "5.2.0"
@@ -6994,7 +6992,7 @@
   dependencies:
     "rc" "1.2.8"
 
-"release-it@^15.5.1":
+"release-it@^15.11.0":
   "integrity" "sha512-lZwoGEnKYKwGnfxxlA7vtR7vvozPrOSsIgQaHO4bgQ5ARbG3IA6Dmo0IVusv6nR1KmnjH70QIeNAgsWs6Ji/tw=="
   "resolved" "https://registry.npmjs.org/release-it/-/release-it-15.11.0.tgz"
   "version" "15.11.0"

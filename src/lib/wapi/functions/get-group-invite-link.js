@@ -6,6 +6,6 @@ export async function getGroupInviteLink(chatId) {
     groupInviteLink: chat?.groupMetadata?.groupInviteLink,
     inviteCode: chat?.groupMetadata?.inviteCode,
     incognito: chat?.groupMetadata?.incognito,
-    id: chat?.groupMetadata?.id,
-  }
+    id: chat?.groupMetadata?.id
+  };
 }

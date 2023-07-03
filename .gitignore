@@ -18,3 +18,4 @@ session-*
 src/app.ts
 tokens
 chrome
+.env
