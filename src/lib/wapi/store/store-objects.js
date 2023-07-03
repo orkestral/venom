@@ -54,7 +54,8 @@ export const storeObjects = [
   {
     id: 'GroupInvite',
     conditions: (module) =>
-      module.sendQueryGroupInviteCode && module.sendRevokeGroupInviteCode
+      module.queryGroupInviteCode
+        && module.revokeGroupInvite
         ? module
         : null,
   },
