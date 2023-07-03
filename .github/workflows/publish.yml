@@ -35,7 +35,14 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           PUPPETEER_SKIP_DOWNLOAD: true
 
+      - name: Check if version exists
+        id: check_version
+        run: |
+          version=$(echo ${{ github.ref }} | sed -n 's/refs\/tags\/v\(.*\)/\1/p')
+          npm show venom-bot@$version >/dev/null 2>&1 || echo "::set-output name=version_exists::false"
+
       - name: Publish to npm
+        if: steps.check_version.outputs.version_exists != 'false'
         run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
