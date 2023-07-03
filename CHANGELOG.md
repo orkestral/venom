@@ -1,3 +1,23 @@
+## [5.0.11](https://github.com/orkestral/venom/compare/v5.0.7...v5.0.11) (2023-07-03)
+
+
+### Bug Fixes
+
+* getAllContacts ([4f98590](https://github.com/orkestral/venom/commit/4f9859066add6dbd5ebc9ba39fcde0da2f078225))
+* Group Link ([98ade84](https://github.com/orkestral/venom/commit/98ade8416b326b467ff50c3ee5f874ac03d0fab6))
+* Query Group Store ([5a44a29](https://github.com/orkestral/venom/commit/5a44a29bedf2ce97d23e642ae1e4a533891c231b))
+* remove createWid ([5e8da45](https://github.com/orkestral/venom/commit/5e8da457315497b258c3cccc38560e8105b1c3ac))
+
+
+### Features
+
+* dowload ([e1ef845](https://github.com/orkestral/venom/commit/e1ef8456d56fa7372f524ba4f35d9c28450f11e4))
+* download Chrome ([777cd44](https://github.com/orkestral/venom/commit/777cd4459c7f861955873a3727b9e2e8a1a06d42))
+* getChrome ([8b98eba](https://github.com/orkestral/venom/commit/8b98eba3e4018297cb2d50ff574580cba7ff8c9f))
+* refactoring chrome download ([4623eed](https://github.com/orkestral/venom/commit/4623eedbdb39a9e30aeb75324d3eae245b8111a8))
+
+
+
 ## [5.0.7](https://github.com/orkestral/venom/compare/v5.0.6...v5.0.7) (2023-06-19)
 
 
