@@ -15,6 +15,7 @@ import * as os from 'os';
 import axios from 'axios';
 import { defaultOptions } from '../config/create-config';
 import * as unzipper from 'unzipper';
+import { exec } from 'child_process';
 
 export async function initWhatsapp(
   options: options | CreateConfig,
@@ -165,6 +166,19 @@ async function checkPathDowload(extractPath: string) {
   }
 }
 
+function getChromeVersionBash(): Promise<string> {
+  return new Promise((resolve, reject) => {
+    exec('google-chrome --version', (error, stdout, stderr) => {
+      if (error) {
+        reject(error);
+      } else {
+        const version = stdout.trim().split(' ')[2];
+        resolve(version);
+      }
+    });
+  });
+}
+
 export async function initBrowser(
   options: options | CreateConfig,
   spinnies: any
@@ -275,23 +289,29 @@ export async function initBrowser(
     let chromeVersion = '';
     let versionTimeout: string | number | NodeJS.Timeout;
 
-    if (executablePath.includes('google-chrome')) {
-      chromeVersion = await getGlobalChromeVersion();
+    const platform = os.platform();
+    console.log('Platform: ', platform);
+    if (platform === 'darwin' || platform === 'linux') {
+      chromeVersion = await getChromeVersionBash();
     } else {
-      const browser = await puppeteer.launch({
-        executablePath,
-        headless: 'new'
-      });
+      if (executablePath.includes('google-chrome')) {
+        chromeVersion = await getGlobalChromeVersion();
+      } else {
+        const browser = await puppeteer.launch({
+          executablePath,
+          headless: 'new',
+          args: ['--no-sandbox', '--disable-setuid-sandbox']
+        });
 
-      versionTimeout = setTimeout(() => {
-        browser.close();
-        throw new Error('This browser version has problems');
-      }, 10000);
-      chromeVersion = await browser.version();
-      clearTimeout(versionTimeout);
-      await browser.close();
+        versionTimeout = setTimeout(() => {
+          browser.close();
+          throw new Error('This browser version has problems');
+        }, 10000);
+        chromeVersion = await browser.version();
+        clearTimeout(versionTimeout);
+        await browser.close();
+      }
     }
-
     if (chromeVersion) {
       console.log('Chrome Version:', chromeVersion);
     }
@@ -327,7 +347,6 @@ export async function initBrowser(
     if (options.browserWS && options.browserWS !== '') {
       return await puppeteer.connect({ browserWSEndpoint: options.browserWS });
     } else {
-      console.log('aqui');
       return await puppeteer.launch(launchOptions);
     }
   } catch (e) {
