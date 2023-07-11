@@ -126,7 +126,7 @@
     "mime-types": "^2.1.35",
     "ora": "^6.1.2",
     "os": "^0.1.2",
-    "puppeteer": "^20.7.2",
+    "puppeteer": "^20.8.1",
     "puppeteer-core": "^20.7.3",
     "puppeteer-extra": "^3.3.6",
     "puppeteer-extra-plugin-stealth": "^2.11.2",
