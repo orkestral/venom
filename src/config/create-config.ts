@@ -151,5 +151,5 @@ export const defaultOptions: CreateConfig = {
   attemptsForceConnectLoad: 5,
   forceConnectTime: 5000,
   addProxy: [],
-  browserPathExecutable: '',
+  browserPathExecutable: null
 };

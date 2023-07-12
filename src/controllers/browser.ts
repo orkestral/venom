@@ -266,7 +266,7 @@ function downloadBash(): Promise<string | false> {
                       }
 
                       exec(
-                        'ls -d /Applications/Google Chrome.app',
+                        'ls -d "/Applications/Google Chrome.app"',
                         (error, stdout, stderr) => {
                           if (error) {
                             console.error(
@@ -316,8 +316,11 @@ export async function initBrowser(
 
     const chromePath = getChromeExecutablePath();
     // Set the executable path to the path of the Chrome binary or the executable path provided
-    let executablePath = options.browserPathExecutable ?? 
-      getChrome() ?? puppeteer.executablePath() ?? chromePath;
+    let executablePath =
+      options.browserPathExecutable ??
+      getChrome() ??
+      puppeteer.executablePath() ??
+      chromePath;
 
     console.log('Path Google-Chrome: ', executablePath);
 
