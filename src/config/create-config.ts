@@ -122,6 +122,11 @@ export interface CreateConfig {
    * @default null
    */
   userPass?: string;
+  /**
+   * Browser executable path
+   * @default null
+   */
+  browserPathExecutable?: string;
 }
 
 export const defaultOptions: CreateConfig = {
@@ -145,5 +150,6 @@ export const defaultOptions: CreateConfig = {
   forceConnect: false,
   attemptsForceConnectLoad: 5,
   forceConnectTime: 5000,
-  addProxy: []
+  addProxy: [],
+  browserPathExecutable: '',
 };

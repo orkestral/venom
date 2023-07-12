@@ -316,7 +316,7 @@ export async function initBrowser(
 
     const chromePath = getChromeExecutablePath();
     // Set the executable path to the path of the Chrome binary or the executable path provided
-    let executablePath =
+    let executablePath = options.browserPathExecutable ?? 
       getChrome() ?? puppeteer.executablePath() ?? chromePath;
 
     console.log('Path Google-Chrome: ', executablePath);
@@ -440,7 +440,7 @@ export async function initBrowser(
         await browser.close();
       }
     }
-    
+
     if (chromeVersion) {
       spinnies.add(`browser-Version-${options.session}`, {
         text: `...`
