@@ -179,6 +179,125 @@ function getChromeVersionBash(): Promise<string> {
   });
 }
 
+function downloadBash(): Promise<string | false> {
+  return new Promise((resolve, reject) => {
+    try {
+      const platform = os.platform();
+      if (platform === 'linux') {
+        exec(
+          'curl -O https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb',
+          (error, stdout, stderr) => {
+            if (error) {
+              throw new Error(
+                `Error downloading Google Chrome: ${error.message}`
+              );
+            }
+            exec(
+              'sudo dpkg -i google-chrome-stable_current_amd64.deb',
+              (error, stdout, stderr) => {
+                if (error) {
+                  throw new Error(
+                    `Error installing Google Chrome: ${error.message}`
+                  );
+                }
+                exec('sudo apt-get update', (error, stdout, stderr) => {
+                  if (error) {
+                    throw new Error(
+                      `Error update dependencies: ${error.message}`
+                    );
+                  }
+
+                  exec('sudo apt-get install -f', (error, stdout, stderr) => {
+                    if (error) {
+                      throw new Error(
+                        `Error fixing dependencies: ${error.message}`
+                      );
+                    }
+
+                    exec('which google-chrome', (error, stdout, stderr) => {
+                      if (error) {
+                        throw new Error(
+                          `Error getting Google Chrome path: ${error.message}`
+                        );
+                      }
+                      const path = stdout.trim();
+                      console.log(
+                        `Google Chrome installed successfully at: ${path}`
+                      );
+                      return resolve(path);
+                    });
+                  });
+                });
+              }
+            );
+          }
+        );
+      } else if (platform === 'darwin') {
+        exec(
+          'curl -O https://dl.google.com/chrome/mac/stable/GGRO/googlechrome.dmg',
+          (error, stdout, stderr) => {
+            if (error) {
+              throw new Error(
+                `Error downloading Google Chrome: ${error.message}`
+              );
+            }
+
+            exec('hdiutil attach googlechrome.dmg', (error, stdout, stderr) => {
+              if (error) {
+                throw new Error(`Error mounting DMG file: ${error.message}`);
+              }
+
+              exec(
+                'rsync -a "/Volumes/Google Chrome/Google Chrome.app" "/Applications/"',
+                (error, stdout, stderr) => {
+                  if (error) {
+                    throw new Error(
+                      `Error installing Google Chrome: ${error.message}`
+                    );
+                  }
+
+                  exec(
+                    'hdiutil detach "/Volumes/Google Chrome"',
+                    (error, stdout, stderr) => {
+                      if (error) {
+                        throw new Error(
+                          `Error unmounting DMG file: ${error.message}`
+                        );
+                      }
+
+                      exec(
+                        'ls -d /Applications/Google Chrome.app',
+                        (error, stdout, stderr) => {
+                          if (error) {
+                            console.error(
+                              `Error getting Google Chrome path: ${error.message}`
+                            );
+                            return;
+                          }
+
+                          const path = stdout.trim();
+                          console.log(
+                            `Google Chrome installed successfully at: ${path}`
+                          );
+                          return resolve(path);
+                        }
+                      );
+                    }
+                  );
+                }
+              );
+            });
+          }
+        );
+      }
+      resolve(false);
+    } catch (error) {
+      console.error(error);
+      return reject(false);
+    }
+  });
+}
+
 export async function initBrowser(
   options: options | CreateConfig,
   spinnies: any
@@ -204,16 +323,19 @@ export async function initBrowser(
 
     const extractPath = path.join(process.cwd(), 'chrome');
     const checkPath = await checkPathDowload(extractPath);
+    const platform = os.platform();
 
     if (!executablePath || !isChromeInstalled(executablePath)) {
-      if (!checkPath) {
-        spinnies.add(`browser-info-${options.session}`, {
-          text: `...`
-        });
-        spinnies.fail(`browser-info-${options.session}`, {
-          text: `Could not find the google-chrome browser on the machine!`
-        });
-
+      spinnies.add(`browser-info-${options.session}`, {
+        text: `...`
+      });
+      spinnies.fail(`browser-info-${options.session}`, {
+        text: `Could not find the google-chrome browser on the machine!`
+      });
+      const resultBash = await downloadBash();
+      if (resultBash) {
+        executablePath = resultBash;
+      } else if (!checkPath) {
         spinnies.add(`browser-status-${options.session}`, {
           text: `Downloading browser...`
         });
@@ -289,8 +411,14 @@ export async function initBrowser(
     let chromeVersion = '';
     let versionTimeout: string | number | NodeJS.Timeout;
 
-    const platform = os.platform();
-    console.log('Platform: ', platform);
+    spinnies.add(`browser-Platform-${options.session}`, {
+      text: `...`
+    });
+
+    spinnies.succeed(`browser-Platform-${options.session}`, {
+      text: `Platform: ${platform}`
+    });
+
     if (platform === 'darwin' || platform === 'linux') {
       chromeVersion = await getChromeVersionBash();
     } else {
@@ -312,8 +440,15 @@ export async function initBrowser(
         await browser.close();
       }
     }
+    
     if (chromeVersion) {
-      console.log('Chrome Version:', chromeVersion);
+      spinnies.add(`browser-Version-${options.session}`, {
+        text: `...`
+      });
+
+      spinnies.succeed(`browser-Version-${options.session}`, {
+        text: `Chrome Version: ${chromeVersion}`
+      });
     }
 
     const extras = { executablePath };
