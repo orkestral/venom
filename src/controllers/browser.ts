@@ -310,9 +310,9 @@ export async function initBrowser(
     if (!checkFolder) {
       throw new Error(`Error executing client session info`);
     }
-    if (options.headless !== 'new' && options.headless !== false) {
-      throw new Error('Now use only headless: "new" or false');
-    }
+    // if (options.headless !== 'new' && options.headless !== false) {
+    //   throw new Error('Now use only headless: "new" or false');
+    // }
 
     const chromePath = getChromeExecutablePath();
     // Set the executable path to the path of the Chrome binary or the executable path provided
@@ -430,7 +430,7 @@ export async function initBrowser(
       } else {
         const browser = await puppeteer.launch({
           executablePath,
-          headless: 'new',
+          headless: options.headless,
           args: ['--no-sandbox', '--disable-setuid-sandbox']
         });
 
