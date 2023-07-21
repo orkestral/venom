@@ -96,6 +96,8 @@
     "eslint-config-prettier": "^6.14.0",
     "eslint-import-resolver-typescript": "^3.5.5",
     "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-jsdoc": "^46.4.4",
+    "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "^4.2.1",
     "gulp": "^4.0.2",
     "husky": "^8.0.1",
