@@ -9,8 +9,7 @@
     ],
     "after:release": [
       "npm publish",
-      "echo Release completed successfully.",
-      "npm run deploy"
+      "echo Release completed successfully."
     ]
   },
   "npm": {
