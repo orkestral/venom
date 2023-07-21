@@ -448,7 +448,7 @@ export async function initBrowser(
       } else {
         const browser = await puppeteer.launch({
           executablePath,
-          headless: 'new',
+          headless: options.headless === true ? options.headless : 'new',
           args: ['--no-sandbox', '--disable-setuid-sandbox']
         });
 
