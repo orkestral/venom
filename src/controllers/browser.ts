@@ -485,6 +485,8 @@ export async function initBrowser(
     if (options.browserWS && options.browserWS !== '') {
       return await puppeteer.connect({ browserWSEndpoint: options.browserWS });
     } else {
+      console.log('aqui');
+      removeStoredSingletonLock(options.puppeteerOptions);
       return await puppeteer.launch(launchOptions);
     }
   } catch (e) {
@@ -589,5 +591,17 @@ function isChromeInstalled(executablePath: string): boolean {
     return true;
   } catch {
     return false;
+  }
+}
+
+function removeStoredSingletonLock(puppeteerOptions): boolean {
+  const platform = os.platform();
+  const { userDataDir } = puppeteerOptions;
+  try {
+    if (platform === 'win32') return false;
+    fs.unlinkSync(`${userDataDir}/SingletonLock`);
+    true;
+  } catch {
+    false;
   }
 }
