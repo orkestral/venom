@@ -316,8 +316,20 @@ export async function initBrowser(
     if (!checkFolder) {
       throw new Error(`Error executing client session info`);
     }
-    if (options.headless !== 'new' && options.headless !== false) {
-      throw new Error('Now use only headless: "new" or false');
+
+    // Check for deprecated headless option
+    if (options.headless === true) {
+      console.warn(
+        'Warning: The usage of "headless: true" is deprecated. Please use "headless: \'new\'" or "headless: false" instead. https://developer.chrome.com/articles/new-headless/'
+      );
+    }
+
+    if (
+      options.headless !== 'new' &&
+      options.headless !== false &&
+      options.headless !== true
+    ) {
+      throw new Error('Now use only headless: "new", "true" or false');
     }
 
     const chromePath = getChromeExecutablePath();
@@ -605,7 +617,11 @@ function removeStoredSingletonLock(
   return new Promise((resolve, reject) => {
     const platform = os.platform();
     const { userDataDir } = puppeteerOptions;
-    const singletonLockPath = path.join(process.cwd(), userDataDir, 'SingletonLock');
+    const singletonLockPath = path.join(
+      process.cwd(),
+      userDataDir,
+      'SingletonLock'
+    );
 
     if (platform === 'win32') {
       // No need to remove the lock on Windows, so resolve with true directly.

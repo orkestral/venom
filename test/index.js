@@ -3,7 +3,7 @@ const venom = require('../dist');
 
 venom.create({
   session: 'sessionname', //name of session
-  headless: false
+  headless: true
 }).then(()=> {
   start(client);
 });
