@@ -2,7 +2,13 @@ import * as ChromeLauncher from 'chrome-launcher';
 import chromeVersion from 'chrome-version';
 import * as fs from 'fs';
 import * as path from 'path';
-import { Browser, BrowserContext, Page, LaunchOptions } from 'puppeteer';
+import {
+  Browser,
+  BrowserContext,
+  Page,
+  LaunchOptions,
+  PuppeteerLaunchOptions
+} from 'puppeteer';
 import puppeteer from 'puppeteer-extra';
 import { options } from '../config';
 import { CreateConfig } from '../config/create-config';
@@ -485,8 +491,7 @@ export async function initBrowser(
     if (options.browserWS && options.browserWS !== '') {
       return await puppeteer.connect({ browserWSEndpoint: options.browserWS });
     } else {
-      console.log('aqui');
-      removeStoredSingletonLock(options.puppeteerOptions);
+      await removeStoredSingletonLock(options.puppeteerOptions);
       return await puppeteer.launch(launchOptions);
     }
   } catch (e) {
@@ -594,14 +599,26 @@ function isChromeInstalled(executablePath: string): boolean {
   }
 }
 
-function removeStoredSingletonLock(puppeteerOptions): boolean {
-  const platform = os.platform();
-  const { userDataDir } = puppeteerOptions;
-  try {
-    if (platform === 'win32') return false;
-    fs.unlinkSync(`${userDataDir}/SingletonLock`);
-    true;
-  } catch {
-    false;
-  }
+function removeStoredSingletonLock(
+  puppeteerOptions: PuppeteerLaunchOptions
+): Promise<boolean> {
+  return new Promise((resolve, reject) => {
+    const platform = os.platform();
+    const { userDataDir } = puppeteerOptions;
+    const singletonLockPath = path.join(process.cwd(), userDataDir, 'SingletonLock');
+
+    if (platform === 'win32') {
+      // No need to remove the lock on Windows, so resolve with true directly.
+      resolve(true);
+    } else {
+      fs.unlink(singletonLockPath, (error) => {
+        if (error) {
+          console.error('Error removing SingletonLock:', error);
+          reject(false);
+        } else {
+          resolve(true);
+        }
+      });
+    }
+  });
 }
