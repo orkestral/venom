@@ -5,7 +5,8 @@ import {
   base64MimeType,
   downloadFileToBase64,
   fileToBase64,
-  stickerSelect
+  stickerSelect,
+  dowloadMetaFileBase64
 } from '../helpers';
 import { filenameFromMimeType } from '../helpers/filename-from-mimetype';
 import { Message, SendFileResult, SendStickerResult } from '../model';
@@ -463,11 +464,12 @@ export class SenderLayer extends ListenerLayer {
       if (typeof validating === 'object') {
         return reject(validating);
       }
+      const thumbnail = await dowloadMetaFileBase64(url);
       const result = await this.page.evaluate(
-        ({ chatId, url, title }) => {
-          return WAPI.sendLinkPreview(chatId, url, title);
+        ({ chatId, url, title, thumbnail }) => {
+          return WAPI.sendLinkPreview(chatId, url, title, thumbnail);
         },
-        { chatId, url, title }
+        { chatId, url, title, thumbnail }
       );
       if (result['erro'] == true) {
         return reject(result);
