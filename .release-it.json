@@ -1,0 +1,21 @@
+{
+  "hooks": {
+    "after:bump": [
+      "npm run changelog:update"
+    ],
+    "after:tag": [
+      "git push",
+      "git push --tags"
+    ],
+    "after:release": [
+      "npm publish",
+      "echo Release completed successfully.",
+      "npm run deploy"
+    ]
+  },
+  "npm": {
+    "publish": false,
+    "private": true,
+    "registry": "OMITTED"
+  }
+}

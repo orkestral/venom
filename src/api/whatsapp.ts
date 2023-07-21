@@ -21,33 +21,6 @@ export class Whatsapp extends ControlsLayer {
       await page
         .waitForSelector('#app .two', { visible: true })
         .catch(() => {});
-
-      await page
-        .waitForFunction(
-          () => {
-            if (options.debug) {
-              console.log(`\nDebug: Loading wp app....`);
-            }
-            const StoreKey = Object.keys(window).find(
-              (k) =>
-                !!Object.getOwnPropertyDescriptor(window[k], 'WidFactory') &&
-                !!Object.getOwnPropertyDescriptor(
-                  window[k].WidFactory,
-                  'createWid'
-                )
-            );
-            if (StoreKey) {
-              window.Store = window[StoreKey];
-              return true;
-            }
-            return false;
-          },
-          {
-            timeout: 0,
-            polling: 100
-          }
-        )
-        .catch(() => {});
       await this.initService();
       await this.addChatWapi();
     });

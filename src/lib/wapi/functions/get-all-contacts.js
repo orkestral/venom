@@ -1,5 +1,5 @@
 export const getAllContacts = function () {
-  const allContacts = window.Store.Contact.map((contact) =>
+  const allContacts = Store.Contact.map((contact) =>
     WAPI._serializeContactObj(contact)
   );
 

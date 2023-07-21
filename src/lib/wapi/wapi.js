@@ -178,21 +178,35 @@ function injectParasite() {
   }
 }
 
+async function waitForObjects() {
+  return new Promise((resolve) => {
+    const checkObjects = () => {
+      if (
+        window[injectConfig.webpack] &&
+        Array.isArray(window[injectConfig.webpack]) &&
+        window[injectConfig.webpack].every(
+          (item) => Array.isArray(item) && item.length > 0
+        )
+      ) {
+        resolve();
+      } else {
+        setTimeout(checkObjects, 200);
+      }
+    };
+
+    checkObjects();
+  });
+}
+
 (async () => {
-  // window[injectConfig.webpack] = window[injectConfig.webpack] || [];
-  if (typeof window[injectConfig.webpack] === 'undefined') {
-    window[injectConfig.webpack] = [];
-  }
-  while (true) {
-    const last = window[injectConfig.webpack].length - 1;
-    if (
-      !window[injectConfig.webpack][last][0].includes(injectConfig.parasite) &&
-      document.querySelectorAll('#app .two').length
-    ) {
-      injectParasite();
-      break;
-    }
-    await sleep(2000);
+  await waitForObjects();
+
+  const last = window[injectConfig.webpack].length - 1;
+  if (
+    !window[injectConfig.webpack][last][0].includes(injectConfig.parasite) &&
+    document.querySelectorAll('#app .two').length
+  ) {
+    injectParasite();
   }
 })();
 

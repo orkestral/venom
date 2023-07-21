@@ -19,7 +19,7 @@ export const _serializeContactObj = (obj) => {
     notifyName: obj?.notifyName,
     isMyContact: obj?.isMyContact,
     isPSA: obj?.isPSA,
-    isUser: obj?.isUser,
+    isUser: obj?.isUser ?? obj?.id?.server === 'c.us' ? true : false,
     isVerified: obj?.isVerified,
     isWAContact: obj?.isWAContact,
     profilePicThumbObj: obj?.profilePicThumb

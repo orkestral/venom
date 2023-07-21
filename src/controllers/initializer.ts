@@ -145,12 +145,21 @@ export async function create(
       sessionOrOption.replace(/\s/g, '').length
     ) {
       session = sessionOrOption.replace(/\s/g, '');
+      options = { session };
     } else if (typeof sessionOrOption === 'object') {
       session = sessionOrOption.session || session;
       catchQR = sessionOrOption.catchQR || catchQR;
       statusFind = sessionOrOption.statusFind || statusFind;
       browserInstance = sessionOrOption.browserInstance || browserInstance;
       options = sessionOrOption;
+    }
+
+    const requiredNodeVersion = 16;
+    const currentNodeVersion = Number(process.versions.node.split('.')[0]);
+    if (currentNodeVersion < requiredNodeVersion) {
+      return reject(
+        `Outdated Node.js version. Node.js ${requiredNodeVersion} or higher is required. Please update Node.js.`
+      );
     }
 
     await checkUpdates();
@@ -178,7 +187,10 @@ export async function create(
       });
     }
 
-    const browser: Browser | boolean = await initBrowser(mergedOptions);
+    const browser: Browser | boolean = await initBrowser(
+      mergedOptions,
+      spinnies
+    );
 
     if (typeof browser === 'boolean') {
       spinnies.fail(`browser-${session}`, {

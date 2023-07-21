@@ -88,6 +88,11 @@ export interface options {
    * @default false
    */
   devtools?: boolean;
+  /**
+   * Browser executable path
+   * @default null
+   */
+  browserPathExecutable?: string;
 }
 
 export const defaultOptions: options = {
@@ -104,5 +109,6 @@ export const defaultOptions: options = {
   browserArgs: puppeteerConfig.chromiumArgs,
   addBrowserArgs: [],
   autoClose: 120000,
-  addProxy: []
+  addProxy: [],
+  browserPathExecutable: ''
 };
