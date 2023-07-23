@@ -1,3 +1,14 @@
+## [5.0.13](https://github.com/orkestral/venom/compare/v5.0.12...v5.0.13) (2023-07-23)
+
+
+### Bug Fixes
+
+* Error removing SingletonLock ([fd6b316](https://github.com/orkestral/venom/commit/fd6b316e1e1dd7462cbbba9eb4080875d6613759))
+* in NPM ([dc52d4a](https://github.com/orkestral/venom/commit/dc52d4a28cbd74d312cd43aa0d96bba8d9038c81))
+* npm check updates ([68aa57c](https://github.com/orkestral/venom/commit/68aa57c85aad56773e9ff2769e8362241a58ee9a))
+
+
+
 ## [5.0.12](https://github.com/orkestral/venom/compare/v5.0.11...v5.0.12) (2023-07-21)
 
 
