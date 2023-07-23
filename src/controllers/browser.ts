@@ -174,14 +174,25 @@ async function checkPathDowload(extractPath: string) {
 
 function getChromeVersionBash(): Promise<string> {
   return new Promise((resolve, reject) => {
-    exec('google-chrome --version', (error, stdout, stderr) => {
-      if (error) {
-        reject(error);
-      } else {
-        const version = stdout.trim().split(' ')[2];
-        resolve(version);
-      }
-    });
+    try {
+      const platform = os.platform();
+      const comand =
+        platform === 'linux'
+          ? 'google-chrome --version'
+          : platform === 'darwin'
+          ? '/Applications/Google\\ Chrome.app/Contents/MacOS/Google\\ Chrome --version'
+          : '';
+      exec(comand, (error, stdout, stderr) => {
+        if (error) {
+          reject(error);
+        } else {
+          const version = stdout.trim().split(' ')[2];
+          resolve(version);
+        }
+      });
+    } catch {
+      resolve('Not check version');
+    }
   });
 }
 
@@ -615,26 +626,31 @@ function removeStoredSingletonLock(
   puppeteerOptions: PuppeteerLaunchOptions
 ): Promise<boolean> {
   return new Promise((resolve, reject) => {
-    const platform = os.platform();
-    const { userDataDir } = puppeteerOptions;
-    const singletonLockPath = path.join(
-      process.cwd(),
-      userDataDir,
-      'SingletonLock'
-    );
+    try {
+      const platform = os.platform();
+      const { userDataDir } = puppeteerOptions;
+      const singletonLockPath = path.join(userDataDir, 'SingletonLock');
 
-    if (platform === 'win32') {
-      // No need to remove the lock on Windows, so resolve with true directly.
-      resolve(true);
-    } else {
-      fs.unlink(singletonLockPath, (error) => {
-        if (error) {
-          console.error('Error removing SingletonLock:', error);
-          reject(false);
+      if (platform === 'win32') {
+        // No need to remove the lock on Windows, so resolve with true directly.
+        resolve(true);
+      } else {
+        if (fs.existsSync(singletonLockPath)) {
+          fs.unlink(singletonLockPath, (error) => {
+            if (error) {
+              console.error('Error removing SingletonLock:', error);
+              reject(false);
+            } else {
+              console.error('Removing SingletonLock:');
+              resolve(true);
+            }
+          });
         } else {
           resolve(true);
         }
-      });
+      }
+    } catch {
+      resolve(true);
     }
   });
 }
