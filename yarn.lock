@@ -9191,7 +9191,7 @@ typedoc-plugin-pages@^1.1.0:
     compare-versions "^3.6.0"
     typedoc-default-themes "^0.10.1"
 
-typedoc@^0.23.21:
+typedoc@^0.23.28:
   version "0.23.28"
   resolved "https://registry.npmjs.org/typedoc/-/typedoc-0.23.28.tgz"
   integrity sha512-9x1+hZWTHEQcGoP7qFmlo4unUoVJLB0H/8vfO/7wqTnZxg4kPuji9y3uRzEu0ZKez63OJAUmiGhUrtukC6Uj3w==
