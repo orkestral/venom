@@ -141,7 +141,6 @@
     "typedoc": "^0.23.21",
     "typedoc-default-themes": "^0.12.10",
     "unzipper": "^0.10.14",
-    "winston": "^3.8.0",
     "ws": "^8.8.0",
     "yoo-hoo": "^1.2.0"
   }
