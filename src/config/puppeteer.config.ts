@@ -1,5 +1,6 @@
 const puppeteerConfig = {
   whatsappUrl: 'https://web.whatsapp.com',
+  argsRoot: ['--no-sandbox', '--disable-setuid-sandbox'],
   chromiumArgs: [
     '--no-zygote',
     '--log-level=3',

@@ -22,6 +22,7 @@ import axios from 'axios';
 import { defaultOptions } from '../config/create-config';
 import * as unzipper from 'unzipper';
 import { exec } from 'child_process';
+import isRoot from 'is-root';
 
 export async function initWhatsapp(
   options: options | CreateConfig,
@@ -511,6 +512,11 @@ export async function initBrowser(
       ...extras
     };
 
+    const isRunningAsRoot = isRoot();
+    if (isRunningAsRoot && options.browserArgs && options.browserArgs.length) {
+      addArgsRoot(options.browserArgs);
+    }
+
     if (options.browserWS && options.browserWS !== '') {
       return await puppeteer.connect({ browserWSEndpoint: options.browserWS });
     } else {
@@ -520,6 +526,16 @@ export async function initBrowser(
   } catch (e) {
     console.error(e);
     return false;
+  }
+}
+
+function addArgsRoot(args: string[]) {
+  if (Array.isArray(args)) {
+    args.forEach((option) => {
+      if (!puppeteerConfig.argsRoot.includes(option)) {
+        puppeteerConfig.argsRoot.push(option);
+      }
+    });
   }
 }
 
