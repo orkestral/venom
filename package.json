@@ -92,7 +92,7 @@
     "conventional-changelog-cli": "^2.2.2",
     "copy-webpack-plugin": "^10.2.4",
     "eslint": "^8.39.0",
-    "eslint-config-eslint": "^7.0.0",
+    "eslint-config-eslint": "^8.0.0",
     "eslint-config-prettier": "^6.14.0",
     "eslint-import-resolver-typescript": "^3.5.5",
     "eslint-plugin-import": "^2.27.5",
