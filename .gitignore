@@ -19,3 +19,5 @@ src/app.ts
 tokens
 chrome
 .env
+package-lock.json
+yarn.lock

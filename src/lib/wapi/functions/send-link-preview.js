@@ -1,4 +1,4 @@
-export async function sendLinkPreview(chatId, url, text) {
+export async function sendLinkPreview(chatId, url, text, thumbnail) {
   text = text || '';
   const _Path = {
     Protocol: '^(https?:\\/\\/)?',
@@ -24,6 +24,7 @@ export async function sendLinkPreview(chatId, url, text) {
       'Use a valid HTTP protocol. Example: https://www.youtube.com/watch?v=V1bFr2SWP1';
     return WAPI.scope(chatId, true, null, text);
   }
+
   var chat = await WAPI.sendExist(chatId);
   if (!chat.erro) {
     const newMsgId = await window.WAPI.getNewMessageId(chat.id._serialized);
@@ -49,8 +50,7 @@ export async function sendLinkPreview(chatId, url, text) {
       subtype: 'url',
       preview: true,
       disappearingModeInitiator: 'chat',
-      thumbnail:
-        'iVBORw0KGgoAAAANSUhEUgAAAGMAAABjCAIAAAAAWSnCAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAA0SURBVHhe7cExAQAAAMKg9U9tCj8gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADipAXM+AAFcstx4AAAAAElFTkSuQmCC',
+      thumbnail: thumbnail,
       content: url,
       canonicalUrl: url,
       description: url,
