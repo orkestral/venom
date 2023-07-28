@@ -1,87 +1,87 @@
-name: Update nightly release
-
-on:
-  push:
-    branches:
-      - main
-  schedule:
-    - cron: '0 0 * * *' 
-
-jobs:
-  update-nightly-release:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-
-      - name: Setup Java
-        uses: actions/setup-java@v2
-        with:
-          java-version: 11
-
-      - name: Install Dependencies
-        run: ./gradlew clean build
-
-      - name: Run Tests
-        run: ./gradlew test
-
-      - name: Apply Bug Fixes and Features
-        run: |
-          changed_files=$(git diff --name-only HEAD^ HEAD)
-          changes=""
-          while IFS= read -r file; do
-            case $file in
-              *bug*) changes+="Bug fix: $file"$'\n' ;;
-              *feature*) changes+="New feature: $file"$'\n' ;;
-              *doc*) changes+="Documentation update: $file"$'\n' ;;
-              *fi*) changes+="Fix: $file"$'\n' ;;
-              *) changes+="Other change: $file"$'\n' ;;
-            esac
-          done <<< "$changed_files"
-          echo "$changes" > build/libs/info.txt
-
-      - name: Deploy to Nightly Release
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.NIGHTLY_HOST }}
-          username: ${{ secrets.NIGHTLY_USER }}
-          password: ${{ secrets.NIGHTLY_PASSWORD }}
-          script: |
-            cd /path/to/nightly/release
-            git pull
-            cp /path/to/build/libs/*.jar .
-            systemctl restart myapp.service
-
-      - name: Update info.txt
-        run: |
-          commit=$(git log --format="%H" -n 1)
-          date=$(git log --format="%cd" -n 1 --date=format:'%Y-%m-%dT%H:%M:%SZ')
-          author=$(git config user.name)
-          echo -e "ref: ${{ github.ref }}\ncommit: $commit\nauthor: $author\ndate: $date" >> build/libs/info.txt
-
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v2
-        with:
-          name: nightly-build
-          path: build/libs/
-
-      - name: Create Release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: nightly
-          release_name: Nightly Build
-          body: Automated nightly build for branch ${{ github.ref }}
-          draft: false
-          prerelease: true
-          
-      - name: Attach Artifacts to Release
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: build/libs/
-          asset_name: nightly-build
-          asset_content_type: application/zip
+#name: Update nightly release
+#
+#on:
+#  push:
+#    branches:
+#      - main
+#  schedule:
+#    - cron: '0 0 * * *'
+#
+#jobs:
+#  update-nightly-release:
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Checkout
+#        uses: actions/checkout@v2
+#
+#      - name: Setup Java
+#        uses: actions/setup-java@v2
+#        with:
+#          java-version: 11
+#
+#      - name: Install Dependencies
+#        run: ./gradlew clean build
+#
+#      - name: Run Tests
+#        run: ./gradlew test
+#
+#      - name: Apply Bug Fixes and Features
+#        run: |
+#          changed_files=$(git diff --name-only HEAD^ HEAD)
+#          changes=""
+#          while IFS= read -r file; do
+#            case $file in
+#              *bug*) changes+="Bug fix: $file"$'\n' ;;
+#              *feature*) changes+="New feature: $file"$'\n' ;;
+#              *doc*) changes+="Documentation update: $file"$'\n' ;;
+#              *fi*) changes+="Fix: $file"$'\n' ;;
+#              *) changes+="Other change: $file"$'\n' ;;
+#            esac
+#          done <<< "$changed_files"
+#          echo "$changes" > build/libs/info.txt
+#
+#      - name: Deploy to Nightly Release
+#        uses: appleboy/ssh-action@master
+#        with:
+#          host: ${{ secrets.NIGHTLY_HOST }}
+#          username: ${{ secrets.NIGHTLY_USER }}
+#          password: ${{ secrets.NIGHTLY_PASSWORD }}
+#          script: |
+#            cd /path/to/nightly/release
+#            git pull
+#            cp /path/to/build/libs/*.jar .
+#            systemctl restart myapp.service
+#
+#      - name: Update info.txt
+#        run: |
+#          commit=$(git log --format="%H" -n 1)
+#          date=$(git log --format="%cd" -n 1 --date=format:'%Y-%m-%dT%H:%M:%SZ')
+#          author=$(git config user.name)
+#          echo -e "ref: ${{ github.ref }}\ncommit: $commit\nauthor: $author\ndate: $date" >> build/libs/info.txt
+#
+#      - name: Upload artifacts
+#        uses: actions/upload-artifact@v2
+#        with:
+#          name: nightly-build
+#          path: build/libs/
+#
+#      - name: Create Release
+#        uses: actions/create-release@v1
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#        with:
+#          tag_name: nightly
+#          release_name: Nightly Build
+#          body: Automated nightly build for branch ${{ github.ref }}
+#          draft: false
+#          prerelease: true
+#
+#      - name: Attach Artifacts to Release
+#        uses: actions/upload-release-asset@v1
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#        with:
+#          upload_url: ${{ steps.create_release.outputs.upload_url }}
+#          asset_path: build/libs/
+#          asset_name: nightly-build
+#          asset_content_type: application/zip
