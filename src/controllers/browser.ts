@@ -2,7 +2,13 @@ import * as ChromeLauncher from 'chrome-launcher';
 import chromeVersion from 'chrome-version';
 import * as fs from 'fs';
 import * as path from 'path';
-import { Browser, BrowserContext, Page, LaunchOptions } from 'puppeteer';
+import {
+  Browser,
+  BrowserContext,
+  Page,
+  LaunchOptions,
+  PuppeteerLaunchOptions
+} from 'puppeteer';
 import puppeteer from 'puppeteer-extra';
 import { options } from '../config';
 import { CreateConfig } from '../config/create-config';
@@ -16,6 +22,7 @@ import axios from 'axios';
 import { defaultOptions } from '../config/create-config';
 import * as unzipper from 'unzipper';
 import { exec } from 'child_process';
+import isRoot from 'is-root';
 
 export async function initWhatsapp(
   options: options | CreateConfig,
@@ -168,14 +175,25 @@ async function checkPathDowload(extractPath: string) {
 
 function getChromeVersionBash(): Promise<string> {
   return new Promise((resolve, reject) => {
-    exec('google-chrome --version', (error, stdout, stderr) => {
-      if (error) {
-        reject(error);
-      } else {
-        const version = stdout.trim().split(' ')[2];
-        resolve(version);
-      }
-    });
+    try {
+      const platform = os.platform();
+      const comand =
+        platform === 'linux'
+          ? 'google-chrome --version'
+          : platform === 'darwin'
+          ? '/Applications/Google\\ Chrome.app/Contents/MacOS/Google\\ Chrome --version'
+          : '';
+      exec(comand, (error, stdout, stderr) => {
+        if (error) {
+          reject(error);
+        } else {
+          const version = stdout.trim().split(' ')[2];
+          resolve(version);
+        }
+      });
+    } catch {
+      resolve('Not check version');
+    }
   });
 }
 
@@ -310,8 +328,20 @@ export async function initBrowser(
     if (!checkFolder) {
       throw new Error(`Error executing client session info`);
     }
-    if (options.headless !== 'new' && options.headless !== false) {
-      throw new Error('Now use only headless: "new" or false');
+
+    // Check for deprecated headless option
+    if (options.headless === true) {
+      console.warn(
+        'Warning: The usage of "headless: true" is deprecated. Please use "headless: \'new\'" or "headless: false" instead. https://developer.chrome.com/articles/new-headless/'
+      );
+    }
+
+    if (
+      options.headless !== 'new' &&
+      options.headless !== false &&
+      options.headless !== true
+    ) {
+      throw new Error('Now use only headless: "new", "true" or false');
     }
 
     const chromePath = getChromeExecutablePath();
@@ -430,7 +460,7 @@ export async function initBrowser(
       } else {
         const browser = await puppeteer.launch({
           executablePath,
-          headless: 'new',
+          headless: options.headless === true ? options.headless : 'new',
           args: ['--no-sandbox', '--disable-setuid-sandbox']
         });
 
@@ -482,14 +512,30 @@ export async function initBrowser(
       ...extras
     };
 
+    const isRunningAsRoot = isRoot();
+    if (isRunningAsRoot && options.browserArgs && options.browserArgs.length) {
+      addArgsRoot(options.browserArgs);
+    }
+
     if (options.browserWS && options.browserWS !== '') {
       return await puppeteer.connect({ browserWSEndpoint: options.browserWS });
     } else {
+      await removeStoredSingletonLock(options.puppeteerOptions);
       return await puppeteer.launch(launchOptions);
     }
   } catch (e) {
     console.error(e);
     return false;
+  }
+}
+
+function addArgsRoot(args: string[]) {
+  if (Array.isArray(args)) {
+    args.forEach((option) => {
+      if (!puppeteerConfig.argsRoot.includes(option)) {
+        puppeteerConfig.argsRoot.push(option);
+      }
+    });
   }
 }
 
@@ -590,4 +636,37 @@ function isChromeInstalled(executablePath: string): boolean {
   } catch {
     return false;
   }
+}
+
+function removeStoredSingletonLock(
+  puppeteerOptions: PuppeteerLaunchOptions
+): Promise<boolean> {
+  return new Promise((resolve, reject) => {
+    try {
+      const platform = os.platform();
+      const { userDataDir } = puppeteerOptions;
+      const singletonLockPath = path.join(userDataDir, 'SingletonLock');
+
+      if (platform === 'win32') {
+        // No need to remove the lock on Windows, so resolve with true directly.
+        resolve(true);
+      } else {
+        if (fs.existsSync(singletonLockPath)) {
+          fs.unlink(singletonLockPath, (error) => {
+            if (error) {
+              console.error('Error removing SingletonLock:', error);
+              reject(false);
+            } else {
+              console.error('Removing SingletonLock:');
+              resolve(true);
+            }
+          });
+        } else {
+          resolve(true);
+        }
+      }
+    } catch {
+      resolve(true);
+    }
+  });
 }

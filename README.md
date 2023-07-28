@@ -182,7 +182,7 @@ venom
       browserPathExecutable: '', // browser executable path
       folderNameToken: 'tokens', //folder name when saving tokens
       mkdirFolderToken: '', //folder directory tokens, just inside the venom folder, example:  { mkdirFolderToken: '/node_modules', } //will save the tokens folder in the node_modules directory
-      headless: true, // you should no longer use boolean false or true, now use false, true or 'new' learn more https://developer.chrome.com/articles/new-headless/
+      headless: 'new', // you should no longer use boolean false or true, now use false, true or 'new' learn more https://developer.chrome.com/articles/new-headless/
       devtools: false, // Open devtools by default
       debug: false, // Opens a debug session
       logQR: true, // Logs QR automatically in terminal

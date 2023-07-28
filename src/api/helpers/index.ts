@@ -11,3 +11,4 @@ export { callbackWile } from './callback-wile';
 export { checkingCloses } from './closes-browser';
 export { loadForceConnect } from './force-connect';
 export { sleep } from './sleep';
+export { dowloadMetaFileBase64 } from './dowload-meta';

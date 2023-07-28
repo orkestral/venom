@@ -1,3 +1,37 @@
+## [5.0.13](https://github.com/orkestral/venom/compare/v5.0.12...v5.0.13) (2023-07-23)
+
+
+### Bug Fixes
+
+* Error removing SingletonLock ([fd6b316](https://github.com/orkestral/venom/commit/fd6b316e1e1dd7462cbbba9eb4080875d6613759))
+* in NPM ([dc52d4a](https://github.com/orkestral/venom/commit/dc52d4a28cbd74d312cd43aa0d96bba8d9038c81))
+* npm check updates ([68aa57c](https://github.com/orkestral/venom/commit/68aa57c85aad56773e9ff2769e8362241a58ee9a))
+
+
+
+## [5.0.12](https://github.com/orkestral/venom/compare/v5.0.11...v5.0.12) (2023-07-21)
+
+
+### Bug Fixes
+
+* browser does not open when there are token files ([77909a5](https://github.com/orkestral/venom/commit/77909a54ca5d07a8e9b5d19ed416d8dd493d85ed))
+* Check if version exists ([8348640](https://github.com/orkestral/venom/commit/8348640973417df3056755c5ec8821f30f288fcc))
+* Chrome path darwin ([2b434c2](https://github.com/orkestral/venom/commit/2b434c24227dc95a54521d585e20849c92a35c0a))
+* sendLinkPreview interim ([d66b4f8](https://github.com/orkestral/venom/commit/d66b4f80cc374da7316200830a7e91478b3d5f45))
+
+
+### Features
+
+* add errors and promise to SingletonLock ([25b3fa8](https://github.com/orkestral/venom/commit/25b3fa8e6b40e7841e8381f2ec65f4aaa45a7688))
+* Apply Bug Fixes and Features ([32a36a5](https://github.com/orkestral/venom/commit/32a36a540caab689ed3304c278c08d58aedf486d))
+* browser executable path ([451dbfa](https://github.com/orkestral/venom/commit/451dbfab5f3bc74a8ce4393cbf4349b20ea56713))
+* chrome Version bash ([bb76bb2](https://github.com/orkestral/venom/commit/bb76bb22892844d5091f8827f7d5d5fde458681d))
+* downloadBash linux and darwin ([d4914b4](https://github.com/orkestral/venom/commit/d4914b4c8387ba400c6e649aa6aaf59ebcf8ea74))
+* get version: headless ([e04f2d4](https://github.com/orkestral/venom/commit/e04f2d4b492c42f59abf0024040a3946e2c5ffce))
+* release headless: true ([dc90954](https://github.com/orkestral/venom/commit/dc90954773a3b248d2e4064feffe8d6c3a53cef7))
+
+
+
 ## [5.0.11](https://github.com/orkestral/venom/compare/v5.0.7...v5.0.11) (2023-07-03)
 
 

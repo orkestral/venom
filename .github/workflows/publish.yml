@@ -11,38 +11,37 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v2.5.2
         with:
-          node-version: '12.x'
+          fetch-depth: 0
+
+      - name: Fetching tags
+        run: git fetch --tags -f || true
+
+      - name: Setup Node
+        uses: actions/setup-node@v2  # Atualizado para a versão 2 do setup-node
+        with:
+          node-version: 12.x
           registry-url: 'https://registry.npmjs.org'
+          # Removido o uso do token aqui, será configurado automaticamente pelo actions/setup-node
 
       - name: Get npm cache directory
         id: npm-cache
-        run: echo "::set-output name=dir::$(npm config get cache)"
-
-      - name: Cache dependencies
+        run: |
+          echo "::set-output name=dir::$(npm config get cache)"
+      - name: Setup npm cache
         uses: actions/cache@v2
         with:
           path: ${{ steps.npm-cache.outputs.dir }}
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: ${{ runner.os }}-node-
+          restore-keys: |
+            ${{ runner.os }}-node-
 
       - name: Install Dependencies
         run: npm ci
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           PUPPETEER_SKIP_DOWNLOAD: true
 
-      - name: Check if version exists
-        id: check_version
-        run: |
-          version=$(echo ${{ github.ref }} | sed -n 's/refs\/tags\/v\(.*\)/\1/p')
-          npm show venom-bot@$version >/dev/null 2>&1 || echo "::set-output name=version_exists::false"
-
-      - name: Publish to npm
-        if: steps.check_version.outputs.version_exists != 'false'
+      - name: Publish in NPM
         run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
@@ -52,29 +51,29 @@ jobs:
         run: |
           changelog=$(npm run changelog:last --silent)
           changelog="${changelog//$'\n'/'%0A'}"
-          changelog="${changelog//$'\r'/'%0D'}"
+          changelog="${changelog//$'\r'/'%0D'}" 
+          echo -e "set-output name=changelog::${changelog-<empty>}\n"
           echo -e "::set-output name=changelog::${changelog}\n"
 
-      - name: Extract Version
-        id: extract_version
-        run: echo "::set-output name=version::$(echo ${{ github.ref }} | sed -n 's/refs\/tags\/v\(.*\)/\1/p')"
-
       - name: Create Release
+        id: create_release
         uses: actions/create-release@v1
-        with:
-          tag_name: v${{ steps.extract_version.outputs.version }}
-          release_name: v${{ steps.extract_version.outputs.version }}
-          body: ${{ steps.generate_changelog.outputs.changelog }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: ${{ github.ref }}
+          body: ${{ steps.generate_changelog.outputs.changelog }}
+          draft: false
+          prerelease: false
 
-      - name: Build API Docs
-        run: npm run docs:build
+      - name: Build API-Docs
+        run: npm run generate-api-docs
         continue-on-error: true
 
-      - name: Deploy API Docs
+      - name: Deploy API-Docs
         uses: peaceiris/actions-gh-pages@v3
+        continue-on-error: true
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./api-docs
-        continue-on-error: true
