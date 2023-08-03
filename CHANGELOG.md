@@ -1,3 +1,12 @@
+## [5.0.15](https://github.com/orkestral/venom/compare/v5.0.14...v5.0.15) (2023-08-03)
+
+
+### Bug Fixes
+
+* is-admin ([3d47967](https://github.com/orkestral/venom/commit/3d479674a0bb0301f4d3673ce1a0a98cda57e6a9))
+
+
+
 ## [5.0.14](https://github.com/orkestral/venom/compare/v5.0.13...v5.0.14) (2023-08-01)
 
 
