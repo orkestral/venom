@@ -1,3 +1,13 @@
+## [5.0.16](https://github.com/orkestral/venom/compare/v5.0.15...v5.0.16) (2023-08-03)
+
+
+### Bug Fixes
+
+* npm install ([e6eccd6](https://github.com/orkestral/venom/commit/e6eccd6817fc9c3b7a8fffeacc33e7d3918d4656))
+* tsconfig.json ([1a98b89](https://github.com/orkestral/venom/commit/1a98b89e8b336f103c5dbd4fb27113ce72f2ff5b))
+
+
+
 ## [5.0.15](https://github.com/orkestral/venom/compare/v5.0.14...v5.0.15) (2023-08-03)
 
 
