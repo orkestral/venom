@@ -1,4 +1,4 @@
-import path = require('path');
+import path from 'path';
 import { existsSync, unlink } from 'fs';
 import * as Spinnies from 'spinnies';
 export async function deleteFiles(

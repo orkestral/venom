@@ -1,5 +1,5 @@
-import { Page, Browser } from 'puppeteer';
-import * as path from 'path';
+//import { Page, Browser } from 'puppeteer';
+//import * as path from 'path';
 //import { SenderLayer } from '../api/layes/sender.layes';
 //import { CreateOptions, defaultConfig } from '../model/interface';
 

@@ -1,8 +1,7 @@
 import { Page, Browser } from 'puppeteer';
 import { CreateConfig } from '../../config/create-config';
-import { Id } from '../model';
 import { RetrieverLayer } from './retriever.layer';
-import { Scope, checkValuesSender } from '../helpers/layers-interface';
+import { checkValuesSender } from '../helpers/layers-interface';
 import {
   base64MimeType,
   fileToBase64,
@@ -10,7 +9,6 @@ import {
   resizeImg
 } from '../helpers';
 import { GroupSettings } from '../model/enum';
-let obj: Scope;
 
 export class GroupLayer extends RetrieverLayer {
   constructor(

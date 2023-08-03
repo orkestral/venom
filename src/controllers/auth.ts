@@ -4,7 +4,6 @@ import * as qrcode from 'qrcode-terminal';
 import { ScrapQrcode } from '../api/model/qrcode';
 import { sleep } from '../utils/sleep';
 import { Whatsapp } from '../api/whatsapp';
-const QRCode = require('qrcode');
 
 export const getInterfaceStatus = async (waPage: puppeteer.Page) => {
   return await waPage
