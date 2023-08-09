@@ -173,27 +173,47 @@ async function checkPathDowload(extractPath: string) {
   }
 }
 
-function getChromeVersionBash(): Promise<string> {
-  return new Promise((resolve, reject) => {
-    try {
-      const platform = os.platform();
-      const comand =
-        platform === 'linux'
-          ? 'google-chrome --version'
-          : platform === 'darwin'
-          ? '/Applications/Google\\ Chrome.app/Contents/MacOS/Google\\ Chrome --version'
-          : '';
-      exec(comand, (error, stdout, stderr) => {
-        if (error) {
-          reject(error);
-        } else {
-          const version = stdout.trim().split(' ')[2];
-          resolve(version);
-        }
-      });
-    } catch {
-      resolve('Not check version');
+async function getChromeVersionBash(executablePath: string): Promise<string> {
+  const notCheckText = 'Not check version';
+
+  try {
+    const platform = os.platform();
+    let command = '';
+
+    if (platform === 'linux') {
+      if (executablePath.includes('chromium')) {
+        command = 'chromium-browser --version';
+      } else if (executablePath.includes('chrome')) {
+        command = 'google-chrome --version';
+      }
+    } else if (platform === 'darwin' && executablePath.includes('Chrome')) {
+      command =
+        '/Applications/Google\\ Chrome.app/Contents/MacOS/Google\\ Chrome --version';
     }
+
+    if (!command) {
+      return notCheckText;
+    }
+
+    const { stdout, stderr } = await execAsync(command);
+    if (stderr) {
+      return notCheckText;
+    }
+
+    const version = stdout.trim().split(' ')[2];
+    return version;
+  } catch (error) {
+    return notCheckText;
+  }
+}
+
+function execAsync(
+  command: string
+): Promise<{ stdout: string; stderr: string }> {
+  return new Promise((resolve) => {
+    exec(command, (error, stdout, stderr) => {
+      resolve({ stdout, stderr });
+    });
   });
 }
 
@@ -352,7 +372,7 @@ export async function initBrowser(
       puppeteer.executablePath() ??
       chromePath;
 
-    console.log('Path Google-Chrome: ', executablePath);
+    console.log('Executable Path: ', executablePath);
 
     const extractPath = path.join(process.cwd(), 'chrome');
     const checkPath = await checkPathDowload(extractPath);
@@ -453,7 +473,7 @@ export async function initBrowser(
     });
 
     if (platform === 'darwin' || platform === 'linux') {
-      chromeVersion = await getChromeVersionBash();
+      chromeVersion = await getChromeVersionBash(executablePath);
     } else {
       if (executablePath.includes('google-chrome')) {
         chromeVersion = await getGlobalChromeVersion();
@@ -480,7 +500,7 @@ export async function initBrowser(
       });
 
       spinnies.succeed(`browser-Version-${options.session}`, {
-        text: `Chrome Version: ${chromeVersion}`
+        text: `Browser Version: ${chromeVersion}`
       });
     }
 
@@ -624,7 +644,6 @@ function getChrome() {
     const chromeInstalations = ChromeLauncher.Launcher.getInstallations();
     return chromeInstalations[0];
   } catch (error) {
-    console.error('Error checking Chrome installation:', error);
     return undefined;
   }
 }
