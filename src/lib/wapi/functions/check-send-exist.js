@@ -100,20 +100,40 @@ export async function returnChat(chatId, returnChat = true, Send = true) {
     return checkType;
   }
 
-  let chat = await window.WAPI.getChat(chatId);
+  let chat = await WAPI.getChat(chatId);
   if (!chat) {
-    var idUser = new window.Store.UserConstructor(chatId, {
+    var idUser = new Store.UserConstructor(chatId, {
       intentionallyUsePrivateConstructor: true
     });
+    const chatWid = new Store.WidFactory.createWid(chatId);
+    await Store.Chat.add(
+      {
+        createdLocally: true,
+        id: chatWid
+      },
+      {
+        merge: true
+      }
+    );
     chat = await Store.Chat.find(idUser);
   }
 
   if (chat === undefined) {
-    const storeChat = await window.Store.Chat.find(chatId);
+    const chatWid = new Store.WidFactory.createWid(chatId);
+    await Store.Chat.add(
+      {
+        createdLocally: true,
+        id: chatWid
+      },
+      {
+        merge: true
+      }
+    );
+    const storeChat = await Store.Chat.find(chatId);
     if (storeChat) {
       chat =
         storeChat && storeChat.id && storeChat.id._serialized
-          ? await window.WAPI.getChat(storeChat.id._serialized)
+          ? await WAPI.getChat(storeChat.id._serialized)
           : undefined;
     }
   }
@@ -157,22 +177,32 @@ export async function sendExist(chatId, returnChat = true, Send = true) {
 
   let chat =
     ck && ck.id && ck.id._serialized
-      ? await window.WAPI.getChat(ck.id._serialized)
+      ? await WAPI.getChat(ck.id._serialized)
       : undefined;
 
   if (ck.numberExists && chat === undefined) {
-    var idUser = new window.Store.UserConstructor(chatId, {
+    var idUser = new Store.UserConstructor(chatId, {
       intentionallyUsePrivateConstructor: true
     });
+    const chatWid = new Store.WidFactory.createWid(chatId);
+    await Store.Chat.add(
+      {
+        createdLocally: true,
+        id: chatWid
+      },
+      {
+        merge: true
+      }
+    );
     chat = await Store.Chat.find(idUser);
   }
 
   if (!chat) {
-    const storeChat = await window.Store.Chat.find(chatWid);
+    const storeChat = await Store.Chat.find(chatWid);
     if (storeChat) {
       chat =
         storeChat && storeChat.id && storeChat.id._serialized
-          ? await window.WAPI.getChat(storeChat.id._serialized)
+          ? await WAPI.getChat(storeChat.id._serialized)
           : undefined;
     }
   }

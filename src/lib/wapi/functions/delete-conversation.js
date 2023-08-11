@@ -1,8 +1,8 @@
-export function deleteConversation(chatId, done) {
-  let userId = new window.Store.UserConstructor(chatId, {
+export async function deleteConversation(chatId, done) {
+  let userId = new Store.UserConstructor(chatId, {
     intentionallyUsePrivateConstructor: true
   });
-  let conversation = WAPI.getChat(userId);
+  let conversation = await WAPI.getChat(userId);
 
   if (!conversation) {
     if (done !== undefined) {

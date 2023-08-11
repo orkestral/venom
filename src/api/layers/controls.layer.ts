@@ -115,7 +115,7 @@ export class ControlsLayer extends UILayer {
    * @returns boolean
    */
   public async deleteChat(chatId: string) {
-    return this.page.evaluate(
+    return await this.page.evaluate(
       (chatId) => WAPI.deleteConversation(chatId),
       chatId
     );

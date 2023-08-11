@@ -709,7 +709,7 @@ export class SenderLayer extends ListenerLayer {
     description: string,
     chatId: string
   ) {
-    return this.page.evaluate(
+    return await this.page.evaluate(
       ({ thumb, url, title, description, chatId }) => {
         WAPI.sendMessageWithThumb(thumb, url, title, description, chatId);
       },

@@ -46,12 +46,10 @@ export async function initWhatsapp(
       Array.isArray(addProxy) &&
       addProxy.length
     ) {
-      await waPage.authenticate(
-        {
+      await waPage.authenticate({
         username: userProxy,
         password: userPass
-        }
-      );
+      });
     }
 
     await waPage.goto(puppeteerConfig.whatsappUrl, {

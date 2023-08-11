@@ -18,7 +18,7 @@ export function sendImageWithProduct(
   productId,
   done
 ) {
-  Store.Catalog.findCarouselCatalog(bizNumber).then((cat) => {
+  Store.Catalog.findCarouselCatalog(bizNumber).then(async (cat) => {
     if (cat && cat[0]) {
       const product = cat[0].productCollection.get(productId);
       const temp = {
@@ -38,8 +38,16 @@ export function sendImageWithProduct(
         caption
       };
 
-      var idUser = new Store.WidFactory.createWid(chatid);
-
+      const idUser = new Store.WidFactory.createWid(chatid);
+      await Store.Chat.add(
+        {
+          createdLocally: true,
+          id: idUser
+        },
+        {
+          merge: true
+        }
+      );
       return Store.Chat.find(idUser).then((chat) => {
         var mediaBlob = base64ToFile(imgBase64, product.name);
         // var mc = new Store.MediaCollection(chat);

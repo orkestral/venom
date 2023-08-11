@@ -1,5 +1,5 @@
 export async function loadChatEarlierMessages(id) {
-  const chat = WAPI.getChat(id);
+  const chat = await WAPI.getChat(id);
   if (chat) {
     const someEarlierMessages = await chat.onEmptyMRM();
     if (someEarlierMessages) {

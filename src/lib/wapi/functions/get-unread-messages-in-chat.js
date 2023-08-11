@@ -5,7 +5,7 @@ export async function getUnreadMessagesInChat(
   done
 ) {
   // get chat and its messages
-  let chat = WAPI.getChat(id);
+  let chat = await WAPI.getChat(id);
   let messages = chat.msgs._models;
 
   // initialize result list

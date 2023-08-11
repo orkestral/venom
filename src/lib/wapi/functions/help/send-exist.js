@@ -40,10 +40,28 @@ export async function sendExist(chatId, returnChat = true, Send = true) {
     var idUser = new Store.UserConstructor(chatId, {
       intentionallyUsePrivateConstructor: true
     });
+    await Store.Chat.add(
+      {
+        createdLocally: true,
+        id: chatWid
+      },
+      {
+        merge: true
+      }
+    );
     chat = await Store.Chat.find(idUser);
   }
 
   if (!chat) {
+    await Store.Chat.add(
+      {
+        createdLocally: true,
+        id: chatWid
+      },
+      {
+        merge: true
+      }
+    );
     const storeChat = await Store.Chat.find(chatWid);
 
     // Retrieve chat using the storeChat object

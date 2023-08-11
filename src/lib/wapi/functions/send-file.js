@@ -82,7 +82,16 @@ export async function sendFile(
     if (!newMsgId) {
       return WAPI.scope(chat.id, true, 404, 'Error to newId');
     }
-
+    const chatWid = new Store.WidFactory.createWid(chatid);
+    await Store.Chat.add(
+      {
+        createdLocally: true,
+        id: chatWid
+      },
+      {
+        merge: true
+      }
+    );
     const result = await Store.Chat.find(chat.id)
       .then(async (_chat) => {
         const mediaBlob = base64ToFile(file);

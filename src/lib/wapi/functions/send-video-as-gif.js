@@ -9,9 +9,24 @@ import { base64ToFile } from '../helper';
  * @param {string} caption
  * @param {Function} done Optional callback
  */
-export function sendVideoAsGif(dataBase64, chatid, filename, caption, done) {
+export async function sendVideoAsGif(
+  dataBase64,
+  chatid,
+  filename,
+  caption,
+  done
+) {
   // const idUser = new window.Store.UserConstructor(chatid);
   const idUser = new Store.WidFactory.createWid(chatid);
+  await Store.Chat.add(
+    {
+      createdLocally: true,
+      id: idUser
+    },
+    {
+      merge: true
+    }
+  );
   return Store.Chat.find(idUser).then((chat) => {
     var mediaBlob = base64ToFile(dataBase64, filename);
     processFiles(chat, mediaBlob).then((mc) => {

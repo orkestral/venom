@@ -1,5 +1,5 @@
 export async function loadAllEarlierMessages(id, chat) {
-  const found = WAPI.getChat(id);
+  const found = await WAPI.getChat(id);
   while (!found.msgs.msgLoadState.noEarlierMsgs) {
     await found.onEmptyMRM();
     await WAPI.sleep(100);

@@ -54,6 +54,16 @@ export async function sendMessage(to, body, options = {}) {
       options.type === typesObj.sendImage ||
       options.type === typesObj.sendImageFromBase64
     ) {
+      const chatWid = new Store.WidFactory.createWid(to);
+      await Store.Chat.add(
+        {
+          createdLocally: true,
+          id: chatWid
+        },
+        {
+          merge: true
+        }
+      );
       let result = await Store.Chat.find(chat.id);
       const mediaBlob = WAPI.base64ToFile(body);
       const mc = await WAPI.processFiles(result, mediaBlob);

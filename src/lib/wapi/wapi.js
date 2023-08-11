@@ -399,7 +399,7 @@ if (typeof window.WAPI === 'undefined') {
       mentioned = [mentioned];
     }
 
-    const chat = WAPI.getChat(chatId);
+    const chat = await WAPI.getChat(chatId);
     const users = await Store.Contact.serialize().filter((x) =>
       mentioned.includes(x.id.user)
     );

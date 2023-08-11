@@ -4,7 +4,7 @@ export const getAllNewMessages = async function () {
   const serializeMessageObj = await WAPI._serializeMessageObj;
   const _newMessages =
     getAllChatsWithNewMessages()
-      .map((c) => WAPI.getChat(c.id))
+      .map(async (c) => await WAPI.getChat(c.id))
       .flatMap((c) => c.msgs._models.filter((x) => x.isNewMsg))
       .map(serializeMessageObj) || [];
 

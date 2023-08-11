@@ -1,4 +1,4 @@
-export function sendMessageWithThumb(
+export async function sendMessageWithThumb(
   thumb,
   url,
   title,
@@ -6,7 +6,7 @@ export function sendMessageWithThumb(
   chatId,
   done
 ) {
-  var chatSend = WAPI.getChat(chatId);
+  var chatSend = await WAPI.getChat(chatId);
   if (chatSend === undefined) {
     if (done !== undefined) done(false);
     return false;

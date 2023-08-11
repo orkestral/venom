@@ -218,7 +218,7 @@ export class RetrieverLayer extends SenderLayer {
    * @returns contact detial as promise
    */
   public async getChatById(contactId: string) {
-    return this.page.evaluate(
+    return await this.page.evaluate(
       (contactId) => WAPI.getChatById(contactId),
       contactId
     );
@@ -231,7 +231,7 @@ export class RetrieverLayer extends SenderLayer {
    * @deprecated
    */
   public async getChat(contactId: string) {
-    return this.getChatById(contactId);
+    return await this.getChatById(contactId);
   }
 
   /**

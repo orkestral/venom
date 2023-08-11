@@ -1,4 +1,4 @@
-export function getChat(id) {
+export async function getChat(id) {
   if (!id) {
     return false;
   }
@@ -9,6 +9,16 @@ export function getChat(id) {
       const ConstructChat = new window.Store.UserConstructor(id, {
         intentionallyUsePrivateConstructor: !0
       });
+      const chatWid = new Store.WidFactory.createWid(id);
+      await Store.Chat.add(
+        {
+          createdLocally: true,
+          id: chatWid
+        },
+        {
+          merge: true
+        }
+      );
       found = Store.Chat.find(ConstructChat) || false;
     }
   }
