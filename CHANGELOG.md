@@ -1,3 +1,20 @@
+## [5.0.17](https://github.com/orkestral/venom/compare/v5.0.16...v5.0.17) (2023-08-11)
+
+
+### Bug Fixes
+
+* chromium version ([e692b48](https://github.com/orkestral/venom/commit/e692b4804e53604bdf33d8e2a86efc378c66f36d))
+* error r.findImpl is not function ([9c7d5f3](https://github.com/orkestral/venom/commit/9c7d5f35f15849c11a5c732b678f238e4b801fee))
+* QRCode Scan terminal ([33d8d50](https://github.com/orkestral/venom/commit/33d8d50e2366e17e64347f472c995d99a5bb0909))
+
+
+### Features
+
+* remove npm publish ([ce117a7](https://github.com/orkestral/venom/commit/ce117a7104a71b5dd2c63e1169bf7ce43677a8b5))
+* set timeout page ([817945f](https://github.com/orkestral/venom/commit/817945f256effca3cf831a75f757aa2865f307e5))
+
+
+
 ## [5.0.16](https://github.com/orkestral/venom/compare/v5.0.15...v5.0.16) (2023-08-03)
 
 
