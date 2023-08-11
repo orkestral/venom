@@ -34,19 +34,24 @@ export async function initWhatsapp(
   }
   try {
     await waPage.setUserAgent(useragentOverride);
+    waPage.setDefaultTimeout(60000);
 
-    const hasUserPass =
-      typeof options.userPass === 'string' && options.userPass.length;
-    const hasUserProxy =
-      typeof options.userProxy === 'string' && options.userProxy.length;
-    const hasAddProxy =
-      Array.isArray(options.addProxy) && options.addProxy.length;
+    const { userPass, userProxy, addProxy } = options;
 
-    if (hasUserPass && hasUserProxy && hasAddProxy) {
-      await waPage.authenticate({
-        username: options.userProxy,
-        password: options.userPass
-      });
+    if (
+      typeof userPass === 'string' &&
+      userPass.length &&
+      typeof userProxy === 'string' &&
+      userProxy.length &&
+      Array.isArray(addProxy) &&
+      addProxy.length
+    ) {
+      await waPage.authenticate(
+        {
+        username: userProxy,
+        password: userPass
+        }
+      );
     }
 
     await waPage.goto(puppeteerConfig.whatsappUrl, {
@@ -78,11 +83,7 @@ export async function getWhatsappPage(
 ): Promise<Page | false> {
   try {
     const pages: Page[] = await browser.pages();
-    if (pages.length !== 0) {
-      return pages[0];
-    } else {
-      return await browser.newPage();
-    }
+    return pages.length !== 0 ? pages[0] : await browser.newPage();
   } catch {
     return false;
   }
