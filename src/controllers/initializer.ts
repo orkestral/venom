@@ -344,6 +344,7 @@ export async function create(
               spinnies.fail(`whatzapp-disconnected-${session}`, {
                 text: 'Was disconnected!'
               });
+              document.querySelectorAll('.MLTJU p')[0].textContent;
               statusFind && statusFind('desconnected', session);
             }
 
@@ -385,7 +386,10 @@ export async function create(
             const mode = await page
               .evaluate(() => window?.Store?.Stream?.mode)
               .catch(() => {});
-            if (mode === InterfaceMode.QR) {
+            if (
+              mode === InterfaceMode.QR
+              // && checkFileJson(mergedOptions, session)
+            ) {
               if (statusFind) {
                 spinnies.add(`whatzapp-qr-${session}`, {
                   text: 'check....'
@@ -403,8 +407,22 @@ export async function create(
       client
         .onStateChange(async (state) => {
           if (state === SocketState.PAIRING) {
-            if (statusFind) {
-              statusFind('deviceNotConnected', session);
+            const device: Boolean = await page
+              .evaluate(() => {
+                if (
+                  document.querySelector('[tabindex="-1"]') &&
+                  window?.Store?.Stream?.mode === InterfaceMode.SYNCING &&
+                  window?.Store?.Stream?.obscurity === 'SHOW'
+                ) {
+                  return true;
+                }
+                return false;
+              })
+              .catch(() => undefined);
+            if (device === true) {
+              if (statusFind) {
+                statusFind('deviceNotConnected', session);
+              }
             }
           }
         })
@@ -456,6 +474,12 @@ export async function create(
       await page
         .waitForSelector('#app .two', { visible: true })
         .catch(() => {});
+
+      try {
+        spinnies.succeed(`whatzapp-intro-${session}`, {
+          text: 'Successfully connected!'
+        });
+      } catch {}
 
       await client.initService();
       await client.addChatWapi();

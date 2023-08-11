@@ -109,7 +109,7 @@ export async function retrieveQR(
 ): Promise<ScrapQrcode | undefined> {
   const hasCanvas = await page
     .evaluate(() => {
-      const buttonReload = document.querySelector('button');
+      const buttonReload = document.querySelector('button.Jht5u');
       const canvas = document.querySelector('canvas');
       if (canvas !== null && buttonReload === null) {
         return true;
@@ -131,7 +131,7 @@ export async function retrieveQR(
 
   return await page
     .evaluate(() => {
-      const buttonReload = document.querySelector('button');
+      const buttonReload = document.querySelector('button.Jht5u');
       const canvas = document.querySelector('canvas') || null;
       if (canvas !== null && buttonReload === null) {
         const context = canvas.getContext('2d') || null;

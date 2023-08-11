@@ -2,26 +2,26 @@ import { Page } from 'puppeteer';
 import { ScrapQrcode } from '../model/qrcode';
 
 export async function scrapeImg(page: Page): Promise<ScrapQrcode | undefined> {
-  let click = await page
-    .evaluate(() => {
-      const buttonReload = document.querySelector('button');
-      if (buttonReload != null) {
-        buttonReload.click();
-        return true;
-      }
-      return false;
-    })
-    .catch(() => false);
+  let click = await page.evaluate(async () => {
+    const buttonReload = document.querySelector('button.Jht5u');
+    if (buttonReload != null) {
+      return true;
+    }
+    return false;
+  });
 
   if (click) {
-    await page.waitForNavigation().catch(() => undefined);
+    const buttonReloadElementHandle = await page.$('button.Jht5u');
+    if (buttonReloadElementHandle) {
+      await buttonReloadElementHandle.click();
+    }
   }
 
   const result = await page
     .evaluate(() => {
       const selectorImg = document.querySelector('canvas');
       const selectorUrl = selectorImg.closest('[data-ref]');
-      const buttonReload = document.querySelector('button');
+      const buttonReload = document.querySelector('button.Jht5u');
 
       if (buttonReload === null && selectorImg != null && selectorUrl != null) {
         let data = {

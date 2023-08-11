@@ -125,13 +125,12 @@ export class HostLayer {
   }
 
   public async getQrCode() {
-    let qrResult: ScrapQrcode | undefined;
+    let qrResult: ScrapQrcode | undefined | any;
 
-    qrResult = await scrapeImg(this.page).catch(() => undefined);
+    qrResult = await scrapeImg(this.page).catch((e) => console.log(e));
     if (!qrResult || !qrResult.urlCode) {
-      qrResult = await retrieveQR(this.page).catch(() => undefined);
+      qrResult = await retrieveQR(this.page).catch((e) => console.log(e));
     }
-
     return qrResult;
   }
 
@@ -152,6 +151,7 @@ export class HostLayer {
         break;
       }
       const result = await this.getQrCode().catch(() => null);
+
       if (!result.urlCode) {
         break;
       }
