@@ -195,7 +195,7 @@ venom
       updatesLog: true, // Logs info updates automatically in terminal
       autoClose: 60000, // Automatically closes the venom-bot only when scanning the QR code (default 60 seconds, if you want to turn it off, assign 0 or false)
       createPathFileToken: false, // creates a folder when inserting an object in the client's browser, to work it is necessary to pass the parameters in the function create browserSessionToken
-      addProxy: [''], // Add proxy server exemple : [e1.p.webshare.io:01, e1.p.webshare.io:01]
+      addProxy: [''], // Add proxy server example : [e1.p.webshare.io:01, e1.p.webshare.io:01]
       userProxy: '', // Proxy login username
       userPass: '' // Proxy password
     },
