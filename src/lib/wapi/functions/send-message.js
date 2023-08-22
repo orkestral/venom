@@ -66,15 +66,15 @@ export async function sendMessage(
       self: 'out',
       t: parseInt(new Date().getTime() / 1000),
       isNewMsg: !0,
-      type: 'chat'
+      type: 'chat',
     };
 
     if (forcingReturn) {
       if (delSend) {
         while (true) {
-          const connection = window.Store.State.Socket.state;
+          const connection = Store.State.Socket.state;
           if (connection === 'CONNECTED') {
-            const result = await window.Store.addAndSendMsgToChat(
+            const result = await Store.addAndSendMsgToChat(
               chat,
               message
             );
@@ -97,7 +97,7 @@ export async function sendMessage(
           }
         }
       } else {
-        const result = await window.Store.addAndSendMsgToChat(chat, message);
+        const result = await Store.addAndSendMsgToChat(chat, message);
         let obj = WAPI.scope(
           newMsgId,
           false,
@@ -111,10 +111,10 @@ export async function sendMessage(
 
     try {
       const result = (
-        await Promise.all(window.Store.addAndSendMsgToChat(chat, message))
+        await Promise.all(Store.addAndSendMsgToChat(chat, message))
       )[1];
 
-      if (result === 'success' || result === 'OK') {
+      if (result === 'success' || result === 'OK' || result.messageSendResult === "OK") {
         const obj = WAPI.scope(newMsgId, false, result, content);
         Object.assign(obj, m);
         return obj;
