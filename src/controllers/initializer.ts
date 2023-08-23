@@ -154,19 +154,30 @@ export async function create(
       options = sessionOrOption;
     }
 
+    const spinnies = getSpinnies({
+      disableSpins: options ? options.disableSpins : false
+    });
+
+    spinnies.add(`node-version-${session}`, {
+      text: `check nodeJs version...`
+    });
+
     const requiredNodeVersion = 16;
     const currentNodeVersion = Number(process.versions.node.split('.')[0]);
     if (currentNodeVersion < requiredNodeVersion) {
+      spinnies.fail(`node-version-${session}`, {
+        text: `update Node.js, the version you are using doesn't work for this system!`
+      });
       return reject(
         `Outdated Node.js version. Node.js ${requiredNodeVersion} or higher is required. Please update Node.js.`
       );
     }
 
-    await checkUpdates();
-
-    const spinnies = getSpinnies({
-      disableSpins: options ? options.disableSpins : false
+    spinnies.succeed(`node-version-${session}`, {
+      text: `Node.js version verified successfully!`
     });
+
+    await checkUpdates();
 
     const mergedOptions = { ...defaultOptions, ...options };
 

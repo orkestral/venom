@@ -66,7 +66,7 @@ export async function sendMessage(
       self: 'out',
       t: parseInt(new Date().getTime() / 1000),
       isNewMsg: !0,
-      type: 'chat',
+      type: 'chat'
     };
 
     if (forcingReturn) {
@@ -74,10 +74,7 @@ export async function sendMessage(
         while (true) {
           const connection = Store.State.Socket.state;
           if (connection === 'CONNECTED') {
-            const result = await Store.addAndSendMsgToChat(
-              chat,
-              message
-            );
+            const result = await Store.addAndSendMsgToChat(chat, message);
             await WAPI.sleep(5000);
             const statusMsg = chat.msgs._models.filter(
               (e) => e.id === newMsgId._serialized && e.ack > 0
@@ -114,7 +111,11 @@ export async function sendMessage(
         await Promise.all(Store.addAndSendMsgToChat(chat, message))
       )[1];
 
-      if (result === 'success' || result === 'OK' || result.messageSendResult === "OK") {
+      if (
+        result === 'success' ||
+        result === 'OK' ||
+        result.messageSendResult === 'OK'
+      ) {
         const obj = WAPI.scope(newMsgId, false, result, content);
         Object.assign(obj, m);
         return obj;

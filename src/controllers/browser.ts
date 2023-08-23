@@ -371,7 +371,13 @@ export async function initBrowser(
       puppeteer.executablePath() ??
       chromePath;
 
-    console.log('Executable Path: ', executablePath);
+    spinnies.add(`executable-path-${options.session}`, {
+      text: `...`
+    });
+
+    spinnies.succeed(`executable-path-${options.session}`, {
+      text: `Executable path browser: ${executablePath}`
+    });
 
     const extractPath = path.join(process.cwd(), 'chrome');
     const checkPath = await checkPathDowload(extractPath);
@@ -539,7 +545,11 @@ export async function initBrowser(
     if (options.browserWS && options.browserWS !== '') {
       return await puppeteer.connect({ browserWSEndpoint: options.browserWS });
     } else {
-      await removeStoredSingletonLock(options.puppeteerOptions);
+      await removeStoredSingletonLock(
+        options.puppeteerOptions,
+        spinnies,
+        options
+      );
       return await puppeteer.launch(launchOptions);
     }
   } catch (e) {
@@ -657,29 +667,59 @@ function isChromeInstalled(executablePath: string): boolean {
 }
 
 function removeStoredSingletonLock(
-  puppeteerOptions: PuppeteerLaunchOptions
+  puppeteerOptions: PuppeteerLaunchOptions,
+  spinnies: any,
+  options: options | CreateConfig
 ): Promise<boolean> {
   return new Promise((resolve, reject) => {
     try {
       const platform = os.platform();
       const { userDataDir } = puppeteerOptions;
-      const singletonLockPath = path.join(userDataDir, 'SingletonLock');
+      const singletonLockPath = path.join(
+        path.resolve(process.cwd(), userDataDir, 'SingletonLock')
+      );
 
       if (platform === 'win32') {
         // No need to remove the lock on Windows, so resolve with true directly.
         resolve(true);
       } else {
+        spinnies.add(`stored-singleton-lock-${options.session}`, {
+          text: `...`
+        });
+
+        spinnies.succeed(`stored-singleton-lock-${options.session}`, {
+          text: `Path Stored "SingletonLock": ${singletonLockPath}`
+        });
+
+        spinnies.add(`path-stored-singleton-lock-${options.session}`, {
+          text: `checking SingletonLock file`
+        });
+
         if (fs.existsSync(singletonLockPath)) {
+          spinnies.add(`path-stored-singleton-lock-${options.session}`, {
+            text: `The file was found "SingletonLock"`
+          });
+
           fs.unlink(singletonLockPath, (error) => {
             if (error) {
-              console.error('Error removing SingletonLock:', error);
+              spinnies.fail(`path-stored-singleton-lock-${options.session}`, {
+                text: `Error removing "SingletonLock": ${error}`
+              });
               reject(false);
             } else {
-              console.error('Removing SingletonLock:');
+              spinnies.succeed(
+                `path-stored-singleton-lock-${options.session}`,
+                {
+                  text: `Removing SingletonLock path: ${singletonLockPath}`
+                }
+              );
               resolve(true);
             }
           });
         } else {
+          spinnies.fail(`path-stored-singleton-lock-${options.session}`, {
+            text: `The file "SingletonLock" was not found`
+          });
           resolve(true);
         }
       }
