@@ -26,7 +26,7 @@ export interface options {
    * Headless chrome
    * @default true
    */
-  headless?: boolean | 'new';
+  headless?: boolean | 'new' | 'old';
   /**
    * If you want to use browserWSEndpoint
    */

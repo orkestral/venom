@@ -24,6 +24,20 @@ import * as unzipper from 'unzipper';
 import { exec } from 'child_process';
 import isRoot from 'is-root';
 
+type CustomLaunchOptions = LaunchOptions & {
+  headless?: boolean | 'new' | 'old';
+  mkdirFolderToken?: options['mkdirFolderToken'];
+  folderNameToken?: options['folderNameToken'];
+  session?: options['session'];
+  puppeteerOptions?: options['puppeteerOptions'];
+  addBrowserArgs?: options['addBrowserArgs'];
+  browserPathExecutable?: options['browserPathExecutable'];
+  devtools?: options['devtools'];
+  browserArgs?: options['browserArgs'];
+  addProxy?: options['addProxy'];
+  browserWS?: options['browserWS'];
+};
+
 export async function initWhatsapp(
   options: options | CreateConfig,
   browser: Browser
@@ -87,7 +101,9 @@ export async function getWhatsappPage(
   }
 }
 
-export function folderSession(options: options | CreateConfig) {
+export function folderSession(
+  options: options | CreateConfig | CustomLaunchOptions
+) {
   try {
     if (!options) {
       throw new Error(`Missing required options`);
@@ -336,7 +352,7 @@ function downloadBash(): Promise<string | false> {
 }
 
 export async function initBrowser(
-  options: options | CreateConfig,
+  options: CustomLaunchOptions,
   spinnies: any
 ): Promise<Browser | false> {
   try {
@@ -357,6 +373,7 @@ export async function initBrowser(
 
     if (
       options.headless !== 'new' &&
+      options.headless !== 'old' &&
       options.headless !== false &&
       options.headless !== true
     ) {
@@ -528,9 +545,13 @@ export async function initBrowser(
         }
       });
     }
+    
+    if (options.headless === 'old') {
+      puppeteerConfig.chromiumArgs.push(`--headless=old`);
+    }
 
     const launchOptions = {
-      headless: options.headless,
+      headless: options.headless as 'new' | boolean,
       devtools: options.devtools,
       args: options.browserArgs ?? puppeteerConfig.chromiumArgs,
       ...options.puppeteerOptions,
@@ -717,7 +738,7 @@ function removeStoredSingletonLock(
             }
           });
         } else {
-          spinnies.fail(`path-stored-singleton-lock-${options.session}`, {
+          spinnies.succeed(`path-stored-singleton-lock-${options.session}`, {
             text: `The file "SingletonLock" was not found`
           });
           resolve(true);
