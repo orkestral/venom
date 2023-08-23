@@ -50,18 +50,6 @@ jobs:
           echo -e "set-output name=changelog::${changelog-<empty>}\n"
           echo -e "::set-output name=changelog::${changelog}\n"
 
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ github.ref }}
-          release_name: ${{ github.ref }}
-          body: ${{ steps.generate_changelog.outputs.changelog }}
-          draft: false
-          prerelease: false
-
       - name: Build API-Docs
         run: npm run generate-api-docs
         continue-on-error: true
