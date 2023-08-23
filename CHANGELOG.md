@@ -1,3 +1,12 @@
+## [5.0.19](https://github.com/orkestral/venom/compare/v5.0.18...v5.0.19) (2023-08-23)
+
+
+### Features
+
+* add headless: 'old' ([bc919e8](https://github.com/orkestral/venom/commit/bc919e8f740496a1d34078916f8e8df860d26daa))
+
+
+
 ## [5.0.18](https://github.com/orkestral/venom/compare/v5.0.17...v5.0.18) (2023-08-23)
 
 
