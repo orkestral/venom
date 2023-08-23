@@ -669,19 +669,14 @@ function removeStoredSingletonLock(
         // No need to remove the lock on Windows, so resolve with true directly.
         resolve(true);
       } else {
-        if (fs.existsSync(singletonLockPath)) {
-          fs.unlink(singletonLockPath, (error) => {
-            if (error) {
-              console.error('Error removing SingletonLock:', error);
-              reject(false);
-            } else {
-              console.error('Removing SingletonLock:');
-              resolve(true);
-            }
-          });
-        } else {
-          resolve(true);
-        }
+        fs.unlink(singletonLockPath, (error) => {
+          if (error && error.code !== 'ENOENT') {
+            console.error('Error removing SingletonLock:', error);
+            reject(false);
+          } else {
+            resolve(true);
+          }
+        });
       }
     } catch {
       resolve(true);
