@@ -1,3 +1,18 @@
+## [5.0.18](https://github.com/orkestral/venom/compare/v5.0.17...v5.0.18) (2023-08-23)
+
+
+### Bug Fixes
+
+* message Send Result - (reading 'error') ([7d14c87](https://github.com/orkestral/venom/commit/7d14c87bffe76a5d98060ce6ccd43f0a7da2aa52))
+* remove  Create Release ([a6f10f6](https://github.com/orkestral/venom/commit/a6f10f63cdf2e2ae03e3cb85883995dd03b5a613))
+
+
+### Features
+
+* add spinnies info ([bbc4c38](https://github.com/orkestral/venom/commit/bbc4c3869927e0e6e8af5538ae6237cc2b286fc2))
+
+
+
 ## [5.0.17](https://github.com/orkestral/venom/compare/v5.0.16...v5.0.17) (2023-08-11)
 
 
