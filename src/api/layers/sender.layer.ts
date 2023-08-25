@@ -415,11 +415,16 @@ export class SenderLayer extends ListenerLayer {
         },
         { to, content, passId, checkNumber, forcingReturn, delSend }
       );
-      if (result['erro'] == true) {
-        return reject(result);
-      } else {
-        return resolve(result);
-      }
+
+      return resolve(result);
+
+      // Fixing error onde send text
+      
+      // if (result['erro'] == true) {
+      //   return reject(result);
+      // } else {
+      //   return resolve(result);
+      // }
     });
   }
 
