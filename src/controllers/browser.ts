@@ -734,7 +734,31 @@ function removeStoredSingletonLock(
                   text: `Removing SingletonLock path: ${singletonLockPath}`
                 }
               );
-              resolve(true);
+              spinnies.add(
+                `path-stored-singleton-lock-write-file-${options.session}`,
+                {
+                  text: `re-adding the file "SingletonLock": ${singletonLockPath}`
+                }
+              );
+              fs.writeFile(singletonLockPath, '', (error) => {
+                if (error && error.code !== 'ENOENT') {
+                  spinnies.fail(
+                    `path-stored-singleton-lock-write-file-${options.session}`,
+                    {
+                      text: `could not add the file "SingletonLock": ${singletonLockPath}`
+                    }
+                  );
+                  reject(false);
+                } else {
+                  spinnies.succeed(
+                    `path-stored-singleton-lock-write-file-${options.session}`,
+                    {
+                      text: `file created successfully "SingletonLock": ${singletonLockPath}`
+                    }
+                  );
+                  resolve(true);
+                }
+              });
             }
           });
         } else {

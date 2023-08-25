@@ -15,7 +15,7 @@ export interface CreateConfig {
   mkdirFolderToken?: string;
   /**
    * Headless chrome
-   * @default true
+   * @default "old"
    */
   headless?: false | 'new' | 'old';
   /**
@@ -132,7 +132,7 @@ export interface CreateConfig {
 export const defaultOptions: CreateConfig = {
   folderNameToken: 'tokens',
   mkdirFolderToken: '',
-  headless: 'new',
+  headless: 'old',
   devtools: false,
   debug: false,
   logQR: true,

@@ -24,7 +24,7 @@ export interface options {
   mkdirFolderToken?: string;
   /**
    * Headless chrome
-   * @default true
+   * @default "old"
    */
   headless?: boolean | 'new' | 'old';
   /**
@@ -101,7 +101,7 @@ export const defaultOptions: options = {
   disableWelcome: false,
   BrowserFetcher: true,
   updatesLog: true,
-  headless: true,
+  headless: "old",
   logQR: true,
   devtools: false,
   mkdirFolderToken: '',
