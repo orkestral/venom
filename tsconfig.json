@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-
     /* Basic Options */
     "target": "esnext" /* Specify ECMAScript target version: 'ES3' (default), 'ES5', 'ES2015', 'ES2016', 'ES2017','ES2018' or 'ESNEXT'. */,
     "resolveJsonModule": true,
@@ -16,7 +15,7 @@
     "outDir": "./dist" /* Redirect output structure to the directory. */,
     // "rootDir": "./src/",                   /* Specify the root directory of input files. Use to control the output directory structure with --outDir. */
     // "composite": true,                     /* Enable project compilation */
-    "removeComments": false, /* Do not emit comments to output. */
+    "removeComments": false /* Do not emit comments to output. */,
     // "noEmit": true,                        /* Do not emit outputs. */
     // "importHelpers": true,                 /* Import emit helpers from 'tslib'. */
     // "downlevelIteration": true,            /* Provide full support for iterables in 'for-of', spread, and destructuring when targeting 'ES5' or 'ES3'. */
@@ -43,9 +42,19 @@
     // "paths": {},                           /* A series of entries which re-map imports to lookup locations relative to the 'baseUrl'. */
     // "rootDirs": [],                        /* List of root folders whose combined content represents the structure of the project at runtime. */
     // "typeRoots": [],                       /* List of folders to include type definitions from. */
-    // "types": [],                           /* Type declaration files to be included in compilation. */
+    "types": [
+      "node",
+      "puppeteer",
+      "qrcode-terminal",
+      "atob",
+      "is-root",
+      "mime-types",
+      "qrcode",
+      "sharp",
+      "unzipper",
+    ] /* Type declaration files to be included in compilation. */,
     // "allowSyntheticDefaultImports": true   /* Allow default imports from modules with no default export. This does not affect code emit, just typechecking. */,
-       "esModuleInterop": true                /* Enables emit interoperability between CommonJS and ES Modules via creation of namespace objects for all imports. Implies 'allowSyntheticDefaultImports'. */
+    "esModuleInterop": true /* Enables emit interoperability between CommonJS and ES Modules via creation of namespace objects for all imports. Implies 'allowSyntheticDefaultImports'. */
     // "preserveSymlinks": true,              /* Do not resolve the real path of symlinks. */
 
     /* Source Map Options */
@@ -59,11 +68,8 @@
     // "emitDecoratorMetadata": true,         /* Enables experimental support for emitting type metadata for decorators. */
   },
   "typedocOptions": {
-    "entryPoints": [
-      "src/index.ts",
-      "./package.json"
-    ],
-    "out": "api-docs",
+    "entryPoints": ["src/index.ts", "./package.json"],
+    "out": "api-docs"
   },
   "include": ["src/**/*"],
   "exclude": ["src/middleware/middleware.ts", "img/*"]

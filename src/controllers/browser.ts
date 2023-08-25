@@ -545,7 +545,7 @@ export async function initBrowser(
         }
       });
     }
-    
+
     if (options.headless === 'old') {
       puppeteerConfig.chromiumArgs.push(`--headless=old`);
     }
@@ -722,7 +722,7 @@ function removeStoredSingletonLock(
           });
 
           fs.unlink(singletonLockPath, (error) => {
-            if (error) {
+            if (error && error.code !== 'ENOENT') {
               spinnies.fail(`path-stored-singleton-lock-${options.session}`, {
                 text: `Error removing "SingletonLock": ${error}`
               });
