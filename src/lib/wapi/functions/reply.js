@@ -58,7 +58,7 @@ export async function reply(chatId, content, quotedMessageId) {
 
     const newMsgId = await window.WAPI.getNewMessageId(chat.id._serialized);
     const fromwWid = await Store.MaybeMeUser.getMaybeMeUser();
-    let inChat = await WAPI.getchatId(chat.id).catch(() => {});
+    let inChat = await WAPI.getchatId(chat.id).catch(() => { });
     if (inChat) {
       chat.lastReceivedKey._serialized = inChat._serialized;
       chat.lastReceivedKey.id = inChat.id;
@@ -81,7 +81,11 @@ export async function reply(chatId, content, quotedMessageId) {
       await Promise.all(window.Store.addAndSendMsgToChat(chat, message))
     )[1];
 
-    if (result === 'success' || result === 'OK') {
+    if (
+      result === 'success' ||
+      result === 'OK' ||
+      result.messageSendResult === "OK"
+    ) {
       let obj = WAPI.scope(newMsgId, false, result, '');
       Object.assign(obj, m);
       return obj;

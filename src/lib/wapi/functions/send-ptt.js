@@ -161,7 +161,11 @@ export async function sendPtt(
       return result;
     }
 
-    if (result === 'success' || result === 'OK') {
+    if (
+      result === 'success' ||
+      result === 'OK' ||
+      result.messageSendResult === "OK"
+    ) {
       let obj = WAPI.scope(newMsgId, false, result, null);
       Object.assign(obj, m);
       return obj;

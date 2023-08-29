@@ -210,8 +210,11 @@ export async function sendFile(
     if (result.erro === false) {
       return result;
     }
-
-    if (result === 'success' || result === 'OK') {
+    if (
+      result === 'success' ||
+      result === 'OK' ||
+      result.messageSendResult === "OK"
+    ) {
       var obj = WAPI.scope(newMsgId, false, result, null);
       Object.assign(obj, m);
       return obj;

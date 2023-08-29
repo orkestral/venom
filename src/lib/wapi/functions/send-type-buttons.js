@@ -173,7 +173,11 @@ export async function sendTypeButtons(to, text, title, footer, hButtons) {
     var result = (
       await Promise.all(window.Store.addAndSendMsgToChat(chat, message))
     )[1];
-    if (result === 'success' || result === 'OK') {
+    if (
+      result === 'success' ||
+      result === 'OK' ||
+      result.messageSendResult === "OK"
+    ) {
       return WAPI.scope(newMsgId, false, result, null);
     } else {
       return WAPI.scope(newMsgId, true, result, null);
