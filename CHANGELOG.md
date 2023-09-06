@@ -1,3 +1,19 @@
+## [5.0.20](https://github.com/orkestral/venom/compare/v5.0.19...v5.0.20) (2023-09-06)
+
+
+### Bug Fixes
+
+* deleteMessage ([2608239](https://github.com/orkestral/venom/commit/26082393b1fa95cb2e2463ede56a1fbf08716798))
+
+
+### Features
+
+* add types ts ([05d6b72](https://github.com/orkestral/venom/commit/05d6b72a654c72529d38dfb8b5bd4903937e6be0))
+* messageSendResult ([873b0b6](https://github.com/orkestral/venom/commit/873b0b61db16b841916905fdbb3a1d280b1cee79))
+* writeFile SingletonLock ([25c56d4](https://github.com/orkestral/venom/commit/25c56d4cf22e8fc06fa8a2aeb15682dae5585e42))
+
+
+
 ## [5.0.19](https://github.com/orkestral/venom/compare/v5.0.18...v5.0.19) (2023-08-23)
 
 
