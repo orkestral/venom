@@ -39,15 +39,18 @@ export async function deleteMessages(chatId, messageArray) {
     const m = { type: 'deleteMessages' };
 
     let jobs = [
-      chat.sendRevokeMsgs(
-        messagesToDelete.filter((msg) => !msg.isSentByMe),
-        chat
+      Store.sendRevokeMsgs(
+        chat,
+        messagesToDelete.filter((msg) => msg.id._serialized.includes("true")),
+        true
       ),
-      chat.sendDeleteMsgs(
-        messagesToDelete.filter((msg) => msg.isSentByMe),
-        chat
-      )
+      Store.sendDeleteMsgs(
+        chat,
+        messagesToDelete.filter((msg) => msg.id._serialized.includes("true")),
+        true
+      ),
     ];
+
     try {
       var result = (await Promise.all(jobs))[1];
 
@@ -76,3 +79,4 @@ export async function deleteMessages(chatId, messageArray) {
     return chat;
   }
 }
+

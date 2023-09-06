@@ -472,6 +472,14 @@ export const storeObjects = [
   {
     id: "Jid",
     conditions: (module) => (module.WAP_JID_SUBTYPE ? module : null),
+  },
+  {
+    id: 'sendDeleteMsgs',
+    conditions: (module) => (module.sendDeleteMsgs ? module.sendDeleteMsgs : null),
+  },
+  {
+    id: 'sendRevokeMsgs',
+    conditions: (module) => (module.sendRevokeMsgs ? module.sendRevokeMsgs : null),
   }
- 
+
 ];
