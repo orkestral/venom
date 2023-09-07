@@ -9,7 +9,7 @@ export async function processMessageObj(
     } else {
       return;
     }
-  } else if (messageObj.id.fromMe === false || includeMe) {
+  } else if (messageObj.id?.fromMe === false || includeMe) {
     return await WAPI._serializeMessageObj(messageObj);
   }
   return;
