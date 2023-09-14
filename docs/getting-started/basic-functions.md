@@ -24,7 +24,6 @@ available can be found in {@link Whatsapp}
   - [forwardMessages](#forwardmessages)
   - [sendSeen](#sendseen)
   - [startTyping](#starttyping)
-  - [stopTyping](#stoptyping)
   - [setChatState](#setchatstate)
 
 ## Chatting
@@ -306,14 +305,6 @@ Start typing...
 
 ```javascript
 await client.startTyping('000000000000@c.us');
-```
-
-### stopTyping
-
-Stop typing
-
-```javascript
-await client.stopTyping('000000000000@c.us');
 ```
 
 ### setChatState
