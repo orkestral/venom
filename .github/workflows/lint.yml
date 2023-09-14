@@ -16,9 +16,9 @@ jobs:
         run: git fetch --tags -f || true
 
       - name: Setup Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v2.5.3
         with:
-          node-version: 12.x
+          node-version: 16.x
           registry-url: 'https://registry.npmjs.org'
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

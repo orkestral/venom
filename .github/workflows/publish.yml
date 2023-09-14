@@ -18,9 +18,9 @@ jobs:
         run: git fetch --tags -f || true
 
       - name: Setup Node
-        uses: actions/setup-node@v2  # Atualizado para a versão 2 do setup-node
+        uses: actions/setup-node@v2.5.3  # Atualizado para a versão 2 do setup-node
         with:
-          node-version: 12.x
+          node-version: 16.x
           registry-url: 'https://registry.npmjs.org'
           # Removido o uso do token aqui, será configurado automaticamente pelo actions/setup-node
 
