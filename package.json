@@ -91,7 +91,7 @@
     "@typescript-eslint/eslint-plugin": "^5.59.11",
     "@typescript-eslint/parser": "^5.62.0",
     "concurrently": "^7.6.0",
-    "conventional-changelog-cli": "^2.2.2",
+    "conventional-changelog-cli": "^4.1.0",
     "copy-webpack-plugin": "^10.2.4",
     "eslint": "^8.39.0",
     "eslint-config-eslint": "^9.0.0",
