@@ -41,14 +41,14 @@ export async function deleteMessages(chatId, messageArray) {
     let jobs = [
       Store.sendRevokeMsgs(
         chat,
-        messagesToDelete.filter((msg) => msg.id._serialized.includes("true")),
+        messagesToDelete.filter((msg) => msg.id._serialized.includes('true')),
         true
       ),
       Store.sendDeleteMsgs(
         chat,
-        messagesToDelete.filter((msg) => msg.id._serialized.includes("true")),
+        messagesToDelete.filter((msg) => msg.id._serialized.includes('true')),
         true
-      ),
+      )
     ];
 
     try {
@@ -79,4 +79,3 @@ export async function deleteMessages(chatId, messageArray) {
     return chat;
   }
 }
-

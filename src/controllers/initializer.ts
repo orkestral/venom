@@ -158,6 +158,14 @@ export async function create(
       disableSpins: options ? options.disableSpins : false
     });
 
+    spinnies.add(`donate-${session}`, {
+      text: `....`
+    });
+
+    spinnies.fail(`donate-${session}`, {
+      text: `Help Keep This Project Going! Know more: https://github.com/orkestral/venom/blob/master/docs/getting-started/donate.md`
+    });
+
     spinnies.add(`node-version-${session}`, {
       text: `check nodeJs version...`
     });

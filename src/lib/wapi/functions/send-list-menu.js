@@ -100,7 +100,7 @@ export async function sendListMenu(
   if (chat && chat.status != 404 && chat.id) {
     const newMsgId = await window.WAPI.getNewMessageId(chat.id._serialized);
     const fromwWid = await Store.MaybeMeUser.getMaybeMeUser();
-    const inChat = await WAPI.getchatId(chat.id).catch(() => { });
+    const inChat = await WAPI.getchatId(chat.id).catch(() => {});
 
     if (inChat) {
       chat.lastReceivedKey._serialized = inChat._serialized;
@@ -140,7 +140,7 @@ export async function sendListMenu(
     if (
       result === 'success' ||
       result === 'OK' ||
-      result.messageSendResult === "OK"
+      result.messageSendResult === 'OK'
     ) {
       return WAPI.scope(newMsgId, false, result, null);
     } else {

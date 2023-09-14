@@ -40,10 +40,10 @@ export async function sendSticker(sticker, chatId, metadata, type) {
 
     const m = { type: type };
     if (
-      result === 'success' || 
-      result === 'OK' || 
-      result.messageSendResult === "OK"
-      ) {
+      result === 'success' ||
+      result === 'OK' ||
+      result.messageSendResult === 'OK'
+    ) {
       const obj = WAPI.scope(newMsgId, false, result, null);
       Object.assign(obj, m);
       return obj;

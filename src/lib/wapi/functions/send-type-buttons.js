@@ -176,7 +176,7 @@ export async function sendTypeButtons(to, text, title, footer, hButtons) {
     if (
       result === 'success' ||
       result === 'OK' ||
-      result.messageSendResult === "OK"
+      result.messageSendResult === 'OK'
     ) {
       return WAPI.scope(newMsgId, false, result, null);
     } else {

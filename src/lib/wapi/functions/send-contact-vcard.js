@@ -65,11 +65,7 @@ export async function sendContactVcard(chatId, contact, name) {
     )[1];
 
     var m = { from: contact, type: 'vcard' };
-    if (
-      result === 'success' ||
-      result ||
-      result.messageSendResult === "OK"
-    ) {
+    if (result === 'success' || result || result.messageSendResult === 'OK') {
       var obj = WAPI.scope(newMsgId, false, result, null);
       Object.assign(obj, m);
       return obj;

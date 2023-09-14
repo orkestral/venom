@@ -50,7 +50,7 @@ export async function sendContactVcardList(chatId, contacts) {
 
     var newMsgId = await window.WAPI.getNewMessageId(chat.id._serialized);
     const fromwWid = await Store.MaybeMeUser.getMaybeMeUser();
-    let inChat = await WAPI.getchatId(chat.id).catch(() => { });
+    let inChat = await WAPI.getchatId(chat.id).catch(() => {});
 
     if (inChat) {
       chat.lastReceivedKey._serialized = inChat._serialized;
@@ -80,7 +80,7 @@ export async function sendContactVcardList(chatId, contacts) {
     if (
       result === 'success' ||
       result === 'OK' ||
-      result.messageSendResult === "OK"
+      result.messageSendResult === 'OK'
     ) {
       var obj = WAPI.scope(newMsgId, false, result, null);
       Object.assign(obj, m);

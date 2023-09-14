@@ -101,7 +101,7 @@ export const defaultOptions: options = {
   disableWelcome: false,
   BrowserFetcher: true,
   updatesLog: true,
-  headless: "old",
+  headless: 'old',
   logQR: true,
   devtools: false,
   mkdirFolderToken: '',

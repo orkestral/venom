@@ -73,7 +73,7 @@ export async function sendButtons(to, title, buttons, subtitle) {
     if (
       result === 'success' ||
       result === 'OK' ||
-      result.messageSendResult === "OK"
+      result.messageSendResult === 'OK'
     ) {
       return WAPI.scope(newMsgId, false, result, null);
     } else {
