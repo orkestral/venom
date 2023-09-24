@@ -16,7 +16,7 @@ export async function processFiles(chat, blobs) {
           };
         }),
     chat,
-    1
+    chat
   );
 
   return mediaCollection;
