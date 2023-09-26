@@ -6,17 +6,14 @@ export async function processFiles(chat, blobs) {
     chatParticipantCount: chat.getParticipantCount()
   });
 
-  console.log('MediaCollection', mediaCollection);
-  console.log(Debug.VERSION);
-
   await mediaCollection.processAttachments(
     Debug.VERSION === '0.4.613'
       ? blobs
       : blobs.map((blob) => {
-          return {
-            file: blob
-          };
-        }),
+        return {
+          file: blob
+        };
+      }),
     chat,
     chat
   );
