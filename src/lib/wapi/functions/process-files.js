@@ -6,6 +6,9 @@ export async function processFiles(chat, blobs) {
     chatParticipantCount: chat.getParticipantCount()
   });
 
+  console.log('MediaCollection', mediaCollection);
+  console.log(Debug.VERSION);
+
   await mediaCollection.processAttachments(
     Debug.VERSION === '0.4.613'
       ? blobs
@@ -15,7 +18,7 @@ export async function processFiles(chat, blobs) {
           };
         }),
     chat,
-    1
+    chat
   );
   return mediaCollection;
 }

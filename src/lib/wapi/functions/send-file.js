@@ -94,9 +94,10 @@ export async function sendFile(
     );
     const result = await Store.Chat.find(chat.id)
       .then(async (_chat) => {
-        const mediaBlob = base64ToFile(file);
+        const mediaBlob = base64ToFile(file, filename || 'file');
         return await processFiles(_chat, mediaBlob)
           .then(async (mc) => {
+            console.log("1")
             if (typeof mc === 'object' && mc._models && mc._models[0]) {
               const media = mc._models[0];
               const enc = await WAPI.encryptAndUploadFile(
@@ -114,6 +115,7 @@ export async function sendFile(
               }
 
               const fromwWid = await Store.MaybeMeUser.getMaybeMeUser();
+              console.log("2")
               const message = {
                 id: newMsgId,
                 ack: 0,
@@ -138,6 +140,7 @@ export async function sendFile(
                 filename: filename
               };
               if (forcingReturn) {
+                console.log("forcingReturn")
                 if (delSend) {
                   while (true) {
                     const connection = window.Store.State.Socket.state;
@@ -146,6 +149,8 @@ export async function sendFile(
                         chat,
                         message
                       );
+
+                      console.log("3")
                       await WAPI.sleep(5000);
                       const statusMsg = chat.msgs._models.filter(
                         (e) => e.id === newMsgId._serialized && e.ack > 0
@@ -154,6 +159,8 @@ export async function sendFile(
                         await WAPI.deleteMessages(chatid, [
                           newMsgId._serialized
                         ]);
+
+                        console.log("4")
                       } else {
                         let obj = WAPI.scope(
                           newMsgId,
@@ -162,6 +169,8 @@ export async function sendFile(
                           null
                         );
                         Object.assign(obj, m);
+
+                        console.log("5")
                         return obj;
                       }
                     }
@@ -171,6 +180,8 @@ export async function sendFile(
                     chat,
                     message
                   );
+
+                  console.log("6")
                   let obj = WAPI.scope(
                     newMsgId,
                     false,
@@ -187,6 +198,7 @@ export async function sendFile(
                     window.Store.addAndSendMsgToChat(chat, message)
                   )
                 )[1];
+
               } catch (e) {
                 return WAPI.scope(
                   chat.id,
@@ -199,7 +211,8 @@ export async function sendFile(
               return WAPI.scope(chat.id, true, 404, 'Error to models');
             }
           })
-          .catch(() => {
+          .catch((err) => {
+            console.log("Caiu a aqui", err)
             return WAPI.scope(chat.id, true, 404, 'Error to processFiles');
           });
       })
