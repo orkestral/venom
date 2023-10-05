@@ -1,3 +1,12 @@
+## [5.0.22](https://github.com/orkestral/venom/compare/v5.0.21...v5.0.22) (2023-10-05)
+
+
+### Features
+
+* version ([4a6114e](https://github.com/orkestral/venom/commit/4a6114e56cdcc7ee36940126b001dfe7a97c9156))
+
+
+
 ## [5.0.21](https://github.com/orkestral/venom/compare/v5.0.20...v5.0.21) (2023-09-14)
 
 
