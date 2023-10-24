@@ -134,7 +134,7 @@
     "npm-check-updates": "^16.10.17",
     "ora": "^6.1.2",
     "os": "^0.1.2",
-    "puppeteer": "^21.1.0",
+    "puppeteer": "^21.4.1",
     "puppeteer-core": "^20.7.3",
     "puppeteer-extra": "^3.3.6",
     "puppeteer-extra-plugin-stealth": "^2.11.2",
