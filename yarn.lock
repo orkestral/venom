@@ -778,10 +778,10 @@
   resolved "https://registry.npmjs.org/@types/qrcode-terminal/-/qrcode-terminal-0.12.0.tgz"
   integrity sha512-g0fQKl3IVnUePV8tLkiBTduxAVSZsXts444T2aMfjOEGxd7XoeSIs16/AmRe2NlcJLqbvsOBSXov7dKSo4wigA==
 
-"@types/qrcode@^1.5.1":
-  version "1.5.1"
-  resolved "https://registry.npmjs.org/@types/qrcode/-/qrcode-1.5.1.tgz"
-  integrity sha512-HpSN675K0PmxIDRpjMI3Mc2GiKo3dNu+X/F5SoItiaDS1lVfgC6Wac1c5lQDfKWbTJUSHWiHKzpJpBZG7k9gaA==
+"@types/qrcode@^1.5.4":
+  version "1.5.4"
+  resolved "https://registry.yarnpkg.com/@types/qrcode/-/qrcode-1.5.4.tgz#13c4f25297841e79908c2fa1f8341a757e87e3e7"
+  integrity sha512-ufYqUO7wUBq49hugJry+oIYKscvxIQerJSmXeny215aJKfrepN04DDZP8FCgxvV82kOqKPULCE4PIW3qUmZrRA==
   dependencies:
     "@types/node" "*"
 
