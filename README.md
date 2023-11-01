@@ -640,9 +640,6 @@ await client.sendSeen('000000000000@c.us');
 // Start typing...
 await client.startTyping('000000000000@c.us');
 
-// Stop typing
-await client.stopTyping('000000000000@c.us');
-
 // Set chat state (0: Typing, 1: Recording, 2: Paused)
 await client.setChatState('000000000000@c.us', 0 | 1 | 2);
 ```
