@@ -17,13 +17,13 @@ export async function promoteParticipant(groupId, contactsId, done) {
     return false;
   }
 
-  await window.Store.WapQuery.promoteParticipants(chat.id, contactsId);
+  // await window.Store.WapQuery.promoteParticipants(chat.id, contactsId);
 
   const participants = contactsId.map((c) =>
     chat.groupMetadata.participants.get(c)
   );
 
-  await window.Store.Participants.promoteParticipants(chat, participants);
+  await Store.Participants.promoteParticipants(chat, participants);
 
   typeof done === 'function' && done(true);
   return true;
