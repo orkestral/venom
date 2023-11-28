@@ -27,6 +27,7 @@ import {
   baseSendMessage,
   getAllContacts,
   createGroup,
+  createNewsletter,
   addParticipant,
   setGroupDescription,
   getHost,
@@ -106,4 +107,7 @@ if (typeof window.WAPI === 'undefined') {
   window.WAPI.serializeProfilePicThumb = serializeProfilePicThumb;
   window.WAPI.serializeRawObj = serializeRawObj;
   window.WAPI.serializeMeObj = serializeMeObj;
+
+  //Newsletter
+  window.WAPI.createNewsletter = createNewsletter;
 }

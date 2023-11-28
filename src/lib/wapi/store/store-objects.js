@@ -480,6 +480,14 @@ export const storeObjects = [
   {
     id: 'sendRevokeMsgs',
     conditions: (module) => (module.sendRevokeMsgs ? module.sendRevokeMsgs : null),
-  }
+  },
+  {
+    id:"createNewsletterQuery",
+    conditions: (module) => (module.createNewsletterQuery ? module : null)
+  },
+  {
+    id:"userJidToUserWid",
+    conditions: (module) => (module.newsletterJidToWid ? module : null)
+  },
 
 ];

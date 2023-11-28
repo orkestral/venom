@@ -155,7 +155,6 @@ export async function sendFile(
                         await WAPI.deleteMessages(chatid, [
                           newMsgId._serialized
                         ]);
-
                       } else {
                         let obj = WAPI.scope(
                           newMsgId,
@@ -191,7 +190,6 @@ export async function sendFile(
                     window.Store.addAndSendMsgToChat(chat, message)
                   )
                 )[1];
-
               } catch (e) {
                 return WAPI.scope(
                   chat.id,
