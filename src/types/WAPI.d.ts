@@ -164,6 +164,7 @@ interface WAPI {
     chatId: string,
     url: string,
     title: string,
+    message: string,
     thumbnail: string
   ) => Promise<SendLinkResult>;
   sendLocation: (

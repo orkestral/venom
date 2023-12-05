@@ -432,7 +432,8 @@ export class SenderLayer extends ListenerLayer {
   public async sendLinkPreview(
     chatId: string,
     url: string,
-    title: string
+    title: string,
+    message: string,
   ): Promise<object> {
     return new Promise(async (resolve, reject) => {
       const typeFunction = 'sendLinkPreview';
@@ -458,6 +459,13 @@ export class SenderLayer extends ListenerLayer {
           value: title,
           function: typeFunction,
           isUser: false
+        },
+        {
+          param: 'message',
+          type: type,
+          value: message,
+          function: typeFunction,
+          isUser: false
         }
       ];
       const validating = checkValuesSender(check);
@@ -467,9 +475,9 @@ export class SenderLayer extends ListenerLayer {
       const thumbnail = await dowloadMetaFileBase64(url);
       const result = await this.page.evaluate(
         ({ chatId, url, title, thumbnail }) => {
-          return WAPI.sendLinkPreview(chatId, url, title, thumbnail);
+          return WAPI.sendLinkPreview(chatId, url, title, message, thumbnail);
         },
-        { chatId, url, title, thumbnail }
+        { chatId, url, title, message, thumbnail }
       );
       if (result['erro'] == true) {
         return reject(result);
