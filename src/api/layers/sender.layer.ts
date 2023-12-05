@@ -474,7 +474,7 @@ export class SenderLayer extends ListenerLayer {
       }
       const thumbnail = await dowloadMetaFileBase64(url);
       const result = await this.page.evaluate(
-        ({ chatId, url, title, thumbnail }) => {
+        ({ chatId, url, title, message, thumbnail }) => {
           return WAPI.sendLinkPreview(chatId, url, title, message, thumbnail);
         },
         { chatId, url, title, message, thumbnail }
