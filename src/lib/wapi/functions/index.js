@@ -127,3 +127,4 @@ export { pollCreation } from './poll-creation';
 /////
 export { baseSendMessage } from './send-message-scope';
 export { setGroupImage } from './set-group-image';
+export { createNewsletter } from './create-newsletter';

@@ -7,6 +7,7 @@ import {
   getBlockList,
   clearChatMessages,
   createGroup,
+  createNewsletter,
   deleteConversation,
   deleteMessages,
   demoteParticipant,
@@ -274,6 +275,9 @@ if (typeof window.WAPI === 'undefined') {
   window.WAPI.setPresenceOffline = setPresenceOffline;
   window.WAPI.setGroupTitle = setGroupTitle;
   window.WAPI.setGroupSettings = setGroupSettings;
+
+  //Newsletter functions
+  window.WAPI.createNewsletter = createNewsletter;
 
   // Chatting functions
   window.WAPI.sendChatstate = sendChatstate;

@@ -10,10 +10,10 @@ export async function processFiles(chat, blobs) {
     Debug.VERSION === '0.4.613'
       ? blobs
       : blobs.map((blob) => {
-        return {
-          file: blob
-        };
-      }),
+          return {
+            file: blob
+          };
+        }),
     chat,
     chat
   );
