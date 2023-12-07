@@ -1,4 +1,4 @@
-export async function sendLinkPreview(chatId, url, text, thumbnail) {
+export async function sendLinkPreview(chatId, url, text, body, thumbnail) {
   text = text || '';
   const _Path = {
     Protocol: '^(https?:\\/\\/)?',
@@ -39,7 +39,7 @@ export async function sendLinkPreview(chatId, url, text, thumbnail) {
       id: newMsgId,
       links: link,
       ack: 0,
-      body: url,
+      body: body.includes(url) ? body : url + "\n" + body,
       from: fromwWid,
       to: chat.id,
       local: !0,
