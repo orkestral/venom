@@ -775,10 +775,10 @@
   dependencies:
     "@types/node" "*"
 
-"@types/qrcode-terminal@^0.12.0":
-  version "0.12.0"
-  resolved "https://registry.npmjs.org/@types/qrcode-terminal/-/qrcode-terminal-0.12.0.tgz"
-  integrity sha512-g0fQKl3IVnUePV8tLkiBTduxAVSZsXts444T2aMfjOEGxd7XoeSIs16/AmRe2NlcJLqbvsOBSXov7dKSo4wigA==
+"@types/qrcode-terminal@^0.12.2":
+  version "0.12.2"
+  resolved "https://registry.yarnpkg.com/@types/qrcode-terminal/-/qrcode-terminal-0.12.2.tgz#8d7de3aa41f2d3c724bbc74a157ef3209abf8c75"
+  integrity sha512-v+RcIEJ+Uhd6ygSQ0u5YYY7ZM+la7GgPbs0V/7l/kFs2uO4S8BcIUEMoP7za4DNIqNnUD5npf0A/7kBhrCKG5Q==
 
 "@types/qrcode@^1.5.1":
   version "1.5.1"
