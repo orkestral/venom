@@ -78,7 +78,7 @@
   "devDependencies": {
     "@commitlint/cli": "^17.3.0",
     "@commitlint/config-angular": "^17.7.0",
-    "@types/atob": "^2.1.2",
+    "@types/atob": "^2.1.4",
     "@types/is-root": "^2.1.2",
     "@types/mime-types": "^2.1.0",
     "@types/node": "^20.10.4",
