@@ -209,12 +209,12 @@
   resolved "https://registry.npmjs.org/@discoveryjs/json-ext/-/json-ext-0.5.7.tgz"
   integrity sha512-dBVuXR082gk3jsFp7Rd/JI4kytwGHecnCoTtXFb7DB6CNHp4rg5k1bhg0nWdLGLnOV71lmDzGQaLMy8iPLY0pw==
 
-"@es-joy/jsdoccomment@~0.39.4":
-  version "0.39.4"
-  resolved "https://registry.npmjs.org/@es-joy/jsdoccomment/-/jsdoccomment-0.39.4.tgz"
-  integrity sha512-Jvw915fjqQct445+yron7Dufix9A+m9j1fCJYlCo1FWlRvTxa3pjJelxdSTdaLWcTwRU6vbL+NYjO4YuNIS5Qg==
+"@es-joy/jsdoccomment@~0.41.0":
+  version "0.41.0"
+  resolved "https://registry.yarnpkg.com/@es-joy/jsdoccomment/-/jsdoccomment-0.41.0.tgz#4a2f7db42209c0425c71a1476ef1bdb6dcd836f6"
+  integrity sha512-aKUhyn1QI5Ksbqcr3fFJj16p99QdjUxXAEuFst1Z47DRyoiMwivIH9MV/ARcJOCXVjPfjITciej8ZD2O/6qUmw==
   dependencies:
-    comment-parser "1.3.1"
+    comment-parser "1.4.1"
     esquery "^1.5.0"
     jsdoc-type-pratt-parser "~4.0.0"
 
@@ -571,19 +571,6 @@
     "@pnpm/network.ca-file" "^1.0.1"
     config-chain "^1.1.11"
 
-"@puppeteer/browsers@1.8.0":
-  version "1.8.0"
-  resolved "https://registry.npmjs.org/@puppeteer/browsers/-/browsers-1.8.0.tgz"
-  integrity sha512-TkRHIV6k2D8OlUe8RtG+5jgOF/H98Myx0M6AOafC8DdNVOFiBSFa5cpRDtpm8LXOa9sVwe0+e6Q3FC56X/DZfg==
-  dependencies:
-    debug "4.3.4"
-    extract-zip "2.0.1"
-    progress "2.0.3"
-    proxy-agent "6.3.1"
-    tar-fs "3.0.4"
-    unbzip2-stream "1.4.3"
-    yargs "17.7.2"
-
 "@puppeteer/browsers@1.9.0":
   version "1.9.0"
   resolved "https://registry.yarnpkg.com/@puppeteer/browsers/-/browsers-1.9.0.tgz#dfd0aad0bdc039572f1b57648f189525d627b7ff"
@@ -652,10 +639,10 @@
     "@tufjs/canonical-json" "1.0.0"
     minimatch "^9.0.0"
 
-"@types/atob@^2.1.2":
-  version "2.1.2"
-  resolved "https://registry.npmjs.org/@types/atob/-/atob-2.1.2.tgz"
-  integrity sha512-8GAYQ1jDRUQkSpHzJUqXwAkYFOxuWAOGLhIR4aPd/Y/yL12Q/9m7LsKpHKlfKdNE/362Hc9wPI1Yh6opDfxVJg==
+"@types/atob@^2.1.4":
+  version "2.1.4"
+  resolved "https://registry.yarnpkg.com/@types/atob/-/atob-2.1.4.tgz#50bb756a99bbdba6995f2d10a134d21a881323b3"
+  integrity sha512-FisOhG87cCFqzCgq6FUtSYsTMOHCB/p28zJbSN1QBo4ZGJfg9PEhMjdIV++NDeOnloUUe0Gz6jwBV+L1Ac00Mw==
 
 "@types/debug@^4.1.0":
   version "4.1.8"
@@ -2044,14 +2031,6 @@ chrome-version@^1.0.1:
   resolved "https://registry.npmjs.org/chrome-version/-/chrome-version-1.0.1.tgz"
   integrity sha512-5YAMqKGxK7BWRkKA18p7aMjZd8GAB7Vb/W1RbwytSJr3JBoZhnY/P+qAq0u4rYETQl24xfDx1fxTecBWpPK5LA==
 
-chromium-bidi@0.4.32:
-  version "0.4.32"
-  resolved "https://registry.npmjs.org/chromium-bidi/-/chromium-bidi-0.4.32.tgz"
-  integrity sha512-RJnw0PW3sNdx1WclINVfVVx8JUH+tWTHZNpnEzlcM+Qgvf40dUH34U7gJq+cc/0LE+rbPxeT6ldqWrCbUf4jeg==
-  dependencies:
-    mitt "3.0.1"
-    urlpattern-polyfill "9.0.0"
-
 chromium-bidi@0.5.1:
   version "0.5.1"
   resolved "https://registry.yarnpkg.com/chromium-bidi/-/chromium-bidi-0.5.1.tgz#390c1af350c4887824a33d82190de1cc5c5680fc"
@@ -2304,10 +2283,10 @@ commander@^2.20.0:
   resolved "https://registry.npmjs.org/commander/-/commander-2.20.3.tgz"
   integrity sha512-GpVkmM8vF2vQUkj2LvZmD35JxeJOLCwJ9cUkugyk2nuhbv3+mJvpLYYt+0+USMxE+oj+ey/lJEnhZw75x/OMcQ==
 
-comment-parser@1.3.1:
-  version "1.3.1"
-  resolved "https://registry.npmjs.org/comment-parser/-/comment-parser-1.3.1.tgz"
-  integrity sha512-B52sN2VNghyq5ofvUsqZjmk6YkihBX5vMSChmSK9v4ShjKf3Vk5Xcmgpw4o+iIgtrnM/u5FiMpz9VKb8lpBveA==
+comment-parser@1.4.1:
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/comment-parser/-/comment-parser-1.4.1.tgz#bdafead37961ac079be11eb7ec65c4d021eaf9cc"
+  integrity sha512-buhp5kePrmda3vhc5B9t7pUQXAb2Tnd0qgpkIhPhkHXxJpiPJ11H0ZEU0oBpJ2QztSbzG/ZxMj/CHsYJqRHmyg==
 
 compare-func@^2.0.0:
   version "2.0.0"
@@ -2605,6 +2584,7 @@ cosmiconfig@8.2.0:
     parse-json "^5.0.0"
     path-type "^4.0.0"
 
+
 cosmiconfig@8.3.6, cosmiconfig@^8.3.6:
   version "8.3.6"
   resolved "https://registry.npmjs.org/cosmiconfig/-/cosmiconfig-8.3.6.tgz"
@@ -2881,11 +2861,6 @@ detect-libc@^2.0.0, detect-libc@^2.0.1:
   version "2.0.2"
   resolved "https://registry.npmjs.org/detect-libc/-/detect-libc-2.0.2.tgz"
   integrity sha512-UX6sGumvvqSaXgdKGUsgZWqcUyIXZ/vZTrlRT/iobiKhGL0zL4d3osHj3uqllWJK+i+sixDS/3COVEOFbupFyw==
-
-devtools-protocol@0.0.1191157:
-  version "0.0.1191157"
-  resolved "https://registry.npmjs.org/devtools-protocol/-/devtools-protocol-0.0.1191157.tgz"
-  integrity sha512-Fu2mUhX7zkzLHMJZk5wQTiHdl1eJrhK0GypUoSzogUt51MmYEv/46pCz4PtGGFlr0f2ZyYDzzx5CPtbEkuvcTA==
 
 devtools-protocol@0.0.1203626:
   version "0.0.1203626"
@@ -3383,20 +3358,20 @@ eslint-plugin-import@^2.29.0:
     semver "^6.3.1"
     tsconfig-paths "^3.14.2"
 
-eslint-plugin-jsdoc@^46.2.5, eslint-plugin-jsdoc@^46.4.4:
-  version "46.4.4"
-  resolved "https://registry.npmjs.org/eslint-plugin-jsdoc/-/eslint-plugin-jsdoc-46.4.4.tgz"
-  integrity sha512-D8TGPOkq3bnzmYmA7Q6jdsW+Slx7CunhJk1tlouVq6wJjlP1p6eigZPvxFn7aufud/D66xBsNVMhkDQEuqumMg==
+eslint-plugin-jsdoc@^46.2.5, eslint-plugin-jsdoc@^46.9.1:
+  version "46.9.1"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-jsdoc/-/eslint-plugin-jsdoc-46.9.1.tgz#d30adce51fecc768e87481bf4de46b8618c3d50e"
+  integrity sha512-11Ox5LCl2wY7gGkp9UOyew70o9qvii1daAH+h/MFobRVRNcy7sVlH+jm0HQdgcvcru6285GvpjpUyoa051j03Q==
   dependencies:
-    "@es-joy/jsdoccomment" "~0.39.4"
+    "@es-joy/jsdoccomment" "~0.41.0"
     are-docs-informative "^0.0.2"
-    comment-parser "1.3.1"
+    comment-parser "1.4.1"
     debug "^4.3.4"
     escape-string-regexp "^4.0.0"
     esquery "^1.5.0"
     is-builtin-module "^3.2.1"
-    semver "^7.5.1"
-    spdx-expression-parse "^3.0.1"
+    semver "^7.5.4"
+    spdx-expression-parse "^4.0.0"
 
 eslint-plugin-n@^16.0.0:
   version "16.0.2"
@@ -6562,10 +6537,10 @@ npm-bundled@^3.0.0:
   dependencies:
     npm-normalize-package-bin "^3.0.0"
 
-npm-check-updates@^16.14.11:
-  version "16.14.11"
-  resolved "https://registry.yarnpkg.com/npm-check-updates/-/npm-check-updates-16.14.11.tgz#aef5248d04cc5abdf6ee2e1edc4a3f7fd20e6f29"
-  integrity sha512-0MMWGbGci22Pu77bR9jRsy5qgxdQSJVqNtSyyFeubDPtbcU36z4gjEDITu26PMabFWPNkAoVfKF31M3uKUvzFg==
+npm-check-updates@^16.14.12:
+  version "16.14.12"
+  resolved "https://registry.yarnpkg.com/npm-check-updates/-/npm-check-updates-16.14.12.tgz#154db2d6d575bd57cc1120ad9eb3483a1ff2c95d"
+  integrity sha512-5FvqaDX8AqWWTDQFbBllgLwoRXTvzlqVIRSKl9Kg8bYZTfNwMnrp1Zlmb5e/ocf11UjPTc+ShBFjYQ7kg6FL0w==
   dependencies:
     chalk "^5.3.0"
     cli-table3 "^0.6.3"
@@ -7453,19 +7428,7 @@ pupa@^3.1.0:
   dependencies:
     escape-goat "^4.0.0"
 
-puppeteer-core@21.4.1:
-  version "21.4.1"
-  resolved "https://registry.npmjs.org/puppeteer-core/-/puppeteer-core-21.4.1.tgz"
-  integrity sha512-Lh0e+oGhUquxVOi1U701gTfFLFvw5gDBFh3CWpnfAvtItmyZKUce4R54VNfOJfi+KKnzhVPdB/lDrg65gdRIng==
-  dependencies:
-    "@puppeteer/browsers" "1.8.0"
-    chromium-bidi "0.4.32"
-    cross-fetch "4.0.0"
-    debug "4.3.4"
-    devtools-protocol "0.0.1191157"
-    ws "8.14.2"
-
-puppeteer-core@^21.6.1:
+puppeteer-core@21.6.1, puppeteer-core@^21.6.1:
   version "21.6.1"
   resolved "https://registry.yarnpkg.com/puppeteer-core/-/puppeteer-core-21.6.1.tgz#10eccb4dc3167c8c26bc21122fabb45a9fda9ca7"
   integrity sha512-0chaaK/RL9S1U3bsyR4fUeUfoj51vNnjWvXgG6DcsyMjwYNpLcAThv187i1rZCo7QhJP0wZN8plQkjNyrq2h+A==
@@ -7524,14 +7487,14 @@ puppeteer-extra@^3.3.6:
     debug "^4.1.1"
     deepmerge "^4.2.2"
 
-puppeteer@^21.4.1:
-  version "21.4.1"
-  resolved "https://registry.npmjs.org/puppeteer/-/puppeteer-21.4.1.tgz"
-  integrity sha512-opJqQeYMjAB3ICG8lCF3wtSs9k05dozmrEMrHgo3ZWbISiy8qbv/yAJz/6Io221qSh3yURfVf6Z7crrlzKZjLQ==
+puppeteer@^21.6.1:
+  version "21.6.1"
+  resolved "https://registry.yarnpkg.com/puppeteer/-/puppeteer-21.6.1.tgz#2ec0878906ff90b3a424f19e5eb006592abe25b6"
+  integrity sha512-O+pbc61oj8ln6m8EJKncrsQFmytgRyFYERtk190PeLbJn5JKpmmynn2p1PiFrlhCitAQXLJ0MOy7F0TeyCRqBg==
   dependencies:
-    "@puppeteer/browsers" "1.8.0"
+    "@puppeteer/browsers" "1.9.0"
     cosmiconfig "8.3.6"
-    puppeteer-core "21.4.1"
+    puppeteer-core "21.6.1"
 
 q@^1.5.1:
   version "1.5.1"
@@ -8511,10 +8474,18 @@ spdx-exceptions@^2.1.0:
   resolved "https://registry.npmjs.org/spdx-exceptions/-/spdx-exceptions-2.3.0.tgz"
   integrity sha512-/tTrYOC7PPI1nUAgx34hUpqXuyJG+DTHJTnIULG4rDygi4xu/tfgmq1e1cIRwRzwZgo4NLySi+ricLkZkw4i5A==
 
-spdx-expression-parse@^3.0.0, spdx-expression-parse@^3.0.1:
+spdx-expression-parse@^3.0.0:
   version "3.0.1"
   resolved "https://registry.npmjs.org/spdx-expression-parse/-/spdx-expression-parse-3.0.1.tgz"
   integrity sha512-cbqHunsQWnJNE6KhVSMsMeH5H/L9EpymbzqTQ3uLwNCLZ1Q481oWaofqH7nO6V07xlXwY6PhQdQ2IedWx/ZK4Q==
+  dependencies:
+    spdx-exceptions "^2.1.0"
+    spdx-license-ids "^3.0.0"
+
+spdx-expression-parse@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/spdx-expression-parse/-/spdx-expression-parse-4.0.0.tgz#a23af9f3132115465dac215c099303e4ceac5794"
+  integrity sha512-Clya5JIij/7C6bRR22+tnGXbc4VKlibKSVj2iHvVeX5iMW7s1SIQlqu699JkODJJIhh/pUu8L0/VLh8xflD+LQ==
   dependencies:
     spdx-exceptions "^2.1.0"
     spdx-license-ids "^3.0.0"
@@ -9820,11 +9791,6 @@ write-file-atomic@^3.0.3:
     is-typedarray "^1.0.0"
     signal-exit "^3.0.2"
     typedarray-to-buffer "^3.1.5"
-
-ws@8.14.2:
-  version "8.14.2"
-  resolved "https://registry.npmjs.org/ws/-/ws-8.14.2.tgz"
-  integrity sha512-wEBG1ftX4jcglPxgFCMJmZ2PLtSbJ2Peg6TmpJFTbe9GZYOQCDPdMYu/Tm0/bGZkw8paZnJY45J4K2PZrLYq8g==
 
 ws@8.15.1, ws@^8.8.0:
   version "8.15.1"
