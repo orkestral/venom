@@ -799,10 +799,10 @@
   dependencies:
     "@types/node" "*"
 
-"@types/unzipper@^0.10.6":
-  version "0.10.6"
-  resolved "https://registry.npmjs.org/@types/unzipper/-/unzipper-0.10.6.tgz"
-  integrity sha512-zcBj329AHgKLQyz209N/S9R0GZqXSkUQO4tJSYE3x02qg4JuDFpgKMj50r82Erk1natCWQDIvSccDddt7jPzjA==
+"@types/unzipper@^0.10.9":
+  version "0.10.9"
+  resolved "https://registry.yarnpkg.com/@types/unzipper/-/unzipper-0.10.9.tgz#ccbc393ecd1ec013dbe9bc6f13332dad0aa00a0f"
+  integrity sha512-vHbmFZAw8emNAOVkHVbS3qBnbr0x/qHQZ+ei1HE7Oy6Tyrptl+jpqnOX+BF5owcu/HZLOV0nJK+K9sjs1Ox2JA==
   dependencies:
     "@types/node" "*"
 
