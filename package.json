@@ -80,7 +80,7 @@
     "@commitlint/config-angular": "^17.7.0",
     "@types/atob": "^2.1.4",
     "@types/is-root": "^2.1.2",
-    "@types/mime-types": "^2.1.0",
+    "@types/mime-types": "^2.1.4",
     "@types/node": "^20.10.4",
     "@types/puppeteer": "^5.4.7",
     "@types/qrcode": "^1.5.1",
