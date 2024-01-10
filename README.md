@@ -413,7 +413,7 @@ const buttons = [
       }
     }
   ]
-await client.sendButtons('000000000000@c.us', 'Title', buttons, 'Description')
+await client.sendButtons('000000000000@c.us', 'Title', 'Description', buttons)
   .then((result) => {
     console.log('Result: ', result); //return object success
   })

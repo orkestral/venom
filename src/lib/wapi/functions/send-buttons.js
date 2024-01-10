@@ -1,4 +1,4 @@
-export async function sendButtons(to, title, buttons, subtitle) {
+export async function sendButtons(to, title, subtitle, buttons) {
   if (typeof title != 'string' || title.length === 0) {
     return WAPI.scope(to, true, 404, 'It is necessary to write a title!');
   }
