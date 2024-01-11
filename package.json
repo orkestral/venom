@@ -87,7 +87,7 @@
     "@types/qrcode-terminal": "^0.12.2",
     "@types/sharp": "^0.30.5",
     "@types/unzipper": "^0.10.9",
-    "@types/ws": "^8.5.3",
+    "@types/ws": "^8.5.10",
     "@typescript-eslint/eslint-plugin": "^5.59.11",
     "@typescript-eslint/parser": "^5.62.0",
     "concurrently": "^7.6.0",
@@ -144,7 +144,7 @@
     "sharp": "^0.33.1",
     "spinnies": "^0.5.1",
     "unzipper": "^0.10.14",
-    "ws": "^8.8.0",
+    "ws": "^8.16.0",
     "yoo-hoo": "^1.2.0"
   }
 }
