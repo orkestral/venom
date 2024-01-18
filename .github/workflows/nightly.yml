@@ -5,7 +5,7 @@ on:
     branches:
       - main
   schedule:
-    - cron: '* * * * *' 
+    - cron: '0 0 * * *' 
 
 jobs:
   update-nightly-release:
