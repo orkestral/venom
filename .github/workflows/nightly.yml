@@ -14,43 +14,33 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Setup Java
-        uses: actions/setup-java@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
         with:
-          java-version: 11
+          node-version: 16.x
+          registry-url: 'https://registry.npmjs.org'
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Get npm cache directory
+        id: npm-cache
+        run: |
+          echo "::set-output name=dir::$(npm config get cache)"
+      - name: Setup npm cache
+        uses: actions/cache@v2
+        with:
+          path: ${{ steps.npm-cache.outputs.dir }}
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
 
       - name: Install Dependencies
-        run: ./gradlew clean build
-
-      - name: Run Tests
-        run: ./gradlew test
-
-      - name: Apply Bug Fixes and Features
-        run: |
-          changed_files=$(git diff --name-only HEAD^ HEAD)
-          changes=""
-          while IFS= read -r file; do
-            case $file in
-              *bug*) changes+="Bug fix: $file"$'\n' ;;
-              *feature*) changes+="New feature: $file"$'\n' ;;
-              *doc*) changes+="Documentation update: $file"$'\n' ;;
-              *fi*) changes+="Fix: $file"$'\n' ;;
-              *) changes+="Other change: $file"$'\n' ;;
-            esac
-          done <<< "$changed_files"
-          echo "$changes" > build/libs/info.txt
-
-      - name: Deploy to Nightly Release
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.NIGHTLY_HOST }}
-          username: ${{ secrets.NIGHTLY_USER }}
-          password: ${{ secrets.NIGHTLY_PASSWORD }}
-          script: |
-            cd /path/to/nightly/release
-            git pull
-            cp /path/to/build/libs/*.jar .
-            systemctl restart myapp.service
+        run: npm ci --no-progress || npm install --no-progress
+      - name: Lint source
+        run: npm run lint
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          PUPPETEER_SKIP_DOWNLOAD: true
 
       - name: Update info.txt
         run: |
