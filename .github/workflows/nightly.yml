@@ -3,7 +3,7 @@ name: Update nightly release
 on:
   push:
     branches:
-      - main
+      - master
   # schedule:
   #   - cron: '0 0 * * *' 
 
