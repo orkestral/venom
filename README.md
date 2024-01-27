@@ -43,7 +43,7 @@ Use it in your favorite language like PHP, Python, C# and others. as long as you
 
 ## Venom group support on Telegram
 
-<a target="_blank" href="https://t.me/joinchat/orkestral_oficial" target="_blank"><img title="Telegram" height="100" width="375" src="https://user-images.githubusercontent.com/66584466/117182238-7d1d8980-adac-11eb-9a70-e32f90c3d4e5.png"></a>
+<a target="_blank" href="https://t.me/orkestral_oficial" target="_blank"><img title="Telegram" height="100" width="375" src="https://user-images.githubusercontent.com/66584466/117182238-7d1d8980-adac-11eb-9a70-e32f90c3d4e5.png"></a>
 
 ## Venom group support on Discord
 
