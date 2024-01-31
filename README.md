@@ -37,15 +37,15 @@ or for - ou para - o para [Nightly releases](https://github.com/orkestral/venom/
 > npm i --save https://github.com/orkestral/venom/releases/download/nightly/venom-bot-nightly.tgz
 ```
 
-English: Installing the current repository "you can download the beta version from the current repository!"
-Português: Instalando o repositório atual "você pode baixar a versão beta do repositório atual!"
+English: Installing the current repository "you can download the beta version from the current repository!" <br>
+Português: Instalando o repositório atual "você pode baixar a versão beta do repositório atual!" <br>
 Espanõl: Instalación del repositorio actual "¡Puedes descargar la versión beta desde el repositorio actual!"
 
 ```bash
 > npm i github:orkestral/venom
 ```
 
-## Getting started - Início rápido - 
+## Getting started - Início rápido
 
 ```javascript
 // Supports ES6
