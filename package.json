@@ -132,7 +132,7 @@
     "latest-lib": "^0.2.1",
     "mime-types": "^2.1.35",
     "npm-check-updates": "^16.14.12",
-    "ora": "^7.0.1",
+    "ora": "^8.0.1",
     "os": "^0.1.2",
     "puppeteer": "^21.6.1",
     "puppeteer-core": "^21.6.1",
