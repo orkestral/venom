@@ -37,8 +37,10 @@ or for - ou para - o para [Nightly releases](https://github.com/orkestral/venom/
 > npm i --save https://github.com/orkestral/venom/releases/download/nightly/venom-bot-nightly.tgz
 ```
 
-English: Installing the current repository "you can download the beta version from the current repository!" <br>
-Português: Instalando o repositório atual "você pode baixar a versão beta do repositório atual!" <br>
+English: Installing the current repository "you can download the beta version from the current repository!"
+
+Português: Instalando o repositório atual "você pode baixar a versão beta do repositório atual!"
+
 Espanõl: Instalación del repositorio actual "¡Puedes descargar la versión beta desde el repositorio actual!"
 
 ```bash
