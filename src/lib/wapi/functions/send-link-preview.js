@@ -39,7 +39,7 @@ export async function sendLinkPreview(chatId, url, text, body, thumbnail) {
       id: newMsgId,
       links: link,
       ack: 0,
-      body: body.includes(url) ? body : url + "\n" + body,
+      body: body.includes(url) ? body : url + '\n' + body,
       from: fromwWid,
       to: chat.id,
       local: !0,

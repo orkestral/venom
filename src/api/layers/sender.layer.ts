@@ -433,7 +433,7 @@ export class SenderLayer extends ListenerLayer {
     chatId: string,
     url: string,
     title: string,
-    message: string,
+    message: string
   ): Promise<object> {
     return new Promise(async (resolve, reject) => {
       const typeFunction = 'sendLinkPreview';
