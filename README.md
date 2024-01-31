@@ -2,6 +2,8 @@
 
 ## What is your language?
 
+  <a href="https://orkestral.github.io/venom/en/">English</a> - <a href="https://orkestral.github.io/venom/br/">Português</a> - <a href="https://orkestral.github.io/venom/es/">Espanõl</a>
+
 [![npm version](https://img.shields.io/npm/v/venom-bot.svg?color=green)](https://www.npmjs.com/package/venom-bot)
 ![node](https://img.shields.io/node/v/venom-bot)
 [![Downloads](https://img.shields.io/npm/dm/venom-bot.svg)](https://www.npmjs.com/package/venom-bot)
@@ -13,7 +15,11 @@
 [![Lint Status](https://img.shields.io/github/actions/workflow/status/orkestral/venom/lint.yml?branch=master&label=lint)](https://github.com/orkestral/venom/actions)
 [![release-it](https://img.shields.io/badge/%F0%9F%93%A6%F0%9F%9A%80-release--it-e10079.svg)](https://github.com/release-it/release-it)
 
-> Venom is a high-performance system developed with JavaScript to create a bot for WhatsApp, support for creating any interaction, such as customer service, media sending, sentence recognition based on artificial intelligence and all types of design architecture for WhatsApp.
+> English: Venom is a high-performance system developed with JavaScript to create a bot for WhatsApp, support for creating any interaction, such as customer service, media sending, sentence recognition based on artificial intelligence and all types of design architecture for WhatsApp.
+
+> Português: Venom é um sistema de alto desempenho desenvolvido em JavaScript para criação de bot para WhatsApp, suporte para criação de qualquer interação, como atendimento ao cliente, envio de mídia, reconhecimento de frases baseado em inteligência artificial e todo tipo de arquitetura de design para WhatsApp.
+
+> Espanõl: Venom es un sistema de alto rendimiento desarrollado con JavaScript para crear un bot para WhatsApp, soporte para crear cualquier interacción, como atención al cliente, envío de medios, reconocimiento de frases basado en inteligencia artificial y todo tipo de arquitectura de diseño para WhatsApp.
 
 ## Get started fast and easy! Official API!
 
