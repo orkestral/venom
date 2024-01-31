@@ -2,8 +2,6 @@
 
 ## What is your language?
 
- <a href="/lang/portugues/README.md">Português</a> - <a href="/lang/espanol/README.md">Espanõl</a>
-
 [![npm version](https://img.shields.io/npm/v/venom-bot.svg?color=green)](https://www.npmjs.com/package/venom-bot)
 ![node](https://img.shields.io/node/v/venom-bot)
 [![Downloads](https://img.shields.io/npm/dm/venom-bot.svg)](https://www.npmjs.com/package/venom-bot)
