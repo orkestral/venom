@@ -246,11 +246,11 @@ import mime = require('mime-types');
 
 client.onMessage( async (message) => {
   if (message.isMedia === true || message.isMMS === true) {
-    const buffer = await client.decryptFile(message);
+    const buffer = client.decryptFile(message);
     // At this point you can do whatever you want with the buffer
     // Most likely you want to write it into a file
     const fileName = `some-file-name.${mime.extension(message.mimetype)}`;
-    await fs.writeFile(fileName, buffer, (err) => {
+     fs.writeFile(fileName, buffer, (err) => {
       ...
     });
   }
