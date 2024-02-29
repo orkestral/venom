@@ -81,7 +81,7 @@
     "@types/atob": "^2.1.4",
     "@types/is-root": "^2.1.2",
     "@types/mime-types": "^2.1.0",
-    "@types/node": "^20.10.8",
+    "@types/node": "^20.11.24",
     "@types/puppeteer": "^5.4.7",
     "@types/qrcode": "^1.5.1",
     "@types/qrcode-terminal": "^0.12.2",
