@@ -98,6 +98,11 @@ export interface options {
    * @default false
    */
   forceWebpack?: boolean;
+  /**
+   * Use a cached version of WhatsApp
+   * @default false
+   */
+  webVersion?: boolean | string;
 }
 
 export const defaultOptions: options = {
@@ -116,5 +121,6 @@ export const defaultOptions: options = {
   autoClose: 120000,
   addProxy: [],
   browserPathExecutable: '',
-  forceWebpack: false
+  forceWebpack: false,
+  webVersion: false
 };

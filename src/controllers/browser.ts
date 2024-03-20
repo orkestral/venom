@@ -23,6 +23,7 @@ import { defaultOptions } from '../config/create-config';
 import * as unzipper from 'unzipper';
 import { exec } from 'child_process';
 import isRoot from 'is-root';
+import 'node-fetch';
 
 type CustomLaunchOptions = LaunchOptions & {
   headless?: boolean | 'new' | 'old';
@@ -38,6 +39,9 @@ type CustomLaunchOptions = LaunchOptions & {
   browserWS?: options['browserWS'];
 };
 
+const cach_url =
+  'https://raw.githubusercontent.com/wppconnect-team/wa-version/main/html/';
+
 export async function initWhatsapp(
   options: options | CreateConfig,
   browser: Browser
@@ -52,24 +56,37 @@ export async function initWhatsapp(
 
     const { userPass, userProxy, addProxy } = options;
 
-    if (options.forceWebpack === true) {
+    if (typeof options.webVersion === 'string' && options.webVersion.length) {
       await waPage.setRequestInterception(true);
-      waPage.on('request', (request) => {
-        // Modify the request headers
-        const headers = request.headers();
-        if (headers.cookie) {
-          // Filter out the 'wa_build' cookies and reconstruct the cookie header
-          headers.cookie = headers.cookie
-            .split(';')
-            .filter((cookie) => !cookie.trim().startsWith('wa_build'))
-            .join(';');
-        }
+      waPage.on('request', async (req) => {
+        fs.appendFileSync('log.txt', req.url() + '\n');
+        if (req.url() === 'https://web.whatsapp.com/') {
+          let url = cach_url + options.webVersion + '.html';
 
-        // Continue the request with potentially modified headers
-        request.continue({ headers });
+          await req.respond({
+            status: 200,
+            contentType: 'text/html',
+            body: await (await fetch(url)).text()
+          });
+        } else {
+          if (options.forceWebpack === true) {
+            const headers = req.headers();
+            if (headers.cookie) {
+              // Filter out the 'wa_build' cookies and reconstruct the cookie header
+              headers.cookie = headers.cookie
+                .split(';')
+                .filter((cookie) => !cookie.trim().startsWith('wa_build'))
+                .join(';');
+            }
+
+            // Continue the request with potentially modified headers
+            await req.continue({ headers });
+          } else {
+            await req.continue();
+          }
+        }
       });
     }
-
     if (
       typeof userPass === 'string' &&
       userPass.length &&
