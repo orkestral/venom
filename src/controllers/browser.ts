@@ -50,26 +50,26 @@ export async function initWhatsapp(
     await waPage.setUserAgent(useragentOverride);
     waPage.setDefaultTimeout(60000);
 
-    const { userPass, userProxy, addProxy, forceWebpack } = options;
+    const { userPass, userProxy, addProxy } = options;
 
-    if(forceWebpack === true)
-    {
+    if (options.forceWebpack === true) {
       await waPage.setRequestInterception(true);
-      page.on('request', request => {
-          // Modify the request headers
-          const headers = request.headers();
-          if (headers.cookie) {
-            // Filter out the 'wa_build' cookies and reconstruct the cookie header
-            headers.cookie = headers.cookie.split(';')
-              .filter(cookie => !cookie.trim().startsWith('wa_build'))
-              .join(';');
-          }
-  
-          // Continue the request with potentially modified headers
-          request.continue({headers});
-       });
+      waPage.on('request', (request) => {
+        // Modify the request headers
+        const headers = request.headers();
+        if (headers.cookie) {
+          // Filter out the 'wa_build' cookies and reconstruct the cookie header
+          headers.cookie = headers.cookie
+            .split(';')
+            .filter((cookie) => !cookie.trim().startsWith('wa_build'))
+            .join(';');
+        }
+
+        // Continue the request with potentially modified headers
+        request.continue({ headers });
+      });
     }
-    
+
     if (
       typeof userPass === 'string' &&
       userPass.length &&
