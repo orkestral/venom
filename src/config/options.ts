@@ -93,6 +93,11 @@ export interface options {
    * @default null
    */
   browserPathExecutable?: string;
+  /**
+   * Force webpack version of WhatsApp.
+   * @default false
+   */
+  forceWebpack?: boolean;
 }
 
 export const defaultOptions: options = {
@@ -110,5 +115,6 @@ export const defaultOptions: options = {
   addBrowserArgs: [],
   autoClose: 120000,
   addProxy: [],
-  browserPathExecutable: ''
+  browserPathExecutable: '',
+  forceWebpack: false
 };

@@ -52,6 +52,24 @@ export async function initWhatsapp(
 
     const { userPass, userProxy, addProxy } = options;
 
+    if (options.forceWebpack === true) {
+      await waPage.setRequestInterception(true);
+      waPage.on('request', (request) => {
+        // Modify the request headers
+        const headers = request.headers();
+        if (headers.cookie) {
+          // Filter out the 'wa_build' cookies and reconstruct the cookie header
+          headers.cookie = headers.cookie
+            .split(';')
+            .filter((cookie) => !cookie.trim().startsWith('wa_build'))
+            .join(';');
+        }
+
+        // Continue the request with potentially modified headers
+        request.continue({ headers });
+      });
+    }
+
     if (
       typeof userPass === 'string' &&
       userPass.length &&
