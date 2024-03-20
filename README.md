@@ -1046,6 +1046,21 @@ Use "autoClose: 0 | false" to disable auto closing.
 
 ### Debugging
 
+### WhatsApp Web Versions
+
+You can use cached versions of WhatsApp Web by passing the `webVersion` arguments as part of your venom options:
+```javascript
+venom.create({
+    session: 'sessionname', //name of session
+    headless: false,
+    logQR: true,
+    webVersion: '2.2402.5'
+  })
+  .then((client) => {
+    start(client);
+  });
+```
+This feature can use any version available in the list at https://github.com/wppconnect-team/wa-version/tree/main/html
 ## Development
 
 Building venom is really simple altough it contains 3 main projects inside
