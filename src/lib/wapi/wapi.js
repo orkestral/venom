@@ -159,39 +159,77 @@ import { getStore } from './store/get-store';
 
 window.Store = {};
 
-function injectParasite() {
-  if (
-    window.webpackChunkwhatsapp_web_client &&
-    Array.isArray(window.webpackChunkwhatsapp_web_client)
-  ) {
-    const parasite = injectConfig.parasite;
-    window[injectConfig.webpack].push([
-      [parasite],
-      {},
-      async function (o) {
-        let modules = [];
-        for (let idx in o.m) {
-          modules.push(o(idx));
+window.getModuleList = function () {
+  let modules = {};
+  Object.keys(window.__debug.modulesMap)
+    .filter((e) => e.includes('WA'))
+    .forEach(function (mod) {
+      let module = window.__debug.modulesMap[mod];
+      if (module) {
+        modules[mod] = {
+          default: module.defaultExport,
+          factory: module.factory
+        };
+        if (Object.keys(modules[mod].default).length === 0) {
+          try {
+            self.ErrorGuard.skipGuardGlobal(true);
+            Object.assign(modules[mod], self.importNamespace(mod));
+          } catch (e) {}
         }
-        getStore(modules);
       }
-    ]);
+    });
+  return modules;
+};
+
+function injectParasite() {
+  if (window.__debug) {
+    const modules = [];
+    Object.keys(window.__debug.modulesMap).forEach(function (mod) {
+      modules.push(window.__debug.modulesMap[mod]);
+    });
+    getStore(modules).finally();
+  } else {
+    if (
+      window.webpackChunkwhatsapp_web_client &&
+      Array.isArray(window.webpackChunkwhatsapp_web_client)
+    ) {
+      const parasite = injectConfig.parasite;
+      window[injectConfig.webpack].push([
+        [parasite],
+        {},
+        async function (o) {
+          let modules = [];
+          for (let idx in o.m) {
+            modules.push(o(idx));
+          }
+          await getStore(modules);
+        }
+      ]);
+    }
   }
 }
 
 async function waitForObjects() {
   return new Promise((resolve) => {
     const checkObjects = () => {
-      if (
-        window[injectConfig.webpack] &&
-        Array.isArray(window[injectConfig.webpack]) &&
-        window[injectConfig.webpack].every(
-          (item) => Array.isArray(item) && item.length > 0
-        )
-      ) {
-        resolve();
+      if (window.__debug) {
+        if (window.__debug.modulesMap?.WAWebUserPrefsMeUser) {
+          resolve();
+        } else {
+          setTimeout(checkObjects, 200);
+        }
       } else {
-        setTimeout(checkObjects, 200);
+        if (
+          window[injectConfig.webpack] &&
+          Array.isArray(window[injectConfig.webpack]) &&
+          window[injectConfig.webpack].every(
+            (item) => Array.isArray(item) && item.length > 0
+          )
+        ) {
+          resolve();
+        } else {
+          setTimeout(checkObjects, 200);
+        }
       }
     };
 
@@ -200,14 +238,19 @@ async function waitForObjects() {
 }
 
 (async () => {
-  await waitForObjects();
-
-  const last = window[injectConfig.webpack].length - 1;
-  if (
-    !window[injectConfig.webpack][last][0].includes(injectConfig.parasite) &&
-    document.querySelectorAll('#app .two').length
-  ) {
+  if (window.__debug) {
+    await waitForObjects();
     injectParasite();
+  } else {
+    await waitForObjects();
+
+    const last = window[injectConfig.webpack].length - 1;
+    if (
+      !window[injectConfig.webpack][last][0].includes(injectConfig.parasite) &&
+      document.querySelectorAll('#app .two').length
+    ) {
+      injectParasite();
+    }
   }
 })();
 

@@ -12,9 +12,10 @@ export async function getStore(modules) {
         if (neededModule !== null) {
           foundCount++;
           needObj.foundedModule = neededModule;
+          console.log(neededModule);
         }
       });
-      if (foundCount == neededObjects.length) {
+      if (foundCount === neededObjects.length) {
         break;
       }
     }
@@ -49,29 +50,45 @@ export async function getStore(modules) {
 
   window.mR = async (find) => {
     return new Promise((resolve) => {
-      const parasite = `parasite${Date.now()}`;
-      window["webpackChunkwhatsapp_web_client"].push([
-        [parasite],
-        {},
-        function (o) {
-          let modules = [];
-          for (let idx in o.m) {
-            modules.push(o(idx));
-          }
-          for (let idx in modules) {
-            if (typeof modules[idx] === "object" && modules[idx] !== null) {
-              let module = modules[idx];
+      if (window.__debug) {
+        for (let idx in window.getModuleList()) {
+          if (typeof modules[idx] === "object" && modules[idx] !== null) {
+            let module = modules[idx];
 
-              var evet = module[find] ? module : null;
-              if (evet) {
-                window[find] = evet;
-                return resolve(window[find]);
-              }
+            var evet = module[find] ? module : null;
+            if (evet) {
+              window[find] = evet;
+              return resolve(window[find]);
             }
           }
+        }
+      } else {
+        const parasite = `parasite${Date.now()}`;
+        window["webpackChunkwhatsapp_web_client"].push([
+          [parasite],
+          {},
+          function (o) {
+            let modules = [];
+            for (let idx in o.m) {
+              modules.push(o(idx));
+            }
 
-        },
-      ]);
+            for (let idx in modules) {
+              if (typeof modules[idx] === "object" && modules[idx] !== null) {
+                let module = modules[idx];
+
+                var evet = module[find] ? module : null;
+                if (evet) {
+                  window[find] = evet;
+                  return resolve(window[find]);
+                }
+              }
+            }
+
+          },
+        ]);
+      }
+
     });
   }
 
