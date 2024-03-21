@@ -59,7 +59,6 @@ export async function initWhatsapp(
     if (typeof options.webVersion === 'string' && options.webVersion.length) {
       await waPage.setRequestInterception(true);
       waPage.on('request', async (req) => {
-        fs.appendFileSync('log.txt', req.url() + '\n');
         if (req.url() === 'https://web.whatsapp.com/') {
           let url = cach_url + options.webVersion + '.html';
 

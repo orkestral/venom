@@ -28,10 +28,15 @@ export class Whatsapp extends ControlsLayer {
 
   async initService() {
     try {
-      await this.page
-        .waitForFunction('webpackChunkwhatsapp_web_client.length')
-        .catch();
-
+      if (this.options.forceWebpack === false) {
+        await this.page.evaluate(() => {
+          window['__debug'] = eval("require('__debug');");
+        });
+      } else {
+        await this.page
+          .waitForFunction('webpackChunkwhatsapp_web_client.length')
+          .catch();
+      }
       await this.page
         .addScriptTag({
           path: require.resolve(path.join(__dirname, '../lib/wapi/', 'wapi.js'))

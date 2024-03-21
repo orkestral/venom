@@ -45,21 +45,27 @@ import {
 
 //initialized scrap webpack
 (async () => {
-  window[injectConfig.webpack] = window[injectConfig.webpack] || [];
   window.Store = {};
-  while (true) {
-    try {
-      const webPackLast = window[injectConfig.webpack].length - 1;
-      if (
-        !window[injectConfig.webpack][webPackLast][0].includes(
-          injectConfig.parasite
-        )
-      ) {
-        await injectParasiteSnake();
-        return;
+  if (window.__debug) {
+    await injectParasiteSnake();
+  } else {
+    // old webpack
+    window[injectConfig.webpack] = window[injectConfig.webpack] || [];
+
+    while (true) {
+      try {
+        const webPackLast = window[injectConfig.webpack].length - 1;
+        if (
+          !window[injectConfig.webpack][webPackLast][0].includes(
+            injectConfig.parasite
+          )
+        ) {
+          await injectParasiteSnake();
+          return;
+        }
+      } catch {
+        await sleep(1000);
       }
-    } catch {
-      await sleep(1000);
     }
   }
 })();
