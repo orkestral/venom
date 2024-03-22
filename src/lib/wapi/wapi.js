@@ -183,11 +183,7 @@ window.getModuleList = function () {
 
 function injectParasite() {
   if (window.__debug) {
-    const modules = [];
-    Object.keys(window.__debug.modulesMap).forEach(function (mod) {
-      modules.push(window.__debug.modulesMap[mod]);
-    });
-    getStore(modules).finally();
+    getStore(window.getModuleList()).finally();
   } else {
     if (
       window.webpackChunkwhatsapp_web_client &&

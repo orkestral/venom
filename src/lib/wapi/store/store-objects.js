@@ -71,7 +71,7 @@ export const storeObjects = [
   {
     id: 'WapDelete',
     conditions: (module) =>
-      module.sendConversationDelete && module.sendConversationDelete.length == 2
+      module.sendConversationDelete && module.sendConversationDelete.length === 2
         ? module
         : null,
   },
