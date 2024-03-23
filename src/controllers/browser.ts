@@ -52,6 +52,7 @@ export async function initWhatsapp(
   }
   try {
     await waPage.setUserAgent(useragentOverride);
+    await waPage.setBypassCSP(true);
     waPage.setDefaultTimeout(60000);
 
     const { userPass, userProxy, addProxy } = options;
