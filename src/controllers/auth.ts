@@ -16,8 +16,14 @@ export const getInterfaceStatus = async (waPage: puppeteer.Page) => {
         const elLoginWrapper = document.querySelector(
           'body > div > div > .landing-wrapper'
         );
+        const elLoginWrapper2 = document.querySelector(
+          'body > div > div > div > .landing-wrapper'
+        );
         const elQRCodeCanvas = document.querySelector('canvas');
-        if (elLoginWrapper && elQRCodeCanvas) {
+        if (
+          (elLoginWrapper && elQRCodeCanvas) ||
+          (elLoginWrapper2 && elQRCodeCanvas)
+        ) {
           return 'UNPAIRED';
         }
 
