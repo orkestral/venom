@@ -700,6 +700,8 @@ const allMessages = await client.loadAndGetAllMessagesInChat(
 const status = await client.getStatus('000000000000@c.us');
 
 // Retrieve user profile
+// Please note that this function does not currently work due to a bug in WhatsApp itself.
+// There is no telling if or when this function might work again.
 const user = await client.getNumberProfile('000000000000@c.us');
 
 // Retrieve all unread message
