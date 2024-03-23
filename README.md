@@ -326,7 +326,7 @@ client.onMessage( async (message) => {
     // At this point you can do whatever you want with the buffer
     // Most likely you want to write it into a file
     const fileName = `some-file-name.${mime.extension(message.mimetype)}`;
-    await fs.writeFile(fileName, buffer, (err) => {
+    fs.writeFile(fileName, buffer, (err) => {
       ...
     });
   }
