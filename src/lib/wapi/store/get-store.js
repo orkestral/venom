@@ -25,6 +25,8 @@ export async function getStore(modules) {
     if (needObj.foundedModule) {
       if (needObj.id !== "module") {
         window.Store[needObj.id] = needObj.foundedModule;
+        console.log(needObj.id);
+        console.log(needObj.foundedModule);
       }
     }
   });
