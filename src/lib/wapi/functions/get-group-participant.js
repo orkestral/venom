@@ -8,8 +8,6 @@ export async function getGroupParticipant(groupId, time = 1000) {
   const chat = await WAPI.sendExist(groupId);
 
   if (chat && chat.status != 404 && chat.id) {
-    await window.Store.Cmd.openChatBottom(chat);
-    await sleep(time);
     const moduleGroup = await window.Store.GroupMetadata._models.filter(
       (e) => e.id._serialized === groupId
     );
