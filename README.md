@@ -470,6 +470,10 @@ await client
     console.error('Error when sending: ', erro); //return object error
   });
 
+
+// Send by injecting keystrokes into WhatsApp, thus maintaining the typing indicator
+await client.sendTextViaTyping('000000000000@c.us', '👋 Hello from venom!');
+
 // Send location
 await client
   .sendLocation('000000000000@c.us', '-13.6561589', '-69.7309264', 'Brasil')
