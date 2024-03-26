@@ -6,6 +6,7 @@ import { useragentOverride } from '../config/WAuserAgente';
 import { CreateConfig } from '../config/create-config';
 import axios from 'axios';
 import * as path from 'path';
+import fs from 'fs/promises';
 
 export class Whatsapp extends ControlsLayer {
   constructor(
@@ -15,9 +16,9 @@ export class Whatsapp extends ControlsLayer {
     options?: CreateConfig
   ) {
     super(browser, page, session, options);
-    this.initService();
+    this.initService().finally();
     this.page.on('load', async () => {
-      this.initialize();
+      await this.initialize();
       await page
         .waitForSelector('#app .two', { visible: true })
         .catch(() => {});
@@ -37,20 +38,22 @@ export class Whatsapp extends ControlsLayer {
           .waitForFunction('webpackChunkwhatsapp_web_client.length')
           .catch();
       }
-      await this.page
-        .addScriptTag({
-          path: require.resolve(path.join(__dirname, '../lib/wapi/', 'wapi.js'))
-        })
-        .catch();
 
-      await this.page
-        .addScriptTag({
-          path: require.resolve(
-            path.join(__dirname, '../lib/middleware', 'middleware.js')
-          )
-        })
-        .catch();
-      this.initialize();
+      let js = await fs.readFile(
+        require.resolve(path.join(__dirname, '../lib/wapi/', 'wapi.js')),
+        'utf-8'
+      );
+      await this.page.evaluate(js);
+
+      let middleware_script = await fs.readFile(
+        require.resolve(
+          path.join(__dirname, '../lib/middleware', 'middleware.js')
+        ),
+        'utf-8'
+      );
+      await this.page.evaluate(middleware_script);
+
+      await this.initialize();
     } catch {}
   }
 
