@@ -34,6 +34,7 @@ interface WAPI {
     skipMyMessages: boolean
   ) => Promise<object>;
   getAllChats: () => Promise<Chat[] | object[]>;
+  getAllChatIds: () => Promise<string[]>;
   getAllChatsWithMessages: (withNewMessageOnly?: boolean) => Chat[];
   getAllChatsWithNewMsg: () => Chat[];
   getAllContacts: () => Contact[];
