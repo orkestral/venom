@@ -29,7 +29,25 @@ export class Whatsapp extends ControlsLayer {
 
   async initService() {
     try {
-      if (this.options.forceWebpack === false) {
+      // Allow backwards compatibility without specifying any specific options
+      // The assumption is that WA switched away from Webpack at/after 2.3
+      // This can be removed when all browsers have rolled over to new non-webpack version
+      let useWebpack = false;
+      if (
+        this.options.forceWebpack === false &&
+        this.options.webVersion === false
+      ) {
+        const actualWebVersion = await this.page.evaluate(() => {
+          return window['Debug'] && window['Debug'].VERSION
+            ? window['Debug'].VERSION
+            : '';
+        });
+
+        const versionNumber = parseFloat(actualWebVersion);
+        useWebpack = versionNumber < 2.3;
+      }
+
+      if (this.options.forceWebpack === false && !useWebpack) {
         await this.page.evaluate(() => {
           window['__debug'] = eval("require('__debug');");
         });
