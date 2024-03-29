@@ -117,6 +117,7 @@
     "webpack-cli": "^5.0.1"
   },
   "dependencies": {
+    "async-mutex": "^0.5.0",
     "atob": "^2.1.2",
     "axios": "^1.4.0",
     "boxen": "^5.1.1",
