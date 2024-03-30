@@ -471,8 +471,11 @@ await client
   });
 
 
-// Send by injecting keystrokes into WhatsApp, thus maintaining the typing indicator
-await client.sendTextViaTyping('000000000000@c.us', '👋 Hello from venom!');
+// Send text message by injecting keystrokes into WhatsApp, thus maintaining the typing indicator
+let success = await client.sendTextViaTyping('000000000000@c.us', '👋 Hello from venom!');
+
+// Send photo or video by injecting keystrokes
+let success = await client.sendPhotoVideoViaTyping('000000000000@c.us', 'path/to/file.jpg', 'Pretty sunset');
 
 // Send location
 await client
