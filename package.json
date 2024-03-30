@@ -129,7 +129,6 @@
     "esm": "^3.2.25",
     "futoin-hkdf": "^1.5.3",
     "i": "^0.3.7",
-    "is-root": "2.1.0",
     "latest-lib": "^0.2.1",
     "mime-types": "^2.1.35",
     "npm-check-updates": "^16.14.12",
