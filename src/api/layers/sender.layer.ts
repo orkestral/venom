@@ -11,14 +11,13 @@ import {
 import { filenameFromMimeType } from '../helpers/filename-from-mimetype';
 import { Message, SendFileResult, SendStickerResult } from '../model';
 import { ChatState } from '../model/enum';
-import { ListenerLayer } from './listener.layer';
+import { AutomateLayer } from './AutomateLayer';
 import { Scope, checkValuesSender } from '../helpers/layers-interface';
 import { Mutex } from 'async-mutex';
 
 let obj: Scope;
 
-export class SenderLayer extends ListenerLayer {
-  private typingMutex: Mutex;
+export class SenderLayer extends AutomateLayer {
   constructor(
     public browser: Browser,
     public page: Page,
@@ -26,7 +25,6 @@ export class SenderLayer extends ListenerLayer {
     options?: CreateConfig
   ) {
     super(browser, page, session, options);
-    this.typingMutex = new Mutex();
   }
 
   public async createCommunity(name: string, description: string) {
@@ -364,48 +362,6 @@ export class SenderLayer extends ListenerLayer {
         return resolve(result);
       }
     });
-  }
-
-  public async sendTextViaTyping(
-    to: string,
-    content: string
-  ): Promise<boolean> {
-    const xpath = '//*[@id="side"]/div[1]/div/div[2]/div[2]/div/div[1]/p';
-    let ids = await this.page.evaluate(() => {
-      return WAPI.getAllChatIds();
-    });
-    if (!ids.includes(to)) {
-      return false;
-    }
-
-    let release = await this.typingMutex.acquire();
-    try {
-      let search_element = await this.page.waitForXPath(xpath);
-      // @ts-ignore
-      await search_element.click();
-      let phone_number = to.replace('@c.us', '');
-      await this.page.keyboard.type(' ' + phone_number + '\n', { delay: 200 });
-
-      content = content.replace('\r', '\n');
-      const lines = content.split(/\r?\n/);
-
-      for (let index = 0; index < lines.length; index++) {
-        let line = lines[index];
-        await this.page.keyboard.type(line, { delay: 200 });
-        await this.page.keyboard.down('Shift');
-        // Press the Enter key while the Shift key is down
-        await this.page.keyboard.press('Enter');
-        // Release the Shift key
-        await this.page.keyboard.up('Shift');
-      }
-
-      await this.page.keyboard.press('Enter');
-      release();
-      return true;
-    } catch (e) {
-      release();
-      return false;
-    }
   }
 
   /**
