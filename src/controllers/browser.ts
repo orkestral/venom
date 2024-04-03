@@ -22,7 +22,6 @@ import axios from 'axios';
 import { defaultOptions } from '../config/create-config';
 import * as unzipper from 'unzipper';
 import { exec } from 'child_process';
-import 'node-fetch';
 
 type CustomLaunchOptions = LaunchOptions & {
   headless?: boolean | 'new' | 'old';
