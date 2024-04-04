@@ -173,7 +173,7 @@ venom
     },
     // statusFind
     (statusSession, session) => {
-      console.log('Status Session: ', statusSession); //return isLogged || notLogged || browserClose || qrReadSuccess || qrReadFail || autocloseCalled || desconnectedMobile || deleteToken || chatsAvailable || deviceNotConnected || serverWssNotConnected || noOpenBrowser || initBrowser || openBrowser || connectBrowserWs || initWhatsapp || erroPageWhatsapp || successPageWhatsapp || waitForLogin || waitChat || successChat
+      console.log('Status Session: ', statusSession); //return isLogged || notLogged || browserClose || qrReadSuccess || qrReadFail || autocloseCalled || disconnectedMobile || deleteToken || chatsAvailable || deviceNotConnected || serverWssNotConnected || noOpenBrowser || initBrowser || openBrowser || connectBrowserWs || initWhatsapp || erroPageWhatsapp || successPageWhatsapp || waitForLogin || waitChat || successChat
       //Create session wss return "serverClose" case server for close
       console.log('Session name: ', session);
     },
@@ -216,7 +216,7 @@ venom
 
 ## Callback Status Session
 
-Gets the return if the session is `isLogged` or `notLogged` or `browserClose` or `qrReadSuccess` or `qrReadFail` or `autocloseCalled` or `desconnectedMobile` or `deleteToken` or `chatsAvailable` or `deviceNotConnected` or `serverWssNotConnected` or `noOpenBrowser` or `initBrowser` or `openBrowser` or `connectBrowserWs` or `initWhatsapp` or `erroPageWhatsapp` or `successPageWhatsapp` or `waitForLogin` or `waitChat` or `successChat` or `Create session wss return "serverClose" case server for close`
+Gets the return if the session is `isLogged` or `notLogged` or `browserClose` or `qrReadSuccess` or `qrReadFail` or `autocloseCalled` or `disconnectedMobile` or `deleteToken` or `chatsAvailable` or `deviceNotConnected` or `serverWssNotConnected` or `noOpenBrowser` or `initBrowser` or `openBrowser` or `connectBrowserWs` or `initWhatsapp` or `erroPageWhatsapp` or `successPageWhatsapp` or `waitForLogin` or `waitChat` or `successChat` or `Create session wss return "serverClose" case server for close`
 
 | Status                  | Condition                                                                                                                                                      |
 | ----------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -226,8 +226,8 @@ Gets the return if the session is `isLogged` or `notLogged` or `browserClose` or
 | `qrReadSuccess`         | If the user is not logged in, the QR code is passed on the terminal a callback is returned. After the correct reading by cell phone this parameter is returned |
 | `qrReadFail`            | If the browser stops when the QR code scan is in progress, this parameter is returned                                                                          |
 | `autocloseCalled`       | The browser was closed using the autoClose command                                                                                                             |
-| `desconnectedMobile`    | Client has desconnected in to mobile                                                                                                                           |
-| `serverClose`           | Client has desconnected in to wss                                                                                                                              |
+| `disconnectedMobile`    | Client has disconnected in to mobile                                                                                                                           |
+| `serverClose`           | Client has disconnected in to wss                                                                                                                              |
 | `deleteToken`           | If you pass true within the function                                                                                                                           |
 | `chatsAvailable`        | When Venom is connected to the chat list                                                                                                                       |
 | `deviceNotConnected`    | Chat not available because the phone is disconnected `(Trying to connect to the phone)`                                                                        |
@@ -248,7 +248,7 @@ const venom = require('venom-bot');
 venom
   .create('sessionName', undefined, (statusSession, session) => {
     console.log('Status Session: ', statusSession);
-    //return isLogged || notLogged || browserClose || qrReadSuccess || qrReadFail || autocloseCalled || desconnectedMobile || deleteToken || chatsAvailable || deviceNotConnected || serverWssNotConnected || noOpenBrowser || initBrowser || openBrowser || connectBrowserWs || initWhatsapp || erroPageWhatsapp || successPageWhatsapp || waitForLogin || waitChat || successChat
+    //return isLogged || notLogged || browserClose || qrReadSuccess || qrReadFail || autocloseCalled || disconnectedMobile || deleteToken || chatsAvailable || deviceNotConnected || serverWssNotConnected || noOpenBrowser || initBrowser || openBrowser || connectBrowserWs || initWhatsapp || erroPageWhatsapp || successPageWhatsapp || waitForLogin || waitChat || successChat
     //Create session wss return "serverClose" case server for close
     console.log('Session name: ', session);
   })
@@ -1053,8 +1053,10 @@ Use "autoClose: 0 | false" to disable auto closing.
 ### WhatsApp Web Versions
 
 You can use cached versions of WhatsApp Web by passing the `webVersion` arguments as part of your venom options:
+
 ```javascript
-venom.create({
+venom
+  .create({
     session: 'sessionname', //name of session
     headless: false,
     logQR: true,
@@ -1064,7 +1066,9 @@ venom.create({
     start(client);
   });
 ```
+
 This feature can use any version available in the list at https://github.com/wppconnect-team/wa-version/tree/main/html
+
 ## Development
 
 Building venom is really simple altough it contains 3 main projects inside

@@ -88,7 +88,7 @@ venom
     },
     // statusFind
     (statusSession, session) => {
-      console.log('Status Session: ', statusSession); //return isLogged || notLogged || browserClose || qrReadSuccess || qrReadFail || autocloseCalled || desconnectedMobile || deleteToken || chatsAvailable || deviceNotConnected || serverWssNotConnected || noOpenBrowser || initBrowser || openBrowser || connectBrowserWs || initWhatsapp || erroPageWhatsapp || successPageWhatsapp || waitForLogin || waitChat || successChat
+      console.log('Status Session: ', statusSession); //return isLogged || notLogged || browserClose || qrReadSuccess || qrReadFail || autocloseCalled || disconnectedMobile || deleteToken || chatsAvailable || deviceNotConnected || serverWssNotConnected || noOpenBrowser || initBrowser || openBrowser || connectBrowserWs || initWhatsapp || erroPageWhatsapp || successPageWhatsapp || waitForLogin || waitChat || successChat
       //Create session wss return "serverClose" case server for close
       console.log('Session name: ', session);
     },
@@ -139,18 +139,18 @@ venom
 
 ## Callback Status Session
 
-Gets the return if the session is `isLogged` or `notLogged` or `browserClose` or `qrReadSuccess` or `qrReadFail` or `autocloseCalled` or `desconnectedMobile` or `deleteToken` or `chatsAvailable` or `deviceNotConnected` or `serverWssNotConnected` or `noOpenBrowser` or `initBrowser` or `openBrowser` or `connectBrowserWs` or `initWhatsapp` or `erroPageWhatsapp` or `successPageWhatsapp` or `waitForLogin` or `waitChat` or `successChat` or `Create session wss return "serverClose" case server for close`
+Gets the return if the session is `isLogged` or `notLogged` or `browserClose` or `qrReadSuccess` or `qrReadFail` or `autocloseCalled` or `disconnectedMobile` or `deleteToken` or `chatsAvailable` or `deviceNotConnected` or `serverWssNotConnected` or `noOpenBrowser` or `initBrowser` or `openBrowser` or `connectBrowserWs` or `initWhatsapp` or `erroPageWhatsapp` or `successPageWhatsapp` or `waitForLogin` or `waitChat` or `successChat` or `Create session wss return "serverClose" case server for close`
 
 | Status                  | Condition                                                                                                                                                      |
-|-------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| ----------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `isLogged`              | When the user is already logged in to the browser                                                                                                              |
 | `notLogged`             | When the user is not connected to the browser, it is necessary to scan the QR code through the cell phone in the option WhatsApp Web                           |
 | `browserClose`          | If the browser is closed this parameter is returned                                                                                                            |
 | `qrReadSuccess`         | If the user is not logged in, the QR code is passed on the terminal a callback is returned. After the correct reading by cell phone this parameter is returned |
 | `qrReadFail`            | If the browser stops when the QR code scan is in progress, this parameter is returned                                                                          |
 | `autocloseCalled`       | The browser was closed using the autoClose command                                                                                                             |
-| `desconnectedMobile`    | Client has desconnected in to mobile                                                                                                                           |
-| `serverClose`           | Client has desconnected in to wss                                                                                                                              |
+| `disconnectedMobile`    | Client has disconnected in to mobile                                                                                                                           |
+| `serverClose`           | Client has disconnected in to wss                                                                                                                              |
 | `deleteToken`           | If you pass true within the function `client.getSessionTokenBrowser(true)`                                                                                     |
 | `chatsAvailable`        | When Venom is connected to the chat list                                                                                                                       |
 | `deviceNotConnected`    | Chat not available because the phone is disconnected `(Trying to connect to the phone)`                                                                        |
@@ -164,7 +164,8 @@ Gets the return if the session is `isLogged` or `notLogged` or `browserClose` or
 | `successPageWhatsapp`   | Page Whatsapp successfully accessed                                                                                                                            |
 | `waitForLogin`          | Waiting for login verification!                                                                                                                                |
 | `waitChat`              | Waiting for the chat to load                                                                                                                                   |
-| `successChat`           | Chat successfully loaded!                                                                                                                                      | 
+| `successChat`           | Chat successfully loaded!                                                                                                                                      |
+
 ```javascript
 const venom = require('venom-bot');
 venom
@@ -173,7 +174,7 @@ venom
     undefined,
     (statusSession, session) => {
       console.log('Status Session: ', statusSession);
-      //return isLogged || notLogged || browserClose || qrReadSuccess || qrReadFail || autocloseCalled || desconnectedMobile || deleteToken || chatsAvailable || deviceNotConnected || serverWssNotConnected || noOpenBrowser || initBrowser || openBrowser || connectBrowserWs || initWhatsapp || erroPageWhatsapp || successPageWhatsapp || waitForLogin || waitChat || successChat
+      //return isLogged || notLogged || browserClose || qrReadSuccess || qrReadFail || autocloseCalled || disconnectedMobile || deleteToken || chatsAvailable || deviceNotConnected || serverWssNotConnected || noOpenBrowser || initBrowser || openBrowser || connectBrowserWs || initWhatsapp || erroPageWhatsapp || successPageWhatsapp || waitForLogin || waitChat || successChat
       //Create session wss return "serverClose" case server for close
       console.log('Session name: ', session);
     },
@@ -620,12 +621,14 @@ const url = await client.getProfilePicFromServer('000000000000@c.us');
 const chat = await client.getChat('000000000000@c.us');
 
 // Check if the number exists
-const chat = await client.checkNumberStatus('000000000000@c.us')
-.then((result) => {
+const chat = await client
+  .checkNumberStatus('000000000000@c.us')
+  .then((result) => {
     console.log('Result: ', result); //return object success
-}).catch((erro) => {
+  })
+  .catch((erro) => {
     console.error('Error when sending: ', erro); //return object error
-});
+  });
 ```
 
 ## Group Functions
@@ -697,13 +700,11 @@ await client.setProfilePic('path/to/image.jpg');
 
 // Get device info
 await client.getHostDevice();
-
 ```
 
 ## Device Functions
 
 ```javascript
-
 // Disconnect from service
 await client.logout();
 
@@ -872,7 +873,6 @@ await client.blockContact('000000000000@c.us');
 
 // Unlocks contacts (returns true if it works)
 await client.unblockContact('000000000000@c.us');
-
 ```
 
 ## Misc
@@ -952,7 +952,6 @@ The auto close is enabled by default and the timeout is set to 60 sec.
 Receives the time in milliseconds to countdown until paired.
 
 Use "autoClose: 0 | false" to disable auto closing.
-
 
 ## Development
 

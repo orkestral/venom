@@ -482,11 +482,11 @@ export const storeObjects = [
     conditions: (module) => (module.sendRevokeMsgs ? module.sendRevokeMsgs : null),
   },
   {
-    id:"createNewsletterQuery",
+    id: "createNewsletterQuery",
     conditions: (module) => (module.createNewsletterQuery ? module : null)
   },
   {
-    id:"userJidToUserWid",
+    id: "userJidToUserWid",
     conditions: (module) => (module.newsletterJidToWid ? module : null)
   },
 

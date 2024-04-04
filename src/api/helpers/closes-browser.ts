@@ -14,7 +14,7 @@ export async function checkingCloses(
           await new Promise((r) => setTimeout(r, 2000));
           if (
             browser['isClose'] ||
-            (mergedOptions.browserWS && !browser.isConnected())
+            (mergedOptions.browserWS && !browser.connected)
           ) {
             if (mergedOptions.browserWS) {
               browser.disconnect();

@@ -174,7 +174,9 @@ window.getModuleList = function () {
           try {
             self.ErrorGuard.skipGuardGlobal(true);
             Object.assign(modules[mod], self.importNamespace(mod));
-          } catch (e) {}
+          } catch (error) {
+            console.error('Error on importNamespace', error);
+          }
         }
       }
     });
