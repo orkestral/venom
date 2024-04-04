@@ -107,9 +107,11 @@ export async function initWhatsapp(
       waitUntil: 'domcontentloaded'
     });
 
-    waPage.on('pageerror', ({ message }) => {
-      const erroLogType1 = message.includes('RegisterEffect is not a function');
-      const erroLogType2 = message.includes('[Report Only]');
+    waPage.on('pageerror', (error) => {
+      const erroLogType1 = error?.message?.includes(
+        'RegisterEffect is not a function'
+      );
+      const erroLogType2 = error?.message?.includes('[Report Only]');
       if (erroLogType1 || erroLogType2) {
         waPage.evaluate(() => {
           localStorage.clear();
@@ -233,11 +235,7 @@ async function getChromeVersionBash(executablePath: string): Promise<string> {
     let command = '';
 
     if (platform === 'linux') {
-      if (executablePath.includes('chromium')) {
-        command = 'chromium-browser --version';
-      } else if (executablePath.includes('chrome')) {
-        command = 'google-chrome --version';
-      }
+      command = `${executablePath} --version`;
     } else if (platform === 'darwin' && executablePath.includes('Chrome')) {
       command =
         '/Applications/Google\\ Chrome.app/Contents/MacOS/Google\\ Chrome --version';
@@ -252,7 +250,7 @@ async function getChromeVersionBash(executablePath: string): Promise<string> {
       return notCheckText;
     }
 
-    const version = stdout.trim().split(' ')[2];
+    const version = stdout.trim().split(' ').pop();
     return version;
   } catch (error) {
     return notCheckText;
