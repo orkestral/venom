@@ -1,7 +1,6 @@
 import { Whatsapp } from '../api/whatsapp';
 import { CreateConfig, defaultOptions } from '../config/create-config';
 import { initWhatsapp, initBrowser, statusLog } from './browser';
-import { welcomeScreen } from './welcome';
 import { getSpinnies } from '../utils/spinnies';
 import {
   SocketState,
@@ -158,14 +157,6 @@ export async function create(
       disableSpins: options ? options.disableSpins : false
     });
 
-    spinnies.add(`donate-${session}`, {
-      text: `....`
-    });
-
-    spinnies.fail(`donate-${session}`, {
-      text: `Help Keep This Project Going! Know more: https://github.com/orkestral/venom/blob/master/docs/getting-started/donate.md`
-    });
-
     spinnies.add(`node-version-${session}`, {
       text: `check nodeJs version...`
     });
@@ -188,10 +179,6 @@ export async function create(
     await checkUpdates();
 
     const mergedOptions = { ...defaultOptions, ...options };
-
-    if (!mergedOptions.disableWelcome) {
-      welcomeScreen();
-    }
 
     statusFind && statusFind('initBrowser', session);
 
@@ -364,7 +351,7 @@ export async function create(
                 text: 'Was disconnected!'
               });
               document.querySelectorAll('.MLTJU p')[0].textContent;
-              statusFind && statusFind('desconnected', session);
+              statusFind && statusFind('disconnected', session);
             }
 
             if (interFace.info === InterfaceState.OPENING) {
@@ -404,7 +391,10 @@ export async function create(
           if (stateStream === SocketStream.DISCONNECTED) {
             const mode = await page
               .evaluate(() => window?.Store?.Stream?.mode)
-              .catch(() => {});
+              .catch(() => {
+                console.error('stream mode error');
+              });
+
             if (
               mode === InterfaceMode.QR
               // && checkFileJson(mergedOptions, session)
@@ -413,7 +403,7 @@ export async function create(
                 spinnies.add(`whatzapp-qr-${session}`, {
                   text: 'check....'
                 });
-                statusFind('desconnectedMobile', session);
+                statusFind('disconnectedMobile', session);
                 spinnies.fail(`whatzapp-qr-${session}`, {
                   text: 'Disconnected by cell phone!'
                 });
@@ -462,6 +452,7 @@ export async function create(
           return reject('Not Logged');
         }
 
+        // TODO entender por que não ta funcionando ou se ta
         let waitLoginPromise = null;
         client
           .onStateChange(async (state) => {
@@ -485,7 +476,9 @@ export async function create(
               await waitLoginPromise;
             }
           })
-          .catch();
+          .catch((error) => {
+            console.log('error=', error);
+          });
       }
 
       statusFind && statusFind('waitChat', session);
@@ -500,6 +493,7 @@ export async function create(
         });
       } catch {}
 
+      // TODO verificar chamada duplicada
       await client.initService();
       await client.addChatWapi();
 
