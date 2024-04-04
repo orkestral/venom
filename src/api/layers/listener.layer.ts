@@ -58,26 +58,27 @@ export class ListenerLayer extends ProfileLayer {
     });
   }
 
+  // TODO fix interface state loading forever
   public async initialize() {
-    const functions = [...Object.values(ExposedFn)];
+    try {
+      const functions = [...Object.values(ExposedFn)];
 
-    for (const func of functions) {
-      const has = await this.page
-        .evaluate((func) => typeof window[func] === 'function', func)
-        .catch(() => false);
+      for (const func of functions) {
+        const has = await this.page
+          .evaluate((func) => typeof window[func] === 'function', func)
+          .catch(() => false);
 
-      if (!has) {
-        await this.page
-          .exposeFunction(func, (...args: any) =>
-            this.listenerEmitter.emit(func, ...args)
-          )
-          .catch(() => {});
+        if (!has) {
+          await this.page
+            .exposeFunction(func, (...args: any) =>
+              this.listenerEmitter.emit(func, ...args)
+            )
+            .catch(() => {});
+        }
       }
-    }
 
-    this.addMsg();
-    await this.page
-      .evaluate(() => {
+      await this.addMsg();
+      await this.page.evaluate(() => {
         window.WAPI.onInterfaceChange((e: any) => {
           window.onInterfaceChange(e);
         });
@@ -107,15 +108,16 @@ export class ListenerLayer extends ProfileLayer {
         window.WAPI.onPoll((e: any) => {
           window.onPoll(e);
         });
-      })
-      .catch(() => {});
+      });
+    } catch (error) {
+      console.error('Error in listener.layer.ts -> initialize():', error);
+    }
   }
 
   public async addMsg() {
-    this.page
-      .evaluate(() => {
-        let isHeroEqual = {};
-        // try {
+    await this.page.evaluate(() => {
+      let isHeroEqual = {};
+      window.WAPI.waitForStore(['Chat', 'Msg'], () => {
         window.Store.Msg.on('add', async (newMessage) => {
           if (!Object.is(isHeroEqual, newMessage)) {
             isHeroEqual = newMessage;
@@ -129,9 +131,8 @@ export class ListenerLayer extends ProfileLayer {
             }
           }
         });
-        // } catch { }
-      })
-      .catch(() => {});
+      });
+    });
   }
 
   public async onPoll(fn: (ack: any) => void) {

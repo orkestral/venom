@@ -16,14 +16,17 @@ export class Whatsapp extends ControlsLayer {
     options?: CreateConfig
   ) {
     super(browser, page, session, options);
-    this.initService().finally();
+
     this.page.on('load', async () => {
-      await this.initialize();
-      await page
-        .waitForSelector('#app .two', { visible: true })
-        .catch(() => {});
-      await this.initService();
-      await this.addChatWapi();
+      try {
+        await this.initService();
+        await page
+          .waitForSelector('#app .two', { visible: true })
+          .catch(() => {});
+        await this.addChatWapi();
+      } catch (error) {
+        console.error('failed loading page', error);
+      }
     });
   }
 
@@ -37,6 +40,7 @@ export class Whatsapp extends ControlsLayer {
         this.options.forceWebpack === false &&
         this.options.webVersion === false
       ) {
+        // NOTE return whatsapp version
         const actualWebVersion = await this.page.evaluate(() => {
           return window['Debug'] && window['Debug'].VERSION
             ? window['Debug'].VERSION
@@ -72,7 +76,9 @@ export class Whatsapp extends ControlsLayer {
       await this.page.evaluate(middleware_script);
 
       await this.initialize();
-    } catch {}
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   async addChatWapi() {
