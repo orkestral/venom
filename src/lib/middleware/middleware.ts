@@ -13,8 +13,8 @@ enum ExposedFn {
   });
 });
 
-(window as any).WAPI.waitNewAcknowledgements(function (data: any) {
-  if (window[ExposedFn.OnAck]) {
-    window[ExposedFn.OnAck](data);
-  }
-});
+// (window as any).WAPI.waitNewAcknowledgements(function (data: any) {
+//   if (window[ExposedFn.OnAck]) {
+//     window[ExposedFn.OnAck](data);
+//   }
+// });
