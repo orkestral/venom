@@ -1,16 +1,16 @@
-import { Page, Browser } from 'puppeteer';
-import { HostLayer } from './host.layer';
-import * as path from 'path';
-const { exec } = require('child_process');
+import { Page, Browser } from 'puppeteer'
+import { HostLayer } from './host.layer'
+import * as path from 'path'
+const { exec } = require('child_process')
 
-const fs = require('fs');
+const fs = require('fs')
 import {
   base64MimeType,
   fileToBase64,
   downloadFileToBase64,
-  resizeImg
-} from '../helpers';
-import { CreateConfig } from '../../config/create-config';
+  resizeImg,
+} from '../helpers'
+import { CreateConfig } from '../../config/create-config'
 
 export class ProfileLayer extends HostLayer {
   constructor(
@@ -19,14 +19,14 @@ export class ProfileLayer extends HostLayer {
     session?: string,
     options?: CreateConfig
   ) {
-    super(browser, page, session, options);
+    super(browser, page, session, options)
   }
 
   public async clearToken() {
     await this.page.evaluate(() => {
-      localStorage.clear();
-      window.location.reload();
-    });
+      localStorage.clear()
+      window.location.reload()
+    })
   }
 
   /**
@@ -42,13 +42,13 @@ export class ProfileLayer extends HostLayer {
         id,
         time,
         type
-      );
+      )
       if (result['erro'] == true) {
-        reject(result);
+        reject(result)
       } else {
-        resolve(result);
+        resolve(result)
       }
-    });
+    })
   }
 
   /**
@@ -56,7 +56,7 @@ export class ProfileLayer extends HostLayer {
    * @param string types "dark" or "light"
    */
   public setTheme(type: string) {
-    return this.page.evaluate((type) => WAPI.setTheme(type), type);
+    return this.page.evaluate((type) => WAPI.setTheme(type), type)
   }
 
   /**
@@ -66,10 +66,10 @@ export class ProfileLayer extends HostLayer {
   public async setProfileStatus(status: string) {
     return await this.page.evaluate(
       ({ status }) => {
-        WAPI.setMyStatus(status);
+        WAPI.setMyStatus(status)
       },
       { status }
-    );
+    )
   }
 
   /**
@@ -82,33 +82,33 @@ export class ProfileLayer extends HostLayer {
       'image/png',
       'image/jpg',
       'image/jpeg',
-      'image/webp'
-    ]);
+      'image/webp',
+    ])
     if (!b64) {
-      b64 = await fileToBase64(path);
+      b64 = await fileToBase64(path)
     }
     if (b64) {
       const buff = Buffer.from(
         b64.replace(/^data:image\/(png|jpe?g|webp);base64,/, ''),
         'base64'
-      );
-      const mimeInfo = base64MimeType(b64);
+      )
+      const mimeInfo = base64MimeType(b64)
 
       if (!mimeInfo || mimeInfo.includes('image')) {
-        let _webb64_96 = await resizeImg(buff, { width: 96, height: 96 }),
-          _webb64_640 = await resizeImg(buff, { width: 640, height: 640 });
-        let obj = { a: _webb64_640, b: _webb64_96 };
+        const _webb64_96 = await resizeImg(buff, { width: 96, height: 96 }),
+          _webb64_640 = await resizeImg(buff, { width: 640, height: 640 })
+        const obj = { a: _webb64_640, b: _webb64_96 }
 
         return await this.page.evaluate(
           ({ obj, to }) => WAPI.setProfilePic(obj, to),
           {
             obj,
-            to
+            to,
           }
-        );
+        )
       } else {
-        console.log('Not an image, allowed formats png, jpeg and webp');
-        return false;
+        console.log('Not an image, allowed formats png, jpeg and webp')
+        return false
       }
     }
   }
@@ -120,17 +120,17 @@ export class ProfileLayer extends HostLayer {
   public async setProfileName(name: string) {
     return this.page.evaluate(
       ({ name }) => {
-        WAPI.setMyName(name);
+        WAPI.setMyName(name)
       },
       { name }
-    );
+    )
   }
 
   public async delProfile() {
     if (!this.page.isClosed()) {
-      await this.page.evaluate(() => WAPI.logout()).catch(() => {});
-      await this.page.close().catch(() => {});
-      await this.browser.close().catch(() => {});
+      await this.page.evaluate(() => WAPI.logout()).catch(() => {})
+      await this.page.close().catch(() => {})
+      await this.browser.close().catch(() => {})
       const folderSession = path.join(
         path.resolve(
           process.cwd(),
@@ -138,15 +138,15 @@ export class ProfileLayer extends HostLayer {
           this.options.folderNameToken,
           this.session
         )
-      );
+      )
       if (fs.existsSync(folderSession)) {
         try {
           fs.rmSync(folderSession, {
             recursive: true,
-            force: true
-          });
+            force: true,
+          })
         } catch {
-          exec(`rm -Rf ${folderSession}`).catch(() => {});
+          exec(`rm -Rf ${folderSession}`).catch(() => {})
         }
       }
     }

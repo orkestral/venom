@@ -1,4 +1,4 @@
-const path = require('path');
+const path = require('path')
 
 module.exports = {
   entry: './wapi.js',
@@ -6,6 +6,6 @@ module.exports = {
   // devtool: 'source-map',
   output: {
     path: path.resolve(__dirname, '../../../dist/lib/wapi'),
-    filename: 'wapi.js'
-  }
-};
+    filename: 'wapi.js',
+  },
+}

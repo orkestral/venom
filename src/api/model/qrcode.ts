@@ -1,4 +1,4 @@
 export interface ScrapQrcode {
-  base64Image: string;
-  urlCode: string;
+  base64Image: string
+  urlCode: string
 }

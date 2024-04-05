@@ -1,8 +1,8 @@
-import { Page, Browser } from 'puppeteer';
-import { CreateConfig } from '../../config/create-config';
-import { WhatsappProfile } from '../model';
-import { SenderLayer } from './sender.layer';
-import { checkValuesSender } from '../helpers/layers-interface';
+import { Page, Browser } from 'puppeteer'
+import { CreateConfig } from '../../config/create-config'
+import { WhatsappProfile } from '../model'
+import { SenderLayer } from './sender.layer'
+import { checkValuesSender } from '../helpers/layers-interface'
 
 export class RetrieverLayer extends SenderLayer {
   constructor(
@@ -11,7 +11,7 @@ export class RetrieverLayer extends SenderLayer {
     session?: string,
     options?: CreateConfig
   ) {
-    super(browser, page, session, options);
+    super(browser, page, session, options)
   }
 
   /**
@@ -37,38 +37,38 @@ export class RetrieverLayer extends SenderLayer {
       ({ chatId, type, idateStart, time, limit }) =>
         WAPI.getAllMessagesDate(chatId, type, idateStart, time, limit),
       { chatId, type, idateStart, time, limit }
-    );
+    )
   }
 
   public async getNewMessageId(chatId: string) {
     return new Promise(async (resolve, reject) => {
-      const typeFunction = 'getNewMessageId';
-      const type = 'string';
+      const typeFunction = 'getNewMessageId'
+      const type = 'string'
       const check = [
         {
           param: 'text',
           type: type,
           value: chatId,
           function: typeFunction,
-          isUser: true
-        }
-      ];
-      const validating = checkValuesSender(check);
+          isUser: true,
+        },
+      ]
+      const validating = checkValuesSender(check)
       if (typeof validating === 'object') {
-        return reject(validating);
+        return reject(validating)
       }
 
       const result = await this.page.evaluate(
         (chatId: string) => WAPI.getNewMessageId(chatId),
         chatId
-      );
+      )
 
       if (result['erro'] == true) {
-        return reject(result);
+        return reject(result)
       } else {
-        return resolve(result);
+        return resolve(result)
       }
-    });
+    })
   }
   /**
    * Returns a list of mute and non-mute users
@@ -79,7 +79,7 @@ export class RetrieverLayer extends SenderLayer {
     return await this.page.evaluate(
       (type: string) => WAPI.getListMute(type),
       type
-    );
+    )
   }
 
   /**
@@ -87,7 +87,7 @@ export class RetrieverLayer extends SenderLayer {
    * @returns obj
    */
   public async getStateConnection() {
-    return await this.page.evaluate(() => WAPI.getStateConnection());
+    return await this.page.evaluate(() => WAPI.getStateConnection())
   }
 
   /**
@@ -95,7 +95,7 @@ export class RetrieverLayer extends SenderLayer {
    * @returns string light or dark
    */
   public async getTheme() {
-    return await this.page.evaluate(() => WAPI.getTheme());
+    return await this.page.evaluate(() => WAPI.getTheme())
   }
 
   /**
@@ -103,7 +103,7 @@ export class RetrieverLayer extends SenderLayer {
    * @returns array of [0,1,2,3....]
    */
   public async getBlockList() {
-    return await this.page.evaluate(() => WAPI.getBlockList());
+    return await this.page.evaluate(() => WAPI.getBlockList())
   }
 
   /**
@@ -112,9 +112,9 @@ export class RetrieverLayer extends SenderLayer {
    */
   public async getAllChats() {
     return await this.page.evaluate(() => {
-      let chats = WAPI.getAllChats();
-      return chats;
-    });
+      const chats = WAPI.getAllChats()
+      return chats
+    })
   }
 
   /**
@@ -123,9 +123,9 @@ export class RetrieverLayer extends SenderLayer {
    */
   public async getAllChatsNewMsg() {
     return await this.page.evaluate(() => {
-      let chats = WAPI.getAllChatsWithNewMsg();
-      return chats;
-    });
+      const chats = WAPI.getAllChatsWithNewMsg()
+      return chats
+    })
   }
 
   /**
@@ -134,10 +134,10 @@ export class RetrieverLayer extends SenderLayer {
    */
   public async getAllChatsContacts() {
     return await this.page.evaluate(async () => {
-      let chats = WAPI.getAllChats(),
-        filter = (await chats).filter((chat) => chat.kind === 'chat');
-      return filter;
-    });
+      const chats = WAPI.getAllChats(),
+        filter = (await chats).filter((chat) => chat.kind === 'chat')
+      return filter
+    })
   }
 
   /**
@@ -150,13 +150,13 @@ export class RetrieverLayer extends SenderLayer {
       const result: WhatsappProfile = await this.page.evaluate(
         (contactId) => WAPI.checkNumberStatus(contactId),
         contactId
-      );
+      )
       if (result['status'] !== 200) {
-        reject(result);
+        reject(result)
       } else {
-        resolve(result);
+        resolve(result)
       }
-    });
+    })
   }
 
   /**
@@ -168,7 +168,7 @@ export class RetrieverLayer extends SenderLayer {
       (withNewMessageOnly: boolean) =>
         WAPI.getAllChatsWithMessages(withNewMessageOnly),
       withNewMessageOnly
-    );
+    )
   }
 
   /**
@@ -178,7 +178,7 @@ export class RetrieverLayer extends SenderLayer {
   public async getChatContactNewMsg() {
     // prettier-ignore
     const chats = await this.page.evaluate(() => WAPI.getAllChatsWithNewMsg());
-    return chats.filter((chat) => chat.kind === 'chat');
+    return chats.filter((chat) => chat.kind === 'chat')
   }
 
   /**
@@ -190,7 +190,7 @@ export class RetrieverLayer extends SenderLayer {
     return this.page.evaluate(
       (contactId) => WAPI.getContact(contactId),
       contactId
-    );
+    )
   }
 
   /**
@@ -198,7 +198,7 @@ export class RetrieverLayer extends SenderLayer {
    * @returns array of [Contact]
    */
   public async getAllContacts() {
-    return await this.page.evaluate(() => WAPI.getAllContacts());
+    return await this.page.evaluate(() => WAPI.getAllContacts())
   }
 
   /**
@@ -207,9 +207,9 @@ export class RetrieverLayer extends SenderLayer {
    */
   public async getAllChatsTransmission() {
     return await this.page.evaluate(async () => {
-      let chats = WAPI.getAllChats();
-      return (await chats).filter((chat) => chat.kind === 'broadcast');
-    });
+      const chats = WAPI.getAllChats()
+      return (await chats).filter((chat) => chat.kind === 'broadcast')
+    })
   }
 
   /**
@@ -221,7 +221,7 @@ export class RetrieverLayer extends SenderLayer {
     return await this.page.evaluate(
       (contactId) => WAPI.getChatById(contactId),
       contactId
-    );
+    )
   }
 
   /**
@@ -231,7 +231,7 @@ export class RetrieverLayer extends SenderLayer {
    * @deprecated
    */
   public async getChat(contactId: string) {
-    return await this.getChatById(contactId);
+    return await this.getChatById(contactId)
   }
 
   /**
@@ -243,7 +243,7 @@ export class RetrieverLayer extends SenderLayer {
     return this.page.evaluate(
       (chatId) => WAPI.getProfilePicFromServer(chatId),
       chatId
-    );
+    )
   }
 
   /**
@@ -256,7 +256,7 @@ export class RetrieverLayer extends SenderLayer {
     return this.page.evaluate(
       (contactId: string) => WAPI.loadEarlierMessages(contactId),
       contactId
-    );
+    )
   }
 
   /**
@@ -267,7 +267,7 @@ export class RetrieverLayer extends SenderLayer {
     return this.page.evaluate(
       (contactId: string) => WAPI.getStatus(contactId),
       contactId
-    );
+    )
   }
 
   /**
@@ -277,31 +277,31 @@ export class RetrieverLayer extends SenderLayer {
    */
   public async getNumberProfile(contactId: string) {
     return new Promise(async (resolve, reject) => {
-      const typeFunction = 'getNumberProfile';
-      const type = 'string';
+      const typeFunction = 'getNumberProfile'
+      const type = 'string'
       const check = [
         {
           param: 'contactId',
           type: type,
           value: contactId,
           function: typeFunction,
-          isUser: true
-        }
-      ];
-      const validating = checkValuesSender(check);
+          isUser: true,
+        },
+      ]
+      const validating = checkValuesSender(check)
       if (typeof validating === 'object') {
-        return reject(validating);
+        return reject(validating)
       }
       const result = this.page.evaluate(
         (contactId: string) => WAPI.getNumberProfile(contactId),
         contactId
-      );
+      )
       if (result['erro'] == true) {
-        reject(result);
+        reject(result)
       } else {
-        resolve(result);
+        resolve(result)
       }
-    });
+    })
   }
 
   /**
@@ -309,7 +309,7 @@ export class RetrieverLayer extends SenderLayer {
    * @returns boolean
    */
   public async isBeta() {
-    return await this.page.evaluate(() => WAPI.isBeta());
+    return await this.page.evaluate(() => WAPI.isBeta())
   }
 
   /**
@@ -319,7 +319,7 @@ export class RetrieverLayer extends SenderLayer {
     return await this.page.evaluate(
       (unread) => WAPI.getUnreadMessages(unread),
       unread
-    );
+    )
   }
 
   /**
@@ -339,7 +339,7 @@ export class RetrieverLayer extends SenderLayer {
       ({ chatId, includeMe, includeNotifications }) =>
         WAPI.getAllMessagesInChat(chatId, includeMe, includeNotifications),
       { chatId, includeMe, includeNotifications }
-    );
+    )
   }
 
   /**
@@ -362,7 +362,7 @@ export class RetrieverLayer extends SenderLayer {
           includeNotifications
         ),
       { chatId, includeMe, includeNotifications }
-    );
+    )
   }
 
   /**
@@ -373,7 +373,7 @@ export class RetrieverLayer extends SenderLayer {
     return await this.page.evaluate(
       (chatId: string) => WAPI.getChatIsOnline(chatId),
       chatId
-    );
+    )
   }
 
   /**
@@ -384,6 +384,6 @@ export class RetrieverLayer extends SenderLayer {
     return await this.page.evaluate(
       (chatId: string) => WAPI.getLastSeen(chatId),
       chatId
-    );
+    )
   }
 }

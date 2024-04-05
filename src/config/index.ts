@@ -1,1 +1,1 @@
-export { options, defaultOptions } from './options';
+export { options, defaultOptions } from './options'

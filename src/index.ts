@@ -1,4 +1,4 @@
-export * from './api/model';
+export * from './api/model'
 export {
   AckType,
   ChatState,
@@ -7,14 +7,14 @@ export {
   MessageType,
   SocketState,
   InterfaceMode,
-  InterfaceState
-} from './api/model/enum';
-export { Whatsapp } from './api/whatsapp';
-export { CreateConfig } from './config/create-config';
-export { connect } from './controllers/init';
+  InterfaceState,
+} from './api/model/enum'
+export { Whatsapp } from './api/whatsapp'
+export { CreateConfig } from './config/create-config'
+export { connect } from './controllers/init'
 export {
   create,
   CatchQR,
   CreateOptions,
-  StatusFind
-} from './controllers/initializer';
+  StatusFind,
+} from './controllers/initializer'

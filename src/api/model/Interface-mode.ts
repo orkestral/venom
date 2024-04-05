@@ -1,6 +1,6 @@
-import { InterfaceState, InterfaceMode } from '../model/enum';
+import { InterfaceState, InterfaceMode } from '../model/enum'
 export interface InterfaceChangeMode {
-  displayInfo: InterfaceState;
-  mode: InterfaceMode;
-  info: InterfaceState;
+  displayInfo: InterfaceState
+  mode: InterfaceMode
+  info: InterfaceState
 }
