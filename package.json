@@ -134,6 +134,7 @@
     "npm-check-updates": "^16.14.12",
     "ora": "^7.0.1",
     "os": "^0.1.2",
+    "pino": "^8.19.0",
     "puppeteer": "^21.6.1",
     "puppeteer-core": "^21.6.1",
     "puppeteer-extra": "^3.3.6",
@@ -142,7 +143,6 @@
     "qrcode-terminal": "^0.12.0",
     "sanitize-filename": "^1.6.3",
     "sharp": "^0.33.1",
-    "spinnies": "^0.5.1",
     "unzipper": "^0.10.14",
     "ws": "^8.8.0"
   }
