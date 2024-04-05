@@ -46,7 +46,6 @@
       "node",
       "puppeteer",
       "qrcode-terminal",
-      "atob",
       "is-root",
       "mime-types",
       "qrcode",
