@@ -26,5 +26,5 @@ export enum GroupSettings {
    * `true` to enable
    * `false` to disable
    */
-  EPHEMERAL = 'ephemeral'
+  EPHEMERAL = 'ephemeral',
 }

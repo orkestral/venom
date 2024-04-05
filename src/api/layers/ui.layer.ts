@@ -1,7 +1,7 @@
-import { Page, Browser } from 'puppeteer';
-import { CreateConfig } from '../../config/create-config';
-import { GroupLayer } from './group.layer';
-import { checkValuesSender } from '../helpers/layers-interface';
+import { Page, Browser } from 'puppeteer'
+import { CreateConfig } from '../../config/create-config'
+import { GroupLayer } from './group.layer'
+import { checkValuesSender } from '../helpers/layers-interface'
 
 export class UILayer extends GroupLayer {
   constructor(
@@ -10,17 +10,17 @@ export class UILayer extends GroupLayer {
     session?: string,
     options?: CreateConfig
   ) {
-    super(browser, page, session, options);
+    super(browser, page, session, options)
   }
 
   /**
    * MouveMouse
    */
-  public async mouseMove(x: number, y: number) {
-    await this.page.mouse.move(0, 0);
-    await this.page.mouse.down();
-    await this.page.mouse.move(0, 100);
-    await this.page.mouse.up();
+  public async mouseMove() {
+    await this.page.mouse.move(0, 0)
+    await this.page.mouse.down()
+    await this.page.mouse.move(0, 100)
+    await this.page.mouse.up()
   }
 
   /**
@@ -31,9 +31,9 @@ export class UILayer extends GroupLayer {
     return await this.page.evaluate(
       ({ messages }) => WAPI.returnReply(messages),
       {
-        messages
+        messages,
       }
-    );
+    )
   }
 
   /**
@@ -43,32 +43,32 @@ export class UILayer extends GroupLayer {
    */
   public async openChat(chatId: string, force?: boolean) {
     return new Promise(async (resolve, reject) => {
-      const typeFunction = 'openChat';
-      const type = 'string';
+      const typeFunction = 'openChat'
+      const type = 'string'
       const check = [
         {
           param: 'text',
           type: type,
           value: chatId,
           function: typeFunction,
-          isUser: true
-        }
-      ];
-      const validating = checkValuesSender(check);
+          isUser: true,
+        },
+      ]
+      const validating = checkValuesSender(check)
       if (typeof validating === 'object') {
-        return reject(validating);
+        return reject(validating)
       }
       const result = await this.page.evaluate(
         ({ chatId, force }) => WAPI.openChat(chatId, force),
         { chatId, force }
-      );
+      )
 
       if (result['erro'] == true) {
-        return reject(result);
+        return reject(result)
       } else {
-        return resolve(result);
+        return resolve(result)
       }
-    });
+    })
   }
 
   /**
@@ -80,6 +80,6 @@ export class UILayer extends GroupLayer {
     return this.page.evaluate(
       (chatId: string) => WAPI.openChatAt(chatId, messageId),
       chatId
-    );
+    )
   }
 }

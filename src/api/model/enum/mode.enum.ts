@@ -27,5 +27,5 @@ export enum onMode {
    * Monitors the status of a message.
    * @description Used to receive notifications about the delivery status of a message.
    */
-  newOnAck = 'newOnAck'
+  newOnAck = 'newOnAck',
 }

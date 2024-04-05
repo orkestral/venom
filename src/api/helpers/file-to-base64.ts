@@ -1,5 +1,5 @@
-const mimeTypes = require('mime-types');
-import * as fs from 'fs';
+const mimeTypes = require('mime-types')
+import * as fs from 'fs'
 
 /**
  * Converts given file into base64 string
@@ -8,22 +8,22 @@ import * as fs from 'fs';
  */
 export async function fileToBase64(path: string, mime?: string) {
   if (fs.existsSync(path)) {
-    const base64 = fs.readFileSync(path, { encoding: 'base64' });
+    const base64 = fs.readFileSync(path, { encoding: 'base64' })
     if (mime === undefined) {
-      mime = await mimeTypes.lookup(path);
+      mime = await mimeTypes.lookup(path)
     }
-    const data = `data:${mime};base64,${base64}`;
-    return data;
+    const data = `data:${mime};base64,${base64}`
+    return data
   } else {
-    return false;
+    return false
   }
 }
 
 export async function Mine(path: string) {
   if (fs.existsSync(path)) {
-    const mime = await mimeTypes.lookup(path);
-    return mime;
+    const mime = await mimeTypes.lookup(path)
+    return mime
   } else {
-    return false;
+    return false
   }
 }

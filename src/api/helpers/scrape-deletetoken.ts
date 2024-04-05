@@ -1,19 +1,19 @@
-import { Page } from 'puppeteer';
+import { Page } from 'puppeteer'
 declare global {
   interface Window {
-    pathSession: any;
+    pathSession: any
   }
 }
 export async function scrapeDeleteToken(page: Page): Promise<boolean> {
   const result = await page
     .evaluate(() => {
-      const scrape = window.pathSession;
+      const scrape = window.pathSession
       if (scrape === true) {
-        return true;
+        return true
       } else {
-        return false;
+        return false
       }
     })
-    .catch(() => undefined);
-  return result;
+    .catch(() => undefined)
+  return result
 }

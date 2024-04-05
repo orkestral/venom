@@ -1,9 +1,9 @@
-import { Browser, Page } from 'puppeteer';
-import { ControlsLayer } from './controls.layer';
+import { Browser, Page } from 'puppeteer'
+import { ControlsLayer } from './controls.layer'
 
 export class BusinessLayer extends ControlsLayer {
   constructor(public page: Page, public browser: Browser) {
-    super(browser, page);
+    super(browser, page)
   }
 
   /**
@@ -13,10 +13,10 @@ export class BusinessLayer extends ControlsLayer {
   public async getBusinessProfilesProducts(id: string) {
     return this.page.evaluate(
       ({ id }) => {
-        WAPI.getBusinessProfilesProducts(id);
+        WAPI.getBusinessProfilesProducts(id)
       },
       { id }
-    );
+    )
   }
 
   /**
@@ -36,9 +36,9 @@ export class BusinessLayer extends ControlsLayer {
   ) {
     return this.page.evaluate(
       ({ to, base64, businessId, caption, productId }) => {
-        WAPI.sendImageWithProduct(base64, to, caption, businessId, productId);
+        WAPI.sendImageWithProduct(base64, to, caption, businessId, productId)
       },
       { to, base64, businessId, caption, productId }
-    );
+    )
   }
 }

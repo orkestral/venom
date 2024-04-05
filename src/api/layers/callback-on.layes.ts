@@ -1,13 +1,13 @@
-import { onMode } from '../model/enum';
-import { sleep } from '../helpers';
+import { onMode } from '../model/enum'
+import { sleep } from '../helpers'
 
 /**
  * attribution and behavior change of a given event
  */
 export class CallbackOnStatus {
-  public statusFind: any;
+  public statusFind: any
   constructor() {
-    this.statusFind = '';
+    this.statusFind = ''
   }
 
   /**
@@ -15,13 +15,13 @@ export class CallbackOnStatus {
    * @param event returns event status
    */
   async onChange(event: (status: any) => void) {
-    let change = null;
+    let change = null
     while (true) {
       if (this.statusFind !== change) {
-        change = this.statusFind;
-        event && event(change);
+        change = this.statusFind
+        event && event(change)
       }
-      await sleep(50);
+      await sleep(50)
     }
   }
 
@@ -35,38 +35,38 @@ export class CallbackOnStatus {
       case onMode.interfaceChange:
         this.onChange((event) => {
           if (event.onType === onMode.interfaceChange) {
-            callback(event);
+            callback(event)
           }
-        });
-        break;
+        })
+        break
       case onMode.newOnAck:
         this.onChange((event) => {
           if (event.onType === onMode.newOnAck) {
-            callback(event);
+            callback(event)
           }
-        });
-        break;
+        })
+        break
       case onMode.newMessage:
         this.onChange((event) => {
           if (event.onType === onMode.newMessage) {
-            callback(event);
+            callback(event)
           }
-        });
-        break;
+        })
+        break
       case onMode.qrcode:
         this.onChange((event) => {
           if (event.onType === onMode.qrcode) {
-            callback(event);
+            callback(event)
           }
-        });
-        break;
+        })
+        break
       case onMode.connection:
         this.onChange((event) => {
           if (event.onType === onMode.connection) {
-            callback(event);
+            callback(event)
           }
-        });
-        break;
+        })
+        break
     }
   }
 }

@@ -1,5 +1,5 @@
-const path = require('path');
-import { existsSync } from 'fs';
+const path = require('path')
+import { existsSync } from 'fs'
 
 export function checkFileJson(mergedOptions: any, Session: String) {
   const pathTokens: string = path.join(
@@ -8,10 +8,10 @@ export function checkFileJson(mergedOptions: any, Session: String) {
       mergedOptions.folderNameToken
     ),
     `${Session}.data.json`
-  );
+  )
   if (existsSync(pathTokens)) {
-    return true;
+    return true
   } else {
-    return false;
+    return false
   }
 }
