@@ -253,7 +253,7 @@ interface WAPI {
   takeOver: () => boolean;
   unblockContact: (messageId: string) => boolean;
   waitForStore: (store: string | string[], callback?: Function) => Promise<any>;
-  waitNewAcknowledgements: (callback: Function) => void;
+  // waitNewAcknowledgements: (callback: Function) => void;
   waitNewMessages: (rmCallback: boolean, callback: Function) => void;
   returnReply: (message: object) => object;
   onStreamChange: (callback: Function) => void;
