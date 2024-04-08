@@ -113,7 +113,13 @@ interface WAPI {
   ) => Promise<object>
   promoteParticipant: (groupId: string, contactId: string | string[]) => void
   removeParticipant: (groupId: string, contactId: string | string[]) => void
-  reply: (to: string, content: string, quotedMsg: string) => Promise<object>
+  reply: (
+    to: string,
+    content: string,
+    quotedMsg: string,
+    passID: any | undefined,
+    checkNumber: boolean | undefined
+  ) => Promise<object>
   restartService: () => boolean
   sendChatstate: (chatState: string | any, chatId: string) => void
   sendContactVcard: (
