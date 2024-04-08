@@ -327,7 +327,7 @@ export class ListenerLayer extends ProfileLayer {
     chatId: string,
     fn: (liveLocationChangedEvent: LiveLocation) => void
   ) {
-    const method = 'onLiveLocation_' + chatId.replace('_', '').replace('_', '')
+    const method = 'onLiveLocation_' + chatId.replace(/\_/g, '')
     return this.page
       .exposeFunction(method, (liveLocationChangedEvent: LiveLocation) =>
         fn(liveLocationChangedEvent)
@@ -341,6 +341,13 @@ export class ListenerLayer extends ProfileLayer {
           { chatId, method }
         )
       )
+      .catch((error) => {
+        logger.error(
+          `Error in listener.layer.ts -> onLiveLocation():${JSON.stringify(
+            error
+          )}`
+        )
+      })
   }
 
   /**
@@ -353,8 +360,7 @@ export class ListenerLayer extends ProfileLayer {
     groupId: string,
     fn: (participantChangedEvent: ParticipantEvent) => void
   ) {
-    const method =
-      'onParticipantsChanged_' + groupId.replace('_', '').replace('_', '')
+    const method = 'onParticipantsChanged_' + groupId.replace(/\_/g, '')
     return this.page
       .exposeFunction(method, (participantChangedEvent: ParticipantEvent) =>
         fn(participantChangedEvent)
@@ -368,6 +374,13 @@ export class ListenerLayer extends ProfileLayer {
           { groupId, method }
         )
       )
+      .catch((error) => {
+        logger.error(
+          `Error in listener.layer.ts -> onParticipantsChanged():${JSON.stringify(
+            error
+          )}`
+        )
+      })
   }
 
   /**
