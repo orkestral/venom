@@ -67,14 +67,11 @@ export async function reply(
         return checkID;
       }
 
-      console.log("CREATE ID VINNY", passId)
-
       const newMsgId = !passId
         ? await window.WAPI.getNewMessageId(chat.id._serialized, checkNumber)
         : await window.WAPI.setNewMessageId(passId, checkNumber);
 
 
-      console.log("CREATE ID", newMsgId)
       const fromwWid = await Store.MaybeMeUser.getMaybeMeUser();
       let inChat = await WAPI.getchatId(chat.id).catch(() => { });
       if (inChat) {
