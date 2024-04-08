@@ -6,7 +6,7 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "build:counter": "cd src/lib/counter/ && gulp",
-    "build:docs": "typedoc && git add docs/*",
+    "build:docs": "typedoc",
     "build:jsQR": "cd src/lib/jsQR/ && gulp",
     "build:middleware": "cd src/lib/middleware/ && webpack",
     "build:venom": "tsc",
@@ -20,7 +20,6 @@
     "commit": "cz",
     "fix:doc-theme": "shx cp ./node_modules/typedoc-default-themes/bin/default/partials/type.hbs ./node_modules/typedoc-plugin-pages/dist/theme/v2/partials/type.hbs",
     "fix:imports": "eslint --fix \"src/**/*.{js,jsx,ts,tsx}\" && npm run lint:fix",
-    "generate-api-docs": "npm run fix:doc-theme && typedoc",
     "lint:js": "npx eslint -c .eslintrc.cjs --ext .js src",
     "lint:ts": "npx eslint -c .eslintrc.cjs --ext .ts src",
     "lint": "npm run lint:ts && npm run lint:js",
@@ -109,9 +108,8 @@
     "release-it": "^16.1.0",
     "shx": "^0.3.4",
     "ts-loader": "^9.5.1",
-    "typedoc": "^0.25.7",
+    "typedoc": "^0.25.12",
     "typedoc-default-themes": "^0.12.10",
-    "typedoc-plugin-pages": "^1.1.0",
     "typescript": "^5.3.3",
     "webpack": "^5.89.0",
     "webpack-cli": "^5.0.1"
