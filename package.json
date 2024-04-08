@@ -128,8 +128,6 @@
     "dotenv": "^16.0.1",
     "esm": "^3.2.25",
     "futoin-hkdf": "^1.5.3",
-    "i": "^0.3.7",
-    "latest-lib": "^0.2.1",
     "mime-types": "^2.1.35",
     "npm-check-updates": "^16.14.12",
     "ora": "^7.0.1",
@@ -143,7 +141,6 @@
     "qrcode-terminal": "^0.12.0",
     "sanitize-filename": "^1.6.3",
     "sharp": "^0.33.1",
-    "unzipper": "^0.10.14",
-    "ws": "^8.8.0"
+    "unzipper": "^0.10.14"
   }
 }
