@@ -741,7 +741,9 @@ export class SenderLayer extends AutomateLayer {
   public async reply(
     to: string,
     content: string,
-    quotedMsg: string
+    quotedMsg: string,
+    passId?: any,
+    checkNumber?: boolean
   ): Promise<Message | object> {
     return new Promise(async (resolve, reject) => {
       const typeFunction = 'reply'
@@ -774,10 +776,10 @@ export class SenderLayer extends AutomateLayer {
         return reject(validating)
       }
       const result: object = await this.page.evaluate(
-        ({ to, content, quotedMsg }) => {
-          return WAPI.reply(to, content, quotedMsg)
+        ({ to, content, quotedMsg, passId, checkNumber }) => {
+          return WAPI.reply(to, content, quotedMsg, passId, checkNumber)
         },
-        { to, content, quotedMsg }
+        { to, content, quotedMsg, passId, checkNumber }
       )
 
       if (result['erro'] == true) {
