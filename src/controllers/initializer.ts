@@ -1,6 +1,6 @@
 import { Whatsapp } from '../api/whatsapp'
 import { CreateConfig, defaultOptions } from '../config/create-config'
-import { initWhatsapp, initBrowser, statusLog } from './browser'
+import { initWhatsapp, initBrowser } from './browser'
 import {
   SocketState,
   SocketStream,
@@ -250,12 +250,6 @@ export async function create(
 
       logger.debug(`[whatzapp-${session}] Page successfully accessed`)
 
-      // FIXME - verificar memory leak, é uma função async que fica rodando um while(true)
-      statusLog(page, session, (event) => {
-        logger.debug(`[whatzapp-${session}] event=${event}`)
-        statusFind && statusFind('introductionHistory', session, event)
-      })
-
       const client = new Whatsapp(browser, page, session, mergedOptions)
 
       if (browserInstance) {
@@ -382,7 +376,7 @@ export async function create(
                 // TODO verificar se a Store ja foi carregada ou não.
                 const isInterfaceSyncing =
                   !!document.querySelector('[tabindex="-1"]') &&
-                  window?.Store?.Stream?.mode === InterfaceMode.SYNCING &&
+                  window?.Store?.Stream?.mode === 'SYNCING' &&
                   window?.Store?.Stream?.obscurity === 'SHOW'
 
                 return isInterfaceSyncing
