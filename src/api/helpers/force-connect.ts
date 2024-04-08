@@ -1,5 +1,6 @@
 import { Page } from 'puppeteer'
 import { sleep } from '../../utils/sleep'
+
 export async function loadForceConnect(
   page: Page,
   callback: (infoLog: string | true) => void,
