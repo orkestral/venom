@@ -58,11 +58,6 @@ export interface CreateConfig {
    */
   logQR?: boolean
   /**
-   * Will disable Spinnies animation, useful for containers (docker) for a better log
-   * @default false
-   */
-  disableSpins?: boolean
-  /**
    * Will disable the welcoming message which appears in the beginning
    * @default false
    */
@@ -150,7 +145,6 @@ export const defaultOptions: CreateConfig = {
   browserArgs: puppeteerConfig.chromiumArgs,
   addBrowserArgs: [],
   puppeteerOptions: {},
-  disableSpins: false,
   disableWelcome: true,
   updatesLog: true,
   autoClose: 120000,
