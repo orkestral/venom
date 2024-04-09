@@ -118,12 +118,10 @@
     "cheerio": "^1.0.0-rc.12",
     "chrome-launcher": "0.15.2",
     "chrome-version": "^1.0.1",
-    "dotenv": "^16.0.1",
     "esm": "^3.2.25",
     "futoin-hkdf": "^1.5.3",
     "mime-types": "^2.1.35",
     "npm-check-updates": "^16.14.12",
-    "ora": "^7.0.1",
     "os": "^0.1.2",
     "pino": "^8.19.0",
     "puppeteer": "^21.6.1",
@@ -132,7 +130,6 @@
     "puppeteer-extra-plugin-stealth": "^2.11.2",
     "qrcode": "^1.5.1",
     "qrcode-terminal": "^0.12.0",
-    "sanitize-filename": "^1.6.3",
     "sharp": "^0.33.1",
     "unzipper": "^0.10.14"
   }
