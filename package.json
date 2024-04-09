@@ -120,8 +120,6 @@
     "async-mutex": "^0.5.0",
     "atob": "^2.1.2",
     "axios": "^1.4.0",
-    "boxen": "^5.1.1",
-    "chalk": "^4.0.0",
     "cheerio": "^1.0.0-rc.12",
     "chrome-launcher": "0.15.2",
     "chrome-version": "^1.0.1",
