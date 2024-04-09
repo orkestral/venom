@@ -58,6 +58,7 @@ export async function initWhatsapp(
 
     const { userPass, userProxy, addProxy } = options
 
+    // TODO criar proprio cache de versão e fazer download dele
     if (typeof options.webVersion === 'string' && options.webVersion.length) {
       await waPage.setRequestInterception(true)
       waPage.on('request', async (req) => {
