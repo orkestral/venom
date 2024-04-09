@@ -59,6 +59,7 @@ export async function initWhatsapp(
 
     const { userPass, userProxy, addProxy } = options
 
+    // TODO criar proprio cache de versão e fazer download dele
     if (typeof options.webVersion === 'string' && options.webVersion.length) {
       await waPage.setRequestInterception(true)
       waPage.on('request', async (req) => {
@@ -674,7 +675,7 @@ export async function statusLog(
       await sleep(200)
     } catch (error) {
       logger.error(
-        `[whatzapp-${session}] failed to log status: ${JSON.stringify(error)}`
+        `[whatzapp-${session}] failed to log status message: ${error.message} stack: ${error.stack}`
       )
     }
   }
