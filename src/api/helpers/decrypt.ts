@@ -1,6 +1,5 @@
 import * as crypto from 'crypto'
 import hkdf from 'futoin-hkdf'
-const atob = require('atob')
 import { ResponseType } from 'axios'
 
 export const makeOptions = (useragentOverride: string) => ({
@@ -85,7 +84,7 @@ const hexToBytes = (hexStr: any) => {
 }
 
 const base64ToBytes = (base64Str: any) => {
-  const binaryStr = atob(base64Str)
+  const binaryStr = Buffer.from(base64Str, 'base64').toString('binary')
   const byteArray = new Uint8Array(binaryStr.length)
   for (let i = 0; i < binaryStr.length; i++) {
     byteArray[i] = binaryStr.charCodeAt(i)
