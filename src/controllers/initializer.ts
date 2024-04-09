@@ -12,6 +12,7 @@ import { checkingCloses } from '../api/helpers'
 import { Browser, Page } from 'puppeteer'
 import { checkUpdates } from './check-up-to-date'
 import { logger } from '../utils/logger'
+import { handleCallBack } from '../utils/handle-callback'
 
 declare global {
   interface Window {
@@ -47,7 +48,7 @@ export type BrowserInstance = (
   client: Whatsapp
 ) => void
 
-export type interfaceChange = (
+export type InterfaceChange = (
   statusGet: InterfaceStateChange | string,
   session: string
 ) => void
@@ -105,7 +106,7 @@ export interface CreateOptions extends CreateConfig {
   /**
    * A callback will be received, customer interface information
    */
-  interfaceChange?: interfaceChange
+  interfaceChange?: InterfaceChange
 }
 
 /**
@@ -113,22 +114,12 @@ export interface CreateOptions extends CreateConfig {
  * @returns Whatsapp page, with this parameter you will be able to access the bot functions
  */
 export async function create(createOption: CreateOptions): Promise<Whatsapp>
+
 /**
  * Start the bot
  * You must pass a string type parameter, this parameter will be the name of the client's session. If the parameter is not passed, the section name will be "session".
  * @returns Whatsapp page, with this parameter you will be able to access the bot functions
  */
-
-export async function create(
-  sessionName: string,
-  catchQR?: CatchQR,
-  statusFind?: StatusFind,
-  options?: CreateConfig,
-  browserInstance?: BrowserInstance,
-  reconnectQrcode?: ReconnectQrcode,
-  interfaceChange?: interfaceChange
-): Promise<Whatsapp>
-
 export async function create(
   sessionOrOption: string | CreateOptions,
   catchQR?: CatchQR,
@@ -136,8 +127,8 @@ export async function create(
   options?: CreateConfig,
   browserInstance?: BrowserInstance,
   reconnectQrcode?: ReconnectQrcode,
-  interfaceChange?: interfaceChange
-): Promise<any> {
+  interfaceChange?: InterfaceChange
+): Promise<Whatsapp> {
   let session = 'session'
   return new Promise(async (resolve, reject) => {
     if (
@@ -153,9 +144,10 @@ export async function create(
       browserInstance = sessionOrOption.browserInstance || browserInstance
       options = sessionOrOption
     }
+    const mergedOptions = { ...defaultOptions, ...options }
 
+    // NOTE - Será que é necessário?
     logger.debug(`[node-version-${session}] check nodeJs version...`)
-
     const requiredNodeVersion = 16
     const currentNodeVersion = Number(process.versions.node.split('.')[0])
     if (currentNodeVersion < requiredNodeVersion) {
@@ -166,18 +158,15 @@ export async function create(
         `Outdated Node.js version. Node.js ${requiredNodeVersion} or higher is required. Please update Node.js.`
       )
     }
-
     logger.debug(
       `[node-version-${session}] Node.js version verified successfully!`
     )
 
+    // NOTE - Será que é necessário?
     await checkUpdates()
 
-    const mergedOptions = { ...defaultOptions, ...options }
-
-    statusFind && statusFind('initBrowser', session)
-
     // Initialize whatsapp
+    handleCallBack(statusFind, 'initBrowser', session)
     if (mergedOptions.browserWS) {
       logger.debug(`[browser-${session}] Waiting... checking the wss server...`)
     } else {

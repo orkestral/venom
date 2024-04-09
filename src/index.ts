@@ -15,6 +15,9 @@ export { connect } from './controllers/init'
 export {
   create,
   CatchQR,
+  BrowserInstance,
   CreateOptions,
+  InterfaceChange,
   StatusFind,
+  ReconnectQrcode,
 } from './controllers/initializer'

@@ -171,6 +171,7 @@ export function folderSession(
       fs.mkdirSync(folderSession, { recursive: true })
     }
 
+    // TODO - Entender diferença entre session token e multi aí
     const folderMulidevice = options.mkdirFolderToken
       ? path.join(
           path.resolve(
@@ -387,7 +388,6 @@ function downloadBash(): Promise<string | false> {
           }
         )
       }
-      resolve(false)
     } catch (error) {
       console.error(error)
       return reject(false)
@@ -420,6 +420,7 @@ export async function initBrowser(
       options.headless !== false &&
       options.headless !== true
     ) {
+      // TODO - Verificar sobre headless
       throw new Error('Now use only headless: "new", "true" or false')
     }
 
