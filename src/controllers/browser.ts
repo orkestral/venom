@@ -15,7 +15,6 @@ import { CreateConfig } from '../config/create-config'
 import { puppeteerConfig } from '../config/puppeteer.config'
 import StealthPlugin from 'puppeteer-extra-plugin-stealth'
 import { useragentOverride } from '../config/WAuserAgente'
-import { sleep } from '../utils/sleep'
 import * as os from 'os'
 import axios from 'axios'
 import { defaultOptions } from '../config/create-config'
@@ -639,45 +638,6 @@ function getWindowsChromeExecutablePath() {
     )
   } else {
     return null
-  }
-}
-
-export async function statusLog(
-  page: Page,
-  session: string,
-  callback: (infoLog: string) => void
-) {
-  while (true) {
-    try {
-      if (page.isClosed()) {
-        logger.debug(`[whatzapp-${session}] Page is closed`)
-        break
-      }
-
-      const infoLog: string = await page.evaluate(() => {
-        // TODO verificar o que é esse classe
-        const target = document.getElementsByClassName('_2dfCc')
-        if (target && target.length) {
-          if (
-            target[0]['innerText'] !== 'WhatsApp' &&
-            target[0]['innerText'] !== window['statusInicial']
-          ) {
-            window['statusInicial'] = target[0]['innerText']
-            return window['statusInicial']
-          }
-        }
-      })
-
-      if (infoLog) {
-        callback(infoLog)
-      }
-
-      await sleep(200)
-    } catch (error) {
-      logger.error(
-        `[whatzapp-${session}] failed to log status message: ${error.message} stack: ${error.stack}`
-      )
-    }
   }
 }
 

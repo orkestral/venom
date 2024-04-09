@@ -6,27 +6,6 @@
   "excludeProtected": true,
   "includeVersion": true,
   "out": "api-docs",
-  "theme": "pages-plugin",
-  "media": "media",
-  "pages": {
-    "groups": [
-      {
-        "title": "Getting Started",
-        "pages": [
-          {
-            "title": "Installation",
-            "source": "./docs/getting-started/installation.md"
-          },
-          {
-            "title": "Creating a Client",
-            "source": "./docs/getting-started/creating-client.md"
-          },
-          {
-            "title": "Basic Functions",
-            "source": "./docs/getting-started/basic-functions.md"
-          }
-        ]
-      }
-    ]
-  }
+  "theme": "default",
+  "media": "media"
 }
