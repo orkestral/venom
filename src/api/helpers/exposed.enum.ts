@@ -5,6 +5,7 @@ export enum ExposedFn {
   onParticipantsChanged = 'onParticipantsChanged',
   onStateChange = 'onStateChange',
   onIncomingCall = 'onIncomingCall',
+  onAddedToGroup = 'onAddedToGroup',
   onInterfaceChange = 'onInterfaceChange',
   onStreamChange = 'onStreamChange',
   onFilePicThumb = 'onFilePicThumb',
