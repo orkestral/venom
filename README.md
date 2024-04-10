@@ -107,16 +107,16 @@ Installing the current repository "you can download the beta version from the cu
 ```javascript
 // Supports ES6
 // import { create, Whatsapp } from 'venom-bot';
-const venom = require('venom-bot');
+const venom = require('venom-bot')
 
 venom
   .create({
-    session: 'session-name' //name of session
+    session: 'session-name', //name of session
   })
   .then((client) => start(client))
   .catch((erro) => {
-    console.log(erro);
-  });
+    console.log(erro)
+  })
 
 function start(client) {
   client.onMessage((message) => {
@@ -124,13 +124,13 @@ function start(client) {
       client
         .sendText(message.from, 'Welcome Venom 🕷')
         .then((result) => {
-          console.log('Result: ', result); //return object success
+          console.log('Result: ', result) //return object success
         })
         .catch((erro) => {
-          console.error('Error when sending: ', erro); //return object error
-        });
+          console.error('Error when sending: ', erro) //return object error
+        })
     }
-  });
+  })
 }
 ```
 
@@ -158,7 +158,7 @@ If you are using the `Linux` server do not forget to pass the args `--user-agent
 [Original parameters in browserArgs](https://github.com/orkestral/venom/blob/master/src/config/puppeteer.config.ts)
 
 ```javascript
-const venom = require('venom-bot');
+const venom = require('venom-bot')
 
 venom
   .create(
@@ -166,16 +166,16 @@ venom
     'sessionName', //Pass the name of the client you want to start the bot
     //catchQR
     (base64Qrimg, asciiQR, attempts, urlCode) => {
-      console.log('Number of attempts to read the qrcode: ', attempts);
-      console.log('Terminal qrcode: ', asciiQR);
-      console.log('base64 image string qrcode: ', base64Qrimg);
-      console.log('urlCode (data-ref): ', urlCode);
+      console.log('Number of attempts to read the qrcode: ', attempts)
+      console.log('Terminal qrcode: ', asciiQR)
+      console.log('base64 image string qrcode: ', base64Qrimg)
+      console.log('urlCode (data-ref): ', urlCode)
     },
     // statusFind
     (statusSession, session) => {
-      console.log('Status Session: ', statusSession); //return isLogged || notLogged || browserClose || qrReadSuccess || qrReadFail || autocloseCalled || disconnectedMobile || deleteToken || chatsAvailable || deviceNotConnected || serverWssNotConnected || noOpenBrowser || initBrowser || openBrowser || connectBrowserWs || initWhatsapp || erroPageWhatsapp || successPageWhatsapp || waitForLogin || waitChat || successChat
+      console.log('Status Session: ', statusSession) //return isLogged || notLogged || browserClose || qrReadSuccess || qrReadFail || autocloseCalled || disconnectedMobile || deleteToken || chatsAvailable || deviceNotConnected || serverWssNotConnected || noOpenBrowser || initBrowser || openBrowser || initWhatsapp || erroPageWhatsapp || successPageWhatsapp || waitForLogin || waitChat || successChat
       //Create session wss return "serverClose" case server for close
-      console.log('Session name: ', session);
+      console.log('Session name: ', session)
     },
     // options
     {
@@ -186,7 +186,6 @@ venom
       devtools: false, // Open devtools by default
       debug: false, // Opens a debug session
       logQR: true, // Logs QR automatically in terminal
-      browserWS: '', // If u want to use browserWSEndpoint
       browserArgs: [''], // Original parameters  ---Parameters to be added into the chrome browser instance
       addBrowserArgs: [''], // Add broserArgs without overwriting the project's original
       puppeteerOptions: {}, // Will be passed to puppeteer.launch
@@ -197,26 +196,26 @@ venom
       createPathFileToken: false, // creates a folder when inserting an object in the client's browser, to work it is necessary to pass the parameters in the function create browserSessionToken
       addProxy: [''], // Add proxy server exemple : [e1.p.webshare.io:01, e1.p.webshare.io:01]
       userProxy: '', // Proxy login username
-      userPass: '' // Proxy password
+      userPass: '', // Proxy password
     },
 
     // BrowserInstance
     (browser, waPage) => {
-      console.log('Browser PID:', browser.process().pid);
-      waPage.screenshot({ path: 'screenshot.png' });
+      console.log('Browser PID:', browser.process().pid)
+      waPage.screenshot({ path: 'screenshot.png' })
     }
   )
   .then((client) => {
-    start(client);
+    start(client)
   })
   .catch((erro) => {
-    console.log(erro);
-  });
+    console.log(erro)
+  })
 ```
 
 ## Callback Status Session
 
-Gets the return if the session is `isLogged` or `notLogged` or `browserClose` or `qrReadSuccess` or `qrReadFail` or `autocloseCalled` or `disconnectedMobile` or `deleteToken` or `chatsAvailable` or `deviceNotConnected` or `serverWssNotConnected` or `noOpenBrowser` or `initBrowser` or `openBrowser` or `connectBrowserWs` or `initWhatsapp` or `erroPageWhatsapp` or `successPageWhatsapp` or `waitForLogin` or `waitChat` or `successChat` or `Create session wss return "serverClose" case server for close`
+Gets the return if the session is `isLogged` or `notLogged` or `browserClose` or `qrReadSuccess` or `qrReadFail` or `autocloseCalled` or `disconnectedMobile` or `deleteToken` or `chatsAvailable` or `deviceNotConnected` or `serverWssNotConnected` or `noOpenBrowser` or `initBrowser` or `openBrowser` or `initWhatsapp` or `erroPageWhatsapp` or `successPageWhatsapp` or `waitForLogin` or `waitChat` or `successChat` or `Create session wss return "serverClose" case server for close`
 
 | Status                  | Condition                                                                                                                                                      |
 | ----------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -235,7 +234,6 @@ Gets the return if the session is `isLogged` or `notLogged` or `browserClose` or
 | `noOpenBrowser`         | It was not found in the browser, or some command is missing in args                                                                                            |
 | `initBrowser`           | Starting the browser                                                                                                                                           |
 | `openBrowser`           | The browser has been successfully opened!                                                                                                                      |
-| `connectBrowserWs`      | Connection with BrowserWs successfully done!                                                                                                                   |
 | `initWhatsapp`          | Starting whatsapp!                                                                                                                                             |
 | `erroPageWhatsapp`      | Error accessing whatsapp page                                                                                                                                  |
 | `successPageWhatsapp`   | Page Whatsapp successfully accessed                                                                                                                            |
@@ -244,20 +242,20 @@ Gets the return if the session is `isLogged` or `notLogged` or `browserClose` or
 | `successChat`           | Chat successfully loaded!                                                                                                                                      |
 
 ```javascript
-const venom = require('venom-bot');
+const venom = require('venom-bot')
 venom
   .create('sessionName', undefined, (statusSession, session) => {
-    console.log('Status Session: ', statusSession);
-    //return isLogged || notLogged || browserClose || qrReadSuccess || qrReadFail || autocloseCalled || disconnectedMobile || deleteToken || chatsAvailable || deviceNotConnected || serverWssNotConnected || noOpenBrowser || initBrowser || openBrowser || connectBrowserWs || initWhatsapp || erroPageWhatsapp || successPageWhatsapp || waitForLogin || waitChat || successChat
+    console.log('Status Session: ', statusSession)
+    //return isLogged || notLogged || browserClose || qrReadSuccess || qrReadFail || autocloseCalled || disconnectedMobile || deleteToken || chatsAvailable || deviceNotConnected || serverWssNotConnected || noOpenBrowser || initBrowser || openBrowser || initWhatsapp || erroPageWhatsapp || successPageWhatsapp || waitForLogin || waitChat || successChat
     //Create session wss return "serverClose" case server for close
-    console.log('Session name: ', session);
+    console.log('Session name: ', session)
   })
   .then((client) => {
-    start(client);
+    start(client)
   })
   .catch((erro) => {
-    console.log(erro);
-  });
+    console.log(erro)
+  })
 ```
 
 ## Exporting QR Code
@@ -266,44 +264,44 @@ By default QR code will appear on the terminal. If you need to pass the QR
 somewhere else heres how:
 
 ```javascript
-const fs = require('fs');
-const venom = require('venom-bot');
+const fs = require('fs')
+const venom = require('venom-bot')
 
 venom
   .create(
     'sessionName',
     (base64Qr, asciiQR, attempts, urlCode) => {
-      console.log(asciiQR); // Optional to log the QR in the terminal
+      console.log(asciiQR) // Optional to log the QR in the terminal
       var matches = base64Qr.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/),
-        response = {};
+        response = {}
 
       if (matches.length !== 3) {
-        return new Error('Invalid input string');
+        return new Error('Invalid input string')
       }
-      response.type = matches[1];
-      response.data = new Buffer.from(matches[2], 'base64');
+      response.type = matches[1]
+      response.data = new Buffer.from(matches[2], 'base64')
 
-      var imageBuffer = response;
+      var imageBuffer = response
       require('fs').writeFile(
         'out.png',
         imageBuffer['data'],
         'binary',
         function (err) {
           if (err != null) {
-            console.log(err);
+            console.log(err)
           }
         }
-      );
+      )
     },
     undefined,
     { logQR: false }
   )
   .then((client) => {
-    start(client);
+    start(client)
   })
   .catch((erro) => {
-    console.log(erro);
-  });
+    console.log(erro)
+  })
 ```
 
 ## Downloading Files
@@ -650,80 +648,80 @@ await client.setChatState('000000000000@c.us', 0 | 1 | 2);
 
 ```javascript
 // Retrieve all chats
-const chats = await client.getAllChats();
+const chats = await client.getAllChats()
 
 //Retrieves all chats new messages
-const chatsAllNew = getAllChatsNewMsg();
+const chatsAllNew = getAllChatsNewMsg()
 
 //Retrieves all chats Contacts
-const contacts = await client.getAllChatsContacts();
+const contacts = await client.getAllChatsContacts()
 
 //Retrieve all contacts new messages
-const contactNewMsg = await client.getChatContactNewMsg();
+const contactNewMsg = await client.getChatContactNewMsg()
 
 // Retrieve all groups
 // you can pass the group id optional use, exemple: client.getAllChatsGroups('00000000-000000@g.us')
-const chats = await client.getAllChatsGroups();
+const chats = await client.getAllChatsGroups()
 
 //Retrieve all groups new messages
-const groupNewMsg = await client.getChatGroupNewMsg();
+const groupNewMsg = await client.getChatGroupNewMsg()
 
 //Retrieves all chats Transmission list
-const transmission = await client.getAllChatsTransmission();
+const transmission = await client.getAllChatsTransmission()
 
 // Retrieve contacts
-const contacts = await client.getAllContacts();
+const contacts = await client.getAllContacts()
 
 // Returns a list of mute and non-mute users
 // "all" List all mutes
 // "toMute" List all silent chats
 // "noMute" List all chats without silence
-const listMute = await client.getListMute('all');
+const listMute = await client.getListMute('all')
 
 // Calls your list of blocked contacts (returns an array)
-const getBlockList = await client.getBlockList();
+const getBlockList = await client.getBlockList()
 
 // Retrieve messages in chat
 //chatID chat id
 //includeMe will be by default true, if you do not want to pass false
 //includeNotifications will be by default true, if you do not want to pass false
 //const Messages = await client.getAllMessagesInChat(chatID, includeMe, includeNotifications)
-const Messages = await client.getAllMessagesInChat('000000000000@c.us');
+const Messages = await client.getAllMessagesInChat('000000000000@c.us')
 
 // Retrieve more chat message
-const moreMessages = await client.loadEarlierMessages('000000000000@c.us');
+const moreMessages = await client.loadEarlierMessages('000000000000@c.us')
 
 // Retrieve all messages in chat
 const allMessages = await client.loadAndGetAllMessagesInChat(
   '000000000000@c.us'
-);
+)
 
 // Retrieve contact status
-const status = await client.getStatus('000000000000@c.us');
+const status = await client.getStatus('000000000000@c.us')
 
 // Retrieve user profile
 // Please note that this function does not currently work due to a bug in WhatsApp itself.
 // There is no telling if or when this function might work again.
-const user = await client.getNumberProfile('000000000000@c.us');
+const user = await client.getNumberProfile('000000000000@c.us')
 
 // Retrieve all unread message
-const messages = await client.getUnreadMessages();
+const messages = await client.getUnreadMessages()
 
 // Retrieve profile fic (as url)
-const url = await client.getProfilePicFromServer('000000000000@c.us');
+const url = await client.getProfilePicFromServer('000000000000@c.us')
 
 // Retrieve chat/conversation
-const chat = await client.getChat('000000000000@c.us');
+const chat = await client.getChat('000000000000@c.us')
 
 // Check if the number exists
 const chat = await client
   .checkNumberStatus('000000000000@c.us')
   .then((result) => {
-    console.log('Result: ', result); //return object success
+    console.log('Result: ', result) //return object success
   })
   .catch((erro) => {
-    console.error('Error when sending: ', erro); //return object error
-  });
+    console.error('Error when sending: ', erro) //return object error
+  })
 ```
 
 ## Group Functions
@@ -735,91 +733,91 @@ const chat = await client
 await client
   .setGroupDescription('00000000-000000@g.us', 'group description')
   .then((result) => {
-    console.log('Result: ', result); //return object success
+    console.log('Result: ', result) //return object success
   })
   .catch((erro) => {
-    console.error('Error when sending: ', erro); //return object error
-  });
+    console.error('Error when sending: ', erro) //return object error
+  })
 
 // Leave group
-await client.leaveGroup('00000000-000000@g.us');
+await client.leaveGroup('00000000-000000@g.us')
 
 // Get group members
-await client.getGroupMembers('00000000-000000@g.us');
+await client.getGroupMembers('00000000-000000@g.us')
 
 // Get group members ids
-await client.getGroupMembersIds('00000000-000000@g.us');
+await client.getGroupMembersIds('00000000-000000@g.us')
 
 // Generate group invite url link
-await client.getGroupInviteLink('00000000-000000@g.us');
+await client.getGroupInviteLink('00000000-000000@g.us')
 
 // Create group (title, participants to add)
 await client.createGroup('Group name', [
   '111111111111@c.us',
-  '222222222222@c.us'
-]);
+  '222222222222@c.us',
+])
 
 // Remove participant
-await client.removeParticipant('00000000-000000@g.us', '111111111111@c.us');
+await client.removeParticipant('00000000-000000@g.us', '111111111111@c.us')
 
 // Add participant
-await client.addParticipant('00000000-000000@g.us', '111111111111@c.us');
+await client.addParticipant('00000000-000000@g.us', '111111111111@c.us')
 
 // Promote participant (Give admin privileges)
-await client.promoteParticipant('00000000-000000@g.us', '111111111111@c.us');
+await client.promoteParticipant('00000000-000000@g.us', '111111111111@c.us')
 
 // Demote particiapnt (Revoke admin privileges)
-await client.demoteParticipant('00000000-000000@g.us', '111111111111@c.us');
+await client.demoteParticipant('00000000-000000@g.us', '111111111111@c.us')
 
 // Get group admins
-await client.getGroupAdmins('00000000-000000@g.us');
+await client.getGroupAdmins('00000000-000000@g.us')
 
 // Return the group status, jid, description from it's invite link
-await client.getGroupInfoFromInviteLink(InviteCode);
+await client.getGroupInfoFromInviteLink(InviteCode)
 
 // Join a group using the group invite code
-await client.joinGroup(InviteCode);
+await client.joinGroup(InviteCode)
 ```
 
 ## Profile Functions
 
 ```javascript
 // Set client status
-await client.setProfileStatus('On vacations! ✈️');
+await client.setProfileStatus('On vacations! ✈️')
 
 // Set client profile name
-await client.setProfileName('Venom bot');
+await client.setProfileName('Venom bot')
 
 // Set client profile photo
-await client.setProfilePic('path/to/image.jpg');
+await client.setProfilePic('path/to/image.jpg')
 
 // Get device info
-await client.getHostDevice();
+await client.getHostDevice()
 ```
 
 ## Device Functions
 
 ```javascript
 // Disconnect from service
-await client.logout();
+await client.logout()
 
 // Delete the Service Worker
-await client.killServiceWorker();
+await client.killServiceWorker()
 
 // Load the service again
-await client.restartService();
+await client.restartService()
 
 // Get connection state
-await client.getConnectionState();
+await client.getConnectionState()
 
 // Get battery level
-await client.getBatteryLevel();
+await client.getBatteryLevel()
 
 // Is connected
-await client.isConnected();
+await client.isConnected()
 
 // Get whatsapp web version
-await client.getWAVersion();
+await client.getWAVersion()
 ```
 
 ## Events
@@ -887,22 +885,22 @@ client.onAddedToGroup(chatEvent => {
 await client
   .checkChat(chatId)
   .then((result) => {
-    console.log('Result: ', result); //return object success
+    console.log('Result: ', result) //return object success
   })
   .catch((erro) => {
-    console.error('Error when sending: ', erro); //return object error
-  });
+    console.error('Error when sending: ', erro) //return object error
+  })
 
 // Pin chat and Unpin chat messages with true or false
 // Pin chat, non-existent (optional)
 await client
   .pinChat(chatId, true, false)
   .then((result) => {
-    console.log('Result: ', result); //return object success
+    console.log('Result: ', result) //return object success
   })
   .catch((erro) => {
-    console.error('Error when sending: ', erro); //return object error
-  });
+    console.error('Error when sending: ', erro) //return object error
+  })
 
 ///mute a contact
 await client
@@ -912,11 +910,11 @@ await client
     'minutes' ///kind of silence "hours" "minutes" "year"
   )
   .then((result) => {
-    console.log('Result: ', result); //return object success
+    console.log('Result: ', result) //return object success
   })
   .catch((erro) => {
-    console.error('Error when sending: ', erro); //return object error
-  });
+    console.error('Error when sending: ', erro) //return object error
+  })
 
 ///unmute contact
 await client
@@ -924,50 +922,50 @@ await client
     '000000000000@c.us' //contact unmute
   )
   .then((result) => {
-    console.log('Result: ', result); //return object success
+    console.log('Result: ', result) //return object success
   })
   .catch((erro) => {
-    console.error('Error when sending: ', erro); //return object error
-  });
+    console.error('Error when sending: ', erro) //return object error
+  })
 
 // Change the theme
 // string types "dark" or "light"
-await client.setTheme('dark');
+await client.setTheme('dark')
 
 // Receive the current theme
 // returns string light or dark
-await client.getTheme();
+await client.getTheme()
 
 // Delete chat
-await client.deleteChat('000000000000@c.us');
+await client.deleteChat('000000000000@c.us')
 
 // Clear chat messages
-await client.clearChatMessages('000000000000@c.us');
+await client.clearChatMessages('000000000000@c.us')
 
 // Archive and unarchive chat messages with true or false
-await client.archiveChat(chatId, true);
+await client.archiveChat(chatId, true)
 
 // Delete message (last parameter: delete only locally)
 await client
   .deleteMessage('000000000000@c.us', [
     'false_000000000000@c.us_B70847EE89E22D20FB86ECA0C1B11609',
-    'false_000000000000@c.us_B70847EE89E22D20FB86ECA0C1B11777'
+    'false_000000000000@c.us_B70847EE89E22D20FB86ECA0C1B11777',
   ])
   .then((result) => {
-    console.log('Result: ', result); //return object success
+    console.log('Result: ', result) //return object success
   })
   .catch((erro) => {
-    console.error('Error when sending: ', erro); //return object error
-  });
+    console.error('Error when sending: ', erro) //return object error
+  })
 
 // Mark chat as not seen (returns true if it works)
-await client.markUnseenMessage('000000000000@c.us');
+await client.markUnseenMessage('000000000000@c.us')
 
 // Blocks a user (returns true if it works)
-await client.blockContact('000000000000@c.us');
+await client.blockContact('000000000000@c.us')
 
 // Unlocks contacts (returns true if it works)
-await client.unblockContact('000000000000@c.us');
+await client.unblockContact('000000000000@c.us')
 ```
 
 ## Misc
@@ -993,33 +991,33 @@ There are some tricks for a better usage of venom.
 // UNPAIRED
 // UNPAIRED_IDLE
 client.onStateChange((state) => {
-  console.log('State changed: ', state);
+  console.log('State changed: ', state)
   // force whatsapp take over
-  if ('CONFLICT'.includes(state)) client.useHere();
+  if ('CONFLICT'.includes(state)) client.useHere()
   // detect disconnect on whatsapp
-  if ('UNPAIRED'.includes(state)) console.log('logout');
-});
+  if ('UNPAIRED'.includes(state)) console.log('logout')
+})
 
 // DISCONNECTED
 // SYNCING
 // RESUMING
 // CONNECTED
-let time = 0;
+let time = 0
 client.onStreamChange((state) => {
-  console.log('State Connection Stream: ' + state);
-  clearTimeout(time);
+  console.log('State Connection Stream: ' + state)
+  clearTimeout(time)
   if (state === 'DISCONNECTED' || state === 'SYNCING') {
     time = setTimeout(() => {
-      client.close();
-    }, 80000);
+      client.close()
+    }, 80000)
   }
-});
+})
 
 // function to detect incoming call
 client.onIncomingCall(async (call) => {
-  console.log(call);
-  client.sendText(call.peerJid, "Sorry, I still can't answer calls");
-});
+  console.log(call)
+  client.sendText(call.peerJid, "Sorry, I still can't answer calls")
+})
 ```
 
 #### Closing (saving) sessions
@@ -1060,11 +1058,11 @@ venom
     session: 'sessionname', //name of session
     headless: false,
     logQR: true,
-    webVersion: '2.2402.5'
+    webVersion: '2.2402.5',
   })
   .then((client) => {
-    start(client);
-  });
+    start(client)
+  })
 ```
 
 This feature can use any version available in the list at https://github.com/wppconnect-team/wa-version/tree/main/html

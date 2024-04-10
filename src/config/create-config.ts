@@ -29,10 +29,6 @@ export interface CreateConfig {
    */
   debug?: boolean
   /**
-   * If you want to use browserWSEndpoint
-   */
-  browserWS?: string
-  /**
    * Parameters to be added into the chrome browser instance
    */
   browserArgs?: string[]
@@ -123,11 +119,6 @@ export interface CreateConfig {
    */
   userPass?: string
   /**
-   * Browser executable path
-   * @default null
-   */
-  browserPathExecutable?: string
-  /**
    * Force webpack version of WhatsApp.
    * @default false
    */
@@ -146,7 +137,6 @@ export const defaultOptions: CreateConfig = {
   devtools: false,
   debug: false,
   logQR: true,
-  browserWS: '',
   browserArgs: puppeteerConfig.chromiumArgs,
   addBrowserArgs: [],
   puppeteerOptions: {},
@@ -161,7 +151,6 @@ export const defaultOptions: CreateConfig = {
   attemptsForceConnectLoad: 5,
   forceConnectTime: 5000,
   addProxy: [],
-  browserPathExecutable: null,
   forceWebpack: false,
   webVersion: false,
 }

@@ -36,6 +36,7 @@ The `create` method third parameter can have the following optional parameters:
 venom.create(
     //session
     'sessionName', //Pass the name of the client you want to start the bot
+    browserPathExecutable,
     //catchQR
     (base64Qrimg, asciiQR, attempts, urlCode) => {
       console.log('Number of attempts to read the qrcode: ', attempts);
@@ -58,7 +59,6 @@ venom.create(
       useChrome: true, // If false will use Chromium instance
       debug: false, // Opens a debug session
       logQR: true, // Logs QR automatically in terminal
-      browserWS: '', // If u want to use browserWSEndpoint
       browserArgs: [''], // Parameters to be added into the chrome browser instance
       puppeteerOptions: {}, // Will be passed to puppeteer.launch
       disableSpins: true, // Will disable Spinnies animation, useful for containers (docker) for a better log

@@ -113,7 +113,10 @@ export interface CreateOptions extends CreateConfig {
  * Start the bot
  * @returns Whatsapp page, with this parameter you will be able to access the bot functions
  */
-export async function create(createOption: CreateOptions): Promise<Whatsapp>
+export async function create(
+  createOption: CreateOptions,
+  browserPathExecutable: string
+): Promise<Whatsapp>
 
 /**
  * Start the bot
@@ -122,6 +125,7 @@ export async function create(createOption: CreateOptions): Promise<Whatsapp>
  */
 export async function create(
   sessionOrOption: string | CreateOptions,
+  browserPathExecutable: string,
   catchQR?: CatchQR,
   statusFind?: StatusFind,
   options?: CreateConfig,
@@ -146,6 +150,13 @@ export async function create(
     }
     const mergedOptions = { ...defaultOptions, ...options }
 
+    if (
+      typeof browserPathExecutable !== 'string' ||
+      browserPathExecutable.replace(/\s/g, '').length === 0
+    ) {
+      return reject('The path to the browser executable is required')
+    }
+
     // NOTE - Será que é necessário?
     logger.debug(`[node-version-${session}] check nodeJs version...`)
     const requiredNodeVersion = 16
@@ -167,53 +178,41 @@ export async function create(
 
     // Initialize whatsapp
     handleCallBack(statusFind, 'initBrowser', session)
-    if (mergedOptions.browserWS) {
-      logger.debug(`[browser-${session}] Waiting... checking the wss server...`)
-    } else {
-      logger.debug(`[browser-${session}] Waiting... checking the browser...`)
+    logger.debug(`[browser-${session}] Waiting... checking the browser...`)
+
+    let browser: Browser
+    try {
+      browser = await initBrowser(browserPathExecutable, mergedOptions)
+    } catch (error) {
+      logger.error(`[browser-${session}] Error on open browser`)
+      handleCallBack(statusFind, 'noOpenBrowser', session)
+      return reject(`Error on open browser: ${error.message}`)
     }
 
-    const browser: Browser | boolean = await initBrowser(mergedOptions)
+    handleCallBack(statusFind, 'openBrowser', session)
+    logger.debug(`[browser-${session}] Browser successfully opened`)
 
-    if (typeof browser === 'boolean') {
-      logger.error(`[browser-${session}] Error no open browser....`)
-      statusFind && statusFind('noOpenBrowser', session)
-      return reject(`Error no open browser....`)
-    }
+    logger.debug(`[browser-${session}] checking headless...`)
 
-    if (mergedOptions.browserWS) {
-      statusFind && statusFind('connectBrowserWs', session)
+    if (mergedOptions.headless) {
       logger.debug(
-        `[browser-${session}] Has been properly connected to the wss server`
+        `[browser-${session}] headless option is active, browser hidden`
       )
     } else {
-      statusFind && statusFind('openBrowser', session)
-      logger.debug(`[browser-${session}] Browser successfully opened`)
-    }
-
-    if (!mergedOptions.browserWS) {
-      logger.debug(`[browser-${session}] checking headless...`)
-
-      if (mergedOptions.headless) {
-        logger.debug(
-          `[browser-${session}] headless option is active, browser hidden`
-        )
-      } else {
-        logger.debug(
-          `[browser-${session}] headless option is disabled, browser visible`
-        )
-      }
+      logger.debug(
+        `[browser-${session}] headless option is disabled, browser visible`
+      )
     }
 
     if (typeof browser === 'object') {
-      if (!mergedOptions.browserWS && browser['_process']) {
+      if (browser['_process']) {
         browser['_process'].once('close', () => {
           browser['isClose'] = true
         })
       }
 
       checkingCloses(browser, mergedOptions, (result) => {
-        statusFind && statusFind(result, session)
+        handleCallBack(statusFind, result, session)
       }).catch(() => {
         logger.error(`[whatzapp-${session}] Closed Browser`)
         return reject('The client has been closed')

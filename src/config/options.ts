@@ -28,10 +28,6 @@ export interface options {
    */
   headless?: boolean | 'new' | 'old'
   /**
-   * If you want to use browserWSEndpoint
-   */
-  browserWS?: string
-  /**
    * Parameters to be added into the chrome browser instance
    */
   browserArgs?: string[]
@@ -115,7 +111,6 @@ export const defaultOptions: options = {
   logQR: true,
   devtools: false,
   mkdirFolderToken: '',
-  browserWS: '',
   browserArgs: puppeteerConfig.chromiumArgs,
   addBrowserArgs: [],
   autoClose: 120000,
