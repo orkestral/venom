@@ -159,7 +159,8 @@ export async function create(
 
     // NOTE - Será que é necessário?
     logger.debug(`[node-version-${session}] check nodeJs version...`)
-    const requiredNodeVersion = 16
+
+    const requiredNodeVersion = 20
     const currentNodeVersion = Number(process.versions.node.split('.')[0])
     if (currentNodeVersion < requiredNodeVersion) {
       logger.error(
