@@ -110,7 +110,7 @@
     "ts-loader": "^9.5.1",
     "typedoc": "^0.25.12",
     "typedoc-default-themes": "^0.12.10",
-    "typescript": "^5.3.3",
+    "typescript": "^5.4.5",
     "webpack": "^5.89.0",
     "webpack-cli": "^5.0.1"
   },
