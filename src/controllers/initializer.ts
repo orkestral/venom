@@ -12,7 +12,6 @@ import { checkingCloses } from '../api/helpers'
 import { Browser, Page } from 'puppeteer'
 import { checkUpdates } from './check-up-to-date'
 import { logger } from '../utils/logger'
-import { handleCallBack } from '../utils/handle-callback'
 
 declare global {
   interface Window {
@@ -149,6 +148,11 @@ export async function create(
       options = sessionOrOption
     }
     const mergedOptions = { ...defaultOptions, ...options }
+    catchQR = callbackDefaultTo(catchQR)
+    statusFind = callbackDefaultTo(statusFind)
+    browserInstance = callbackDefaultTo(browserInstance)
+    reconnectQrcode = callbackDefaultTo(reconnectQrcode)
+    interfaceChange = callbackDefaultTo(interfaceChange)
 
     if (
       typeof browserPathExecutable !== 'string' ||
@@ -178,7 +182,7 @@ export async function create(
     await checkUpdates()
 
     // Initialize whatsapp
-    handleCallBack(statusFind, 'initBrowser', session)
+    statusFind('initBrowser', session)
     logger.debug(`[browser-${session}] Waiting... checking the browser...`)
 
     let browser: Browser
@@ -186,11 +190,11 @@ export async function create(
       browser = await initBrowser(browserPathExecutable, mergedOptions)
     } catch (error) {
       logger.error(`[browser-${session}] Error on open browser`)
-      handleCallBack(statusFind, 'noOpenBrowser', session)
+      statusFind('noOpenBrowser', session)
       return reject(`Error on open browser: ${error.message}`)
     }
 
-    handleCallBack(statusFind, 'openBrowser', session)
+    statusFind('openBrowser', session)
     logger.debug(`[browser-${session}] Browser successfully opened`)
 
     logger.debug(`[browser-${session}] checking headless...`)
@@ -212,8 +216,8 @@ export async function create(
         })
       }
 
-      checkingCloses(browser, mergedOptions, (result) => {
-        handleCallBack(statusFind, result, session)
+      checkingCloses(browser, (result) => {
+        statusFind(result, session)
       }).catch(() => {
         logger.error(`[whatzapp-${session}] Closed Browser`)
         return reject('The client has been closed')
@@ -221,7 +225,7 @@ export async function create(
 
       logger.debug(`[whatzapp-${session}] Checking page to whatzapp...`)
 
-      statusFind && statusFind('initWhatsapp', session)
+      statusFind('initWhatsapp', session)
       // Initialize whatsapp
       const page: false | Page = await initWhatsapp(mergedOptions, browser)
 
@@ -229,13 +233,13 @@ export async function create(
         logger.error(
           `[whatzapp-${session}] Error accessing the page: "https://web.whatsapp.com"`
         )
-        statusFind && statusFind('erroPageWhatsapp', session)
+        statusFind('erroPageWhatsapp', session)
         return reject(
           'Error when trying to access the page: "https://web.whatsapp.com"'
         )
       }
 
-      statusFind && statusFind('successPageWhatsapp', session)
+      statusFind('successPageWhatsapp', session)
 
       logger.debug(`[whatzapp-${session}] Page successfully accessed`)
 
@@ -247,7 +251,7 @@ export async function create(
 
       client.onInterfaceChange(async (interFace: InterfaceChangeMode) => {
         if (interFace.mode === InterfaceMode.MAIN) {
-          interfaceChange && interfaceChange('chatsAvailable', session)
+          interfaceChange('chatsAvailable', session)
 
           logger.debug(`[whatzapp-${session}] Successfully load main page!`)
 
@@ -261,21 +265,21 @@ export async function create(
             logger.info(
               `[whatzapp-${session}:onInterfaceChange] Syncing page...`
             )
-            interfaceChange && interfaceChange('syncingOpening', session)
+            interfaceChange('syncingOpening', session)
           }
 
           if (interFace.info === InterfaceState.PAIRING) {
             logger.info(
               `[whatzapp-${session}:onInterfaceChange] Pairing devide...`
             )
-            interfaceChange && interfaceChange('syncingLoading', session)
+            interfaceChange('syncingLoading', session)
           }
 
           if (interFace.info === InterfaceState.NORMAL) {
             logger.info(
               `[whatzapp-${session}:onInterfaceChange] Interface state normal...`
             )
-            interfaceChange && interfaceChange('syncingNormal', session)
+            interfaceChange('syncingNormal', session)
           }
         }
 
@@ -289,28 +293,28 @@ export async function create(
               logger.warn(`[whatzapp-${session}] Disconnected!`)
               // FIXME - entender o que está fazendo com esse código
               // document.querySelectorAll('.MLTJU p')[0].textContent
-              statusFind && statusFind('disconnected', session)
+              statusFind('disconnected', session)
             }
 
             if (interFace.info === InterfaceState.OPENING) {
               logger.info(
                 `[whatzapp-${session}:onInterfaceChange] Opening QR Code page...`
               )
-              interfaceChange && interfaceChange('qrcodeOpening', session)
+              interfaceChange('qrcodeOpening', session)
             }
 
             if (interFace.info === InterfaceState.PAIRING) {
               logger.info(
                 `[whatzapp-${session}:onInterfaceChange] Pairing device...`
               )
-              interfaceChange && interfaceChange('qrcodeLoading', session)
+              interfaceChange('qrcodeLoading', session)
             }
 
             if (interFace.info === InterfaceState.NORMAL) {
               logger.info(
                 `[whatzapp-${session}:onInterfaceChange] Device connected...`
               )
-              interfaceChange && interfaceChange('qrcodeNormal', session)
+              interfaceChange('qrcodeNormal', session)
             }
           } catch (error) {
             logger.error(
@@ -394,7 +398,7 @@ export async function create(
       if (mergedOptions.waitForLogin) {
         const isLogged = await client.waitForLogin(catchQR, statusFind)
 
-        statusFind && statusFind('waitForLogin', session)
+        statusFind('waitForLogin', session)
 
         if (!isLogged) {
           return reject('Not Logged')
@@ -433,7 +437,7 @@ export async function create(
         })
       }
 
-      statusFind && statusFind('waitChat', session)
+      statusFind('waitChat', session)
 
       logger.debug(`[whatzapp-${session}] waiting for app load...`)
 
@@ -447,9 +451,16 @@ export async function create(
       // await client.initService()
       // await client.addChatWapi()
 
-      statusFind && statusFind('successChat', session)
+      statusFind('successChat', session)
 
       return resolve(client)
     }
   })
+}
+
+const callbackDefaultTo = (callback: (...args: any[]) => void) => {
+  if (typeof callback !== 'function') {
+    callback = () => {}
+  }
+  return callback
 }
