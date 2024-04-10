@@ -254,7 +254,7 @@ export class HostLayer {
 
       logger.info(`[waitForLogin:${this.session}] Connected!`)
       // TODO check if call is necessary
-      //   statusFind('inChat', this.session);
+      //   this.statusFind('inChat', this.session);
       return true
     }
 

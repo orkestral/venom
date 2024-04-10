@@ -29,6 +29,10 @@ export interface CreateConfig {
    */
   debug?: boolean
   /**
+   * If you want to use browserWSEndpoint
+   */
+  browserWS?: string
+  /**
    * Parameters to be added into the chrome browser instance
    */
   browserArgs?: string[]
@@ -132,6 +136,7 @@ export const defaultOptions: CreateConfig = {
   devtools: false,
   debug: false,
   logQR: true,
+  browserWS: '',
   browserArgs: puppeteerConfig.chromiumArgs,
   addBrowserArgs: [],
   puppeteerOptions: {},

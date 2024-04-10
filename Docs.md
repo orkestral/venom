@@ -79,7 +79,7 @@ venom
   .create(
     //session
     'sessionName', //Pass the name of the client you want to start the bot
-    browserPathExecutable,
+    browserPathExecutable, //Pass where executable browser is located
     //catchQR
     (base64Qrimg, asciiQR, attempts, urlCode) => {
       console.log('Number of attempts to read the qrcode: ', attempts)
@@ -89,7 +89,7 @@ venom
     },
     // statusFind
     (statusSession, session) => {
-      console.log('Status Session: ', statusSession) //return isLogged || notLogged || browserClose || qrReadSuccess || qrReadFail || autocloseCalled || disconnectedMobile || deleteToken || chatsAvailable || deviceNotConnected || serverWssNotConnected || noOpenBrowser || initBrowser || openBrowser || initWhatsapp || erroPageWhatsapp || successPageWhatsapp || waitForLogin || waitChat || successChat
+      console.log('Status Session: ', statusSession) //return isLogged || notLogged || browserClose || qrReadSuccess || qrReadFail || autocloseCalled || disconnectedMobile || deleteToken || chatsAvailable || deviceNotConnected || serverWssNotConnected || noOpenBrowser || initBrowser || openBrowser || connectBrowserWs || initWhatsapp || erroPageWhatsapp || successPageWhatsapp || waitForLogin || waitChat || successChat
       //Create session wss return "serverClose" case server for close
       console.log('Session name: ', session)
     },
@@ -102,6 +102,7 @@ venom
       devtools: false, // Open devtools by default
       debug: false, // Opens a debug session
       logQR: true, // Logs QR automatically in terminal
+      browserWS: '', // If u want to use browserWSEndpoint
       browserArgs: [''], // Original parameters  ---Parameters to be added into the chrome browser instance
       addBrowserArgs: [''], // Add broserArgs without overwriting the project's original
       puppeteerOptions: {}, // Will be passed to puppeteer.launch
@@ -139,7 +140,7 @@ venom
 
 ## Callback Status Session
 
-Gets the return if the session is `isLogged` or `notLogged` or `browserClose` or `qrReadSuccess` or `qrReadFail` or `autocloseCalled` or `disconnectedMobile` or `deleteToken` or `chatsAvailable` or `deviceNotConnected` or `serverWssNotConnected` or `noOpenBrowser` or `initBrowser` or `openBrowser` or `initWhatsapp` or `erroPageWhatsapp` or `successPageWhatsapp` or `waitForLogin` or `waitChat` or `successChat` or `Create session wss return "serverClose" case server for close`
+Gets the return if the session is `isLogged` or `notLogged` or `browserClose` or `qrReadSuccess` or `qrReadFail` or `autocloseCalled` or `disconnectedMobile` or `deleteToken` or `chatsAvailable` or `deviceNotConnected` or `serverWssNotConnected` or `noOpenBrowser` or `initBrowser` or `openBrowser` or `connectBrowserWs` or `initWhatsapp` or `erroPageWhatsapp` or `successPageWhatsapp` or `waitForLogin` or `waitChat` or `successChat` or `Create session wss return "serverClose" case server for close`
 
 | Status                  | Condition                                                                                                                                                      |
 | ----------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -158,6 +159,7 @@ Gets the return if the session is `isLogged` or `notLogged` or `browserClose` or
 | `noOpenBrowser`         | It was not found in the browser, or some command is missing in args                                                                                            |
 | `initBrowser`           | Starting the browser                                                                                                                                           |
 | `openBrowser`           | The browser has been successfully opened!                                                                                                                      |
+| `connectBrowserWs`      | Connection with BrowserWs successfully done!                                                                                                                   |
 | `initWhatsapp`          | Starting whatsapp!                                                                                                                                             |
 | `erroPageWhatsapp`      | Error accessing whatsapp page                                                                                                                                  |
 | `successPageWhatsapp`   | Page Whatsapp successfully accessed                                                                                                                            |
@@ -173,7 +175,7 @@ venom
     undefined,
     (statusSession, session) => {
       console.log('Status Session: ', statusSession)
-      //return isLogged || notLogged || browserClose || qrReadSuccess || qrReadFail || autocloseCalled || disconnectedMobile || deleteToken || chatsAvailable || deviceNotConnected || serverWssNotConnected || noOpenBrowser || initBrowser || openBrowser || initWhatsapp || erroPageWhatsapp || successPageWhatsapp || waitForLogin || waitChat || successChat
+      //return isLogged || notLogged || browserClose || qrReadSuccess || qrReadFail || autocloseCalled || disconnectedMobile || deleteToken || chatsAvailable || deviceNotConnected || serverWssNotConnected || noOpenBrowser || initBrowser || openBrowser || connectBrowserWs || initWhatsapp || erroPageWhatsapp || successPageWhatsapp || waitForLogin || waitChat || successChat
       //Create session wss return "serverClose" case server for close
       console.log('Session name: ', session)
     },

@@ -31,6 +31,7 @@ type CustomLaunchOptions = LaunchOptions & {
   devtools?: options['devtools']
   browserArgs?: options['browserArgs']
   addProxy?: options['addProxy']
+  browserWS?: options['browserWS']
 }
 
 const cach_url =
@@ -358,7 +359,13 @@ export async function initBrowser(
   }
 
   await removeStoredSingletonLock(options.puppeteerOptions, options)
-  return puppeteer.launch(launchOptions)
+
+  if (options.browserWS && options.browserWS !== '') {
+    return await puppeteer.connect({ browserWSEndpoint: options.browserWS })
+  } else {
+    await removeStoredSingletonLock(options.puppeteerOptions, options)
+    return await puppeteer.launch(launchOptions)
+  }
 }
 
 function addArgsRoot(args: string[]) {
