@@ -1,5 +1,5 @@
-import { Browser } from 'puppeteer';
-import { CreateConfig } from '../../config/create-config';
+import { Browser } from 'puppeteer'
+import { CreateConfig } from '../../config/create-config'
 
 export async function checkingCloses(
   browser: Browser | string,
@@ -8,30 +8,30 @@ export async function checkingCloses(
 ) {
   new Promise(async (resolve, reject) => {
     if (typeof browser !== 'string') {
-      let err: boolean;
+      let err: boolean
       do {
         try {
-          await new Promise((r) => setTimeout(r, 2000));
+          await new Promise((r) => setTimeout(r, 2000))
           if (
             browser['isClose'] ||
-            (mergedOptions.browserWS && !browser.isConnected())
+            (mergedOptions.browserWS && !browser.connected)
           ) {
             if (mergedOptions.browserWS) {
-              browser.disconnect();
-              callStatus && callStatus('serverClose');
+              browser.disconnect()
+              callStatus && callStatus('serverClose')
             }
             if (browser['isClose']) {
-              browser.close().catch((e) => reject(e));
-              callStatus && callStatus('browserClose');
+              browser.close().catch((e) => reject(e))
+              callStatus && callStatus('browserClose')
             }
-            err = false;
+            err = false
           } else {
-            throw 1;
+            throw 1
           }
         } catch (e) {
-          err = true;
+          err = true
         }
-      } while (err);
+      } while (err)
     }
-  });
+  })
 }

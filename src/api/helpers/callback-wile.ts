@@ -1,45 +1,45 @@
-import { AckType } from '../../api/model/enum/ack-type';
+import { AckType } from '../../api/model/enum/ack-type'
 export class callbackWile {
-  obj: Object;
+  obj: Object
   constructor() {
-    this.obj = [];
+    this.obj = []
   }
   addObjects(ids: AckType | String, serializeds: string) {
-    let checkFilter = this.obj['filter'](
+    const checkFilter = this.obj['filter'](
       (order: any) => order.serialized === serializeds
-    );
-    let add = null;
+    )
+    let add = null
     if (!checkFilter.length) {
       add = {
         id: ids,
-        serialized: serializeds
-      };
-      this.obj['push'](add);
-      return true;
+        serialized: serializeds,
+      }
+      this.obj['push'](add)
+      return true
     }
-    return false;
+    return false
   }
 
   getObjKey(serialized: string) {
-    for (let i in this.obj) {
+    for (const i in this.obj) {
       if (this.obj[i].serialized === serialized) {
-        return i;
+        return i
       }
     }
-    return false;
+    return false
   }
 
   checkObj(id: AckType | String, serialized: string) {
-    let checkFilter = this.obj['filter'](
+    const checkFilter = this.obj['filter'](
       (order: any) => order.id === id && order.serialized === serialized
-    );
+    )
     if (checkFilter.length) {
-      return true;
+      return true
     }
-    return false;
+    return false
   }
 
   get module() {
-    return this.obj;
+    return this.obj
   }
 }

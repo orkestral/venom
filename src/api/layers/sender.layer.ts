@@ -1,21 +1,20 @@
-import * as path from 'path';
-import { Page, Browser } from 'puppeteer';
-import { CreateConfig } from '../../config/create-config';
+import * as path from 'path'
+import { Page, Browser } from 'puppeteer'
+import { CreateConfig } from '../../config/create-config'
 import {
   base64MimeType,
   downloadFileToBase64,
   fileToBase64,
   stickerSelect,
-  dowloadMetaFileBase64
-} from '../helpers';
-import { filenameFromMimeType } from '../helpers/filename-from-mimetype';
-import { Message, SendFileResult, SendStickerResult } from '../model';
-import { ChatState } from '../model/enum';
-import { AutomateLayer } from './AutomateLayer';
-import { Scope, checkValuesSender } from '../helpers/layers-interface';
-import { Mutex } from 'async-mutex';
+  dowloadMetaFileBase64,
+} from '../helpers'
+import { filenameFromMimeType } from '../helpers/filename-from-mimetype'
+import { Message, SendFileResult, SendStickerResult } from '../model'
+import { ChatState } from '../model/enum'
+import { AutomateLayer } from './AutomateLayer'
+import { Scope, checkValuesSender } from '../helpers/layers-interface'
 
-let obj: Scope;
+let obj: Scope
 
 export class SenderLayer extends AutomateLayer {
   constructor(
@@ -24,16 +23,16 @@ export class SenderLayer extends AutomateLayer {
     session?: string,
     options?: CreateConfig
   ) {
-    super(browser, page, session, options);
+    super(browser, page, session, options)
   }
 
   public async createCommunity(name: string, description: string) {
     return await this.page.evaluate(
       ({ name, description }) => {
-        return WAPI.createCommunity(name, description);
+        return WAPI.createCommunity(name, description)
       },
       { name, description }
-    );
+    )
   }
 
   /**
@@ -63,16 +62,16 @@ export class SenderLayer extends AutomateLayer {
             description,
             buttonText,
             menu
-          );
+          )
         },
         { to, title, subTitle, description, buttonText, menu }
-      );
+      )
       if (result['erro'] == true) {
-        return reject(result);
+        return reject(result)
       } else {
-        return resolve(result);
+        return resolve(result)
       }
-    });
+    })
   }
 
   //*PRO_
@@ -82,35 +81,35 @@ export class SenderLayer extends AutomateLayer {
    */
   public async sendStatusText(text: string) {
     return new Promise(async (resolve, reject) => {
-      const typeFunction = 'sendText';
-      const type = 'string';
+      const typeFunction = 'sendText'
+      const type = 'string'
       const check = [
         {
           param: 'text',
           type: type,
           value: text,
           function: typeFunction,
-          isUser: true
-        }
-      ];
-      const validating = checkValuesSender(check);
+          isUser: true,
+        },
+      ]
+      const validating = checkValuesSender(check)
       if (typeof validating === 'object') {
-        return reject(validating);
+        return reject(validating)
       }
-      const to = 'status@broadcast';
+      const to = 'status@broadcast'
       const result = await this.page.evaluate(
         ({ to, text }) => {
-          return WAPI.sendMessage(to, text, true);
+          return WAPI.sendMessage(to, text, true)
         },
         { to, text }
-      );
+      )
 
       if (result['erro'] == true) {
-        return reject(result);
+        return reject(result)
       } else {
-        return resolve(result);
+        return resolve(result)
       }
-    });
+    })
   }
 
   /**
@@ -121,16 +120,16 @@ export class SenderLayer extends AutomateLayer {
     return new Promise(async (resolve, reject) => {
       const result = await this.page.evaluate(
         ({ idUser, poll }) => {
-          return WAPI.sendPollCreation(idUser, poll);
+          return WAPI.sendPollCreation(idUser, poll)
         },
         { idUser, poll }
-      );
+      )
       if (result['erro'] == true) {
-        return reject(result);
+        return reject(result)
       } else {
-        return resolve(result);
+        return resolve(result)
       }
-    });
+    })
   }
 
   //*PRO_
@@ -148,44 +147,44 @@ export class SenderLayer extends AutomateLayer {
         'image/png',
         'image/jpg',
         'image/jpeg',
-        'image/webp'
-      ]);
+        'image/webp',
+      ])
 
       if (!base64) {
-        base64 = await fileToBase64(filePath);
+        base64 = await fileToBase64(filePath)
       }
 
       if (!base64) {
         const obj = {
           erro: true,
           to: 'status',
-          text: 'No such file or directory, open "' + filePath + '"'
-        };
-        return reject(obj);
+          text: 'No such file or directory, open "' + filePath + '"',
+        }
+        return reject(obj)
       }
 
-      let filename = path.basename(filePath);
-      let mimeType = base64MimeType(base64);
+      let filename = path.basename(filePath)
+      const mimeType = base64MimeType(base64)
 
       if (!mimeType) {
         obj = {
           erro: true,
           to: 'status',
-          text: 'Invalid base64!'
-        };
-        return reject(obj);
+          text: 'Invalid base64!',
+        }
+        return reject(obj)
       }
 
       if (!mimeType.includes('image')) {
         const obj = {
           erro: true,
           to: 'status',
-          text: 'Not an image, allowed formats gif, png, jpg, jpeg and webp'
-        };
-        return reject(obj);
+          text: 'Not an image, allowed formats gif, png, jpg, jpeg and webp',
+        }
+        return reject(obj)
       }
-      const to = 'status@broadcast';
-      filename = filenameFromMimeType(filename, mimeType);
+      const to = 'status@broadcast'
+      filename = filenameFromMimeType(filename, mimeType)
 
       const result = await this.page.evaluate(
         ({ to, base64, filename, description }) => {
@@ -195,17 +194,17 @@ export class SenderLayer extends AutomateLayer {
             filename,
             description,
             'sendImageStatus'
-          );
+          )
         },
         { to, base64, filename, description }
-      );
+      )
 
       if (result['erro'] == true) {
-        return reject(result);
+        return reject(result)
       } else {
-        return resolve(result);
+        return resolve(result)
       }
-    });
+    })
   }
 
   /**
@@ -216,45 +215,45 @@ export class SenderLayer extends AutomateLayer {
   public async sendVideoStatus(filePath: string, description?: string) {
     return new Promise(async (resolve, reject) => {
       let base64 = await downloadFileToBase64(filePath, ['video/mp4']),
-        obj: { erro: boolean; to: string; text: string };
+        obj: { erro: boolean; to: string; text: string }
 
       if (!base64) {
-        base64 = await fileToBase64(filePath);
+        base64 = await fileToBase64(filePath)
       }
 
       if (!base64) {
         obj = {
           erro: true,
           to: 'status',
-          text: 'No such file or directory, open "' + filePath + '"'
-        };
-        return reject(obj);
+          text: 'No such file or directory, open "' + filePath + '"',
+        }
+        return reject(obj)
       }
 
-      let filename = path.basename(filePath);
+      let filename = path.basename(filePath)
 
-      let mimeType = base64MimeType(base64);
+      const mimeType = base64MimeType(base64)
 
       if (!mimeType) {
         obj = {
           erro: true,
           to: 'status',
-          text: 'Invalid base64!'
-        };
-        return reject(obj);
+          text: 'Invalid base64!',
+        }
+        return reject(obj)
       }
 
       if (!mimeType.includes('video')) {
         const obj = {
           erro: true,
           to: 'status',
-          text: 'Not an video, allowed format mp4'
-        };
-        return reject(obj);
+          text: 'Not an video, allowed format mp4',
+        }
+        return reject(obj)
       }
 
-      filename = filenameFromMimeType(filename, mimeType);
-      const to = 'status@broadcast';
+      filename = filenameFromMimeType(filename, mimeType)
+      const to = 'status@broadcast'
       const result = await this.page.evaluate(
         ({ to, base64, filename, description }) => {
           return WAPI.sendFile(
@@ -264,16 +263,16 @@ export class SenderLayer extends AutomateLayer {
             description,
             'sendVideoStatus',
             true
-          );
+          )
         },
         { to, base64, filename, description }
-      );
+      )
       if (result['erro'] == true) {
-        reject(result);
+        reject(result)
       } else {
-        resolve(result);
+        resolve(result)
       }
-    });
+    })
   }
 
   /**
@@ -290,56 +289,56 @@ export class SenderLayer extends AutomateLayer {
     buttons: any
   ): Promise<Object> {
     return new Promise(async (resolve, reject) => {
-      const typeFunction = 'sendButtons';
-      const type = 'string';
-      const obj = 'object';
+      const typeFunction = 'sendButtons'
+      const type = 'string'
+      const obj = 'object'
       const check = [
         {
           param: 'to',
           type: type,
           value: to,
           function: typeFunction,
-          isUser: true
+          isUser: true,
         },
         {
           param: 'title',
           type: type,
           value: title,
           function: typeFunction,
-          isUser: true
+          isUser: true,
         },
         {
           param: 'subtitle',
           type: type,
           value: subtitle,
           function: typeFunction,
-          isUser: true
+          isUser: true,
         },
         {
           param: 'buttons',
           type: obj,
           value: buttons,
           function: typeFunction,
-          isUser: true
-        }
-      ];
-      const validating = checkValuesSender(check);
+          isUser: true,
+        },
+      ]
+      const validating = checkValuesSender(check)
       if (typeof validating === 'object') {
-        return reject(validating);
+        return reject(validating)
       }
 
       const result = await this.page.evaluate(
         ({ to, title, subtitle, buttons }) => {
-          return WAPI.sendButtons(to, title, buttons, subtitle);
+          return WAPI.sendButtons(to, title, buttons, subtitle)
         },
         { to, title, subtitle, buttons }
-      );
+      )
       if (result['erro'] == true) {
-        return reject(result);
+        return reject(result)
       } else {
-        return resolve(result);
+        return resolve(result)
       }
-    });
+    })
   }
 
   public async sendTypeButtons(
@@ -352,16 +351,16 @@ export class SenderLayer extends AutomateLayer {
     return new Promise(async (resolve, reject) => {
       const result = await this.page.evaluate(
         ({ to, title, subtitle, footer, buttons }) => {
-          return WAPI.sendTypeButtons(to, title, subtitle, footer, buttons);
+          return WAPI.sendTypeButtons(to, title, subtitle, footer, buttons)
         },
         { to, title, subtitle, footer, buttons }
-      );
+      )
       if (result['erro'] == true) {
-        return reject(result);
+        return reject(result)
       } else {
-        return resolve(result);
+        return resolve(result)
       }
-    });
+    })
   }
 
   /**
@@ -381,27 +380,27 @@ export class SenderLayer extends AutomateLayer {
     delSend?: boolean
   ): Promise<Object> {
     return new Promise(async (resolve, reject) => {
-      const typeFunction = 'sendText';
-      const type = 'string';
+      const typeFunction = 'sendText'
+      const type = 'string'
       const check = [
         {
           param: 'to',
           type: type,
           value: to,
           function: typeFunction,
-          isUser: true
+          isUser: true,
         },
         {
           param: 'content',
           type: type,
           value: content,
           function: typeFunction,
-          isUser: true
-        }
-      ];
-      const validating = checkValuesSender(check);
+          isUser: true,
+        },
+      ]
+      const validating = checkValuesSender(check)
       if (typeof validating === 'object') {
-        return reject(validating);
+        return reject(validating)
       }
       const result = await this.page.evaluate(
         ({ to, content, passId, checkNumber, forcingReturn, delSend }) => {
@@ -413,16 +412,16 @@ export class SenderLayer extends AutomateLayer {
             checkNumber,
             forcingReturn,
             delSend
-          );
+          )
         },
         { to, content, passId, checkNumber, forcingReturn, delSend }
-      );
+      )
       if (result['erro'] == true) {
-        return reject(result);
+        return reject(result)
       } else {
-        return resolve(result);
+        return resolve(result)
       }
-    });
+    })
   }
 
   /**
@@ -438,55 +437,55 @@ export class SenderLayer extends AutomateLayer {
     message: string
   ): Promise<object> {
     return new Promise(async (resolve, reject) => {
-      const typeFunction = 'sendLinkPreview';
-      const type = 'string';
+      const typeFunction = 'sendLinkPreview'
+      const type = 'string'
       const check = [
         {
           param: 'chatId',
           type: type,
           value: chatId,
           function: typeFunction,
-          isUser: true
+          isUser: true,
         },
         {
           param: 'url',
           type: type,
           value: url,
           function: typeFunction,
-          isUser: true
+          isUser: true,
         },
         {
           param: 'title',
           type: type,
           value: title,
           function: typeFunction,
-          isUser: false
+          isUser: false,
         },
         {
           param: 'message',
           type: type,
           value: message,
           function: typeFunction,
-          isUser: false
-        }
-      ];
-      const validating = checkValuesSender(check);
+          isUser: false,
+        },
+      ]
+      const validating = checkValuesSender(check)
       if (typeof validating === 'object') {
-        return reject(validating);
+        return reject(validating)
       }
-      const thumbnail = await dowloadMetaFileBase64(url);
+      const thumbnail = await dowloadMetaFileBase64(url)
       const result = await this.page.evaluate(
         ({ chatId, url, title, message, thumbnail }) => {
-          return WAPI.sendLinkPreview(chatId, url, title, message, thumbnail);
+          return WAPI.sendLinkPreview(chatId, url, title, message, thumbnail)
         },
         { chatId, url, title, message, thumbnail }
-      );
+      )
       if (result['erro'] == true) {
-        return reject(result);
+        return reject(result)
       } else {
-        return resolve(result);
+        return resolve(result)
       }
-    });
+    })
   }
 
   /**
@@ -504,72 +503,72 @@ export class SenderLayer extends AutomateLayer {
     status?: boolean
   ): Promise<SendFileResult> {
     return new Promise(async (resolve, reject) => {
-      const typeFunction = 'sendImageFromBase64';
-      const type = 'string';
+      const typeFunction = 'sendImageFromBase64'
+      const type = 'string'
       const check = [
         {
           param: 'to',
           type: type,
           value: to,
           function: typeFunction,
-          isUser: true
+          isUser: true,
         },
         {
           param: 'base64',
           type: type,
           value: base64,
           function: typeFunction,
-          isUser: true
+          isUser: true,
         },
         {
           param: 'filename',
           type: type,
           value: filename,
           function: typeFunction,
-          isUser: false
-        }
-      ];
+          isUser: false,
+        },
+      ]
 
-      const validating = checkValuesSender(check);
+      const validating = checkValuesSender(check)
       if (typeof validating === 'object') {
-        return reject(validating);
+        return reject(validating)
       }
 
-      let mimeType = base64MimeType(base64);
+      const mimeType = base64MimeType(base64)
 
       if (!mimeType) {
         obj = {
           erro: true,
           to: to,
-          text: 'Invalid base64!'
-        };
-        return reject(obj);
+          text: 'Invalid base64!',
+        }
+        return reject(obj)
       }
 
       if (!mimeType.includes('image')) {
         const obj = {
           erro: true,
           to: to,
-          text: 'Not an image, allowed formats gif, png, jpg, jpeg and webp'
-        };
-        return reject(obj);
+          text: 'Not an image, allowed formats gif, png, jpg, jpeg and webp',
+        }
+        return reject(obj)
       }
 
-      filename = filenameFromMimeType(filename, mimeType);
+      filename = filenameFromMimeType(filename, mimeType)
 
       const result = await this.page.evaluate(
         ({ to, base64, filename, caption, status }) => {
-          return WAPI.sendImage(base64, to, filename, caption, status);
+          return WAPI.sendImage(base64, to, filename, caption, status)
         },
         { to, base64, filename, caption, status }
-      );
+      )
 
       if (result['erro'] == true) {
-        return reject(result);
+        return reject(result)
       } else {
-        return resolve(result);
+        return resolve(result)
       }
-    });
+    })
   }
 
   /**
@@ -582,17 +581,17 @@ export class SenderLayer extends AutomateLayer {
       const result: any = await this.page
         .evaluate(
           ({ chatId, type }) => {
-            return WAPI.onlySendAdmin(chatId, type);
+            return WAPI.onlySendAdmin(chatId, type)
           },
           { chatId, type }
         )
-        .catch(() => {});
+        .catch(() => {})
       if (result?.erro == true) {
-        return reject(result);
+        return reject(result)
       } else {
-        return resolve(result);
+        return resolve(result)
       }
-    });
+    })
   }
 
   public async sendMessageOptions(
@@ -604,19 +603,19 @@ export class SenderLayer extends AutomateLayer {
       try {
         const messageId = await this.page.evaluate(
           ({ chat, content, options }) => {
-            return WAPI.sendMessageOptions(chat, content, options);
+            return WAPI.sendMessageOptions(chat, content, options)
           },
           { chat, content, options }
-        );
+        )
         const result = (await this.page.evaluate(
           (messageId: any) => WAPI.getMessageById(messageId),
           messageId
-        )) as Message;
-        resolve(result);
+        )) as Message
+        resolve(result)
       } catch (error) {
-        reject(error);
+        reject(error)
       }
-    });
+    })
   }
 
   /**
@@ -639,47 +638,47 @@ export class SenderLayer extends AutomateLayer {
         'image/png',
         'image/jpg',
         'image/jpeg',
-        'image/webp'
-      ]);
+        'image/webp',
+      ])
 
       if (!base64) {
-        base64 = await fileToBase64(filePath);
+        base64 = await fileToBase64(filePath)
       }
 
       if (!base64) {
         const obj = {
           erro: true,
           to: to,
-          text: 'No such file or directory, open "' + filePath + '"'
-        };
-        return reject(obj);
+          text: 'No such file or directory, open "' + filePath + '"',
+        }
+        return reject(obj)
       }
 
       if (!filename) {
-        filename = path.basename(filePath);
+        filename = path.basename(filePath)
       }
 
-      let mimeType = base64MimeType(base64);
+      const mimeType = base64MimeType(base64)
 
       if (!mimeType) {
         obj = {
           erro: true,
           to: to,
-          text: 'Invalid base64!'
-        };
-        return reject(obj);
+          text: 'Invalid base64!',
+        }
+        return reject(obj)
       }
 
       if (!mimeType.includes('image')) {
         const obj = {
           erro: true,
           to: to,
-          text: 'Not an image, allowed formats gif, png, jpg, jpeg and webp'
-        };
-        return reject(obj);
+          text: 'Not an image, allowed formats gif, png, jpg, jpeg and webp',
+        }
+        return reject(obj)
       }
 
-      filename = filenameFromMimeType(filename, mimeType);
+      filename = filenameFromMimeType(filename, mimeType)
 
       const result = await this.page.evaluate(
         ({ to, base64, filename, caption, passId }) => {
@@ -691,17 +690,17 @@ export class SenderLayer extends AutomateLayer {
             'sendImage',
             false,
             passId
-          );
+          )
         },
         { to, base64, filename, caption, passId }
-      );
+      )
 
       if (result['erro'] == true) {
-        return reject(result);
+        return reject(result)
       } else {
-        return resolve(result);
+        return resolve(result)
       }
-    });
+    })
   }
 
   /**
@@ -721,16 +720,16 @@ export class SenderLayer extends AutomateLayer {
   ) {
     return await this.page.evaluate(
       ({ thumb, url, title, description, chatId }) => {
-        WAPI.sendMessageWithThumb(thumb, url, title, description, chatId);
+        WAPI.sendMessageWithThumb(thumb, url, title, description, chatId)
       },
       {
         thumb,
         url,
         title,
         description,
-        chatId
+        chatId,
       }
-    );
+    )
   }
 
   /**
@@ -742,51 +741,53 @@ export class SenderLayer extends AutomateLayer {
   public async reply(
     to: string,
     content: string,
-    quotedMsg: string
+    quotedMsg: string,
+    passId?: any,
+    checkNumber?: boolean
   ): Promise<Message | object> {
     return new Promise(async (resolve, reject) => {
-      const typeFunction = 'reply';
-      const type = 'string';
+      const typeFunction = 'reply'
+      const type = 'string'
       const check = [
         {
           param: 'to',
           type: type,
           value: to,
           function: typeFunction,
-          isUser: true
+          isUser: true,
         },
         {
           param: 'content',
           type: type,
           value: content,
           function: typeFunction,
-          isUser: true
+          isUser: true,
         },
         {
           param: 'quotedMsg',
           type: type,
           value: quotedMsg,
           function: typeFunction,
-          isUser: false
-        }
-      ];
-      const validating = checkValuesSender(check);
+          isUser: false,
+        },
+      ]
+      const validating = checkValuesSender(check)
       if (typeof validating === 'object') {
-        return reject(validating);
+        return reject(validating)
       }
       const result: object = await this.page.evaluate(
-        ({ to, content, quotedMsg }) => {
-          return WAPI.reply(to, content, quotedMsg);
+        ({ to, content, quotedMsg, passId, checkNumber }) => {
+          return WAPI.reply(to, content, quotedMsg, passId, checkNumber)
         },
-        { to, content, quotedMsg }
-      );
+        { to, content, quotedMsg, passId, checkNumber }
+      )
 
       if (result['erro'] == true) {
-        reject(result);
+        reject(result)
       } else {
-        resolve(result);
+        resolve(result)
       }
-    });
+    })
   }
 
   /**
@@ -797,15 +798,15 @@ export class SenderLayer extends AutomateLayer {
    */
   public async sendVoiceBase64(to: string, base64: string, passId?: any) {
     return new Promise(async (resolve, reject) => {
-      const mimeType: any = base64MimeType(base64);
+      const mimeType: any = base64MimeType(base64)
 
       if (!mimeType) {
         obj = {
           erro: true,
           to: to,
-          text: 'Invalid base64!'
-        };
-        return reject(obj);
+          text: 'Invalid base64!',
+        }
+        return reject(obj)
       }
 
       if (
@@ -815,24 +816,24 @@ export class SenderLayer extends AutomateLayer {
       ) {
         const result = await this.page.evaluate(
           ({ to, base64, passId }) => {
-            return WAPI.sendPtt(base64, to, passId);
+            return WAPI.sendPtt(base64, to, passId)
           },
           { to, base64, passId }
-        );
+        )
         if (result['erro'] == true) {
-          reject(result);
+          reject(result)
         } else {
-          resolve(result);
+          resolve(result)
         }
       } else {
         obj = {
           erro: true,
           to: to,
-          text: 'Use the MP3 format to be able to send an audio!'
-        };
-        return reject(obj);
+          text: 'Use the MP3 format to be able to send an audio!',
+        }
+        return reject(obj)
       }
-    });
+    })
   }
 
   /**
@@ -855,23 +856,23 @@ export class SenderLayer extends AutomateLayer {
       try {
         let base64: string | false = await downloadFileToBase64(filePath, [
           'audio/mpeg',
-          'audio/mp3'
-        ]);
+          'audio/mp3',
+        ])
 
         if (!base64) {
-          base64 = await fileToBase64(filePath);
+          base64 = await fileToBase64(filePath)
         }
 
         if (!base64) {
           obj = {
             erro: true,
             to: to,
-            text: 'No such file or directory, open "' + filePath + '"'
-          };
-          return reject(obj);
+            text: 'No such file or directory, open "' + filePath + '"',
+          }
+          return reject(obj)
         }
 
-        const mimeInfo = base64MimeType(base64);
+        const mimeInfo = base64MimeType(base64)
 
         if (
           !mimeInfo ||
@@ -887,28 +888,28 @@ export class SenderLayer extends AutomateLayer {
                 checkNumber,
                 forcingReturn,
                 delSend
-              );
+              )
             },
             { to, base64, passId, checkNumber, forcingReturn, delSend }
-          );
+          )
           if (result['erro'] == true) {
-            reject(result);
+            reject(result)
           } else {
-            resolve(result);
+            resolve(result)
           }
         } else {
           obj = {
             erro: true,
             to: to,
-            text: 'Use the MP3 format to be able to send an audio!'
-          };
-          return reject(obj);
+            text: 'Use the MP3 format to be able to send an audio!',
+          }
+          return reject(obj)
         }
       } catch (error) {
-        console.log(error);
-        return reject(error);
+        console.log(error)
+        return reject(error)
       }
-    });
+    })
   }
 
   /**
@@ -927,20 +928,20 @@ export class SenderLayer extends AutomateLayer {
     passId?: any
   ): Promise<SendFileResult> {
     return new Promise(async (resolve, reject) => {
-      let mimeType = base64MimeType(base64);
+      const mimeType = base64MimeType(base64)
 
       if (!mimeType) {
         obj = {
           erro: true,
           to: to,
-          text: 'Invalid base64!'
-        };
-        return reject(obj);
+          text: 'Invalid base64!',
+        }
+        return reject(obj)
       }
 
-      filename = filenameFromMimeType(filename, mimeType);
+      filename = filenameFromMimeType(filename, mimeType)
 
-      const type = 'FileFromBase64';
+      const type = 'FileFromBase64'
       const result = await this.page.evaluate(
         ({ to, base64, filename, caption, type, passId }) => {
           return WAPI.sendFile(
@@ -951,16 +952,16 @@ export class SenderLayer extends AutomateLayer {
             type,
             undefined,
             passId
-          );
+          )
         },
         { to, base64, filename, caption, type, passId }
-      );
+      )
       if (result['erro'] == true) {
-        reject(result);
+        reject(result)
       } else {
-        resolve(result);
+        resolve(result)
       }
-    });
+    })
   }
 
   /**
@@ -982,37 +983,37 @@ export class SenderLayer extends AutomateLayer {
   ) {
     return new Promise(async (resolve, reject) => {
       let base64 = await downloadFileToBase64(filePath),
-        obj: { erro: boolean; to: string; text: string };
+        obj: { erro: boolean; to: string; text: string }
 
       if (!base64) {
-        base64 = await fileToBase64(filePath);
+        base64 = await fileToBase64(filePath)
       }
 
       if (!base64) {
         obj = {
           erro: true,
           to: to,
-          text: 'No such file or directory, open "' + filePath + '"'
-        };
-        return reject(obj);
+          text: 'No such file or directory, open "' + filePath + '"',
+        }
+        return reject(obj)
       }
 
       if (!filename && typeof filename !== 'string') {
-        filename = path.basename(filePath);
+        filename = path.basename(filePath)
       }
 
-      let mimeType = base64MimeType(base64);
+      const mimeType = base64MimeType(base64)
 
       if (!mimeType) {
         obj = {
           erro: true,
           to: to,
-          text: 'Invalid base64!'
-        };
-        return reject(obj);
+          text: 'Invalid base64!',
+        }
+        return reject(obj)
       }
 
-      filename = filenameFromMimeType(filename, mimeType);
+      filename = filenameFromMimeType(filename, mimeType)
 
       const result = await this.page.evaluate(
         ({
@@ -1023,7 +1024,7 @@ export class SenderLayer extends AutomateLayer {
           passId,
           checkNumber,
           forcingReturn,
-          delSend
+          delSend,
         }) => {
           return WAPI.sendFile(
             base64,
@@ -1036,7 +1037,7 @@ export class SenderLayer extends AutomateLayer {
             checkNumber,
             forcingReturn,
             delSend
-          );
+          )
         },
         {
           to,
@@ -1046,15 +1047,15 @@ export class SenderLayer extends AutomateLayer {
           passId,
           checkNumber,
           forcingReturn,
-          delSend
+          delSend,
         }
-      );
+      )
       if (result['erro'] == true) {
-        reject(result);
+        reject(result)
       } else {
-        resolve(result);
+        resolve(result)
       }
-    });
+    })
   }
 
   /**
@@ -1070,9 +1071,9 @@ export class SenderLayer extends AutomateLayer {
     filename: string,
     caption: string
   ) {
-    const base64 = await fileToBase64(path);
+    const base64 = await fileToBase64(path)
     if (base64) {
-      return this.sendVideoAsGifFromBase64(to, base64, filename, caption);
+      return this.sendVideoAsGifFromBase64(to, base64, filename, caption)
     }
   }
 
@@ -1091,10 +1092,10 @@ export class SenderLayer extends AutomateLayer {
   ) {
     return await this.page.evaluate(
       ({ to, base64, filename, caption }) => {
-        WAPI.sendVideoAsGif(base64, to, filename, caption);
+        WAPI.sendVideoAsGif(base64, to, filename, caption)
       },
       { to, base64, filename, caption }
-    );
+    )
   }
 
   /**
@@ -1110,16 +1111,16 @@ export class SenderLayer extends AutomateLayer {
     return new Promise(async (resolve, reject) => {
       const result = await this.page.evaluate(
         ({ to, contactsId, name }) => {
-          return WAPI.sendContactVcard(to, contactsId, name);
+          return WAPI.sendContactVcard(to, contactsId, name)
         },
         { to, contactsId, name }
-      );
+      )
       if (result['erro'] == true) {
-        reject(result);
+        reject(result)
       } else {
-        resolve(result);
+        resolve(result)
       }
-    });
+    })
   }
 
   /**
@@ -1131,16 +1132,16 @@ export class SenderLayer extends AutomateLayer {
     return new Promise(async (resolve, reject) => {
       const result = await this.page.evaluate(
         ({ to, contacts }) => {
-          return WAPI.sendContactVcardList(to, contacts);
+          return WAPI.sendContactVcardList(to, contacts)
         },
         { to, contacts }
-      );
+      )
       if (result['erro'] == true) {
-        reject(result);
+        reject(result)
       } else {
-        resolve(result);
+        resolve(result)
       }
-    });
+    })
   }
 
   /**
@@ -1159,16 +1160,16 @@ export class SenderLayer extends AutomateLayer {
         ({ to, messages, skipMyMessages }) => {
           return WAPI.forwardMessages(to, messages, skipMyMessages).catch(
             (e) => e
-          );
+          )
         },
         { to, messages, skipMyMessages }
-      );
+      )
       if (typeof result['erro'] !== 'undefined' && result['erro'] == true) {
-        reject(result);
+        reject(result)
       } else {
-        resolve(result);
+        resolve(result)
       }
-    });
+    })
   }
 
   /**
@@ -1180,44 +1181,44 @@ export class SenderLayer extends AutomateLayer {
     to: string,
     path: string
   ): Promise<SendStickerResult | false> {
-    let b64 = await downloadFileToBase64(path, ['image/gif', 'image/webp']);
+    let b64 = await downloadFileToBase64(path, ['image/gif', 'image/webp'])
     if (!b64) {
-      b64 = await fileToBase64(path);
+      b64 = await fileToBase64(path)
     }
     if (b64) {
       const buff = Buffer.from(
         b64.replace(/^data:image\/(gif|webp);base64,/, ''),
         'base64'
-      );
-      const mimeInfo = base64MimeType(b64);
+      )
+      const mimeInfo = base64MimeType(b64)
       if (!mimeInfo || mimeInfo.includes('image')) {
-        let obj = await stickerSelect(buff, 1);
+        const obj = await stickerSelect(buff, 1)
         if (typeof obj == 'object') {
-          let _webb64 = obj['webpBase64'];
-          let _met = obj['metadata'];
+          const _webb64 = obj['webpBase64']
+          const _met = obj['metadata']
 
           return new Promise(async (resolve, reject) => {
             const result = await this.page.evaluate(
               ({ _webb64, to, _met }) => {
-                return WAPI.sendImageAsSticker(_webb64, to, _met, 'StickerGif');
+                return WAPI.sendImageAsSticker(_webb64, to, _met, 'StickerGif')
               },
               { _webb64, to, _met }
-            );
+            )
             if (result['erro'] == true) {
-              reject(result);
+              reject(result)
             } else {
-              resolve(result);
+              resolve(result)
             }
-          });
+          })
         } else {
           throw {
             error: true,
-            message: 'Error with sharp library, check the console log'
-          };
+            message: 'Error with sharp library, check the console log',
+          }
         }
       } else {
-        console.log('Not an image, allowed format gif');
-        return false;
+        console.log('Not an image, allowed format gif')
+        return false
       }
     }
   }
@@ -1236,48 +1237,48 @@ export class SenderLayer extends AutomateLayer {
       'image/png',
       'image/jpg',
       'image/jpeg',
-      'image/webp'
-    ]);
+      'image/webp',
+    ])
 
     if (!b64) {
-      b64 = await fileToBase64(path);
+      b64 = await fileToBase64(path)
     }
 
     if (b64) {
       const buff = Buffer.from(
         b64.replace(/^data:image\/(png|jpe?g|webp|gif);base64,/, ''),
         'base64'
-      );
+      )
 
-      const mimeInfo = base64MimeType(b64);
+      const mimeInfo = base64MimeType(b64)
 
       if (!mimeInfo || mimeInfo.includes('image')) {
-        let obj = await stickerSelect(buff, 0);
+        const obj = await stickerSelect(buff, 0)
         if (typeof obj == 'object') {
-          let _webb64 = obj['webpBase64'];
-          let _met = obj['metadata'];
+          const _webb64 = obj['webpBase64']
+          const _met = obj['metadata']
           return new Promise(async (resolve, reject) => {
             const result = await this.page.evaluate(
               ({ _webb64, to, _met }) => {
-                return WAPI.sendImageAsSticker(_webb64, to, _met, 'Sticker');
+                return WAPI.sendImageAsSticker(_webb64, to, _met, 'Sticker')
               },
               { _webb64, to, _met }
-            );
+            )
             if (result['erro'] == true) {
-              reject(result);
+              reject(result)
             } else {
-              resolve(result);
+              resolve(result)
             }
-          });
+          })
         } else {
           throw {
             error: true,
-            message: 'Error with sharp library, check the console log'
-          };
+            message: 'Error with sharp library, check the console log',
+          }
         }
       } else {
-        console.log('Not an image, allowed formats png, jpeg and webp');
-        return false;
+        console.log('Not an image, allowed formats png, jpeg and webp')
+        return false
       }
     }
   }
@@ -1299,16 +1300,16 @@ export class SenderLayer extends AutomateLayer {
     return new Promise(async (resolve, reject) => {
       const result = await this.page.evaluate(
         ({ to, latitude, longitude, title }) => {
-          return WAPI.sendLocation(to, latitude, longitude, title);
+          return WAPI.sendLocation(to, latitude, longitude, title)
         },
         { to, latitude, longitude, title }
-      );
+      )
       if (result['erro'] == true) {
-        reject(result);
+        reject(result)
       } else {
-        resolve(result);
+        resolve(result)
       }
-    });
+    })
   }
 
   /**
@@ -1318,32 +1319,32 @@ export class SenderLayer extends AutomateLayer {
    */
   public async startTyping(chatId: string, checkNumber: boolean) {
     return new Promise(async (resolve, reject) => {
-      const typeFunction = 'startTyping';
-      const type = 'string';
+      const typeFunction = 'startTyping'
+      const type = 'string'
       const check = [
         {
           param: 'chatId',
           type: type,
           value: chatId,
           function: typeFunction,
-          isUser: true
-        }
-      ];
-      const validating = checkValuesSender(check);
+          isUser: true,
+        },
+      ]
+      const validating = checkValuesSender(check)
       if (typeof validating === 'object') {
-        return reject(validating);
+        return reject(validating)
       }
       const result = await this.page.evaluate(
         ({ chatId, checkNumber }) => WAPI.startTyping(chatId, checkNumber),
         { chatId, checkNumber }
-      );
+      )
 
       if (result['erro'] == true) {
-        return reject(result);
+        return reject(result)
       } else {
-        return resolve(result);
+        return resolve(result)
       }
-    });
+    })
   }
 
   /**
@@ -1353,32 +1354,32 @@ export class SenderLayer extends AutomateLayer {
    */
   public async startRecording(chatId: string, checkNumber: boolean) {
     return new Promise(async (resolve, reject) => {
-      const typeFunction = 'startRecording';
-      const type = 'string';
+      const typeFunction = 'startRecording'
+      const type = 'string'
       const check = [
         {
           param: 'chatId',
           type: type,
           value: chatId,
           function: typeFunction,
-          isUser: true
-        }
-      ];
-      const validating = checkValuesSender(check);
+          isUser: true,
+        },
+      ]
+      const validating = checkValuesSender(check)
       if (typeof validating === 'object') {
-        return reject(validating);
+        return reject(validating)
       }
       const result = await this.page.evaluate(
         ({ chatId, checkNumber }) => WAPI.startRecording(chatId, checkNumber),
         { chatId, checkNumber }
-      );
+      )
 
       if (result['erro'] == true) {
-        return reject(result);
+        return reject(result)
       } else {
-        return resolve(result);
+        return resolve(result)
       }
-    });
+    })
   }
 
   /**
@@ -1388,32 +1389,32 @@ export class SenderLayer extends AutomateLayer {
    */
   public async markPaused(chatId: string, checkNumber: boolean) {
     return new Promise(async (resolve, reject) => {
-      const typeFunction = 'startRecording';
-      const type = 'string';
+      const typeFunction = 'startRecording'
+      const type = 'string'
       const check = [
         {
           param: 'chatId',
           type: type,
           value: chatId,
           function: typeFunction,
-          isUser: true
-        }
-      ];
-      const validating = checkValuesSender(check);
+          isUser: true,
+        },
+      ]
+      const validating = checkValuesSender(check)
       if (typeof validating === 'object') {
-        return reject(validating);
+        return reject(validating)
       }
       const result = await this.page.evaluate(
         ({ chatId, checkNumber }) => WAPI.markPaused(chatId, checkNumber),
         { chatId, checkNumber }
-      );
+      )
 
       if (result['erro'] == true) {
-        return reject(result);
+        return reject(result)
       } else {
-        return resolve(result);
+        return resolve(result)
       }
-    });
+    })
   }
 
   /**
@@ -1422,47 +1423,47 @@ export class SenderLayer extends AutomateLayer {
    */
   public async clearPresence(chatId: string) {
     return new Promise(async (resolve, reject) => {
-      const typeFunction = 'clearPresence';
-      const type = 'string';
+      const typeFunction = 'clearPresence'
+      const type = 'string'
       const check = [
         {
           param: 'chatId',
           type: type,
           value: chatId,
           function: typeFunction,
-          isUser: true
-        }
-      ];
-      const validating = checkValuesSender(check);
+          isUser: true,
+        },
+      ]
+      const validating = checkValuesSender(check)
       if (typeof validating === 'object') {
-        return reject(validating);
+        return reject(validating)
       }
 
       const result = await this.page.evaluate(
         ({ chatId }) => WAPI.clearPresence(chatId),
         { chatId }
-      );
+      )
 
       if (result['erro'] == true) {
-        return reject(result);
+        return reject(result)
       } else {
-        return resolve(result);
+        return resolve(result)
       }
-    });
+    })
   }
 
   /**
    * Presence Available
    */
   public async presenceAvailable() {
-    return this.page.evaluate(() => WAPI.presenceAvailable());
+    return this.page.evaluate(() => WAPI.presenceAvailable())
   }
 
   /**
    * Presence Available
    */
   public async presenceUnavailable() {
-    return this.page.evaluate(() => WAPI.presenceUnavailable());
+    return this.page.evaluate(() => WAPI.presenceUnavailable())
   }
 
   /**
@@ -1472,10 +1473,10 @@ export class SenderLayer extends AutomateLayer {
   public async sendMentioned(to: string, message: string, mentioned: string[]) {
     return await this.page.evaluate(
       ({ to, message, mentioned }) => {
-        WAPI.sendMessageMentioned(to, message, mentioned);
+        WAPI.sendMessageMentioned(to, message, mentioned)
       },
       { to, message, mentioned }
-    );
+    )
   }
 
   /**
@@ -1486,18 +1487,18 @@ export class SenderLayer extends AutomateLayer {
   public async setChatState(chatId: string, chatState: ChatState) {
     return await this.page.evaluate(
       ({ chatState, chatId }) => {
-        return WAPI.sendChatstate(chatState, chatId);
+        return WAPI.sendChatstate(chatState, chatId)
       },
       { chatState, chatId }
-    );
+    )
   }
 
   public async sendReactions(IdMessage: string, emoji: string) {
     return await this.page.evaluate(
       ({ IdMessage, emoji }) => {
-        WAPI.sendReactions(IdMessage, emoji);
+        WAPI.sendReactions(IdMessage, emoji)
       },
       { IdMessage, emoji }
-    );
+    )
   }
 }

@@ -1,142 +1,137 @@
-import { Browser, BrowserContext, LaunchOptions, Page } from 'puppeteer';
-import { puppeteerConfig } from './puppeteer.config';
+import { Browser, BrowserContext, LaunchOptions, Page } from 'puppeteer'
+import { puppeteerConfig } from './puppeteer.config'
 
 // Server config
 export interface CreateConfig {
-  session?: string;
+  session?: string
   /** folder name when saving tokens
    * @default 'tokens'
    */
-  folderNameToken?: string;
+  folderNameToken?: string
   /**
    * folder directory tokens, just inside the venom folder, example:  { mkdirFolderToken: '/node_modules', } //will save the tokens folder in the node_modules directory
    * @default 'null'
    */
-  mkdirFolderToken?: string;
+  mkdirFolderToken?: string
   /**
    * Headless chrome
    * @default "old"
    */
-  headless?: false | 'new' | 'old';
+  headless?: false | 'new' | 'old'
   /**
    * Open devtools by default
    * @default false
    */
-  devtools?: boolean;
+  devtools?: boolean
   /**
    * Opens a debug session
    * @default false
    */
-  debug?: boolean;
+  debug?: boolean
   /**
    * If you want to use browserWSEndpoint
    */
-  browserWS?: string;
+  browserWS?: string
   /**
    * Parameters to be added into the chrome browser instance
    */
-  browserArgs?: string[];
+  browserArgs?: string[]
   /**
    * Add broserArgs without overwriting the project's original
    */
-  addBrowserArgs?: string[];
+  addBrowserArgs?: string[]
   /**
    * Will be passed to puppeteer.launch
    */
-  puppeteerOptions?: LaunchOptions;
+  puppeteerOptions?: LaunchOptions
   /**
    * Pass a external browser instance, can be used with electron
    */
-  browser?: Browser | BrowserContext;
+  browser?: Browser | BrowserContext
   /**
    * Pass a external page instance, can be used with electron
    */
-  page?: Page;
+  page?: Page
   /**
    * Logs QR automatically in terminal
    * @default true
    */
-  logQR?: boolean;
-  /**
-   * Will disable Spinnies animation, useful for containers (docker) for a better log
-   * @default false
-   */
-  disableSpins?: boolean;
+  logQR?: boolean
   /**
    * Will disable the welcoming message which appears in the beginning
    * @default false
    */
-  disableWelcome?: boolean;
+  disableWelcome?: boolean
   /**
    * Logs info updates automatically in terminal
    * @default true
    */
-  updatesLog?: boolean;
+  updatesLog?: boolean
   /**
    * Automatically closes the venom-bot only when scanning the QR code (default 60000 miliseconds, if you want to turn it off, assign 0 or false)
    * @default 60000
    */
-  autoClose?: number;
+  autoClose?: number
   /**
    * Creates a folder when inserting an object in the client's browser, to work it is necessary to pass the parameters in the function create browserSessionToken
    * @default true
    */
-  createPathFileToken?: boolean;
+  createPathFileToken?: boolean
   /**
    * Wait for in chat to return a instance of {@link Whatsapp}
    * @default false
    */
-  waitForLogin?: boolean;
+  waitForLogin?: boolean
   /**
    * automatically download Chromium browser
    * @default true
    */
-  BrowserFetcher?: boolean;
+  BrowserFetcher?: boolean
   /**
    * Forcing connection with whatsapp
    * @default true
    */
-  forceConnect?: boolean;
+  forceConnect?: boolean
   /**
    * Wait attempts, to force connection
    * @default 5
    */
-  attemptsForceConnectLoad?: number;
+  attemptsForceConnectLoad?: number
   /**
    * force connect time stamp
    * @default 5000
    */
-  forceConnectTime?: number;
+  forceConnectTime?: number
   /**
    * Add proxy server
    * @default null
    */
-  addProxy?: string[];
+  addProxy?: string[]
   /**
    * Proxy username
    * @default null
    */
-  userProxy?: string;
+  userProxy?: string
   /**
    * Proxy password
    * @default null
    */
-  userPass?: string;
+  userPass?: string
   /**
    * Browser executable path
    * @default null
    */
-  browserPathExecutable?: string;
+  browserPathExecutable?: string
   /**
    * Force webpack version of WhatsApp.
    * @default false
    */
-  forceWebpack?: boolean;
+  forceWebpack?: boolean
   /**
    * Use a cached version of WhatsApp
    * @default false
    */
-  webVersion?: boolean | string;
+  webVersion?: boolean | string
 }
 
 export const defaultOptions: CreateConfig = {
@@ -150,7 +145,6 @@ export const defaultOptions: CreateConfig = {
   browserArgs: puppeteerConfig.chromiumArgs,
   addBrowserArgs: [],
   puppeteerOptions: {},
-  disableSpins: false,
   disableWelcome: true,
   updatesLog: true,
   autoClose: 120000,
@@ -163,5 +157,5 @@ export const defaultOptions: CreateConfig = {
   addProxy: [],
   browserPathExecutable: null,
   forceWebpack: false,
-  webVersion: false
-};
+  webVersion: false,
+}

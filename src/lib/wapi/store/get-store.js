@@ -1,5 +1,5 @@
-/* eslint-disable prettier/prettier */
 const { storeObjects } = require('./store-objects');
+
 export async function getStore(modules) {
   let foundCount = 0;
   const neededObjects = storeObjects;

@@ -1,7 +1,7 @@
-import { Page, Browser } from 'puppeteer';
-import { CreateConfig } from '../../config/create-config';
-import { UILayer } from './ui.layer';
-import { checkValuesSender } from '../helpers/layers-interface';
+import { Page, Browser } from 'puppeteer'
+import { CreateConfig } from '../../config/create-config'
+import { UILayer } from './ui.layer'
+import { checkValuesSender } from '../helpers/layers-interface'
 
 export class ControlsLayer extends UILayer {
   constructor(
@@ -10,7 +10,7 @@ export class ControlsLayer extends UILayer {
     session?: string,
     options?: CreateConfig
   ) {
-    super(browser, page, session, options);
+    super(browser, page, session, options)
   }
 
   /**
@@ -22,7 +22,7 @@ export class ControlsLayer extends UILayer {
     return this.page.evaluate(
       (contactId: string) => WAPI.unblockContact(contactId),
       contactId
-    );
+    )
   }
 
   /**
@@ -34,7 +34,7 @@ export class ControlsLayer extends UILayer {
     return this.page.evaluate(
       (contactId: string) => WAPI.blockContact(contactId),
       contactId
-    );
+    )
   }
 
   /**
@@ -44,33 +44,33 @@ export class ControlsLayer extends UILayer {
    */
   public async markUnseenMessage(contactId: string) {
     return new Promise(async (resolve, reject) => {
-      const typeFunction = 'markUnseenMessage';
-      const type = 'string';
+      const typeFunction = 'markUnseenMessage'
+      const type = 'string'
       const check = [
         {
           param: 'contactId',
           type: type,
           value: contactId,
           function: typeFunction,
-          isUser: true
-        }
-      ];
+          isUser: true,
+        },
+      ]
 
-      const validating = checkValuesSender(check);
+      const validating = checkValuesSender(check)
       if (typeof validating === 'object') {
-        return reject(validating);
+        return reject(validating)
       }
       const result = await this.page.evaluate(
         (contactId: string) => WAPI.markUnseenMessage(contactId),
         contactId
-      );
+      )
 
       if (result['erro'] == true) {
-        return reject(result);
+        return reject(result)
       } else {
-        return resolve(result);
+        return resolve(result)
       }
-    });
+    })
   }
 
   /**
@@ -80,33 +80,33 @@ export class ControlsLayer extends UILayer {
    */
   public async markMarkSeenMessage(contactId: string) {
     return new Promise(async (resolve, reject) => {
-      const typeFunction = 'markMarkSeenMessage';
-      const type = 'string';
+      const typeFunction = 'markMarkSeenMessage'
+      const type = 'string'
       const check = [
         {
           param: 'contactId',
           type: type,
           value: contactId,
           function: typeFunction,
-          isUser: true
-        }
-      ];
+          isUser: true,
+        },
+      ]
 
-      const validating = checkValuesSender(check);
+      const validating = checkValuesSender(check)
       if (typeof validating === 'object') {
-        return reject(validating);
+        return reject(validating)
       }
       const result = await this.page.evaluate(
         (contactId: string) => WAPI.markMarkSeenMessage(contactId),
         contactId
-      );
+      )
 
       if (result['erro'] == true) {
-        return reject(result);
+        return reject(result)
       } else {
-        return resolve(result);
+        return resolve(result)
       }
-    });
+    })
   }
 
   /**
@@ -118,7 +118,7 @@ export class ControlsLayer extends UILayer {
     return await this.page.evaluate(
       (chatId) => WAPI.deleteConversation(chatId),
       chatId
-    );
+    )
   }
 
   /**
@@ -131,7 +131,7 @@ export class ControlsLayer extends UILayer {
     return this.page.evaluate(
       ({ chatId, option }) => WAPI.archiveChat(chatId, option),
       { chatId, option }
-    );
+    )
   }
 
   /**
@@ -145,16 +145,16 @@ export class ControlsLayer extends UILayer {
     return new Promise(async (resolve, reject) => {
       const result = await this.page.evaluate(
         ({ chatId, option, nonExistent }) => {
-          return WAPI.pinChat(chatId, option, nonExistent);
+          return WAPI.pinChat(chatId, option, nonExistent)
         },
         { chatId, option, nonExistent }
-      );
+      )
       if (result['erro'] == true) {
-        reject(result);
+        reject(result)
       } else {
-        resolve(result);
+        resolve(result)
       }
-    });
+    })
   }
 
   /**
@@ -166,7 +166,7 @@ export class ControlsLayer extends UILayer {
     return this.page.evaluate(
       (chatId) => WAPI.clearChatMessages(chatId),
       chatId
-    );
+    )
   }
 
   /**
@@ -180,40 +180,40 @@ export class ControlsLayer extends UILayer {
     messageId: string[]
   ): Promise<Object> {
     return new Promise(async (resolve, reject) => {
-      const typeFunction = 'deleteMessage';
-      const type = 'string';
+      const typeFunction = 'deleteMessage'
+      const type = 'string'
       const check = [
         {
           param: 'chatId',
           type: type,
           value: chatId,
           function: typeFunction,
-          isUser: true
+          isUser: true,
         },
         {
           param: 'messageId',
           type: 'object',
           value: messageId,
           function: typeFunction,
-          isUser: true
-        }
-      ];
+          isUser: true,
+        },
+      ]
 
-      const validating = checkValuesSender(check);
+      const validating = checkValuesSender(check)
       if (typeof validating === 'object') {
-        return reject(validating);
+        return reject(validating)
       }
       const result = await this.page.evaluate(
         ({ chatId, messageId }) => WAPI.deleteMessages(chatId, messageId),
         { chatId, messageId }
-      );
+      )
 
       if (result['erro'] === true) {
-        return reject(result);
+        return reject(result)
       } else {
-        return resolve(result);
+        return resolve(result)
       }
-    });
+    })
   }
 
   /**
@@ -226,12 +226,12 @@ export class ControlsLayer extends UILayer {
     return this.page.evaluate(
       ({ chatId, option }) => WAPI.setMessagesAdminsOnly(chatId, option),
       { chatId, option }
-    );
+    )
   }
 
   public async reload() {
     await this.page.evaluate(() => {
-      window.location.reload();
-    });
+      window.location.reload()
+    })
   }
 }

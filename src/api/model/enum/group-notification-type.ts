@@ -7,5 +7,5 @@ export enum GroupNotificationType {
   Description = 'description',
   Picture = 'picture',
   Announce = 'announce',
-  Restrict = 'restrict'
+  Restrict = 'restrict',
 }

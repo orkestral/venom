@@ -1,12 +1,12 @@
-import { Page, Browser } from 'puppeteer';
-import { ControlsLayer } from './layers/controls.layer';
-import { Message } from './model';
-import { magix, timeout, makeOptions } from './helpers/decrypt';
-import { useragentOverride } from '../config/WAuserAgente';
-import { CreateConfig } from '../config/create-config';
-import axios from 'axios';
-import * as path from 'path';
-import fs from 'fs/promises';
+import { Page, Browser } from 'puppeteer'
+import { ControlsLayer } from './layers/controls.layer'
+import { Message } from './model'
+import { magix, timeout, makeOptions } from './helpers/decrypt'
+import { useragentOverride } from '../config/WAuserAgente'
+import { CreateConfig } from '../config/create-config'
+import axios from 'axios'
+import * as path from 'path'
+import fs from 'fs/promises'
 
 export class Whatsapp extends ControlsLayer {
   constructor(
@@ -15,16 +15,19 @@ export class Whatsapp extends ControlsLayer {
     session?: string,
     options?: CreateConfig
   ) {
-    super(browser, page, session, options);
-    this.initService().finally();
+    super(browser, page, session, options)
+
     this.page.on('load', async () => {
-      await this.initialize();
-      await page
-        .waitForSelector('#app .two', { visible: true })
-        .catch(() => {});
-      await this.initService();
-      await this.addChatWapi();
-    });
+      try {
+        await this.initService()
+        await page
+          .waitForSelector('#app .two', { visible: true })
+          .catch(() => {})
+        await this.addChatWapi()
+      } catch (error) {
+        console.error('failed loading page', error)
+      }
+    })
   }
 
   async initService() {
@@ -32,51 +35,54 @@ export class Whatsapp extends ControlsLayer {
       // Allow backwards compatibility without specifying any specific options
       // The assumption is that WA switched away from Webpack at/after 2.3
       // This can be removed when all browsers have rolled over to new non-webpack version
-      let useWebpack = false;
+      let useWebpack = false
       if (
         this.options.forceWebpack === false &&
         this.options.webVersion === false
       ) {
+        // NOTE return whatsapp version
         const actualWebVersion = await this.page.evaluate(() => {
           return window['Debug'] && window['Debug'].VERSION
             ? window['Debug'].VERSION
-            : '';
-        });
+            : ''
+        })
 
-        const versionNumber = parseFloat(actualWebVersion);
-        useWebpack = versionNumber < 2.3;
+        const versionNumber = parseFloat(actualWebVersion)
+        useWebpack = versionNumber < 2.3
       }
 
       if (this.options.forceWebpack === false && !useWebpack) {
         await this.page.evaluate(() => {
-          window['__debug'] = eval("require('__debug');");
-        });
+          window['__debug'] = eval("require('__debug');")
+        })
       } else {
         await this.page
           .waitForFunction('webpackChunkwhatsapp_web_client.length')
-          .catch();
+          .catch()
       }
 
-      let js = await fs.readFile(
+      const js = await fs.readFile(
         require.resolve(path.join(__dirname, '../lib/wapi/', 'wapi.js')),
         'utf-8'
-      );
-      await this.page.evaluate(js);
+      )
+      await this.page.evaluate(js)
 
-      let middleware_script = await fs.readFile(
+      const middleware_script = await fs.readFile(
         require.resolve(
           path.join(__dirname, '../lib/middleware', 'middleware.js')
         ),
         'utf-8'
-      );
-      await this.page.evaluate(middleware_script);
+      )
+      await this.page.evaluate(middleware_script)
 
-      await this.initialize();
-    } catch {}
+      await this.initialize()
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   async addChatWapi() {
-    await this.page.evaluate(() => WAPI.addChatWapi());
+    await this.page.evaluate(() => WAPI.addChatWapi())
   }
 
   /**
@@ -85,7 +91,7 @@ export class Whatsapp extends ControlsLayer {
    * @returns Decrypted file buffer (null otherwise)
    */
   public async downloadFile(data: string) {
-    return await this.page.evaluate((data) => WAPI.downloadFile(data), data);
+    return await this.page.evaluate((data) => WAPI.downloadFile(data), data)
   }
 
   /**
@@ -95,23 +101,23 @@ export class Whatsapp extends ControlsLayer {
    */
   public async downloadMedia(messageId: string | Message): Promise<string> {
     if (typeof messageId !== 'string') {
-      messageId = messageId.id;
+      messageId = messageId.id
     }
 
     const result = await this.page
       .evaluate(
         (messageId) =>
           WAPI.downloadMedia(messageId).catch((e) => ({
-            __error: e
+            __error: e,
           })),
         messageId
       )
-      .catch(() => undefined);
+      .catch(() => undefined)
 
     if (typeof result === 'object' && result.__error) {
-      throw result.__error;
+      throw result.__error
     }
-    return result as string;
+    return result as string
   }
 
   /**
@@ -119,7 +125,7 @@ export class Whatsapp extends ControlsLayer {
    * @returns The Whatsapp page
    */
   get waPage(): Page {
-    return this.page;
+    return this.page
   }
 
   /**
@@ -129,7 +135,7 @@ export class Whatsapp extends ControlsLayer {
    * Dont rely on this method
    */
   public async useHere() {
-    return await this.page.evaluate(() => WAPI.takeOver());
+    return await this.page.evaluate(() => WAPI.takeOver())
   }
 
   /**
@@ -137,7 +143,7 @@ export class Whatsapp extends ControlsLayer {
    * @returns boolean
    */
   public async logout() {
-    return await this.page.evaluate(() => WAPI.logout());
+    return await this.page.evaluate(() => WAPI.logout())
   }
 
   /**
@@ -147,12 +153,12 @@ export class Whatsapp extends ControlsLayer {
   public async close() {
     try {
       if (!this.page.isClosed()) {
-        await this.page.close();
-        await this.browser.close();
-        return true;
+        await this.page.close()
+        await this.browser.close()
+        return true
       }
     } catch (e) {
-      return false;
+      return false
     }
   }
 
@@ -165,7 +171,7 @@ export class Whatsapp extends ControlsLayer {
     return (await this.page.evaluate(
       (messageId: any) => WAPI.getMessageById(messageId),
       messageId
-    )) as Message;
+    )) as Message
   }
 
   /**
@@ -174,34 +180,34 @@ export class Whatsapp extends ControlsLayer {
    * @returns Decrypted file buffer (null otherwise)
    */
   public async decryptFile(message: Message) {
-    const options = makeOptions(useragentOverride);
+    const options = makeOptions(useragentOverride)
     message.clientUrl =
       message.clientUrl !== undefined
         ? message.clientUrl
-        : message.deprecatedMms3Url;
+        : message.deprecatedMms3Url
 
     if (!message.clientUrl) {
       throw new Error(
         'message is missing critical data needed to download the file.'
-      );
+      )
     }
 
     let haventGottenImageYet: boolean = true,
-      res: any;
+      res: any
     try {
       while (haventGottenImageYet) {
-        res = await axios.get(message.clientUrl.trim(), options);
+        res = await axios.get(message.clientUrl.trim(), options)
         if (res.status == 200) {
-          haventGottenImageYet = false;
+          haventGottenImageYet = false
         } else {
-          await timeout(2000);
+          await timeout(2000)
         }
       }
     } catch (error) {
-      console.error(error);
-      throw 'Error trying to download the file.';
+      console.error(error)
+      throw 'Error trying to download the file.'
     }
-    const buff = Buffer.from(res.data, 'binary');
-    return magix(buff, message.mediaKey, message.type, message.size);
+    const buff = Buffer.from(res.data, 'binary')
+    return magix(buff, message.mediaKey, message.type, message.size)
   }
 }

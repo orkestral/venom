@@ -1,9 +1,9 @@
 export interface GroupCreation {
-  status: number;
+  status: number
   gid: {
-    server: string;
-    user: string;
-    _serialized: string;
-  };
-  participants: { [key: string]: any[] }[];
+    server: string
+    user: string
+    _serialized: string
+  }
+  participants: { [key: string]: any[] }[]
 }

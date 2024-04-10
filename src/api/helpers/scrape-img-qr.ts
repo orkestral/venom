@@ -1,39 +1,39 @@
-import { Page } from 'puppeteer';
-import { ScrapQrcode } from '../model/qrcode';
+import { Page } from 'puppeteer'
+import { ScrapQrcode } from '../model/qrcode'
 
 export async function scrapeImg(page: Page): Promise<ScrapQrcode | undefined> {
-  let click = await page.evaluate(async () => {
-    const buttonReload = document.querySelector('button.Jht5u');
+  const click = await page.evaluate(async () => {
+    const buttonReload = document.querySelector('button.Jht5u')
     if (buttonReload != null) {
-      return true;
+      return true
     }
-    return false;
-  });
+    return false
+  })
 
   if (click) {
-    const buttonReloadElementHandle = await page.$('button.Jht5u');
+    const buttonReloadElementHandle = await page.$('button.Jht5u')
     if (buttonReloadElementHandle) {
-      await buttonReloadElementHandle.click();
+      await buttonReloadElementHandle.click()
     }
   }
 
   const result = await page
     .evaluate(() => {
-      const selectorImg = document.querySelector('canvas');
-      const selectorUrl = selectorImg.closest('[data-ref]');
-      const buttonReload = document.querySelector('button.Jht5u');
+      const selectorImg = document.querySelector('canvas')
+      const selectorUrl = selectorImg.closest('[data-ref]')
+      const buttonReload = document.querySelector('button.Jht5u')
 
       if (buttonReload === null && selectorImg != null && selectorUrl != null) {
-        let data = {
+        const data = {
           base64Image: selectorImg.toDataURL(),
-          urlCode: selectorUrl.getAttribute('data-ref')
-        };
-        return data;
+          urlCode: selectorUrl.getAttribute('data-ref'),
+        }
+        return data
       } else {
-        return undefined;
+        return undefined
       }
     })
-    .catch(() => undefined);
+    .catch(() => undefined)
 
-  return result;
+  return result
 }

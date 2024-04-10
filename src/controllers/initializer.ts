@@ -1,24 +1,24 @@
-import { Whatsapp } from '../api/whatsapp';
-import { CreateConfig, defaultOptions } from '../config/create-config';
-import { initWhatsapp, initBrowser, statusLog } from './browser';
-import { welcomeScreen } from './welcome';
-import { getSpinnies } from '../utils/spinnies';
+import { Whatsapp } from '../api/whatsapp'
+import { CreateConfig, defaultOptions } from '../config/create-config'
+import { initWhatsapp, initBrowser } from './browser'
 import {
   SocketState,
   SocketStream,
   InterfaceMode,
-  InterfaceState
-} from '../api/model/enum';
-import { InterfaceChangeMode } from '../api/model';
-import { checkingCloses } from '../api/helpers';
-import { Browser, Page } from 'puppeteer';
-import { checkUpdates } from './check-up-to-date';
+  InterfaceState,
+} from '../api/model/enum'
+import { InterfaceChangeMode } from '../api/model'
+import { checkingCloses } from '../api/helpers'
+import { Browser, Page } from 'puppeteer'
+import { checkUpdates } from './check-up-to-date'
+import { logger } from '../utils/logger'
 
 declare global {
   interface Window {
-    updater;
+    updater
   }
 }
+
 /**
  * A callback will be received, informing the status of the qrcode
  */
@@ -27,7 +27,7 @@ export type CatchQR = (
   asciiQR: string,
   attempt?: number,
   urlCode?: string
-) => void;
+) => void
 
 /**
  * A callback will be received, informing the customer's status
@@ -36,7 +36,7 @@ export type StatusFind = (
   statusGet: string,
   session: string,
   info?: string
-) => void;
+) => void
 
 /**
  * A callback will be received, informing user about browser and page instance
@@ -45,12 +45,12 @@ export type BrowserInstance = (
   browser: string | Browser,
   waPage: false | Page,
   client: Whatsapp
-) => void;
+) => void
 
 export type interfaceChange = (
   statusGet: InterfaceStateChange | string,
   session: string
-) => void;
+) => void
 
 export enum InterfaceStateChange {
   /**
@@ -80,39 +80,39 @@ export enum InterfaceStateChange {
   /**
    * The customer is in the chat
    */
-  chatsAvailable = 'chatsAvailable'
+  chatsAvailable = 'chatsAvailable',
 }
 
-export type ReconnectQrcode = (client: Whatsapp) => void;
+export type ReconnectQrcode = (client: Whatsapp) => void
 
 export interface CreateOptions extends CreateConfig {
   /**
    * You must pass a string type parameter, this parameter will be the name of the client's session. If the parameter is not passed, the section name will be "session".
    */
-  session: string;
+  session: string
   /**
    * A callback will be received, informing the status of the qrcode
    */
-  catchQR?: CatchQR;
+  catchQR?: CatchQR
   /**
    * A callback will be received, informing the customer's status
    */
-  statusFind?: StatusFind;
+  statusFind?: StatusFind
   /**
    * A callback will be received, informing user about browser and page instance
    */
-  browserInstance?: BrowserInstance;
+  browserInstance?: BrowserInstance
   /**
    * A callback will be received, customer interface information
    */
-  interfaceChange?: interfaceChange;
+  interfaceChange?: interfaceChange
 }
 
 /**
  * Start the bot
  * @returns Whatsapp page, with this parameter you will be able to access the bot functions
  */
-export async function create(createOption: CreateOptions): Promise<Whatsapp>;
+export async function create(createOption: CreateOptions): Promise<Whatsapp>
 /**
  * Start the bot
  * You must pass a string type parameter, this parameter will be the name of the client's session. If the parameter is not passed, the section name will be "session".
@@ -127,7 +127,7 @@ export async function create(
   browserInstance?: BrowserInstance,
   reconnectQrcode?: ReconnectQrcode,
   interfaceChange?: interfaceChange
-): Promise<Whatsapp>;
+): Promise<Whatsapp>
 
 export async function create(
   sessionOrOption: string | CreateOptions,
@@ -138,374 +138,329 @@ export async function create(
   reconnectQrcode?: ReconnectQrcode,
   interfaceChange?: interfaceChange
 ): Promise<any> {
-  let session = 'session';
+  let session = 'session'
   return new Promise(async (resolve, reject) => {
     if (
       typeof sessionOrOption === 'string' &&
       sessionOrOption.replace(/\s/g, '').length
     ) {
-      session = sessionOrOption.replace(/\s/g, '');
-      options['session'] = session;
+      session = sessionOrOption.replace(/\s/g, '')
+      options['session'] = session
     } else if (typeof sessionOrOption === 'object') {
-      session = sessionOrOption.session || session;
-      catchQR = sessionOrOption.catchQR || catchQR;
-      statusFind = sessionOrOption.statusFind || statusFind;
-      browserInstance = sessionOrOption.browserInstance || browserInstance;
-      options = sessionOrOption;
+      session = sessionOrOption.session || session
+      catchQR = sessionOrOption.catchQR || catchQR
+      statusFind = sessionOrOption.statusFind || statusFind
+      browserInstance = sessionOrOption.browserInstance || browserInstance
+      options = sessionOrOption
     }
 
-    const spinnies = getSpinnies({
-      disableSpins: options ? options.disableSpins : false
-    });
+    logger.debug(`[node-version-${session}] check nodeJs version...`)
 
-    spinnies.add(`donate-${session}`, {
-      text: `....`
-    });
-
-    spinnies.fail(`donate-${session}`, {
-      text: `Help Keep This Project Going! Know more: https://github.com/orkestral/venom/blob/master/docs/getting-started/donate.md`
-    });
-
-    spinnies.add(`node-version-${session}`, {
-      text: `check nodeJs version...`
-    });
-
-    const requiredNodeVersion = 16;
-    const currentNodeVersion = Number(process.versions.node.split('.')[0]);
+    const requiredNodeVersion = 20
+    const currentNodeVersion = Number(process.versions.node.split('.')[0])
     if (currentNodeVersion < requiredNodeVersion) {
-      spinnies.fail(`node-version-${session}`, {
-        text: `update Node.js, the version you are using doesn't work for this system!`
-      });
+      logger.error(
+        `[node-version-${session}] update Node.js, the version you are using doesn't work for this system!`
+      )
       return reject(
         `Outdated Node.js version. Node.js ${requiredNodeVersion} or higher is required. Please update Node.js.`
-      );
+      )
     }
 
-    spinnies.succeed(`node-version-${session}`, {
-      text: `Node.js version verified successfully!`
-    });
+    logger.debug(
+      `[node-version-${session}] Node.js version verified successfully!`
+    )
 
-    await checkUpdates();
+    await checkUpdates()
 
-    const mergedOptions = { ...defaultOptions, ...options };
+    const mergedOptions = { ...defaultOptions, ...options }
 
-    if (!mergedOptions.disableWelcome) {
-      welcomeScreen();
-    }
-
-    statusFind && statusFind('initBrowser', session);
+    statusFind && statusFind('initBrowser', session)
 
     // Initialize whatsapp
     if (mergedOptions.browserWS) {
-      spinnies.add(`browser-${session}`, {
-        text: `Waiting... checking the wss server...`
-      });
+      logger.debug(`[browser-${session}] Waiting... checking the wss server...`)
     } else {
-      spinnies.add(`browser-${session}`, {
-        text: 'Waiting... checking the browser...'
-      });
+      logger.debug(`[browser-${session}] Waiting... checking the browser...`)
     }
 
-    const browser: Browser | boolean = await initBrowser(
-      mergedOptions,
-      spinnies
-    );
+    const browser: Browser | boolean = await initBrowser(mergedOptions)
 
     if (typeof browser === 'boolean') {
-      spinnies.fail(`browser-${session}`, {
-        text: `Error no open browser....`
-      });
-      statusFind && statusFind('noOpenBrowser', session);
-      return reject(`Error no open browser....`);
+      logger.error(`[browser-${session}] Error no open browser....`)
+      statusFind && statusFind('noOpenBrowser', session)
+      return reject(`Error no open browser....`)
     }
 
     if (mergedOptions.browserWS) {
-      statusFind && statusFind('connectBrowserWs', session);
-      spinnies.succeed(`browser-${session}`, {
-        text: `Has been properly connected to the wss server`
-      });
+      statusFind && statusFind('connectBrowserWs', session)
+      logger.debug(
+        `[browser-${session}] Has been properly connected to the wss server`
+      )
     } else {
-      statusFind && statusFind('openBrowser', session);
-      spinnies.succeed(`browser-${session}`, {
-        text: `Browser successfully opened`
-      });
+      statusFind && statusFind('openBrowser', session)
+      logger.debug(`[browser-${session}] Browser successfully opened`)
     }
 
     if (!mergedOptions.browserWS) {
-      spinnies.add(`browser-${session}`, {
-        text: 'checking headless...'
-      });
+      logger.debug(`[browser-${session}] checking headless...`)
 
       if (mergedOptions.headless) {
-        spinnies.succeed(`browser-${session}`, {
-          text: 'headless option is active, browser hidden'
-        });
+        logger.debug(
+          `[browser-${session}] headless option is active, browser hidden`
+        )
       } else {
-        spinnies.succeed(`browser-${session}`, {
-          text: 'headless option is disabled, browser visible'
-        });
+        logger.debug(
+          `[browser-${session}] headless option is disabled, browser visible`
+        )
       }
     }
 
     if (typeof browser === 'object') {
       if (!mergedOptions.browserWS && browser['_process']) {
         browser['_process'].once('close', () => {
-          browser['isClose'] = true;
-        });
+          browser['isClose'] = true
+        })
       }
 
       checkingCloses(browser, mergedOptions, (result) => {
-        statusFind && statusFind(result, session);
+        statusFind && statusFind(result, session)
       }).catch(() => {
-        spinnies.fail(`whatzapp-${session}-close`, {
-          text: 'Closed Browser'
-        });
-        return reject('The client has been closed');
-      });
+        logger.error(`[whatzapp-${session}] Closed Browser`)
+        return reject('The client has been closed')
+      })
 
-      spinnies.add(`whatzapp-${session}`, {
-        text: 'Checking page to whatzapp...'
-      });
+      logger.debug(`[whatzapp-${session}] Checking page to whatzapp...`)
 
-      statusFind && statusFind('initWhatsapp', session);
+      statusFind && statusFind('initWhatsapp', session)
       // Initialize whatsapp
-      const page: false | Page = await initWhatsapp(mergedOptions, browser);
+      const page: false | Page = await initWhatsapp(mergedOptions, browser)
 
       if (page === false) {
-        spinnies.fail(`whatzapp-${session}`, {
-          text: 'Error accessing the page: "https://web.whatsapp.com"'
-        });
-        statusFind && statusFind('erroPageWhatsapp', session);
+        logger.error(
+          `[whatzapp-${session}] Error accessing the page: "https://web.whatsapp.com"`
+        )
+        statusFind && statusFind('erroPageWhatsapp', session)
         return reject(
           'Error when trying to access the page: "https://web.whatsapp.com"'
-        );
+        )
       }
 
-      statusFind && statusFind('successPageWhatsapp', session);
+      statusFind && statusFind('successPageWhatsapp', session)
 
-      spinnies.succeed(`whatzapp-${session}`, {
-        text: 'Page successfully accessed'
-      });
+      logger.debug(`[whatzapp-${session}] Page successfully accessed`)
 
-      try {
-        spinnies.add(`whatzapp-intro-${session}`, {
-          text: 'waiting for introduction'
-        });
-      } catch {}
-
-      statusLog(page, spinnies, session, (event) => {
-        try {
-          spinnies.add(`whatzapp-intro-${session}`, {
-            text: event
-          });
-        } catch {}
-        statusFind && statusFind('introductionHistory', session, event);
-      });
-
-      const client = new Whatsapp(browser, page, session, mergedOptions);
+      const client = new Whatsapp(browser, page, session, mergedOptions)
 
       if (browserInstance) {
-        browserInstance(browser, page, client);
+        browserInstance(browser, page, client)
       }
 
       client.onInterfaceChange(async (interFace: InterfaceChangeMode) => {
-        try {
-          if (interFace.mode === InterfaceMode.MAIN) {
-            interfaceChange && interfaceChange('chatsAvailable', session);
-            spinnies.add(`whatzapp-mode-main-${session}`, {
-              text: 'opening main page...'
-            });
+        if (interFace.mode === InterfaceMode.MAIN) {
+          interfaceChange && interfaceChange('chatsAvailable', session)
 
-            spinnies.succeed(`whatzapp-mode-main-${session}`, {
-              text: 'Successfully main page!'
-            });
+          logger.debug(`[whatzapp-${session}] Successfully load main page!`)
 
-            spinnies.succeed(`whatzapp-mode-syncing-${session}`, {
-              text: 'Successfully sync!'
-            });
+          // FIXME - chamada duplicada
+          // await client.initService()
+          // await client.addChatWapi()
+        }
 
-            await client.initService();
-            await client.addChatWapi();
+        if (interFace.mode === InterfaceMode.SYNCING) {
+          if (interFace.info === InterfaceState.OPENING) {
+            logger.info(
+              `[whatzapp-${session}:onInterfaceChange] Syncing page...`
+            )
+            interfaceChange && interfaceChange('syncingOpening', session)
           }
 
-          if (interFace.mode === InterfaceMode.SYNCING) {
-            if (interFace.info === InterfaceState.OPENING) {
-              interfaceChange && interfaceChange('syncingOpening', session);
-              spinnies.add(`whatzapp-mode-syncing-${session}`, {
-                text: 'opening sync page...'
-              });
-            }
-
-            if (interFace.info === InterfaceState.PAIRING) {
-              interfaceChange && interfaceChange('syncingLoading', session);
-              spinnies.add(`whatzapp-mode-syncing-${session}`, {
-                text: 'Loading sync...'
-              });
-            }
-
-            if (interFace.info === InterfaceState.NORMAL) {
-              interfaceChange && interfaceChange('syncingNormal', session);
-              spinnies.succeed(`whatzapp-mode-syncing-${session}`, {
-                text: 'Successfully sync!'
-              });
-            }
+          if (interFace.info === InterfaceState.PAIRING) {
+            logger.info(
+              `[whatzapp-${session}:onInterfaceChange] Pairing devide...`
+            )
+            interfaceChange && interfaceChange('syncingLoading', session)
           }
 
-          if (interFace.mode === InterfaceMode.QR) {
+          if (interFace.info === InterfaceState.NORMAL) {
+            logger.info(
+              `[whatzapp-${session}:onInterfaceChange] Interface state normal...`
+            )
+            interfaceChange && interfaceChange('syncingNormal', session)
+          }
+        }
+
+        if (interFace.mode === InterfaceMode.QR) {
+          try {
             const status = await page.evaluate(
               () => window?.Store?.State?.Socket?.stream
-            );
-            if (status === SocketStream.DISCONNECTED) {
-              spinnies.add(`whatzapp-disconnected-${session}`, {
-                text: 'checking...'
-              });
+            )
 
-              spinnies.fail(`whatzapp-disconnected-${session}`, {
-                text: 'Was disconnected!'
-              });
-              document.querySelectorAll('.MLTJU p')[0].textContent;
-              statusFind && statusFind('desconnected', session);
+            if (status === SocketStream.DISCONNECTED) {
+              logger.warn(`[whatzapp-${session}] Disconnected!`)
+              // FIXME - entender o que está fazendo com esse código
+              // document.querySelectorAll('.MLTJU p')[0].textContent
+              statusFind && statusFind('disconnected', session)
             }
 
             if (interFace.info === InterfaceState.OPENING) {
-              interfaceChange && interfaceChange('qrcodeOpening', session);
-              spinnies.add(`whatzapp-mode-qr-${session}`, {
-                text: 'Opening QR Code page...'
-              });
+              logger.info(
+                `[whatzapp-${session}:onInterfaceChange] Opening QR Code page...`
+              )
+              interfaceChange && interfaceChange('qrcodeOpening', session)
             }
 
             if (interFace.info === InterfaceState.PAIRING) {
-              interfaceChange && interfaceChange('qrcodeLoading', session);
-              spinnies.add(`whatzapp-mode-qr-${session}`, {
-                text: 'Loading QR Code...'
-              });
+              logger.info(
+                `[whatzapp-${session}:onInterfaceChange] Pairing device...`
+              )
+              interfaceChange && interfaceChange('qrcodeLoading', session)
             }
 
             if (interFace.info === InterfaceState.NORMAL) {
-              interfaceChange && interfaceChange('qrcodeNormal', session);
-              spinnies.succeed(`whatzapp-mode-qr-${session}`, {
-                text: 'Successfully loaded QR Code!'
-              });
+              logger.info(
+                `[whatzapp-${session}:onInterfaceChange] Device connected...`
+              )
+              interfaceChange && interfaceChange('qrcodeNormal', session)
             }
+          } catch (error) {
+            logger.error(
+              `[whatzapp-${session}:onInterfaceChange] error=${JSON.stringify(
+                error
+              )}`
+            )
           }
-        } catch {}
-      });
+        }
+      })
 
       client
         .onStreamChange(async (stateStream: SocketStream) => {
           if (stateStream === SocketStream.CONNECTED) {
-            try {
-              spinnies.succeed(`whatzapp-intro-${session}`, {
-                text: 'Successfully connected!'
-              });
-            } catch {}
+            logger.debug(
+              `[whatzapp-${session}:onStreamChange] Successfully connected!`
+            )
           }
 
           if (stateStream === SocketStream.DISCONNECTED) {
-            const mode = await page
-              .evaluate(() => window?.Store?.Stream?.mode)
-              .catch(() => {});
-            if (
-              mode === InterfaceMode.QR
-              // && checkFileJson(mergedOptions, session)
-            ) {
-              if (statusFind) {
-                spinnies.add(`whatzapp-qr-${session}`, {
-                  text: 'check....'
-                });
-                statusFind('desconnectedMobile', session);
-                spinnies.fail(`whatzapp-qr-${session}`, {
-                  text: 'Disconnected by cell phone!'
-                });
+            try {
+              logger.warn(`[whatzapp-${session}:onStreamChange] Disconnected!`)
+
+              const mode = await page.evaluate(
+                () => window?.Store?.Stream?.mode
+              )
+
+              if (
+                mode === InterfaceMode.QR
+                // && checkFileJson(mergedOptions, session)
+              ) {
+                if (statusFind) {
+                  statusFind('disconnectedMobile', session)
+                }
               }
+            } catch (error) {
+              logger.error(
+                `[whatzapp-${session}:onStreamChange] error=${JSON.stringify(
+                  error
+                )}`
+              )
             }
           }
         })
-        .catch();
+        .catch()
 
       client
         .onStateChange(async (state) => {
           if (state === SocketState.PAIRING) {
-            const device: Boolean = await page
-              .evaluate(() => {
-                if (
-                  document.querySelector('[tabindex="-1"]') &&
-                  window?.Store?.Stream?.mode === InterfaceMode.SYNCING &&
+            try {
+              const device: Boolean = await page.evaluate(() => {
+                // TODO verificar se a Store ja foi carregada ou não.
+                const isInterfaceSyncing =
+                  !!document.querySelector('[tabindex="-1"]') &&
+                  window?.Store?.Stream?.mode === 'SYNCING' &&
                   window?.Store?.Stream?.obscurity === 'SHOW'
-                ) {
-                  return true;
-                }
-                return false;
+
+                return isInterfaceSyncing
               })
-              .catch(() => undefined);
-            if (device === true) {
-              if (statusFind) {
-                statusFind('deviceNotConnected', session);
+
+              if (device === true) {
+                if (statusFind) {
+                  statusFind('deviceNotConnected', session)
+                }
               }
+            } catch (error) {
+              logger.error(
+                `[whatzapp-${session}:onStateChange] error=${JSON.stringify(
+                  error
+                )}`
+              )
             }
           }
         })
-        .catch();
+        .catch()
 
       page.on('dialog', async (dialog) => {
-        await dialog.accept();
-      });
+        await dialog.accept()
+      })
 
       if (mergedOptions.waitForLogin) {
-        const isLogged = await client
-          .waitForLogin(catchQR, statusFind)
-          .catch(() => undefined);
+        const isLogged = await client.waitForLogin(catchQR, statusFind)
 
-        statusFind && statusFind('waitForLogin', session);
+        statusFind && statusFind('waitForLogin', session)
 
         if (!isLogged) {
-          return reject('Not Logged');
+          return reject('Not Logged')
         }
 
-        let waitLoginPromise = null;
-        client
-          .onStateChange(async (state) => {
-            if (
-              state === SocketState.UNPAIRED ||
-              state === SocketState.UNPAIRED_IDLE
-            ) {
+        // TODO entender por que não ta funcionando ou se esta
+        let waitLoginPromise = null
+        client.onStateChange(async (state) => {
+          if (
+            state === SocketState.UNPAIRED ||
+            state === SocketState.UNPAIRED_IDLE
+          ) {
+            try {
               if (!waitLoginPromise) {
-                waitLoginPromise = client
-                  .waitForLogin(catchQR, statusFind)
-                  .then(() => {
-                    if (reconnectQrcode) {
-                      reconnectQrcode(client);
-                    }
-                  })
-                  .catch(() => {})
-                  .finally(() => {
-                    waitLoginPromise = null;
-                  });
+                logger.info(
+                  `[whatzapp-${session}:onStateChange] reconnecting to device}`
+                )
+                waitLoginPromise = client.waitForLogin(catchQR, statusFind)
+
+                await waitLoginPromise
+
+                if (reconnectQrcode) {
+                  reconnectQrcode(client)
+                }
               }
-              await waitLoginPromise;
+            } catch (error) {
+              logger.error(
+                `[whatzapp-${session}:onStateChange] reconnect failed with error=${JSON.stringify(
+                  error
+                )}`
+              )
             }
-          })
-          .catch();
+
+            waitLoginPromise = null
+          }
+        })
       }
 
-      statusFind && statusFind('waitChat', session);
+      statusFind && statusFind('waitChat', session)
+
+      logger.debug(`[whatzapp-${session}] waiting for app load...`)
 
       await page
-        .waitForSelector('#app .two', { visible: true })
-        .catch(() => {});
+        .waitForSelector('#app .two', { visible: true }) // , timeout: 60000
+        .catch(() => {})
 
-      try {
-        spinnies.succeed(`whatzapp-intro-${session}`, {
-          text: 'Successfully connected!'
-        });
-      } catch {}
+      logger.debug(`[whatzapp-${session}] Successfully connected!`)
 
-      await client.initService();
-      await client.addChatWapi();
+      // FIXME - chamada duplicada
+      // await client.initService()
+      // await client.addChatWapi()
 
-      statusFind && statusFind('successChat', session);
+      statusFind && statusFind('successChat', session)
 
-      return resolve(client);
+      return resolve(client)
     }
-  });
+  })
 }

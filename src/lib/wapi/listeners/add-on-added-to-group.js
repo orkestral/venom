@@ -6,7 +6,7 @@ export function addOnAddedToGroup() {
    */
   window.WAPI.onAddedToGroup = function (callback) {
     window.WAPI.waitForStore(['Chat', 'Msg'], () => {
-      Store.Chat.on('add', (chatObject) => {
+      window.Store.Chat.on('add', (chatObject) => {
         if (chatObject && chatObject.isGroup) {
           callback(chatObject);
         }

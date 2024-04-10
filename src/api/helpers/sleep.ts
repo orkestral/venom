@@ -5,6 +5,6 @@
 export function sleep(time: number) {
   try {
     // Create a promise that resolves after the specified time
-    return new Promise((resolve) => setTimeout(resolve, time));
+    return new Promise((resolve) => setTimeout(resolve, time))
   } catch {}
 }
