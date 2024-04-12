@@ -8,10 +8,10 @@ import {
   InterfaceState,
 } from '../api/model/enum'
 import { InterfaceChangeMode } from '../api/model'
-import { checkingCloses } from '../api/helpers'
 import { Browser, Page } from 'puppeteer'
 import { checkUpdates } from './check-up-to-date'
 import { logger } from '../utils/logger'
+import { defineStatusFind, initStatusFind, setStatusCompleted } from './status'
 
 declare global {
   interface Window {
@@ -30,13 +30,37 @@ export type CatchQR = (
 ) => void
 
 /**
+ * Status possible
+ */
+export type Status =
+  | 'autocloseCalled'
+  | 'browserClose'
+  | 'connectBrowserWs'
+  | 'deviceNotConnected'
+  | 'disconnected'
+  | 'disconnectedMobile'
+  | 'erroPageWhatsapp'
+  | 'inChat'
+  | 'initBrowser'
+  | 'initInstance'
+  | 'initWhatsapp'
+  | 'isLogged'
+  | 'noOpenBrowser'
+  | 'notLogged'
+  | 'openBrowser'
+  | 'phoneNotConnected'
+  | 'qrReadFail'
+  | 'qrReadSuccess'
+  | 'serverClose'
+  | 'successChat'
+  | 'successPageWhatsapp'
+  | 'waitChat'
+  | 'waitForLogin'
+
+/**
  * A callback will be received, informing the customer's status
  */
-export type StatusFind = (
-  statusGet: string,
-  session: string,
-  info?: string
-) => void
+export type StatusFind = (statusGet: Status, session: string) => void
 
 /**
  * A callback will be received, informing user about browser and page instance
@@ -148,11 +172,13 @@ export async function create(
       options = sessionOrOption
     }
     const mergedOptions = { ...defaultOptions, ...options }
+    statusFind = defineStatusFind(statusFind)
     catchQR = callbackDefaultTo(catchQR)
-    statusFind = callbackDefaultTo(statusFind)
     browserInstance = callbackDefaultTo(browserInstance)
     reconnectQrcode = callbackDefaultTo(reconnectQrcode)
     interfaceChange = callbackDefaultTo(interfaceChange)
+
+    initStatusFind(session)
 
     if (
       typeof browserPathExecutable !== 'string' ||
@@ -199,12 +225,6 @@ export async function create(
       return reject(`Error on open browser: ${error.message}`)
     }
 
-    if (typeof browser === 'boolean') {
-      logger.error(`[browser-${session}] Error no open browser....`)
-      statusFind('noOpenBrowser', session)
-      return reject(`Error no open browser....`)
-    }
-
     if (mergedOptions.browserWS) {
       statusFind('connectBrowserWs', session)
       logger.debug(
@@ -236,17 +256,19 @@ export async function create(
         })
       }
 
-      checkingCloses(browser, mergedOptions, (result) => {
+      // NOTE - Is this really necessary?
+      /* checkingCloses(browser, mergedOptions, (result: Status) => {
         statusFind(result, session)
       }).catch(() => {
         logger.error(`[whatzapp-${session}] Closed Browser`)
         return reject('The client has been closed')
-      })
+      }) */
 
       logger.debug(`[whatzapp-${session}] Checking page to whatzapp...`)
 
       statusFind('initWhatsapp', session)
       // Initialize whatsapp
+      // TODO - Enhance this
       const page: false | Page = await initWhatsapp(mergedOptions, browser)
 
       if (page === false) {
@@ -254,6 +276,7 @@ export async function create(
           `[whatzapp-${session}] Error accessing the page: "https://web.whatsapp.com"`
         )
         statusFind('erroPageWhatsapp', session)
+        // FIXME - Leak here because the browser is not closed
         return reject(
           'Error when trying to access the page: "https://web.whatsapp.com"'
         )
@@ -265,9 +288,7 @@ export async function create(
 
       const client = new Whatsapp(browser, page, session, mergedOptions)
 
-      if (browserInstance) {
-        browserInstance(browser, page, client)
-      }
+      browserInstance(browser, page, client)
 
       client.onInterfaceChange(async (interFace: InterfaceChangeMode) => {
         if (interFace.mode === InterfaceMode.MAIN) {
@@ -416,7 +437,13 @@ export async function create(
       })
 
       if (mergedOptions.waitForLogin) {
-        const isLogged = await client.waitForLogin(catchQR, statusFind)
+        let isLogged: boolean
+        try {
+          isLogged = await client.waitForLogin(catchQR, statusFind)
+        } catch (error) {
+          await client.close()
+          return reject(error.message)
+        }
 
         statusFind('waitForLogin', session)
 
@@ -472,6 +499,7 @@ export async function create(
       // await client.addChatWapi()
 
       statusFind('successChat', session)
+      setStatusCompleted(session)
 
       return resolve(client)
     }
