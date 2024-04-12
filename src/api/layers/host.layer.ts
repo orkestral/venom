@@ -48,7 +48,7 @@ export class HostLayer {
       !this.autoCloseInterval &&
       !this.page.isClosed()
     ) {
-      this.statusFind && this.statusFind('autocloseCalled', this.session)
+      this.statusFind('autocloseCalled', this.session)
       // FIXME - missing await and try catch
       this.page.close().catch(() => {})
       this.browser.close().catch(() => {})
@@ -193,8 +193,7 @@ export class HostLayer {
 
     if (authenticated === false) {
       logger.info(`[waitForLogin:${this.session}] Waiting for QRCode Scan...`)
-
-      statusFind && statusFind('notLogged', this.session)
+      this.statusFind('notLogged', this.session)
 
       // FIXME catch
       await this.waitForQrCodeScan(catchQR).catch(() => undefined)
@@ -209,13 +208,13 @@ export class HostLayer {
 
       if (authenticated === null || JSON.stringify(authenticated) === '{}') {
         logger.error(`[waitForLogin:${this.session}] Failed to authenticate!`)
-        statusFind && statusFind('qrReadFail', this.session)
+        this.statusFind('qrReadFail', this.session)
       } else if (authenticated) {
         logger.info(`[waitForLogin:${this.session}] Authenticated!`)
-        statusFind && statusFind('qrReadSuccess', this.session)
+        this.statusFind('qrReadSuccess', this.session)
       } else {
         logger.info(`[waitForLogin:${this.session}] Failed to read QRCode`)
-        statusFind && statusFind('qrReadFail', this.session)
+        this.statusFind('qrReadFail', this.session)
 
         this.cancelAutoClose()
         this.tryAutoClose()
@@ -224,7 +223,7 @@ export class HostLayer {
       }
     } else if (authenticated === true) {
       logger.info(`[waitForLogin:${this.session}] Authenticated!`)
-      statusFind && statusFind('isLogged', this.session)
+      this.statusFind('isLogged', this.session)
     }
 
     if (authenticated === true) {
@@ -243,7 +242,7 @@ export class HostLayer {
 
       if (!inChat) {
         logger.error(`[waitForLogin:${this.session}] Phone not connected`)
-        statusFind && statusFind('phoneNotConnected', this.session)
+        this.statusFind('phoneNotConnected', this.session)
 
         // FIXME - missing await
         this.cancelAutoClose()
@@ -255,7 +254,7 @@ export class HostLayer {
 
       logger.info(`[waitForLogin:${this.session}] Connected!`)
       // TODO check if call is necessary
-      //   statusFind && statusFind('inChat', this.session);
+      //   this.statusFind('inChat', this.session);
       return true
     }
 

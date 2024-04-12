@@ -36,6 +36,7 @@ The `create` method third parameter can have the following optional parameters:
 venom.create(
     //session
     'sessionName', //Pass the name of the client you want to start the bot
+    browserPathExecutable,
     //catchQR
     (base64Qrimg, asciiQR, attempts, urlCode) => {
       console.log('Number of attempts to read the qrcode: ', attempts);
