@@ -66,14 +66,23 @@ export class ListenerLayer extends ProfileLayer {
       for (const func of functions) {
         const has = await this.page
           .evaluate((func) => typeof window[func] === 'function', func)
-          .catch(() => false)
+          .catch((error) => {
+            logger.error(
+              `Error in listener.layer.ts -> initialize(): ${error.message} stack: ${error.stack}`
+            )
+            return false
+          })
 
         if (!has) {
           await this.page
             .exposeFunction(func, (...args: any) =>
               this.listenerEmitter.emit(func, ...args)
             )
-            .catch(() => {})
+            .catch((error) => {
+              logger.error(
+                `Error in listener.layer.ts -> initialize(): ${error.message} stack: ${error.stack}`
+              )
+            })
         }
       }
 
@@ -110,7 +119,9 @@ export class ListenerLayer extends ProfileLayer {
         })
       })
     } catch (error) {
-      console.error('Error in listener.layer.ts -> initialize():', error)
+      logger.error(
+        `Error in listener.layer.ts -> initialize(): ${error.message} stack: ${error.stack}`
+      )
     }
   }
 
