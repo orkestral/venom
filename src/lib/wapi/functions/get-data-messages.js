@@ -57,7 +57,7 @@ export async function getAllMessagesDate(
       dateStartTimeStamp = timeStampConvert(splitDateStart, splitTimeStart)
         ? timeStampConvert(splitDateStart, splitTimeStart)
         : false;
-      if (dateStartTimeStamp === false || isNaN(dateStartTimeStamp)) {
+      if (dateStartTimeStamp === false || Number.isNaN(dateStartTimeStamp)) {
         const date = new Date();
         const year = date.toLocaleString('en-US', { year: 'numeric' });
         return WAPI.scope(
@@ -74,7 +74,7 @@ export async function getAllMessagesDate(
         dateStartTimeStamp = timeStampConvert(splitDateStart)
           ? timeStampConvert(splitDateStart)
           : false;
-        if (dateStartTimeStamp === false || isNaN(dateStartTimeStamp)) {
+        if (dateStartTimeStamp === false || Number.isNaN(dateStartTimeStamp)) {
           const date = new Date();
           const year = date.toLocaleString('en-US', { year: 'numeric' });
           return WAPI.scope(

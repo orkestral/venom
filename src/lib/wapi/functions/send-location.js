@@ -5,7 +5,7 @@ export async function sendLocation(
   location = null
 ) {
   const chat = await WAPI.sendExist(chatId);
-  if (isNaN(Number(latitude)) || isNaN(Number(longitude))) {
+  if (Number.isNaN(Number(latitude)) || Number.isNaN(Number(longitude))) {
     return WAPI.scope(
       chatId,
       true,
@@ -15,7 +15,7 @@ export async function sendLocation(
   }
   if (!chat.erro) {
     const newMsgId = await window.WAPI.getNewMessageId(chat.id._serialized);
-    const inChat = await WAPI.getchatId(chat.id).catch(() => {});
+    const inChat = await WAPI.getchatId(chat.id).catch(() => { });
     const fromwWid = await Store.MaybeMeUser.getMaybeMeUser();
 
     if (inChat) {
@@ -45,11 +45,11 @@ export async function sendLocation(
       (await Promise.all(Store.addAndSendMsgToChat(chat, message)))[1] || '';
 
     let m = {
-        latitude: latitude,
-        longitude: longitude,
-        title: location,
-        type: 'location'
-      },
+      latitude: latitude,
+      longitude: longitude,
+      title: location,
+      type: 'location'
+    },
       obj;
     if (result == 'success' || result == 'OK') {
       obj = WAPI.scope(newMsgId, false, result, null);
