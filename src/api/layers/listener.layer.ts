@@ -39,11 +39,10 @@ declare global {
   }
 }
 
-const callonMessage = new callbackWile()
-const callOnack = new callbackWile()
-
 export class ListenerLayer extends ProfileLayer {
   private listenerEmitter = new EventEmitter()
+  private callonMessage = new callbackWile()
+  private callOnack = new callbackWile()
 
   constructor(
     public browser: Browser,
@@ -263,16 +262,16 @@ export class ListenerLayer extends ProfileLayer {
    */
   public async onMessage(fn: (message: Message) => void) {
     this.listenerEmitter.on(ExposedFn.OnMessage, (state: Message) => {
-      if (!callonMessage.checkObj(state.from, state.id)) {
-        callonMessage.addObjects(state.from, state.id)
+      if (!this.callonMessage.checkObj(state.from, state.id)) {
+        this.callonMessage.addObjects(state.from, state.id)
         fn(state)
       }
     })
     return {
       dispose: () => {
         this.listenerEmitter.off(ExposedFn.OnMessage, (state: Message) => {
-          if (!callonMessage.checkObj(state.from, state.id)) {
-            callonMessage.addObjects(state.from, state.id)
+          if (!this.callonMessage.checkObj(state.from, state.id)) {
+            this.callonMessage.addObjects(state.from, state.id)
             fn(state)
           }
         })
@@ -286,13 +285,13 @@ export class ListenerLayer extends ProfileLayer {
    */
   public async onAck(fn: (ack: Ack) => void) {
     this.listenerEmitter.on(ExposedFn.onAck, (e: Ack) => {
-      if (!callOnack.checkObj(e.ack, e.id._serialized)) {
-        const key = callOnack.getObjKey(e.id._serialized)
+      if (!this.callOnack.checkObj(e.ack, e.id._serialized)) {
+        const key = this.callOnack.getObjKey(e.id._serialized)
         if (key) {
-          callOnack.module[key].id = e.ack
+          this.callOnack.module[key].id = e.ack
           fn(e)
         } else {
-          callOnack.addObjects(e.ack, e.id._serialized)
+          this.callOnack.addObjects(e.ack, e.id._serialized)
           fn(e)
         }
       }
@@ -301,13 +300,13 @@ export class ListenerLayer extends ProfileLayer {
     return {
       dispose: () => {
         this.listenerEmitter.off(ExposedFn.onAck, (e: Ack) => {
-          if (!callOnack.checkObj(e.ack, e.id._serialized)) {
-            const key = callOnack.getObjKey(e.id._serialized)
+          if (!this.callOnack.checkObj(e.ack, e.id._serialized)) {
+            const key = this.callOnack.getObjKey(e.id._serialized)
             if (key) {
-              callOnack.module[key].id = e.ack
+              this.callOnack.module[key].id = e.ack
               fn(e)
             } else {
-              callOnack.addObjects(e.ack, e.id._serialized)
+              this.callOnack.addObjects(e.ack, e.id._serialized)
               fn(e)
             }
           }

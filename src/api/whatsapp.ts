@@ -18,6 +18,8 @@ export class Whatsapp extends ControlsLayer {
     super(browser, page, session, options)
 
     this.page.on('load', async () => {
+      // FIXME - This process is a problem. Every time wpp reload (and it do a lot), this is inject.
+      // Therefore, if we close, cancel, send message and is reloading, it will not work and get error. Mostly protocol error.
       try {
         await this.initService()
         await page
@@ -154,9 +156,11 @@ export class Whatsapp extends ControlsLayer {
     try {
       if (!this.page.isClosed()) {
         await this.page.close()
-        await this.browser.close()
-        return true
       }
+      if (this.browser.connected) {
+        await this.browser.close()
+      }
+      return true
     } catch (e) {
       return false
     }

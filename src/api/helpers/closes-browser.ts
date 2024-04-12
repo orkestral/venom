@@ -7,6 +7,7 @@ export async function checkingCloses(
   statusFind: (e: string) => void
 ) {
   new Promise(async (resolve, reject) => {
+    // NOTE - Is this really necessary?
     if (typeof browser !== 'string') {
       let err: boolean
       do {

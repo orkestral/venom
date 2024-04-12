@@ -13,6 +13,7 @@ import {
 } from '../../controllers/auth'
 import { sleep } from '../../utils/sleep'
 import { logger } from '../../utils/logger'
+import { isCreationCancelled } from '../../controllers/status'
 
 export class HostLayer {
   readonly session: string
@@ -108,6 +109,10 @@ export class HostLayer {
 
     // FIXME - verificar possível memory leak
     while (true) {
+      if (isCreationCancelled(this.session)) {
+        throw new Error('Creation Stopped')
+      }
+
       const needsScan = await needsToScan(this.page)
 
       if (!needsScan) {
@@ -136,9 +141,7 @@ export class HostLayer {
           logger.info(`Waiting for QRCode Scan: Attempt ${attempt}`)
         }
 
-        if (catchQR) {
-          catchQR(result.base64Image, asciiQRCode, attempt, result.urlCode)
-        }
+        catchQR(result.base64Image, asciiQRCode, attempt, result.urlCode)
       }
 
       await sleep(200)
@@ -196,7 +199,11 @@ export class HostLayer {
       this.statusFind('notLogged', this.session)
 
       // FIXME catch
-      await this.waitForQrCodeScan(catchQR).catch(() => undefined)
+      await this.waitForQrCodeScan(catchQR).catch((error) => {
+        if (error.message === 'Creation Stopped') {
+          throw error
+        }
+      })
 
       logger.info(`[waitForLogin:${this.session}] Checking QRCode status...`)
 

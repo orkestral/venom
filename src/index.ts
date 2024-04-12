@@ -21,3 +21,4 @@ export {
   StatusFind,
   ReconnectQrcode,
 } from './controllers/initializer'
+export { getStatus, cancelCreation } from './controllers/status'
