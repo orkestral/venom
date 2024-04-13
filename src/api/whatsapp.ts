@@ -16,12 +16,11 @@ export class Whatsapp extends ControlsLayer {
     options?: CreateConfig
   ) {
     super(browser, page, session, options);
-    this.initService().finally();
     this.page.on('load', async () => {
-      await this.initialize();
       await page
         .waitForSelector('#app .two', { visible: true })
         .catch(() => {});
+
       await this.initService();
       await this.addChatWapi();
     });
@@ -63,6 +62,8 @@ export class Whatsapp extends ControlsLayer {
       );
       await this.page.evaluate(js);
 
+      await this.initialize();
+
       let middleware_script = await fs.readFile(
         require.resolve(
           path.join(__dirname, '../lib/middleware', 'middleware.js')
@@ -70,9 +71,9 @@ export class Whatsapp extends ControlsLayer {
         'utf-8'
       );
       await this.page.evaluate(middleware_script);
-
-      await this.initialize();
-    } catch {}
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   async addChatWapi() {

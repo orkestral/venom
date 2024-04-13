@@ -11,7 +11,11 @@ export function addNewMessagesListener() {
 function waitNewMessages(rmCallbackAfterUse = true, done) {
   window.WAPI._newMessagesCallbacks.push({
     callback: (e) => {
-      done(e);
+      try {
+        done(e);
+      } catch (e) {
+        console.error(e);
+      }
     },
     rmAfterUse: rmCallbackAfterUse
   });
