@@ -44,7 +44,7 @@ venom.create(
       console.log('base64 image string qrcode: ', base64Qrimg);
       console.log('urlCode (data-ref): ', urlCode);
     },
-    // statusFind
+    // callbackStatus
     (statusSession, session) => {
       console.log('Status Session: ', statusSession); //return isLogged || notLogged || browserClose || qrReadSuccess || qrReadFail || autocloseCalled || disconnectedMobile || deleteToken
       //Create session wss return "serverClose" case server for close

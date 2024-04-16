@@ -4,10 +4,11 @@ import { sleep } from '../helpers'
 /**
  * attribution and behavior change of a given event
  */
+// NOTE - Is this really necessary?
 export class CallbackOnStatus {
-  public statusFind: any
+  public callbackStatus: any
   constructor() {
-    this.statusFind = ''
+    this.callbackStatus = ''
   }
 
   /**
@@ -17,8 +18,8 @@ export class CallbackOnStatus {
   async onChange(event: (status: any) => void) {
     let change = null
     while (true) {
-      if (this.statusFind !== change) {
-        change = this.statusFind
+      if (this.callbackStatus !== change) {
+        change = this.callbackStatus
         event && event(change)
       }
       await sleep(50)

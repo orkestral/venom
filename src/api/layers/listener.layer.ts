@@ -41,6 +41,7 @@ declare global {
 
 export class ListenerLayer extends ProfileLayer {
   private listenerEmitter = new EventEmitter()
+  // TODO - Study and refactor these callbacks
   private callonMessage = new callbackWile()
   private callOnack = new callbackWile()
 

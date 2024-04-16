@@ -13,13 +13,12 @@ import {
 } from '../../controllers/auth'
 import { sleep } from '../../utils/sleep'
 import { logger } from '../../utils/logger'
-import { isCreationCancelled } from '../../controllers/status'
+import { statusManagement } from '../../controllers/status-management'
 
 export class HostLayer {
   readonly session: string
   readonly options: CreateConfig
   protected autoCloseInterval = null
-  protected statusFind?: (statusGet: string, session: string) => void = null
 
   constructor(
     public browser: Browser,
@@ -49,7 +48,7 @@ export class HostLayer {
       !this.autoCloseInterval &&
       !this.page.isClosed()
     ) {
-      this.statusFind('autocloseCalled', this.session)
+      statusManagement.setStatus('autocloseCalled', this.session)
       // FIXME - missing await and try catch
       this.page.close().catch(() => {})
       this.browser.close().catch(() => {})
@@ -109,7 +108,7 @@ export class HostLayer {
 
     // FIXME - verificar possível memory leak
     while (true) {
-      if (isCreationCancelled(this.session)) {
+      if (statusManagement.isCreationCancelled(this.session)) {
         throw new Error('Creation Stopped')
       }
 
@@ -164,11 +163,8 @@ export class HostLayer {
       asciiQR: string,
       attempt: number,
       urlCode?: string
-    ) => void,
-    statusFind?: (statusGet: string, session?: string) => void
+    ) => void
   ) {
-    this.statusFind = statusFind
-
     logger.debug(`[waitForLogin:${this.session}] Waiting for login...`)
 
     let authenticated = await isAuthenticated(this.page).catch(() => null)
@@ -196,13 +192,14 @@ export class HostLayer {
 
     if (authenticated === false) {
       logger.info(`[waitForLogin:${this.session}] Waiting for QRCode Scan...`)
-      this.statusFind('notLogged', this.session)
+      statusManagement.setStatus('notLogged', this.session)
 
       // FIXME catch
       await this.waitForQrCodeScan(catchQR).catch((error) => {
         if (error.message === 'Creation Stopped') {
           throw error
         }
+        logger.error(error)
       })
 
       logger.info(`[waitForLogin:${this.session}] Checking QRCode status...`)
@@ -215,13 +212,13 @@ export class HostLayer {
 
       if (authenticated === null || JSON.stringify(authenticated) === '{}') {
         logger.error(`[waitForLogin:${this.session}] Failed to authenticate!`)
-        this.statusFind('qrReadFail', this.session)
+        statusManagement.setStatus('qrReadFail', this.session)
       } else if (authenticated) {
         logger.info(`[waitForLogin:${this.session}] Authenticated!`)
-        this.statusFind('qrReadSuccess', this.session)
+        statusManagement.setStatus('qrReadSuccess', this.session)
       } else {
         logger.info(`[waitForLogin:${this.session}] Failed to read QRCode`)
-        this.statusFind('qrReadFail', this.session)
+        statusManagement.setStatus('qrReadFail', this.session)
 
         this.cancelAutoClose()
         this.tryAutoClose()
@@ -230,7 +227,7 @@ export class HostLayer {
       }
     } else if (authenticated === true) {
       logger.info(`[waitForLogin:${this.session}] Authenticated!`)
-      this.statusFind('isLogged', this.session)
+      statusManagement.setStatus('isLogged', this.session)
     }
 
     if (authenticated === true) {
@@ -249,7 +246,7 @@ export class HostLayer {
 
       if (!inChat) {
         logger.error(`[waitForLogin:${this.session}] Phone not connected`)
-        this.statusFind('phoneNotConnected', this.session)
+        statusManagement.setStatus('phoneNotConnected', this.session)
 
         // FIXME - missing await
         this.cancelAutoClose()
@@ -261,7 +258,7 @@ export class HostLayer {
 
       logger.info(`[waitForLogin:${this.session}] Connected!`)
       // TODO check if call is necessary
-      //   this.statusFind('inChat', this.session);
+      //   statusManagement.setStatus('inChat', this.session);
       return true
     }
 
