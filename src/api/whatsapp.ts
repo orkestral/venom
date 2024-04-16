@@ -7,6 +7,7 @@ import { CreateConfig } from '../config/create-config'
 import axios from 'axios'
 import * as path from 'path'
 import fs from 'fs/promises'
+import { statusManagement } from '../controllers/status-management'
 
 export class Whatsapp extends ControlsLayer {
   constructor(
@@ -160,6 +161,7 @@ export class Whatsapp extends ControlsLayer {
       if (this.browser.connected) {
         await this.browser.close()
       }
+      statusManagement.removeSession(this.session)
       return true
     } catch (e) {
       return false
