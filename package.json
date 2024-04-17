@@ -74,7 +74,7 @@
   ],
   "homepage": "https://github.com/develupo/venom#readme",
   "devDependencies": {
-    "@commitlint/cli": "^18.4.3",
+    "@commitlint/cli": "^19.2.2",
     "@commitlint/config-angular": "^17.7.0",
     "@semantic-release/git": "^10.0.1",
     "@types/is-root": "^2.1.2",

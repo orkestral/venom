@@ -7,6 +7,7 @@ import { CreateConfig } from '../config/create-config'
 import axios from 'axios'
 import * as path from 'path'
 import fs from 'fs/promises'
+import { logger } from '../utils/logger'
 import { statusManagement } from '../controllers/status-management'
 
 export class Whatsapp extends ControlsLayer {
@@ -70,6 +71,8 @@ export class Whatsapp extends ControlsLayer {
       )
       await this.page.evaluate(js)
 
+      await this.initialize()
+
       const middleware_script = await fs.readFile(
         require.resolve(
           path.join(__dirname, '../lib/middleware', 'middleware.js')
@@ -77,10 +80,8 @@ export class Whatsapp extends ControlsLayer {
         'utf-8'
       )
       await this.page.evaluate(middleware_script)
-
-      await this.initialize()
     } catch (error) {
-      console.log(error)
+      logger.error(error)
     }
   }
 
