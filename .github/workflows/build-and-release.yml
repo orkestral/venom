@@ -7,6 +7,7 @@ on:
   pull_request:
     branches:
       - '*'
+  workflow_dispatch:
 
 jobs:
   build:
@@ -28,8 +29,13 @@ jobs:
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: ${{ runner.os }}-node-
 
-      - name: Install dependencies
-        run: npm install
+      - name: Install package dependencies
+        run: npm install --frozen-lockfile
 
       - name: Build source code
         run: npm run build
+
+      - name: Run semantic release
+        if: github.ref_name == 'release'
+        run: npx semantic-release
+        working-directory: ${{ github.workspace }}
