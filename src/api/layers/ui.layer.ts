@@ -16,6 +16,7 @@ export class UILayer extends GroupLayer {
   /**
    * MouveMouse
    */
+  // NOTE - Why?
   public async mouseMove() {
     await this.page.mouse.move(0, 0)
     await this.page.mouse.down()

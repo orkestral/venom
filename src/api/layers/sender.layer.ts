@@ -11,7 +11,7 @@ import {
 import { filenameFromMimeType } from '../helpers/filename-from-mimetype'
 import { Message, SendFileResult, SendStickerResult } from '../model'
 import { ChatState } from '../model/enum'
-import { AutomateLayer } from './AutomateLayer'
+import { AutomateLayer } from './automate.layer'
 import { Scope, checkValuesSender } from '../helpers/layers-interface'
 
 let obj: Scope

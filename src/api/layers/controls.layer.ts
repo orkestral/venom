@@ -217,6 +217,7 @@ export class ControlsLayer extends UILayer {
   }
 
   /**
+   * // FIXME - Documentation wrong
    * Archive and unarchive chat messages with true or false
    * @param chatId {string} id '000000000000@c.us'
    * @param option {boolean} true or false

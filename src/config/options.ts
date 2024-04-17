@@ -2,6 +2,7 @@ import { LaunchOptions } from 'puppeteer'
 import { puppeteerConfig } from './puppeteer.config'
 
 // Server config
+// NOTE - Duplicated with CreateConfig, could be just one (need to correct in browser.ts)
 export interface options {
   /**
    * logs info updates automatically in terminal

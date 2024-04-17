@@ -106,7 +106,7 @@ export class HostLayer {
     let urlCode = null
     let attempt = 0
 
-    // FIXME - verificar possível memory leak
+    // FIXME - Possible leak
     while (true) {
       if (statusManagement.isCreationCancelled(this.session)) {
         throw new Error('Creation Stopped')
@@ -170,13 +170,19 @@ export class HostLayer {
     let authenticated = await isAuthenticated(this.page).catch(() => null)
 
     if (typeof authenticated === 'object' && authenticated.type) {
+      // TODO - There's this only here if error http status 429. Can be refactored
       logger.error(
         `[waitForLogin:${this.session}] fail to authenticate: ${authenticated.type}`
       )
 
       try {
-        await this.page.close()
-        await this.browser.close()
+        if (!this.page.isClosed()) {
+          await this.page.close()
+        }
+        if (this.browser.connected) {
+          await this.browser.close()
+        }
+        statusManagement.removeSession(this.session)
       } catch (error) {
         logger.warn(
           `[waitForLogin] Error closing page and browser=${JSON.stringify(

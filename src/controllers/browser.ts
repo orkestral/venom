@@ -14,7 +14,7 @@ import { options } from '../config'
 import { CreateConfig } from '../config/create-config'
 import { puppeteerConfig } from '../config/puppeteer.config'
 import StealthPlugin from 'puppeteer-extra-plugin-stealth'
-import { useragentOverride } from '../config/WAuserAgente'
+import { useragentOverride } from '../config/WAuserAgent'
 import * as os from 'os'
 import { defaultOptions } from '../config/create-config'
 import { exec } from 'child_process'
@@ -56,7 +56,7 @@ export async function initWhatsapp(
 
     const { userPass, userProxy, addProxy } = options
 
-    // TODO criar proprio cache de versão e fazer download dele
+    // TODO Create own cache version and download it or use HTML from options
     if (typeof options.webVersion === 'string' && options.webVersion.length) {
       await waPage.setRequestInterception(true)
       waPage.on('request', async (req) => {

@@ -280,6 +280,7 @@ export class GroupLayer extends RetrieverLayer {
     })
   }
 
+  // TODO - Remover
   // /**
   //  * Returns group members [Contact] objects
   //  * @param groupId
