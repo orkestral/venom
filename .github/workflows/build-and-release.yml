@@ -48,5 +48,5 @@ jobs:
 
       - name: Publish NPM package
         if: github.ref_name == 'release'
-        run: npm publish --tag latest
+        run: npm publish
         working-directory: ${{ github.workspace }}
