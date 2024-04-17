@@ -2,6 +2,7 @@ const path = require('path')
 
 module.exports = {
   entry: './middleware.ts',
+  mode: 'production', // development
   module: {
     rules: [
       {
