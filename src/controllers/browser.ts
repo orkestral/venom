@@ -116,8 +116,9 @@ export async function initWhatsapp(
           window.location.reload()
         })
       }
+      // NOTE - Why do nothing if not these errors?
     })
-
+    // NOTE - Is this necessary?
     await browser.userAgent()
     return waPage
   } catch (error) {

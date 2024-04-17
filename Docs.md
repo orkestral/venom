@@ -87,7 +87,7 @@ venom
       console.log('base64 image string qrcode: ', base64Qrimg)
       console.log('urlCode (data-ref): ', urlCode)
     },
-    // statusFind
+    // callbackStatus
     (statusSession, session) => {
       console.log('Status Session: ', statusSession) //return isLogged || notLogged || browserClose || qrReadSuccess || qrReadFail || autocloseCalled || disconnectedMobile || deleteToken || chatsAvailable || deviceNotConnected || serverWssNotConnected || noOpenBrowser || initBrowser || openBrowser || connectBrowserWs || initWhatsapp || erroPageWhatsapp || successPageWhatsapp || waitForLogin || waitChat || successChat
       //Create session wss return "serverClose" case server for close

@@ -18,6 +18,7 @@ export {
   BrowserInstance,
   CreateOptions,
   InterfaceChange,
-  StatusFind,
+  CallbackStatus,
   ReconnectQrcode,
 } from './controllers/initializer'
+export { Status, statusManagement } from './controllers/status-management'

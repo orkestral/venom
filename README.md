@@ -1,17 +1,11 @@
-# 🕷Venom Bot🕸
+# Whatsapp Bot
 
-[![npm version](https://img.shields.io/npm/v/venom-bot.svg?color=green)](https://www.npmjs.com/package/venom-bot)
-![node](https://img.shields.io/node/v/venom-bot)
-[![Downloads](https://img.shields.io/npm/dm/venom-bot.svg)](https://www.npmjs.com/package/venom-bot)
-[![Average time to resolve an issue](http://isitmaintained.com/badge/resolution/orkestral/venom.svg)](http://isitmaintained.com/project/orkestral/venom 'Average time to resolve an issue')
-[![Percentage of issues still open](http://isitmaintained.com/badge/open/orkestral/venom.svg)](http://isitmaintained.com/project/orkestral/venom 'Percentage of issues still open')
-<a href="https://discord.gg/qCJ95FVbzR"><img src="https://img.shields.io/discord/772885202351292426?color=blueviolet&label=discord&style=flat" /></a>
+[![npm version](https://img.shields.io/npm/v/@redspark/whatsapp-bot?color=green)](https://www.npmjs.com/package/@redspark/whatsapp-bot)
+![Node](https://img.shields.io/node/v/@redspark/whatsapp-bot)
 
-[![Build Status](https://img.shields.io/github/actions/workflow/status/orkestral/venom/build.yml?branch=master)](https://github.com/orkestral/venom/actions)
-[![Lint Status](https://img.shields.io/github/actions/workflow/status/orkestral/venom/lint.yml?branch=master&label=lint)](https://github.com/orkestral/venom/actions)
-[![release-it](https://img.shields.io/badge/%F0%9F%93%A6%F0%9F%9A%80-release--it-e10079.svg)](https://github.com/release-it/release-it)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/develupo/venom/build-and-release.yml?branch=main)](https://github.com/develupo/venom/actions)
 
-> Venom is a high-performance system developed with JavaScript to create a bot for WhatsApp, support for creating any interaction, such as customer service, media sending, sentence recognition based on artificial intelligence and all types of design architecture for WhatsApp.
+> Whatsapp Bot is a high-performance system developed with JavaScript to create a bot for WhatsApp, support for creating any interaction, such as customer service, media sending, sentence recognition based on artificial intelligence and all types of design architecture for WhatsApp.
 
 ## Get started fast and easy! Official API!
 
@@ -44,27 +38,7 @@ Use it in your favorite language like PHP, Python, C# and others. as long as you
 
 <a target="_blank" href="https://discord.gg/uBRjk6vecs" target="_blank"><img title="Discord" height="110" width="375" src="https://s2.glbimg.com/GUbCgnBxJERAmuaYcrjBzTXD5ws=/0x0:800x272/984x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_63b422c2caee4269b8b34177e8876b93/internal_photos/bs/2021/d/N/zJs579QOGxKVRxfPILCA/discord-app.png"></a>
 
-## Meet the Superchats
-
-<br>
-<a href='https://github.com/orkestral/superchats'><img src='https://github.com/orkestral/superchats/raw/main/img/superchats.png' height='60' alt='SuperChats' aria-label='https://github.com/orkestral/superchats' /></a>
-<br>
-<br>
-
-**SuperChats** is a premium library with unique features that control Whatsapp functions with socket.
-With Superchats you can build service bots, multiservice chats or any system that uses Whatsapp
-
-**Superchats** is a premium version of **Venom**, with exclusive features and support for companies and developers worldwide
-<br>
-<a href='https://github.com/orkestral/superchats'>https://github.com/orkestral/superchats</a>
-
-## Buy a license Superchats
-
-The value of the license is $50 monthly dollars, to acquire contact in whatsapp by clicking on the image below !!
-
-<a target="_blank" href="https://web.whatsapp.com/send?phone=5561985290357&text=I%20want%20to%20buy%201%20license" target="_blank"><img title="whatzapp" height="100" width="375" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/WhatsApp_logo.svg/2000px-WhatsApp_logo.svg.png"></a>
-
-## 🕷🕷 Functions Venom🕷🕷
+## 🕷🕷 Venom Functions 🕷🕷
 
 |                                                               |     |
 | ------------------------------------------------------------- | --- |
@@ -87,19 +61,13 @@ Documentation at https://orkestral.github.io/venom/index.html
 ## Installation
 
 ```bash
-> npm i --save venom-bot
-```
-
-or for [Nightly releases](https://github.com/orkestral/venom/releases/tag/nightly):
-
-```bash
-> npm i --save https://github.com/orkestral/venom/releases/download/nightly/venom-bot-nightly.tgz
+> npm i --save @redspark/whatsapp-bot
 ```
 
 Installing the current repository "you can download the beta version from the current repository!"
 
 ```bash
-> npm i github:orkestral/venom
+> npm i github:develup/venom
 ```
 
 ## Getting started
@@ -107,7 +75,7 @@ Installing the current repository "you can download the beta version from the cu
 ```javascript
 // Supports ES6
 // import { create, Whatsapp } from 'venom-bot';
-const venom = require('venom-bot')
+const venom = require('@redspark/whatsapp-bot')
 
 venom
   .create({
@@ -158,7 +126,7 @@ If you are using the `Linux` server do not forget to pass the args `--user-agent
 [Original parameters in browserArgs](https://github.com/orkestral/venom/blob/master/src/config/puppeteer.config.ts)
 
 ```javascript
-const venom = require('venom-bot')
+const venom = require('@redspark/whatsapp-bot')
 
 venom
   .create(
@@ -172,7 +140,7 @@ venom
       console.log('base64 image string qrcode: ', base64Qrimg)
       console.log('urlCode (data-ref): ', urlCode)
     },
-    // statusFind
+    // callbackStatus
     (statusSession, session) => {
       console.log('Status Session: ', statusSession) //return isLogged || notLogged || browserClose || qrReadSuccess || qrReadFail || autocloseCalled || disconnectedMobile || deleteToken || chatsAvailable || deviceNotConnected || serverWssNotConnected || noOpenBrowser || initBrowser || openBrowser || connectBrowserWs || initWhatsapp || erroPageWhatsapp || successPageWhatsapp || waitForLogin || waitChat || successChat
       //Create session wss return "serverClose" case server for close
@@ -245,7 +213,7 @@ Gets the return if the session is `isLogged` or `notLogged` or `browserClose` or
 | `successChat`           | Chat successfully loaded!                                                                                                                                      |
 
 ```javascript
-const venom = require('venom-bot')
+const venom = require('@redspark/whatsapp-bot')
 venom
   .create('sessionName', undefined, (statusSession, session) => {
     console.log('Status Session: ', statusSession)
@@ -268,7 +236,7 @@ somewhere else heres how:
 
 ```javascript
 const fs = require('fs')
-const venom = require('venom-bot')
+const venom = require('@redspark/whatsapp-bot')
 
 venom
   .create(
