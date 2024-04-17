@@ -5,10 +5,12 @@
 1. Host layer
 2. Profile layer
 3. Listener layer
-4. Sender layer
-5. Retriever layer
-6. Group layer
-7. Controls layer
-8. Business layer (Optional)
+4. Automate
+5. Sender layer
+6. Retriever layer
+7. Group layer
+8. Controls layer
+9. UI layer
+10. Business layer (Optional)
 
 **Controls layer** should be enough

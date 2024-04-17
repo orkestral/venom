@@ -79,7 +79,7 @@ export interface CreateConfig {
   createPathFileToken?: boolean
   /**
    * Wait for in chat to return a instance of {@link Whatsapp}
-   * @default false
+   * @default true
    */
   waitForLogin?: boolean
   /**

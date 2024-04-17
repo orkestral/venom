@@ -158,7 +158,7 @@ export async function create(
       return reject('The path to the browser executable is required')
     }
 
-    // NOTE - Será que é necessário?
+    // NOTE - Is this really necessary?
     logger.debug(`[node-version-${session}] check nodeJs version...`)
 
     const requiredNodeVersion = 20
@@ -175,7 +175,7 @@ export async function create(
       `[node-version-${session}] Node.js version verified successfully!`
     )
 
-    // NOTE - Será que é necessário?
+    // NOTE - Is this really necessary? However, maybe could be used to check our updates
     await checkUpdates()
 
     statusManagement.setStatus('initBrowser', session)
@@ -267,7 +267,7 @@ export async function create(
 
           logger.debug(`[whatzapp-${session}] Successfully load main page!`)
 
-          // FIXME - chamada duplicada
+          // FIXME - Duplicated
           // await client.initService()
           // await client.addChatWapi()
         }
@@ -303,7 +303,7 @@ export async function create(
 
             if (status === SocketStream.DISCONNECTED) {
               logger.warn(`[whatzapp-${session}] Disconnected!`)
-              // FIXME - entender o que está fazendo com esse código
+              // FIXME - Understand what is happening here
               // document.querySelectorAll('.MLTJU p')[0].textContent
               statusManagement.setStatus('disconnected', session)
             }
@@ -376,7 +376,7 @@ export async function create(
           if (state === SocketState.PAIRING) {
             try {
               const device: Boolean = await page.evaluate(() => {
-                // TODO verificar se a Store ja foi carregada ou não.
+                // TODO Verify if store is already loaded
                 const isInterfaceSyncing =
                   !!document.querySelector('[tabindex="-1"]') &&
                   window?.Store?.Stream?.mode === 'SYNCING' &&
@@ -418,7 +418,7 @@ export async function create(
           return reject('Not Logged')
         }
 
-        // TODO entender por que não ta funcionando ou se esta
+        // TODO Understand why is not working (or if it is)
         let waitLoginPromise = null
         client.onStateChange(async (state) => {
           if (
@@ -459,7 +459,7 @@ export async function create(
 
       logger.debug(`[whatzapp-${session}] Successfully connected!`)
 
-      // FIXME - chamada duplicada
+      // FIXME - Duplicated
       // await client.initService()
       // await client.addChatWapi()
 

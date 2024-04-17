@@ -141,6 +141,7 @@ export class RetrieverLayer extends SenderLayer {
   }
 
   /**
+   * NOTE - description wrong?
    * Checks if a number is a valid WA number
    * @param contactId, you need to include the @c.us at the end.
    * @returns contact detial as promise
@@ -176,8 +177,7 @@ export class RetrieverLayer extends SenderLayer {
    * @returns array of groups
    */
   public async getChatContactNewMsg() {
-    // prettier-ignore
-    const chats = await this.page.evaluate(() => WAPI.getAllChatsWithNewMsg());
+    const chats = await this.page.evaluate(() => WAPI.getAllChatsWithNewMsg())
     return chats.filter((chat) => chat.kind === 'chat')
   }
 
@@ -230,6 +230,7 @@ export class RetrieverLayer extends SenderLayer {
    * @returns contact detial as promise
    * @deprecated
    */
+  // TODO - Remover
   public async getChat(contactId: string) {
     return await this.getChatById(contactId)
   }

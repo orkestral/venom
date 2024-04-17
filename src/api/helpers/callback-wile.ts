@@ -1,4 +1,5 @@
 import { AckType } from '../../api/model/enum/ack-type'
+// FIXME - Refactor
 export class callbackWile {
   obj: Object
   constructor() {

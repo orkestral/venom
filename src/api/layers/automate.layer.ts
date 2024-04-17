@@ -2,7 +2,6 @@ import { ListenerLayer } from './listener.layer'
 import { Mutex } from 'async-mutex'
 import { Browser, Page } from 'puppeteer'
 import { CreateConfig } from '../../config/create-config'
-import { sleep } from '../../utils/sleep'
 
 export class AutomateLayer extends ListenerLayer {
   private typingMutex: Mutex
@@ -34,7 +33,7 @@ export class AutomateLayer extends ListenerLayer {
       await search_element.click()
       const phone_number = chatId.replace('@c.us', '')
       await this.page.keyboard.type(' ' + phone_number + '\n', { delay: 200 })
-      await sleep(3000)
+      await this.page.waitForTimeout(3000)
       return true
     } catch (error) {
       return false
@@ -42,7 +41,7 @@ export class AutomateLayer extends ListenerLayer {
   }
 
   private async typeMultiLine(content: string): Promise<void> {
-    content = content.replace(/\r/gi, '\n')
+    content = content.replace('\r', '\n')
     const lines = content.split(/\r?\n/)
 
     for (let index = 0; index < lines.length; index++) {
@@ -87,7 +86,7 @@ export class AutomateLayer extends ListenerLayer {
 
     for (let i = 0; i < 5; i++) {
       await this.page.keyboard.press('ArrowUp')
-      await sleep(500)
+      await this.page.waitForTimeout(500)
     }
 
     const [fileChooser] = await Promise.all([
@@ -99,7 +98,7 @@ export class AutomateLayer extends ListenerLayer {
     ])
     await fileChooser.accept([fileName])
 
-    await sleep(1000)
+    await this.page.waitForTimeout(1000)
     await this.typeMultiLine(caption)
     await this.page.keyboard.press('Enter')
 
