@@ -1,7 +1,7 @@
 {
-  "name": "venom-bot",
+  "name": "@redspark/whatsapp-bot",
   "version": "5.1.0",
-  "description": "Venom is a high-performance system developed with JavaScript to create a bot for WhatsApp, support for creating any interaction, such as customer service, media sending, sentence recognition based on artificial intelligence and all types of design architecture for WhatsApp. ",
+  "description": "@redspark/whatsapp-bot is a high-performance system developed with JavaScript to create a bot for WhatsApp, support for creating any interaction, such as customer service, media sending, sentence recognition based on artificial intelligence and all types of design architecture for WhatsApp. ",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
@@ -42,7 +42,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/orkestral/venom.git"
+    "url": "git+https://github.com/develupo/venom.git"
   },
   "keywords": [
     "whatsapp",
@@ -54,10 +54,10 @@
     "automation",
     "puppeteer"
   ],
-  "author": "Orkestral",
+  "author": "Attendance",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/orkestral/venom/issues"
+    "url": "https://github.com/develupo/venom/issues"
   },
   "publishConfig": {
     "access": "public"
@@ -72,7 +72,7 @@
     "README.md",
     "SECURITY.md"
   ],
-  "homepage": "https://github.com/orkestral/venom#readme",
+  "homepage": "https://github.com/develupo/venom#readme",
   "devDependencies": {
     "@commitlint/cli": "^18.4.3",
     "@commitlint/config-angular": "^17.7.0",
