@@ -1,6 +1,7 @@
 {
   "name": "@redspark/whatsapp-bot",
   "version": "1.0.2",
+  "private": true,
   "description": "@redspark/whatsapp-bot is a high-performance system developed with JavaScript to create a bot for WhatsApp, support for creating any interaction, such as customer service, media sending, sentence recognition based on artificial intelligence and all types of design architecture for WhatsApp. ",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -74,7 +75,7 @@
   ],
   "homepage": "https://github.com/develupo/venom#readme",
   "devDependencies": {
-    "@commitlint/cli": "^18.4.3",
+    "@commitlint/cli": "^19.2.2",
     "@commitlint/config-angular": "^17.7.0",
     "@semantic-release/git": "^10.0.1",
     "@types/is-root": "^2.1.2",

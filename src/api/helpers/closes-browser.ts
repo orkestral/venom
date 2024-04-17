@@ -1,12 +1,14 @@
 import { Browser } from 'puppeteer'
 import { CreateConfig } from '../../config/create-config'
+import { statusManagement } from '../../controllers/status-management'
 
+// FIXME - Missing session
 export async function checkingCloses(
   browser: Browser | string,
-  mergedOptions: CreateConfig,
-  statusFind: (e: string) => void
+  mergedOptions: CreateConfig
 ) {
   new Promise(async (resolve, reject) => {
+    // NOTE - Is this really necessary?
     if (typeof browser !== 'string') {
       let err: boolean
       do {
@@ -18,11 +20,11 @@ export async function checkingCloses(
           ) {
             if (mergedOptions.browserWS) {
               browser.disconnect()
-              statusFind('serverClose')
+              statusManagement.setStatus('serverClose')
             }
             if (browser['isClose']) {
               browser.close().catch((e) => reject(e))
-              statusFind('browserClose')
+              statusManagement.setStatus('browserClose')
             }
             err = false
           } else {
