@@ -4,8 +4,7 @@ import { options, defaultOptions } from '../config'
 //import { initWhatsapp, initBrowser } from './browser';
 //import { CallbackOnStatus } from '../api/layers';
 
-export async function connect(options?: options)
-
+// NOTE - Not used anywhere
 export async function connect(options?: options) {
   //const event = new CallbackOnStatus();
   const mergeOptionsDefault = { ...defaultOptions, ...options }

@@ -97,6 +97,7 @@ export const isInsideChats = async (waPage: puppeteer.Page) => {
   return status === 'CONNECTED'
 }
 
+// NOTE - Not used anywhere
 export const isConnectingToPhone = async (waPage: puppeteer.Page) => {
   const status = await getInterfaceStatus(waPage)
   if (typeof status !== 'string') {
