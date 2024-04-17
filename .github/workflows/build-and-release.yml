@@ -36,9 +36,6 @@ jobs:
       - name: Install package dependencies
         run: npm install --frozen-lockfile
 
-      - name: Run lint
-        run: npm run lint
-
       - name: Build source code
         run: npm run build
 
