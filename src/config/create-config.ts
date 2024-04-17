@@ -68,7 +68,7 @@ export interface CreateConfig {
    */
   updatesLog?: boolean
   /**
-   * Automatically closes the venom-bot only when scanning the QR code (default 60000 miliseconds, if you want to turn it off, assign 0 or false)
+   * Automatically closes the whatsapp-bot only when scanning the QR code (default 60000 miliseconds, if you want to turn it off, assign 0 or false)
    * @default 60000
    */
   autoClose?: number
