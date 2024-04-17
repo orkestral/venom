@@ -1,6 +1,6 @@
 {
   "name": "@redspark/whatsapp-bot",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "@redspark/whatsapp-bot is a high-performance system developed with JavaScript to create a bot for WhatsApp, support for creating any interaction, such as customer service, media sending, sentence recognition based on artificial intelligence and all types of design architecture for WhatsApp. ",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
