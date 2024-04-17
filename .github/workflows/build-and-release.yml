@@ -33,10 +33,14 @@ jobs:
       - name: Build source code
         run: npm run build
 
-      - name: NPM config auth
-        run: npm config set //registry.npmjs.org/:_authToken ${{ secrets.NPM_TOKEN }}
-
       - name: Run semantic release
         if: github.ref_name == 'release'
         run: npx semantic-release
+        working-directory: ${{ github.workspace }}
+
+      - name: Publish npm package
+        if: github.ref_name == 'release'
+        run: |
+          npm config set //registry.npmjs.org/:_authToken ${{ secrets.NPM_TOKEN }}
+          npm publish
         working-directory: ${{ github.workspace }}
