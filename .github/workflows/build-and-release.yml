@@ -33,20 +33,12 @@ jobs:
       - name: Build source code
         run: npm run build
 
+      - name: Configure NPM authorization
+        if: github.ref_name == 'release'
+        run: npm config set //registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}
+        working-directory: ${{ github.workspace }}
+
       - name: Run semantic release
         if: github.ref_name == 'release'
         run: npx semantic-release
-        working-directory: ${{ github.workspace }}
-
-      - name: Fetch Latest Commit
-        run: |
-          git fetch
-          git reset --hard origin/${{ github.ref_name }}
-        working-directory: ${{ github.workspace }}
-
-      - name: Publish npm package
-        if: github.ref_name == 'release'
-        run: |
-          npm config set //registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}
-          npm publish
         working-directory: ${{ github.workspace }}
