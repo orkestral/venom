@@ -24,7 +24,6 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version-file: '.nvmrc'
-          # registry-url: 'https://npm.pkg.github.com/@redspark'
           cache: 'npm'
 
       - name: Install package dependencies
@@ -42,18 +41,3 @@ jobs:
         if: github.ref_name == 'release'
         run: npx semantic-release
         working-directory: ${{ github.workspace }}
-
-      # - name: Fetch Latest Commit
-      #   run: git pull
-      #   working-directory: ${{ github.workspace }}
-      #   # git fetch
-      #   # git reset --hard origin/${{ github.ref_name }}
-      #
-      # - name: Publish npm package
-      #   if: github.ref_name == 'release'
-      #   run: |
-      #     npm config set //registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}
-      #     npm publish --tag latest
-      #   working-directory: ${{ github.workspace }}
-      #
-      #
