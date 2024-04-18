@@ -24,7 +24,6 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version-file: '.nvmrc'
-          registry-url: 'https://registry.npmjs.org/'
           cache: 'npm'
 
       - name: Install package dependencies
@@ -53,5 +52,5 @@ jobs:
         if: github.ref_name == 'release'
         run: |
           npm config set //registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}
-          npm publish
+          npm publish --tag latest
         working-directory: ${{ github.workspace }}
