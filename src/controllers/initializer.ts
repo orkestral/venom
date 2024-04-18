@@ -10,7 +10,7 @@ import {
 import { InterfaceChangeMode } from '../api/model'
 import { Browser, Page } from 'puppeteer'
 import { checkUpdates } from './check-up-to-date'
-import { logger } from '../utils/logger'
+import { configureLogger, logger } from '../utils/logger'
 import { Status, statusManagement } from './status-management'
 
 declare global {
@@ -150,6 +150,7 @@ export async function create(
     interfaceChange = callbackDefaultTo(interfaceChange)
 
     statusManagement.initCallbackStatus(session, callbackStatus)
+    configureLogger(mergedOptions.loggerOptions)
 
     if (
       typeof browserPathExecutable !== 'string' ||
