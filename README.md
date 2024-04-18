@@ -9,10 +9,6 @@
 
 ## Get started fast and easy! Official API!
 
-<p align="center">
-  <a href="https://docs.orkestral.io/venom">Full Documentation</a>
-</p>
-
 <p>
 It's a high-performance alternative API to whatzapp, you can send, text messages, files, images, videos and more.
 </p>
@@ -26,19 +22,7 @@ It uses a set of well-defined operations that apply to all information resources
 Use it in your favorite language like PHP, Python, C# and others. as long as your language is supported with the HTTP protocol, you will save time and money. you don't need to know how Venom works, we have the complete API documentation, in a professional way!
 </p>
 
-## Get our official API Venom ! Contact us!
-
-<a target="_blank" href="https://web.whatsapp.com/send?phone=5561985290357&text=I%20want%20access%20to%20API%20Venom" target="_blank"><img title="whatzapp" height="100" width="375" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/WhatsApp_logo.svg/2000px-WhatsApp_logo.svg.png"></a>
-
-## Venom group support on Telegram
-
-<a target="_blank" href="https://t.me/orkestral_oficial" target="_blank"><img title="Telegram" height="100" width="375" src="https://user-images.githubusercontent.com/66584466/117182238-7d1d8980-adac-11eb-9a70-e32f90c3d4e5.png"></a>
-
-## Venom group support on Discord
-
-<a target="_blank" href="https://discord.gg/uBRjk6vecs" target="_blank"><img title="Discord" height="110" width="375" src="https://s2.glbimg.com/GUbCgnBxJERAmuaYcrjBzTXD5ws=/0x0:800x272/984x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_63b422c2caee4269b8b34177e8876b93/internal_photos/bs/2021/d/N/zJs579QOGxKVRxfPILCA/discord-app.png"></a>
-
-## 🕷🕷 Venom Functions 🕷🕷
+## 🕷🕷 WhatsApp Functions 🕷🕷
 
 |                                                               |     |
 | ------------------------------------------------------------- | --- |
