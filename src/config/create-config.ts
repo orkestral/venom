@@ -1,5 +1,6 @@
 import { Browser, BrowserContext, LaunchOptions, Page } from 'puppeteer'
 import { puppeteerConfig } from './puppeteer.config'
+import pino from 'pino'
 
 // Server config
 export interface CreateConfig {
@@ -127,6 +128,11 @@ export interface CreateConfig {
    * @default false
    */
   webVersion?: boolean | string
+  /**
+   * Pino logger options
+   * @default {}
+   */
+  loggerOptions?: pino.LoggerOptions
 }
 
 export const defaultOptions: CreateConfig = {
@@ -152,4 +158,5 @@ export const defaultOptions: CreateConfig = {
   addProxy: [],
   forceWebpack: false,
   webVersion: false,
+  loggerOptions: {},
 }
