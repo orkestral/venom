@@ -20,8 +20,8 @@ Installing the current repository "you can download the beta version from the cu
 
 ```javascript
 // Supports ES6
-// import { create, Whatsapp } from 'venom-bot';
-const venom = require('venom-bot')
+// import { create, Whatsapp } from '@redspark/whatsapp-bot';
+const venom = require('@redspark/whatsapp-bot')
 
 venom
   .create({
@@ -73,7 +73,7 @@ If you are using the `Linux` server do not forget to pass the args `--user-agent
 [Original parameters in browserArgs](https://github.com/orkestral/venom/blob/master/src/config/puppeteer.config.ts)
 
 ```javascript
-const venom = require('venom-bot')
+const venom = require('@redspark/whatsapp-bot')
 
 venom
   .create(
@@ -168,7 +168,7 @@ Gets the return if the session is `isLogged` or `notLogged` or `browserClose` or
 | `successChat`           | Chat successfully loaded!                                                                                                                                      |
 
 ```javascript
-const venom = require('venom-bot')
+const venom = require('@redspark/whatsapp-bot')
 venom
   .create(
     'sessionName',
@@ -198,7 +198,7 @@ somewhere else heres how:
 
 ```javascript
 const fs = require('fs')
-const venom = require('venom-bot')
+const venom = require('@redspark/whatsapp-bot')
 
 venom
   .create(

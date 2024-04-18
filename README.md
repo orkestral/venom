@@ -58,7 +58,7 @@ Installing the current repository "you can download the beta version from the cu
 
 ```javascript
 // Supports ES6
-// import { create, Whatsapp } from 'venom-bot';
+// import { create, Whatsapp } from '@redspark/whatsapp-bot';
 const venom = require('@redspark/whatsapp-bot')
 
 venom
