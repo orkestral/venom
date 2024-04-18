@@ -60,7 +60,7 @@
     "url": "https://github.com/develupo/venom/issues"
   },
   "publishConfig": {
-    "access": "public"
+    "access": "restricted"
   },
   "files": [
     ".env",
