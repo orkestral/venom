@@ -1,18 +1,7 @@
 import pino from 'pino'
 
-const logLevel = process.env.LOG_LEVEL || 'debug'
-const isProductionEnv = process.env.NODE_ENV === 'production'
+export let logger
 
-const transport = isProductionEnv
-  ? null
-  : {
-      target: 'pino-pretty',
-      options: {
-        colorize: true,
-      },
-    }
-
-export const logger = pino({
-  level: logLevel,
-  transport,
-})
+export const configureLogger = (loggerOptions: pino.LoggerOptions) => {
+  logger = pino(loggerOptions)
+}
