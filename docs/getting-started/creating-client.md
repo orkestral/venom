@@ -5,8 +5,8 @@ That method returns an `Promise` of {@link Whatsapp}.
 
 ```javascript
 // Supports ES6
-// import { create, Whatsapp } from 'venom-bot';
-const venom = require('venom-bot');
+// import { create, Whatsapp } from '@redspark/whatsapp-bot';
+const venom = require('@redspark/whatsapp-bot');
 
 venom
   .create()
@@ -65,7 +65,7 @@ venom.create(
       disableSpins: true, // Will disable Spinnies animation, useful for containers (docker) for a better log
       disableWelcome: true, // Will disable the welcoming message which appears in the beginning
       updatesLog: true, // Logs info updates automatically in terminal
-      autoClose: 60000, // Automatically closes the venom-bot only when scanning the QR code (default 60 seconds, if you want to turn it off, assign 0 or false)
+      autoClose: 60000, // Automatically closes the @redspark/whatsapp-bot only when scanning the QR code (default 60 seconds, if you want to turn it off, assign 0 or false)
       createPathFileToken: false, //creates a folder when inserting an object in the client's browser, to work it is necessary to pass the parameters in the function create browserSessionToken
     },
     // BrowserSessionToken
@@ -101,7 +101,7 @@ or `deleteToken` or `Create session wss return "serverClose" case server for clo
 | `deleteToken`        | If you pass true within the function `client.getSessionTokenBrowser(true)`                                                                                     |
 
 ```javascript
-const venom = require('venom-bot');
+const venom = require('@redspark/whatsapp-bot');
 venom
   .create(
     'sessionName',
@@ -125,7 +125,7 @@ somewhere else heres how:
 
 ```javascript
 const fs = require('fs');
-const venom = require('venom-bot');
+const venom = require('@redspark/whatsapp-bot');
 
 venom
   .create(

@@ -15,14 +15,14 @@ export async function checkUpdates() {
 
 async function checkVenomVersion() {
   try {
-    const latest = await getLatestVersion('venom-bot')
+    const latest = await getLatestVersion('@redspark/whatsapp-bot')
     if (upToDate(version, latest)) {
       logger.info("You're up to date 🎉🎉🎉")
     } else {
       const newVersionLog =
         `There is a new version available: ${version} -> ${latest}\n` +
         `Update your package by running:\n\n` +
-        `> npm update venom-bot`
+        `> npm update @redspark/whatsapp-bot`
 
       logger.warn(newVersionLog)
     }
@@ -35,7 +35,7 @@ async function checkVenomVersion() {
 async function getLatestVersion(packageName: string) {
   const upgraded = await npmCheckUpdates({
     packageData: JSON.stringify({
-      dependencies: { 'venom-bot': '1.0.0' },
+      dependencies: { '@redspark/whatsapp-bot': '1.0.0' },
     }),
     silent: true,
     jsonUpgraded: true,
