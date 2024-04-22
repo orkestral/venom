@@ -9,6 +9,7 @@ import * as path from 'path'
 import fs from 'fs/promises'
 import { logger } from '../utils/logger'
 import { statusManagement } from '../controllers/status-management'
+import { interfaceStatusManagement } from '../controllers/interface-management'
 
 export class Whatsapp extends ControlsLayer {
   constructor(
@@ -163,6 +164,7 @@ export class Whatsapp extends ControlsLayer {
         await this.browser.close()
       }
       statusManagement.removeSession(this.session)
+      interfaceStatusManagement.removeSession()
       return true
     } catch (e) {
       return false
