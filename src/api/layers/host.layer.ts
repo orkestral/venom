@@ -333,8 +333,7 @@ export class HostLayer {
    */
   public async getConnectionState(): Promise<SocketState> {
     return await this.page.evaluate(() => {
-      //@ts-ignore
-      return Store.State.Socket.state
+      return window.Store.State.Socket.state
     })
   }
 
