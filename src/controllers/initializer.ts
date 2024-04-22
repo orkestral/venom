@@ -12,6 +12,10 @@ import { Browser, Page } from 'puppeteer'
 import { checkUpdates } from './check-up-to-date'
 import { configureLogger, logger } from '../utils/logger'
 import { Status, statusManagement } from './status-management'
+import {
+  InterfaceChange,
+  interfaceStatusManagement,
+} from './interface-management'
 
 declare global {
   interface Window {
@@ -42,42 +46,6 @@ export type BrowserInstance = (
   waPage: false | Page,
   client: Whatsapp
 ) => void
-
-export type InterfaceChange = (
-  callbackStatus: InterfaceStateChange | string,
-  session: string
-) => void
-
-export enum InterfaceStateChange {
-  /**
-   * Client interface is loading page from qrcode
-   */
-  qrcodeOpening = 'qrcodeOpening',
-  /**
-   * Client interface is loading qrcode
-   */
-  qrcodeLoading = 'qrcodeLoading',
-  /**
-   * QR code ready to be read!
-   */
-  qrcodeNormal = 'qrcodeNormal',
-  /**
-   * Client interface is loading page from syncing
-   */
-  syncingOpening = 'syncingOpening',
-  /**
-   * Client interface is loading syncing
-   */
-  syncingLoading = 'syncingLoading',
-  /**
-   * Syncing ready to be read!
-   */
-  syncingNormal = 'syncingNormal',
-  /**
-   * The customer is in the chat
-   */
-  chatsAvailable = 'chatsAvailable',
-}
 
 export type ReconnectQrcode = (client: Whatsapp) => void
 
@@ -149,8 +117,10 @@ export async function create(
     reconnectQrcode = callbackDefaultTo(reconnectQrcode)
     interfaceChange = callbackDefaultTo(interfaceChange)
 
-    statusManagement.initCallbackStatus(session, callbackStatus)
     configureLogger(mergedOptions.loggerOptions)
+
+    statusManagement.initCallbackStatus(session, callbackStatus)
+    interfaceStatusManagement.initCallbackStatus(session, interfaceChange)
 
     if (
       typeof browserPathExecutable !== 'string' ||
@@ -264,7 +234,7 @@ export async function create(
 
       client.onInterfaceChange(async (interFace: InterfaceChangeMode) => {
         if (interFace.mode === InterfaceMode.MAIN) {
-          interfaceChange('chatsAvailable', session)
+          interfaceStatusManagement.setInterfaceStatus('chatsAvailable')
 
           logger.debug(`[whatzapp-${session}] Successfully load main page!`)
 
@@ -278,21 +248,21 @@ export async function create(
             logger.info(
               `[whatzapp-${session}:onInterfaceChange] Syncing page...`
             )
-            interfaceChange('syncingOpening', session)
+            interfaceStatusManagement.setInterfaceStatus('syncingOpening')
           }
 
           if (interFace.info === InterfaceState.PAIRING) {
             logger.info(
               `[whatzapp-${session}:onInterfaceChange] Pairing devide...`
             )
-            interfaceChange('syncingLoading', session)
+            interfaceStatusManagement.setInterfaceStatus('syncingLoading')
           }
 
           if (interFace.info === InterfaceState.NORMAL) {
             logger.info(
               `[whatzapp-${session}:onInterfaceChange] Interface state normal...`
             )
-            interfaceChange('syncingNormal', session)
+            interfaceStatusManagement.setInterfaceStatus('syncingNormal')
           }
         }
 
@@ -307,27 +277,28 @@ export async function create(
               // FIXME - Understand what is happening here
               // document.querySelectorAll('.MLTJU p')[0].textContent
               statusManagement.setStatus('disconnected', session)
+              interfaceStatusManagement.setInterfaceStatus('disconnected')
             }
 
             if (interFace.info === InterfaceState.OPENING) {
               logger.info(
                 `[whatzapp-${session}:onInterfaceChange] Opening QR Code page...`
               )
-              interfaceChange('qrcodeOpening', session)
+              interfaceStatusManagement.setInterfaceStatus('qrcodeOpening')
             }
 
             if (interFace.info === InterfaceState.PAIRING) {
               logger.info(
                 `[whatzapp-${session}:onInterfaceChange] Pairing device...`
               )
-              interfaceChange('qrcodeLoading', session)
+              interfaceStatusManagement.setInterfaceStatus('qrcodeLoading')
             }
 
             if (interFace.info === InterfaceState.NORMAL) {
               logger.info(
                 `[whatzapp-${session}:onInterfaceChange] Device connected...`
               )
-              interfaceChange('qrcodeNormal', session)
+              interfaceStatusManagement.setInterfaceStatus('qrcodeNormal')
             }
           } catch (error) {
             logger.error(
