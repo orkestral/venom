@@ -1,4 +1,4 @@
-let groupParticpiantsEvents = {};
+const groupParticpiantsEvents = {}
 
 /**
  * Registers on participants change listener
@@ -18,24 +18,24 @@ export function addOnParticipantsChange() {
         'remove',
         'leave',
         'promote',
-        'demote'
-      ];
-      const chat = window.Store.Chat.get(groupId);
+        'demote',
+      ]
+      const chat = window.Store.Chat.get(groupId)
       //attach all group Participants to the events object as 'add'
-      const metadata = window.Store.GroupMetadata.get(groupId);
+      const metadata = window.Store.GroupMetadata.get(groupId)
       if (!groupParticpiantsEvents[groupId]) {
-        groupParticpiantsEvents[groupId] = {};
+        groupParticpiantsEvents[groupId] = {}
         metadata.participants.forEach((participant) => {
           groupParticpiantsEvents[groupId][participant.id.toString()] = {
             subtype: 'add',
-            from: metadata.owner
-          };
-        });
+            from: metadata.owner,
+          }
+        })
       }
-      let i = 0;
-      chat.on('change:groupMetadata.participants', (_) =>
+      let i = 0
+      chat.on('change:groupMetadata.participants', () =>
         chat.on('all', (x, y) => {
-          const { isGroup, previewMessage } = y;
+          const { isGroup, previewMessage } = y
           if (
             isGroup &&
             x === 'change' &&
@@ -43,8 +43,8 @@ export function addOnParticipantsChange() {
             previewMessage.type === 'gp2' &&
             subtypeEvents.includes(previewMessage.subtype)
           ) {
-            const { subtype, from, recipients } = previewMessage;
-            const rec = recipients[0].toString();
+            const { subtype, from, recipients } = previewMessage
+            const rec = recipients[0].toString()
             if (
               groupParticpiantsEvents[groupId][rec] &&
               groupParticpiantsEvents[groupId][recipients[0]].subtype == subtype
@@ -55,12 +55,12 @@ export function addOnParticipantsChange() {
               //ignore the first message
               if (i == 0) {
                 //ignore it, plus 1,
-                i++;
+                i++
               } else {
                 groupParticpiantsEvents[groupId][rec] = {
                   subtype,
-                  from
-                };
+                  from,
+                }
                 //fire the callback
                 // // previewMessage.from.toString()
                 // x removed y
@@ -68,16 +68,16 @@ export function addOnParticipantsChange() {
                 callback({
                   by: from.toString(),
                   action: subtype,
-                  who: recipients
-                });
-                chat.off('all', this);
-                i = 0;
+                  who: recipients,
+                })
+                chat.off('all', this)
+                i = 0
               }
             }
           }
         })
-      );
-      return true;
-    });
-  };
+      )
+      return true
+    })
+  }
 }

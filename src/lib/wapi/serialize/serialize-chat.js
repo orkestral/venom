@@ -1,6 +1,6 @@
 export const serializeChatObj = (obj) => {
   if (obj == undefined) {
-    return null;
+    return null
   }
   return Object.assign(WAPI.serializeRawObj(obj), {
     kind: obj.kind,
@@ -17,6 +17,6 @@ export const serializeChatObj = (obj) => {
       obj.previewMessage &&
       obj.previewMessage.__x_ephemeralStartTimestamp
         ? obj.previewMessage.__x_ephemeralStartTimestamp * 1000
-        : null
-  });
-};
+        : null,
+  })
+}

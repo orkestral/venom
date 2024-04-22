@@ -1,19 +1,15 @@
-export async function sendContactVcard(chatId, contact, name) {
+//export async function sendContactVcard(chatId, contact, name) {
+export async function sendContactVcard(chatId, contact) {
   if (typeof chatId != 'string' || chatId.length === 0) {
-    return WAPI.scope(chatId, true, 404, 'It is necessary to pass the number!');
+    return WAPI.scope(chatId, true, 404, 'It is necessary to pass the number!')
   }
 
   if (typeof contact != 'string' || contact.length === 0) {
-    return WAPI.scope(
-      contact,
-      true,
-      404,
-      'It is necessary to pass the number!'
-    );
+    return WAPI.scope(contact, true, 404, 'It is necessary to pass the number!')
   }
 
-  const chat = await WAPI.sendExist(chatId);
-  const cont = await WAPI.sendExist(contact);
+  const chat = await WAPI.sendExist(chatId)
+  const cont = await WAPI.sendExist(contact)
   if (
     chat &&
     chat.status != 404 &&
@@ -22,30 +18,30 @@ export async function sendContactVcard(chatId, contact, name) {
     cont.status != 404 &&
     cont.id
   ) {
-    const newMsgId = await window.WAPI.getNewMessageId(chat.id._serialized);
-    let inChat = await WAPI.getchatId(chat.id).catch(() => {
-      return WAPI.scope(chat.id, true, 404, 'Error to number ' + chatId);
-    });
+    const newMsgId = await window.WAPI.getNewMessageId(chat.id._serialized)
+    const inChat = await WAPI.getchatId(chat.id).catch(() => {
+      return WAPI.scope(chat.id, true, 404, 'Error to number ' + chatId)
+    })
 
     if (inChat) {
       chat.lastReceivedKey && chat.lastReceivedKey._serialized
         ? (chat.lastReceivedKey._serialized = inChat._serialized)
-        : '';
+        : ''
       chat.lastReceivedKey && chat.lastReceivedKey.id
         ? (chat.lastReceivedKey.id = inChat.id)
-        : '';
+        : ''
     }
 
     if (!newMsgId) {
-      return WAPI.scope(chatId, true, 404, 'Error to newId');
+      return WAPI.scope(chatId, true, 404, 'Error to newId')
     }
 
-    const fromwWid = await Store.MaybeMeUser.getMaybeMeUser();
+    const fromwWid = await Store.MaybeMeUser.getMaybeMeUser()
     const body = await window.Store.Vcard.vcardFromContactModel(
       cont.__x_contact
-    );
+    )
 
-    name = !name ? cont.__x_formattedTitle : name;
+    //name = !name ? cont.__x_formattedTitle : name
 
     const message = {
       id: newMsgId,
@@ -57,24 +53,24 @@ export async function sendContactVcard(chatId, contact, name) {
       self: 'out',
       t: parseInt(new Date().getTime() / 1000),
       isNewMsg: !0,
-      type: 'vcard'
-    };
+      type: 'vcard',
+    }
 
     const result = (
       await Promise.all(window.Store.addAndSendMsgToChat(chat, message))
-    )[1];
+    )[1]
 
-    var m = { from: contact, type: 'vcard' };
+    var m = { from: contact, type: 'vcard' }
     if (result === 'success' || result || result.messageSendResult === 'OK') {
-      var obj = WAPI.scope(newMsgId, false, result, null);
-      Object.assign(obj, m);
-      return obj;
+      const obj = WAPI.scope(newMsgId, false, result, null)
+      Object.assign(obj, m)
+      return obj
     } else {
-      var obj = WAPI.scope(newMsgId, true, result, null);
-      Object.assign(obj, m);
-      return obj;
+      const obj = WAPI.scope(newMsgId, true, result, null)
+      Object.assign(obj, m)
+      return obj
     }
   } else {
-    return chat;
+    return chat
   }
 }

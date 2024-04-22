@@ -16,7 +16,7 @@ export async function sendListMenu(
   menu
 ) {
   if (!title && typeof title != 'string') {
-    return WAPI.scope(null, true, 404, 'Enter the title variable as an string');
+    return WAPI.scope(null, true, 404, 'Enter the title variable as an string')
   }
 
   if (!subTitle && typeof subTitle != 'string') {
@@ -25,7 +25,7 @@ export async function sendListMenu(
       true,
       404,
       'Enter the SubTitle variable as an string'
-    );
+    )
   }
 
   if (!description && typeof description != 'string') {
@@ -34,7 +34,7 @@ export async function sendListMenu(
       true,
       404,
       'Enter the description variable as an string'
-    );
+    )
   }
 
   if (!buttonText && typeof buttonText != 'string') {
@@ -43,14 +43,14 @@ export async function sendListMenu(
       true,
       404,
       'Enter the buttonText variable as an string'
-    );
+    )
   }
 
   if (!menu && Array.isArray(menu) === false) {
-    return WAPI.scope(null, true, 404, 'Enter the menu variable as an array');
+    return WAPI.scope(null, true, 404, 'Enter the menu variable as an array')
   }
 
-  for (let index in menu) {
+  for (const index in menu) {
     if (index !== 'remove') {
       if (
         !!menu[index].title &&
@@ -62,7 +62,7 @@ export async function sendListMenu(
           Array.isArray(menu[index].rows) &&
           menu[index].rows.length
         ) {
-          for (let i in menu[index].rows) {
+          for (const i in menu[index].rows) {
             if (i !== 'remove') {
               if (
                 !!menu[index].rows[i].title &&
@@ -73,7 +73,7 @@ export async function sendListMenu(
                   menu[index].rows[i].description.length
                 ) {
                   if (!menu[index].rows[i].rowId) {
-                    menu[index].rows[i].rowId = `dessert_${i}`;
+                    menu[index].rows[i].rowId = `dessert_${i}`
                   }
                 }
               } else {
@@ -82,29 +82,29 @@ export async function sendListMenu(
                   true,
                   404,
                   'Enter the Title variable as an string'
-                );
+                )
               }
             }
           }
         } else {
-          return WAPI.scope(null, true, 404, 'Rows must be an object array');
+          return WAPI.scope(null, true, 404, 'Rows must be an object array')
         }
       } else {
-        return WAPI.scope(null, true, 404, 'Incorrect Title passed in menu');
+        return WAPI.scope(null, true, 404, 'Incorrect Title passed in menu')
       }
     }
   }
 
-  const chat = await WAPI.sendExist(to);
+  const chat = await WAPI.sendExist(to)
 
   if (chat && chat.status != 404 && chat.id) {
-    const newMsgId = await window.WAPI.getNewMessageId(chat.id._serialized);
-    const fromwWid = await Store.MaybeMeUser.getMaybeMeUser();
-    const inChat = await WAPI.getchatId(chat.id).catch(() => {});
+    const newMsgId = await window.WAPI.getNewMessageId(chat.id._serialized)
+    const fromwWid = await Store.MaybeMeUser.getMaybeMeUser()
+    const inChat = await WAPI.getchatId(chat.id).catch(() => {})
 
     if (inChat) {
-      chat.lastReceivedKey._serialized = inChat._serialized;
-      chat.lastReceivedKey.id = inChat.id;
+      chat.lastReceivedKey._serialized = inChat._serialized
+      chat.lastReceivedKey.id = inChat.id
     }
 
     const message = {
@@ -130,23 +130,23 @@ export async function sendListMenu(
         description: description,
         buttonText: buttonText,
         listType: 1,
-        sections: menu
-      }
-    };
+        sections: menu,
+      },
+    }
 
     var result = (
       await Promise.all(window.Store.addAndSendMsgToChat(chat, message))
-    )[1];
+    )[1]
     if (
       result === 'success' ||
       result === 'OK' ||
       result.messageSendResult === 'OK'
     ) {
-      return WAPI.scope(newMsgId, false, result, null);
+      return WAPI.scope(newMsgId, false, result, null)
     } else {
-      return WAPI.scope(newMsgId, true, result, null);
+      return WAPI.scope(newMsgId, true, result, null)
     }
   } else {
-    return chat;
+    return chat
   }
 }

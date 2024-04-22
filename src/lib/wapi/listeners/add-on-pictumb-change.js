@@ -14,11 +14,11 @@ export function addonFilePicThumb() {
         raw: e.raw,
         stale: e.stale,
         tag: e.tag,
-        token: e.token
-      };
-      callback(obj);
-    });
+        token: e.token,
+      }
+      callback(obj)
+    })
 
-    return true;
-  };
+    return true
+  }
 }

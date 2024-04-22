@@ -1,9 +1,9 @@
 export const _serializeMessageObj = async (obj) => {
   if (obj === undefined) {
-    return null;
+    return null
   }
-  const _chat = obj['chat'] ? await WAPI._serializeChatObj(obj['chat']) : {};
-  let chats = await WAPI.getAllChats();
+  const _chat = obj['chat'] ? await WAPI._serializeChatObj(obj['chat']) : {}
+  const chats = await WAPI.getAllChats()
   return {
     ...window.WAPI._serializeRawObj(obj),
     id: obj?.id?._serialized,
@@ -73,6 +73,6 @@ export const _serializeMessageObj = async (obj) => {
         ? chats.find((chat) => chat.id._serialized === obj.from._serialized)
             .contact
         : null,
-    reply: (body) => window.WAPI.reply(_chat.id._serialized, body, obj)
-  };
-};
+    reply: (body) => window.WAPI.reply(_chat.id._serialized, body, obj),
+  }
+}

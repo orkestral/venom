@@ -10,9 +10,9 @@ export const storeObjects = [
     id: 'replyButton',
     conditions: (module) =>
       module.__esModule &&
-        module.default &&
-        module.default.prototype &&
-        module.default.prototype.proxyName === 'replyButton'
+      module.default &&
+      module.default.prototype &&
+      module.default.prototype.proxyName === 'replyButton'
         ? module.default
         : null,
   },
@@ -20,9 +20,9 @@ export const storeObjects = [
     id: 'templateButton',
     conditions: (module) =>
       module.__esModule &&
-        module.default &&
-        module.default.prototype &&
-        module.default.prototype.proxyName === 'templateButton'
+      module.default &&
+      module.default.prototype &&
+      module.default.prototype.proxyName === 'templateButton'
         ? module.default
         : null,
   },
@@ -40,9 +40,9 @@ export const storeObjects = [
     id: 'MediaCollection',
     conditions: (module) =>
       module.default &&
-        module.default.prototype &&
-        (module.default.prototype.processFiles !== undefined ||
-          module.default.prototype.processAttachments !== undefined)
+      module.default.prototype &&
+      (module.default.prototype.processFiles !== undefined ||
+        module.default.prototype.processAttachments !== undefined)
         ? module.default
         : null,
   },
@@ -54,10 +54,7 @@ export const storeObjects = [
   {
     id: 'GroupInvite',
     conditions: (module) =>
-      module.queryGroupInviteCode
-        && module.revokeGroupInvite
-        ? module
-        : null,
+      module.queryGroupInviteCode && module.revokeGroupInvite ? module : null,
   },
   {
     id: 'Wap',
@@ -71,7 +68,8 @@ export const storeObjects = [
   {
     id: 'WapDelete',
     conditions: (module) =>
-      module.sendConversationDelete && module.sendConversationDelete.length === 2
+      module.sendConversationDelete &&
+      module.sendConversationDelete.length === 2
         ? module
         : null,
   },
@@ -86,8 +84,8 @@ export const storeObjects = [
     id: 'WapQuery',
     conditions: (module) =>
       module.default &&
-        module.default.contactFindQuery &&
-        module.default.queryExist
+      module.default.contactFindQuery &&
+      module.default.queryExist
         ? module.default
         : null,
   },
@@ -99,8 +97,8 @@ export const storeObjects = [
     id: 'OpenChat',
     conditions: (module) =>
       module.default &&
-        module.default.prototype &&
-        module.default.prototype.openChat
+      module.default.prototype &&
+      module.default.prototype.openChat
         ? module.default
         : null,
   },
@@ -108,9 +106,9 @@ export const storeObjects = [
     id: 'UserConstructor',
     conditions: (module) =>
       module.default &&
-        module.default.prototype &&
-        module.default.prototype.isServer &&
-        module.default.prototype.isUser
+      module.default.prototype &&
+      module.default.prototype.isServer &&
+      module.default.prototype.isUser
         ? module.default
         : null,
   },
@@ -149,8 +147,8 @@ export const storeObjects = [
     id: 'Perfil',
     conditions: (module) =>
       module.__esModule === true &&
-        module.setPushname &&
-        !module.getComposeContents
+      module.setPushname &&
+      !module.getComposeContents
         ? module
         : null,
   },
@@ -158,9 +156,9 @@ export const storeObjects = [
     id: 'MsgKey',
     conditions: (module) =>
       module.default &&
-        module.default.toString &&
-        typeof module.default.toString === 'function' &&
-        module.default.toString().includes('MsgKey error: obj is null/undefined')
+      module.default.toString &&
+      typeof module.default.toString === 'function' &&
+      module.default.toString().includes('MsgKey error: obj is null/undefined')
         ? module.default
         : null,
   },
@@ -198,8 +196,8 @@ export const storeObjects = [
     id: 'ChatStates',
     conditions: (module) =>
       module.sendChatStatePaused &&
-        module.sendChatStateRecording &&
-        module.sendChatStateComposing
+      module.sendChatStateRecording &&
+      module.sendChatStateComposing
         ? module
         : null,
   },
@@ -243,9 +241,9 @@ export const storeObjects = [
     id: 'Base2',
     conditions: (module) =>
       module.supportsFeatureFlags &&
-        module.parseMsgStubProto &&
-        module.binSend &&
-        module.subscribeLiveLocation
+      module.parseMsgStubProto &&
+      module.binSend &&
+      module.subscribeLiveLocation
         ? module
         : null,
   },
@@ -322,8 +320,8 @@ export const storeObjects = [
     id: 'genId',
     conditions: (module) =>
       module.default &&
-        typeof module.default === 'function' &&
-        module.default.toString().match(/crypto/)
+      typeof module.default === 'function' &&
+      module.default.toString().match(/crypto/)
         ? module
         : null,
   },
@@ -449,45 +447,45 @@ export const storeObjects = [
     conditions: (module) => (module.smax ? module : null),
   },
   {
-    id: "Survey",
+    id: 'Survey',
     conditions: (module) => (module.sendPollCreation ? module : null),
   },
   {
-    id: "Cmd",
+    id: 'Cmd',
     conditions: (module) => (module.APP_STATE_SYNC_COMPLETED ? module : null),
   },
   {
-    id: "Wap",
+    id: 'Wap',
     conditions: (module) => (module.BIG_ENDIAN_CONTENT ? module : null),
   },
   {
-    id: "WapParser",
+    id: 'WapParser',
     conditions: (module) => (module.WapParser ? module : null),
   },
   {
-    id: "SendSocket",
+    id: 'SendSocket',
     conditions: (module) => (module.deprecatedSendIq ? module : null),
-  }
-  ,
+  },
   {
-    id: "Jid",
+    id: 'Jid',
     conditions: (module) => (module.WAP_JID_SUBTYPE ? module : null),
   },
   {
     id: 'sendDeleteMsgs',
-    conditions: (module) => (module.sendDeleteMsgs ? module.sendDeleteMsgs : null),
+    conditions: (module) =>
+      module.sendDeleteMsgs ? module.sendDeleteMsgs : null,
   },
   {
     id: 'sendRevokeMsgs',
-    conditions: (module) => (module.sendRevokeMsgs ? module.sendRevokeMsgs : null),
+    conditions: (module) =>
+      module.sendRevokeMsgs ? module.sendRevokeMsgs : null,
   },
   {
-    id: "createNewsletterQuery",
-    conditions: (module) => (module.createNewsletterQuery ? module : null)
+    id: 'createNewsletterQuery',
+    conditions: (module) => (module.createNewsletterQuery ? module : null),
   },
   {
-    id: "userJidToUserWid",
-    conditions: (module) => (module.newsletterJidToWid ? module : null)
+    id: 'userJidToUserWid',
+    conditions: (module) => (module.newsletterJidToWid ? module : null),
   },
-
-];
+]

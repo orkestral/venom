@@ -1,4 +1,3 @@
-import { _serializeRawObj } from './serialize-raw';
 /**
  * Serializes a chat object
  * @param rawChat Chat object
@@ -6,7 +5,7 @@ import { _serializeRawObj } from './serialize-raw';
  */
 export const _serializeChatObj = (obj) => {
   if (obj == undefined) {
-    return null;
+    return null
   }
   return Object.assign(window.WAPI._serializeRawObj(obj), {
     kind: obj?.kind,
@@ -25,6 +24,6 @@ export const _serializeChatObj = (obj) => {
     isOnline: obj?.__x_presence?.attributes?.isOnline || null,
     lastSeen: obj?.previewMessage?.__x_ephemeralStartTimestamp
       ? obj.previewMessage.__x_ephemeralStartTimestamp * 1000
-      : null
-  });
-};
+      : null,
+  })
+}

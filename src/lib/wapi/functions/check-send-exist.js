@@ -1,45 +1,45 @@
 export async function scope(id, erro, status, text = null) {
-  const me = await WAPI.getHost();
-  let e = {
+  const me = await WAPI.getHost()
+  const e = {
     me: me,
     to: id,
     erro: erro,
     text: text,
-    status: status
-  };
-  return e;
+    status: status,
+  }
+  return e
 }
 
 export async function getchatId(chatId) {
   if (chatId) {
-    let to = await WAPI.getChatById(chatId);
+    const to = await WAPI.getChatById(chatId)
     if (to && typeof to === 'object') {
-      let objTo = to.lastReceivedKey;
+      const objTo = to.lastReceivedKey
       if (objTo && typeof objTo === 'object') {
-        let extend = {
+        const extend = {
           formattedName: to.contact.formattedName,
           isBusiness: to.contact.isBusiness,
           isMyContact: to.contact.isMyContact,
           verifiedName: to.contact.verifiedName,
           pushname: to.contact.pushname,
-          isOnline: to.isOnline
-        };
-        Object.assign(objTo, extend);
-        return objTo;
+          isOnline: to.isOnline,
+        }
+        Object.assign(objTo, extend)
+        return objTo
       }
     }
   }
-  return undefined;
+  return undefined
 }
 
 export function sendCheckType(chatId = undefined) {
   if (!chatId) {
-    return WAPI.scope(chatId, true, 404, 'It is necessary to pass a number!');
+    return WAPI.scope(chatId, true, 404, 'It is necessary to pass a number!')
   }
   if (typeof chatId === 'string') {
-    const contact = '@c.us';
-    const broadcast = '@broadcast';
-    const grup = '@g.us';
+    const contact = '@c.us'
+    const broadcast = '@broadcast'
+    const grup = '@g.us'
     if (
       contact !== chatId.substr(-contact.length, contact.length) &&
       broadcast !== chatId.substr(-broadcast.length, broadcast.length) &&
@@ -50,7 +50,7 @@ export function sendCheckType(chatId = undefined) {
         true,
         404,
         'The chat number must contain the parameters @c.us, @broadcast or @g.us. At the end of the number!'
-      );
+      )
     }
     if (
       contact === chatId.substr(-contact.length, contact.length) &&
@@ -62,7 +62,7 @@ export function sendCheckType(chatId = undefined) {
         true,
         404,
         'incorrect parameters! Use as an example: 000000000000@c.us'
-      );
+      )
     }
 
     if (
@@ -76,7 +76,7 @@ export function sendCheckType(chatId = undefined) {
         true,
         404,
         'incorrect parameters! Use as an example: 0000000000@broadcast'
-      );
+      )
     }
 
     if (
@@ -89,77 +89,77 @@ export function sendCheckType(chatId = undefined) {
         true,
         404,
         'incorrect parameters! Use as an example: 00000000-000000@g.us or 00000000000000@g.us'
-      );
+      )
     }
   }
 }
 
 export async function returnChat(chatId, returnChat = true, Send = true) {
-  const checkType = WAPI.sendCheckType(chatId);
+  const checkType = WAPI.sendCheckType(chatId)
   if (!!checkType && checkType.status === 404) {
-    return checkType;
+    return checkType
   }
 
-  let chat = await WAPI.getChat(chatId);
+  let chat = await WAPI.getChat(chatId)
   if (!chat) {
     var idUser = new Store.UserConstructor(chatId, {
-      intentionallyUsePrivateConstructor: true
-    });
-    const chatWid = new Store.WidFactory.createWid(chatId);
+      intentionallyUsePrivateConstructor: true,
+    })
+    const chatWid = new Store.WidFactory.createWid(chatId)
     await Store.Chat.add(
       {
         createdLocally: true,
-        id: chatWid
+        id: chatWid,
       },
       {
-        merge: true
+        merge: true,
       }
-    );
-    chat = await Store.Chat.find(idUser);
+    )
+    chat = await Store.Chat.find(idUser)
   }
 
   if (chat === undefined) {
-    const chatWid = new Store.WidFactory.createWid(chatId);
+    const chatWid = new Store.WidFactory.createWid(chatId)
     await Store.Chat.add(
       {
         createdLocally: true,
-        id: chatWid
+        id: chatWid,
       },
       {
-        merge: true
+        merge: true,
       }
-    );
-    const storeChat = await Store.Chat.find(chatId);
+    )
+    const storeChat = await Store.Chat.find(chatId)
     if (storeChat) {
       chat =
         storeChat && storeChat.id && storeChat.id._serialized
           ? await WAPI.getChat(storeChat.id._serialized)
-          : undefined;
+          : undefined
     }
   }
 
   if (!chat) {
-    return WAPI.scope(chatId, true, 404);
+    return WAPI.scope(chatId, true, 404)
   }
 
   if (Send) {
-    await window.Store.ReadSeen.sendSeen(chat, false);
+    await window.Store.ReadSeen.sendSeen(chat, false)
   }
 
   if (returnChat) {
-    return chat;
+    return chat
   }
 
-  return WAPI.scope(chatId, false, 200);
+  return WAPI.scope(chatId, false, 200)
 }
 
 export async function sendExist(chatId, returnChat = true, Send = true) {
-  const checkType = await WAPI.sendCheckType(chatId);
+  const checkType = await WAPI.sendCheckType(chatId)
   if (!!checkType && checkType.status === 404) {
-    return checkType;
+    return checkType
   }
 
-  let ck = await window.WAPI.checkNumberStatus(chatId, false);
+  const ck = await window.WAPI.checkNumberStatus(chatId, false)
 
   if (
     (ck.status === 404 &&
@@ -170,45 +170,45 @@ export async function sendExist(chatId, returnChat = true, Send = true) {
       typeof ck.text.includes === 'function' &&
       ck.text.includes('XmppParsingFailure'))
   ) {
-    return WAPI.scope(chatId, true, ck.status, 'The number does not exist');
+    return WAPI.scope(chatId, true, ck.status, 'The number does not exist')
   }
 
-  const chatWid = new Store.WidFactory.createWid(chatId);
+  const chatWid = new Store.WidFactory.createWid(chatId)
 
   let chat =
     ck && ck.id && ck.id._serialized
       ? await WAPI.getChat(ck.id._serialized)
-      : undefined;
+      : undefined
 
   if (ck.numberExists && chat === undefined) {
     var idUser = new Store.UserConstructor(chatId, {
-      intentionallyUsePrivateConstructor: true
-    });
-    const chatWid = new Store.WidFactory.createWid(chatId);
+      intentionallyUsePrivateConstructor: true,
+    })
+    const chatWid = new Store.WidFactory.createWid(chatId)
     await Store.Chat.add(
       {
         createdLocally: true,
-        id: chatWid
+        id: chatWid,
       },
       {
-        merge: true
+        merge: true,
       }
-    );
-    chat = await Store.Chat.find(idUser);
+    )
+    chat = await Store.Chat.find(idUser)
   }
 
   if (!chat) {
-    const storeChat = await Store.Chat.find(chatWid);
+    const storeChat = await Store.Chat.find(chatWid)
     if (storeChat) {
       chat =
         storeChat && storeChat.id && storeChat.id._serialized
           ? await WAPI.getChat(storeChat.id._serialized)
-          : undefined;
+          : undefined
     }
   }
 
   if (!ck.numberExists && !chat.t && chat.isUser) {
-    return WAPI.scope(chatId, true, ck.status, 'The number does not exist');
+    return WAPI.scope(chatId, true, ck.status, 'The number does not exist')
   }
 
   if (!ck.numberExists && !chat.t && chat.isGroup) {
@@ -217,7 +217,7 @@ export async function sendExist(chatId, returnChat = true, Send = true) {
       true,
       ck.status,
       'The group number does not exist on your chat list, or it does not exist at all!'
-    );
+    )
   }
 
   if (
@@ -232,20 +232,20 @@ export async function sendExist(chatId, returnChat = true, Send = true) {
       true,
       ck.status,
       'The transmission list number does not exist on your chat list, or it does not exist at all!'
-    );
+    )
   }
 
   if (!chat) {
-    return WAPI.scope(chatId, true, 404);
+    return WAPI.scope(chatId, true, 404)
   }
 
   if (Send) {
-    await window.Store.ReadSeen.sendSeen(chat, false);
+    await window.Store.ReadSeen.sendSeen(chat, false)
   }
 
   if (returnChat) {
-    return chat;
+    return chat
   }
 
-  return WAPI.scope(chatId, false, 200);
+  return WAPI.scope(chatId, false, 200)
 }

@@ -1,5 +1,5 @@
-import { base64ToFile } from '../helper/base64-to-file';
-import { sendSticker } from './send-sticker';
+import { base64ToFile } from '../helper/base64-to-file'
+import { sendSticker } from './send-sticker'
 
 /**
  * Sends image as sticker to given chat id
@@ -11,8 +11,8 @@ export async function sendImageAsSticker(imageBase64, chatId, metadata, type) {
   const mediaBlob = base64ToFile(
     'data:image/webp;base64,' + imageBase64,
     'file.webp'
-  );
-  let encrypted = await window.WAPI.encryptAndUploadFile('sticker', mediaBlob);
+  )
+  const encrypted = await window.WAPI.encryptAndUploadFile('sticker', mediaBlob)
 
-  return await sendSticker(encrypted, chatId, metadata, type);
+  return await sendSticker(encrypted, chatId, metadata, type)
 }

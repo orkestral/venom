@@ -5,7 +5,7 @@ export async function returnReply(message) {
       true,
       404,
       'enter the message variable as an object'
-    );
+    )
   }
   if (
     message &&
@@ -13,8 +13,8 @@ export async function returnReply(message) {
     message.quotedMsg.type &&
     message.quotedMsgObj
   ) {
-    return message.quotedMsgObj;
+    return message.quotedMsgObj
   } else {
-    return false;
+    return false
   }
 }

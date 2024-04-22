@@ -4,25 +4,25 @@
  */
 export async function openChat(chatId, force = false) {
   if (force) {
-    const chat = await WAPI.getChat(chatId);
-    const result = await Store.Cmd.openChatBottom(chat);
-    return WAPI.scope(undefined, false, result);
+    const chat = await WAPI.getChat(chatId)
+    const result = await Store.Cmd.openChatBottom(chat)
+    return WAPI.scope(undefined, false, result)
   }
 
   if (typeof chatId != 'string' || chatId.length === 0) {
-    return WAPI.scope(chatId, true, 404, 'It is necessary to number');
+    return WAPI.scope(chatId, true, 404, 'It is necessary to number')
   }
 
-  const chat = await WAPI.sendExist(chatId);
+  const chat = await WAPI.sendExist(chatId)
   if (chat && chat.status != 404 && chat.id) {
-    const chat = Store.Chat.get(chatId);
-    const result = Store.Cmd.default.openChatBottom(chat);
-    return WAPI.scope(undefined, false, result);
+    const chat = Store.Chat.get(chatId)
+    const result = Store.Cmd.default.openChatBottom(chat)
+    return WAPI.scope(undefined, false, result)
   }
   if (!chat.erro) {
-    chat.erro = true;
+    chat.erro = true
   }
-  return chat;
+  return chat
 }
 
 /**
@@ -33,13 +33,13 @@ export async function openChat(chatId, force = false) {
  * @returns {{wasVisible: boolean, alignAt: string}}: {wasVisible: false, alignAt: "center"}
  */
 export async function openChatAt(chatId, messageId) {
-  const chat = Store.Chat.get(chatId);
-  const atMessage = chat.msgs.models.find((model) => model.id.id === messageId);
+  const chat = Store.Chat.get(chatId)
+  const atMessage = chat.msgs.models.find((model) => model.id.id === messageId)
   const args = {
     collection: chat.msgs,
     msg: atMessage,
-    isUnreadDivider: false
-  };
-  const result = await Store.Cmd.default._openChat(chat, args);
-  return result;
+    isUnreadDivider: false,
+  }
+  const result = await Store.Cmd.default._openChat(chat, args)
+  return result
 }

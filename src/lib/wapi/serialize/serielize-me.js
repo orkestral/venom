@@ -1,8 +1,8 @@
 export const serializeMeObj = async (obj) => {
   if (obj == undefined) {
-    return null;
+    return null
   }
-  const newObj = {};
+  const newObj = {}
   Object.assign(newObj, {
     id: obj.id ? obj.id : null,
     displayName: obj.displayName ? obj.displayName : null,
@@ -16,7 +16,7 @@ export const serializeMeObj = async (obj) => {
       ? obj.profilePicThumb.attributes.eurl
       : null,
     ...obj.profilePicThumb.attributes,
-    ...obj.businessProfile.attributes
-  });
-  return newObj;
-};
+    ...obj.businessProfile.attributes,
+  })
+  return newObj
+}

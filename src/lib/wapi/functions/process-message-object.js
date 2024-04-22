@@ -5,12 +5,12 @@ export async function processMessageObj(
 ) {
   if (messageObj.isNotification) {
     if (includeNotifications) {
-      return await WAPI._serializeMessageObj(messageObj);
+      return await WAPI._serializeMessageObj(messageObj)
     } else {
-      return;
+      return
     }
   } else if (messageObj.id?.fromMe === false || includeMe) {
-    return await WAPI._serializeMessageObj(messageObj);
+    return await WAPI._serializeMessageObj(messageObj)
   }
-  return;
+  return
 }

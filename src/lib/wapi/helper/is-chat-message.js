@@ -1,12 +1,12 @@
 export function isChatMessage(message) {
   if (message.isSentByMe) {
-    return false;
+    return false
   }
   if (message.isNotification) {
-    return false;
+    return false
   }
   if (!message.isUserCreatedType) {
-    return false;
+    return false
   }
-  return true;
+  return true
 }

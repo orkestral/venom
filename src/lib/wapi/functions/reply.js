@@ -12,7 +12,7 @@ export async function reply(
         true,
         404,
         'enter the chatid variable as an string'
-      );
+      )
     }
     if (typeof content != 'string') {
       return WAPI.scope(
@@ -20,7 +20,7 @@ export async function reply(
         true,
         404,
         'enter the content variable as an string'
-      );
+      )
     }
     if (typeof quotedMessageId != 'string') {
       return WAPI.scope(
@@ -28,55 +28,54 @@ export async function reply(
         true,
         404,
         'enter the content variable as an string'
-      );
+      )
     }
-    const chat = await WAPI.sendExist(chatId);
+    const chat = await WAPI.sendExist(chatId)
     if (chat && chat.status != 404) {
-      let To = chat.id;
-      const m = { type: 'deleteMessages' };
-      let quotedMsgOptions = {};
+      const To = chat.id
+      const m = { type: 'deleteMessages' }
+      let quotedMsgOptions = {}
 
-      let quotedMessage = await WAPI.getMessageById(
+      const quotedMessage = await WAPI.getMessageById(
         quotedMessageId,
         null,
         false
-      );
+      )
       if (quotedMessage.erro == undefined) {
-        let checkID = await WAPI.checkIdMessage(
+        const checkID = await WAPI.checkIdMessage(
           quotedMessage.to._serialized,
           quotedMessageId
-        );
+        )
         if (checkID.erro == true) {
-          return checkID;
+          return checkID
         }
       } else {
-        let obj = WAPI.scope(
+        const obj = WAPI.scope(
           To,
           true,
           404,
           `The id ${quotedMessageId} does not exist!`
-        );
-        Object.assign(obj, m);
-        return obj;
+        )
+        Object.assign(obj, m)
+        return obj
       }
 
-      quotedMsgOptions = quotedMessage.msgContextInfo(chat);
+      quotedMsgOptions = quotedMessage.msgContextInfo(chat)
 
-      let checkID = await WAPI.checkIdMessage(chatId, quotedMessageId);
+      const checkID = await WAPI.checkIdMessage(chatId, quotedMessageId)
       if (checkID.erro == true) {
-        return checkID;
+        return checkID
       }
 
       const newMsgId = !passId
         ? await window.WAPI.getNewMessageId(chat.id._serialized, checkNumber)
-        : await window.WAPI.setNewMessageId(passId, checkNumber);
+        : await window.WAPI.setNewMessageId(passId, checkNumber)
 
-
-      const fromwWid = await Store.MaybeMeUser.getMaybeMeUser();
-      let inChat = await WAPI.getchatId(chat.id).catch(() => { });
+      const fromwWid = await Store.MaybeMeUser.getMaybeMeUser()
+      const inChat = await WAPI.getchatId(chat.id).catch(() => {})
       if (inChat) {
-        chat.lastReceivedKey._serialized = inChat._serialized;
-        chat.lastReceivedKey.id = inChat.id;
+        chat.lastReceivedKey._serialized = inChat._serialized
+        chat.lastReceivedKey.id = inChat.id
       }
       const message = {
         id: newMsgId,
@@ -89,32 +88,32 @@ export async function reply(
         t: parseInt(new Date().getTime() / 1000),
         isNewMsg: !0,
         type: 'chat',
-        ...quotedMsgOptions
-      };
+        ...quotedMsgOptions,
+      }
 
       const result = (
         await Promise.all(window.Store.addAndSendMsgToChat(chat, message))
-      )[1];
+      )[1]
 
       if (
         result === 'success' ||
         result === 'OK' ||
         result.messageSendResult === 'OK'
       ) {
-        let obj = WAPI.scope(newMsgId, false, result, '');
-        Object.assign(obj, m);
-        return obj;
+        const obj = WAPI.scope(newMsgId, false, result, '')
+        Object.assign(obj, m)
+        return obj
       } else {
-        let obj = WAPI.scope(newMsgId, true, result, '');
-        Object.assign(obj, m);
-        return obj;
+        const obj = WAPI.scope(newMsgId, true, result, '')
+        Object.assign(obj, m)
+        return obj
       }
     } else {
-      return chat;
+      return chat
     }
   } catch (error) {
-    console.log('reply', error);
+    console.log('reply', error)
 
-    return WAPI.scope(null, true, 500, error.message);
+    return WAPI.scope(null, true, 500, error.message)
   }
 }
