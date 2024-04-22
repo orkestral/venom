@@ -857,6 +857,7 @@ export class SenderLayer extends AutomateLayer {
         let base64: string | false = await downloadFileToBase64(filePath, [
           'audio/mpeg',
           'audio/mp3',
+          'audio/aac',
         ])
 
         if (!base64) {
@@ -877,7 +878,8 @@ export class SenderLayer extends AutomateLayer {
         if (
           !mimeInfo ||
           mimeInfo.includes('audio/mpeg') ||
-          mimeInfo.includes('audio/mp3')
+          mimeInfo.includes('audio/mp3') ||
+          mimeInfo.includes('audio/aac')
         ) {
           const result: any = await this.page.evaluate(
             ({ to, base64, passId, checkNumber, forcingReturn, delSend }) => {
