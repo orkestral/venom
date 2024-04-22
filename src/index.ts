@@ -17,8 +17,12 @@ export {
   CatchQR,
   BrowserInstance,
   CreateOptions,
-  InterfaceChange,
   CallbackStatus,
   ReconnectQrcode,
 } from './controllers/initializer'
 export { Status, statusManagement } from './controllers/status-management'
+export {
+  InterfaceChange,
+  InterfaceStatus,
+  interfaceStatusManagement,
+} from './controllers/interface-management'
