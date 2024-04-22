@@ -14,6 +14,7 @@ import {
 import { sleep } from '../../utils/sleep'
 import { logger } from '../../utils/logger'
 import { statusManagement } from '../../controllers/status-management'
+import { interfaceStatusManagement } from '../../controllers/interface-management'
 
 export class HostLayer {
   readonly session: string
@@ -183,6 +184,7 @@ export class HostLayer {
           await this.browser.close()
         }
         statusManagement.removeSession(this.session)
+        interfaceStatusManagement.removeSession()
       } catch (error) {
         logger.warn(
           `[waitForLogin] Error closing page and browser=${JSON.stringify(
