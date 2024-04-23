@@ -1,21 +1,21 @@
-async function test() {
-  const chat = await WAPI.sendExist('556999626866@c.us');
+/*async function test() {
+  const chat = await WAPI.sendExist('556999626866@c.us')
 
   if (chat && chat.status != 404 && chat.id) {
-    const newMsgId = await window.WAPI.getNewMessageId(chat.id._serialized);
-    const fromwWid = await Store.MaybeMeUser.getMaybeMeUser();
+    const newMsgId = await window.WAPI.getNewMessageId(chat.id._serialized)
+    const fromwWid = await Store.MaybeMeUser.getMaybeMeUser()
 
-    let inChat = await WAPI.getchatId(chat.id).catch(() => {
-      return WAPI.scope(chat.id, true, 404, 'Error to number ' + chat);
-    });
+    const inChat = await WAPI.getchatId(chat.id).catch(() => {
+      return WAPI.scope(chat.id, true, 404, 'Error to number ' + chat)
+    })
 
     if (inChat) {
       chat.lastReceivedKey && chat.lastReceivedKey._serialized
         ? (chat.lastReceivedKey._serialized = inChat._serialized)
-        : '';
+        : ''
       chat.lastReceivedKey && chat.lastReceivedKey.id
         ? (chat.lastReceivedKey.id = inChat.id)
-        : '';
+        : ''
     }
 
     const message = {
@@ -40,12 +40,12 @@ async function test() {
           index: 1,
           quickReplyButton: {
             displayText: 'Sim',
-            id: 'ID1'
-          }
-        }
-      ]
-    };
+            id: 'ID1',
+          },
+        },
+      ],
+    }
 
-    return await window.Store.addAndSendMsgToChat(chat, message);
+    return await window.Store.addAndSendMsgToChat(chat, message)
   }
-}
+}*/

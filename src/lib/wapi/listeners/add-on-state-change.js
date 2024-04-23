@@ -1,35 +1,35 @@
 export function addOnStateChange() {
-  let initialized = false;
+  let initialized = false
   const getData = () => {
-    return window.Store.State.Socket.state;
-  };
+    return window.Store.State.Socket.state
+  }
 
   window.WAPI.onStateChange = function (callback) {
     window.WAPI.waitForStore('State', () => {
-      window.Store.State.Socket.on('change:state', () => callback(getData()));
+      window.Store.State.Socket.on('change:state', () => callback(getData()))
       if (!initialized) {
-        initialized = true;
-        callback(getData());
+        initialized = true
+        callback(getData())
       }
-    });
-    return true;
-  };
+    })
+    return true
+  }
 }
 
 export function addOnStreamChange() {
-  let initialized = false;
-  let getData = () => {
-    return window.Store.State.Socket.stream;
-  };
+  let initialized = false
+  const getData = () => {
+    return window.Store.State.Socket.stream
+  }
 
   window.WAPI.onStreamChange = function (callback) {
     window.WAPI.waitForStore('State', () => {
-      window.Store.State.Socket.on('change:stream', () => callback(getData()));
+      window.Store.State.Socket.on('change:stream', () => callback(getData()))
       if (!initialized) {
-        initialized = true;
-        callback(getData());
+        initialized = true
+        callback(getData())
       }
-    });
-    return true;
-  };
+    })
+    return true
+  }
 }

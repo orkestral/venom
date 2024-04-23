@@ -6,7 +6,7 @@ export async function checkChat(id) {
         id.includes('@c.us') ||
         id.includes('@broadcast'))
     ) {
-      const chat = await Store.Chat.get(id);
+      const chat = await Store.Chat.get(id)
       if (!!chat && chat.t) {
         return WAPI.scope(
           undefined,
@@ -14,14 +14,14 @@ export async function checkChat(id) {
           200,
           null,
           WAPI._serializeChatObj(chat)
-        );
+        )
       } else {
-        throw 404;
+        throw 404
       }
     } else {
-      throw 400;
+      throw 400
     }
   } catch (e) {
-    return WAPI.scope(undefined, true, e, 'Was not found');
+    return WAPI.scope(undefined, true, e, 'Was not found')
   }
 }

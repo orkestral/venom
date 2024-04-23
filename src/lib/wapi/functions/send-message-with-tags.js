@@ -1,18 +1,18 @@
 export async function sendMessageWithTags(to, body) {
-  var chat = to.id ? to : Store.Chat.get(to);
-  var chatId = chat.id._serialized;
-  var msgIveSent = chat.msgs.filter((msg) => msg.__x_isSentByMe)[0];
+  var chat = to.id ? to : Store.Chat.get(to)
+  var chatId = chat.id._serialized
+  var msgIveSent = chat.msgs.filter((msg) => msg.__x_isSentByMe)[0]
   if (!msgIveSent) {
-    return chat.sendMessage(body);
+    return chat.sendMessage(body)
   }
 
-  var tempMsg = Object.create(msgIveSent);
-  var newId = await window.WAPI.getNewMessageId(chat.id._serialized);
+  var tempMsg = Object.create(msgIveSent)
+  var newId = await window.WAPI.getNewMessageId(chat.id._serialized)
   var mentionedJidList =
     body
       .match(/@(\d*)/g)
       .map((x) => new Store.WidFactory.createUserWid(x.replace('@', ''))) ||
-    undefined;
+    undefined
 
   var extend = {
     ack: 0,
@@ -25,10 +25,10 @@ export async function sendMessageWithTags(to, body) {
     type: 'chat',
     body,
     quotedMsg: null,
-    mentionedJidList
-  };
+    mentionedJidList,
+  }
 
-  Object.assign(tempMsg, extend);
-  await Store.addAndSendMsgToChat(chat, tempMsg);
-  return newId._serialized;
+  Object.assign(tempMsg, extend)
+  await Store.addAndSendMsgToChat(chat, tempMsg)
+  return newId._serialized
 }

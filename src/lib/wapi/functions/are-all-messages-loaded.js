@@ -1,9 +1,9 @@
 export async function areAllMessagesLoaded(id, done) {
-  const found = await WAPI.getChat(id);
+  const found = await WAPI.getChat(id)
   if (!found.msgs.msgLoadState.noEarlierMsgs) {
-    if (done) done(false);
-    return false;
+    if (done) done(false)
+    return false
   }
-  if (done) done(true);
-  return true;
+  if (done) done(true)
+  return true
 }

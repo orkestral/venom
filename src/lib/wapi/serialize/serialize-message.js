@@ -1,10 +1,10 @@
 export const serializeMessageObj = (obj) => {
   if (obj == undefined) {
-    return null;
+    return null
   }
 
-  const chat = obj['chat'] ? WAPI.serializeChatObj(obj['chat']) : {};
-  if (obj.quotedMsg) obj.quotedMsgObj();
+  const chat = obj['chat'] ? WAPI.serializeChatObj(obj['chat']) : {}
+  if (obj.quotedMsg) obj.quotedMsgObj()
 
   return Object.assign(WAPI.serializeRawObj(obj), {
     id: obj.id._serialized,
@@ -78,6 +78,6 @@ export const serializeMessageObj = (obj) => {
     replyButtons: undefined,
     dynamicReplyButtons: undefined,
     buttons: undefined,
-    hydratedButtons: undefined
-  });
-};
+    hydratedButtons: undefined,
+  })
+}

@@ -1,15 +1,15 @@
 export const _serializeMeObj = async (obj) => {
   if (obj == undefined) {
-    return null;
+    return null
   }
 
-  const connection = window.Store.State?.Socket?.state
+  /*const connection = window.Store.State?.Socket?.state
     ? window.Store?.State?.Socket?.state
-    : undefined;
+    : undefined */
 
-  const newObj = {};
+  const newObj = {}
 
-  console.log(newObj.id);
+  console.log(newObj.id)
 
   Object.assign(newObj, {
     id: obj.id ? obj.id : null,
@@ -21,7 +21,7 @@ export const _serializeMeObj = async (obj) => {
     isBusiness: obj.isBusiness ? obj.isBusiness : null,
     formattedUser: obj.formattedUser ? obj.formattedUser : null,
     ...obj.profilePicThumb?.attributes,
-    ...obj.businessProfile?.attributes
-  });
-  return newObj;
-};
+    ...obj.businessProfile?.attributes,
+  })
+  return newObj
+}

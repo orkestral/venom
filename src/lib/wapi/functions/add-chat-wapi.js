@@ -1,20 +1,20 @@
-import { injectConfig, filterModule, filterObjects } from '../helper';
+import { injectConfig, filterModule, filterObjects } from '../helper'
 
 export async function addChatWapi() {
   if (window.__debug) {
-    const filterMod = await filterModule(filterObjects, window.getModuleList());
+    const filterMod = await filterModule(filterObjects, window.getModuleList())
 
     filterMod.forEach((needObj) => {
       if (needObj.yesModule) {
         if (!window.Store[needObj.type]) {
-          window.Store[needObj.type] = needObj.yesModule;
+          window.Store[needObj.type] = needObj.yesModule
         }
       }
-    });
+    })
 
     if (Store && Store.BusinessProfile) {
-      Store.Chat._findAndParse = Store.BusinessProfile._findAndParse;
-      Store.Chat._find = Store.BusinessProfile._find;
+      Store.Chat._findAndParse = Store.BusinessProfile._findAndParse
+      Store.Chat._find = Store.BusinessProfile._find
     }
   } else {
     // old webpack
@@ -22,26 +22,26 @@ export async function addChatWapi() {
       [injectConfig.parasite],
       {},
       async function (o) {
-        let modules = [];
-        for (let idx in o.m) {
-          modules.push(o(idx));
+        const modules = []
+        for (const idx in o.m) {
+          modules.push(o(idx))
         }
 
-        const filterMod = await filterModule(filterObjects, modules);
+        const filterMod = await filterModule(filterObjects, modules)
 
         filterMod.forEach((needObj) => {
           if (needObj.yesModule) {
             if (!window.Store[needObj.type]) {
-              window.Store[needObj.type] = needObj.yesModule;
+              window.Store[needObj.type] = needObj.yesModule
             }
           }
-        });
+        })
 
         if (Store && Store.BusinessProfile) {
-          Store.Chat._findAndParse = Store.BusinessProfile._findAndParse;
-          Store.Chat._find = Store.BusinessProfile._find;
+          Store.Chat._findAndParse = Store.BusinessProfile._findAndParse
+          Store.Chat._find = Store.BusinessProfile._find
         }
-      }
-    ]);
+      },
+    ])
   }
 }

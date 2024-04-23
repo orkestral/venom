@@ -1,19 +1,19 @@
 export async function addParticipant(groupId, contactsId) {
-  const chat = Store.Chat.get(groupId);
+  const chat = Store.Chat.get(groupId)
 
   if (!Array.isArray(contactsId)) {
-    contactsId = [contactsId];
+    contactsId = [contactsId]
   }
 
-  contactsId = await Promise.all(contactsId.map((c) => WAPI.sendExist(c)));
+  contactsId = await Promise.all(contactsId.map((c) => WAPI.sendExist(c)))
   if (!contactsId.length) {
-    return false;
+    return false
   }
 
   try {
-    await Store.Participants.addParticipants(chat, contactsId);
-    return true;
+    await Store.Participants.addParticipants(chat, contactsId)
+    return true
   } catch {
-    return false;
+    return false
   }
 }

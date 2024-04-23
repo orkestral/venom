@@ -1,5 +1,5 @@
-import { processFiles } from './process-files';
-import { base64ToFile } from '../helper';
+import { processFiles } from './process-files'
+import { base64ToFile } from '../helper'
 
 /**
  * Sends video as a gif to given chat id
@@ -17,24 +17,24 @@ export async function sendVideoAsGif(
   done
 ) {
   // const idUser = new window.Store.UserConstructor(chatid);
-  const idUser = new Store.WidFactory.createWid(chatid);
+  const idUser = new Store.WidFactory.createWid(chatid)
   await Store.Chat.add(
     {
       createdLocally: true,
-      id: idUser
+      id: idUser,
     },
     {
-      merge: true
+      merge: true,
     }
-  );
+  )
   return Store.Chat.find(idUser).then((chat) => {
-    var mediaBlob = base64ToFile(dataBase64, filename);
+    var mediaBlob = base64ToFile(dataBase64, filename)
     processFiles(chat, mediaBlob).then((mc) => {
-      var media = mc.models[0];
-      media.mediaPrep._mediaData.isGif = true;
-      media.mediaPrep._mediaData.gifAttribution = 1;
-      media.mediaPrep.sendToChat(chat, { caption: caption });
-      if (done !== undefined) done(true);
-    });
-  });
+      var media = mc.models[0]
+      media.mediaPrep._mediaData.isGif = true
+      media.mediaPrep._mediaData.gifAttribution = 1
+      media.mediaPrep.sendToChat(chat, { caption: caption })
+      if (done !== undefined) done(true)
+    })
+  })
 }

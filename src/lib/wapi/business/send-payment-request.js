@@ -4,9 +4,9 @@ window.WAPI.sendPaymentRequest = async function (
   currency,
   noteMessage
 ) {
-  var chat = Store.Chat.get(chatId);
-  var tempMsg = Object.create(chat.msgs.filter((msg) => msg.__x_isSentByMe)[0]);
-  var newId = window.WAPI.getNewMessageId(chat.id._serialized);
+  var chat = Store.Chat.get(chatId)
+  var tempMsg = Object.create(chat.msgs.filter((msg) => msg.__x_isSentByMe)[0])
+  var newId = window.WAPI.getNewMessageId(chat.id._serialized)
   var extend = {
     ack: 0,
     id: newId,
@@ -23,8 +23,8 @@ window.WAPI.sendPaymentRequest = async function (
     noteMessage,
     expiryTimestamp: parseInt(
       new Date(new Date().setDate(new Date().getDate() + 1)).getTime() / 1000
-    )
-  };
-  Object.assign(tempMsg, extend);
-  await Store.addAndSendMsgToChat(chat, tempMsg);
-};
+    ),
+  }
+  Object.assign(tempMsg, extend)
+  await Store.addAndSendMsgToChat(chat, tempMsg)
+}

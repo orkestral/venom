@@ -1,5 +1,5 @@
 export async function sendLinkPreview(chatId, url, text, body, thumbnail) {
-  text = text || '';
+  text = text || ''
   const _Path = {
     Protocol: '^(https?:\\/\\/)?',
     Domain: '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|',
@@ -16,25 +16,25 @@ export async function sendLinkPreview(chatId, url, text, body, thumbnail) {
           _Path.Query +
           _Path.End,
         'i'
-      );
-    }
-  };
+      )
+    },
+  }
   if (!_Path.Reg().test(url)) {
-    var text =
-      'Use a valid HTTP protocol. Example: https://www.youtube.com/watch?v=V1bFr2SWP1';
-    return WAPI.scope(chatId, true, null, text);
+    const text =
+      'Use a valid HTTP protocol. Example: https://www.youtube.com/watch?v=V1bFr2SWP1'
+    return WAPI.scope(chatId, true, null, text)
   }
 
-  var chat = await WAPI.sendExist(chatId);
+  var chat = await WAPI.sendExist(chatId)
   if (!chat.erro) {
-    const newMsgId = await window.WAPI.getNewMessageId(chat.id._serialized);
-    const fromwWid = await Store.MaybeMeUser.getMaybeMeUser();
-    let inChat = await WAPI.getchatId(chat.id).catch(() => {});
+    const newMsgId = await window.WAPI.getNewMessageId(chat.id._serialized)
+    const fromwWid = await Store.MaybeMeUser.getMaybeMeUser()
+    const inChat = await WAPI.getchatId(chat.id).catch(() => {})
     if (inChat) {
-      chat.lastReceivedKey._serialized = inChat._serialized;
-      chat.lastReceivedKey.id = inChat.id;
+      chat.lastReceivedKey._serialized = inChat._serialized
+      chat.lastReceivedKey.id = inChat.id
     }
-    const link = await window.Store.Validators.findLink(url);
+    const link = await window.Store.Validators.findLink(url)
     const message = {
       id: newMsgId,
       links: link,
@@ -55,26 +55,26 @@ export async function sendLinkPreview(chatId, url, text, body, thumbnail) {
       canonicalUrl: url,
       description: url,
       matchedText: url,
-      title: text
-    };
+      title: text,
+    }
     const result = (
       await Promise.all(window.Store.addAndSendMsgToChat(chat, message))
-    )[1];
-    let m = { type: 'LinkPreview', url: url, text: text };
+    )[1]
+    const m = { type: 'LinkPreview', url: url, text: text }
     if (
       result === 'success' ||
       result === 'OK' ||
       result.messageSendResult === 'OK'
     ) {
-      let obj = WAPI.scope(newMsgId, false, result, null);
-      Object.assign(obj, m);
-      return obj;
+      const obj = WAPI.scope(newMsgId, false, result, null)
+      Object.assign(obj, m)
+      return obj
     } else {
-      let obj = WAPI.scope(newMsgId, true, result, null);
-      Object.assign(obj, m);
-      return obj;
+      const obj = WAPI.scope(newMsgId, true, result, null)
+      Object.assign(obj, m)
+      return obj
     }
   } else {
-    return chat;
+    return chat
   }
 }

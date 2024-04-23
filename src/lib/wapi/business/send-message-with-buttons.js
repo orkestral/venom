@@ -1,12 +1,12 @@
 window.WAPI.sendButtons = async function (chatId) {
-  var chat = Store.Chat.get(chatId);
-  var tempMsg = Object.create(chat.msgs.filter((msg) => msg.__x_isSentByMe)[0]);
+  var chat = Store.Chat.get(chatId)
+  var tempMsg = Object.create(chat.msgs.filter((msg) => msg.__x_isSentByMe)[0])
   // var tempMsg = Object.create(Store.Msg.models.filter(msg => msg.to._serialized===chatId&&msg.__x_isSentByMe&& msg.type=='chat' && !msg.quotedStanzaID)[0])
   var t2 = Object.create(
     Store.Msg.filter((x) => (x.type == 'template') & !x.id.fromMe)[0]
-  );
-  var newId = window.WAPI.getNewMessageId(chat.id._serialized);
-  delete tempMsg.hasTemplateButtons;
+  )
+  var newId = window.WAPI.getNewMessageId(chat.id._serialized)
+  delete tempMsg.hasTemplateButtons
   var extend = {
     ack: 0,
     id: newId,
@@ -24,10 +24,10 @@ window.WAPI.sendButtons = async function (chatId) {
     isQuotedMsgAvailable: false,
     shouldEnableHsm: true,
     __x_hasTemplateButtons: true,
-    invis: true
-  };
+    invis: true,
+  }
 
-  Object.assign(tempMsg, extend);
+  Object.assign(tempMsg, extend)
 
   var btns = new Store.Builders.HydratedFourRowTemplate({
     hydratedButtons: [
@@ -36,38 +36,38 @@ window.WAPI.sendButtons = async function (chatId) {
           displayText: 'test',
           id: '{"eventName":"inform"}',
           quickReplyButton: true,
-          subtype: 'quick_reply'
+          subtype: 'quick_reply',
         }),
-        index: 0
+        index: 0,
       }),
       new Store.Builders.HydratedTemplateButton({
         callButton: new Store.Builders.HydratedCallButton({
           displayText: 'test call',
-          phoneNumber: '4477777777777'
+          phoneNumber: '4477777777777',
         }),
-        index: 1
+        index: 1,
       }),
       new Store.Builders.HydratedTemplateButton({
         urlButton: new Store.Builders.HydratedURLButton({
           displayText: 'test url',
-          url: 'https://google.com'
+          url: 'https://google.com',
         }),
-        index: 2
-      })
+        index: 2,
+      }),
     ],
     hydratedContentText: 'hellllloooowww',
     hydratedFooterText: 'asdasd',
-    hydratedTitleText: 'asdasd232'
-  });
+    hydratedTitleText: 'asdasd232',
+  })
 
-  Store.Parser.parseTemplateMessage(t2, btns);
-  tempMsg.buttons = t2.buttons;
-  console.log('t2', t2.body);
-  tempMsg.mediaData = undefined;
-  tempMsg.mediaObject = undefined;
-  tempMsg._minEphemeralExpirationTimestamp();
-  tempMsg.senderObj.isBusiness = true;
-  tempMsg.senderObj.isEnterprise = true;
+  Store.Parser.parseTemplateMessage(t2, btns)
+  tempMsg.buttons = t2.buttons
+  console.log('t2', t2.body)
+  tempMsg.mediaData = undefined
+  tempMsg.mediaObject = undefined
+  tempMsg._minEphemeralExpirationTimestamp()
+  tempMsg.senderObj.isBusiness = true
+  tempMsg.senderObj.isEnterprise = true
   tempMsg.senderObj = {
     ...tempMsg.senderObj,
     isBusiness: true,
@@ -80,23 +80,23 @@ window.WAPI.sendButtons = async function (chatId) {
     formattedShortNameWithNonBreakingSpaces: 'Button test',
     formattedShortName: 'Button test',
     formattedName: 'Button test',
-    formattedUser: 'Button test'
-  };
-  tempMsg.body = t2.body;
-  tempMsg.to = tempMsg.from;
-  tempMsg.caption = tempMsg.body;
-  console.log('tempMsg', tempMsg);
+    formattedUser: 'Button test',
+  }
+  tempMsg.body = t2.body
+  tempMsg.to = tempMsg.from
+  tempMsg.caption = tempMsg.body
+  console.log('tempMsg', tempMsg)
   return chat.sendQueue
     .enqueue(
       chat.addQueue
         .enqueue(
           Store.MessageUtils.appendMessage(chat, tempMsg).then(() => {
-            var e = Store.Msg.add(tempMsg)[0];
-            console.log('e ', e);
+            var e = Store.Msg.add(tempMsg)[0]
+            console.log('e ', e)
             if (e) {
               return e.waitForPrep().then(() => {
-                return e;
-              });
+                return e
+              })
             }
           })
         )
@@ -104,24 +104,24 @@ window.WAPI.sendButtons = async function (chatId) {
         .catch((e) => console.log(e))
     )
     .then((t) => {
-      var e = t[0];
-      const s = Store.Base2;
+      var e = t[0]
+      const s = Store.Base2
       if (!s.BinaryProtocol)
-        window.Store.Base2.BinaryProtocol = new window.Store.bp(11);
-      var idUser = new Store.WidFactory.createWid(chatId);
+        window.Store.Base2.BinaryProtocol = new window.Store.bp(11)
+      var idUser = new Store.WidFactory.createWid(chatId)
       var k = Store.createMessageKey({
         ...e,
         to: idUser,
-        id: e.__x_id
-      });
-      console.log('key', k);
+        id: e.__x_id,
+      })
+      console.log('key', k)
       var wm = new Store.WebMessageInfo({
         message: new Store.Builders.Message({
           // conversation:'okhellowhi',
           templateMessage: new Store.Builders.TemplateMessage({
             hydratedFourRowTemplate: btns,
-            hydratedTemplate: btns
-          })
+            hydratedTemplate: btns,
+          }),
         }),
         key: k,
         messageTimestamp: e.t,
@@ -129,16 +129,16 @@ window.WAPI.sendButtons = async function (chatId) {
         url: undefined,
         urlNumber: undefined,
         clearMedia: undefined,
-        ephemeralDuration: undefined
-      });
-      console.log('wm', wm);
+        ephemeralDuration: undefined,
+      })
+      console.log('wm', wm)
       var action = s.actionNode('relay', [
-        ['message', null, Store.WebMessageInfo.encode(wm).readBuffer()]
-      ]);
-      console.log('action', action);
-      var a = e.id.id;
+        ['message', null, Store.WebMessageInfo.encode(wm).readBuffer()],
+      ])
+      console.log('action', action)
+      var a = e.id.id
       return new Promise(function (resolve, reject) {
-        console.log('yo');
+        console.log('yo')
         return s.binSend(
           'send',
           action,
@@ -146,36 +146,36 @@ window.WAPI.sendButtons = async function (chatId) {
           {
             tag: a,
             onSend: s.wrap((_) => {
-              console.log('onsend', _);
-              resolve(_);
+              console.log('onsend', _)
+              resolve(_)
             }),
             onDrop: s.wrap((_) => {
-              console.log('ondrop', _);
-              reject(_);
+              console.log('ondrop', _)
+              reject(_)
             }),
             retryOn5xx: !0,
             resendGuard: function (_) {
-              var t = Store.Msg.get(e.id);
-              console.log('in resend', _);
-              return 'protocol' === e.type || (t && t.id.equals(e.id));
-            }
+              var t = Store.Msg.get(e.id)
+              console.log('in resend', _)
+              return 'protocol' === e.type || (t && t.id.equals(e.id))
+            },
           },
           {
             debugString: ['action', 'message', e.type, e.subtype, a].join(),
             debugObj: {
               xml: action,
-              pb: wm
+              pb: wm,
             },
             metricName: 'MESSAGE',
-            ackRequest: !1
+            ackRequest: !1,
           }
-        );
-      });
-    });
-};
+        )
+      })
+    })
+}
 
 window.WAPI.sendButtons2 = async function (chatId) {
-  var chat = Store.Chat.get(chatId);
+  var chat = Store.Chat.get(chatId)
   var tempMsg = Object.create(
     Store.Msg.models.filter(
       (msg) =>
@@ -184,7 +184,7 @@ window.WAPI.sendButtons2 = async function (chatId) {
         msg.type == 'chat' &&
         !msg.quotedStanzaID
     )[0]
-  );
+  )
   var t2 = Object.create(
     Store.Msg.models.filter(
       (msg) =>
@@ -193,9 +193,9 @@ window.WAPI.sendButtons2 = async function (chatId) {
         msg.type == 'chat' &&
         !msg.quotedStanzaID
     )[0]
-  );
-  var newId = window.WAPI.getNewMessageId(chatId);
-  delete tempMsg.hasTemplateButtons;
+  )
+  var newId = window.WAPI.getNewMessageId(chatId)
+  delete tempMsg.hasTemplateButtons
   var extend = {
     ack: 0,
     id: newId,
@@ -210,10 +210,10 @@ window.WAPI.sendButtons2 = async function (chatId) {
     isQuotedMsgAvailable: false,
     shouldEnableHsm: true,
     __x_hasTemplateButtons: true,
-    invis: false
-  };
+    invis: false,
+  }
 
-  Object.assign(tempMsg, extend);
+  Object.assign(tempMsg, extend)
 
   var btns = new Store.Builders.HydratedFourRowTemplate({
     hydratedButtons: [
@@ -221,53 +221,53 @@ window.WAPI.sendButtons2 = async function (chatId) {
         quickReplyButton: new Store.Builders.HydratedQuickReplyButton({
           displayText: 'test',
           id: '{"eventName":"inform"}',
-          quickReplyButton: true
+          quickReplyButton: true,
         }),
-        index: 0
+        index: 0,
       }),
       new Store.Builders.HydratedTemplateButton({
         callButton: new Store.Builders.HydratedCallButton({
           displayText: 'test call',
-          phoneNumber: '4477777777777'
+          phoneNumber: '4477777777777',
         }),
-        index: 1
+        index: 1,
       }),
       new Store.Builders.HydratedTemplateButton({
         callButton: new Store.Builders.HydratedCallButton({
           displayText: 'test call',
-          phoneNumber: '4477777777777'
+          phoneNumber: '4477777777777',
         }),
-        index: 2
+        index: 2,
       }),
       new Store.Builders.HydratedTemplateButton({
         urlButton: new Store.Builders.HydratedURLButton({
           displayText: 'test url',
-          url: 'https://google.com'
+          url: 'https://google.com',
         }),
-        index: 3
-      })
+        index: 3,
+      }),
     ],
     hydratedContentText: 'hellllloooowww',
     hydratedFooterText: 'asdasd',
-    hydratedTitleText: 'asdasd232'
-  });
+    hydratedTitleText: 'asdasd232',
+  })
 
-  Store.Parser.parseTemplateMessage(t2, btns);
-  tempMsg.buttons = t2.buttons;
-  console.log('t2', t2.body);
-  console.log('tempMsg', tempMsg);
+  Store.Parser.parseTemplateMessage(t2, btns)
+  tempMsg.buttons = t2.buttons
+  console.log('t2', t2.body)
+  console.log('tempMsg', tempMsg)
 
   return chat.sendQueue
     .enqueue(
       chat.addQueue
         .enqueue(
           Store.MessageUtils.appendMessage(chat, tempMsg).then(() => {
-            var e = Store.Msg.add(tempMsg)[0];
-            console.log('e ', e);
+            var e = Store.Msg.add(tempMsg)[0]
+            console.log('e ', e)
             if (e) {
               return e.waitForPrep().then(() => {
-                return e;
-              });
+                return e
+              })
             }
           })
         )
@@ -275,39 +275,39 @@ window.WAPI.sendButtons2 = async function (chatId) {
         .catch((e) => console.log(e))
     )
     .then((t) => {
-      var e = t[0];
-      console.log('e', e);
-      const s = Store.Base2;
+      var e = t[0]
+      console.log('e', e)
+      const s = Store.Base2
       if (!s.BinaryProtocol)
-        window.Store.Base2.BinaryProtocol = new window.Store.bp(11);
-      var idUser = new Store.WidFactory.createWid(chatId);
+        window.Store.Base2.BinaryProtocol = new window.Store.bp(11)
+      var idUser = new Store.WidFactory.createWid(chatId)
       var k = Store.createMessageKey({
         ...e,
         to: idUser,
-        id: e.__x_id
-      });
-      console.log('key', k);
+        id: e.__x_id,
+      })
+      console.log('key', k)
       var wm = new Store.WebMessageInfo({
         message: new Store.Builders.Message({
           //if you uncomment the next line then the message gets sent properly as a text
           // conversation:'okhellowhi',
           templateMessage: new Store.Builders.TemplateMessage({
             hydratedFourRowTemplate: btns,
-            hydratedTemplate: btns
-          })
+            hydratedTemplate: btns,
+          }),
         }),
         key: k,
-        messageTimestamp: e.t
-      });
-      console.log('wm', wm);
+        messageTimestamp: e.t,
+      })
+      console.log('wm', wm)
       var action = s.actionNode('relay', [
-        ['message', null, Store.WebMessageInfo.encode(wm).readBuffer()]
-      ]);
-      console.log('action', action);
-      var a = e.id.id;
-      console.log('a', a);
+        ['message', null, Store.WebMessageInfo.encode(wm).readBuffer()],
+      ])
+      console.log('action', action)
+      var a = e.id.id
+      console.log('a', a)
       return new Promise(function (resolve, reject) {
-        console.log('yo');
+        console.log('yo')
         return s.binSend(
           'send',
           action,
@@ -317,21 +317,21 @@ window.WAPI.sendButtons2 = async function (chatId) {
             onSend: s.wrap(resolve),
             onDrop: s.wrap(reject),
             retryOn5xx: !0,
-            resendGuard: function (_) {
-              var t = Store.Msg.get(e.id);
-              return 'protocol' === e.type || (t && t.id.equals(e.id));
-            }
+            resendGuard: function () {
+              var t = Store.Msg.get(e.id)
+              return 'protocol' === e.type || (t && t.id.equals(e.id))
+            },
           },
           {
             debugString: ['action', 'message', 'chat', 'null', a].join(),
             debugObj: {
               xml: action,
-              pb: wm
+              pb: wm,
             },
             metricName: 'MESSAGE',
-            ackRequest: !1
+            ackRequest: !1,
           }
-        );
-      });
-    });
-};
+        )
+      })
+    })
+}

@@ -1,51 +1,51 @@
 export async function getMessageById(key, done, serialize = true) {
   // Check message is loaded in store
-  let msg = window.Store.Msg.get(key);
-  let erro = { erro: true };
+  let msg = window.Store.Msg.get(key)
+  const erro = { erro: true }
 
   if (!msg) {
     // Get chat of message
-    const chat = window.Store.Chat.get(key.remote);
+    const chat = window.Store.Chat.get(key.remote)
     if (!chat) {
-      return erro;
+      return erro
     }
 
     //If not message not found, load latest messages of chat
-    await chat.onEmptyMRM();
-    await WAPI.sleep(100);
-    msg = window.Store.Msg.get(key);
+    await chat.onEmptyMRM()
+    await WAPI.sleep(100)
+    msg = window.Store.Msg.get(key)
 
     if (!msg) {
       // If not found, load messages around the message ID
-      const context = chat.getSearchContext(key);
+      const context = chat.getSearchContext(key)
       if (
         context &&
         context.collection &&
         context.collection.loadAroundPromise
       ) {
-        await context.collection.loadAroundPromise;
+        await context.collection.loadAroundPromise
       }
-      msg = window.Store.Msg.get(key);
+      msg = window.Store.Msg.get(key)
     }
   }
 
   if (!msg) {
-    return erro;
+    return erro
   }
 
-  let result = erro;
+  let result = erro
 
   if (serialize) {
     try {
-      result = await WAPI.processMessageObj(msg, true, true);
+      result = await WAPI.processMessageObj(msg, true, true)
     } catch (err) {}
   } else {
-    result = msg;
+    result = msg
   }
 
   if (typeof done === 'function') {
-    done(result);
+    done(result)
   } else {
-    return result;
+    return result
   }
 }
