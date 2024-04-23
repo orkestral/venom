@@ -20,14 +20,14 @@ export async function getAllMessagesDate(
   idCheck = [],
   stop = true
 ) {
-  const types = ['higherThan', 'equal', 'lowerThan', 'full'];
+  const types = ['higherThan', 'equal', 'lowerThan', 'full']
   if (!types.includes(type)) {
     return WAPI.scope(
       undefined,
       true,
       null,
       `wrong type! use the types: ${types.join()}`
-    );
+    )
   }
 
   if (!!time && dateStart === undefined) {
@@ -36,73 +36,73 @@ export async function getAllMessagesDate(
       true,
       null,
       `it is necessary to inform the date field`
-    );
+    )
   }
 
-  const chat = await WAPI.sendExist(id);
+  const chat = await WAPI.sendExist(id)
   if (chat && chat.status != 404) {
-    const statusMsg = chat.msgs.msgLoadState.noEarlierMsgs;
+    const statusMsg = chat.msgs.msgLoadState.noEarlierMsgs
     if (statusMsg === false) {
-      await chat.onEmptyMRM();
+      await chat.onEmptyMRM()
     }
 
-    let messages = chat.msgs._models;
-    let dateStartTimeStamp, msg;
+    let messages = chat.msgs._models
+    let dateStartTimeStamp, msg
 
     if (time !== undefined && dateStart !== undefined) {
       const splitTimeStart =
-        typeof time === 'string' ? time.split(/[:]/) : undefined;
+        typeof time === 'string' ? time.split(/[:]/) : undefined
       const splitDateStart =
-        typeof dateStart === 'string' ? dateStart.split(/[-,/]/) : undefined;
+        typeof dateStart === 'string' ? dateStart.split(/[-,/]/) : undefined
       dateStartTimeStamp = timeStampConvert(splitDateStart, splitTimeStart)
         ? timeStampConvert(splitDateStart, splitTimeStart)
-        : false;
+        : false
       if (dateStartTimeStamp === false || Number.isNaN(dateStartTimeStamp)) {
-        const date = new Date();
-        const year = date.toLocaleString('en-US', { year: 'numeric' });
+        const date = new Date()
+        const year = date.toLocaleString('en-US', { year: 'numeric' })
         return WAPI.scope(
           undefined,
           true,
           null,
           `Date and time with invalid format! use as an example: data: 01/01/${year} or 01-01-${year} Tima 01:01`
-        );
+        )
       }
     } else {
       if (dateStart !== undefined) {
         const splitDateStart =
-          typeof dateStart === 'string' ? dateStart.split(/[-,/]/) : undefined;
+          typeof dateStart === 'string' ? dateStart.split(/[-,/]/) : undefined
         dateStartTimeStamp = timeStampConvert(splitDateStart)
           ? timeStampConvert(splitDateStart)
-          : false;
+          : false
         if (dateStartTimeStamp === false || Number.isNaN(dateStartTimeStamp)) {
-          const date = new Date();
-          const year = date.toLocaleString('en-US', { year: 'numeric' });
+          const date = new Date()
+          const year = date.toLocaleString('en-US', { year: 'numeric' })
           return WAPI.scope(
             undefined,
             true,
             null,
             `Date with invalid format! use as an example: 01/01/${year} or 01-01-${year}`
-          );
+          )
         }
       }
     }
-    messages = messages.reverse();
+    messages = messages.reverse()
     for (const i in messages) {
       if (i === 'remove') {
-        continue;
+        continue
       }
       if (output.length < limit || limit === 0) {
-        const messageObj = messages[i];
-        const message = await WAPI._serializeMessageObj(messageObj);
+        const messageObj = messages[i]
+        const message = await WAPI._serializeMessageObj(messageObj)
         if (message.id && idCheck.includes(message.id) === true) {
-          continue;
+          continue
         }
 
         if (type === 'higherThan') {
           if (
             parseInt(dateStartTimeStamp.getTime() / 1000) <= message.timestamp
           ) {
-            msg = getMenssage(message);
+            msg = getMenssage(message)
           }
         }
 
@@ -110,7 +110,7 @@ export async function getAllMessagesDate(
           if (
             parseInt(dateStartTimeStamp.getTime() / 1000) === message.timestamp
           ) {
-            msg = getMenssage(message);
+            msg = getMenssage(message)
           }
         }
 
@@ -118,18 +118,18 @@ export async function getAllMessagesDate(
           if (
             parseInt(dateStartTimeStamp.getTime() / 1000) >= message.timestamp
           ) {
-            msg = getMenssage(message);
+            msg = getMenssage(message)
           }
         }
 
         if (type === 'full') {
-          msg = getMenssage(message);
+          msg = getMenssage(message)
         }
 
         if (msg && idCheck.includes(msg.id) === false) {
-          stop = false;
-          idCheck.push(msg.id);
-          output.push(msg);
+          stop = false
+          idCheck.push(msg.id)
+          output.push(msg)
         }
       }
     }
@@ -144,38 +144,38 @@ export async function getAllMessagesDate(
         output,
         idCheck,
         true
-      );
+      )
     } else {
-      return output;
+      return output
     }
   } else {
-    return chat;
+    return chat
   }
 }
 
 function timeStampConvert(date, time) {
-  var newdate = undefined;
+  var newdate = undefined
   if (date !== undefined) {
     if (time !== undefined) {
-      newdate = new Date(date[2], date[1] - 1, date[0], time[0], time[1]);
+      newdate = new Date(date[2], date[1] - 1, date[0], time[0], time[1])
     } else {
-      newdate = new Date(date[2], date[1] - 1, date[0]);
+      newdate = new Date(date[2], date[1] - 1, date[0])
     }
-    return newdate;
+    return newdate
   } else {
-    return false;
+    return false
   }
 }
 
 function getMenssage(message) {
-  const date = new Date(message.timestamp * 1000);
-  const stringdate = date.toLocaleString();
+  const date = new Date(message.timestamp * 1000)
+  const stringdate = date.toLocaleString()
 
-  const day = '0' + date.toLocaleString('en-US', { day: 'numeric' });
-  const month = '0' + date.toLocaleString('en-US', { month: 'numeric' });
-  const minutes = '0' + date.getUTCMinutes();
-  const seconds = '0' + date.getSeconds();
-  const hours = '0' + date.getHours();
+  const day = '0' + date.toLocaleString('en-US', { day: 'numeric' })
+  const month = '0' + date.toLocaleString('en-US', { month: 'numeric' })
+  const minutes = '0' + date.getUTCMinutes()
+  const seconds = '0' + date.getSeconds()
+  const hours = '0' + date.getHours()
 
   const _d = {
     id: message.id,
@@ -187,10 +187,10 @@ function getMenssage(message) {
       year: date.toLocaleString('en-US', { year: 'numeric' }),
       hours: hours.substr(-2),
       minutes: minutes.substr(-2),
-      seconds: seconds.substr(-2)
+      seconds: seconds.substr(-2),
     },
     type: message.type,
-    fromMe: message.fromMe
-  };
-  return Object.assign(message, _d);
+    fromMe: message.fromMe,
+  }
+  return Object.assign(message, _d)
 }

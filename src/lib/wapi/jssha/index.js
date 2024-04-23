@@ -1,5 +1,5 @@
-'use strict';
-(function (aa) {
+'use strict'
+;(function (aa) {
   function C(e, b, a) {
     var k = 0,
       h = [],
@@ -18,41 +18,41 @@
       t,
       y = !1,
       z = !1,
-      w = -1;
-    a = a || {};
-    g = a.encoding || 'UTF8';
-    t = a.numRounds || 1;
+      w = -1
+    a = a || {}
+    g = a.encoding || 'UTF8'
+    t = a.numRounds || 1
     if (t !== parseInt(t, 10) || 1 > t)
-      throw Error('numRounds must a integer >= 1');
+      throw Error('numRounds must a integer >= 1')
     if ('SHA-1' === e)
       (n = 512),
         (q = K),
         (u = ba),
         (f = 160),
         (r = function (b) {
-          return b.slice();
-        });
+          return b.slice()
+        })
     else if (0 === e.lastIndexOf('SHA-', 0))
       if (
         ((q = function (b, k) {
-          return L(b, k, e);
+          return L(b, k, e)
         }),
         (u = function (b, k, h, a) {
-          var d, f;
+          var d, f
           if ('SHA-224' === e || 'SHA-256' === e)
-            (d = (((k + 65) >>> 9) << 4) + 15), (f = 16);
+            (d = (((k + 65) >>> 9) << 4) + 15), (f = 16)
           else if ('SHA-384' === e || 'SHA-512' === e)
-            (d = (((k + 129) >>> 10) << 5) + 31), (f = 32);
-          else throw Error('Unexpected error in SHA-2 implementation');
-          for (; b.length <= d; ) b.push(0);
-          b[k >>> 5] |= 128 << (24 - (k % 32));
-          k = k + h;
-          b[d] = k & 4294967295;
-          b[d - 1] = (k / 4294967296) | 0;
-          h = b.length;
-          for (k = 0; k < h; k += f) a = L(b.slice(k, k + f), a, e);
-          if ('SHA-224' === e) b = [a[0], a[1], a[2], a[3], a[4], a[5], a[6]];
-          else if ('SHA-256' === e) b = a;
+            (d = (((k + 129) >>> 10) << 5) + 31), (f = 32)
+          else throw Error('Unexpected error in SHA-2 implementation')
+          for (; b.length <= d; ) b.push(0)
+          b[k >>> 5] |= 128 << (24 - (k % 32))
+          k = k + h
+          b[d] = k & 4294967295
+          b[d - 1] = (k / 4294967296) | 0
+          h = b.length
+          for (k = 0; k < h; k += f) a = L(b.slice(k, k + f), a, e)
+          if ('SHA-224' === e) b = [a[0], a[1], a[2], a[3], a[4], a[5], a[6]]
+          else if ('SHA-256' === e) b = a
           else if ('SHA-384' === e)
             b = [
               a[0].a,
@@ -66,8 +66,8 @@
               a[4].a,
               a[4].b,
               a[5].a,
-              a[5].b
-            ];
+              a[5].b,
+            ]
           else if ('SHA-512' === e)
             b = [
               a[0].a,
@@ -85,248 +85,248 @@
               a[6].a,
               a[6].b,
               a[7].a,
-              a[7].b
-            ];
-          else throw Error('Unexpected error in SHA-2 implementation');
-          return b;
+              a[7].b,
+            ]
+          else throw Error('Unexpected error in SHA-2 implementation')
+          return b
         }),
         (r = function (b) {
-          return b.slice();
+          return b.slice()
         }),
         'SHA-224' === e)
       )
-        (n = 512), (f = 224);
-      else if ('SHA-256' === e) (n = 512), (f = 256);
-      else if ('SHA-384' === e) (n = 1024), (f = 384);
-      else if ('SHA-512' === e) (n = 1024), (f = 512);
-      else throw Error('Chosen SHA variant is not supported');
+        (n = 512), (f = 224)
+      else if ('SHA-256' === e) (n = 512), (f = 256)
+      else if ('SHA-384' === e) (n = 1024), (f = 384)
+      else if ('SHA-512' === e) (n = 1024), (f = 512)
+      else throw Error('Chosen SHA variant is not supported')
     else if (
       0 === e.lastIndexOf('SHA3-', 0) ||
       0 === e.lastIndexOf('SHAKE', 0)
     ) {
-      var F = 6;
-      q = D;
+      var F = 6
+      q = D
       r = function (b) {
         var e = [],
-          a;
-        for (a = 0; 5 > a; a += 1) e[a] = b[a].slice();
-        return e;
-      };
-      w = 1;
-      if ('SHA3-224' === e) (n = 1152), (f = 224);
-      else if ('SHA3-256' === e) (n = 1088), (f = 256);
-      else if ('SHA3-384' === e) (n = 832), (f = 384);
-      else if ('SHA3-512' === e) (n = 576), (f = 512);
-      else if ('SHAKE128' === e) (n = 1344), (f = -1), (F = 31), (z = !0);
-      else if ('SHAKE256' === e) (n = 1088), (f = -1), (F = 31), (z = !0);
-      else throw Error('Chosen SHA variant is not supported');
+          a
+        for (a = 0; 5 > a; a += 1) e[a] = b[a].slice()
+        return e
+      }
+      w = 1
+      if ('SHA3-224' === e) (n = 1152), (f = 224)
+      else if ('SHA3-256' === e) (n = 1088), (f = 256)
+      else if ('SHA3-384' === e) (n = 832), (f = 384)
+      else if ('SHA3-512' === e) (n = 576), (f = 512)
+      else if ('SHAKE128' === e) (n = 1344), (f = -1), (F = 31), (z = !0)
+      else if ('SHAKE256' === e) (n = 1088), (f = -1), (F = 31), (z = !0)
+      else throw Error('Chosen SHA variant is not supported')
       u = function (b, e, a, k, h) {
-        a = n;
+        a = n
         var d = F,
           f,
           g = [],
           l = a >>> 5,
           m = 0,
-          c = e >>> 5;
+          c = e >>> 5
         for (f = 0; f < c && e >= a; f += l)
-          (k = D(b.slice(f, f + l), k)), (e -= a);
-        b = b.slice(f);
-        for (e %= a; b.length < l; ) b.push(0);
-        f = e >>> 3;
-        b[f >> 2] ^= d << ((f % 4) * 8);
-        b[l - 1] ^= 2147483648;
+          (k = D(b.slice(f, f + l), k)), (e -= a)
+        b = b.slice(f)
+        for (e %= a; b.length < l; ) b.push(0)
+        f = e >>> 3
+        b[f >> 2] ^= d << ((f % 4) * 8)
+        b[l - 1] ^= 2147483648
         for (k = D(b, k); 32 * g.length < h; ) {
-          b = k[m % 5][(m / 5) | 0];
-          g.push(b.b);
-          if (32 * g.length >= h) break;
-          g.push(b.a);
-          m += 1;
-          0 === (64 * m) % a && D(null, k);
+          b = k[m % 5][(m / 5) | 0]
+          g.push(b.b)
+          if (32 * g.length >= h) break
+          g.push(b.a)
+          m += 1
+          0 === (64 * m) % a && D(null, k)
         }
-        return g;
-      };
-    } else throw Error('Chosen SHA variant is not supported');
-    c = M(b, g, w);
-    m = A(e);
+        return g
+      }
+    } else throw Error('Chosen SHA variant is not supported')
+    c = M(b, g, w)
+    m = A(e)
     this.setHMACKey = function (b, a, h) {
-      var d;
-      if (!0 === I) throw Error('HMAC key already set');
-      if (!0 === y) throw Error('Cannot set HMAC key after calling update');
-      if (!0 === z) throw Error('SHAKE is not supported for HMAC');
-      g = (h || {}).encoding || 'UTF8';
-      a = M(a, g, w)(b);
-      b = a.binLen;
-      a = a.value;
-      d = n >>> 3;
-      h = d / 4 - 1;
+      var d
+      if (!0 === I) throw Error('HMAC key already set')
+      if (!0 === y) throw Error('Cannot set HMAC key after calling update')
+      if (!0 === z) throw Error('SHAKE is not supported for HMAC')
+      g = (h || {}).encoding || 'UTF8'
+      a = M(a, g, w)(b)
+      b = a.binLen
+      a = a.value
+      d = n >>> 3
+      h = d / 4 - 1
       if (d < b / 8) {
-        for (a = u(a, b, 0, A(e), f); a.length <= h; ) a.push(0);
-        a[h] &= 4294967040;
+        for (a = u(a, b, 0, A(e), f); a.length <= h; ) a.push(0)
+        a[h] &= 4294967040
       } else if (d > b / 8) {
-        for (; a.length <= h; ) a.push(0);
-        a[h] &= 4294967040;
+        for (; a.length <= h; ) a.push(0)
+        a[h] &= 4294967040
       }
       for (b = 0; b <= h; b += 1)
-        (v[b] = a[b] ^ 909522486), (x[b] = a[b] ^ 1549556828);
-      m = q(v, m);
-      k = n;
-      I = !0;
-    };
+        (v[b] = a[b] ^ 909522486), (x[b] = a[b] ^ 1549556828)
+      m = q(v, m)
+      k = n
+      I = !0
+    }
     this.update = function (b) {
       var a,
         e,
         d,
         f = 0,
-        g = n >>> 5;
-      a = c(b, h, l);
-      b = a.binLen;
-      e = a.value;
-      a = b >>> 5;
+        g = n >>> 5
+      a = c(b, h, l)
+      b = a.binLen
+      e = a.value
+      a = b >>> 5
       for (d = 0; d < a; d += g)
-        f + n <= b && ((m = q(e.slice(d, d + g), m)), (f += n));
-      k += f;
-      h = e.slice(f >>> 5);
-      l = b % n;
-      y = !0;
-    };
+        f + n <= b && ((m = q(e.slice(d, d + g), m)), (f += n))
+      k += f
+      h = e.slice(f >>> 5)
+      l = b % n
+      y = !0
+    }
     this.getHash = function (b, a) {
-      var d, g, c, n;
-      if (!0 === I) throw Error('Cannot call getHash after setting HMAC key');
-      c = N(a);
+      var d, g, c, n
+      if (!0 === I) throw Error('Cannot call getHash after setting HMAC key')
+      c = N(a)
       if (!0 === z) {
         if (-1 === c.shakeLen)
-          throw Error('shakeLen must be specified in options');
-        f = c.shakeLen;
+          throw Error('shakeLen must be specified in options')
+        f = c.shakeLen
       }
       switch (b) {
         case 'HEX':
           d = function (b) {
-            return O(b, f, w, c);
-          };
-          break;
+            return O(b, f, w, c)
+          }
+          break
         case 'B64':
           d = function (b) {
-            return P(b, f, w, c);
-          };
-          break;
+            return P(b, f, w, c)
+          }
+          break
         case 'BYTES':
           d = function (b) {
-            return Q(b, f, w);
-          };
-          break;
+            return Q(b, f, w)
+          }
+          break
         case 'ARRAYBUFFER':
           try {
-            g = new ArrayBuffer(0);
+            g = new ArrayBuffer(0)
           } catch (p) {
-            throw Error('ARRAYBUFFER not supported by this environment');
+            throw Error('ARRAYBUFFER not supported by this environment')
           }
           d = function (b) {
-            return R(b, f, w);
-          };
-          break;
+            return R(b, f, w)
+          }
+          break
         case 'UINT8ARRAY':
           try {
-            g = new Uint8Array(0);
+            g = new Uint8Array(0)
           } catch (p) {
-            throw Error('UINT8ARRAY not supported by this environment');
+            throw Error('UINT8ARRAY not supported by this environment')
           }
           d = function (b) {
-            return S(b, f, w);
-          };
-          break;
+            return S(b, f, w)
+          }
+          break
         default:
           throw Error(
             'format must be HEX, B64, BYTES, ARRAYBUFFER, or UINT8ARRAY'
-          );
+          )
       }
-      n = u(h.slice(), l, k, r(m), f);
+      n = u(h.slice(), l, k, r(m), f)
       for (g = 1; g < t; g += 1)
         !0 === z &&
           0 !== f % 32 &&
           (n[n.length - 1] &= 16777215 >>> (24 - (f % 32))),
-          (n = u(n, f, 0, A(e), f));
-      return d(n);
-    };
+          (n = u(n, f, 0, A(e), f))
+      return d(n)
+    }
     this.getHMAC = function (b, a) {
-      var d, g, c, p;
+      var d, g, c, p
       if (!1 === I)
-        throw Error('Cannot call getHMAC without first setting HMAC key');
-      c = N(a);
+        throw Error('Cannot call getHMAC without first setting HMAC key')
+      c = N(a)
       switch (b) {
         case 'HEX':
           d = function (b) {
-            return O(b, f, w, c);
-          };
-          break;
+            return O(b, f, w, c)
+          }
+          break
         case 'B64':
           d = function (b) {
-            return P(b, f, w, c);
-          };
-          break;
+            return P(b, f, w, c)
+          }
+          break
         case 'BYTES':
           d = function (b) {
-            return Q(b, f, w);
-          };
-          break;
+            return Q(b, f, w)
+          }
+          break
         case 'ARRAYBUFFER':
           try {
-            d = new ArrayBuffer(0);
+            d = new ArrayBuffer(0)
           } catch (v) {
-            throw Error('ARRAYBUFFER not supported by this environment');
+            throw Error('ARRAYBUFFER not supported by this environment')
           }
           d = function (b) {
-            return R(b, f, w);
-          };
-          break;
+            return R(b, f, w)
+          }
+          break
         case 'UINT8ARRAY':
           try {
-            d = new Uint8Array(0);
+            d = new Uint8Array(0)
           } catch (v) {
-            throw Error('UINT8ARRAY not supported by this environment');
+            throw Error('UINT8ARRAY not supported by this environment')
           }
           d = function (b) {
-            return S(b, f, w);
-          };
-          break;
+            return S(b, f, w)
+          }
+          break
         default:
           throw Error(
             'outputFormat must be HEX, B64, BYTES, ARRAYBUFFER, or UINT8ARRAY'
-          );
+          )
       }
-      g = u(h.slice(), l, k, r(m), f);
-      p = q(x, A(e));
-      p = u(g, f, n, p, f);
-      return d(p);
-    };
+      g = u(h.slice(), l, k, r(m), f)
+      p = q(x, A(e))
+      p = u(g, f, n, p, f)
+      return d(p)
+    }
   }
   function a(a, b) {
-    this.a = a;
-    this.b = b;
+    this.a = a
+    this.b = b
   }
   function T(a, b, d, k) {
-    var h, l, g, c, p;
-    b = b || [0];
-    d = d || 0;
-    l = d >>> 3;
-    p = -1 === k ? 3 : 0;
+    var h, l, g, c, p
+    b = b || [0]
+    d = d || 0
+    l = d >>> 3
+    p = -1 === k ? 3 : 0
     for (h = 0; h < a.length; h += 1)
       (c = h + l),
         (g = c >>> 2),
         b.length <= g && b.push(0),
-        (b[g] |= a[h] << (8 * (p + (c % 4) * k)));
-    return { value: b, binLen: 8 * a.length + d };
+        (b[g] |= a[h] << (8 * (p + (c % 4) * k)))
+    return { value: b, binLen: 8 * a.length + d }
   }
   function O(a, b, d, k) {
-    var h = '';
-    b /= 8;
-    var l, g, c;
-    c = -1 === d ? 3 : 0;
+    var h = ''
+    b /= 8
+    var l, g, c
+    c = -1 === d ? 3 : 0
     for (l = 0; l < b; l += 1)
       (g = a[l >>> 2] >>> (8 * (c + (l % 4) * d))),
         (h +=
           '0123456789abcdef'.charAt((g >>> 4) & 15) +
-          '0123456789abcdef'.charAt(g & 15));
-    return k.outputUpper ? h.toUpperCase() : h;
+          '0123456789abcdef'.charAt(g & 15))
+    return k.outputUpper ? h.toUpperCase() : h
   }
   function P(a, b, d, k) {
     var h = '',
@@ -334,8 +334,8 @@
       g,
       c,
       p,
-      f;
-    f = -1 === d ? 3 : 0;
+      f
+    f = -1 === d ? 3 : 0
     for (g = 0; g < l; g += 3)
       for (
         c = g + 1 < l ? a[(g + 1) >>> 2] : 0,
@@ -353,64 +353,66 @@
               'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'.charAt(
                 (p >>> (6 * (3 - c))) & 63
               ))
-          : (h += k.b64Pad);
-    return h;
+          : (h += k.b64Pad)
+    return h
   }
   function Q(a, b, d) {
-    var k = '';
-    b /= 8;
-    var h, c, g;
-    g = -1 === d ? 3 : 0;
+    var k = ''
+    b /= 8
+    var h, c, g
+    g = -1 === d ? 3 : 0
     for (h = 0; h < b; h += 1)
       (c = (a[h >>> 2] >>> (8 * (g + (h % 4) * d))) & 255),
-        (k += String.fromCharCode(c));
-    return k;
+        (k += String.fromCharCode(c))
+    return k
   }
   function R(a, b, d) {
-    b /= 8;
+    b /= 8
     var k,
       h = new ArrayBuffer(b),
       c,
-      g;
-    g = new Uint8Array(h);
-    c = -1 === d ? 3 : 0;
+      g
+    g = new Uint8Array(h)
+    c = -1 === d ? 3 : 0
     for (k = 0; k < b; k += 1)
-      g[k] = (a[k >>> 2] >>> (8 * (c + (k % 4) * d))) & 255;
-    return h;
+      g[k] = (a[k >>> 2] >>> (8 * (c + (k % 4) * d))) & 255
+    return h
   }
   function S(a, b, d) {
-    b /= 8;
+    b /= 8
     var k,
       h = new Uint8Array(b),
-      c;
-    c = -1 === d ? 3 : 0;
+      c
+    c = -1 === d ? 3 : 0
     for (k = 0; k < b; k += 1)
-      h[k] = (a[k >>> 2] >>> (8 * (c + (k % 4) * d))) & 255;
-    return h;
+      h[k] = (a[k >>> 2] >>> (8 * (c + (k % 4) * d))) & 255
+    return h
   }
   function N(a) {
-    var b = { outputUpper: !1, b64Pad: '=', shakeLen: -1 };
-    a = a || {};
-    b.outputUpper = a.outputUpper || !1;
-    !0 === a.hasOwnProperty('b64Pad') && (b.b64Pad = a.b64Pad);
-    if (!0 === a.hasOwnProperty('shakeLen')) {
-      if (0 !== a.shakeLen % 8) throw Error('shakeLen must be a multiple of 8');
-      b.shakeLen = a.shakeLen;
+    var b = { outputUpper: !1, b64Pad: '=', shakeLen: -1 }
+    a = a || {}
+    b.outputUpper = a.outputUpper || !1
+    //!0 === a.hasOwnProperty('b64Pad') && (b.b64Pad = a.b64Pad)
+    Object.prototype.hasOwnProperty.call(a, 'b64Pad') && (b.b64Pad = a.b64Pad)
+    //if (!0 === a.hasOwnProperty('shakeLen')) {
+    if (Object.prototype.hasOwnProperty.call(a, 'shakeLen')) {
+      if (0 !== a.shakeLen % 8) throw Error('shakeLen must be a multiple of 8')
+      b.shakeLen = a.shakeLen
     }
     if ('boolean' !== typeof b.outputUpper)
-      throw Error('Invalid outputUpper formatting option');
+      throw Error('Invalid outputUpper formatting option')
     if ('string' !== typeof b.b64Pad)
-      throw Error('Invalid b64Pad formatting option');
-    return b;
+      throw Error('Invalid b64Pad formatting option')
+    return b
   }
   function M(a, b, d) {
     switch (b) {
       case 'UTF8':
       case 'UTF16BE':
       case 'UTF16LE':
-        break;
+        break
       default:
-        throw Error('encoding must be UTF8, UTF16BE, or UTF16LE');
+        throw Error('encoding must be UTF8, UTF16BE, or UTF16LE')
     }
     switch (a) {
       case 'HEX':
@@ -421,24 +423,24 @@
             f,
             n,
             q,
-            u;
+            u
           if (0 !== g % 2)
-            throw Error('String of HEX type must be in byte increments');
-          a = a || [0];
-          e = e || 0;
-          q = e >>> 3;
-          u = -1 === d ? 3 : 0;
+            throw Error('String of HEX type must be in byte increments')
+          a = a || [0]
+          e = e || 0
+          q = e >>> 3
+          u = -1 === d ? 3 : 0
           for (c = 0; c < g; c += 2) {
-            p = parseInt(b.substr(c, 2), 16);
+            p = parseInt(b.substr(c, 2), 16)
             if (isNaN(p))
-              throw Error('String of HEX type contains invalid characters');
-            n = (c >>> 1) + q;
-            for (f = n >>> 2; a.length <= f; ) a.push(0);
-            a[f] |= p << (8 * (u + (n % 4) * d));
+              throw Error('String of HEX type contains invalid characters')
+            n = (c >>> 1) + q
+            for (f = n >>> 2; a.length <= f; ) a.push(0)
+            a[f] |= p << (8 * (u + (n % 4) * d))
           }
-          return { value: a, binLen: 4 * g + e };
-        };
-        break;
+          return { value: a, binLen: 4 * g + e }
+        }
+        break
       case 'TEXT':
         a = function (a, e, c) {
           var g,
@@ -449,10 +451,10 @@
             q,
             u,
             r,
-            t;
-          e = e || [0];
-          c = c || 0;
-          q = c >>> 3;
+            t
+          e = e || [0]
+          c = c || 0
+          q = c >>> 3
           if ('UTF8' === b)
             for (t = -1 === d ? 3 : 0, f = 0; f < a.length; f += 1)
               for (
@@ -482,10 +484,10 @@
                 n < m.length;
                 n += 1
               ) {
-                r = p + q;
-                for (u = r >>> 2; e.length <= u; ) e.push(0);
-                e[u] |= m[n] << (8 * (t + (r % 4) * d));
-                p += 1;
+                r = p + q
+                for (u = r >>> 2; e.length <= u; ) e.push(0)
+                e[u] |= m[n] << (8 * (t + (r % 4) * d))
+                p += 1
               }
           else if ('UTF16BE' === b || 'UTF16LE' === b)
             for (
@@ -496,16 +498,16 @@
               f < a.length;
               f += 1
             ) {
-              g = a.charCodeAt(f);
-              !0 === m && ((n = g & 255), (g = (n << 8) | (g >>> 8)));
-              r = p + q;
-              for (u = r >>> 2; e.length <= u; ) e.push(0);
-              e[u] |= g << (8 * (t + (r % 4) * d));
-              p += 2;
+              g = a.charCodeAt(f)
+              !0 === m && ((n = g & 255), (g = (n << 8) | (g >>> 8)))
+              r = p + q
+              for (u = r >>> 2; e.length <= u; ) e.push(0)
+              e[u] |= g << (8 * (t + (r % 4) * d))
+              p += 2
             }
-          return { value: e, binLen: 8 * p + c };
-        };
-        break;
+          return { value: e, binLen: 8 * p + c }
+        }
+        break
       case 'B64':
         a = function (b, a, e) {
           var c = 0,
@@ -516,80 +518,82 @@
             q,
             u,
             r,
-            t;
-          if (-1 === b.search(/^[a-zA-Z0-9=+\/]+$/))
-            throw Error('Invalid character in base-64 string');
-          p = b.indexOf('=');
-          b = b.replace(/\=/g, '');
+            t
+          //if (-1 === b.search(/^[a-zA-Z0-9=+\/]+$/))
+          if (-1 === b.search(/^[a-zA-Z0-9=+/]+$/))
+            throw Error('Invalid character in base-64 string')
+          p = b.indexOf('=')
+          //b = b.replace(/\=/g, '')
+          b = b.replace(/=/g, '')
           if (-1 !== p && p < b.length)
-            throw Error("Invalid '=' found in base-64 string");
-          a = a || [0];
-          e = e || 0;
-          u = e >>> 3;
-          t = -1 === d ? 3 : 0;
+            throw Error("Invalid '=' found in base-64 string")
+          a = a || [0]
+          e = e || 0
+          u = e >>> 3
+          t = -1 === d ? 3 : 0
           for (p = 0; p < b.length; p += 4) {
-            q = b.substr(p, 4);
+            q = b.substr(p, 4)
             for (f = n = 0; f < q.length; f += 1)
               (m =
                 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'.indexOf(
                   q.charAt(f)
                 )),
-                (n |= m << (18 - 6 * f));
+                (n |= m << (18 - 6 * f))
             for (f = 0; f < q.length - 1; f += 1) {
-              r = c + u;
-              for (m = r >>> 2; a.length <= m; ) a.push(0);
-              a[m] |= ((n >>> (16 - 8 * f)) & 255) << (8 * (t + (r % 4) * d));
-              c += 1;
+              r = c + u
+              for (m = r >>> 2; a.length <= m; ) a.push(0)
+              a[m] |= ((n >>> (16 - 8 * f)) & 255) << (8 * (t + (r % 4) * d))
+              c += 1
             }
           }
-          return { value: a, binLen: 8 * c + e };
-        };
-        break;
+          return { value: a, binLen: 8 * c + e }
+        }
+        break
       case 'BYTES':
         a = function (b, a, e) {
-          var c, m, p, f, n, q;
-          a = a || [0];
-          e = e || 0;
-          p = e >>> 3;
-          q = -1 === d ? 3 : 0;
+          var c, m, p, f, n, q
+          a = a || [0]
+          e = e || 0
+          p = e >>> 3
+          q = -1 === d ? 3 : 0
           for (m = 0; m < b.length; m += 1)
             (c = b.charCodeAt(m)),
               (n = m + p),
               (f = n >>> 2),
               a.length <= f && a.push(0),
-              (a[f] |= c << (8 * (q + (n % 4) * d)));
-          return { value: a, binLen: 8 * b.length + e };
-        };
-        break;
+              (a[f] |= c << (8 * (q + (n % 4) * d)))
+          return { value: a, binLen: 8 * b.length + e }
+        }
+        break
       case 'ARRAYBUFFER':
         try {
-          a = new ArrayBuffer(0);
+          a = new ArrayBuffer(0)
         } catch (k) {
-          throw Error('ARRAYBUFFER not supported by this environment');
+          throw Error('ARRAYBUFFER not supported by this environment')
         }
         a = function (b, a, e) {
-          return T(new Uint8Array(b), a, e, d);
-        };
-        break;
+          return T(new Uint8Array(b), a, e, d)
+        }
+        break
       case 'UINT8ARRAY':
         try {
-          a = new Uint8Array(0);
+          a = new Uint8Array(0)
         } catch (k) {
-          throw Error('UINT8ARRAY not supported by this environment');
+          throw Error('UINT8ARRAY not supported by this environment')
         }
         a = function (b, a, e) {
-          return T(b, a, e, d);
-        };
-        break;
+          return T(b, a, e, d)
+        }
+        break
       default:
         throw Error(
           'format must be HEX, TEXT, B64, BYTES, ARRAYBUFFER, or UINT8ARRAY'
-        );
+        )
     }
-    return a;
+    return a
   }
   function y(a, b) {
-    return (a << b) | (a >>> (32 - b));
+    return (a << b) | (a >>> (32 - b))
   }
   function U(e, b) {
     return 32 < b
@@ -597,14 +601,13 @@
         new a((e.b << b) | (e.a >>> (32 - b)), (e.a << b) | (e.b >>> (32 - b))))
       : 0 !== b
       ? new a((e.a << b) | (e.b >>> (32 - b)), (e.b << b) | (e.a >>> (32 - b)))
-      : e;
+      : e
   }
   function x(a, b) {
-    return (a >>> b) | (a << (32 - b));
+    return (a >>> b) | (a << (32 - b))
   }
   function t(e, b) {
-    var d = null,
-      d = new a(e.a, e.b);
+    var d = new a(e.a, e.b)
     return (d =
       32 >= b
         ? new a(
@@ -614,83 +617,85 @@
         : new a(
             (d.b >>> (b - 32)) | ((d.a << (64 - b)) & 4294967295),
             (d.a >>> (b - 32)) | ((d.b << (64 - b)) & 4294967295)
-          ));
+          ))
   }
   function V(e, b) {
-    var d = null;
-    return (d =
+    return 32 >= b
+      ? new a(e.a >>> b, (e.b >>> b) | ((e.a << (32 - b)) & 4294967295))
+      : new a(0, e.a >>> (b - 32))
+    /* return (d =
       32 >= b
         ? new a(e.a >>> b, (e.b >>> b) | ((e.a << (32 - b)) & 4294967295))
-        : new a(0, e.a >>> (b - 32)));
+        : new a(0, e.a >>> (b - 32))) */
   }
   function ca(a, b, d) {
-    return (a & b) ^ (~a & d);
+    return (a & b) ^ (~a & d)
   }
   function da(e, b, d) {
-    return new a((e.a & b.a) ^ (~e.a & d.a), (e.b & b.b) ^ (~e.b & d.b));
+    return new a((e.a & b.a) ^ (~e.a & d.a), (e.b & b.b) ^ (~e.b & d.b))
   }
   function W(a, b, d) {
-    return (a & b) ^ (a & d) ^ (b & d);
+    return (a & b) ^ (a & d) ^ (b & d)
   }
   function ea(e, b, d) {
     return new a(
       (e.a & b.a) ^ (e.a & d.a) ^ (b.a & d.a),
       (e.b & b.b) ^ (e.b & d.b) ^ (b.b & d.b)
-    );
+    )
   }
   function fa(a) {
-    return x(a, 2) ^ x(a, 13) ^ x(a, 22);
+    return x(a, 2) ^ x(a, 13) ^ x(a, 22)
   }
   function ga(e) {
     var b = t(e, 28),
-      d = t(e, 34);
-    e = t(e, 39);
-    return new a(b.a ^ d.a ^ e.a, b.b ^ d.b ^ e.b);
+      d = t(e, 34)
+    e = t(e, 39)
+    return new a(b.a ^ d.a ^ e.a, b.b ^ d.b ^ e.b)
   }
   function ha(a) {
-    return x(a, 6) ^ x(a, 11) ^ x(a, 25);
+    return x(a, 6) ^ x(a, 11) ^ x(a, 25)
   }
   function ia(e) {
     var b = t(e, 14),
-      d = t(e, 18);
-    e = t(e, 41);
-    return new a(b.a ^ d.a ^ e.a, b.b ^ d.b ^ e.b);
+      d = t(e, 18)
+    e = t(e, 41)
+    return new a(b.a ^ d.a ^ e.a, b.b ^ d.b ^ e.b)
   }
   function ja(a) {
-    return x(a, 7) ^ x(a, 18) ^ (a >>> 3);
+    return x(a, 7) ^ x(a, 18) ^ (a >>> 3)
   }
   function ka(e) {
     var b = t(e, 1),
-      d = t(e, 8);
-    e = V(e, 7);
-    return new a(b.a ^ d.a ^ e.a, b.b ^ d.b ^ e.b);
+      d = t(e, 8)
+    e = V(e, 7)
+    return new a(b.a ^ d.a ^ e.a, b.b ^ d.b ^ e.b)
   }
   function la(a) {
-    return x(a, 17) ^ x(a, 19) ^ (a >>> 10);
+    return x(a, 17) ^ x(a, 19) ^ (a >>> 10)
   }
   function ma(e) {
     var b = t(e, 19),
-      d = t(e, 61);
-    e = V(e, 6);
-    return new a(b.a ^ d.a ^ e.a, b.b ^ d.b ^ e.b);
+      d = t(e, 61)
+    e = V(e, 6)
+    return new a(b.a ^ d.a ^ e.a, b.b ^ d.b ^ e.b)
   }
   function G(a, b) {
-    var d = (a & 65535) + (b & 65535);
+    var d = (a & 65535) + (b & 65535)
     return (
       ((((a >>> 16) + (b >>> 16) + (d >>> 16)) & 65535) << 16) | (d & 65535)
-    );
+    )
   }
   function na(a, b, d, k) {
-    var h = (a & 65535) + (b & 65535) + (d & 65535) + (k & 65535);
+    var h = (a & 65535) + (b & 65535) + (d & 65535) + (k & 65535)
     return (
       ((((a >>> 16) + (b >>> 16) + (d >>> 16) + (k >>> 16) + (h >>> 16)) &
         65535) <<
         16) |
       (h & 65535)
-    );
+    )
   }
   function H(a, b, d, k, h) {
-    var c = (a & 65535) + (b & 65535) + (d & 65535) + (k & 65535) + (h & 65535);
+    var c = (a & 65535) + (b & 65535) + (d & 65535) + (k & 65535) + (h & 65535)
     return (
       ((((a >>> 16) +
         (b >>> 16) +
@@ -701,88 +706,84 @@
         65535) <<
         16) |
       (c & 65535)
-    );
+    )
   }
   function oa(e, b) {
-    var d, k, c;
-    d = (e.b & 65535) + (b.b & 65535);
-    k = (e.b >>> 16) + (b.b >>> 16) + (d >>> 16);
-    c = ((k & 65535) << 16) | (d & 65535);
-    d = (e.a & 65535) + (b.a & 65535) + (k >>> 16);
-    k = (e.a >>> 16) + (b.a >>> 16) + (d >>> 16);
-    return new a(((k & 65535) << 16) | (d & 65535), c);
+    var d, k, c
+    d = (e.b & 65535) + (b.b & 65535)
+    k = (e.b >>> 16) + (b.b >>> 16) + (d >>> 16)
+    c = ((k & 65535) << 16) | (d & 65535)
+    d = (e.a & 65535) + (b.a & 65535) + (k >>> 16)
+    k = (e.a >>> 16) + (b.a >>> 16) + (d >>> 16)
+    return new a(((k & 65535) << 16) | (d & 65535), c)
   }
   function pa(e, b, d, k) {
-    var c, l, g;
-    c = (e.b & 65535) + (b.b & 65535) + (d.b & 65535) + (k.b & 65535);
-    l = (e.b >>> 16) + (b.b >>> 16) + (d.b >>> 16) + (k.b >>> 16) + (c >>> 16);
-    g = ((l & 65535) << 16) | (c & 65535);
+    var c, l, g
+    c = (e.b & 65535) + (b.b & 65535) + (d.b & 65535) + (k.b & 65535)
+    l = (e.b >>> 16) + (b.b >>> 16) + (d.b >>> 16) + (k.b >>> 16) + (c >>> 16)
+    g = ((l & 65535) << 16) | (c & 65535)
     c =
-      (e.a & 65535) +
-      (b.a & 65535) +
-      (d.a & 65535) +
-      (k.a & 65535) +
-      (l >>> 16);
-    l = (e.a >>> 16) + (b.a >>> 16) + (d.a >>> 16) + (k.a >>> 16) + (c >>> 16);
-    return new a(((l & 65535) << 16) | (c & 65535), g);
+      (e.a & 65535) + (b.a & 65535) + (d.a & 65535) + (k.a & 65535) + (l >>> 16)
+    l = (e.a >>> 16) + (b.a >>> 16) + (d.a >>> 16) + (k.a >>> 16) + (c >>> 16)
+    return new a(((l & 65535) << 16) | (c & 65535), g)
   }
   function qa(e, b, d, k, c) {
-    var l, g, m;
+    var l, g, m
     l =
       (e.b & 65535) +
       (b.b & 65535) +
       (d.b & 65535) +
       (k.b & 65535) +
-      (c.b & 65535);
+      (c.b & 65535)
     g =
       (e.b >>> 16) +
       (b.b >>> 16) +
       (d.b >>> 16) +
       (k.b >>> 16) +
       (c.b >>> 16) +
-      (l >>> 16);
-    m = ((g & 65535) << 16) | (l & 65535);
+      (l >>> 16)
+    m = ((g & 65535) << 16) | (l & 65535)
     l =
       (e.a & 65535) +
       (b.a & 65535) +
       (d.a & 65535) +
       (k.a & 65535) +
       (c.a & 65535) +
-      (g >>> 16);
+      (g >>> 16)
     g =
       (e.a >>> 16) +
       (b.a >>> 16) +
       (d.a >>> 16) +
       (k.a >>> 16) +
       (c.a >>> 16) +
-      (l >>> 16);
-    return new a(((g & 65535) << 16) | (l & 65535), m);
+      (l >>> 16)
+    return new a(((g & 65535) << 16) | (l & 65535), m)
   }
   function B(e, b) {
-    return new a(e.a ^ b.a, e.b ^ b.b);
+    return new a(e.a ^ b.a, e.b ^ b.b)
   }
   function A(e) {
     var b = [],
-      d;
+      d
     if ('SHA-1' === e)
-      b = [1732584193, 4023233417, 2562383102, 271733878, 3285377520];
+      b = [1732584193, 4023233417, 2562383102, 271733878, 3285377520]
     else if (0 === e.lastIndexOf('SHA-', 0))
       switch (
         ((b = [
           3238371032, 914150663, 812702999, 4144912697, 4290775857, 1750603025,
-          1694076839, 3204075428
+          1694076839, 3204075428,
         ]),
         (d = [
           1779033703, 3144134277, 1013904242, 2773480762, 1359893119,
-          2600822924, 528734635, 1541459225
+          2600822924, 528734635, 1541459225,
         ]),
         e)
       ) {
         case 'SHA-224':
-          break;
+          break
         case 'SHA-256':
-          b = d;
-          break;
+          b = d
+          break
         case 'SHA-384':
           b = [
             new a(3418070365, b[0]),
@@ -792,9 +793,9 @@
             new a(1731405415, b[4]),
             new a(41048885895, b[5]),
             new a(3675008525, b[6]),
-            new a(1203062813, b[7])
-          ];
-          break;
+            new a(1203062813, b[7]),
+          ]
+          break
         case 'SHA-512':
           b = [
             new a(d[0], 4089235720),
@@ -804,23 +805,17 @@
             new a(d[4], 2917565137),
             new a(d[5], 725511199),
             new a(d[6], 4215389547),
-            new a(d[7], 327033209)
-          ];
-          break;
+            new a(d[7], 327033209),
+          ]
+          break
         default:
-          throw Error('Unknown SHA variant');
+          throw Error('Unknown SHA variant')
       }
     else if (0 === e.lastIndexOf('SHA3-', 0) || 0 === e.lastIndexOf('SHAKE', 0))
       for (e = 0; 5 > e; e += 1)
-        b[e] = [
-          new a(0, 0),
-          new a(0, 0),
-          new a(0, 0),
-          new a(0, 0),
-          new a(0, 0)
-        ];
-    else throw Error('No SHA variants supported');
-    return b;
+        b[e] = [new a(0, 0), new a(0, 0), new a(0, 0), new a(0, 0), new a(0, 0)]
+    else throw Error('No SHA variants supported')
+    return b
   }
   function K(a, b) {
     var d = [],
@@ -830,12 +825,12 @@
       g,
       m,
       p,
-      f;
-    k = b[0];
-    c = b[1];
-    l = b[2];
-    g = b[3];
-    m = b[4];
+      f
+    k = b[0]
+    c = b[1]
+    l = b[2]
+    g = b[3]
+    m = b[4]
     for (f = 0; 80 > f; f += 1)
       (d[f] =
         16 > f ? a[f] : y(d[f - 3] ^ d[f - 8] ^ d[f - 14] ^ d[f - 16], 1)),
@@ -851,24 +846,24 @@
         (g = l),
         (l = y(c, 30)),
         (c = k),
-        (k = p);
-    b[0] = G(k, b[0]);
-    b[1] = G(c, b[1]);
-    b[2] = G(l, b[2]);
-    b[3] = G(g, b[3]);
-    b[4] = G(m, b[4]);
-    return b;
+        (k = p)
+    b[0] = G(k, b[0])
+    b[1] = G(c, b[1])
+    b[2] = G(l, b[2])
+    b[3] = G(g, b[3])
+    b[4] = G(m, b[4])
+    return b
   }
   function ba(a, b, d, c) {
-    var h;
-    for (h = (((b + 65) >>> 9) << 4) + 15; a.length <= h; ) a.push(0);
-    a[b >>> 5] |= 128 << (24 - (b % 32));
-    b += d;
-    a[h] = b & 4294967295;
-    a[h - 1] = (b / 4294967296) | 0;
-    b = a.length;
-    for (h = 0; h < b; h += 16) c = K(a.slice(h, h + 16), c);
-    return c;
+    var h
+    for (h = (((b + 65) >>> 9) << 4) + 15; a.length <= h; ) a.push(0)
+    a[b >>> 5] |= 128 << (24 - (b % 32))
+    b += d
+    a[h] = b & 4294967295
+    a[h - 1] = (b / 4294967296) | 0
+    b = a.length
+    for (h = 0; h < b; h += 16) c = K(a.slice(h, h + 16), c)
+    return c
   }
   function L(e, b, d) {
     var k,
@@ -894,7 +889,7 @@
       C,
       D,
       E = [],
-      J;
+      J
     if ('SHA-224' === d || 'SHA-256' === d)
       (u = 64),
         (t = 1),
@@ -908,7 +903,7 @@
         (F = ha),
         (C = W),
         (B = ca),
-        (J = c);
+        (J = c)
     else if ('SHA-384' === d || 'SHA-512' === d)
       (u = 80),
         (t = 2),
@@ -922,16 +917,16 @@
         (F = ia),
         (C = ea),
         (B = da),
-        (J = X);
-    else throw Error('Unexpected error in SHA-2 implementation');
-    d = b[0];
-    k = b[1];
-    h = b[2];
-    l = b[3];
-    g = b[4];
-    m = b[5];
-    p = b[6];
-    f = b[7];
+        (J = X)
+    else throw Error('Unexpected error in SHA-2 implementation')
+    d = b[0]
+    k = b[1]
+    h = b[2]
+    l = b[3]
+    g = b[4]
+    m = b[5]
+    p = b[6]
+    f = b[7]
     for (r = 0; r < u; r += 1)
       16 > r
         ? ((q = r * t),
@@ -948,16 +943,16 @@
         (l = h),
         (h = k),
         (k = d),
-        (d = v(n, q));
-    b[0] = v(d, b[0]);
-    b[1] = v(k, b[1]);
-    b[2] = v(h, b[2]);
-    b[3] = v(l, b[3]);
-    b[4] = v(g, b[4]);
-    b[5] = v(m, b[5]);
-    b[6] = v(p, b[6]);
-    b[7] = v(f, b[7]);
-    return b;
+        (d = v(n, q))
+    b[0] = v(d, b[0])
+    b[1] = v(k, b[1])
+    b[2] = v(h, b[2])
+    b[3] = v(l, b[3])
+    b[4] = v(g, b[4])
+    b[5] = v(m, b[5])
+    b[6] = v(p, b[6])
+    b[7] = v(f, b[7])
+    return b
   }
   function D(e, b) {
     var d,
@@ -965,29 +960,29 @@
       h,
       l,
       g = [],
-      m = [];
+      m = []
     if (null !== e)
       for (c = 0; c < e.length; c += 2)
         b[(c >>> 1) % 5][((c >>> 1) / 5) | 0] = B(
           b[(c >>> 1) % 5][((c >>> 1) / 5) | 0],
           new a(e[c + 1], e[c])
-        );
+        )
     for (d = 0; 24 > d; d += 1) {
-      l = A('SHA3-');
+      l = A('SHA3-')
       for (c = 0; 5 > c; c += 1) {
-        h = b[c][0];
+        h = b[c][0]
         var p = b[c][1],
           f = b[c][2],
           n = b[c][3],
-          q = b[c][4];
-        g[c] = new a(h.a ^ p.a ^ f.a ^ n.a ^ q.a, h.b ^ p.b ^ f.b ^ n.b ^ q.b);
+          q = b[c][4]
+        g[c] = new a(h.a ^ p.a ^ f.a ^ n.a ^ q.a, h.b ^ p.b ^ f.b ^ n.b ^ q.b)
       }
-      for (c = 0; 5 > c; c += 1) m[c] = B(g[(c + 4) % 5], U(g[(c + 1) % 5], 1));
+      for (c = 0; 5 > c; c += 1) m[c] = B(g[(c + 4) % 5], U(g[(c + 1) % 5], 1))
       for (c = 0; 5 > c; c += 1)
-        for (h = 0; 5 > h; h += 1) b[c][h] = B(b[c][h], m[c]);
+        for (h = 0; 5 > h; h += 1) b[c][h] = B(b[c][h], m[c])
       for (c = 0; 5 > c; c += 1)
         for (h = 0; 5 > h; h += 1)
-          l[h][(2 * c + 3 * h) % 5] = U(b[c][h], Y[c][h]);
+          l[h][(2 * c + 3 * h) % 5] = U(b[c][h], Y[c][h])
       for (c = 0; 5 > c; c += 1)
         for (h = 0; 5 > h; h += 1)
           b[c][h] = B(
@@ -996,12 +991,12 @@
               ~l[(c + 1) % 5][h].a & l[(c + 2) % 5][h].a,
               ~l[(c + 1) % 5][h].b & l[(c + 2) % 5][h].b
             )
-          );
-      b[0][0] = B(b[0][0], Z[d]);
+          )
+      b[0][0] = B(b[0][0], Z[d])
     }
-    return b;
+    return b
   }
-  var c, X, Y, Z;
+  var c, X, Y, Z
   c = [
     1116352408, 1899447441, 3049323471, 3921009573, 961987163, 1508970993,
     2453635748, 2870763221, 3624381080, 310598401, 607225278, 1426881987,
@@ -1013,8 +1008,8 @@
     3259730800, 3345764771, 3516065817, 3600352804, 4094571909, 275423344,
     430227734, 506948616, 659060556, 883997877, 958139571, 1322822218,
     1537002063, 1747873779, 1955562222, 2024104815, 2227730452, 2361852424,
-    2428436474, 2756734187, 3204031479, 3329325298
-  ];
+    2428436474, 2756734187, 3204031479, 3329325298,
+  ]
   X = [
     new a(c[0], 3609767458),
     new a(c[1], 602891725),
@@ -1095,8 +1090,8 @@
     new a(1288033470, 3409855158),
     new a(1501505948, 4234509866),
     new a(1607167915, 987167468),
-    new a(1816402316, 1246189591)
-  ];
+    new a(1816402316, 1246189591),
+  ]
   Z = [
     new a(0, 1),
     new a(0, 32898),
@@ -1121,21 +1116,21 @@
     new a(2147483648, 2147516545),
     new a(2147483648, 32896),
     new a(0, 2147483649),
-    new a(2147483648, 2147516424)
-  ];
+    new a(2147483648, 2147516424),
+  ]
   Y = [
     [0, 36, 3, 41, 18],
     [1, 44, 10, 45, 2],
     [62, 6, 43, 15, 61],
     [28, 55, 25, 21, 56],
-    [27, 20, 39, 8, 14]
-  ];
+    [27, 20, 39, 8, 14],
+  ]
   'function' === typeof define && define.amd
     ? define(function () {
-        return C;
+        return C
       })
     : 'undefined' !== typeof exports
     ? ('undefined' !== typeof module && module.exports && (module.exports = C),
       (exports = C))
-    : (aa.jsSHA = C);
-})(this);
+    : (aa.jsSHA = C)
+})(this)

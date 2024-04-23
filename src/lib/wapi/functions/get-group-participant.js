@@ -1,21 +1,19 @@
-import { sleep } from '../helper';
-
-export async function getGroupParticipant(groupId, time = 1000) {
+export async function getGroupParticipant(groupId) {
   if (typeof groupId !== 'string') {
-    return WAPI.scope(undefined, true, null, 'Use to groupId string');
+    return WAPI.scope(undefined, true, null, 'Use to groupId string')
   }
 
-  const chat = await WAPI.sendExist(groupId);
+  const chat = await WAPI.sendExist(groupId)
 
   if (chat && chat.status != 404 && chat.id) {
     const moduleGroup = await window.Store.GroupMetadata._models.filter(
       (e) => e.id._serialized === groupId
-    );
+    )
 
     const participants =
       moduleGroup.length && moduleGroup[0].participants
         ? moduleGroup[0].participants
-        : undefined;
+        : undefined
 
     if (participants) {
       const output = participants.map((participant) => {
@@ -52,13 +50,13 @@ export async function getGroupParticipant(groupId, time = 1000) {
           isMe:
             participant.contact && participant.contact.isMe
               ? participant.contact.isMe
-              : null
-        };
-      });
+              : null,
+        }
+      })
 
-      return output;
+      return output
     }
-    return WAPI.scope(undefined, true, null, 'Error find Group');
+    return WAPI.scope(undefined, true, null, 'Error find Group')
   }
-  return WAPI.scope(undefined, true, null, 'Group not found');
+  return WAPI.scope(undefined, true, null, 'Group not found')
 }

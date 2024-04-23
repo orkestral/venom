@@ -1,13 +1,13 @@
 export function addOnLiveLocation() {
   window.WAPI.onLiveLocation = async function (chatId, callback) {
     return await window.WAPI.waitForStore(['LiveLocation'], () => {
-      var lLChat = Store.LiveLocation.get(chatId);
+      var lLChat = Store.LiveLocation.get(chatId)
       if (lLChat) {
-        var validLocs = lLChat.participants.validLocations();
+        var validLocs = lLChat.participants.validLocations()
         validLocs.map((x) =>
           x.on('change:lastUpdated', (x, y, z) => {
-            console.log(x, y, z);
-            const { id, lat, lng, accuracy, degrees, speed, lastUpdated } = x;
+            console.log(x, y, z)
+            const { id, lat, lng, accuracy, degrees, speed, lastUpdated } = x
             const l = {
               id: id.toString(),
               lat,
@@ -15,16 +15,16 @@ export function addOnLiveLocation() {
               accuracy,
               degrees,
               speed,
-              lastUpdated
-            };
+              lastUpdated,
+            }
             // console.log('newloc',l)
-            callback(l);
+            callback(l)
           })
-        );
-        return true;
+        )
+        return true
       } else {
-        return false;
+        return false
       }
-    });
-  };
+    })
+  }
 }

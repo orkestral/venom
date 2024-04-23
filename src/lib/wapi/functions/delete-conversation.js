@@ -1,27 +1,27 @@
 export async function deleteConversation(chatId, done) {
-  let userId = new Store.UserConstructor(chatId, {
-    intentionallyUsePrivateConstructor: true
-  });
-  let conversation = await WAPI.getChat(userId);
+  const userId = new Store.UserConstructor(chatId, {
+    intentionallyUsePrivateConstructor: true,
+  })
+  const conversation = await WAPI.getChat(userId)
 
   if (!conversation) {
     if (done !== undefined) {
-      done(false);
+      done(false)
     }
-    return false;
+    return false
   }
 
   window.Store.sendDelete(conversation, false)
     .then(() => {
       if (done !== undefined) {
-        done(true);
+        done(true)
       }
     })
     .catch(() => {
       if (done !== undefined) {
-        done(false);
+        done(false)
       }
-    });
+    })
 
-  return true;
+  return true
 }

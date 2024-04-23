@@ -1,18 +1,18 @@
 export async function getGroupAdmins(groupId) {
   if (typeof groupId !== 'string') {
-    return WAPI.scope(undefined, true, null, 'Use to groupId string');
+    return WAPI.scope(undefined, true, null, 'Use to groupId string')
   }
-  const chat = await WAPI.sendExist(groupId);
+  const chat = await WAPI.sendExist(groupId)
 
   if (chat && chat.status != 404 && chat.id) {
     const moduleGroup = await window.Store.GroupMetadata.default.models.filter(
       (e) => e.id._serialized === groupId
-    );
+    )
 
     const participants =
       moduleGroup.length && moduleGroup[0].participants
         ? moduleGroup[0].participants
-        : undefined;
+        : undefined
 
     if (participants) {
       const output = participants
@@ -51,12 +51,12 @@ export async function getGroupAdmins(groupId) {
             isMe:
               participant.contact && participant.contact.isMe
                 ? participant.contact.isMe
-                : null
-          };
-        });
-      return output;
+                : null,
+          }
+        })
+      return output
     }
-    return WAPI.scope(undefined, true, null, 'Error find Group');
+    return WAPI.scope(undefined, true, null, 'Error find Group')
   }
-  return WAPI.scope(undefined, true, null, 'Group not found');
+  return WAPI.scope(undefined, true, null, 'Group not found')
 }

@@ -1,6 +1,6 @@
 export const _serializeProfilePicThumb = (obj) => {
   if (obj == undefined) {
-    return null;
+    return null
   }
 
   return Object.assign(
@@ -11,7 +11,7 @@ export const _serializeProfilePicThumb = (obj) => {
       img: obj?.img,
       imgFull: obj?.imgFull,
       raw: obj?.raw,
-      tag: obj?.tag
+      tag: obj?.tag,
     }
-  );
-};
+  )
+}

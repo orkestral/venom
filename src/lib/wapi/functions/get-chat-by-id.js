@@ -1,13 +1,13 @@
 export async function getChatById(id) {
   try {
     if (id) {
-      let found = await WAPI.getChat(id);
+      const found = await WAPI.getChat(id)
       if (found) {
-        return WAPI._serializeChatObj(found);
+        return WAPI._serializeChatObj(found)
       }
     }
-    throw false;
+    throw false
   } catch {
-    return false;
+    return false
   }
 }

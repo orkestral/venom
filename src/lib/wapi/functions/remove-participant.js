@@ -1,30 +1,30 @@
 export async function removeParticipant(groupId, contactsId, done) {
-  const chat = Store.Chat.get(groupId);
+  const chat = Store.Chat.get(groupId)
 
   if (!Array.isArray(contactsId)) {
-    contactsId = [contactsId];
+    contactsId = [contactsId]
   }
 
-  contactsId = await Promise.all(contactsId.map((c) => WAPI.sendExist(c)));
+  contactsId = await Promise.all(contactsId.map((c) => WAPI.sendExist(c)))
   contactsId = contactsId
     .filter((c) => !c.erro && c.isUser)
     .map((c) => chat.groupMetadata.participants.get(c.id))
     .filter((c) => typeof c !== 'undefined')
-    .map((c) => c.id);
+    .map((c) => c.id)
 
   if (!contactsId.length) {
-    typeof done === 'function' && done(false);
-    return false;
+    typeof done === 'function' && done(false)
+    return false
   }
 
-  await window.Store.WapQuery.removeParticipants(chat.id, contactsId);
+  await window.Store.WapQuery.removeParticipants(chat.id, contactsId)
 
   const participants = contactsId.map((c) =>
     chat.groupMetadata.participants.get(c)
-  );
+  )
 
-  await window.Store.Participants.removeParticipants(chat, participants);
+  await window.Store.Participants.removeParticipants(chat, participants)
 
-  typeof done === 'function' && done(true);
-  return true;
+  typeof done === 'function' && done(true)
+  return true
 }

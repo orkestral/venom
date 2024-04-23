@@ -6,24 +6,24 @@ export async function sendMessageWithThumb(
   chatId,
   done
 ) {
-  var chatSend = await WAPI.getChat(chatId);
+  var chatSend = await WAPI.getChat(chatId)
   if (chatSend === undefined) {
-    if (done !== undefined) done(false);
-    return false;
+    if (done !== undefined) done(false)
+    return false
   }
   var linkPreview = {
     canonicalUrl: url,
     description: description,
     matchedText: url,
     title: title,
-    thumbnail: thumb
-  };
+    thumbnail: thumb,
+  }
   chatSend.sendMessage(url, {
     linkPreview: linkPreview,
     mentionedJidList: [],
     quotedMsg: null,
-    quotedMsgAdminGroupJid: null
-  });
-  if (done !== undefined) done(true);
-  return true;
+    quotedMsgAdminGroupJid: null,
+  })
+  if (done !== undefined) done(true)
+  return true
 }

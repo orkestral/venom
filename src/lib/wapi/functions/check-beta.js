@@ -4,7 +4,7 @@ export async function isBeta() {
     !window.localStorage.getItem('WAToken1') &&
     !window.localStorage.getItem('WAToken2')
   ) {
-    return true;
+    return true
   }
-  return false;
+  return false
 }

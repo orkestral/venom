@@ -1,10 +1,10 @@
 export const _serializeContactObj = (obj) => {
   if (obj == undefined) {
-    return null;
+    return null
   }
 
   if (!obj.profilePicThumb && obj.id && Store.ProfilePicThumb) {
-    obj.profilePicThumb = Store.ProfilePicThumb.get(obj.id);
+    obj.profilePicThumb = Store.ProfilePicThumb.get(obj.id)
   }
 
   return Object.assign(window.WAPI._serializeRawObj(obj), {
@@ -26,6 +26,6 @@ export const _serializeContactObj = (obj) => {
       ? WAPI._serializeProfilePicThumb(obj?.profilePicThumb)
       : {},
     statusMute: obj?.statusMute,
-    msgs: null
-  });
-};
+    msgs: null,
+  })
+}

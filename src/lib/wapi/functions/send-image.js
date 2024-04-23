@@ -1,4 +1,4 @@
-import { sendFile } from './send-file';
+import { sendFile } from './send-file'
 
 /**
  * Sends image to given chat if
@@ -17,5 +17,5 @@ export function sendImage(
   status = false,
   passId
 ) {
-  return sendFile(imgBase64, chatid, filename, caption, type, status, passId);
+  return sendFile(imgBase64, chatid, filename, caption, type, status, passId)
 }

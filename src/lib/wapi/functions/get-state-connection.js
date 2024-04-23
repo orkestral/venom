@@ -3,5 +3,5 @@
  * @returns obj
  */
 export function getStateConnection() {
-  return window.Store.State.Socket.state;
+  return window.Store.State.Socket.state
 }

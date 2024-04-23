@@ -1,20 +1,20 @@
 export async function checkNumberStatus(id, conn = false) {
   try {
-    const err = { error: 404 };
+    const err = { error: 404 }
     const connection =
       window.Store &&
       window.Store.State &&
       window.Store.State.Socket &&
       window.Store.State.Socket.state
         ? window.Store.State.Socket.state
-        : '';
-    const checkType = WAPI.sendCheckType(id);
+        : ''
+    const checkType = WAPI.sendCheckType(id)
     if (!!checkType && checkType.status === 404) {
       Object.assign(err, {
         text: checkType.text,
-        numberExists: null
-      });
-      throw err;
+        numberExists: null,
+      })
+      throw err
     }
 
     if (conn === true) {
@@ -22,13 +22,13 @@ export async function checkNumberStatus(id, conn = false) {
         Object.assign(err, {
           text: 'No connection with WhatsApp',
           connection: connection,
-          numberExists: null
-        });
-        throw err;
+          numberExists: null,
+        })
+        throw err
       }
     }
 
-    const lid = await WAPI.getChat(id);
+    const lid = await WAPI.getChat(id)
     if (lid) {
       return await Store.checkNumber
         .queryWidExists(lid.id)
@@ -37,38 +37,38 @@ export async function checkNumberStatus(id, conn = false) {
             const data = {
               status: 200,
               numberExists: true,
-              id: result.wid
-            };
-            return data;
+              id: result.wid,
+            }
+            return data
           }
           throw Object.assign(err, {
             connection: connection,
             numberExists: false,
-            text: `The number does not exist`
-          });
+            text: `The number does not exist`,
+          })
         })
         .catch((err) => {
           if (err.text) {
-            throw err;
+            throw err
           }
           throw Object.assign(err, {
             connection: connection,
             numberExists: false,
-            text: err
-          });
-        });
+            text: err,
+          })
+        })
     } else {
       throw Object.assign(err, {
         connection: connection,
-        numberExists: false
-      });
+        numberExists: false,
+      })
     }
   } catch (e) {
     return {
       status: e.error,
       text: e.text,
       numberExists: e.numberExists,
-      connection: e.connection
-    };
+      connection: e.connection,
+    }
   }
 }

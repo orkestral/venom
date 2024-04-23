@@ -1,5 +1,5 @@
-import { processFiles } from './process-files';
-import { base64ToFile } from '../helper';
+import { processFiles } from './process-files'
+import { base64ToFile } from '../helper'
 
 /**
  * Sends product with product image to given chat id
@@ -20,11 +20,11 @@ export function sendImageWithProduct(
 ) {
   Store.Catalog.findCarouselCatalog(bizNumber).then(async (cat) => {
     if (cat && cat[0]) {
-      const product = cat[0].productCollection.get(productId);
+      const product = cat[0].productCollection.get(productId)
       const temp = {
         productMsgOptions: {
           businessOwnerJid: product.catalogWid.toString({
-            legacy: !0
+            legacy: !0,
           }),
           productId: product.id.toString(),
           url: product.url,
@@ -33,34 +33,34 @@ export function sendImageWithProduct(
           description: product.description,
           currencyCode: product.currency,
           priceAmount1000: product.priceAmount1000,
-          type: 'product'
+          type: 'product',
         },
-        caption
-      };
+        caption,
+      }
 
-      const idUser = new Store.WidFactory.createWid(chatid);
+      const idUser = new Store.WidFactory.createWid(chatid)
       await Store.Chat.add(
         {
           createdLocally: true,
-          id: idUser
+          id: idUser,
         },
         {
-          merge: true
+          merge: true,
         }
-      );
+      )
       return Store.Chat.find(idUser).then((chat) => {
-        var mediaBlob = base64ToFile(imgBase64, product.name);
+        var mediaBlob = base64ToFile(imgBase64, product.name)
         // var mc = new Store.MediaCollection(chat);
         // mc.processFiles([mediaBlob], chat, 1)
         processFiles(chat, mediaBlob).then((mc) => {
-          var media = mc.models[0];
+          var media = mc.models[0]
           Object.entries(temp.productMsgOptions).map(
             ([k, v]) => (media.mediaPrep._mediaData[k] = v)
-          );
-          media.mediaPrep.sendToChat(chat, temp);
-          if (done !== undefined) done(true);
-        });
-      });
+          )
+          media.mediaPrep.sendToChat(chat, temp)
+          if (done !== undefined) done(true)
+        })
+      })
     }
-  });
+  })
 }

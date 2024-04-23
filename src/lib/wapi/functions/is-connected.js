@@ -4,7 +4,7 @@ export function isConnected(done) {
     document.querySelector('[data-testid="alert-phone"]') == null &&
     document.querySelector('[data-testid="alert-computer"]') == null
       ? true
-      : false;
-  if (done !== undefined) done(isConnected);
-  return isConnected;
+      : false
+  if (done !== undefined) done(isConnected)
+  return isConnected
 }

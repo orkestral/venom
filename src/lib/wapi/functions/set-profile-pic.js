@@ -1,9 +1,9 @@
 export async function setProfilePic(obj, id) {
   if (!id) {
-    id = await Store.MaybeMeUser.getMaybeMeUser();
+    id = await Store.MaybeMeUser.getMaybeMeUser()
   } else {
-    id = new Store.WidFactory.createWid(id);
+    id = new Store.WidFactory.createWid(id)
   }
-  let base64 = 'data:image/jpeg;base64,';
-  return await Store.Profile.sendSetPicture(id, base64 + obj.b, base64 + obj.a);
+  const base64 = 'data:image/jpeg;base64,'
+  return await Store.Profile.sendSetPicture(id, base64 + obj.b, base64 + obj.a)
 }

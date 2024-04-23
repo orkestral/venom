@@ -4,31 +4,31 @@ export async function getAllMessagesInChat(
   includeNotifications = true,
   done
 ) {
-  const chat = typeof id === 'string' ? await WAPI.getChat(id) : false;
+  const chat = typeof id === 'string' ? await WAPI.getChat(id) : false
   if (
     chat &&
     typeof includeMe === 'boolean' &&
     typeof includeNotifications === 'boolean'
   ) {
-    let output = [];
-    const messages = chat.msgs._models;
+    const output = []
+    const messages = chat.msgs._models
 
     for (const i in messages) {
       if (i === 'remove') {
-        continue;
+        continue
       }
-      const messageObj = messages[i];
+      const messageObj = messages[i]
 
-      let message = await WAPI.processMessageObj(
+      const message = await WAPI.processMessageObj(
         messageObj,
         includeMe,
         includeNotifications
-      );
-      if (message) output.push(message);
+      )
+      if (message) output.push(message)
     }
-    if (done !== undefined) done(output);
-    return output;
+    if (done !== undefined) done(output)
+    return output
   } else {
-    return await WAPI.sendExist(id);
+    return await WAPI.sendExist(id)
   }
 }
