@@ -21,7 +21,8 @@ interface WAPI {
   clearChatMessages: (chatId: string) => void
   createGroup: (
     groupName: string,
-    contactId: string | string[]
+    contactId: string | string[],
+    temporarySeconds: number
   ) => GroupCreation
   deleteConversation: (chatId: string) => boolean
   deleteMessages: (contactId: string, messageId: string[]) => Promise<object>
