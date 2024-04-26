@@ -26,11 +26,23 @@ export async function verifyContacts(
 
   const result = []
   contactsId.forEach((contactId) => {
+    // if you use sendExists with a valid contact id, but with @g.us instead of @c.us, it will return a valid contact
+    // Therefore, we need to check if the contact is correctly typed
+    if (contactId.contains('@g.us')) {
+      return result.push({
+        success: false,
+        phoneNumber: contactId,
+        error: GROUP_ERRORS.INVALID_CONTACT_ID,
+      })
+    }
     result.push({ success: false, phoneNumber: contactId })
   })
 
   await Promise.all(
     result.map(async (contact, index) => {
+      if (contact.error) {
+        return
+      }
       const contactObj = await WAPI.sendExist(contact.phoneNumber, true, false)
       if (
         !contactObj ||
