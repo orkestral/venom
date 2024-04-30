@@ -10,6 +10,7 @@ import {
   ParticipantEvent,
   PicTumb,
   ChatStatus,
+  Revoke,
 } from '../model'
 import { SocketState, SocketStream } from '../model/enum'
 import { InterfaceChangeMode } from '../model'
@@ -26,6 +27,7 @@ declare global {
     onStateChange: any
     onIncomingCall: any
     onAck: any
+    onRevoked: any
     onStreamChange: any
     onFilePicThumb: any
     onChatState: any
@@ -44,6 +46,7 @@ export class ListenerLayer extends ProfileLayer {
   // TODO - Study and refactor these callbacks
   private callonMessage = new callbackWile()
   private callOnack = new callbackWile()
+  //private callOnRevoked = new callbackWile()
 
   constructor(
     public browser: Browser,
@@ -114,6 +117,9 @@ export class ListenerLayer extends ProfileLayer {
         })
         window.WAPI.onAck((e: any) => {
           window.onAck(e)
+        })
+        window.WAPI.onRevoked((e: any) => {
+          window.onRevoked(e)
         })
         window.WAPI.onPoll((e: any) => {
           window.onPoll(e)
@@ -323,6 +329,21 @@ export class ListenerLayer extends ProfileLayer {
             }
           }
         })
+      },
+    }
+  }
+
+  /**
+   * @event Listens to messages revoked changes
+   * @returns Observable stream of messages
+   */
+  // TODO - Remover any
+  public async onRevoked(fn: (revoke: Revoke) => void) {
+    this.listenerEmitter.on(ExposedFn.onRevoked, fn)
+
+    return {
+      dispose: () => {
+        this.listenerEmitter.off(ExposedFn.onRevoked, fn)
       },
     }
   }
