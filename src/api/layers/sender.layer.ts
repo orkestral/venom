@@ -11,12 +11,13 @@ import {
 import { filenameFromMimeType } from '../helpers/filename-from-mimetype';
 import { Message, SendFileResult, SendStickerResult } from '../model';
 import { ChatState } from '../model/enum';
-import { ListenerLayer } from './listener.layer';
+import { AutomateLayer } from './AutomateLayer';
 import { Scope, checkValuesSender } from '../helpers/layers-interface';
+import { Mutex } from 'async-mutex';
 
 let obj: Scope;
 
-export class SenderLayer extends ListenerLayer {
+export class SenderLayer extends AutomateLayer {
   constructor(
     public browser: Browser,
     public page: Page,
@@ -362,6 +363,7 @@ export class SenderLayer extends ListenerLayer {
       }
     });
   }
+
   /**
    * Sends a text message to given chat
    * @param to chat id: xxxxx@us.c

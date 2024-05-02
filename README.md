@@ -1,10 +1,5 @@
 # 🕷Venom Bot🕸
 
-## Help Keep This Project Going
-With your support, we can sustain this project. If you use this project for work, know that you can contribute financially to its success!
-<br>
-<a href='https://www.paypal.com/donate/?hosted_button_id=YRGDGS6FDLUDL'><img src='https://github.com/orkestral/venom/blob/master/img/Donate-now-button-blue.png' height='117' alt='Donate' /></a>
-
 [![npm version](https://img.shields.io/npm/v/venom-bot.svg?color=green)](https://www.npmjs.com/package/venom-bot)
 ![node](https://img.shields.io/node/v/venom-bot)
 [![Downloads](https://img.shields.io/npm/dm/venom-bot.svg)](https://www.npmjs.com/package/venom-bot)
@@ -469,6 +464,13 @@ await client
   .catch((erro) => {
     console.error('Error when sending: ', erro); //return object error
   });
+
+
+// Send text message by injecting keystrokes into WhatsApp, thus maintaining the typing indicator
+let success = await client.sendTextViaTyping('000000000000@c.us', '👋 Hello from venom!');
+
+// Send photo or video by injecting keystrokes
+let success = await client.sendPhotoVideoViaTyping('000000000000@c.us', 'path/to/file.jpg', 'Pretty sunset');
 
 // Send location
 await client

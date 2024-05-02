@@ -22,8 +22,6 @@ import axios from 'axios';
 import { defaultOptions } from '../config/create-config';
 import * as unzipper from 'unzipper';
 import { exec } from 'child_process';
-import isRoot from 'is-root';
-import 'node-fetch';
 
 type CustomLaunchOptions = LaunchOptions & {
   headless?: boolean | 'new' | 'old';
@@ -41,6 +39,10 @@ type CustomLaunchOptions = LaunchOptions & {
 
 const cach_url =
   'https://raw.githubusercontent.com/wppconnect-team/wa-version/main/html/';
+
+function isRoot() {
+  return process.getuid && process.getuid() === 0;
+}
 
 export async function initWhatsapp(
   options: options | CreateConfig,
