@@ -1,5 +1,7 @@
-const { GROUP_ERRORS } = require('../constants/group-errors')
-const { verifyContacts } = require('../validation/group')
+const {
+  getAddParticipantStatusError,
+  verifyContacts,
+} = require('../validation/group')
 
 export async function createGroup(name, contactsId, temporarySeconds) {
   if (!Array.isArray(contactsId)) {
@@ -39,25 +41,7 @@ export async function createGroup(name, contactsId, temporarySeconds) {
     if (!statusError) {
       return (contacts[index].success = true)
     }
-    switch (statusError) {
-      case 401:
-        contacts[index].error = GROUP_ERRORS.CONTACT_BLOCKED_ME
-        break
-      case 403:
-        contacts[index].error = GROUP_ERRORS.FORBIDDEN
-        break
-      case 404:
-        contacts[index].error = GROUP_ERRORS.INVALID_CONTACT_ID
-        break
-      case 408:
-        contacts[index].error = GROUP_ERRORS.RECENT_LEAVE
-        break
-      case 409:
-        contacts[index].error = GROUP_ERRORS.CONTACT_ALREADY_IN_GROUP
-        break
-      default:
-        contacts[index].error = GROUP_ERRORS.FORBIDDEN
-    }
+    contacts[index].error = getAddParticipantStatusError(statusError)
   })
   return {
     id: requestResult.wid._serialized,
