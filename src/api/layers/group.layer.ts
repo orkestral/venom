@@ -336,7 +336,7 @@ export class GroupLayer extends RetrieverLayer {
    * Creates a new chat group
    * @param groupName Group name
    * @param contacts Contacts that should be added.
-   * @param temporarySeconds Seconds that messages will remain visible. Set 0 for infinite.
+   * @param temporarySeconds Seconds of the expiration of temporary messages from whatsapp group. Set 0 for never.
    */
   public async createGroup(
     groupName: string,

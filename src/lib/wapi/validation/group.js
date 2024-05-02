@@ -73,3 +73,20 @@ export async function verifyContacts(
 
   return result
 }
+
+export const getAddParticipantStatusError = (statusError) => {
+  switch (statusError) {
+    case 401:
+      return GROUP_ERRORS.CONTACT_BLOCKED_ME
+    case 403:
+      return GROUP_ERRORS.FORBIDDEN
+    case 404:
+      return GROUP_ERRORS.INVALID_CONTACT_ID
+    case 408:
+      return GROUP_ERRORS.RECENT_LEAVE
+    case 409:
+      return GROUP_ERRORS.CONTACT_ALREADY_IN_GROUP
+    default:
+      return GROUP_ERRORS.FORBIDDEN
+  }
+}

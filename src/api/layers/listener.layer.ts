@@ -46,7 +46,6 @@ export class ListenerLayer extends ProfileLayer {
   // TODO - Study and refactor these callbacks
   private callonMessage = new callbackWile()
   private callOnack = new callbackWile()
-  //private callOnRevoked = new callbackWile()
 
   constructor(
     public browser: Browser,

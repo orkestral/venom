@@ -1,5 +1,8 @@
-const { GROUP_ERRORS } = require('../constants/group-errors')
-const { verifyContacts, verifyGroup } = require('../validation/group')
+const {
+  getAddParticipantStatusError,
+  verifyContacts,
+  verifyGroup,
+} = require('../validation/group')
 
 export async function addParticipant(groupId, contactsId) {
   if (!Array.isArray(contactsId)) {
@@ -44,28 +47,11 @@ export async function addParticipant(groupId, contactsId) {
       (contact) => contact.phoneNumber === phoneNumber
     )
     const status = parseInt(participant.code)
-    switch (status) {
-      case 200:
-        contacts[index].success = true
-        break
-      case 401:
-        contacts[index].error = GROUP_ERRORS.CONTACT_BLOCKED_ME
-        break
-      case 403:
-        contacts[index].error = GROUP_ERRORS.FORBIDDEN
-        break
-      case 404:
-        contacts[index].error = GROUP_ERRORS.INVALID_CONTACT_ID
-        break
-      case 408:
-        contacts[index].error = GROUP_ERRORS.RECENT_LEAVE
-        break
-      case 409:
-        contacts[index].error = GROUP_ERRORS.CONTACT_ALREADY_IN_GROUP
-        break
-      default:
-        contacts[index].error = GROUP_ERRORS.FORBIDDEN
+    if (status === 200) {
+      contacts[index].success = true
+      return
     }
+    contacts[index].error = getAddParticipantStatusError(status)
   })
   return contacts.map((contact) => {
     return {
