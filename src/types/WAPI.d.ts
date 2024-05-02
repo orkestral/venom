@@ -98,6 +98,7 @@ interface WAPI {
   onInterfaceChange: (callback: Function) => void
   onMessage: (callback: Function) => void
   onAck: (callback: Function) => void
+  onRevoked: (callback: Function) => void
   onPoll: (callback: Function) => void
   onLiveLocation: (chatId: string, callback: Function) => any
   onParticipantsChanged: (groupId: string, callback: Function) => any

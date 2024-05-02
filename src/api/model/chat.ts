@@ -1,6 +1,7 @@
 import { Contact } from './contact'
 import { GroupMetadata } from './group-metadata'
 import { Id } from './id'
+import { LastReceivedKey } from './message'
 
 export interface Chat {
   archive: boolean
@@ -37,13 +38,6 @@ export interface ProfilePicThumbObj {
   imgFull: string
   raw: null
   tag: string
-}
-
-export interface LastReceivedKey {
-  fromMe: boolean
-  remote: Id
-  id: string
-  _serialized: string
 }
 
 export interface Presence {

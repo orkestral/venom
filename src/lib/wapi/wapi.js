@@ -145,6 +145,7 @@ import {
   addonUnreadMessage,
   addonChatState,
   addOnStream,
+  addOnNewRevokes,
 } from './listeners'
 import {
   _serializeChatObj,
@@ -612,4 +613,5 @@ if (typeof window.WAPI === 'undefined') {
   addOnAddedToGroup()
   addOnLiveLocation()
   addOnParticipantsChange()
+  addOnNewRevokes()
 }
