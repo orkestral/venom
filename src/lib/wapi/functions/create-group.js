@@ -1,13 +1,56 @@
-export async function createGroup(name, contactsId) {
+const {
+  getAddParticipantStatusError,
+  verifyContacts,
+} = require('../validation/group')
+
+export async function createGroup(name, contactsId, temporarySeconds) {
   if (!Array.isArray(contactsId)) {
     contactsId = [contactsId]
   }
 
-  contactsId = await Promise.all(contactsId.map((c) => WAPI.sendExist(c)))
-  contactsId = contactsId.filter((c) => !c.erro && c.isUser)
+  temporarySeconds = parseInt(temporarySeconds) || 0
+  temporarySeconds = temporarySeconds < 0 ? 0 : temporarySeconds
 
-  if (!contactsId.length) {
-    return false
+  contactsId = contactsId.filter(
+    (item, index) => contactsId.indexOf(item) === index
+  )
+
+  const contacts = await verifyContacts(contactsId)
+
+  if (contacts.every((contact) => contact.error)) {
+    return contacts
   }
-  return await window.Store.createGroup(name, undefined, undefined, contactsId)
+
+  const requestResult = await Store.GroupCreateJob.createGroup(
+    name,
+    contacts.filter((contact) => contact.id).map((contact) => contact.id),
+    temporarySeconds
+  )
+
+  const creator = requestResult.creator._serialized
+
+  requestResult.participants.forEach((participant) => {
+    const phoneNumber = participant.wid._serialized
+    if (creator === phoneNumber) {
+      return
+    }
+    const index = contacts.findIndex(
+      (contact) => contact.phoneNumber === phoneNumber
+    )
+    const statusError = parseInt(participant.error)
+    if (!statusError) {
+      return (contacts[index].success = true)
+    }
+    contacts[index].error = getAddParticipantStatusError(statusError)
+  })
+  return {
+    id: requestResult.wid._serialized,
+    contacts: contacts.map((contact) => {
+      return {
+        phoneNumber: contact.phoneNumber,
+        success: contact.success,
+        error: contact.error,
+      }
+    }),
+  }
 }

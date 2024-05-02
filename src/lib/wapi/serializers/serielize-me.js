@@ -9,7 +9,7 @@ export const _serializeMeObj = async (obj) => {
 
   const newObj = {}
 
-  console.log(newObj.id)
+  // console.log(newObj.id)
 
   Object.assign(newObj, {
     id: obj.id ? obj.id : null,

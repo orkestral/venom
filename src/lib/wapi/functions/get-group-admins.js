@@ -5,14 +5,7 @@ export async function getGroupAdmins(groupId) {
   const chat = await WAPI.sendExist(groupId)
 
   if (chat && chat.status != 404 && chat.id) {
-    const moduleGroup = await window.Store.GroupMetadata.default.models.filter(
-      (e) => e.id._serialized === groupId
-    )
-
-    const participants =
-      moduleGroup.length && moduleGroup[0].participants
-        ? moduleGroup[0].participants
-        : undefined
+    const participants = chat.groupMetadata.participants._models
 
     if (participants) {
       const output = participants
