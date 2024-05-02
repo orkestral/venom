@@ -18,6 +18,18 @@ export const filterObjects = [
         : null,
   },
   {
+    type: 'GroupModifyParticipantsJob',
+    when: (module) =>
+      module.addGroupParticipants && module.removeGroupParticipants
+        ? module
+        : null,
+  },
+  {
+    type: 'GroupCreateJob',
+    when: (module) =>
+      module.createGroup && !module.sendForNeededAddRequest ? module : null,
+  },
+  {
     type: 'checkNumber',
     when: (module) => (module.queryExist ? module : null),
   },

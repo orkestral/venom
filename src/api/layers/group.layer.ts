@@ -336,11 +336,17 @@ export class GroupLayer extends RetrieverLayer {
    * Creates a new chat group
    * @param groupName Group name
    * @param contacts Contacts that should be added.
+   * @param temporarySeconds Seconds that messages will remain visible. Set 0 for infinite.
    */
-  public async createGroup(groupName: string, contacts: string | string[]) {
+  public async createGroup(
+    groupName: string,
+    contacts: string | string[],
+    temporarySeconds: number = 0
+  ) {
     return await this.page.evaluate(
-      ({ groupName, contacts }) => WAPI.createGroup(groupName, contacts),
-      { groupName, contacts }
+      ({ groupName, contacts, temporarySeconds }) =>
+        WAPI.createGroup(groupName, contacts, temporarySeconds),
+      { groupName, contacts, temporarySeconds }
     )
   }
 

@@ -1,30 +1,59 @@
-export async function removeParticipant(groupId, contactsId, done) {
-  const chat = Store.Chat.get(groupId)
+const { GROUP_ERRORS } = require('../constants/group-errors')
+const { verifyContacts, verifyGroup } = require('../validation/group')
 
+export async function removeParticipant(groupId, contactsId) {
   if (!Array.isArray(contactsId)) {
     contactsId = [contactsId]
   }
 
-  contactsId = await Promise.all(contactsId.map((c) => WAPI.sendExist(c)))
-  contactsId = contactsId
-    .filter((c) => !c.erro && c.isUser)
-    .map((c) => chat.groupMetadata.participants.get(c.id))
-    .filter((c) => typeof c !== 'undefined')
-    .map((c) => c.id)
+  const chat = await WAPI.sendExist(groupId)
 
-  if (!contactsId.length) {
-    typeof done === 'function' && done(false)
-    return false
+  const errorGroup = verifyGroup(chat, true)
+  if (errorGroup) {
+    return errorGroup
   }
 
-  await window.Store.WapQuery.removeParticipants(chat.id, contactsId)
-
-  const participants = contactsId.map((c) =>
-    chat.groupMetadata.participants.get(c)
+  contactsId = contactsId.filter(
+    (item, index) => contactsId.indexOf(item) === index
   )
 
-  await window.Store.Participants.removeParticipants(chat, participants)
+  const contacts = await verifyContacts(contactsId, chat, true, false)
 
-  typeof done === 'function' && done(true)
-  return true
+  if (contacts.every((contact) => contact.error)) {
+    return contacts
+  }
+
+  const requestResult =
+    await Store.GroupModifyParticipantsJob.removeGroupParticipants(
+      chat.id,
+      contacts.filter((contact) => contact.id).map((contact) => contact.id)
+    )
+
+  if (requestResult.status !== 207) {
+    throw new Error(`Error in request: status [${requestResult.status}]`)
+  }
+  requestResult.participants.forEach((participant) => {
+    const phoneNumber = participant.userWid._serialized
+    const index = contacts.findIndex(
+      (contact) => contact.phoneNumber === phoneNumber
+    )
+    const status = parseInt(participant.code)
+    switch (status) {
+      case 200:
+        contacts[index].success = true
+        break
+      case 404:
+        contacts[index].error = GROUP_ERRORS.CONTACT_NOT_IN_GROUP
+        break
+      default:
+        contacts[index].error = GROUP_ERRORS.FORBIDDEN
+    }
+  })
+  return contacts.map((contact) => {
+    return {
+      phoneNumber: contact.phoneNumber,
+      success: contact.success,
+      error: contact.error,
+    }
+  })
 }
