@@ -5,7 +5,10 @@ export async function getMessageById(key, done, serialize = true) {
 
   if (!msg) {
     // Get chat of message
-    const chat = window.Store.Chat.get(key.remote)
+
+    const chatId = key.replace(/(true_|false_)/, '').split('@c.us')[0] + '@c.us'
+
+    const chat = window.Store.Chat.get(chatId)
     if (!chat) {
       return erro
     }
@@ -15,8 +18,11 @@ export async function getMessageById(key, done, serialize = true) {
     await WAPI.sleep(100)
     msg = window.Store.Msg.get(key)
 
-    if (!msg) {
+    /* if (!msg) {
       // If not found, load messages around the message ID
+      // NOTE - new Module and method: WAWebChatMessageSearch. Now needs (chat, key)
+      // key is gotten by Store.MsgKey.fromString('false_556481422014@c.us_64CCB294FAADBDBED8') - a serializable
+      // However, I don't think is working properly
       const context = chat.getSearchContext(key)
       if (
         context &&
@@ -26,7 +32,7 @@ export async function getMessageById(key, done, serialize = true) {
         await context.collection.loadAroundPromise
       }
       msg = window.Store.Msg.get(key)
-    }
+    } */
   }
 
   if (!msg) {
