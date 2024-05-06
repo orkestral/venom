@@ -1017,41 +1017,55 @@ export class SenderLayer extends AutomateLayer {
 
       filename = filenameFromMimeType(filename, mimeType)
 
-      const result = await this.page.evaluate(
-        ({
-          to,
-          base64,
-          filename,
-          caption,
-          passId,
-          checkNumber,
-          forcingReturn,
-          delSend,
-        }) => {
-          return WAPI.sendFile(
-            base64,
+      let result = {}
+      try {
+        result = await this.page.evaluate(
+          ({
             to,
+            base64,
             filename,
             caption,
-            'sendFile',
-            undefined,
             passId,
             checkNumber,
             forcingReturn,
-            delSend
-          )
-        },
-        {
-          to,
-          base64,
-          filename,
-          caption,
-          passId,
-          checkNumber,
-          forcingReturn,
-          delSend,
+            delSend,
+          }) => {
+            return WAPI.sendFile(
+              base64,
+              to,
+              filename,
+              caption,
+              'sendFile',
+              undefined,
+              passId,
+              checkNumber,
+              forcingReturn,
+              delSend
+            )
+          },
+          {
+            to,
+            base64,
+            filename,
+            caption,
+            passId,
+            checkNumber,
+            forcingReturn,
+            delSend,
+          }
+        )
+      } catch (error) {
+        result = {
+          erro: true,
+          to: to,
+          text: error.message,
         }
-      )
+
+        if (error.message.includes('protocolTimeout')) {
+          await this.page.reload()
+        }
+      }
+
       if (result['erro'] == true) {
         reject(result)
       } else {
