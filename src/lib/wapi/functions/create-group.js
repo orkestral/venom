@@ -1,6 +1,7 @@
 const {
   getAddParticipantStatusError,
   verifyContacts,
+  normalizePhoneNumber
 } = require('../validation/group')
 
 export async function createGroup(name, contactsId, temporarySeconds) {
