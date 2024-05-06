@@ -90,3 +90,9 @@ export const getAddParticipantStatusError = (statusError) => {
       return GROUP_ERRORS.FORBIDDEN
   }
 }
+
+export const normalizePhoneNumber = (phoneNumber) => {
+  return phoneNumber.length === 18
+    ? phoneNumber.slice(0, 4) + phoneNumber.slice(5)
+    : phoneNumber
+}
