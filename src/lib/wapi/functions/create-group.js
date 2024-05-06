@@ -34,15 +34,23 @@ export async function createGroup(name, contactsId, temporarySeconds) {
     if (creator === phoneNumber) {
       return
     }
-    const index = contacts.findIndex(
-      (contact) => contact.phoneNumber === phoneNumber
-    )
+
+    const normalizedPhoneNumber = normalizePhoneNumber(phoneNumber)
+
+    const index = contacts.findIndex((contact) => {
+      const normalizedContactPhoneNumber = normalizePhoneNumber(
+        contact.phoneNumber
+      )
+
+      return normalizedContactPhoneNumber === normalizedPhoneNumber
+    })
     const statusError = parseInt(participant.error)
     if (!statusError) {
       return (contacts[index].success = true)
     }
     contacts[index].error = getAddParticipantStatusError(statusError)
   })
+  
   return {
     id: requestResult.wid._serialized,
     contacts: contacts.map((contact) => {
