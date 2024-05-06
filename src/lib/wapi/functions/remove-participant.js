@@ -1,5 +1,9 @@
 const { GROUP_ERRORS } = require('../constants/group-errors')
-const { verifyContacts, verifyGroup } = require('../validation/group')
+const {
+  verifyContacts,
+  verifyGroup,
+  normalizePhoneNumber,
+} = require('../validation/group')
 
 export async function removeParticipant(groupId, contactsId) {
   if (!Array.isArray(contactsId)) {
@@ -34,9 +38,14 @@ export async function removeParticipant(groupId, contactsId) {
   }
   requestResult.participants.forEach((participant) => {
     const phoneNumber = participant.userWid._serialized
-    const index = contacts.findIndex(
-      (contact) => contact.phoneNumber === phoneNumber
-    )
+    const normalizedPhoneNumber = normalizePhoneNumber(phoneNumber)
+    const index = contacts.findIndex((contact) => {
+      const normalizedContactPhoneNumber = normalizePhoneNumber(
+        contact.phoneNumber
+      )
+
+      return normalizedContactPhoneNumber === normalizedPhoneNumber
+    })
     const status = parseInt(participant.code)
     switch (status) {
       case 200:
