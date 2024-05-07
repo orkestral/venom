@@ -1,7 +1,8 @@
+/* eslint-disable no-undef */
 /**
  * @type {import('semantic-release').GlobalConfig}
  */
-export default {
+module.exports = {
   ci: true,
   branches: [
     { name: 'release', prerelease: false },
