@@ -23,6 +23,7 @@ export async function demoteParticipant(groupId, contactsId, done) {
     chat.groupMetadata.participants.get(c)
   )
 
+  // NOTE - This is clicking button of add participant, it'll not return any response
   await window.Store.Participants.demoteParticipants(chat, participants)
 
   typeof done === 'function' && done(true)

@@ -1,4 +1,4 @@
-import { LastReceivedKey } from './chat'
+import { LastReceivedKey } from './message'
 import { HostDevice } from './host-device'
 
 export interface ScopeResult {
