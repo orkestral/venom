@@ -2,7 +2,7 @@ const {
   getAddParticipantStatusError,
   verifyContacts,
   verifyGroup,
-  normalizePhoneNumber,
+  getContactIndex,
 } = require('../validation/group')
 
 export async function addParticipant(groupId, contactsId) {
@@ -44,15 +44,9 @@ export async function addParticipant(groupId, contactsId) {
   }
   requestResult.participants.forEach((participant) => {
     const phoneNumber = participant.userWid._serialized
-    const normalizedPhoneNumber = normalizePhoneNumber(phoneNumber)
 
-    const index = contacts.findIndex((contact) => {
-      const normalizedContactPhoneNumber = normalizePhoneNumber(
-        contact.phoneNumber
-      )
-
-      return normalizedContactPhoneNumber === normalizedPhoneNumber
-    })
+    const index = getContactIndex(phoneNumber, contacts)
+    
     const status = parseInt(participant.code)
     if (status === 200) {
       contacts[index].success = true

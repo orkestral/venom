@@ -1,7 +1,7 @@
 const {
   getAddParticipantStatusError,
   verifyContacts,
-  normalizePhoneNumber
+  getContactIndex,
 } = require('../validation/group')
 
 export async function createGroup(name, contactsId, temporarySeconds) {
@@ -36,15 +36,8 @@ export async function createGroup(name, contactsId, temporarySeconds) {
       return
     }
 
-    const normalizedPhoneNumber = normalizePhoneNumber(phoneNumber)
+    const index = getContactIndex(phoneNumber, contacts)
 
-    const index = contacts.findIndex((contact) => {
-      const normalizedContactPhoneNumber = normalizePhoneNumber(
-        contact.phoneNumber
-      )
-
-      return normalizedContactPhoneNumber === normalizedPhoneNumber
-    })
     const statusError = parseInt(participant.error)
     if (!statusError) {
       return (contacts[index].success = true)
