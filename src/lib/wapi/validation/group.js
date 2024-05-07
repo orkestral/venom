@@ -1,4 +1,5 @@
 const { GROUP_ERRORS } = require('../constants/group-errors')
+const phoneUtil = require('google-libphonenumber').PhoneNumberUtil.getInstance()
 
 export function verifyGroup(chat, needsToBeAdmin = false) {
   if (!chat || chat.erro || chat.status === 404 || !chat.isGroup) {
@@ -91,8 +92,36 @@ export const getAddParticipantStatusError = (statusError) => {
   }
 }
 
-export const normalizePhoneNumber = (phoneNumber) => {
-  return phoneNumber.length === 18
-    ? phoneNumber.slice(0, 4) + phoneNumber.slice(5)
-    : phoneNumber
+export const normalizePhoneNumber = (contactPhoneNumber) => {
+  const phoneNumber = contactPhoneNumber.replace('@c.us', '')
+  const phoneCountry = getCountryByPhoneNumber(phoneNumber)
+
+  switch (phoneCountry) {
+    case 'BR':
+      if (hasThirteenDigits(phoneNumber)) {
+        contactPhoneNumber = removeNineDigitInPhoneNumber(phoneNumber) + '@c.us'
+      }
+      break
+  }
+
+  return contactPhoneNumber
+}
+
+function removeNineDigitInPhoneNumber(phoneNumber) {
+  return (
+    phoneNumber.toString().substr(0, 4) + '' + phoneNumber.toString().substr(5)
+  )
+}
+
+function hasThirteenDigits(phoneNumber) {
+  return phoneNumber.toString().length === 13
+}
+
+function getCountryByPhoneNumber(phoneNumber) {
+  const phone = getPhoneParse(phoneNumber)
+  return phoneUtil.getRegionCodeForNumber(phone)
+}
+
+function getPhoneParse(phoneNumber) {
+  return phoneUtil.parse(`+${phoneNumber}`)
 }
