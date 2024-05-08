@@ -1,6 +1,7 @@
 const {
   getAddParticipantStatusError,
   verifyContacts,
+  getContactIndex,
 } = require('../validation/group')
 
 export async function createGroup(name, contactsId, temporarySeconds) {
@@ -34,15 +35,16 @@ export async function createGroup(name, contactsId, temporarySeconds) {
     if (creator === phoneNumber) {
       return
     }
-    const index = contacts.findIndex(
-      (contact) => contact.phoneNumber === phoneNumber
-    )
+
+    const index = getContactIndex(phoneNumber, contacts)
+
     const statusError = parseInt(participant.error)
     if (!statusError) {
       return (contacts[index].success = true)
     }
     contacts[index].error = getAddParticipantStatusError(statusError)
   })
+  
   return {
     id: requestResult.wid._serialized,
     contacts: contacts.map((contact) => {

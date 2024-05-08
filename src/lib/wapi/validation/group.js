@@ -1,3 +1,5 @@
+import { normalizePhoneNumber } from '../helper/normalize-phone-number'
+
 const { GROUP_ERRORS } = require('../constants/group-errors')
 
 export function verifyGroup(chat, needsToBeAdmin = false) {
@@ -89,4 +91,15 @@ export const getAddParticipantStatusError = (statusError) => {
     default:
       return GROUP_ERRORS.FORBIDDEN
   }
+}
+
+export const getContactIndex = (phoneNumber, contacts) => {
+  const normalizedPhoneNumber = normalizePhoneNumber(phoneNumber)
+  return contacts.findIndex((contact) => {
+    const normalizedContactPhoneNumber = normalizePhoneNumber(
+      contact.phoneNumber
+    )
+
+    return normalizedContactPhoneNumber === normalizedPhoneNumber
+  })
 }
