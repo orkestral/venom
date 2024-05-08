@@ -1,38 +1,48 @@
-export async function getMessageById(key, done, serialize = true) {
+export async function getMessageById(
+  key,
+  done,
+  serialize = true,
+  limitIterationFindMessage = 1
+) {
   // Check message is loaded in store
   let msg = window.Store.Msg.get(key)
   const erro = { erro: true }
 
   if (!msg) {
-    // Get chat of message
+    if (!key.contains('@c.us') && !key.contains('@g.us')) {
+      return erro
+    }
 
-    const chatId = key.replace(/(true_|false_)/, '').split('@c.us')[0] + '@c.us'
+    // Capture chatId from id of message
+    const splitKey = key.replace('true_', '').replace('false_', '').split('@')
+    const chatId = splitKey[0] + '@' + splitKey[1].split('_')[0]
 
-    const chat = window.Store.Chat.get(chatId)
+    let chat
+    try {
+      chat = window.Store.Chat.get(chatId)
+    } catch (err) {
+      return erro
+    }
+
     if (!chat) {
       return erro
     }
 
-    //If not message not found, load latest messages of chat
-    await chat.onEmptyMRM()
-    await WAPI.sleep(100)
-    msg = window.Store.Msg.get(key)
-
-    /* if (!msg) {
-      // If not found, load messages around the message ID
-      // NOTE - new Module and method: WAWebChatMessageSearch. Now needs (chat, key)
-      // key is gotten by Store.MsgKey.fromString('false_556481422014@c.us_64CCB294FAADBDBED8') - a serializable
-      // However, I don't think is working properly
-      const context = chat.getSearchContext(key)
-      if (
-        context &&
-        context.collection &&
-        context.collection.loadAroundPromise
-      ) {
-        await context.collection.loadAroundPromise
-      }
+    let i = 0
+    while (true) {
       msg = window.Store.Msg.get(key)
-    } */
+      if (msg) {
+        break
+      }
+      const msgs = await window.Store.ChatLoadMessages.loadEarlierMsgs(chat)
+      if (!msgs || msgs.length === 0) {
+        return erro
+      }
+      if (limitIterationFindMessage !== 0 && i >= limitIterationFindMessage) {
+        break
+      }
+      i++
+    }
   }
 
   if (!msg) {
