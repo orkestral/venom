@@ -38,7 +38,7 @@ export async function removeParticipant(groupId, contactsId) {
   }
   requestResult.participants.forEach((participant) => {
     const phoneNumber = participant.userWid._serialized
-    
+
     const index = getContactIndex(phoneNumber, contacts)
 
     const status = parseInt(participant.code)

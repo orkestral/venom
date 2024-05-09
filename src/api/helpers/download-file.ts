@@ -28,7 +28,7 @@ export async function downloadFileToBase64(
       logger.error(`Content-Type "${mimeType}" of ${_path} is not allowed`)
       return false
     }
-    
+
     if (_mines.length) {
       const isValidMime = _mines.some((m) => {
         if (typeof m === 'string') {
