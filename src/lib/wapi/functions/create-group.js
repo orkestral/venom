@@ -44,7 +44,7 @@ export async function createGroup(name, contactsId, temporarySeconds) {
     }
     contacts[index].error = getAddParticipantStatusError(statusError)
   })
-  
+
   return {
     id: requestResult.wid._serialized,
     contacts: contacts.map((contact) => {
