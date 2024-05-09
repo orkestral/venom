@@ -37,6 +37,14 @@ export type CatchQR = (
  * A callback will be received, informing the customer's status
  */
 export type CallbackStatus = (callbackStatus: Status, session: string) => void
+/**
+ * A callback will be received, informing the customer's state
+ */
+export type CallbackState = (state: SocketState, session: string) => void
+/**
+ * A callback will be received, informing the customer's state
+ */
+export type CallbackStream = (stream: SocketStream, session: string) => void
 
 /**
  * A callback will be received, informing user about browser and page instance
@@ -70,6 +78,14 @@ export interface CreateOptions extends CreateConfig {
    * A callback will be received, customer interface information
    */
   interfaceChange?: InterfaceChange
+  /**
+   * A callback will be received, customer state information
+   */
+  stateChange?: CallbackState
+  /**
+   * A callback will be received, customer stream information
+   */
+  streamChange?: CallbackStream
 }
 
 /**
@@ -94,7 +110,9 @@ export async function create(
   options?: CreateConfig,
   browserInstance?: BrowserInstance,
   reconnectQrcode?: ReconnectQrcode,
-  interfaceChange?: InterfaceChange
+  interfaceChange?: InterfaceChange,
+  stateChange?: CallbackState,
+  streamChange?: CallbackStream
 ): Promise<Whatsapp> {
   let session = 'session'
   return new Promise(async (resolve, reject) => {
@@ -111,11 +129,15 @@ export async function create(
       browserInstance = sessionOrOption.browserInstance || browserInstance
       options = sessionOrOption
     }
+
     const mergedOptions = { ...defaultOptions, ...options }
+
     catchQR = callbackDefaultTo(catchQR)
     browserInstance = callbackDefaultTo(browserInstance)
     reconnectQrcode = callbackDefaultTo(reconnectQrcode)
     interfaceChange = callbackDefaultTo(interfaceChange)
+    stateChange = callbackDefaultTo(stateChange)
+    streamChange = callbackDefaultTo(streamChange)
 
     configureLogger(mergedOptions.loggerOptions)
 
@@ -312,6 +334,8 @@ export async function create(
 
       client
         .onStreamChange(async (stateStream: SocketStream) => {
+          streamChange(stateStream, session)
+
           if (stateStream === SocketStream.CONNECTED) {
             logger.debug(
               `[whatzapp-${session}:onStreamChange] Successfully connected!`
@@ -345,6 +369,8 @@ export async function create(
 
       client
         .onStateChange(async (state) => {
+          stateChange(state, session)
+
           if (state === SocketState.PAIRING) {
             try {
               const device: Boolean = await page.evaluate(() => {

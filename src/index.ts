@@ -6,6 +6,7 @@ export {
   GroupNotificationType,
   MessageType,
   SocketState,
+  SocketStream,
   InterfaceMode,
   InterfaceState,
 } from './api/model/enum'
@@ -18,6 +19,8 @@ export {
   BrowserInstance,
   CreateOptions,
   CallbackStatus,
+  CallbackState,
+  CallbackStream,
   ReconnectQrcode,
 } from './controllers/initializer'
 export { Status, statusManagement } from './controllers/status-management'
