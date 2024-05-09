@@ -194,8 +194,8 @@ interface WAPI {
   sendButtons: (
     to: string,
     title: string,
-    buttons: object,
-    subtitle: string
+    subtitle: string,
+    buttons: object
   ) => Promise<object>;
   sendTypeButtons(
     to: string,
