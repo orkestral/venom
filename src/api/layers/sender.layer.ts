@@ -1164,21 +1164,26 @@ export class SenderLayer extends AutomateLayer {
    * Forwards array of messages (could be ids or message objects)
    * @param to Chat id
    * @param messages Array of messages ids to be forwarded
-   * @param skipMyMessages
+   * @param skipMyMessages Ignore messages from yourself
+   * @param limitIterationFindMessage If messages not loaded, set the limit of iterate the search. Default is 1. If 0, ulimited
    */
   public async forwardMessages(
     to: string,
     messages: string | string[],
-    skipMyMessages: boolean
+    skipMyMessages: boolean,
+    limitIterationFindMessage: number
   ) {
     return new Promise(async (resolve, reject) => {
       const result = await this.page.evaluate(
-        ({ to, messages, skipMyMessages }) => {
-          return WAPI.forwardMessages(to, messages, skipMyMessages).catch(
-            (e) => e
-          )
+        ({ to, messages, skipMyMessages, limitIterationFindMessage }) => {
+          return WAPI.forwardMessages(
+            to,
+            messages,
+            skipMyMessages,
+            limitIterationFindMessage
+          ).catch((e) => e)
         },
-        { to, messages, skipMyMessages }
+        { to, messages, skipMyMessages, limitIterationFindMessage }
       )
       if (typeof result['erro'] !== 'undefined' && result['erro'] == true) {
         reject(result)

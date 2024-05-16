@@ -1,39 +1,53 @@
-export async function getMessageById(key, done, serialize = true) {
+export async function getMessageById(
+  key,
+  done,
+  serialize = true,
+  limitIterationFindMessage = 1
+) {
   // Check message is loaded in store
   let msg = window.Store.Msg.get(key)
-  const erro = { erro: true }
 
   if (!msg) {
-    // Get chat of message
-    const chat = window.Store.Chat.get(key.remote)
+    if (!key.contains('@c.us') && !key.contains('@g.us')) {
+      return { erro: 'invalid key: without chatId' }
+    }
+
+    // Capture chatId from id of message
+    const splitKey = key.replace('true_', '').replace('false_', '').split('@')
+    const chatId = splitKey[0] + '@' + splitKey[1].split('_')[0]
+
+    let chat
+    try {
+      chat = window.Store.Chat.get(chatId)
+    } catch (err) {
+      return { erro: 'error trying to find chat' }
+    }
+
     if (!chat) {
-      return erro
+      return { erro: 'chat not found' }
     }
 
-    //If not message not found, load latest messages of chat
-    await chat.onEmptyMRM()
-    await WAPI.sleep(100)
-    msg = window.Store.Msg.get(key)
-
-    if (!msg) {
-      // If not found, load messages around the message ID
-      const context = chat.getSearchContext(key)
-      if (
-        context &&
-        context.collection &&
-        context.collection.loadAroundPromise
-      ) {
-        await context.collection.loadAroundPromise
-      }
+    let i = 0
+    while (
+      limitIterationFindMessage === 0 ||
+      ++i <= limitIterationFindMessage
+    ) {
       msg = window.Store.Msg.get(key)
+      if (msg) {
+        break
+      }
+      const msgs = await window.Store.ChatLoadMessages.loadEarlierMsgs(chat)
+      if (!msgs || msgs.length === 0) {
+        return { erro: 'message not found' }
+      }
     }
   }
 
   if (!msg) {
-    return erro
+    return { erro: 'message not found' }
   }
 
-  let result = erro
+  let result = { erro: 'message not found' }
 
   if (serialize) {
     try {

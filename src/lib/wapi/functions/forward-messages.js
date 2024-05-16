@@ -1,73 +1,128 @@
-export async function forwardMessages(chatId, messages, skipMyMessages) {
+export async function forwardMessages(
+  chatId,
+  messages,
+  skipMyMessages,
+  limitIterationFindMessage = 1
+) {
   var chat = await WAPI.sendExist(chatId)
 
   if (!Array.isArray(messages)) {
     messages = [messages]
   }
 
-  var toForward = (
-    await Promise.all(
-      messages.map(async (msg) => {
-        return await WAPI.getMessageById(msg, null, false)
-      })
+  const messagesObjs = []
+  for (const msgIdOrMsgObj of messages) {
+    const msgId = msgIdOrMsgObj.id ? msgIdOrMsgObj.id : msgIdOrMsgObj
+    const msg = await WAPI.getMessageById(
+      msgId,
+      null,
+      false,
+      limitIterationFindMessage
     )
-  ).filter((msg) => (skipMyMessages ? !msg.__x_isSentByMe : true))
+    if (skipMyMessages && msg.id.fromMe) {
+      continue
+    }
+    messagesObjs.push({ id: msgId, obj: msg, passId: msgIdOrMsgObj.passId })
+  }
 
-  var m = { type: 'forwardMessages' }
+  var m = { type: 'forwardMessages', messages: [] }
+
+  if (messagesObjs.length === 0) {
+    m.error = await WAPI.scope(chatId, true, 412, 'Empty messages array')
+  }
 
   return new Promise(async (resolve, reject) => {
-    const newMsgId = await window.WAPI.getNewMessageId(chat.id._serialized)
     const inChat = await WAPI.getchatId(chat.id).catch(() => {})
     if (inChat) {
       chat.lastReceivedKey._serialized = inChat._serialized
       chat.lastReceivedKey.id = inChat.id
     }
     if (chat.id) {
-      await Promise.each(toForward, async (e) => {
-        if (typeof e.erro !== 'undefined' && e.erro === true) {
-          var obj = WAPI.scope(chatId, true, null, 'message not found')
-          Object.assign(obj, m)
-          reject(obj)
-          return
+      for (const msg of messagesObjs) {
+        try {
+          if (typeof msg.obj.erro !== 'undefined') {
+            const msgResponse = {
+              id: msg.id,
+              scope: await WAPI.scope(msg.id, true, null, msg.obj.erro),
+            }
+            m.messages.push(msgResponse)
+            continue
+          }
+
+          const newMsgId = !msg.passId
+            ? await window.WAPI.getNewMessageId(chat.id._serialized, true)
+            : await window.WAPI.setNewMessageId(msg.passId, true)
+          const tempMsg = {}
+          const fromwWid = await Store.MaybeMeUser.getMaybeMeUser()
+          const toFor = await Object.assign(msg.obj.attributes)
+          const extend = {
+            id: newMsgId,
+            ack: 0,
+            from: fromwWid,
+            to: chat.id,
+            local: !0,
+            self: 'out',
+            t: parseInt(new Date().getTime() / 1000),
+            isNewMsg: !0,
+            isForwarded: true,
+            forwardingScore: 1,
+            multicast: true,
+            __x_isSentByMe: true,
+          }
+
+          Object.assign(tempMsg, toFor)
+          Object.assign(tempMsg, extend)
+
+          const response = await Promise.all(
+            await Store.addAndSendMsgToChat(chat, tempMsg)
+          )
+
+          if (response[1].messageSendResult !== 'OK') {
+            const msgResponse = {
+              id: msg.id,
+              newId: newMsgId,
+              scope: await WAPI.scope(
+                msg.id,
+                true,
+                500,
+                response[1].messageSendResult
+              ),
+            }
+            m.messages.push(msgResponse)
+            continue
+          }
+
+          const msgResponse = {
+            id: msg.id,
+            newId: newMsgId,
+            scope: await WAPI.scope(
+              msg.id,
+              false,
+              200,
+              response[1].messageSendResult
+            ),
+          }
+
+          m.messages.push(msgResponse)
+        } catch (error) {
+          const duplicated = error.name === 'DuplicateMessageError'
+          const msgResponse = {
+            id: msg.id,
+            scope: await WAPI.scope(
+              msg.id,
+              true,
+              duplicated ? 409 : 500,
+              duplicated ? error.name : 'error sending message'
+            ),
+          }
+          m.messages.push(msgResponse)
+          continue
         }
-
-        const tempMsg = await Object.create(
-          chat.msgs.filter((msg) => msg.__x_isSentByMe)
-        )[0]
-        const fromwWid = await Store.MaybeMeUser.getMaybeMeUser()
-        const toFor = await Object.assign(e)
-        const extend = {
-          id: newMsgId,
-          ack: 0,
-          from: fromwWid,
-          to: chat.id,
-          local: !0,
-          self: 'out',
-          t: parseInt(new Date().getTime() / 1000),
-          isNewMsg: !0,
-          isForwarded: true,
-          forwardingScore: 1,
-          multicast: true,
-          __x_isSentByMe: true,
-        }
-
-        Object.assign(tempMsg, toFor)
-        Object.assign(tempMsg, extend)
-
-        return await Store.addAndSendMsgToChat(chat, tempMsg)
-      })
-        .then(async () => {
-          var obj = WAPI.scope(newMsgId, false, 200, null)
-          Object.assign(obj, m)
-          resolve(obj)
-        })
-        .catch(() => {
-          var obj = WAPI.scope(newMsgId, true, 404, null)
-          Object.assign(obj, m)
-          reject(obj)
-        })
+      }
+      resolve(m)
     } else {
-      reject(chat)
+      m.error = await WAPI.scope(chatId, true, 412, 'chat not found')
+      reject(m)
     }
   })
 }

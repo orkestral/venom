@@ -32,7 +32,8 @@ interface WAPI {
   forwardMessages: (
     to: string,
     messages: string | string[],
-    skipMyMessages: boolean
+    skipMyMessages: boolean,
+    limitIterationFindMessage: number
   ) => Promise<object>
   getAllChats: () => Promise<Chat[] | object[]>
   getAllChatIds: () => Promise<string[]>

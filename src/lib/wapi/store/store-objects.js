@@ -488,4 +488,13 @@ export const storeObjects = [
     id: 'userJidToUserWid',
     conditions: (module) => (module.newsletterJidToWid ? module : null),
   },
+  {
+    id: 'ChatLoadMessages',
+    conditions: (module) =>
+      module.loadRecentMsgs &&
+      module.loadEarlierMsgs &&
+      module.loadMsgsPromiseLoop
+        ? module
+        : null,
+  },
 ]
