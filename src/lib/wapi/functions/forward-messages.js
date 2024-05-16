@@ -40,10 +40,10 @@ export async function forwardMessages(
     if (chat.id) {
       for (const msg of messagesObjs) {
         try {
-          if (typeof msg.obj.erro !== 'undefined' && msg.obj.erro === true) {
+          if (typeof msg.obj.erro !== 'undefined') {
             const msgResponse = {
               id: msg.id,
-              scope: await WAPI.scope(msg.id, true, null, 'message not found'),
+              scope: await WAPI.scope(msg.id, true, null, msg.obj.erro),
             }
             m.messages.push(msgResponse)
             continue

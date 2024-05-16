@@ -6,11 +6,10 @@ export async function getMessageById(
 ) {
   // Check message is loaded in store
   let msg = window.Store.Msg.get(key)
-  const erro = { erro: true }
 
   if (!msg) {
     if (!key.contains('@c.us') && !key.contains('@g.us')) {
-      return erro
+      return { erro: 'invalid key: without chatId' }
     }
 
     // Capture chatId from id of message
@@ -21,35 +20,34 @@ export async function getMessageById(
     try {
       chat = window.Store.Chat.get(chatId)
     } catch (err) {
-      return erro
+      return { erro: 'error trying to find chat' }
     }
 
     if (!chat) {
-      return erro
+      return { erro: 'chat not found' }
     }
 
     let i = 0
-    while (true) {
+    while (
+      limitIterationFindMessage === 0 ||
+      ++i <= limitIterationFindMessage
+    ) {
       msg = window.Store.Msg.get(key)
       if (msg) {
         break
       }
       const msgs = await window.Store.ChatLoadMessages.loadEarlierMsgs(chat)
       if (!msgs || msgs.length === 0) {
-        return erro
+        return { erro: 'message not found' }
       }
-      if (limitIterationFindMessage !== 0 && i >= limitIterationFindMessage) {
-        break
-      }
-      i++
     }
   }
 
   if (!msg) {
-    return erro
+    return { erro: 'message not found' }
   }
 
-  let result = erro
+  let result = { erro: 'message not found' }
 
   if (serialize) {
     try {
