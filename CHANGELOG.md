@@ -1,3 +1,27 @@
+# [1.10.0](https://github.com/develupo/venom/compare/v1.9.0...v1.10.0) (2024-05-07)
+
+
+### Bug Fixes
+
+* Add try catch for sendFile to avoid time out error ([8779142](https://github.com/develupo/venom/commit/877914280c87584bac9f9299db05a327545f76ab))
+* added google libphonenumber ([8c9998f](https://github.com/develupo/venom/commit/8c9998f017e8f3919dc004629369a97a552d2be5))
+* Added normalize number method ([7fcd8b5](https://github.com/develupo/venom/commit/7fcd8b5d0602110954ed7900a96e7f3fec5112ce))
+* added normalizephonenumber to add-participant ([497589b](https://github.com/develupo/venom/commit/497589bf6d05168b8166de6e58c39a0af6519658))
+* added normalizePhoneNumber to create-group ([c233621](https://github.com/develupo/venom/commit/c233621446cba1d2d3dffbb89b2b915f47dfc5bf))
+* Added normalizePhoneNumber to remove-participant ([ae53b6c](https://github.com/develupo/venom/commit/ae53b6cc2c8d0290564f7492004d914ae7e9250a))
+* Added not allowed mime type validation ([04f82c7](https://github.com/develupo/venom/commit/04f82c79e352c898827a68543c4db6eb3cf8fc3e))
+* Adjusted group with normalizer ([75b68b2](https://github.com/develupo/venom/commit/75b68b2c2f146648adfad0d99e49b5409b97887f))
+* created not allowed types enum ([eaf0b53](https://github.com/develupo/venom/commit/eaf0b5330767a16d7742c4c1372d2a1a5df800e5))
+* fixing create group ([4d262c8](https://github.com/develupo/venom/commit/4d262c82e309df237de3b362ce853b783f462336))
+* release config file ([3db60fb](https://github.com/develupo/venom/commit/3db60fb48df23b79dab43d771a979f54fb61ef48))
+* semantic-release config file ([60e392e](https://github.com/develupo/venom/commit/60e392ecb645b4b40c07048db0260e4332a08622))
+* updated normalizeNumber method ([ecbbf21](https://github.com/develupo/venom/commit/ecbbf21c97be8e5bac99e194182cf930d8e859e8))
+
+
+### Features
+
+* add new semantic-release configuration ([c54017b](https://github.com/develupo/venom/commit/c54017b43bb25f3582005c76c3c2c0e08ece6c70))
+
 # [5.1.0](https://github.com/orkestral/venom/compare/v5.0.22...v5.1.0) (2024-04-03)
 
 ## [5.0.23](https://github.com/orkestral/venom/compare/v5.0.22...v5.0.23) (2024-01-18)
