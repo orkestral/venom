@@ -275,7 +275,7 @@ export async function create(
 
           if (interFace.info === InterfaceState.PAIRING) {
             logger.info(
-              `[whatzapp-${session}:onInterfaceChange] Pairing devide...`
+              `[whatzapp-${session}:onInterfaceChange] Pairing device...`
             )
             interfaceStatusManagement.setInterfaceStatus('syncingLoading')
           }
