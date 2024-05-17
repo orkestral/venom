@@ -1,6 +1,7 @@
 export async function getHost() {
   const fromwWid = await Store.MaybeMeUser.getMaybeMeUser()
-  if (fromwWid && Store.Chat) {
+  if (!fromwWid || !Store.Chat) return
+  if (fromwWid) {
     const idUser = await WAPI.sendExist(fromwWid._serialized)
     if (idUser && idUser.status !== 404) {
       //const infoUser = new Store.ProfileBusiness.BusinessProfile(idUser);
