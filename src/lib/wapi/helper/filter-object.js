@@ -38,11 +38,11 @@ export const filterObjects = [
     when: (module) => (module.queryPhoneExists ? module : null),
   },
   {
-    id: 'sendDeleteMsgs',
+    type: 'sendDeleteMsgs',
     when: (module) => (module.sendDeleteMsgs ? module.sendDeleteMsgs : null),
   },
   {
-    id: 'sendRevokeMsgs',
+    type: 'sendRevokeMsgs',
     when: (module) => (module.sendRevokeMsgs ? module.sendRevokeMsgs : null),
   },
 ]
