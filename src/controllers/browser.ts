@@ -8,6 +8,7 @@ import {
   Page,
   LaunchOptions,
   PuppeteerLaunchOptions,
+  HTTPRequest,
 } from 'puppeteer'
 import puppeteer from 'puppeteer-extra'
 import { options } from '../config'
@@ -34,7 +35,7 @@ type CustomLaunchOptions = LaunchOptions & {
   browserWS?: options['browserWS']
 }
 
-const cach_url =
+const baseWppCacheURL =
   'https://raw.githubusercontent.com/wppconnect-team/wa-version/main/html/'
 
 function isRoot() {
@@ -56,18 +57,15 @@ export async function initWhatsapp(
 
     const { userPass, userProxy, addProxy } = options
 
-    // TODO Create own cache version and download it or use HTML from options
-    if (typeof options.webVersion === 'string' && options.webVersion.length) {
+    if (
+      (typeof options.waVersionHTML === 'string' &&
+        typeof options.waVersionHTML.length) ||
+      (typeof options.webVersion === 'string' && options.webVersion.length)
+    ) {
       await waPage.setRequestInterception(true)
       waPage.on('request', async (req) => {
         if (req.url() === 'https://web.whatsapp.com/') {
-          const url = cach_url + options.webVersion + '.html'
-
-          await req.respond({
-            status: 200,
-            contentType: 'text/html',
-            body: await (await fetch(url)).text(),
-          })
+          await getWppCached(options, req)
         } else {
           if (options.forceWebpack === true) {
             const headers = req.headers()
@@ -460,4 +458,38 @@ function removeStoredSingletonLock(
       resolve(true)
     }
   })
+}
+
+async function getWppCached(options: options | CreateConfig, req: HTTPRequest) {
+  if (
+    typeof options.waVersionHTML === 'string' &&
+    options.waVersionHTML.length &&
+    fs.existsSync(options.waVersionHTML)
+  ) {
+    try {
+      const file = fs.readFileSync(options.waVersionHTML, 'utf8')
+      req.respond({
+        status: 200,
+        contentType: 'text/html',
+        body: file,
+      })
+      return
+    } catch (err) {
+      console.error(err)
+      return
+    }
+  } else if (
+    typeof options.webVersion === 'string' &&
+    options.webVersion.length
+  ) {
+    const url = baseWppCacheURL + options.webVersion + '.html'
+
+    await req.respond({
+      status: 200,
+      contentType: 'text/html',
+      body: await (await fetch(url)).text(),
+    })
+    return
+  }
+  console.error('No cached whatsapp version found')
 }
