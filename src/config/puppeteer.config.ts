@@ -49,8 +49,8 @@ const puppeteerConfig = {
     '--password-store=basic',
     '--use-mock-keychain',
     '--enable-blink-features=IdleDetection',
-    '--export-tagged-pdf',
-    'about:blank'
+    '--export-tagged-pdf'
+    //    'about:blank'
   ]
 };
 
