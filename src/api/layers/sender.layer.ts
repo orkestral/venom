@@ -279,9 +279,9 @@ export class SenderLayer extends AutomateLayer {
   /**
    * Sends a text message to given chat
    * @param to chat id: xxxxx@us.c
-   * @param content text message
-   * @param idMessage add id message
-   * @param passId new id
+   * @param title
+   * @param subtitle
+   * @param buttons
    */
   public async sendButtons(
     to: string,
@@ -330,7 +330,7 @@ export class SenderLayer extends AutomateLayer {
 
       const result = await this.page.evaluate(
         ({ to, title, subtitle, buttons }) => {
-          return WAPI.sendButtons(to, title, buttons, subtitle);
+          return WAPI.sendButtons(to, title, subtitle, buttons);
         },
         { to, title, subtitle, buttons }
       );
