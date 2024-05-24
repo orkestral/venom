@@ -8,7 +8,6 @@ import {
   Page,
   LaunchOptions,
   PuppeteerLaunchOptions,
-  HTTPRequest,
 } from 'puppeteer'
 import puppeteer from 'puppeteer-extra'
 import { options } from '../config'
@@ -20,6 +19,7 @@ import * as os from 'os'
 import { defaultOptions } from '../config/create-config'
 import { exec } from 'child_process'
 import { logger } from '../utils/logger'
+import { whatsappCacheManagement } from './whatsapp-cache-management'
 
 type CustomLaunchOptions = LaunchOptions & {
   headless?: boolean | 'new' | 'old'
@@ -35,9 +35,6 @@ type CustomLaunchOptions = LaunchOptions & {
   browserWS?: options['browserWS']
 }
 
-const baseWppCacheURL =
-  'https://raw.githubusercontent.com/wppconnect-team/wa-version/main/html/'
-
 function isRoot() {
   return process.getuid && process.getuid() === 0
 }
@@ -50,41 +47,17 @@ export async function initWhatsapp(
   if (!waPage) {
     return false
   }
+
+  whatsappCacheManagement.setup(waPage, options)
+
   try {
     await waPage.setUserAgent(useragentOverride)
     await waPage.setBypassCSP(true)
     waPage.setDefaultTimeout(60000)
 
+    whatsappCacheManagement.initListener()
+
     const { userPass, userProxy, addProxy } = options
-
-    if (
-      (typeof options.waVersionHTML === 'string' &&
-        typeof options.waVersionHTML.length) ||
-      (typeof options.webVersion === 'string' && options.webVersion.length)
-    ) {
-      await waPage.setRequestInterception(true)
-      waPage.on('request', async (req) => {
-        if (req.url() === 'https://web.whatsapp.com/') {
-          await getWppCached(options, req)
-        } else {
-          if (options.forceWebpack === true) {
-            const headers = req.headers()
-            if (headers.cookie) {
-              // Filter out the 'wa_build' cookies and reconstruct the cookie header
-              headers.cookie = headers.cookie
-                .split(';')
-                .filter((cookie) => !cookie.trim().startsWith('wa_build'))
-                .join(';')
-            }
-
-            // Continue the request with potentially modified headers
-            await req.continue({ headers })
-          } else {
-            await req.continue()
-          }
-        }
-      })
-    }
     if (
       typeof userPass === 'string' &&
       userPass.length &&
@@ -458,38 +431,4 @@ function removeStoredSingletonLock(
       resolve(true)
     }
   })
-}
-
-async function getWppCached(options: options | CreateConfig, req: HTTPRequest) {
-  if (
-    typeof options.waVersionHTML === 'string' &&
-    options.waVersionHTML.length &&
-    fs.existsSync(options.waVersionHTML)
-  ) {
-    try {
-      const file = fs.readFileSync(options.waVersionHTML, 'utf8')
-      req.respond({
-        status: 200,
-        contentType: 'text/html',
-        body: file,
-      })
-      return
-    } catch (err) {
-      console.error(err)
-      return
-    }
-  } else if (
-    typeof options.webVersion === 'string' &&
-    options.webVersion.length
-  ) {
-    const url = baseWppCacheURL + options.webVersion + '.html'
-
-    await req.respond({
-      status: 200,
-      contentType: 'text/html',
-      body: await (await fetch(url)).text(),
-    })
-    return
-  }
-  console.error('No cached whatsapp version found')
 }
