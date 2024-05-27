@@ -1,0 +1,4 @@
+export const MESSAGE_ERRORS = {
+    INVALID_CONTACT_ID: 'INVALID_CONTACT_ID',
+  }
+  
