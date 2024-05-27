@@ -48,14 +48,13 @@ export async function initWhatsapp(
     return false
   }
 
-  whatsappCacheManagement.setup(waPage, options)
-
   try {
+    whatsappCacheManagement.setup(waPage, options)
     await waPage.setUserAgent(useragentOverride)
     await waPage.setBypassCSP(true)
     waPage.setDefaultTimeout(60000)
 
-    whatsappCacheManagement.initListener()
+    await whatsappCacheManagement.initListener()
 
     const { userPass, userProxy, addProxy } = options
     if (

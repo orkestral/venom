@@ -13,7 +13,7 @@ class WhatsappCacheManagement {
   private webVersion: string = ''
   private forceWebpack: boolean = false
 
-  async setup(waPage: Page, options: options | CreateConfig) {
+  setup(waPage: Page, options: options | CreateConfig) {
     this.waPage = waPage
     if (
       typeof options.waVersionHTML === 'string' &&
