@@ -1,6 +1,6 @@
 export async function logout() {
-  if (window.Store.Login) {
-    await window.Store.Login.startLogout()
+  if (Store.State.Socket) {
+    await Store.State.Socket.logout()
     return true
   } else {
     return false
