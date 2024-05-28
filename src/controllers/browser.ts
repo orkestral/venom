@@ -19,6 +19,7 @@ import * as os from 'os'
 import { defaultOptions } from '../config/create-config'
 import { exec } from 'child_process'
 import { logger } from '../utils/logger'
+import { whatsappCacheManagement } from './whatsapp-cache-management'
 
 type CustomLaunchOptions = LaunchOptions & {
   headless?: boolean | 'new' | 'old'
@@ -34,9 +35,6 @@ type CustomLaunchOptions = LaunchOptions & {
   browserWS?: options['browserWS']
 }
 
-const cach_url =
-  'https://raw.githubusercontent.com/wppconnect-team/wa-version/main/html/'
-
 function isRoot() {
   return process.getuid && process.getuid() === 0
 }
@@ -49,44 +47,16 @@ export async function initWhatsapp(
   if (!waPage) {
     return false
   }
+
   try {
+    whatsappCacheManagement.setup(waPage, options)
     await waPage.setUserAgent(useragentOverride)
     await waPage.setBypassCSP(true)
     waPage.setDefaultTimeout(60000)
 
+    await whatsappCacheManagement.initListener()
+
     const { userPass, userProxy, addProxy } = options
-
-    // TODO Create own cache version and download it or use HTML from options
-    if (typeof options.webVersion === 'string' && options.webVersion.length) {
-      await waPage.setRequestInterception(true)
-      waPage.on('request', async (req) => {
-        if (req.url() === 'https://web.whatsapp.com/') {
-          const url = cach_url + options.webVersion + '.html'
-
-          await req.respond({
-            status: 200,
-            contentType: 'text/html',
-            body: await (await fetch(url)).text(),
-          })
-        } else {
-          if (options.forceWebpack === true) {
-            const headers = req.headers()
-            if (headers.cookie) {
-              // Filter out the 'wa_build' cookies and reconstruct the cookie header
-              headers.cookie = headers.cookie
-                .split(';')
-                .filter((cookie) => !cookie.trim().startsWith('wa_build'))
-                .join(';')
-            }
-
-            // Continue the request with potentially modified headers
-            await req.continue({ headers })
-          } else {
-            await req.continue()
-          }
-        }
-      })
-    }
     if (
       typeof userPass === 'string' &&
       userPass.length &&

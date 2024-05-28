@@ -100,10 +100,15 @@ export interface options {
    */
   forceWebpack?: boolean
   /**
+   * Use a cached version of WhatsApp from HTML file. It will take precedence over the webVersion option
+   * @default ''
+   */
+  waVersionHTML?: string
+  /**
    * Use a cached version of WhatsApp
    * @default false
    */
-  webVersion?: boolean | string
+  webVersion?: string
 }
 
 export const defaultOptions: options = {
@@ -123,5 +128,6 @@ export const defaultOptions: options = {
   addProxy: [],
   browserPathExecutable: '',
   forceWebpack: false,
-  webVersion: false,
+  waVersionHTML: '',
+  webVersion: '',
 }
