@@ -1,3 +1,5 @@
+import { MESSAGE_ERRORS } from '../constants/message-errors'
+
 export async function checkNumberStatus(id, conn = false) {
   try {
     const err = { error: 404 }
@@ -44,7 +46,7 @@ export async function checkNumberStatus(id, conn = false) {
           throw Object.assign(err, {
             connection: connection,
             numberExists: false,
-            text: `The number does not exist`,
+            text: MESSAGE_ERRORS.INVALID_CONTACT_ID,
           })
         })
         .catch((err) => {

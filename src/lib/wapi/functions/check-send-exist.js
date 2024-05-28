@@ -1,3 +1,5 @@
+import { MESSAGE_ERRORS } from '../constants/message-errors'
+
 export async function scope(id, erro, status, text = null) {
   const me = await WAPI.getHost()
   const e = {
@@ -170,7 +172,12 @@ export async function sendExist(chatId, returnChat = true, Send = true) {
       typeof ck.text.includes === 'function' &&
       ck.text.includes('XmppParsingFailure'))
   ) {
-    return WAPI.scope(chatId, true, ck.status, 'The number does not exist')
+    return WAPI.scope(
+      chatId,
+      true,
+      ck.status,
+      MESSAGE_ERRORS.INVALID_CONTACT_ID
+    )
   }
 
   const chatWid = new Store.WidFactory.createWid(chatId)
@@ -208,7 +215,12 @@ export async function sendExist(chatId, returnChat = true, Send = true) {
   }
 
   if (!ck.numberExists && !chat.t && chat.isUser) {
-    return WAPI.scope(chatId, true, ck.status, 'The number does not exist')
+    return WAPI.scope(
+      chatId,
+      true,
+      ck.status,
+      MESSAGE_ERRORS.INVALID_CONTACT_ID
+    )
   }
 
   if (!ck.numberExists && !chat.t && chat.isGroup) {
