@@ -43,7 +43,8 @@ export class Whatsapp extends ControlsLayer {
       let useWebpack = false
       if (
         this.options.forceWebpack === false &&
-        this.options.webVersion === false
+        this.options.webVersion &&
+        this.options.webVersion.length
       ) {
         // NOTE return whatsapp version
         const actualWebVersion = await this.page.evaluate(() => {
