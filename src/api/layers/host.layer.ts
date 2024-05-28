@@ -231,7 +231,7 @@ export class HostLayer {
         this.cancelAutoClose()
         this.tryAutoClose()
 
-        throw 'Failed to read the QRCode'
+        throw new Error('Failed to read the QRCode')
       }
     } else if (authenticated === true) {
       logger.info(`[waitForLogin:${this.session}] Authenticated!`)
