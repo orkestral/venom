@@ -124,10 +124,15 @@ export interface CreateConfig {
    */
   forceWebpack?: boolean
   /**
-   * Use a cached version of WhatsApp
-   * @default false
+   * Use a cached version of WhatsApp from HTML file. It will take precedence over the webVersion option
+   * @default ''
    */
-  webVersion?: boolean | string
+  waVersionHTML?: string
+  /**
+   * Use a cached version of WhatsApp from wa-version repository
+   * @default ''
+   */
+  webVersion?: string
   /**
    * Pino logger options
    * @default {}
@@ -157,6 +162,7 @@ export const defaultOptions: CreateConfig = {
   forceConnectTime: 5000,
   addProxy: [],
   forceWebpack: false,
-  webVersion: false,
+  waVersionHTML: '',
+  webVersion: '',
   loggerOptions: {},
 }

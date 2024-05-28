@@ -37,4 +37,12 @@ export const filterObjects = [
     type: 'checkNumberBeta',
     when: (module) => (module.queryPhoneExists ? module : null),
   },
+  {
+    type: 'sendDeleteMsgs',
+    when: (module) => (module.sendDeleteMsgs ? module.sendDeleteMsgs : null),
+  },
+  {
+    type: 'sendRevokeMsgs',
+    when: (module) => (module.sendRevokeMsgs ? module.sendRevokeMsgs : null),
+  },
 ]
