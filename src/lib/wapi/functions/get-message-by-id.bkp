@@ -1,6 +1,3 @@
-import { NUMBER_SUFIX } from '../constants/number-suffix'
-import { normalizePhoneNumber } from '../helper/normalize-phone-number'
-
 export async function getMessageById(
   key,
   done,
@@ -11,24 +8,19 @@ export async function getMessageById(
   let msg = window.Store.Msg.get(key)
 
   if (!msg) {
-    const splittedKey = key.split('_')
-    let chatId = splittedKey[1]
+    if (!key.contains('@c.us') && !key.contains('@g.us')) {
+      return { erro: 'invalid key: without chatId' }
+    }
+
+    // Capture chatId from id of message
+    const splitKey = key.replace('true_', '').replace('false_', '').split('@')
+    const chatId = splitKey[0] + '@' + splitKey[1].split('_')[0]
 
     let chat
     try {
       chat = window.Store.Chat.get(chatId)
     } catch (err) {
       return { erro: 'error trying to find chat' }
-    }
-
-    if (!chat && chatId.includes(NUMBER_SUFIX.CONTACT)) {
-      chatId = `${normalizePhoneNumber(chatId.split(NUMBER_SUFIX.CONTACT)[0])}`
-
-      try {
-        chat = window.Store.Chat.get(chatId)
-      } catch (err) {
-        return { erro: 'error trying to find chat' }
-      }
     }
 
     if (!chat) {
@@ -46,22 +38,8 @@ export async function getMessageById(
       }
       const msgs = await window.Store.ChatLoadMessages.loadEarlierMsgs(chat)
       if (!msgs || msgs.length === 0) {
-        break
+        return { erro: 'message not found' }
       }
-    }
-
-    if (!msg) {
-      const prefix = splittedKey[0]
-      const msgId = splittedKey[2]
-      if (chatId.includes(NUMBER_SUFIX.CONTACT)) {
-        key = `${prefix}_${normalizePhoneNumber(chatId)}_${msgId}`
-      } else if (chatId.includes(NUMBER_SUFIX.GROUP)) {
-        const numberPhone = splittedKey[3]
-        key = `${prefix}_${chatId}_${msgId}_${normalizePhoneNumber(
-          numberPhone
-        )}`
-      }
-      msg = window.Store.Msg.get(key)
     }
   }
 
