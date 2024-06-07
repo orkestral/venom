@@ -135,6 +135,11 @@ export const storeObjects = [
       module.addAndSendMsgToChat ? module.addAndSendMsgToChat : null,
   },
   {
+    id: 'createTextMsgData',
+    conditions: (module) =>
+      module.createTextMsgData ? module.createTextMsgData : null,
+  },
+  {
     id: 'sendMsgToChat',
     conditions: (module) =>
       module.sendMsgToChat ? module.sendMsgToChat : null,

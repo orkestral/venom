@@ -3,7 +3,8 @@ export async function reply(
   content,
   quotedMessageId,
   passId,
-  checkNumber = true
+  checkNumber = true,
+  limitIterationFindMessage
 ) {
   try {
     if (typeof chatId != 'string') {
@@ -34,22 +35,14 @@ export async function reply(
     if (chat && chat.status != 404) {
       const To = chat.id
       const m = { type: 'deleteMessages' }
-      let quotedMsgOptions = {}
 
       const quotedMessage = await WAPI.getMessageById(
         quotedMessageId,
         null,
-        false
+        false,
+        limitIterationFindMessage
       )
-      if (quotedMessage.erro == undefined) {
-        const checkID = await WAPI.checkIdMessage(
-          quotedMessage.to._serialized,
-          quotedMessageId
-        )
-        if (checkID.erro == true) {
-          return checkID
-        }
-      } else {
+      if (quotedMessage.erro) {
         const obj = WAPI.scope(
           To,
           true,
@@ -60,36 +53,29 @@ export async function reply(
         return obj
       }
 
-      quotedMsgOptions = quotedMessage.msgContextInfo(chat)
-
-      const checkID = await WAPI.checkIdMessage(chatId, quotedMessageId)
-      if (checkID.erro == true) {
-        return checkID
-      }
-
       const newMsgId = !passId
         ? await window.WAPI.getNewMessageId(chat.id._serialized, checkNumber)
         : await window.WAPI.setNewMessageId(passId, checkNumber)
 
-      const fromwWid = await Store.MaybeMeUser.getMaybeMeUser()
       const inChat = await WAPI.getchatId(chat.id).catch(() => {})
       if (inChat) {
         chat.lastReceivedKey._serialized = inChat._serialized
         chat.lastReceivedKey.id = inChat.id
       }
-      const message = {
-        id: newMsgId,
-        ack: 0,
-        body: content,
-        from: fromwWid,
-        to: chat.id,
-        local: !0,
-        self: 'out',
-        t: parseInt(new Date().getTime() / 1000),
-        isNewMsg: !0,
-        type: 'chat',
-        ...quotedMsgOptions,
+
+      const k = {
+        linkPreview: undefined,
+        quotedMsg: quotedMessage,
+        mentionedJidList: [],
+        groupMentions: [],
+        quotedMsgAdminGroupJid: undefined,
+        quotedMsgAdminGroupSubject: undefined,
+        quotedMsgAdminParentGroupJid: undefined,
+        ctwaContext: undefined,
       }
+
+      const message = await Store.createTextMsgData(chat, content, k)
+      message.id = newMsgId
 
       const result = (
         await Promise.all(window.Store.addAndSendMsgToChat(chat, message))
