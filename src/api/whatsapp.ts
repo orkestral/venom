@@ -202,6 +202,11 @@ export class Whatsapp extends ControlsLayer {
       )
     }
 
+    // Not all messages come with correct url, need to address this issue
+    if (message.clientUrl === 'https://web.whatsapp.net') {
+      message.clientUrl = `https://mmg.whatsapp.net${message.directPath}`
+    }
+
     let haventGottenImageYet: boolean = true,
       res: any
     try {
