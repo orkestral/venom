@@ -100,7 +100,7 @@
     "eslint-plugin-jsdoc": "^46.9.1",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "^4.2.1",
-    "gulp": "^4.0.2",
+    "gulp": "^5.0.0",
     "husky": "^8.0.1",
     "nodemon": "^3.0.1",
     "prettier": "^2.7.1",
