@@ -880,6 +880,8 @@ export class SenderLayer extends AutomateLayer {
           'audio/mpeg',
           'audio/mp3',
           'audio/aac',
+          'audio/x-m4a',
+          'audio/mp4',
         ])
 
         if (!base64) {
@@ -901,7 +903,9 @@ export class SenderLayer extends AutomateLayer {
           !mimeInfo ||
           mimeInfo.includes('audio/mpeg') ||
           mimeInfo.includes('audio/mp3') ||
-          mimeInfo.includes('audio/aac')
+          mimeInfo.includes('audio/aac') ||
+          mimeInfo.includes('audio/x-m4a') ||
+          mimeInfo.includes('audio/mp4')
         ) {
           const result: any = await this.page.evaluate(
             ({ to, base64, passId, checkNumber, forcingReturn, delSend }) => {
