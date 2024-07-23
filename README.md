@@ -834,7 +834,17 @@ client.onAnyMessage(message => {
 
 // Listen to messages
 client.onMessage(message => {
-  ...
+...
+})
+
+// Listen for messages that have been edited
+client.onMessageEdit(message => {
+...
+})
+
+// Listen for messages that have been deleted
+client.onMessageDelete(message => {
+...
 })
 
 // Listen to state changes

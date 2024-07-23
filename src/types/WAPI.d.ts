@@ -14,6 +14,8 @@ import {
 interface WAPI {
   addParticipant: (groupId: string, contactId: string | string[]) => boolean;
   onAnyMessage: (callback: Function) => void;
+  onMessageEdit: (callback: Function) => void;
+  onMessageDelete: (callback: Function) => void;
   archiveChat: (chatId: string, option: boolean) => boolean;
   arrayBufferToBase64: (buffer: ArrayBuffer) => string;
   blockContact: (messageId: string) => boolean;
