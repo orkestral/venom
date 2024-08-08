@@ -3,6 +3,7 @@ export { Contact } from './contact';
 export { GroupMetadata } from './group-metadata';
 export { Id } from './id';
 export { Message } from './message';
+export { Reaction } from './reaction';
 export { ParticipantEvent } from './participant-event';
 export { PartialMessage } from './partial-message';
 export { Ack } from './ack';
