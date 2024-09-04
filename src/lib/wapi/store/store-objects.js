@@ -424,6 +424,10 @@ export const storeObjects = [
     conditions: (module) => (module.sendReactionToMsg ? module : null),
   },
   {
+    id: 'Reaction',
+    conditions: (module) => (module.reactionTableMode ? module : null),
+  },
+  {
     id: 'CheckWid',
     conditions: (module) => (module.validateWid ? module : null),
   },
