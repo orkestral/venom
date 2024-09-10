@@ -266,7 +266,7 @@ export class GroupLayer extends RetrieverLayer {
       if (typeof validating === 'object') {
         return reject(validating);
       }
-      const result = this.page.evaluate(
+      const result = await this.page.evaluate(
         (groupId: string, time: string) =>
           WAPI.getGroupParticipant(groupId, time),
         groupId,
