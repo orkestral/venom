@@ -27,6 +27,11 @@ async function start(client) {
   console.log(JSON.stringify(pid, null, 2));
 
   console.log(await client.isLoggedIn());
+  const hostData = await client.getHost();
+  if(hostData && hostData.id) {
+    console.log(hostData.id);
+  }
+
 
   let lastMessageId = "";
 
