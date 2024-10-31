@@ -7,6 +7,7 @@ try {
       session: 'sessionName_0001',
       headless: false,
       devtools: true,
+      useChrome: false,
     })
     .then((client) => start(client))
     .catch(async (err) => {
@@ -52,6 +53,16 @@ async function start(client) {
         });
     }
   });
+
+  client.onStateChange((state) => {
+    console.log("State change: " + client.session);
+    console.log("State change: " + state);
+  })
+
+  client.onStreamChange((stream) => {
+    console.log("Stream change: " + client.session);
+    console.log("Stream change: " + stream);
+  })
 
   client.onMessageEdit((message) => {
     console.log('EDIT!');
