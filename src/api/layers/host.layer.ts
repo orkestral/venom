@@ -348,6 +348,13 @@ export class HostLayer {
   }
 
   /**
+   * Retrieves information about the host including who is logged in
+   */
+  public async getHost() {
+    return await this.page.evaluate(() => WAPI.getHost());
+  }
+
+  /**
    * Retrieves Battery Level
    */
   public async getBatteryLevel() {

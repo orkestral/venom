@@ -7,6 +7,7 @@ try {
       session: 'sessionName_0001',
       headless: false,
       devtools: true,
+      useChrome: false,
     })
     .then((client) => start(client))
     .catch(async (err) => {
@@ -27,6 +28,11 @@ async function start(client) {
   console.log(JSON.stringify(pid, null, 2));
 
   console.log(await client.isLoggedIn());
+  const hostData = await client.getHost();
+  if(hostData && hostData.id) {
+    console.log(hostData.id);
+  }
+
 
   let lastMessageId = "";
 
@@ -47,6 +53,16 @@ async function start(client) {
         });
     }
   });
+
+  client.onStateChange((state) => {
+    console.log("State change: " + client.session);
+    console.log("State change: " + state);
+  })
+
+  client.onStreamChange((stream) => {
+    console.log("Stream change: " + client.session);
+    console.log("Stream change: " + stream);
+  })
 
   client.onMessageEdit((message) => {
     console.log('EDIT!');

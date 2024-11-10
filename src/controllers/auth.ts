@@ -13,16 +13,21 @@ export const getInterfaceStatus = async (waPage: puppeteer.Page) => {
         if (erroHTTP && erroHTTP[0].innerText.includes('HTTP ERROR 429')) {
           return { type: erroHTTP[0].innerText };
         }
-        const elLoginWrapper = document.querySelector(
+        const elLoginWrapper1 = document.querySelector(
           'body > div > div > .landing-wrapper'
         );
         const elLoginWrapper2 = document.querySelector(
           'body > div > div > div > .landing-wrapper'
         );
+        const elLoginWrapper3 = document.querySelector(
+          'body > div > div > div > div > div > .x1lliihq'
+        );
+
         const elQRCodeCanvas = document.querySelector('canvas');
         if (
-          (elLoginWrapper && elQRCodeCanvas) ||
-          (elLoginWrapper2 && elQRCodeCanvas)
+          (elLoginWrapper1 && elQRCodeCanvas) ||
+          (elLoginWrapper2 && elQRCodeCanvas) ||
+          (elLoginWrapper3 && elQRCodeCanvas)
         ) {
           return 'UNPAIRED';
         }
