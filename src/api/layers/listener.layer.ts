@@ -58,7 +58,7 @@ export class ListenerLayer extends ProfileLayer {
 
     this.page.on('close', () => {
       this.cancelAutoClose();
-      this.spin('Page Closed', 'fail');
+      console.error('Page Closed');
     });
   }
 
@@ -441,9 +441,9 @@ export class ListenerLayer extends ProfileLayer {
 
   /**
    * @event Listens to participants changed
-   * @param to group id: xxxxx-yyyy@us.c
-   * @param to callback
    * @returns Stream of ParticipantEvent
+   * @param groupId
+   * @param fn
    */
   public async onParticipantsChanged(
     groupId: string,

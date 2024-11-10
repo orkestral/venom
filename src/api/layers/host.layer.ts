@@ -12,14 +12,11 @@ import {
   retrieveQR
 } from '../../controllers/auth';
 import { sleep } from '../../utils/sleep';
-import { getSpinnies } from '../../utils/spinnies';
-import * as Spinnies from 'spinnies';
 
 export class HostLayer {
   readonly session: string;
   readonly options: CreateConfig;
 
-  protected spinnies: Spinnies = getSpinnies();
   protected spinStatus = {
     apiInject: '',
     autoCloseRemain: 0,
@@ -39,53 +36,7 @@ export class HostLayer {
   ) {
     this.session = session;
     this.options = { ...defaultOptions, ...options };
-
-    // this.spin('Initializing...', 'spinning');
-    //this._initialize(this.page);
   }
-
-  protected spin(text?: string, status?: Spinnies.SpinnerStatus) {
-    const name = `session-${this.session}`;
-
-    text = text || this.spinStatus.previousText;
-    this.spinStatus.previousText = text;
-
-    status =
-      status || (this.spinStatus.previousStatus as Spinnies.SpinnerStatus);
-    this.spinStatus.previousStatus = status;
-
-    let fullText = `[instance: ${this.session}`;
-    // if (this.spinStatus.state) {
-    //   fullText += `, ${this.spinStatus.state}`;
-    // }
-    fullText += `]: ${text}`;
-
-    let prevText = '';
-
-    try {
-      prevText = this.spinnies.pick(name).text;
-    } catch (error) {
-      this.spinnies.add(name, { text: fullText, status });
-      prevText = fullText;
-    }
-    if (prevText !== fullText) {
-      this.spinnies.update(name, {
-        text: fullText,
-        status
-      });
-    }
-  }
-
-  // public async _initialize(page: Page) {
-  //   this.spinStatus.apiInject = 'injecting';
-  //   await injectApi(page)
-  //     .then(() => {
-  //       this.spinStatus.apiInject = 'injected';
-  //     })
-  //     .catch(() => {
-  //       this.spinStatus.apiInject = 'failed';
-  //     });
-  // }
 
   protected tryAutoClose() {
     if (
@@ -169,7 +120,7 @@ export class HostLayer {
         if (this.options.logQR) {
           console.log(qr);
         } else {
-          this.spin(`Waiting for QRCode Scan: Attempt ${attempt}`);
+          console.info(`Waiting for QRCode Scan: Attempt ${attempt}`);
         }
 
         if (catchQR) {
@@ -201,13 +152,11 @@ export class HostLayer {
   ) {
     this.statusFind = statusFind;
 
-    this.spin('Waiting page load', 'spinning');
-
-    this.spin('Checking is logged...');
+    console.info('Waiting page load');
     let authenticated = await isAuthenticated(this.page).catch(() => null);
 
     if (typeof authenticated === 'object' && authenticated.type) {
-      this.spin(`Error http: ${authenticated.type}`, 'fail');
+      console.error(`Error http: ${authenticated.type}`);
       this.page.close().catch(() => {});
       this.browser.close().catch(() => {});
       throw `Error http: ${authenticated.type}`;
@@ -216,32 +165,32 @@ export class HostLayer {
     this.startAutoClose();
 
     if (authenticated === false) {
-      this.spin('Waiting for QRCode Scan...');
+      console.info('Waiting for QRCode Scan...');
       statusFind && statusFind('notLogged', this.session);
 
       await this.waitForQrCodeScan(catchQR).catch(() => undefined);
 
-      this.spin('Checking QRCode status...');
+      console.info('Checking QRCode status...');
 
       // Wait for interface update
       await sleep(200);
       authenticated = await isAuthenticated(this.page).catch(() => null);
 
       if (authenticated === null || JSON.stringify(authenticated) === '{}') {
-        this.spin('Failed to authenticate');
+        console.error('Failed to authenticate');
         statusFind && statusFind('qrReadFail', this.session);
       } else if (authenticated) {
-        this.spin('QRCode Success');
+        console.info('QRCode Success');
         statusFind && statusFind('qrReadSuccess', this.session);
       } else {
-        this.spin('QRCode Fail', 'fail');
+        console.error('QRCode Fail', 'fail');
         statusFind && statusFind('qrReadFail', this.session);
         this.cancelAutoClose();
         this.tryAutoClose();
         throw 'Failed to read the QRCode';
       }
     } else if (authenticated === true) {
-      this.spin('Authenticated');
+      console.info('Authenticated');
       statusFind && statusFind('isLogged', this.session);
     }
 
@@ -251,18 +200,18 @@ export class HostLayer {
       this.startAutoClose();
       // Wait for interface update
       await sleep(200);
-      this.spin('Checking phone is connected...');
+      console.info('Checking phone is connected...');
       const inChat = await this.waitForInChat();
 
       if (!inChat) {
-        this.spin('Phone not connected', 'fail');
+        console.error('Phone not connected');
         statusFind && statusFind('phoneNotConnected', this.session);
         this.cancelAutoClose();
         this.tryAutoClose();
         throw new Error('Phone not connected');
       }
       this.cancelAutoClose();
-      this.spin('Connected', 'succeed');
+      console.info('Connected');
       //   statusFind && statusFind('inChat', this.session);
       return true;
     }
@@ -270,13 +219,13 @@ export class HostLayer {
     if (authenticated === false) {
       this.cancelAutoClose();
       this.tryAutoClose();
-      this.spin('Not logged', 'fail');
+      console.error('Not logged');
       throw new Error('Not logged');
     }
 
     this.cancelAutoClose();
     this.tryAutoClose();
-    this.spin('Unknow error', 'fail');
+    console.error('Unknown error');
   }
 
   //Pro
