@@ -47,7 +47,7 @@ export { sendChatstate } from './send-chat-state';
 export { sendFile } from './send-file';
 export { sendImage } from './send-image';
 export { sendPtt } from './send-ptt';
-export { sendImageAsSticker } from './send-image-as-stricker';
+export { sendImageAsSticker } from './send-image-as-sticker';
 export { sendImageWithProduct } from './send-image-with-product';
 export { sendLocation } from './send-location';
 export { sendMessage } from './send-message';
