@@ -16,7 +16,7 @@
 ## Get started fast and easy! Official API!
 
 <p align="center">
-  <a href="https://docs.venombot.io/venom">Full Documentation</a>
+  <a href="https://docs.orkestral.io/venom">Full Documentation</a>
 </p>
 
 <p>
