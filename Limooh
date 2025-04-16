@@ -1,0 +1,25 @@
+const { WAConnection } = require('@adiwajshing/baileys');
+
+const startBot = async () => {
+    const conn = new WAConnection();
+    conn.on('open', () => {
+        console.log('Bot connected');
+    });
+
+    conn.on('chat-update', async (chat) => {
+        if (!chat.hasNewMessage) return;
+        const message = chat.messages.all()[0];
+        const content = message.message?.conversation || '';
+        
+        if (content === '!ping') {
+            await conn.sendMessage(message.key.remoteJid, 'Pong!', 'conversation');
+        } else if (content.startsWith('!echo ')) {
+            const echoMessage = content.replace('!echo ', '');
+            await conn.sendMessage(message.key.remoteJid, echoMessage, 'conversation');
+        }
+    });
+
+    await conn.connect();
+};
+
+startBot();
