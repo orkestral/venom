@@ -58,10 +58,10 @@
   resolved "https://registry.yarnpkg.com/@commitlint/config-angular-type-enum/-/config-angular-type-enum-19.1.0.tgz#d72ff2cfbc4dfab6bb567dc5e41eb3ce433c6c42"
   integrity sha512-eLjt7vSArP62kpDmmIZNdIBjPzbqY8jss6mVOcSDm4t1KfDw4UmPrtPh/7zcIL3GI5uf/7W8d2s3K0qisf9C+g==
 
-"@commitlint/config-angular@^19.2.2":
-  version "19.2.2"
-  resolved "https://registry.yarnpkg.com/@commitlint/config-angular/-/config-angular-19.2.2.tgz#4b5e944e13a06702a375551a84ddb193dabfb0ac"
-  integrity sha512-khzNS4r9GxAf9tmgasYzkYhSorolemeF233qvTVGIN08tEh9WHmYZLanvZMpzycoE7ORyTgksgpnvKCJEIQ5rg==
+"@commitlint/config-angular@^19.3.0":
+  version "19.3.0"
+  resolved "https://registry.yarnpkg.com/@commitlint/config-angular/-/config-angular-19.3.0.tgz#41124aa9c9b8163bf651a0b7aa21cf40cddabe78"
+  integrity sha512-D8ue6s7f/A/ph/4vSEj32zxg/WHRF21vguOigAymUJ7SfUPF/BD+C/UGt7I1aEEhdgoq7MIS8bNAJroYvSzMwQ==
   dependencies:
     "@commitlint/config-angular-type-enum" "^19.1.0"
 
